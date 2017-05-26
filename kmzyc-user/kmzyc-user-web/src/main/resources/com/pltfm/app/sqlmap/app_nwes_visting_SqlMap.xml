@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="NWES_VISTING" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.NwesVisting" >
+    <result column="VISTING_ID" property="vistingId" jdbcType="DECIMAL" />
+    <result column="LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+    <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_TYPE_ID" property="customerTypeId" jdbcType="DECIMAL" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="VISTING_DATE" property="vistingDate" jdbcType="DATE" />
+    <result column="ADVICE" property="advice" jdbcType="VARCHAR" />
+    <result column="CREATED" property="created" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="MODIFIED" property="modified" jdbcType="DECIMAL" />
+    <result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+  </resultMap>
+  
+  <resultMap id="ibatorgenerated_BaseResultMapResult" class="com.pltfm.app.vobject.NwesVisting" >
+    <result column="VISTING_ID" property="vistingId" jdbcType="DECIMAL" />
+    <result column="LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+     <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />    
+    <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+     <result column="CUSTOMERNAME" property="customerName" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_TYPE_ID" property="customerTypeId" jdbcType="DECIMAL" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="VISTING_DATE" property="vistingDate" jdbcType="DATE" />
+    <result column="ADVICE" property="advice" jdbcType="VARCHAR" />
+    <result column="CREATED" property="created" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="MODIFIED" property="modified" jdbcType="DECIMAL" />
+    <result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+  </resultMap>
+  
+  <resultMap id="ibatorgenerated_CountResult" class="com.pltfm.sys.model.SysModelUtil">
+    <result column="the_count" property="theCount" jdbcType="DECIMAL" />
+  </resultMap>
+  <!-- 跟据拜访id查询信息-->
+  <select id="ibatorgenerated_getVistingId" resultMap="ibatorgenerated_BaseResultMap" parameterClass="java.lang.Integer" >
+    select VISTING_ID, LOGIN_ID, LOGIN_NAME, CUSTOMER_TYPE_ID, CONTENT, VISTING_DATE, ADVICE,
+      CREATED, CREATE_DATE, MODIFIED, MODIFY_DATE
+    from NWES_VISTING
+    where VISTING_ID = #vistingId:DECIMAL#
+  </select>
+   <!-- 分页 -->
+	<!--  ****************  search page by vo  ****************  -->
+	<select id="searchPageByVo" resultMap="ibatorgenerated_BaseResultMapResult"
+		parameterClass="com.pltfm.app.vobject.NwesVisting">
+		 select VISTING_ID, LOGIN_ID,USER_NAME, LOGIN_NAME, CUSTOMER_TYPE_ID,CUSTOMERNAME, CONTENT, VISTING_DATE, ADVICE,
+      CREATED, CREATE_DATE, MODIFIED, MODIFY_DATE  FROM (
+       select  ROW_NUMBER() OVER(order by VISTING_ID desc) as view_row_number, 
+       tt.*,com.NAME CUSTOMERNAME,uu.user_name USER_NAME from NWES_VISTING tt,BNES_CUSTOMER_TYPE com,sys_user uu
+     where  tt.CUSTOMER_TYPE_ID = com.CUSTOMER_TYPE_ID and tt.login_id=uu.user_id
+			<isNotNull property="customerTypeId">
+				<isNotEmpty prepend="and" property="customerTypeId">
+					tt.CUSTOMER_TYPE_ID =#customerTypeId:Integer#
+			  </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="loginName">
+				<isNotEmpty prepend="and" property="loginName">
+					tt.LOGIN_NAME like '%$loginName$%'
+			  </isNotEmpty>
+			</isNotNull>
+		)
+    <![CDATA[ where view_row_number <= #max# and view_row_number > #skip# ]]>
+	</select>
+
+	<!--
+		**************** search user's roleList by vo ****************
+	-->
+	<select id="selectCountByVo" parameterClass="com.pltfm.app.vobject.NwesVisting"
+		resultMap="ibatorgenerated_CountResult">
+		select count(1) the_count from  NWES_VISTING tt,BNES_CUSTOMER_TYPE com,sys_user uu
+     where  tt.CUSTOMER_TYPE_ID = com.CUSTOMER_TYPE_ID and tt.login_id=uu.user_id
+			<isNotNull property="customerTypeId">
+				<isNotEmpty prepend="and" property="customerTypeId">
+					tt.CUSTOMER_TYPE_ID=#customerTypeId:Integer#
+			  </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="loginName">
+				<isNotEmpty prepend="and" property="loginName">
+					tt.LOGIN_NAME like '%$loginName$%'
+			  </isNotEmpty>
+			  </isNotNull>
+		
+	</select>
+  
+  <!-- 删除拜访信息-->
+  <delete id="ibatorgenerated_delete" parameterClass="com.pltfm.app.vobject.NwesVisting" >
+    delete from NWES_VISTING
+    where VISTING_ID = #vistingId:DECIMAL#
+  </delete>
+  
+   <!-- 添加拜访信息-->
+  <insert id="ibatorgenerated_insert" parameterClass="com.pltfm.app.vobject.NwesVisting" >
+     <selectKey resultClass="java.lang.Integer" keyProperty="vistingId" >
+           select seq_app_account.nextval from dual
+      </selectKey>
+    insert into NWES_VISTING
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="vistingId" >
+        VISTING_ID
+      </isNotNull>
+      <isNotNull prepend="," property="loginId" >
+        LOGIN_ID
+      </isNotNull>
+      <isNotNull prepend="," property="loginName" >
+        LOGIN_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="customerTypeId" >
+        CUSTOMER_TYPE_ID
+      </isNotNull>
+      <isNotNull prepend="," property="content" >
+        CONTENT
+      </isNotNull>
+      <isNotNull prepend="," property="vistingDate" >
+        VISTING_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="advice" >
+        ADVICE
+      </isNotNull>
+      <isNotNull prepend="," property="created" >
+        CREATED
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="modified" >
+        MODIFIED
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        MODIFY_DATE
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="vistingId" >
+        #vistingId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="loginId" >
+        #loginId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="loginName" >
+        #loginName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="customerTypeId" >
+        #customerTypeId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="content" >
+        #content:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="vistingDate" >
+        #vistingDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="advice" >
+        #advice:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="created" >
+        #created:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        #createDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="modified" >
+        #modified:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        #modifyDate:DATE#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  
+   <!-- 更新拜访信息-->
+  <update id="ibatorgenerated_update" parameterClass="com.pltfm.app.vobject.NwesVisting" >
+    update NWES_VISTING
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="loginId" >
+        LOGIN_ID = #loginId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="loginName" >
+        LOGIN_NAME = #loginName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="customerTypeId" >
+        CUSTOMER_TYPE_ID = #customerTypeId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="content" >
+        CONTENT = #content:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="vistingDate" >
+        VISTING_DATE = #vistingDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="advice" >
+        ADVICE = #advice:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="created" >
+        CREATED = #created:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE = #createDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="modified" >
+        MODIFIED = #modified:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        MODIFY_DATE = #modifyDate:DATE#
+      </isNotNull>
+    </dynamic>
+    where VISTING_ID = #vistingId:DECIMAL#
+  </update>
+</sqlMap>

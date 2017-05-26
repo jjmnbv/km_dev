@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ACTIVITY_CATEGORYS">
+    <resultMap id="b" class="com.pltfm.app.vobject.ActivityCategorys">
+        <result column="ACTIVITY_CATEGORY_ID" property="activityCategoryId" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL"/>
+        <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL"/>
+        <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="example_Where_Clause">
+        <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate">
+            <isEqual property="oredCriteria[].valid" compareValue="true">
+                (
+                <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and">
+                    $oredCriteria[].criteriaWithoutValue[]$
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and">
+                    $oredCriteria[].criteriaWithSingleValue[].condition$
+                    #oredCriteria[].criteriaWithSingleValue[].value#
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and">
+                    $oredCriteria[].criteriaWithListValue[].condition$
+                    <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")"
+                             conjunction=",">
+                        #oredCriteria[].criteriaWithListValue[].values[]#
+                    </iterate>
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and">
+                    $oredCriteria[].criteriaWithBetweenValue[].condition$
+                    #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+                    #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+                </iterate>
+                )
+            </isEqual>
+        </iterate>
+    </sql>
+    <select id="selectByExample" resultMap="b"
+            parameterClass="com.pltfm.app.vobject.ActivityCategorysExample">
+        select ACTIVITY_CATEGORY_ID, ACTIVITY_ID, CATEGORY_ID
+        from ACTIVITY_CATEGORYS
+        <isParameterPresent>
+            <include refid="ACTIVITY_CATEGORYS.example_Where_Clause"/>
+            <isNotNull property="orderByClause">
+                order by $orderByClause$
+            </isNotNull>
+        </isParameterPresent>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="b"
+            parameterClass="com.pltfm.app.vobject.ActivityCategorys">
+        select ACTIVITY_CATEGORY_ID, ACTIVITY_ID, CATEGORY_ID
+        from ACTIVITY_CATEGORYS
+        where ACTIVITY_CATEGORY_ID = #activityCategoryId:DECIMAL#
+    </select>
+
+    <select id="countByExample" parameterClass="com.pltfm.app.vobject.ActivityCategorysExample"
+            resultClass="java.lang.Integer">
+        select count(*) from ACTIVITY_CATEGORYS
+        <include refid="ACTIVITY_CATEGORYS.example_Where_Clause"/>
+    </select>
+    <select id="selectByActivityId" resultMap="b" parameterClass="java.lang.Long">
+        select AC.ACTIVITY_CATEGORY_ID, AC.ACTIVITY_ID, AC.CATEGORY_ID,C.CATEGORY_NAME
+        from ACTIVITY_CATEGORYS ac, CATEGORYS c
+        where ACTIVITY_ID = #activityId:DECIMAL# AND AC.CATEGORY_ID=C.CATEGORY_ID
+    </select>
+</sqlMap>

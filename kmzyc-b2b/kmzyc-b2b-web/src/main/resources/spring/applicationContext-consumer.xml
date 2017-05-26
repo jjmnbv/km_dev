@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://code.alibabatech.com/schema/dubbo classpath:dubbo.xsd">
+
+    <dubbo:application name="kmzyc-b2b"/>
+    <dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" client="curator"
+                    file="kmzyc-b2b.cache"/>
+    <dubbo:consumer timeout="10000" check="false"/>
+
+    <!--账户列表信息远程接口 ，用户系统提供服务-->
+    <dubbo:reference id="accountInfoRemoteService"
+                     interface="com.kmzyc.user.remote.service.AccountInfoRemoteService"/>
+    <!-- 地址管理 -->
+    <dubbo:reference id="addressRemoteService"
+                     interface="com.kmzyc.user.remote.service.AddressRemoteService"/>
+    <!-- <dubbo:reference id="baseProductRemoteService" interface="com.kmzyc.promotion.remote.service.BaseProductRemoteService" />  -->
+    <!-- 添加供应商余额取现申请记录 -->
+    <!--<dubbo:reference id="bnesAcctEnchashmentRemoteService" interface="com.kmzyc.user.remote.service.BnesAcctEnchashmentRemoteService" />-->
+    <!-- 添加咨询记录 -->
+    <dubbo:reference id="consultRemoteService"
+                     interface="com.kmzyc.product.remote.service.ConsultRemoteService"/>
+    <!-- 优惠券 -->
+    <dubbo:reference id="couponRemoteService"
+                     interface="com.kmzyc.promotion.remote.service.CouponRemoteService"/>
+    <!--用户注册远程接口，用户系统提供服务 -->
+    <dubbo:reference id="customerRemoteService"
+                     interface="com.kmzyc.user.remote.service.CustomerRemoteService"/>
+    <!-- 页面发布：CMS系统 -->
+    <dubbo:reference id="detailPublishService"
+                     interface="com.kmzyc.cms.remote.service.DetailPublishService"/>
+    <!-- 邮件发送记录远程接口 -->
+    <!--<dubbo:reference id="emailInfoRemoteService" interface="com.pltfm.remote.service.EmailInfoRemoteService" />	-->
+    <!-- 时代会员 -->
+    <dubbo:reference id="eraInfoRemoteService"
+                     interface="com.kmzyc.user.remote.service.EraInfoRemoteService"/>
+    <!-- 物流信息：快递系统 -->
+    <dubbo:reference id="expressSubscriptionRemoteService"
+                     interface="com.kmzyc.express.remote.ExpressSubscriptionRemoteService"/>
+      <!-- 计算运费 -->
+    <dubbo:reference id="fareRemoteService" interface="com.kmzyc.order.remote.FareRemoteService"/>
+    <!-- 登录记录 -->
+    <dubbo:reference id="latestLoginRemoteService" retries="0" timeout="30000"
+                     interface="com.kmzyc.user.remote.service.LatestLoginRemoteService"/>
+    <!-- 手机随机码信息 -->
+    <dubbo:reference id="mobileCodeInfRemoteService"
+                     interface="com.kmzyc.user.remote.service.MobileCodeInfRemoteService"/>
+    <!-- 退换货查询接口 -->
+    <dubbo:reference id="orderAlterChangeStatusRemoteService"
+                     interface="com.kmzyc.order.remote.OrderAlterChangeStatusRemoteService">
+        <dubbo:method name="savaPhoto" retries="0"/>
+    </dubbo:reference>
+    <dubbo:reference id="orderAlterQryRemoteService"
+                     interface="com.kmzyc.order.remote.OrderAlterQryRemoteService"/>
+    <!-- 订单评价接口 -->
+    <dubbo:reference id="orderAssessRemoteService"
+                     interface="com.kmzyc.order.remote.OrderAssessRemoteService"/>
+    <!-- 订单回调接口 -->
+    <dubbo:reference id="orderCallBackRemoteService"
+                     interface="com.kmzyc.order.remote.OrderCallBackRemoteService"/>
+    <!-- 取消订单 -->
+    <dubbo:reference id="orderCancelRemoteService"
+                     interface="com.kmzyc.order.remote.OrderCancelRemoteService"/>
+    <!-- 订单状态 -->
+    <dubbo:reference id="orderChangeStatusRemoteService"
+                     interface="com.kmzyc.order.remote.OrderChangeStatusRemoteService"/>
+    <!-- 订单生成接口 -->
+    <dubbo:reference id="orderCreateRemoteService" timeout="300000"
+                     interface="com.kmzyc.order.remote.OrderCreateRemoteService"/>
+    <!-- 订单详情  -->
+    <dubbo:reference id="orderItemQryRemoteService"
+                     interface="com.kmzyc.order.remote.OrderItemQryRemoteService"/>
+    <!-- 订单支付回调 -->
+    <dubbo:reference id="orderPayRemoteService"
+                     interface="com.kmzyc.order.remote.OrderPayRemoteService"/>
+    <!-- 订单查询 -->
+    <dubbo:reference id="orderQryRemoteService"
+                     interface="com.kmzyc.order.remote.OrderQryRemoteService"/>
+    <!-- 同步订单状态 -->
+    <dubbo:reference id="orderSyncRemoteService"
+                     interface="com.kmzyc.order.remote.OrderSyncRemoteService"/>
+    <!-- 产品评价 -->
+    <dubbo:reference id="productAppraiseRemoteService"
+                     interface="com.kmzyc.product.remote.service.ProductAppraiseRemoteService"/>
+    <!-- 查询产品SKU -->
+    <dubbo:reference id="productSkuRemoteService"
+                     interface="com.kmzyc.product.remote.service.ProductSkuRemoteService"/>
+    <!-- 站内通知 -->
+    <!--<dubbo:reference id="publishMessageRemoteService" interface="com.kmzyc.user.remote.service.PublishMessageRemoteService" />-->
+    <!-- 退款回调 -->
+    <dubbo:reference id="refundMentRemoteService"
+                     interface="com.kmzyc.order.remote.RefundMentRemoteService"/>
+    <!-- 统计广告点击次数接口 -->
+    <!--<dubbo:reference id="remoteAdvService" interface="com.kmzyc.cms.remote.service.RemoteAdvService" /> -->
+    <!-- 统计点击次数接口 -->
+    <!--<dubbo:reference id="remoteCmsWindowDataService" interface="com.pltfm.remote.service.RemoteCmsWindowDataService" /> -->
+    <!-- 添加徽商推广者申请记录 -->
+    <!--<dubbo:reference id="spreaderApplyRecordRemoteService" interface="com.pltfm.remote.service.SpreaderApplyRecordRemoteService" /> -->
+    <!-- 供应商管理 -->
+    <dubbo:reference id="suppliersRemoteService"
+                     interface="com.kmzyc.product.remote.service.SuppliersRemoteService"/>
+    <!-- 账户订单交易远程接口 -->
+    <dubbo:reference id="trationListRemoteService"
+                     interface="com.kmzyc.user.remote.service.TrationListRemoteService"/>
+    <!-- 获取商品标签 -->
+    <dubbo:reference id="viewProductInfoRemoteService"
+                     interface="com.kmzyc.cms.remote.service.ViewProductInfoRemoteService"/>
+    <!-- 根据用户id查询是否在黑名单 -->
+    <dubbo:reference id="orderRiskRemoteService"
+                     interface="com.kmzyc.order.remote.OrderRiskRemoteService"/>
+    <!-- 客户成长远程 -->
+    <dubbo:reference id="userRemoteGrowingService" timeout="60000"
+                     interface="com.kmzyc.user.remote.service.UserGrowingService"/>
+</beans>

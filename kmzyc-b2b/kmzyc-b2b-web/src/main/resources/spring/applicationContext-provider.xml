@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://code.alibabatech.com/schema/dubbo classpath:dubbo.xsd">
+
+    <dubbo:protocol name="dubbo" port="20880"/>
+    <dubbo:provider timeout="10000" threadpool="fixed"
+                    threads="100" accepts="1000"/>
+    <dubbo:monitor protocol="registry"/>
+
+    <!-- 对外暴露的服务 -->
+    <!-- 通过调用第三方支付接口查询订单支付状态 -->
+    <dubbo:service ref="qryOrderOnLineService"
+                   interface="com.kmzyc.b2b.service.QryOrderOnLineService"/>
+
+    <!-- 通过调用第三方支付接口退款 -->
+    <dubbo:service ref="refundOrderService"
+                   interface="com.kmzyc.b2b.service.RefundOrderService"/>
+
+    <!-- 订单指定金额获取活动奖励数据 -->
+    <!-- 	<dubbo:service ref="promotionInfoRemoteService"
+            interface="com.kmzyc.b2b.service.PromotionInfoRemoteService" /> -->
+
+    <!-- pv值同步远程接口 -->
+    <dubbo:service ref="orderPvSyncRemoteService"
+                   interface="com.kmzyc.b2b.service.OrderPvSyncRemoteService"/>
+
+    <!-- 根据订单编码获得对应支付时间 -->
+    <!--<dubbo:service ref="myOrderCountDownServiceImpl"-->
+                   <!--interface="com.kmzyc.b2b.service.MyOrderCountDownService"/>-->
+
+    <!-- 关闭康美通订单接口 -->
+    <dubbo:service ref="closeKMTPayService" interface="com.kmzyc.b2b.service.CloseKMTPayService"/>
+
+</beans>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="promotion_optimization" >
+	<typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+   
+   
+  <resultMap class="java.util.HashMap" id="skuIdDoubleMap">
+	  <result property="PRODUCTSKUID" javaType="java.lang.Double"/>
+	  <result property="PRODUCTSKUIDVALUE" javaType="java.lang.String" />
+  </resultMap>
+  <select id="getProductSkuSet" parameterClass="pagination" resultMap="skuIdDoubleMap">
+	  	select productSkuId,productSkuId productSkuIdValue from (
+	  	select ROW_NUMBER() OVER(order by sku.PRODUCT_SKU_ID desc) 
+	  	as view_row_number,sku.product_sku_id productSkuId
+		from PRODUCT_SKU sku 
+		inner join PRODUCTMAIN pm on pm.PRODUCT_ID = sku.PRODUCT_ID
+		where 1=1 
+	 	 <dynamic>
+	 	 	<isNotEmpty  prepend="and"  property="objCondition.categoryIds">
+	 	 		pm.CATEGORY_ID  in ($objCondition.categoryIds$)
+	 	 	</isNotEmpty>
+	 	 	<isNotEmpty  prepend="and"  property="objCondition.brandIds">
+	 	 		pm.BRAND_ID in  ($objCondition.brandIds$)
+	 	 	</isNotEmpty>
+	 	 	<isNotEmpty  prepend="and"  property="objCondition.shopCodes">
+	 	 	 pm.SHOP_CODE = '$objCondition.shopCodes$'
+	 	 	</isNotEmpty>
+	 	 </dynamic>
+	 	 and  NOT EXISTS (SELECT b.promotion_product_id 
+	   		     FROM PROMOTION_PRODUCT b WHERE sku.product_sku_id=b.product_sku_id 
+	   		     and b.category='-1' and promotion_id=$objCondition.promotionId$)
+	 	 ) a
+	   where view_row_number between $startindex$  and $endindex$
+	</select>
+  
+  <select id="getProductSkuSetKM" parameterClass="pagination" resultMap="skuIdDoubleMap">
+		  select productSkuId,productSkuId productSkuIdValue from (
+		  select ROW_NUMBER() OVER(order by sku.PRODUCT_SKU_ID desc) 
+		  as view_row_number,
+		  sku.product_sku_id productSkuId
+		  from PRODUCT_SKU sku 
+		  inner join PRODUCTMAIN pm on pm.PRODUCT_ID = sku.PRODUCT_ID
+		  inner join suppliers_info s on to_char(s.supplier_id) = pm.SHOP_CODE
+	 	  where 1=1 
+		 	 <dynamic>
+		 	 	<isNotEmpty  prepend="and"  property="objCondition.categoryIds">
+		 	 		pm.CATEGORY_ID  in ($objCondition.categoryIds$)
+		 	 	</isNotEmpty>
+		 	 	<isNotEmpty  prepend="and"  property="objCondition.brandIds">
+		 	 		pm.BRAND_ID in  ($objCondition.brandIds$)
+		 	 	</isNotEmpty>
+		 	 	<isNotEmpty  prepend="and"  property="objCondition.shopCodes">
+		 	 	 (pm.SHOP_CODE = '1' or s.SUPPLIER_TYPE = 1 or s.SUPPLIER_TYPE = 3)
+		 	 	</isNotEmpty>
+		 	 </dynamic>
+		 	 and  NOT EXISTS (SELECT b.promotion_product_id 
+	   		     FROM PROMOTION_PRODUCT b WHERE sku.product_sku_id=b.product_sku_id 
+	   		     and b.category='-1' and promotion_id=$objCondition.promotionId$)
+		 	 ) a
+	   	where view_row_number between $startindex$  and $endindex$
+	</select>
+  
+   <!-- 查询活动商品 sku start-->
+	<select id="getPromotionProductSkuSetBySku" parameterClass="pagination" resultMap="skuIdDoubleMap">
+		 select productSkuId,productSkuId productSkuIdValue
+  			from (select ROW_NUMBER() OVER(order by sku.PRODUCT_SKU_ID desc) as view_row_number,
+               sku.product_sku_id productSkuId
+          from Promotion_Product pp
+         inner join PRODUCT_SKU sku
+            on sku.PRODUCT_SKU_ID = pp.PRODUCT_SKU_ID
+         inner join PRODUCTMAIN pm
+            on pm.PRODUCT_ID = sku.PRODUCT_ID
+         where pp.PROMOTION_ID = $objCondition.promotionId$
+         and pp.STATUS = 2 
+		   )
+		   where view_row_number between #startindex:DECIMAL#  and #endindex:DECIMAL#
+	</select>
+	
+  
+  
+	<sql id="productSkuField">
+		pm.product_id productId,
+       	pm.category_id categoryId,
+       pm.product_desc productDesc,
+       pm.procuct_name name,
+       pm.product_title productTitle,
+       pm.keyword keyword,
+       pm.status status,
+       pm.shop_code shopCode,
+       pm.market_price marketPrice,
+       pm.cost_price costPrice,
+       pm.product_no productNo,
+       pm.brand_id brandId,
+       pm.brand_name brandName,
+       pm.approval_type approvalType,
+       pm.approval_no approvalNo,
+       pm.category_name categoryName,
+       sku.product_sku_id productSkuId,
+       sku.product_sku_code productSkuCode,
+       sku.price price
+	</sql>
+	
+	
+<!-- 批量获取sku信息 包括限购 -->
+	<select id="getProductAndSkuBySku" parameterClass="java.util.Map" resultClass="com.kmzyc.promotion.app.vobject.ProductAndSku">
+		select <include refid="productSkuField"/>
+		  from product_sku sku
+		  join productmain pm
+		  on sku.product_id = pm.product_id
+		  where sku.product_sku_id in 
+    	<iterate property="skuIds" open="(" close=")" conjunction=",">  
+			<![CDATA[#skuIds[]#]]>
+		</iterate>	
+	</select>	
+	
+	
+	
+</sqlMap>
+  

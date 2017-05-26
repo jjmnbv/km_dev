@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ProductSkuAttr">
+	<resultMap id="skuAttrValue" class="com.pltfm.app.vobject.ViewSkuAttr" >
+		<result column="CATEGORY_ATTR_NAME" property="categoryAttrName" jdbcType="VARCHAR" />
+		<result column="CATEGORY_ATTR_VALUE" property="categoryAttrValue" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="querySKUAttr" parameterClass="java.lang.Long" resultMap="skuAttrValue">  
+	    select CATEGORY_ATTR_NAME, CATEGORY_ATTR_VALUE
+	  	from VIEW_SKU_ATTR where PRODUCT_SKU_ID = #productSkuId#
+	</select>  
+</sqlMap>

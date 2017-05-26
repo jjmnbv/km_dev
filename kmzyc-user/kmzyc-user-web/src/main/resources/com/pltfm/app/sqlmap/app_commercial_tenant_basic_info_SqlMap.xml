@@ -1,0 +1,1095 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="COMMERCIAL_TENANT_BASIC_INFO" >
+  <resultMap id="abatorgenerated_CommercialTenantBasicInfoResult" class="com.pltfm.app.vobject.CommercialTenantBasicInfo" >
+    <result column="N_COMMERCIAL_TENANT_ID" property="n_CommercialTenantId" jdbcType="DECIMAL" />
+    <result column="N_LOGIN_ID" property="n_LoginId" jdbcType="DECIMAL" />
+    <result column="CONTACTS_NAME" property="contactsName" jdbcType="VARCHAR" />
+    <result column="CONTACTS_DEPARTMENT" property="contactsDepartment" jdbcType="VARCHAR" />
+    <result column="FIXED_PHONE" property="fixedPhone" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="CONTACTS_EMAIL" property="contactsEmail" jdbcType="VARCHAR" />
+    <result column="CORPORATE_NAME" property="corporateName" jdbcType="VARCHAR" />
+    <result column="CORPORATE_LOCATION" property="corporateLocation" jdbcType="VARCHAR" />
+    <result column="CORPORATE_PROPERTY" property="corporateProperty" jdbcType="VARCHAR" />
+    <result column="CORPORATE_TRADE" property="corporateTrade" jdbcType="VARCHAR" />
+    <result column="N_ENTERPRISE_NUMBER_OF_PEOPLE" property="n_EnterpriseNumberOfPeople" jdbcType="DECIMAL" />
+    <result column="D_FOUND_DATE" property="d_FoundDate" jdbcType="DATE" />
+    <result column="N_ENTERPRISE_STATUS" property="n_EnterpriseStatus" jdbcType="DECIMAL" />
+    <result column="POSTALCODE" property="postalcode" jdbcType="VARCHAR" />
+    <result column="UPLOAD_BUSINESS_LICENCE_PICTUR" property="uploadBusinessLicencePictur" jdbcType="VARCHAR" />
+    <result column="ORGANIZATION_CODE" property="organizationCode" jdbcType="VARCHAR" />
+    <result column="ENTERPRISE_LEGAL_REPRESENTATIV" property="enterpriseLegalRepresentativ" jdbcType="VARCHAR" />
+    <result column="ENTERPRISE_REALM_NAME" property="enterpriseRealmName" jdbcType="VARCHAR" />
+    <result column="D_CREATE_DATE" property="d_CreateDate"  />
+    <result column="N_CREATED" property="n_Created" jdbcType="DECIMAL" />
+    <result column="D_MODIFY_DATE" property="d_ModifyDate" jdbcType="DATE" />
+    <result column="N_MODIFIED" property="n_Modified" jdbcType="DECIMAL" />
+    <result column="AUTHENTICATION_STATUS" jdbcType="DECIMAL" property="authenticationStatus" />
+    <result column="BUSINESS_LICENCE_REGISTER" jdbcType="VARCHAR" property="businessLicenceRegister" />
+    <result column="BUSINESS_TIME_LIMIT" jdbcType="VARCHAR" property="businessTimeLimit" />
+    <result column="REGISTER_BANKROLL" jdbcType="DECIMAL" property="registerBankroll" />
+    <result column="BUSINESS_SCOPE" jdbcType="VARCHAR" property="businessScope" />
+    <result column="BANK_ACCOUNT_NAME" jdbcType="VARCHAR" property="bankAccountName" />
+    <result column="BANK_OF_DEPOSIT" jdbcType="VARCHAR" property="bankOfDeposit" />
+    <result column="BANK_OF_DEPOSIT_BRANCH_NAME" jdbcType="VARCHAR" property="bankOfDepositBranchName" />
+    <result column="COMPANY_ACCOUNT" jdbcType="VARCHAR" property="companyAccount" />
+    <result column="N_CERTIFICATE_TYPE" jdbcType="DECIMAL" property="n_CertificateType" />
+    <result column="CERTIFICATE_NUMBER" jdbcType="VARCHAR" property="certificateNumber" />
+    <result column="LOCATION" jdbcType="VARCHAR" property="location" />
+    <result column="CERTIFICATE_PICTURE" jdbcType="VARCHAR" property="certificatePicture" />
+    <result column="BUSINESS_LICENCE_LOCATION" jdbcType="VARCHAR" property="businessLicenceLocation" />
+  </resultMap>
+  
+    <resultMap id="abatorgenerated_CommercialTenantBasicInfo" class="com.pltfm.app.vobject.CommercialTenantBasicInfo" >
+    <result column="N_COMMERCIAL_TENANT_ID" property="n_CommercialTenantId" jdbcType="DECIMAL" />
+    <result column="N_LOGIN_ID" property="n_LoginId" jdbcType="DECIMAL" />
+     <result column="PHONE"  property="phone" />
+     <result column="CREDIT_RATING"  property="creditRating" />
+     <result column="TAXPAYER_IDNUMBER"  property="taxpayerIdnumber" />
+     <result column="ATAX_VERIFY"  property="ataxVerify" />
+    <result column="GTC_VERIFY"  property="gtcVerify" />
+     <result column="TRCCOPY_VERIFY"  property="trccopyVerify" />
+     <result column="CITY" property="city" jdbcType="VARCHAR" />
+     <result column="AREA" property="area" jdbcType="VARCHAR" />
+     <result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+      <result column="BLINCE_VERIFY" property="blinceVerify" jdbcType="DECIMAL" />
+       <result column="CID_VERIFY" property="cidVerify" jdbcType="DECIMAL" />
+     <result column="BLINCE_ENDDATE" property="blinceEnddate" jdbcType="DATE" />
+     <result column="BLINCE_STARTDATE" property="blinceStartdate" jdbcType="DATE" />
+    <result column="CONTACTS_NAME" property="contactsName" jdbcType="VARCHAR" />
+    <result column="CONTACTS_DEPARTMENT" property="contactsDepartment" jdbcType="VARCHAR" />
+    <result column="FIXED_PHONE" property="fixedPhone" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="CONTACTS_EMAIL" property="contactsEmail" jdbcType="VARCHAR" />
+    <result column="CORPORATE_NAME" property="corporateName" jdbcType="VARCHAR" />
+    <result column="CORPORATE_LOCATION" property="corporateLocation" jdbcType="VARCHAR" />
+    <result column="CORPORATE_PROPERTY" property="corporateProperty" jdbcType="VARCHAR" />
+    <result column="CORPORATE_TRADE" property="corporateTrade" jdbcType="VARCHAR" />
+    <result column="N_ENTERPRISE_NUMBER_OF_PEOPLE" property="n_EnterpriseNumberOfPeople" jdbcType="DECIMAL" />
+    <result column="D_FOUND_DATE" property="d_FoundDate" jdbcType="DATE" />
+    <result column="N_ENTERPRISE_STATUS" property="n_EnterpriseStatus" jdbcType="DECIMAL" />
+    <result column="POSTALCODE" property="postalcode" jdbcType="VARCHAR" />
+    <result column="UPLOAD_BUSINESS_LICENCE_PICTUR" property="uploadBusinessLicencePictur" jdbcType="VARCHAR" />
+        <result column="CERTIFICATE_OTHERSID" property="certificateOthersid" jdbcType="VARCHAR" />
+        <result column="TAX_REG_CERTIFICATE_COPY" property="taxRegCertificateCopy" jdbcType="VARCHAR" />
+        <result column="G_TAXPAYER_CERTIFICATE" property="taxpayerCertificate" jdbcType="VARCHAR" />
+ 
+    <result column="ORGANIZATION_CODE" property="organizationCode" jdbcType="VARCHAR" />
+    <result column="ENTERPRISE_LEGAL_REPRESENTATIV" property="enterpriseLegalRepresentativ" jdbcType="VARCHAR" />
+    <result column="ENTERPRISE_REALM_NAME" property="enterpriseRealmName" jdbcType="VARCHAR" />
+    <result column="D_CREATE_DATE" property="d_CreateDate" jdbcType="DATE" />
+    <result column="N_CREATED" property="n_Created" jdbcType="DECIMAL" />
+    <result column="D_MODIFY_DATE" property="d_ModifyDate" jdbcType="DATE" />
+    <result column="N_MODIFIED" property="n_Modified" jdbcType="DECIMAL" />
+    <result column="AUTHENTICATION_STATUS" jdbcType="DECIMAL" property="authenticationStatus" />
+    <result column="BUSINESS_LICENCE_REGISTER" jdbcType="VARCHAR" property="businessLicenceRegister" />
+    <result column="BUSINESS_TIME_LIMIT" jdbcType="VARCHAR" property="businessTimeLimit" />
+    <result column="REGISTER_BANKROLL" jdbcType="DECIMAL" property="registerBankroll" />
+    <result column="BUSINESS_SCOPE" jdbcType="VARCHAR" property="businessScope" />
+    <result column="BANK_ACCOUNT_NAME" jdbcType="VARCHAR" property="bankAccountName" />
+    <result column="BANK_OF_DEPOSIT" jdbcType="VARCHAR" property="bankOfDeposit" />
+    <result column="BANK_OF_DEPOSIT_BRANCH_NAME" jdbcType="VARCHAR" property="bankOfDepositBranchName" />
+    <result column="COMPANY_ACCOUNT" jdbcType="VARCHAR" property="companyAccount" />
+    <result column="N_CERTIFICATE_TYPE" jdbcType="DECIMAL" property="n_CertificateType" />
+    <result column="CERTIFICATE_NUMBER" jdbcType="VARCHAR" property="certificateNumber" />
+    <result column="LOCATION" jdbcType="VARCHAR" property="location" />
+    <result column="CERTIFICATE_PICTURE" jdbcType="VARCHAR" property="certificatePicture" />
+    <result column="BUSINESS_LICENCE_LOCATION" jdbcType="VARCHAR" property="businessLicenceLocation" />
+    <result column="LEVEL_NAME"  property="levelName" jdbcType="VARCHAR"/>
+    <result column="RANK_NAME" property="rankName" jdbcType="VARCHAR" />
+    <result column="RATING_DESCRIPTION"  property="ratingDescription" />
+    <result column="IS_VALID"  property="isValid" />
+  </resultMap>
+  
+  
+  
+  
+  <resultMap id="abatorgenerated_CommercialTenantBasicInfoResultOther" class="com.pltfm.app.vobject.CommercialTenantBasicInfo" >
+    <result column="N_COMMERCIAL_TENANT_ID" property="n_CommercialTenantId" jdbcType="DECIMAL" />
+    <result column="STATUS"  property="status" jdbcType="VARCHAR"/>
+        <result column="DESCRIPTION"  property="description" jdbcType="VARCHAR"/>
+   <result column="BUSINESS_LICENCE_REGISTER" jdbcType="VARCHAR" property="businessLicenceRegister" />
+      <result column="BLINCE_ENDDATE" property="blinceEnddate" jdbcType="DATE" />
+         <result column="BLINCE_STARTDATE" property="blinceStartdate" jdbcType="DATE" />
+   <result column="BUSINESS_TIME_LIMIT" jdbcType="VARCHAR" property="businessTimeLimit" />
+    <result column="N_LEVEL_ID" property="n_LevelId" jdbcType="DECIMAL" />
+     <result column="LEVEL_NAME"  property="levelName" jdbcType="VARCHAR"/>
+    <result column="N_CUSTOMER_TYPE_ID" property="n_CustomerTypeId" jdbcType="DECIMAL" />
+    <result column="CUSTOMER_NAME"  property="customerName" jdbcType="VARCHAR"/>
+    <result column="N_LOGIN_ID" jdbcType="Integer" property="n_LoginId" />
+    <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+    <result column="RANK_NAME" property="rankName" jdbcType="VARCHAR" />
+    <result column="N_RANK_ID" property="n_RankId" jdbcType="DECIMAL" />
+    <result column="N_AVAILABLE_INTEGRAL" property="n_AvailableIntegral" jdbcType="DECIMAL" />
+    <result column="N_INDIVIDUAL_CREDIT_VALUE" property="n_IndividualCreditValue" jdbcType="DECIMAL" />
+    <result column="N_EMPIRICAL_VALUE" property="n_EmpiricalValue" jdbcType="DECIMAL" />
+    <result column="N_TOTAL_INTEGRAL" property="n_TotalIntegral" jdbcType="DECIMAL" />  
+    <result column="N_CERTIFICATE_TYPE" property="n_CertificateType" jdbcType="DECIMAL" />
+    <result column="CERTIFICATE_NUMBER" property="certificateNumber" jdbcType="VARCHAR" />
+    <result column="CONTACTS_NAME" property="contactsName" jdbcType="VARCHAR" />
+    <result column="CONTACTS_DEPARTMENT" property="contactsDepartment" jdbcType="VARCHAR" />
+    <result column="FIXED_PHONE" property="fixedPhone" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="CONTACTS_EMAIL" property="contactsEmail" jdbcType="VARCHAR" />
+    <result column="CORPORATE_NAME" property="corporateName" jdbcType="VARCHAR" />
+    <result column="CORPORATE_LOCATION" property="corporateLocation" jdbcType="VARCHAR" />
+    <result column="CORPORATE_PROPERTY" property="corporateProperty" jdbcType="VARCHAR" />
+    <result column="CORPORATE_TRADE" property="corporateTrade" jdbcType="VARCHAR" />
+    <result column="N_ENTERPRISE_NUMBER_OF_PEOPLE" property="n_EnterpriseNumberOfPeople" jdbcType="DECIMAL" />
+    <result column="D_FOUND_DATE" property="d_FoundDate" jdbcType="DATE" />
+    <result column="N_ENTERPRISE_STATUS" property="n_EnterpriseStatus" jdbcType="DECIMAL" />
+    <result column="POSTALCODE" property="postalcode" jdbcType="VARCHAR" />
+    <result column="UPLOAD_BUSINESS_LICENCE_PICTUR" property="uploadBusinessLicencePictur" jdbcType="VARCHAR" />
+    <result column="ORGANIZATION_CODE" property="organizationCode" jdbcType="VARCHAR" />
+    <result column="ENTERPRISE_LEGAL_REPRESENTATIV" property="enterpriseLegalRepresentativ" jdbcType="VARCHAR" />
+    <result column="ENTERPRISE_REALM_NAME" property="enterpriseRealmName" jdbcType="VARCHAR" />
+    <result column="D_CREATE_DATE" property="d_CreateDate"  />
+    <result column="N_CREATED" property="n_Created" jdbcType="DECIMAL" />
+    <result column="D_MODIFY_DATE" property="d_ModifyDate" jdbcType="DATE" />
+    <result column="N_MODIFIED" property="n_Modified" jdbcType="DECIMAL" />
+    <result column="LOGIN_STATUS"  property="login_Status" jdbcType="Integer" />
+    <result column="CREDIT_RATING"  property="creditRating" />
+    <result column="IS_VALID"  property="isValid" />
+    <result column="RATING_DESCRIPTION"  property="ratingDescription" />
+  </resultMap>
+   <resultMap id="abatorgenerated_CustomerResult" class="com.pltfm.app.vobject.Customer" >
+    <result column="N_COMMERCIAL_TENANT_ID" property="n_CommercialTenantId" jdbcType="DECIMAL" />
+    
+    <result column="LEVEL_NAME"  property="levelName" jdbcType="VARCHAR"/>
+    <result column="CUSTOMER_NAME"  property="customerName" jdbcType="VARCHAR"/>
+    
+    <result column="CONTACTS_NAME" property="contactsName" jdbcType="VARCHAR" />
+    <result column="CONTACTS_DEPARTMENT" property="contactsDepartment" jdbcType="VARCHAR" />
+    <result column="FIXED_PHONE" property="fixedPhone" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="contactsmobile" jdbcType="VARCHAR" />
+    <result column="CONTACTS_EMAIL" property="contactsEmail" jdbcType="VARCHAR" />
+    <result column="CORPORATE_NAME" property="corporateName" jdbcType="VARCHAR" />
+    <result column="CORPORATE_LOCATION" property="corporateLocation" jdbcType="VARCHAR" />
+    <result column="N_ENTERPRISE_NUMBER_OF_PEOPLE" property="n_EnterpriseNumberOfPeople" jdbcType="DECIMAL" />
+    <result column="D_FOUND_DATE" property="d_FoundDate" jdbcType="DATE" />
+    <result column="POSTALCODE" property="postalcode" jdbcType="VARCHAR" />
+    <result column="ENTERPRISE_REALM_NAME" property="enterpriseRealmName" jdbcType="VARCHAR" />
+    <result column="D_CREATE_DATE" property="d_CreateDate" jdbcType="DATE" />
+  </resultMap>
+  
+  
+  
+     <resultMap id="abatorgenerated_LoginRoseRelQuery" class="com.pltfm.app.vobject.LoginRoseRelQuery" >
+ 
+  
+    <result column="N_CUSTOMER_TYPE_ID" property="nCustomerTypeId" />
+    
+    <result column="N_COMMERCIAL_ID" property="commercialTenantId"  />
+    
+   
+  </resultMap>
+  
+  
+  
+  <resultMap id="ibatorgenerated_CountResult" class="com.pltfm.sys.model.SysModelUtil">
+    <result column="the_count" property="theCount" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="abatorgenerated_Example_Where_Clause" >
+    <!--
+      WARNING - This element is automatically generated by Abator for iBATIS, do not modify.
+      This element was generated on Tue Jul 09 16:33:05 CST 2013.
+    -->
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  <select id="abatorgenerated_selectByPrimaryKey" resultMap="abatorgenerated_CommercialTenantBasicInfo" parameterClass="com.pltfm.app.vobject.CommercialTenantBasicInfo" >
+  
+    select N_COMMERCIAL_TENANT_ID,
+      tt. N_LOGIN_ID, 
+     CONTACTS_NAME,
+     CONTACTS_DEPARTMENT, 
+     FIXED_PHONE,
+      tt.MOBILE,
+      CONTACTS_EMAIL, 
+      CORPORATE_NAME,
+       CORPORATE_LOCATION, 
+       CORPORATE_PROPERTY,
+      tt.BLINCE_STARTDATE
+      ,tt.BLINCE_ENDDATE,
+      tt.BLINCE_VERIFY,
+      tt.CID_VERIFY,
+      tt.PROVINCE,
+      tt.CITY,
+      tt.AREA,
+      CORPORATE_TRADE,
+      N_ENTERPRISE_NUMBER_OF_PEOPLE,
+      D_FOUND_DATE, 
+      N_ENTERPRISE_STATUS, 
+      POSTALCODE,
+      UPLOAD_BUSINESS_LICENCE_PICTUR, 
+      ORGANIZATION_CODE, 
+     ENTERPRISE_LEGAL_REPRESENTATIV,
+      ENTERPRISE_REALM_NAME,
+       tt.D_CREATE_DATE,
+       tt. N_CREATED, 
+       tt.D_MODIFY_DATE, 
+       tt.N_MODIFIED,
+       tt.N_CERTIFICATE_TYPE,
+       tt.CERTIFICATE_NUMBER,
+      CERTIFICATE_PICTURE,
+      LOCATION,BUSINESS_LICENCE_REGISTER,
+      BUSINESS_LICENCE_LOCATION,
+      BUSINESS_TIME_LIMIT,BUSINESS_SCOPE,
+      REGISTER_BANKROLL,BANK_ACCOUNT_NAME,
+      BANK_OF_DEPOSIT,
+      BANK_OF_DEPOSIT_BRANCH_NAME,
+      COMPANY_ACCOUNT,
+      tt.CREDIT_RATING,
+        tt.PHONE,
+        tt.TRCCOPY_VERIFY,
+        tt.GTC_VERIFY,
+        tt.ATAX_VERIFY,
+        tt.TAXPAYER_IDNUMBER,
+        tt.CERTIFICATE_OTHERSID,
+        tt.TAX_REG_CERTIFICATE_COPY,
+        tt.G_TAXPAYER_CERTIFICATE,
+        tt.RATING_DESCRIPTION,
+        lr.IS_VALID,
+      AUTHENTICATION_STATUS,
+      rr.rank_name as RANK_NAME,
+      uu.level_name as LEVEL_NAME     
+    from  LOGIN_INFO ll, COMMERCIAL_TENANT_BASIC_INFO tt,PERSONALITY_INFO pp,USER_LEVEL uu,RANK rr, login_rose_rel  lr
+    where  ll.N_LOGIN_ID = pp.N_LOGIN_ID(+)
+       and ll.n_level_id = uu.n_level_id(+)
+       and pp.n_rank_id = rr.n_rank_id(+)
+       and ll.N_LOGIN_ID = tt.N_LOGIN_ID 
+       and lr.n_commercial_id=tt.n_commercial_tenant_id
+       and tt.N_COMMERCIAL_TENANT_ID =  #n_CommercialTenantId:DECIMAL#
+  </select>
+  
+  
+  <select id="abatorgenerated_selectByPrimaryLoginInfo" resultMap="abatorgenerated_CommercialTenantBasicInfoResult" parameterClass="com.pltfm.app.vobject.CommercialTenantBasicInfo" >
+    
+    select N_COMMERCIAL_TENANT_ID,
+     N_LOGIN_ID,
+      CONTACTS_NAME, 
+      CONTACTS_DEPARTMENT, 
+      FIXED_PHONE,
+      MOBILE, 
+      CONTACTS_EMAIL, 
+      CORPORATE_NAME, 
+      CORPORATE_LOCATION,
+       CORPORATE_PROPERTY,
+      CORPORATE_TRADE,
+       N_ENTERPRISE_NUMBER_OF_PEOPLE,
+        D_FOUND_DATE, 
+        N_ENTERPRISE_STATUS, 
+        POSTALCODE,
+      UPLOAD_BUSINESS_LICENCE_PICTUR, ORGANIZATION_CODE, ENTERPRISE_LEGAL_REPRESENTATIV,
+      ENTERPRISE_REALM_NAME, D_CREATE_DATE, N_CREATED, D_MODIFY_DATE, N_MODIFIED,N_CERTIFICATE_TYPE,CERTIFICATE_NUMBER,
+      CERTIFICATE_PICTURE,LOCATION,BUSINESS_LICENCE_REGISTER,BUSINESS_LICENCE_LOCATION,
+      BUSINESS_TIME_LIMIT,BUSINESS_SCOPE,REGISTER_BANKROLL,BANK_ACCOUNT_NAME,
+      BANK_OF_DEPOSIT,BANK_OF_DEPOSIT_BRANCH_NAME,COMPANY_ACCOUNT,AUTHENTICATION_STATUS
+    from COMMERCIAL_TENANT_BASIC_INFO
+    where N_ENTERPRISE_STATUS=1 and N_LOGIN_ID = #n_LoginId:DECIMAL# and rownum=1  
+  </select>
+  
+  
+   <select id="abatorgenerated_selectByCustomer" resultMap="abatorgenerated_CustomerResult" parameterClass="com.pltfm.app.vobject.Customer" >
+
+       select N_COMMERCIAL_TENANT_ID, CONTACTS_NAME, CONTACTS_DEPARTMENT, FIXED_PHONE,
+      tt.MOBILE, CONTACTS_EMAIL, CORPORATE_NAME, CORPORATE_LOCATION, 
+      N_ENTERPRISE_NUMBER_OF_PEOPLE,ENTERPRISE_REALM_NAME, D_FOUND_DATE,tt.D_CREATE_DATE, POSTALCODE,LEVEL_NAME,cc.name CUSTOMER_NAME
+    from COMMERCIAL_TENANT_BASIC_INFO tt,LOGIN_INFO ll,BNES_CUSTOMER_TYPE cc,
+    USER_LEVEL uu
+    where tt.N_LOGIN_ID = ll.N_LOGIN_ID 
+    and cc.customer_type_id=ll.n_customer_type_id
+    and ll.n_level_id=uu.n_level_id
+    and tt.N_ENTERPRISE_STATUS=1
+    and N_COMMERCIAL_TENANT_ID = #n_CommercialTenantId:DECIMAL#
+  </select>
+  
+  
+  
+     <select id="selectByNcustomerId" resultMap="abatorgenerated_LoginRoseRelQuery"  resultClass="java.lang.Integer">
+    
+     <![CDATA[
+      select * from LOGIN_ROSE_REL t 
+       where t.N_COMMERCIAL_ID=#commercialTenantId#]]>
+  </select>
+ 
+  
+  <select id="abatorgenerated_selectByExample" resultMap="abatorgenerated_CommercialTenantBasicInfoResult" parameterClass="com.pltfm.app.vobject.CommercialTenantBasicInfoExample" >
+ 
+    select N_COMMERCIAL_TENANT_ID, N_LOGIN_ID, CONTACTS_NAME, CONTACTS_DEPARTMENT, FIXED_PHONE,
+      MOBILE, CONTACTS_EMAIL, CORPORATE_NAME, CORPORATE_LOCATION, CORPORATE_PROPERTY,
+      CORPORATE_TRADE, N_ENTERPRISE_NUMBER_OF_PEOPLE, D_FOUND_DATE, N_ENTERPRISE_STATUS, POSTALCODE,
+      UPLOAD_BUSINESS_LICENCE_PICTUR, ORGANIZATION_CODE, ENTERPRISE_LEGAL_REPRESENTATIV,
+      ENTERPRISE_REALM_NAME, D_CREATE_DATE, N_CREATED, D_MODIFY_DATE, N_MODIFIED
+    from COMMERCIAL_TENANT_BASIC_INFO
+    <isParameterPresent >
+      <include refid="COMMERCIAL_TENANT_BASIC_INFO.abatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <delete id="abatorgenerated_deleteByPrimaryKey" parameterClass="com.pltfm.app.vobject.CommercialTenantBasicInfo" >
+
+    delete from COMMERCIAL_TENANT_BASIC_INFO
+    where N_COMMERCIAL_TENANT_ID = #n_CommercialTenantId:DECIMAL#
+  </delete>
+  <delete id="abatorgenerated_deleteByExample" parameterClass="com.pltfm.app.vobject.CommercialTenantBasicInfoExample" >
+
+    delete from COMMERCIAL_TENANT_BASIC_INFO
+    <include refid="COMMERCIAL_TENANT_BASIC_INFO.abatorgenerated_Example_Where_Clause" />
+  </delete>
+  <insert id="abatorgenerated_insert" parameterClass="com.pltfm.app.vobject.CommercialTenantBasicInfo" >
+
+     <selectKey resultClass="java.lang.Integer" keyProperty="n_CommercialTenantId" >
+           select seq_app_login.nextval from dual
+      </selectKey>
+    
+    insert into COMMERCIAL_TENANT_BASIC_INFO (N_COMMERCIAL_TENANT_ID, N_LOGIN_ID, CONTACTS_NAME,
+      CONTACTS_DEPARTMENT, FIXED_PHONE, MOBILE, CONTACTS_EMAIL, CORPORATE_NAME, CORPORATE_LOCATION,
+      CORPORATE_PROPERTY, CORPORATE_TRADE, N_ENTERPRISE_NUMBER_OF_PEOPLE, D_FOUND_DATE,
+      N_ENTERPRISE_STATUS, POSTALCODE, UPLOAD_BUSINESS_LICENCE_PICTUR, ORGANIZATION_CODE,
+      ENTERPRISE_LEGAL_REPRESENTATIV, ENTERPRISE_REALM_NAME, D_CREATE_DATE, N_CREATED,
+      D_MODIFY_DATE, N_MODIFIED, N_CERTIFICATE_TYPE, CERTIFICATE_NUMBER,BLINCE_STARTDATE,BLINCE_ENDDATE,BLINCE_VERIFY,CID_VERIFY,PROVINCE,CITY,AREA,CERTIFICATE_OTHERSID,BUSINESS_LICENCE_REGISTER)
+    values (#n_CommercialTenantId#, #n_LoginId#, #contactsName#,
+      #contactsDepartment#, #fixedPhone#, #mobile#, #contactsEmail#,
+      #corporateName#, #corporateLocation#, #corporateProperty#,
+      #corporateTrade#, #n_EnterpriseNumberOfPeople#, #d_FoundDate#,
+      #n_EnterpriseStatus#, #postalcode#, #uploadBusinessLicencePictur#,
+      #organizationCode#, #enterpriseLegalRepresentativ#,
+      #enterpriseRealmName#, #d_CreateDate#, #n_Created#, #d_ModifyDate#,
+      #n_Modified#,#n_CertificateType#, #certificateNumber#,#blinceStartdate#,#blinceEnddate#,#blinceVerify#,#cidVerify#,#province#,#city#,#area#,#certificateOthersid#,#businessLicenceRegister#)
+  </insert>
+  <update id="abatorgenerated_updateByPrimaryKey" parameterClass="com.pltfm.app.vobject.CommercialTenantBasicInfo" >
+  
+    update COMMERCIAL_TENANT_BASIC_INFO
+    set N_LOGIN_ID = #n_LoginId:DECIMAL#,
+      CONTACTS_NAME = #contactsName:VARCHAR#,
+      CONTACTS_DEPARTMENT = #contactsDepartment:VARCHAR#,
+      FIXED_PHONE = #fixedPhone:VARCHAR#,
+      MOBILE = #mobile:VARCHAR#,
+      CONTACTS_EMAIL = #contactsEmail:VARCHAR#,
+      CORPORATE_NAME = #corporateName:VARCHAR#,
+      CORPORATE_LOCATION = #corporateLocation:VARCHAR#,
+      CORPORATE_PROPERTY = #corporateProperty:VARCHAR#,
+      CORPORATE_TRADE = #corporateTrade:VARCHAR#,
+      BUSINESS_LICENCE_REGISTER  = #businessLicenceRegister:VARCHAR#,
+      BLINCE_STARTDATE=#blinceStartdate:DATE#,
+      BLINCE_ENDDATE=#blinceEnddate:DATE#,
+      BLINCE_VERIFY=#blinceVerify:DECIMAL#,
+      CID_VERIFY=#cidVerify:DECIMAL#,
+      PROVINCE=#province:VARCHAR#,
+      CITY=#city:VARCHAR#,
+      AREA=#area:VARCHAR#,
+      N_ENTERPRISE_NUMBER_OF_PEOPLE = #n_EnterpriseNumberOfPeople:DECIMAL#,
+      D_FOUND_DATE = #d_FoundDate:DATE#,
+      N_ENTERPRISE_STATUS = #n_EnterpriseStatus:DECIMAL#,
+      POSTALCODE = #postalcode:VARCHAR#,
+      UPLOAD_BUSINESS_LICENCE_PICTUR = #uploadBusinessLicencePictur:VARCHAR#,
+      ORGANIZATION_CODE = #organizationCode:VARCHAR#,
+      ENTERPRISE_LEGAL_REPRESENTATIV = #enterpriseLegalRepresentativ:VARCHAR#,
+      ENTERPRISE_REALM_NAME = #enterpriseRealmName:VARCHAR#,
+      D_MODIFY_DATE = #d_ModifyDate:DATE#,
+      N_MODIFIED = #n_Modified:DECIMAL#,
+      N_CERTIFICATE_TYPE = #n_CertificateType:DECIMAL#,
+      CERTIFICATE_NUMBER = #certificateNumber:VARCHAR#
+    where N_COMMERCIAL_TENANT_ID = #n_CommercialTenantId:DECIMAL#
+  </update> 
+  
+  <!-- add luotao 修改 -->
+  <update id="abatorgenerated_updateByPrimaryKeySelective" parameterClass="com.pltfm.app.vobject.CommercialTenantBasicInfo" >
+ 
+    update COMMERCIAL_TENANT_BASIC_INFO
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="n_LoginId" >
+        N_LOGIN_ID = #n_LoginId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="contactsName" >
+        CONTACTS_NAME = #contactsName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="contactsDepartment" >
+        CONTACTS_DEPARTMENT = #contactsDepartment:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="fixedPhone" >
+        FIXED_PHONE = #fixedPhone:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="mobile" >
+        MOBILE = #mobile:VARCHAR#
+      </isNotNull>
+         <isNotNull prepend="," property="creditRating" >
+        CREDIT_RATING = #creditRating:VARCHAR#
+      </isNotNull>
+         <isNotNull prepend="," property="taxpayerIdnumber" >
+        TAXPAYER_IDNUMBER = #taxpayerIdnumber#
+      </isNotNull>
+   <isNotNull prepend="," property="bankOfDeposit" >
+        BANK_OF_DEPOSIT = #bankOfDeposit#
+      </isNotNull>
+      <isNotNull prepend="," property="bankAccountName" >
+      BANK_ACCOUNT_NAME=#bankAccountName#
+            </isNotNull>
+              <isNotNull prepend="," property="companyAccount" >
+        COMPANY_ACCOUNT = #companyAccount#
+      </isNotNull>
+        <isNotNull prepend="," property="phone" >
+        PHONE = #phone#
+      </isNotNull>   
+       <isNotNull prepend="," property="ataxVerify" >
+        ATAX_VERIFY = #ataxVerify:DECIMAL#
+      </isNotNull> 
+           <isNotNull prepend="," property="trccopyVerify" >
+        TRCCOPY_VERIFY = #trccopyVerify:DECIMAL#
+      </isNotNull> 
+            <isNotNull prepend="," property="gtcVerify" >
+        GTC_VERIFY = #gtcVerify:DECIMAL#
+      </isNotNull> 
+      <isNotNull prepend="," property="businessLicenceRegister" >
+         BUSINESS_LICENCE_REGISTER  = #businessLicenceRegister:VARCHAR#
+      </isNotNull>
+       <isNotNull prepend="," property="blinceStartdate" >
+               BLINCE_STARTDATE=#blinceStartdate:DATE#
+      </isNotNull>
+            <isNotNull prepend="," property="blinceEnddate" >
+                BLINCE_ENDDATE=#blinceEnddate:DATE#
+      </isNotNull>
+            <isNotNull prepend="," property="blinceVerify" >
+                BLINCE_VERIFY=#blinceVerify:DECIMAL#
+      </isNotNull>
+            <isNotNull prepend="," property="cidVerify" >
+               CID_VERIFY=#cidVerify:DECIMAL#
+      </isNotNull>
+         <isNotNull prepend="," property="province" >
+                 PROVINCE=#province:VARCHAR#
+      </isNotNull>
+            <isNotNull prepend="," property="city" >
+                CITY=#city:VARCHAR#
+      </isNotNull>
+            <isNotNull prepend="," property="area" >
+              AREA=#area:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="contactsEmail" >
+        CONTACTS_EMAIL = #contactsEmail:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="corporateName" >
+        CORPORATE_NAME = #corporateName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="corporateLocation" >
+        CORPORATE_LOCATION = #corporateLocation:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="corporateProperty" >
+        CORPORATE_PROPERTY = #corporateProperty:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="corporateTrade" >
+        CORPORATE_TRADE = #corporateTrade:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="n_EnterpriseNumberOfPeople" >
+        N_ENTERPRISE_NUMBER_OF_PEOPLE = #n_EnterpriseNumberOfPeople:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="d_FoundDate" >
+        D_FOUND_DATE = #d_FoundDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="n_EnterpriseStatus" >
+        N_ENTERPRISE_STATUS = #n_EnterpriseStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="postalcode" >
+        POSTALCODE = #postalcode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="uploadBusinessLicencePictur" >
+        UPLOAD_BUSINESS_LICENCE_PICTUR = #uploadBusinessLicencePictur:VARCHAR#
+      </isNotNull>
+       <isNotNull prepend="," property="certificateOthersid" >
+        CERTIFICATE_OTHERSID = #certificateOthersid:VARCHAR#
+      </isNotNull>
+       <isNotNull property="certificatePicture" prepend="," >
+   
+        CERTIFICATE_PICTURE = #certificatePicture#  
+   
+      </isNotNull>
+      
+            <isNotNull prepend="," property="taxRegCertificateCopy" >
+        TAX_REG_CERTIFICATE_COPY = #taxRegCertificateCopy:VARCHAR#
+      </isNotNull>
+          <isNotNull prepend="," property="taxpayerCertificate" >
+        G_TAXPAYER_CERTIFICATE = #taxpayerCertificate:VARCHAR#
+      </isNotNull>
+      
+      <isNotNull prepend="," property="organizationCode" >
+        ORGANIZATION_CODE = #organizationCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="enterpriseLegalRepresentativ" >
+        ENTERPRISE_LEGAL_REPRESENTATIV = #enterpriseLegalRepresentativ:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="enterpriseRealmName" >
+        ENTERPRISE_REALM_NAME = #enterpriseRealmName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="d_CreateDate" >
+        D_CREATE_DATE = #d_CreateDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="n_Created" >
+        N_CREATED = #n_Created:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="d_ModifyDate" >
+        D_MODIFY_DATE = #d_ModifyDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="n_Modified" >
+        N_MODIFIED = #n_Modified:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="n_CertificateType" >
+        N_CERTIFICATE_TYPE = #n_CertificateType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="certificateNumber" >
+        CERTIFICATE_NUMBER = #certificateNumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="authenticationStatus" >
+        AUTHENTICATION_STATUS = #authenticationStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="ratingDescription" >
+        RATING_DESCRIPTION = #ratingDescription#
+      </isNotNull>
+    </dynamic>
+    where N_COMMERCIAL_TENANT_ID = #n_CommercialTenantId:DECIMAL#
+  </update>
+  
+     <update id="updateBuer" parameterClass="com.pltfm.app.vobject.CommercialTenantBasicInfo" >
+ 
+    update COMMERCIAL_TENANT_BASIC_INFO
+    <dynamic prepend="set" >
+    <isNotEmpty property="corporateName">
+    <isNotNull prepend="," property="corporateName" >
+     <![CDATA[   
+        CORPORATE_NAME = #corporateName#
+        ]]> 
+      </isNotNull>
+      </isNotEmpty>
+      <isNotEmpty property="mobile">
+      <isNotNull prepend="," property="mobile" >
+       <![CDATA[  
+        MOBILE = #mobile#
+        ]]>
+      </isNotNull>
+      </isNotEmpty>
+     <isNotEmpty property="fixedPhone">
+      <isNotNull prepend="," property="fixedPhone" >
+      <![CDATA[  
+        FIXED_PHONE = #fixedPhone#
+        ]]>
+      </isNotNull>
+      </isNotEmpty>
+      <isNotEmpty property="businessLicenceRegister">
+      <isNotNull prepend="," property="businessLicenceRegister" >
+       <![CDATA[ 
+       BUSINESS_LICENCE_REGISTER  = #businessLicenceRegister#
+         ]]>
+      </isNotNull>
+      </isNotEmpty>
+      
+       <isNotEmpty prepend="," property="blinceStartdate" >
+       <![CDATA[ 
+         BLINCE_STARTDATE=#blinceStartdate#
+         ]]>
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="blinceEnddate" >
+        <![CDATA[ 
+          BLINCE_ENDDATE=#blinceEnddate#
+           ]]>
+      </isNotEmpty>
+      <isNotEmpty property="d_ModifyDate">
+      <isNotNull prepend="," property="d_ModifyDate" >
+       <![CDATA[ 
+       D_MODIFY_DATE  = #d_ModifyDate#
+         ]]>
+      </isNotNull>
+      </isNotEmpty>
+       <isNotEmpty property="uploadBusinessLicencePictur">
+       <isNotNull prepend="," property="uploadBusinessLicencePictur" >
+         <![CDATA[
+        UPLOAD_BUSINESS_LICENCE_PICTUR = #uploadBusinessLicencePictur#
+        ]]>
+      </isNotNull>
+      </isNotEmpty>
+    </dynamic>
+   <![CDATA[
+    where N_COMMERCIAL_TENANT_ID = #n_CommercialTenantId#
+    AND  N_LOGIN_ID = #n_LoginId#  ]]>
+  </update>
+  <select id="abatorgenerated_countByExample" parameterClass="com.pltfm.app.vobject.CommercialTenantBasicInfoExample" resultClass="java.lang.Integer" >
+   
+    select count(*) from COMMERCIAL_TENANT_BASIC_INFO
+    <include refid="COMMERCIAL_TENANT_BASIC_INFO.abatorgenerated_Example_Where_Clause" />
+  </select>
+  
+  
+   
+  <update id="abatorgenerated_updateByExampleSelective" >
+   
+    update COMMERCIAL_TENANT_BASIC_INFO
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.n_CommercialTenantId" >
+        N_COMMERCIAL_TENANT_ID = #record.n_CommercialTenantId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.n_LoginId" >
+        N_LOGIN_ID = #record.n_LoginId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.contactsName" >
+        CONTACTS_NAME = #record.contactsName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.contactsDepartment" >
+        CONTACTS_DEPARTMENT = #record.contactsDepartment:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.fixedPhone" >
+        FIXED_PHONE = #record.fixedPhone:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.mobile" >
+        MOBILE = #record.mobile:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.contactsEmail" >
+        CONTACTS_EMAIL = #record.contactsEmail:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.corporateName" >
+        CORPORATE_NAME = #record.corporateName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.corporateLocation" >
+        CORPORATE_LOCATION = #record.corporateLocation:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.corporateProperty" >
+        CORPORATE_PROPERTY = #record.corporateProperty:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.corporateTrade" >
+        CORPORATE_TRADE = #record.corporateTrade:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.n_EnterpriseNumberOfPeople" >
+        N_ENTERPRISE_NUMBER_OF_PEOPLE = #record.n_EnterpriseNumberOfPeople:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.d_FoundDate" >
+        D_FOUND_DATE = #record.d_FoundDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="record.n_EnterpriseStatus" >
+        N_ENTERPRISE_STATUS = #record.n_EnterpriseStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.postalcode" >
+        POSTALCODE = #record.postalcode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.uploadBusinessLicencePictur" >
+        UPLOAD_BUSINESS_LICENCE_PICTUR = #record.uploadBusinessLicencePictur:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.organizationCode" >
+        ORGANIZATION_CODE = #record.organizationCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.enterpriseLegalRepresentativ" >
+        ENTERPRISE_LEGAL_REPRESENTATIV = #record.enterpriseLegalRepresentativ:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.enterpriseRealmName" >
+        ENTERPRISE_REALM_NAME = #record.enterpriseRealmName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.d_CreateDate" >
+        D_CREATE_DATE = #record.d_CreateDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="record.n_Created" >
+        N_CREATED = #record.n_Created:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.d_ModifyDate" >
+        D_MODIFY_DATE = #record.d_ModifyDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="record.n_Modified" >
+        N_MODIFIED = #record.n_Modified:DECIMAL#
+      </isNotNull>
+      
+    </dynamic>
+    <isParameterPresent >
+      <include refid="COMMERCIAL_TENANT_BASIC_INFO.abatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="abatorgenerated_updateByExample" >
+    
+    update COMMERCIAL_TENANT_BASIC_INFO
+    set N_COMMERCIAL_TENANT_ID = #record.n_CommercialTenantId:DECIMAL#,
+      N_LOGIN_ID = #record.n_LoginId:DECIMAL#,
+      CONTACTS_NAME = #record.contactsName:VARCHAR#,
+      CONTACTS_DEPARTMENT = #record.contactsDepartment:VARCHAR#,
+      FIXED_PHONE = #record.fixedPhone:VARCHAR#,        
+      MOBILE = #record.mobile:VARCHAR#,
+      CONTACTS_EMAIL = #record.contactsEmail:VARCHAR#,
+      CORPORATE_NAME = #record.corporateName:VARCHAR#,
+      CORPORATE_LOCATION = #record.corporateLocation:VARCHAR#,
+      CORPORATE_PROPERTY = #record.corporateProperty:VARCHAR#,
+      CORPORATE_TRADE = #record.corporateTrade:VARCHAR#,
+      N_ENTERPRISE_NUMBER_OF_PEOPLE = #record.n_EnterpriseNumberOfPeople:DECIMAL#,
+      D_FOUND_DATE = #record.d_FoundDate:DATE#,
+      N_ENTERPRISE_STATUS = #record.n_EnterpriseStatus:DECIMAL#,
+      POSTALCODE = #record.postalcode:VARCHAR#,
+      UPLOAD_BUSINESS_LICENCE_PICTUR = #record.uploadBusinessLicencePictur:VARCHAR#,
+      ORGANIZATION_CODE = #record.organizationCode:VARCHAR#,
+      ENTERPRISE_LEGAL_REPRESENTATIV = #record.enterpriseLegalRepresentativ:VARCHAR#,
+      ENTERPRISE_REALM_NAME = #record.enterpriseRealmName:VARCHAR#,
+      D_CREATE_DATE = #record.d_CreateDate:DATE#,
+      N_CREATED = #record.n_Created:DECIMAL#,
+      D_MODIFY_DATE = #record.d_ModifyDate:DATE#,
+      N_MODIFIED = #record.n_Modified:DECIMAL#
+    <isParameterPresent >
+      <include refid="COMMERCIAL_TENANT_BASIC_INFO.abatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  
+  
+  
+  
+   <update id="updateVerifyPass" parameterClass="com.pltfm.app.vobject.CommercialTenantBasicInfo" >
+ 
+    update login_rose_rel
+    set STATUS =3
+    where N_LOGIN_ID=#n_LoginId:DECIMAL# 
+    and STATUS=2
+    and  N_CUSTOMER_TYPE_ID=#n_CustomerTypeId:DECIMAL# 
+      
+  </update>
+  
+  
+ <update id="updateBuerStaus" parameterClass="com.pltfm.app.vobject.CommercialTenantBasicInfo" >
+ 
+    update login_rose_rel
+    set STATUS =#login_Status#
+    where N_LOGIN_ID=#n_LoginId# 
+    and  N_CUSTOMER_TYPE_ID=#n_CustomerTypeId# 
+      
+  </update>
+  
+     <update id="updateNotPass" parameterClass="com.pltfm.app.vobject.CommercialTenantBasicInfo" >
+ 
+    update login_rose_rel
+    set STATUS =4,
+    DESCRIPTION=#description:VARCHAR#
+    where N_LOGIN_ID=#n_LoginId:DECIMAL#
+    and  N_CUSTOMER_TYPE_ID=#n_CustomerTypeId:DECIMAL# 
+      
+  </update>
+       
+  <select id="searchPageByVo" resultMap="abatorgenerated_CommercialTenantBasicInfoResultOther" parameterClass="com.pltfm.app.vobject.CommercialTenantBasicInfo">
+		
+	    select N_COMMERCIAL_TENANT_ID,
+           N_LOGIN_ID, 
+           CONTACTS_NAME, 
+           CONTACTS_DEPARTMENT,
+           FIXED_PHONE,
+           MOBILE,
+           CONTACTS_EMAIL,
+           CORPORATE_NAME, 
+           CORPORATE_LOCATION, 
+           CORPORATE_PROPERTY,
+           CORPORATE_TRADE, 
+           N_ENTERPRISE_NUMBER_OF_PEOPLE,
+           D_FOUND_DATE, 
+           N_ENTERPRISE_STATUS, 
+           POSTALCODE,
+           UPLOAD_BUSINESS_LICENCE_PICTUR, 
+           ORGANIZATION_CODE, 
+           ENTERPRISE_LEGAL_REPRESENTATIV,
+           LOGIN_STATUS,
+           ENTERPRISE_REALM_NAME,
+           D_CREATE_DATE,
+           N_CREATED,
+           D_MODIFY_DATE,
+           n_Modified,
+           N_CERTIFICATE_TYPE,
+           CERTIFICATE_NUMBER,
+          N_LEVEL_ID,
+          N_CUSTOMER_TYPE_ID,
+          LOGIN_ACCOUNT,
+          N_RANK_ID,
+          N_AVAILABLE_INTEGRAL,
+          N_INDIVIDUAL_CREDIT_VALUE,
+          N_EMPIRICAL_VALUE,
+          level_name,
+          rank_name,
+          CUSTOMER_NAME,
+          N_TOTAL_INTEGRAL,
+          status,
+           BUSINESS_LICENCE_REGISTER ,
+           BUSINESS_TIME_LIMIT,
+           DESCRIPTION,
+           BLINCE_STARTDATE,
+           BLINCE_ENDDATE,
+           BLINCE_VERIFY,
+           CID_VERIFY,
+           PROVINCE,
+           CITY,
+           AREA,
+           CREDIT_RATING,
+           IS_VALID,
+           sstatus,
+           RATING_DESCRIPTION
+          
+    FROM (
+    select ROW_NUMBER() OVER(order by N_COMMERCIAL_TENANT_ID desc) as view_row_number,
+           tt.*,
+           lr.N_LEVEL_ID,
+           ll.N_STATUS as LOGIN_STATUS,
+           cc.customer_type_id as N_CUSTOMER_TYPE_ID,
+           ll.LOGIN_ACCOUNT,
+           pp.N_RANK_ID,
+           pp.N_AVAILABLE_INTEGRAL,
+           pp.N_INDIVIDUAL_CREDIT_VALUE,
+           pp.N_EMPIRICAL_VALUE,
+           uu.level_name,
+           rr.rank_name,
+           cc.NAME CUSTOMER_NAME,
+           pp.N_TOTAL_INTEGRAL,
+           lr.status,
+           lr.DESCRIPTION,
+           lr.is_valid,
+           s.status  as sstatus
+      from COMMERCIAL_TENANT_BASIC_INFO tt,
+           LOGIN_INFO                   ll,
+           BNES_CUSTOMER_TYPE           cc,
+           PERSONALITY_INFO             pp,
+           USER_LEVEL                   uu,
+           RANK                         rr,
+           login_rose_rel               lr,
+           suppliers_info               s
+     where ll.N_LOGIN_ID = pp.N_LOGIN_ID(+)
+       and lr.n_level_id = uu.n_level_id(+)
+       and lr.n_login_id =ll.n_login_id
+       and pp.n_rank_id = rr.n_rank_id(+)
+       and ll.N_LOGIN_ID = tt.N_LOGIN_ID
+       and lr.n_customer_type_id = cc.customer_type_id
+       and lr.n_commercial_id =tt.n_commercial_tenant_id
+       and tt.n_commercial_tenant_id = s.merchant_id(+)
+       and cc.parent_id = 3
+     	<isNotNull property="loginAccount">
+			  <isNotEmpty prepend="and" property="loginAccount">
+				ll.LOGIN_ACCOUNT like '%$loginAccount$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="contactsName">
+			  <isNotEmpty prepend="and" property="contactsName">
+				tt.CONTACTS_NAME like '%$contactsName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="businessLicenceRegister">
+			  <isNotEmpty prepend="and" property="businessLicenceRegister">
+				tt.BUSINESS_LICENCE_REGISTER like '%$businessLicenceRegister$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  	  <isNotNull property="status">
+			  <isNotEmpty prepend="and" property="status">
+				lr.status = #status:DECIMAL#
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  	  <isNotNull property="mobile">
+			  <isNotEmpty prepend="and" property="mobile">
+				tt.MOBILE like '%$mobile$%'
+			  </isNotEmpty>
+		  </isNotNull>
+
+		  <isNotNull property="corporateName">
+			  <isNotEmpty prepend="and" property="corporateName">
+				tt.CORPORATE_NAME like '%$corporateName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="n_RankId">
+			  <isNotEmpty prepend="and" property="n_RankId">
+				pp.n_rank_id = #n_RankId:DECIMAL#
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="n_LevelId">
+			  <isNotEmpty prepend="and" property="n_LevelId">
+				lr.n_level_id = #n_LevelId:DECIMAL#
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="n_CustomerTypeId">
+			  <isNotEmpty prepend="and" property="n_CustomerTypeId">
+				lr.n_customer_type_id = #n_CustomerTypeId:DECIMAL#
+			  </isNotEmpty>
+		  </isNotNull>
+    )
+    <![CDATA[ where view_row_number <= #max# and view_row_number > #skip#]]>
+     <isNotNull property="sstatus">
+			  <isNotEmpty  property="sstatus">
+			   and sstatus=#sstatus# or status=#sstatus#
+			  </isNotEmpty>
+		  </isNotNull>
+    
+	</select>
+  
+ <select id="getCommercialTenantBasicInfoCount" parameterClass="com.pltfm.app.vobject.CommercialTenantBasicInfo" resultMap="ibatorgenerated_CountResult">
+     select count(1) the_count  from 
+    (select N_COMMERCIAL_TENANT_ID,
+       N_LOGIN_ID,
+       CONTACTS_NAME,
+       CONTACTS_DEPARTMENT,
+       FIXED_PHONE,
+       MOBILE,
+       CONTACTS_EMAIL,
+       CORPORATE_NAME,
+       CORPORATE_LOCATION,
+       CORPORATE_PROPERTY,
+       CORPORATE_TRADE,
+       N_ENTERPRISE_NUMBER_OF_PEOPLE,
+       D_FOUND_DATE,
+       N_ENTERPRISE_STATUS,
+       POSTALCODE,
+       UPLOAD_BUSINESS_LICENCE_PICTUR,
+       ORGANIZATION_CODE,
+       ENTERPRISE_LEGAL_REPRESENTATIV,
+       LOGIN_STATUS,
+       ENTERPRISE_REALM_NAME,
+       D_CREATE_DATE,
+       N_CREATED,
+       D_MODIFY_DATE,
+       n_Modified,
+       N_CERTIFICATE_TYPE,
+       CERTIFICATE_NUMBER,
+       N_LEVEL_ID,
+       N_CUSTOMER_TYPE_ID,
+       LOGIN_ACCOUNT,
+       N_RANK_ID,
+       N_AVAILABLE_INTEGRAL,
+       N_INDIVIDUAL_CREDIT_VALUE,
+       N_EMPIRICAL_VALUE,
+       level_name,
+       rank_name,
+       CUSTOMER_NAME,
+       N_TOTAL_INTEGRAL,
+       status,
+       BUSINESS_LICENCE_REGISTER,
+       BUSINESS_TIME_LIMIT,
+       DESCRIPTION,
+       BLINCE_STARTDATE,
+       BLINCE_ENDDATE,
+       BLINCE_VERIFY,
+       CID_VERIFY,
+       PROVINCE,
+       CITY,
+       AREA,
+       CREDIT_RATING,
+       IS_VALID,
+       sstatus
+
+  FROM (select ROW_NUMBER() OVER(order by N_COMMERCIAL_TENANT_ID desc) as view_row_number,
+               tt.*,
+               lr.N_LEVEL_ID,
+               ll.N_STATUS as LOGIN_STATUS,
+               cc.customer_type_id as N_CUSTOMER_TYPE_ID,
+               ll.LOGIN_ACCOUNT,
+               pp.N_RANK_ID,
+               pp.N_AVAILABLE_INTEGRAL,
+               pp.N_INDIVIDUAL_CREDIT_VALUE,
+               pp.N_EMPIRICAL_VALUE,
+               uu.level_name,
+               rr.rank_name,
+               cc.NAME CUSTOMER_NAME,
+               pp.N_TOTAL_INTEGRAL,
+               lr.status,
+               lr.DESCRIPTION,
+               lr.is_valid,
+               s.status  as sstatus
+          from COMMERCIAL_TENANT_BASIC_INFO tt,
+               LOGIN_INFO                   ll,
+               BNES_CUSTOMER_TYPE           cc,
+               PERSONALITY_INFO             pp,
+               USER_LEVEL                   uu,
+               RANK                         rr,
+               login_rose_rel               lr,
+               suppliers_info               s
+         where ll.N_LOGIN_ID = pp.N_LOGIN_ID(+)
+           and lr.n_level_id = uu.n_level_id(+)
+           and lr.n_login_id = ll.n_login_id
+           and pp.n_rank_id = rr.n_rank_id(+)
+           and ll.N_LOGIN_ID = tt.N_LOGIN_ID
+           and lr.n_customer_type_id = cc.customer_type_id
+           and lr.n_commercial_id = tt.n_commercial_tenant_id
+           and tt.n_commercial_tenant_id = s.merchant_id(+)
+              
+           and cc.parent_id = 3
+     
+     	<isNotNull property="loginAccount">
+			  <isNotEmpty prepend="and" property="loginAccount">
+				ll.LOGIN_ACCOUNT like '%$loginAccount$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="contactsName">
+			  <isNotEmpty prepend="and" property="contactsName">
+				tt.CONTACTS_NAME like '%$contactsName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="mobile">
+			  <isNotEmpty prepend="and" property="mobile">
+				tt.MOBILE like '%$mobile$%'
+			  </isNotEmpty>
+		  </isNotNull>
+	  <isNotNull property="businessLicenceRegister">
+			  <isNotEmpty prepend="and" property="businessLicenceRegister">
+				tt.BUSINESS_LICENCE_REGISTER like '%$businessLicenceRegister$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  	  <isNotNull property="status">
+			  <isNotEmpty prepend="and" property="status">
+				lr.status = #status:DECIMAL#
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="corporateName">
+			  <isNotEmpty prepend="and" property="corporateName">
+				tt.CORPORATE_NAME like '%$corporateName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+			<isNotNull property="n_RankId">
+				  <isNotEmpty prepend="and" property="n_RankId">
+					pp.n_rank_id = #n_RankId:DECIMAL#
+				  </isNotEmpty>
+			  </isNotNull>
+			  
+			  <isNotNull property="n_LevelId">
+				  <isNotEmpty prepend="and" property="n_LevelId">
+					lr.n_level_id = #n_LevelId:DECIMAL#
+				  </isNotEmpty>
+			  </isNotNull>
+			  
+		  <isNotNull property="n_CustomerTypeId">
+			  <isNotEmpty prepend="and" property="n_CustomerTypeId">
+				lr.n_customer_type_id = #n_CustomerTypeId:DECIMAL#
+			  </isNotEmpty>
+		  </isNotNull> ))
+		   <isNotNull property="sstatus">
+			  <isNotEmpty  property="sstatus">
+			  <![CDATA[  where sstatus=#sstatus# or status=#sstatus#]]>
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+  </select>
+  
+  
+</sqlMap>

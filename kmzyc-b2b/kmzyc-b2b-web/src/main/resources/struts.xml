@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <constant name="struts.i18n.encoding" value="utf-8"></constant>
+    <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+    <!--开发模式 -->
+    <constant name="struts.devMode" value="false"/>
+    <!-- 当修改配置文件不需要重启服务，开发比较有用 -->
+    <constant name="struts.configuration.xml.reload" value="false"/>
+    <constant name="struts.action.extension" value="action"></constant>
+    <constant name="struts.custom.i18n.resources" value="message"></constant>
+    <package name="BasePackage" extends="struts-default">
+        <interceptors>
+            <interceptor-stack name="baseStack">
+                <interceptor-ref name="defaultStack"/>
+                <!-- 覆盖defultStack中的exception设置，启用它的日志功能 -->
+                <interceptor-ref name="exception">
+                    <param name="logEnabled">true</param>
+                    <param name="logLevel">error</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <!-- 修改默认的拦截器stack，原来是defaultStack -->
+        <default-interceptor-ref name="baseStack"/>
+        <global-results>
+            <result name="error">/error.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"></exception-mapping>
+        </global-exception-mappings>
+        <action name="index">
+            <result name="success">index.jsp</result>
+        </action>
+
+
+    </package>
+
+    <include file="struts/struts-upload.xml"/>
+    <include file="struts/struts-member.xml"/>
+    <include file="struts/struts-settlement.xml"/>
+    <include file="struts/struts-ajaxJson.xml"/>
+    <include file="struts/struts-SecurityCentre.xml"/>
+    <include file="struts/struts-payresult.xml"/>
+    <include file="struts/struts-orderTrail.xml"/>
+    <include file="struts/struts-interface.xml"/>
+    <include file="struts/struts-regfreeOrderInfo.xml"/>
+    <include file="struts/struts-app.xml"/>
+    <include file="struts/struts-third.xml"/>
+    <include file="struts/struts-lottery.xml"/>
+    <include file="struts/struts-tmall.xml"/>
+    <include file="struts/struts-wap.xml"/>
+    <include file="struts/struts-live800.xml"/>
+
+    <include file="struts/shopcart/struts-shopcart.xml"/>
+    <include file="struts/shopcart/struts-shopinterface.xml"/>
+    <include file="struts/shopcart/struts-shopcart-app.xml"/>
+</struts>

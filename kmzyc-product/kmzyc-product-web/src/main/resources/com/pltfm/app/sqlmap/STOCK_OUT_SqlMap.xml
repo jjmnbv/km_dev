@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="STOCK_OUT" >
+  <resultMap id="BaseResultMap" class="com.pltfm.app.vobject.StockOut" >
+    <result column="STOCK_OUT_ID" property="stockOutId" jdbcType="LONG" />
+    <result column="CUSTOMER_TYPE_ID" property="customerTypeId" jdbcType="DECIMAL" />
+    <result column="STOCK_OUT_NO" property="stockOutNo" jdbcType="VARCHAR" />
+    <result column="WAREHOUSE_ID" property="warehouseId" jdbcType="LONG" />
+    <result column="TYPE" property="type" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="TOTAL_QUANTITY" property="totalQuantity" jdbcType="INTEGER" />
+    <result column="TAX_SUM" property="taxSum" jdbcType="DECIMAL" />
+    <result column="TOTAL_TAX" property="totalTax" jdbcType="DECIMAL" />
+    <result column="TOTAL_SUM" property="totalSum" jdbcType="DECIMAL" />
+    <result column="CREATE_USER" property="createUser" jdbcType="INTEGER" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="timestamp" />
+    <result column="AUDIT_USER" property="auditUser" jdbcType="INTEGER" />
+    <result column="CHECK_USER_NAME" property="checkUserName" jdbcType="VARCHAR" />
+    <result column="AUDIT_DATE" property="auditDate" jdbcType="timestamp" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="DAY_END_STATUS" property="dayEndStatus" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="BILL_NO" property="billNo" jdbcType="VARCHAR" />
+    <result column="MODIFIY_DATE" property="modifiyDate" jdbcType="timestamp" />
+    <result column="MODIFIER_ID" property="modifierId" jdbcType="INTEGER" />
+    <result column="MODIFIER_NAME" property="modifierName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="stockOutForBillNoMap" class="com.pltfm.app.vobject.StockOut" >
+    <result column="BILL_NO" property="billNo" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="stockOutAfterReturnOrderMap" class="com.pltfm.app.vobject.StockOutAftersaleReturn" >
+    <result column="STOCK_OUT_ID" property="stockOutId" jdbcType="LONG" />
+    <result column="CUSTOMER_TYPE_ID" property="customerTypeId" jdbcType="DECIMAL" />
+    <result column="STOCK_OUT_NO" property="stockOutNo" jdbcType="VARCHAR" />
+    <result column="WAREHOUSE_ID" property="warehouseId" jdbcType="LONG" />
+    <result column="TYPE" property="type" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="TOTAL_QUANTITY" property="totalQuantity" jdbcType="INTEGER" />
+    <result column="TAX_SUM" property="taxSum" jdbcType="DECIMAL" />
+    <result column="TOTAL_TAX" property="totalTax" jdbcType="DECIMAL" />
+    <result column="TOTAL_SUM" property="totalSum" jdbcType="DECIMAL" />
+    <result column="CREATE_USER" property="createUser" jdbcType="INTEGER" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="timestamp" />
+    <result column="AUDIT_USER" property="auditUser" jdbcType="INTEGER" />
+    <result column="CHECK_USER_NAME" property="checkUserName" jdbcType="VARCHAR" />
+    <result column="AUDIT_DATE" property="auditDate" jdbcType="timestamp" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="DAY_END_STATUS" property="dayEndStatus" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="BILL_NO" property="billNo" jdbcType="VARCHAR" />
+    <result column="MODIFIY_DATE" property="modifiyDate" jdbcType="timestamp" />
+    <result column="MODIFIER_ID" property="modifierId" jdbcType="INTEGER" />
+    <result column="MODIFIER_NAME" property="modifierName" jdbcType="VARCHAR" />
+    
+    <result column="RETURN_NO" jdbcType="VARCHAR" property="returnNo" />
+    <result column="CUST_ID" jdbcType="DECIMAL" property="custId" />
+    <result column="CUST_NAME" jdbcType="VARCHAR" property="custName" />
+  	<result column="SHIP_ADDRESS" jdbcType="VARCHAR" property="shipAddress" />
+  	<result column="LINK_PHONE" jdbcType="VARCHAR" property="linkPhone" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$ #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  <sql id="Base_Column_List" >
+    STOCK_OUT_ID, CUSTOMER_TYPE_ID, STOCK_OUT_NO, WAREHOUSE_ID, TYPE, USER_ID, USER_NAME, 
+    TOTAL_QUANTITY, TAX_SUM, TOTAL_TAX, TOTAL_SUM, CREATE_USER, CREATE_USER_NAME, CREATE_DATE, 
+    AUDIT_USER, CHECK_USER_NAME, AUDIT_DATE, STATUS, DAY_END_STATUS, REMARK,BILL_NO,MODIFIY_DATE,MODIFIER_ID,MODIFIER_NAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterClass="com.pltfm.app.vobject.StockOutExample" >
+    select
+    <isParameterPresent >
+      <isEqual property="distinct" compareValue="true" >
+        distinct
+      </isEqual>
+    </isParameterPresent>
+    <include refid="STOCK_OUT.Base_Column_List" />
+    from STOCK_OUT
+    <isParameterPresent >
+      <include refid="STOCK_OUT.Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterClass="com.pltfm.app.vobject.StockOut" >
+    select 
+    <include refid="STOCK_OUT.Base_Column_List" />
+    from STOCK_OUT
+    where STOCK_OUT_ID = #stockOutId:LONG#
+  </select>
+  <delete id="deleteByPrimaryKey" parameterClass="com.pltfm.app.vobject.StockOut" >
+    delete from STOCK_OUT
+    where STOCK_OUT_ID = #stockOutId:LONG# AND status=0
+  </delete>
+  <delete id="deleteByExample" parameterClass="com.pltfm.app.vobject.StockOutExample" >
+    delete from STOCK_OUT
+    <include refid="STOCK_OUT.Example_Where_Clause" />
+  </delete>
+  <insert id="insert" parameterClass="com.pltfm.app.vobject.StockOut" >
+  		<selectKey keyProperty="stockOutId" resultClass="java.lang.Long">
+  			select SEQ_STOCKOUT.nextval from dual
+  		</selectKey>
+  		
+    insert into STOCK_OUT (STOCK_OUT_ID, CUSTOMER_TYPE_ID, STOCK_OUT_NO, WAREHOUSE_ID, 
+      TYPE, USER_ID, USER_NAME, TOTAL_QUANTITY, 
+      TAX_SUM, TOTAL_TAX, TOTAL_SUM, CREATE_USER, 
+      CREATE_USER_NAME, CREATE_DATE, AUDIT_USER, CHECK_USER_NAME, 
+      AUDIT_DATE, STATUS, DAY_END_STATUS, REMARK,BILL_NO,MODIFIY_DATE,MODIFIER_ID,MODIFIER_NAME)
+    values (#stockOutId:LONG#, #customerTypeId:DECIMAL#, #stockOutNo:VARCHAR#, #warehouseId:LONG#, 
+      #type:INTEGER#, #userId:INTEGER#, #userName:VARCHAR#, #totalQuantity:INTEGER#, 
+      #taxSum:DECIMAL#, #totalTax:DECIMAL#, #totalSum:DECIMAL#, #createUser:INTEGER#, 
+      #createUserName:VARCHAR#, #createDate:timestamp#, #auditUser:INTEGER#, #checkUserName:VARCHAR#, 
+      #auditDate:timestamp#, #status:INTEGER#, #dayEndStatus:INTEGER#, #remark:VARCHAR#
+      ,#billNo:VARCHAR#,#modifiyDate:timestamp#, #modifierId:INTEGER#, #modifierName:VARCHAR#)
+  </insert>
+  <insert id="insertSelective" parameterClass="com.pltfm.app.vobject.StockOut" >
+    	<selectKey keyProperty="stockOutId" resultClass="java.lang.Long">
+  			select SEQ_STOCKOUT.nextval from dual
+  		</selectKey>
+    insert into STOCK_OUT
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="stockOutId" >
+        STOCK_OUT_ID
+      </isNotNull>
+      <isNotNull prepend="," property="customerTypeId" >
+        CUSTOMER_TYPE_ID
+      </isNotNull>
+      <isNotNull prepend="," property="stockOutNo" >
+        STOCK_OUT_NO
+      </isNotNull>
+      <isNotNull prepend="," property="warehouseId" >
+        WAREHOUSE_ID
+      </isNotNull>
+      <isNotNull prepend="," property="type" >
+        TYPE
+      </isNotNull>
+      <isNotNull prepend="," property="userId" >
+        USER_ID
+      </isNotNull>
+      <isNotNull prepend="," property="userName" >
+        USER_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="totalQuantity" >
+        TOTAL_QUANTITY
+      </isNotNull>
+      <isNotNull prepend="," property="taxSum" >
+        TAX_SUM
+      </isNotNull>
+      <isNotNull prepend="," property="totalTax" >
+        TOTAL_TAX
+      </isNotNull>
+      <isNotNull prepend="," property="totalSum" >
+        TOTAL_SUM
+      </isNotNull>
+      <isNotNull prepend="," property="createUser" >
+        CREATE_USER
+      </isNotNull>
+      <isNotNull prepend="," property="createUserName" >
+        CREATE_USER_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="auditUser" >
+        AUDIT_USER
+      </isNotNull>
+      <isNotNull prepend="," property="checkUserName" >
+        CHECK_USER_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="auditDate" >
+        AUDIT_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        STATUS
+      </isNotNull>
+      <isNotNull prepend="," property="dayEndStatus" >
+        DAY_END_STATUS
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        REMARK
+      </isNotNull>
+      <isNotNull prepend="," property="billNo" >
+        BILL_NO
+      </isNotNull>
+      <isNotNull prepend="," property="modifiyDate" >
+        MODIFIY_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="modifierId" >
+        MODIFIER_ID
+      </isNotNull>
+      <isNotNull prepend="," property="modifierName" >
+        MODIFIER_NAME
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="stockOutId" >
+        #stockOutId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="customerTypeId" >
+        #customerTypeId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="stockOutNo" >
+        #stockOutNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="warehouseId" >
+        #warehouseId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="type" >
+        #type:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="userId" >
+        #userId:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="userName" >
+        #userName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="totalQuantity" >
+        #totalQuantity:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="taxSum" >
+        #taxSum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="totalTax" >
+        #totalTax:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="totalSum" >
+        #totalSum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="createUser" >
+        #createUser:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="createUserName" >
+        #createUserName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        #createDate:timestamp#
+      </isNotNull>
+      <isNotNull prepend="," property="auditUser" >
+        #auditUser:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="checkUserName" >
+        #checkUserName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="auditDate" >
+        #auditDate:timestamp#
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        #status:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="dayEndStatus" >
+        #dayEndStatus:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        #remark:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="billNo" >
+        #billNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="modifiyDate" >
+        #modifiyDate:timestamp#
+      </isNotNull>
+      <isNotNull prepend="," property="modifierId" >
+        #modifierId:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="modifierName" >
+        #modifierName:VARCHAR#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  <select id="countByExample" parameterClass="com.pltfm.app.vobject.StockOutExample" resultClass="java.lang.Integer" >
+    select count(stock_Out_Id) from STOCK_OUT
+    <include refid="STOCK_OUT.Example_Where_Clause" />
+  </select>
+  <update id="updateByExampleSelective" >
+    update STOCK_OUT
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.stockOutId" >
+        STOCK_OUT_ID = #record.stockOutId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="record.customerTypeId" >
+        CUSTOMER_TYPE_ID = #record.customerTypeId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.stockOutNo" >
+        STOCK_OUT_NO = #record.stockOutNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.warehouseId" >
+        WAREHOUSE_ID = #record.warehouseId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="record.type" >
+        TYPE = #record.type:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.userId" >
+        USER_ID = #record.userId:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="record.userName" >
+        USER_NAME = #record.userName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.totalQuantity" >
+        TOTAL_QUANTITY = #record.totalQuantity:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="record.taxSum" >
+        TAX_SUM = #record.taxSum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.totalTax" >
+        TOTAL_TAX = #record.totalTax:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.totalSum" >
+        TOTAL_SUM = #record.totalSum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createUser" >
+        CREATE_USER = #record.createUser:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createUserName" >
+        CREATE_USER_NAME = #record.createUserName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createDate" >
+        CREATE_DATE = #record.createDate:timestamp#
+      </isNotNull>
+      <isNotNull prepend="," property="record.auditUser" >
+        AUDIT_USER = #record.auditUser:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="record.checkUserName" >
+        CHECK_USER_NAME = #record.checkUserName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.auditDate" >
+        AUDIT_DATE = #record.auditDate:timestamp#
+      </isNotNull>
+      <isNotNull prepend="," property="record.status" >
+        STATUS = #record.status:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="record.dayEndStatus" >
+        DAY_END_STATUS = #record.dayEndStatus:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="record.remark" >
+        REMARK = #record.remark:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.billNo" >
+        BILL_NO = #record.billNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.modifiyDate" >
+        MODIFIY_DATE = #record.modifiyDate:timestamp#
+      </isNotNull>
+      <isNotNull prepend="," property="record.modifierId" >
+        MODIFIER_ID = #record.modifierId:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="record.modifierName" >
+        MODIFIER_NAME = #record.modifierName:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="STOCK_OUT.Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="updateByExample" >
+    update STOCK_OUT
+    set STOCK_OUT_ID = #record.stockOutId:LONG#,
+      CUSTOMER_TYPE_ID = #record.customerTypeId:DECIMAL#,
+      STOCK_OUT_NO = #record.stockOutNo:VARCHAR#,
+      WAREHOUSE_ID = #record.warehouseId:LONG#,
+      TYPE = #record.type:INTEGER#,
+      USER_ID = #record.userId:INTEGER#,
+      USER_NAME = #record.userName:VARCHAR#,
+      TOTAL_QUANTITY = #record.totalQuantity:INTEGER#,
+      TAX_SUM = #record.taxSum:DECIMAL#,
+      TOTAL_TAX = #record.totalTax:DECIMAL#,
+      TOTAL_SUM = #record.totalSum:DECIMAL#,
+      CREATE_USER = #record.createUser:INTEGER#,
+      CREATE_USER_NAME = #record.createUserName:VARCHAR#,
+      CREATE_DATE = #record.createDate:timestamp#,
+      AUDIT_USER = #record.auditUser:INTEGER#,
+      CHECK_USER_NAME = #record.checkUserName:VARCHAR#,
+      AUDIT_DATE = #record.auditDate:timestamp#,
+      STATUS = #record.status:INTEGER#,
+      DAY_END_STATUS = #record.dayEndStatus:INTEGER#,
+      REMARK = #record.remark:VARCHAR#,
+      BILL_NO = #record.billNo:VARCHAR#,
+      MODIFIY_DATE = #record.modifiyDate:timestamp#,
+      MODIFIER_ID = #record.modifierId:INTEGER#,
+      MODIFIER_NAME = #record.modifierName:VARCHAR#
+    <isParameterPresent >
+      <include refid="STOCK_OUT.Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterClass="com.pltfm.app.vobject.StockOut" >
+    update STOCK_OUT
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="customerTypeId" >
+        CUSTOMER_TYPE_ID = #customerTypeId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="stockOutNo" >
+        STOCK_OUT_NO = #stockOutNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="warehouseId" >
+        WAREHOUSE_ID = #warehouseId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="type" >
+        TYPE = #type:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="userId" >
+        USER_ID = #userId:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="userName" >
+        USER_NAME = #userName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="totalQuantity" >
+        TOTAL_QUANTITY = #totalQuantity:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="taxSum" >
+        TAX_SUM = #taxSum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="totalTax" >
+        TOTAL_TAX = #totalTax:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="totalSum" >
+        TOTAL_SUM = #totalSum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="createUser" >
+        CREATE_USER = #createUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="createUserName" >
+        CREATE_USER_NAME = #createUserName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE = #createDate:timestamp#
+      </isNotNull>
+      <isNotNull prepend="," property="auditUser" >
+        AUDIT_USER = #auditUser:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="checkUserName" >
+        CHECK_USER_NAME = #checkUserName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="auditDate" >
+        AUDIT_DATE = #auditDate:timestamp#
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        STATUS = #status:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="dayEndStatus" >
+        DAY_END_STATUS = #dayEndStatus:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        REMARK = #remark:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="billNo" >
+        BILL_NO = #billNo:VARCHAR#
+      </isNotNull>
+       <isNotNull prepend="," property="modifiyDate" >
+        MODIFIY_DATE = #modifiyDate:timestamp#
+      </isNotNull>
+      <isNotNull prepend="," property="modifierId" >
+        MODIFIER_ID = #modifierId:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="modifierName" >
+        MODIFIER_NAME = #modifierName:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    where STOCK_OUT_ID = #stockOutId:LONG# and status = 0
+  </update>
+  <update id="updateByPrimaryKey" parameterClass="com.pltfm.app.vobject.StockOut" >
+    update STOCK_OUT
+    set CUSTOMER_TYPE_ID = #customerTypeId:DECIMAL#,
+      STOCK_OUT_NO = #stockOutNo:VARCHAR#,
+      WAREHOUSE_ID = #warehouseId:LONG#,
+      TYPE = #type:INTEGER#,
+      USER_ID = #userId:INTEGER#,
+      USER_NAME = #userName:VARCHAR#,
+      TOTAL_QUANTITY = #totalQuantity:INTEGER#,
+      TAX_SUM = #taxSum:DECIMAL#,
+      TOTAL_TAX = #totalTax:DECIMAL#,
+      TOTAL_SUM = #totalSum:DECIMAL#,
+      CREATE_USER = #createUser:INTEGER#,
+      CREATE_USER_NAME = #createUserName:VARCHAR#,
+      CREATE_DATE = #createDate:timestamp#,
+      AUDIT_USER = #auditUser:INTEGER#,
+      CHECK_USER_NAME = #checkUserName:VARCHAR#,
+      AUDIT_DATE = #auditDate:timestamp#,
+      STATUS = #status:INTEGER#,
+      DAY_END_STATUS = #dayEndStatus:INTEGER#,
+      REMARK = #remark:VARCHAR#,
+      BILL_NO = #billNo:VARCHAR#,
+      MODIFIY_DATE = #modifiyDate:timestamp#,
+      MODIFIER_ID = #modifierId:INTEGER#,
+      MODIFIER_NAME = #modifierName:VARCHAR#
+    where STOCK_OUT_ID = #stockOutId:LONG# and status = 0
+  </update>
+  
+    <!--获得当天日期的出库单最大单号MAX(STOCK_OUT_NO) -->
+  <select id="selectStockOutByToday" parameterClass="java.lang.String"  resultClass="java.lang.String">
+ 	 SELECT MAX(STOCK_OUT_NO)  	 STOCK_OUT_NO 	  
+ 	  FROM STOCK_OUT
+ 	   WHERE  create_date BETWEEN  to_date(#today#,'yyyyMMdd') 
+		         AND to_date(#today#,'yyyyMMdd')+0.99999       
+  </select>
+  
+   <!--批量审核出库单  -->
+  <update id="checkedStockOutByList" parameterClass="com.pltfm.app.vobject.StockOut" >
+ 	UPDATE  STOCK_OUT
+ 		SET status = #status:INTEGER#
+  			,audit_user = #auditUser:INTEGER# 
+  			,check_User_Name = #checkUserName:VARCHAR# 
+  			,audit_Date = #auditDate:timestamp# 
+	WHERE STOCK_OUT_ID = #stockOutId:LONG# and status = 0 
+  </update>
+  
+     <!--批量删除出库明细单  -->
+  <delete id="deleteStockOutDetailList" parameterClass="com.pltfm.app.vobject.StockOut"> 
+  	DELETE Stock_Out_Detail    
+  	  WHERE STOCK_OUT_ID = #stockOutId:LONG# AND     
+   		 exists(select 1 from STOCK_OUT so,Stock_Out_Detail sod 
+   		 		where so.Stock_Out_Id=sod.Stock_Out_Id  
+   		 		AND so.status=0  AND sod.stock_out_id=#stockOutId:LONG#
+   		 		)
+  </delete>
+    <!--批量删除出库单  -->
+  <delete id="deleteStockOutList" parameterClass="com.pltfm.app.vobject.StockOut">  	
+  	DELETE STOCK_OUT  		
+  	WHERE STOCK_OUT_ID = #stockOutId:LONG# and status = 0 
+  </delete>
+  
+  <resultMap id="stockOutdetail_resultMap" class="com.pltfm.app.vobject.StockOutAndDetail" >
+	<result column="STOCK_OUT_ID" property="stockOutId" jdbcType="LONG" />
+	 <result column="STOCK_OUT_NO" property="stockOutNo" jdbcType="VARCHAR" />
+	<result column="WAREHOUSE_ID" property="warehouseId" jdbcType="LONG" />
+	<result column="STATUS" property="status" jdbcType="SHORT" />
+	<result column="type" property="type" jdbcType="SHORT" />
+	    
+    <result column="DETAIL_ID" property="detailId" jdbcType="LONG" />
+    <result column="STOCK_ID" property="stockId" jdbcType="INTEGER" />
+    <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="BIGDECIMAL" />
+ 	<result column="PRODUCT_SKU_VALUE" property="productSkuValue" jdbcType="VARCHAR" />
+ 	<result column="QUANTITY" property="quantity" jdbcType="BIGDECIMAL" />
+  </resultMap>
+    
+  <select id="findStockOutdetailByStockOutId" parameterClass="java.util.ArrayList" resultMap="stockOutdetail_resultMap">
+	  select so.STOCK_OUT_ID,so.STOCK_OUT_NO,so.WAREHOUSE_ID,so.STATUS,so.type,sod.DETAIL_ID,
+        sod.STOCK_ID,sod.PRODUCT_SKU_ID,sod.PRODUCT_SKU_VALUE,sod.QUANTITY
+	  from STOCK_OUT so,Stock_Out_Detail sod
+      where so.STOCK_OUT_ID=sod.STOCK_OUT_ID
+      <dynamic prepend="AND">
+          <iterate open="(" close=")"  conjunction=" OR ">
+            so.STOCK_OUT_ID = #stockOutList[].stockOutId#
+          </iterate>
+      </dynamic>
+  </select>
+  
+   <!-- 根据仓库ID，出库单状态查询是否存在此类出库单  -->
+    <select id="checkStockOutByWarehouse"  parameterClass="java.util.ArrayList" resultClass="java.lang.Long">
+    	select count(STOCK_OUT_ID) from STOCK_OUT where STATUS = 0 
+	    	<dynamic prepend="AND">
+	    		<iterate open="(" close=")" conjunction=" OR ">
+	    			WAREHOUSE_ID = #warehouseIdList[]# 
+	    		</iterate>
+	    	</dynamic>
+    </select>
+  
+   <!--   -->
+    <select id="selectStockOutListByStockOutIds"  parameterClass="java.util.ArrayList" resultMap="BaseResultMap">
+    	select * from STOCK_OUT where 1=1 
+	    	<dynamic prepend="AND">
+	    		<iterate open="(" close=")" conjunction=" OR ">
+	    			STOCK_OUT_ID = #stockOutIdList[]# 
+	    		</iterate>
+	    	</dynamic>
+    </select>
+    
+    <!-- 换货出库审核失败修改状态为“审核不通过” -->
+    <update id="updateStatusForExchangeStockout" parameterClass="com.pltfm.app.vobject.StockOut">
+    	update STOCK_OUT set STATUS = 2 where STOCK_OUT_ID = #stockOutId# 
+    </update>
+  
+   <!-- 根据退货单号,查找出库单和退换货信息  -->
+    <select id="selectStockOutAfterReturnListByReturnNos"  parameterClass="java.util.ArrayList" resultMap="stockOutAfterReturnOrderMap">
+    	select s.STOCK_OUT_ID,s.CUSTOMER_TYPE_ID,s.STOCK_OUT_NO,s.WAREHOUSE_ID,s.TYPE,s.USER_ID,
+    	s.USER_NAME,s.TOTAL_QUANTITY,s.TAX_SUM,s.TOTAL_TAX,s.TOTAL_SUM,s.CREATE_USER,
+    	s.CREATE_USER_NAME,s.CREATE_DATE,s.AUDIT_USER,s.CHECK_USER_NAME,s.AUDIT_DATE,
+    	s.STATUS,s.DAY_END_STATUS,s.REMARK,s.BILL_NO,s.MODIFIY_DATE,s.MODIFIER_ID,s.MODIFIER_NAME,
+    	r.return_No,r.cust_Id,r.cust_Name,r.SHIP_ADDRESS,r.LINK_PHONE 
+    	 from STOCK_OUT s,AFTERSALE_RETURN_ORDER r
+    	 where 1=1 AND s.bill_no = r.ORDER_CODE 
+	    	<dynamic prepend="AND">
+	    		<iterate open="(" close=")" conjunction=" OR ">
+	    			s.STOCK_OUT_ID = #stockOutReturnNos[].stockOutId# 
+	    		</iterate>
+	    	</dynamic>
+    </select>
+    
+    <!-- 根据订单号获取已经生成过出库单的订单号集合 -->
+    <select id="getStockOutByOrderNo" parameterClass="java.util.List" resultMap="stockOutForBillNoMap">
+    	select distinct(s.bill_no) from stock_out s where s.type=1 
+    		<dynamic prepend="AND">
+	    		<iterate open="(" close=")" conjunction=" OR ">
+	    			s.BILL_NO = #orderNoList[]# 
+	    		</iterate>
+	    	</dynamic>
+    </select>
+    
+</sqlMap>

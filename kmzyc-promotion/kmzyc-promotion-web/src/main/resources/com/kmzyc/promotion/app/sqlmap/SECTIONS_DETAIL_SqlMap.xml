@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SECTIONS_DETAIL" >
+	<typeAlias alias="Sections" type="com.kmzyc.promotion.app.vobject.Sections"/>
+	<typeAlias alias="SectionsDetail" type="com.kmzyc.promotion.app.vobject.SectionsDetail"/>
+	<typeAlias alias="Product" type="com.kmzyc.promotion.app.vobject.Product"/>
+	<typeAlias alias="ProductSku" type="com.kmzyc.promotion.app.vobject.ProductSku"/>
+	
+  <resultMap class="Sections" id="SectionsResult">
+  	<result column="SECTIONS_NAME" property="sectionsName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ProductResult" class="Product" >
+    <result column="PRODUCT_ID" property="id" jdbcType="DECIMAL" />
+    <result column="PROCUCT_NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PROCUCT_CODE" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+	
+     <resultMap id="ibatorgenerated_CountResult" class="com.kmzyc.promotion.sys.model.SysModelUtil">
+    <result column="the_count" property="theCount" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.kmzyc.promotion.app.vobject.SectionsDetail" >
+    <result column="SECTIONS_DETAIL_ID" property="sectionsDetailId" jdbcType="DECIMAL" />
+    <result column="SECTIONS_ID" property="sectionsId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_ID" property="product"  select="sectionDetail.getProduct" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="URL_LINK" property="urlLink" jdbcType="VARCHAR" />
+    <result column="REFERENCE_PRICE" property="referencePrice" jdbcType="DECIMAL" />
+    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+    <result column="IMAGE" property="image" jdbcType="VARCHAR" />
+    <result column="SORTNO" property="sortno" jdbcType="DECIMAL" />
+    <result column="SKU_ID" property="skuId" jdbcType="DECIMAL" />
+  </resultMap>
+  <!-- 谢桂华 -->
+  <resultMap id="ibatorgenerated_BaseResultMap2" class="com.kmzyc.promotion.app.vobject.SectionsDetail" >
+    <result column="SECTIONS_DETAIL_ID" property="sectionsDetailId" jdbcType="DECIMAL" />
+    <result column="SECTIONS_ID" property="sectionsId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_ID" property="product"  select="sectionDetail.getProduct" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="URL_LINK" property="urlLink" jdbcType="VARCHAR" />
+    <result column="REFERENCE_PRICE" property="referencePrice" jdbcType="DECIMAL" />
+    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+    <result column="IMAGE" property="image" jdbcType="VARCHAR" />
+    <result column="SORTNO" property="sortno" jdbcType="DECIMAL" />
+    <result column="SKU_ID" property="skuId" jdbcType="DECIMAL" />
+    <result column="SKU_ID" property="productSku" select="sectionDetail.getProductSku" />
+  </resultMap>
+  <resultMap id="productSkuMap" class="com.kmzyc.promotion.app.vobject.ProductSku" >
+   	    <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+	    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL"/>
+	    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+	    <result column="PRODUCT_SKU_CODE" property="productSkuCode" jdbcType="VARCHAR" />
+	    <result column="STATUS" property="status" jdbcType="CHAR" />
+	    <result column="UNIT_WEIGHT" property="unitWeight" jdbcType="DECIMAL" />
+		<result column="MARK_PRICE" property="markPrice" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="ProductResultMap2" class="com.kmzyc.promotion.app.vobject.Product" >
+    <result column="PRODUCT_ID" property="id" jdbcType="DECIMAL" />
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+    <result column="PROCUCT_NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PRODUCT_DESC" property="productDesc" jdbcType="VARCHAR" />
+    <result column="PACK_LISTING" property="packListing" jdbcType="VARCHAR" />
+    <result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+    <result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="INTEGER" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="Date" />
+    <result column="PRODUCTHOT" property="productHot" jdbcType="DECIMAL" />
+    <result column="ARCHIVE_TIME" property="archiveTime" jdbcType="Date" />
+    <result column="CHECK_USER" property="checkUser" jdbcType="INTEGER" />
+    <result column="CHECK_USER_NAME" property="checkUserName" jdbcType="VARCHAR" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="Date" />
+    <result column="MODIF_TIME" property="modifTime" jdbcType="Date" />
+    <result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR" />
+    <result column="MODIF_USER" property="modifUser" jdbcType="INTEGER" />
+    <result column="UP_TIME" property="upTime" jdbcType="Date" />
+    <result column="MARKET_PRICE"  property="marketPrice" jdbcType="DECIMAL"/>
+    <result column="COST_PRICE"  property="costPrice" jdbcType="DECIMAL"/>
+ 
+    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+    <result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+    <result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+    <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+    <result column="DRUG_CATE_ID" property="drugCateId" jdbcType="DECIMAL" />
+    <result column="DRUG_CATE_CODE" property="drugCateCode" jdbcType="VARCHAR" />
+  </resultMap>
+ <!--   <resultMap id="ibatorgenerated_BaseResultMap2" class="com.kmzyc.promotion.app.vobject.SectionsDetail" >
+  
+    <result column="SECTIONS_DETAIL_ID" property="sectionsDetailId" jdbcType="DECIMAL" />
+    <result column="SECTIONS_ID" property="sections" select="SECTIONS_DETAIL.getProductByProdId"  />
+    <result column="PRODUCT_ID" property="product" select="SECTIONS_DETAIL.getProductByProdId" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="URL_LINK" property="urlLink" jdbcType="VARCHAR" />
+    <result column="REFERENCE_PRICE" property="referencePrice" jdbcType="DECIMAL" />
+    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+    <result column="IMAGE" property="image" jdbcType="VARCHAR" />
+    <result column="SORTNO" property="sortno" jdbcType="DECIMAL" />
+  </resultMap>
+  -->
+  <sql id="ibatorgenerated_Example_Where_Clause" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Jul 30 10:57:37 CST 2013.
+    -->
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  <select id="ibatorgenerated_selectByExample" resultMap="ibatorgenerated_BaseResultMap2" parameterClass="com.kmzyc.promotion.app.vobject.SectionsDetailExample" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Jul 30 10:57:37 CST 2013.
+    -->
+    select SECTIONS_DETAIL_ID, SECTIONS_ID, PRODUCT_ID, TITLE, URL_LINK, REFERENCE_PRICE, PRICE,
+      IMAGE, SORTNO,sku_Id
+    from SECTIONS_DETAIL
+    <isParameterPresent >
+      <include refid="SECTIONS_DETAIL.ibatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.kmzyc.promotion.app.vobject.SectionsDetail" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Jul 30 10:57:37 CST 2013.
+    -->
+    select SECTIONS_DETAIL_ID, SECTIONS_ID, PRODUCT_ID, TITLE, URL_LINK, REFERENCE_PRICE, PRICE,
+      IMAGE, SORTNO
+    from SECTIONS_DETAIL
+    where SECTIONS_DETAIL_ID = #sectionsDetailId:DECIMAL#
+  </select>
+  <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="com.kmzyc.promotion.app.vobject.SectionsDetail" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Jul 30 10:57:37 CST 2013.
+    -->
+    delete from SECTIONS_DETAIL
+    where SECTIONS_DETAIL_ID = #sectionsDetailId:DECIMAL#
+  </delete>
+  
+  <delete id="batchDeleteByPrimaryKey" parameterClass="java.lang.Long" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Jul 30 10:57:37 CST 2013.
+    -->
+    delete from SECTIONS_DETAIL
+    where SECTIONS_DETAIL_ID = #sectionsDetailId:DECIMAL#
+  </delete>
+  
+   <delete id="ibatorgenerated_deleteBySectionsId" parameterClass="java.lang.Long" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Jul 30 10:57:37 CST 2013.
+    -->
+    delete from SECTIONS_DETAIL
+    where SECTIONS_ID = #sectionsId:DECIMAL#
+  </delete>
+  
+  <delete id="ibatorgenerated_deleteByExample" parameterClass="com.kmzyc.promotion.app.vobject.SectionsDetailExample" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Jul 30 10:57:37 CST 2013.
+    -->
+    delete from SECTIONS_DETAIL
+    <include refid="SECTIONS_DETAIL.ibatorgenerated_Example_Where_Clause" />
+  </delete>
+  <insert id="ibatorgenerated_insert" parameterClass="com.kmzyc.promotion.app.vobject.SectionsDetail" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Jul 30 10:57:37 CST 2013.
+    -->
+     <selectKey resultClass="java.lang.Long" keyProperty="sectionsDetailId" >
+           select SEQ_APP_SECTIONS.nextval from dual
+      </selectKey>
+    insert into SECTIONS_DETAIL (SECTIONS_DETAIL_ID, SECTIONS_ID, PRODUCT_ID, TITLE, URL_LINK,
+      REFERENCE_PRICE, PRICE, IMAGE, SORTNO,SKU_ID)
+    values (#sectionsDetailId:DECIMAL#, #sectionsId:DECIMAL#, #productId:DECIMAL#, #title:VARCHAR#,
+      #urlLink:VARCHAR#, #referencePrice:DECIMAL#, #price:DECIMAL#, #image:VARCHAR#,
+      #sortno:DECIMAL#,#skuId:DECIMAL#)
+  </insert>
+  <insert id="ibatorgenerated_insertSelective" parameterClass="com.kmzyc.promotion.app.vobject.SectionsDetail" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Jul 30 10:57:37 CST 2013.
+    -->
+    insert into SECTIONS_DETAIL
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="sectionsDetailId" >
+        SECTIONS_DETAIL_ID
+      </isNotNull>
+      <isNotNull prepend="," property="sectionsId" >
+        SECTIONS_ID
+      </isNotNull>
+      <isNotNull prepend="," property="productId" >
+        PRODUCT_ID
+      </isNotNull>
+      <isNotNull prepend="," property="title" >
+        TITLE
+      </isNotNull>
+      <isNotNull prepend="," property="urlLink" >
+        URL_LINK
+      </isNotNull>
+      <isNotNull prepend="," property="referencePrice" >
+        REFERENCE_PRICE
+      </isNotNull>
+      <isNotNull prepend="," property="price" >
+        PRICE
+      </isNotNull>
+      <isNotNull prepend="," property="image" >
+        IMAGE
+      </isNotNull>
+      <isNotNull prepend="," property="sortno" >
+        SORTNO
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="sectionsDetailId" >
+        #sectionsDetailId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="sectionsId" >
+        #sectionsId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="productId" >
+        #productId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="title" >
+        #title:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="urlLink" >
+        #urlLink:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="referencePrice" >
+        #referencePrice:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="price" >
+        #price:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="image" >
+        #image:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="sortno" >
+        #sortno:DECIMAL#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  <select id="ibatorgenerated_countByExample" parameterClass="com.kmzyc.promotion.app.vobject.SectionsDetailExample" resultClass="java.lang.Integer" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Jul 30 10:57:37 CST 2013.
+    -->
+    select count(*) from SECTIONS_DETAIL
+    <include refid="SECTIONS_DETAIL.ibatorgenerated_Example_Where_Clause" />
+  </select>
+  <update id="ibatorgenerated_updateByExampleSelective" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Jul 30 10:57:37 CST 2013.
+    -->
+    update SECTIONS_DETAIL
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.sectionsDetailId" >
+        SECTIONS_DETAIL_ID = #record.sectionsDetailId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.sectionsId" >
+        SECTIONS_ID = #record.sectionsId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.productId" >
+        PRODUCT_ID = #record.productId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.title" >
+        TITLE = #record.title:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.urlLink" >
+        URL_LINK = #record.urlLink:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.referencePrice" >
+        REFERENCE_PRICE = #record.referencePrice:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.price" >
+        PRICE = #record.price:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.image" >
+        IMAGE = #record.image:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.sortno" >
+        SORTNO = #record.sortno:DECIMAL#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="SECTIONS_DETAIL.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="ibatorgenerated_updateByExample" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Jul 30 10:57:37 CST 2013.
+    -->
+    update SECTIONS_DETAIL
+    set SECTIONS_DETAIL_ID = #record.sectionsDetailId:DECIMAL#,
+      SECTIONS_ID = #record.sectionsId:DECIMAL#,
+      PRODUCT_ID = #record.productId:DECIMAL#,
+      TITLE = #record.title:VARCHAR#,
+      URL_LINK = #record.urlLink:VARCHAR#,
+      REFERENCE_PRICE = #record.referencePrice:DECIMAL#,
+      PRICE = #record.price:DECIMAL#,
+      IMAGE = #record.image:VARCHAR#,
+      SORTNO = #record.sortno:DECIMAL#
+    <isParameterPresent >
+      <include refid="SECTIONS_DETAIL.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="com.kmzyc.promotion.app.vobject.SectionsDetail" >
+
+    update SECTIONS_DETAIL
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="sectionsId" >
+        SECTIONS_ID = #sectionsId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="productId" >
+        PRODUCT_ID = #productId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="title" >
+        TITLE = #title:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="urlLink" >
+        URL_LINK = #urlLink:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="referencePrice" >
+        REFERENCE_PRICE = #referencePrice:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="price" >
+        PRICE = #price:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="image" >
+        IMAGE = #image:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="sortno" >
+        SORTNO = #sortno:DECIMAL#
+      </isNotNull>
+    </dynamic>
+    where SECTIONS_DETAIL_ID = #sectionsDetailId:DECIMAL#
+  </update>
+  <update id="ibatorgenerated_updateByPrimaryKey" parameterClass="com.kmzyc.promotion.app.vobject.SectionsDetail" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Jul 30 10:57:37 CST 2013.
+    -->
+    update SECTIONS_DETAIL
+    set SECTIONS_ID = #sectionsId:DECIMAL#,
+      PRODUCT_ID = #productId:DECIMAL#,
+      TITLE = #title:VARCHAR#,
+      URL_LINK = #urlLink:VARCHAR#,
+      REFERENCE_PRICE = #referencePrice:DECIMAL#,
+      PRICE = #price:DECIMAL#,
+      IMAGE = #image:VARCHAR#,
+      SORTNO = #sortno:DECIMAL#
+    where SECTIONS_DETAIL_ID = #sectionsDetailId:DECIMAL#
+  </update>
+  
+   <!-- **************** 查询每个栏目详情的总条数  ****************  -->
+    <select id="getSectionsDetailCount" parameterClass="com.kmzyc.promotion.app.vobject.SectionsDetail" resultMap="ibatorgenerated_CountResult">
+     select count(1) the_count from SECTIONS_DETAIL 
+      where  SECTIONS_ID = #sectionsId:DECIMAL# 
+  </select>
+  
+      <!--  ****************  search SectionsDetail page by vo  ****************  -->
+  <select id="searchDtailPageByVo" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.kmzyc.promotion.app.vobject.SectionsDetail">
+    select SECTIONS_DETAIL_ID, SECTIONS_ID, PRODUCT_ID, TITLE, URL_LINK,REFERENCE_PRICE,PRICE,IMAGE,SORTNO
+    FROM (
+    select  ROW_NUMBER() OVER(order by sortno asc) as view_row_number, SECTIONS_DETAIL_ID, SECTIONS_ID, PRODUCT_ID, 
+    TITLE, URL_LINK,REFERENCE_PRICE,PRICE,IMAGE,SORTNO 
+    from SECTIONS_DETAIL WHERE SECTIONS_ID = #sectionsId:DECIMAL#
+    ) 
+    WHERE view_row_number between #skip# and #max#
+    AND SECTIONS_ID = #sectionsId:DECIMAL#
+    ORDER BY SORTNO asc
+	</select>
+	
+<!--  	<select id="selectSectionsDetailBySectionsId" parameterClass="com.kmzyc.promotion.app.vobject.SectionsDetail" resultMap="ibatorgenerated_BaseResultMap2">
+		select sd.SECTIONS_DETAIL_ID,sd.SECTIONS_ID,sd.PRODUCT_ID  
+		from SECTIONS_DETAIL sd  
+		where sd.SECTIONS_ID=s.SECTIONS_ID 
+		and sd.PRODUCT_ID = p.PRODUCT_ID 
+		and sd.SECTIONS_ID=#sectionsId:DECIMAL# 
+	</select>-->
+  
+  	<select id="getProductByProdId" parameterClass="java.lang.Long" resultMap="ProductResult">
+	 <![CDATA[
+	 select PRODUCT_NAME,PRODUCT_CODE from PRODUCTMAIN where PRODUCT_ID = #value# 
+	 ]]>
+  	</select>
+  	
+  	<select id="getSectionsBySId" parameterClass="java.lang.Long" resultMap="SectionsResult">
+	 <![CDATA[
+	 select SECTIONS_NAME from SECTIONS where SECTIONS_ID = #value# 
+	 ]]>
+  	</select>
+  <!-- 子查询语句 -->	
+  	 <select id="sectionDetail.getProduct" parameterClass="DECIMAL" resultMap="ProductResultMap2">
+	 <![CDATA[
+	  select PRODUCT_ID, CATEGORY_ID, PROCUCT_NAME, PRODUCT_DESC, PACK_LISTING, PRODUCT_TITLE,
+      KEYWORD, STATUS, CREATE_USER,CREATE_USER_NAME, CREATE_TIME, PRODUCTHOT, ARCHIVE_TIME,CHECK_USER,CHECK_USER_NAME, CHECK_TIME, MODIF_TIME,
+      SHOP_CODE, MODIF_USER, UP_TIME, MARKET_PRICE, COST_PRICE, PRODUCT_NO, BRAND_ID, BRAND_NAME,APPROVAL_TYPE,APPROVAL_NO,CATEGORY_NAME,DRUG_CATE_ID,DRUG_CATE_CODE    
+    from PRODUCTMAIN 
+    where PRODUCT_ID = #value#
+	 ]]>
+  	</select> 
+  <!-- 子查询productSku语句 -->	
+  	 <select id="sectionDetail.getProductSku" parameterClass="DECIMAL" resultMap="productSkuMap">
+	 <![CDATA[
+	  select PRODUCT_SKU_ID,PRODUCT_ID, PRICE, PRODUCT_SKU_CODE,STATUS,UNIT_WEIGHT,MARK_PRICE
+      from PRODUCT_SKU
+      where PRODUCT_SKU_ID = #value#
+	 ]]>
+  	</select> 
+  	
+  	<update id="updateSectionDetail" parameterClass="com.kmzyc.promotion.app.vobject.SectionsDetail">
+  		update SECTIONS_DETAIL set SORTNO = #sortno:DECIMAL# 
+    	where SECTIONS_DETAIL_ID = #sectionsDetailId:DECIMAL# 
+  	</update>
+  	
+  	<!-- 批量更新 -->
+  	<update id="batchUpdateSectionDetail" parameterClass="java.util.ArrayList">
+  		begin
+	      <iterate conjunction="">
+	        update SECTIONS_DETAIL set 
+	        SORTNO=#sectionsDetailList[].sortno# 
+	        where SECTIONS_DETAIL_ID = #sectionsDetailList[].sectionsDetailId#    
+	      </iterate>
+      	end;    
+  	</update>
+  	
+  <resultMap id="hotSellProducts" class="com.kmzyc.promotion.app.vobject.ProductHotSellInfoCache" >
+	    <result column="product_sku_id" property="productSkuId" jdbcType="DECIMAL" />
+	    <result column="product_sku_code" property="productSkuCode" jdbcType="VARCHAR" />
+	    <result column="procuct_name" property="productName" jdbcType="VARCHAR" />
+	    <result column="product_title" property="productTitle" jdbcType="VARCHAR" />
+	    <result column="price" property="price"  jdbcType="DECIMAL" />
+	    <result column="img_path7" property="imgPath" jdbcType="VARCHAR" />
+  </resultMap>
+  	
+  <select id="findHotSellZYCProducts" resultMap="hotSellProducts" >
+		select d.product_sku_id,
+		       d.product_sku_code,
+		       c.procuct_name,
+		       c.product_title,
+		       d.price,
+		       e.img_path7
+		  from sections        a,
+		       sections_detail b,
+		       productmain     c,
+		       product_sku     d,
+		       product_image   e
+		 where a.sections_id = b.sections_id
+		   and b.product_id = c.product_id
+		   and c.product_id = d.product_id
+		   and d.product_sku_id = e.sku_id
+		   and a.identification = 'ZYC-REXIAO'
+		   and e.is_default = 0
+  </select>
+  
+  <select id="findHotSellB2BProducts" resultMap="hotSellProducts" >
+		select d.product_sku_id,
+		       d.product_sku_code,
+		       c.procuct_name,
+		       c.product_title,
+		       d.price,
+		       e.img_path7
+		  from sections        a,
+		       sections_detail b,
+		       productmain     c,
+		       product_sku     d,
+		       product_image   e
+		 where a.sections_id = b.sections_id
+		   and b.product_id = c.product_id
+		   and c.product_id = d.product_id
+		   and d.product_sku_id = e.sku_id
+		   and a.identification = 'REXIAO'
+		   and e.is_default = 0
+  </select>
+  	
+  <select id="selectSectionsDetailByProductId" parameterClass="java.lang.Long" resultMap="ibatorgenerated_BaseResultMap">
+  	select * from SECTIONS_DETAIL where PRODUCT_ID=#productId#
+  </select>
+  	
+</sqlMap>

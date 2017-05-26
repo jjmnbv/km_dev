@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+    <settings cacheModelsEnabled="true" enhancementEnabled="true"
+              lazyLoadingEnabled="true" maxRequests="32" maxSessions="10"
+              maxTransactions="5" useStatementNamespaces="true"
+              defaultStatementTimeout="30" statementCachingEnabled="true"
+              classInfoCacheEnabled="true" errorTracingEnabled="false"/>
+
+
+    <!-- 微商全局设置 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/SPREAD_RULES_SqlMap.xml"/>
+    <!-- 推广者申请记录表 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/SPREADER_APPLY_RECORD_SqlMap.xml"/>
+    <!-- 微商基本信息表 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/SPREADER_INFO_SqlMap.xml"/>
+    <!-- 微商红包信息 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/SPREADER_RP_INFO_SqlMap.xml"/>
+    <!-- 客户成长 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/app_user_level_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/app_score_rule_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/app_address_SqlMap.xml"/>
+
+    <sqlMap resource="com/pltfm/app/sqlmap/app_rank_SqlMap.xml"/>
+    <!-- 客户信息管理 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/app_personality_info_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/app_personal_basic_info_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/app_login_info_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/app_commercial_tenant_basic_info_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/app_account_info_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/app_CommercialTenantBasicCopy.xml"/>
+    <!-- 时代会员管理 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/ERA_INFO_SqlMap.xml"/>
+    <!-- 余额提现管理 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/BNES_ACCT_ENCHASHMENT_SqlMap.xml"/>
+
+
+    <sqlMap resource="com/pltfm/app/sqlmap/app_medical_exclusive_info_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/app_health_ygeneric_info_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/app_detection_result_info_SqlMap.xml"/>
+
+    <!-- 客户账务 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/bnes_AcctTransaction_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/bnes_AcctTransList_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/app_score_info_SqlMap.xml"/>
+
+    <!-- 客户类别 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/bnes_CustomerType_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/bnes_Functions_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/bnes_ResPermission_SqlMap.xml"/>
+
+    <!-- 客户登录帐户冻结 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/app_bnes_frozen_record_SqlMap.xml"/>
+    <!-- 信息中心 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/app_bnes_message_center_SqlMap.xml"/>
+
+    <!-- 客户跟踪信息管理 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/app_news_customer_survey_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/app_nwes_maintenace_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/app_nwes_visting_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/app_nwes_cs_reply_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/app_nwes_custom_service_sqlmap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/app_blood_integral_rule_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/app_blood_integral_info_SqlMap.xml"/>
+    <!-- 推广信息 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/app_email_sms_promotion_SqlMap.xml"/>
+    <!-- 推广短信信息记录 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/app_email_sms_logs_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/app_mobile_email_validate_SqlMap.xml"/>
+
+    <sqlMap resource="com/pltfm/app/sqlmap/SaltInfo.xml"/>
+
+    <!-- 实名认证 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/bnes_AuthenticationInfo_SqlMap.xml"/>
+
+    <!-- 安全问题信息管理 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/app_safe_question_SqlMap.xml"/>
+    <!-- 安全问题信息回答管理 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/bnes_AnswerInfo_SqlMap.xml"/>
+    <!-- 失效时间定义-->
+    <sqlMap resource="com/pltfm/app/sqlmap/app_failure_time_defi_SqlMap.xml"/>
+
+    <!-- 手机随机码信息管理 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/app_mobile_code_inf_SqlMap.xml"/>
+    <!-- 邮箱随机码信息管理 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/app_email_info_SqlMap.xml"/>
+
+    <!-- 最近登录信息管理 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/app_latest_login_SqlMap.xml"/>
+
+
+    <!-- 客户业务start -->
+    <!-- 安全认证 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/bnes_acct_appeal_info_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/bnes_acct_handle_complaints_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/bnes_info_prompt_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/bnes_message_temp_SqlMap.xml"/>
+
+
+    <!-- 客户业务end -->
+    <!-- 账户消费电子卷 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/bnes_Vouchers_SqlMap.xml"/>
+    <!-- 账户找回密码 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/bnes_Password_SqlMap.xml"/>
+    <!-- 敏感词过滤 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/keyWords_Sqlmap.xml"/>
+
+    <!-- 类目 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/category_SqlMap.xml"/>
+    <!-- 商品类奖品 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/productPrizes.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/bnes_LoginRoseRel.xml"/>
+    <!-- 预备金申请审核 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/RESERVER_APPLY_INFO_SqlMap.xml"/>
+    <!-- 预备金账户 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/RESERVER_INFO_SqlMap.xml"/>
+    <!-- 预备金账单 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/RESERVER_BILL_SqlMap.xml"/>
+    <!-- 预备金金额明细变化记录 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/RESERVER_TRANSACTION_INFO_SqlMap.xml"/>
+
+    <!-- 资质文件 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/sqlmap_QualificaitonsFile.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/sqlmap_Qualifications.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/sqlmap_QualificationsApply.xml"/>
+    <!-- 按方抓药 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/sqlmap_PurchaseList.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/sqlmap_PurchaseListDetail.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/PRODUCTMAINTIED_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/SuppliersInfo.xml"></sqlMap>
+    <sqlMap resource="com/pltfm/app/sqlmap/sqlmap_Crule8Extent.xml"></sqlMap>
+    <sqlMap resource="com/pltfm/app/sqlmap/COUPON_SqlMap.xml"></sqlMap>
+    <!-- 短信邮件相关 add by liaotianssheng 20150108 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/MailSendTask.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/MsgSendTask.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/EM_MSG_CHANNEL_SqlMap.xml"/>
+    <!-- SYS -->
+    <!-- sys  -->
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_param_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_upload_file_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_log_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_user_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_dept_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_menu_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_role_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_role_menu_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_user_role_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_notice_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_notice_send_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/report_main_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/report_column_setting_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/report_param_SqlMap.xml"/>
+
+    <!-- 邀请有奖相关xml -->
+    <sqlMap resource="com/pltfm/app/sqlmap/PROM_INVITED_ORGANIZATIONS_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/PROM_MEMBERS_INVITATION_LIST_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/PROM_REWARD_AMOUNT_LIST_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/app/sqlmap/PROM_REWARD_RULE_SqlMap.xml"/>
+
+    <!-- 众包机构 -->
+    <!--  去除机构管理
+    <sqlMap resource="com/pltfm/crowdsourcing/sqlmap/CrowdInstitutionAdmininfo.xml"/>
+    <sqlMap resource="com/pltfm/crowdsourcing/sqlmap/CrowdInstitutionApplyRecord.xml"/>
+    <sqlMap resource="com/pltfm/crowdsourcing/sqlmap/CrowdInstitutionInfo.xml"/>
+    <sqlMap resource="com/pltfm/crowdsourcing/sqlmap/CrowdQrcodeApplyRecord.xml"/>
+    <sqlMap resource="com/pltfm/crowdsourcing/sqlmap/CrowdQrcodeApplyRelation.xml"/>
+    <sqlMap resource="com/pltfm/crowdsourcing/sqlmap/CrowdSourcingBagman.xml"/>
+    <sqlMap resource="com/pltfm/crowdsourcing/sqlmap/CrowdInstitutionImage.xml"/>
+    <sqlMap resource="com/pltfm/crowdsourcing/sqlmap/CrowdSourcingUser.xml"/>
+    <sqlMap resource="com/pltfm/crowdsourcing/sqlmap/CrowdInstitutionWithdrawals.xml"/>
+    -->
+</sqlMapConfig>

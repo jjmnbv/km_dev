@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ACTIVITY_PROMOTION_COST" >
+  <resultMap id="activityPromotionCostMap" class="com.pltfm.app.vobject.ActivitySupplierEntry" >
+    <result column="SUPPLIER_ENTRY_ID" property="supplierEntryId" jdbcType="DECIMAL" />
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL" />
+    <result column="ACTIVITY_NAME" property="activityInfo.activityName" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_STATUS" property="activityInfo.activityStatus" jdbcType="DECIMAL" />
+    <result column="COMPANY_SHOW_NAME" property="companyShowName" jdbcType="VARCHAR" />
+    <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_TOTAL_PRICE" property="activityTotalPrice" jdbcType="DECIMAL" /> 
+    <result column="total_funds" property="refundActivityAmount" jdbcType="DECIMAL" />
+    <result column="SUPPLIER_ENTRY_ID" property="activitySkuList" select="ACTIVITY_PROMOTION_COST.selectActivitySkuList" />
+  </resultMap>
+  
+  <resultMap id="activitySkuCostMap" class="com.pltfm.app.vobject.ActivitySku">
+  	<result column="SUPPLIER_ENTRY_ID" property="supplierEntryId" jdbcType="DECIMAL" />
+    <result column="product_sku_id" property="productSkuId" jdbcType="DECIMAL" />
+    <result column="activity_price" property="activityPrice" jdbcType="DECIMAL" />
+    <result column="sku_total_price" property="skuTotalPrice" jdbcType="DECIMAL" />
+    <result column="pre_sale_quantity" property="preSaleQuantity" jdbcType="DECIMAL" />
+    <result column="commission_rate" property="commissionRate" jdbcType="DECIMAL" /> 
+  </resultMap>
+  
+  <resultMap id="activitySkuMap" class="com.pltfm.app.vobject.ActivitySku">
+  	<result column="SUPPLIER_ENTRY_ID" property="supplierEntryId" jdbcType="DECIMAL" />
+    <result column="product_title" property="productTitle" jdbcType="VARCHAR" />
+    <result column="product_sku_id" property="productSkuId" jdbcType="DECIMAL" />
+    <result column="product_sku_code" property="productSkuCode" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="activity_price" property="activityPrice" jdbcType="DECIMAL" />
+    <result column="sku_total_price" property="skuTotalPrice" jdbcType="DECIMAL" />
+    <result column="pre_sale_quantity" property="preSaleQuantity" jdbcType="DECIMAL" />
+    <result column="commission_rate" property="commissionRate" jdbcType="DECIMAL" /> 
+  </resultMap>
+  
+  <select id="queryActivityPromotionCost" resultMap="activityPromotionCostMap" parameterClass="java.util.HashMap" >
+  	   <isEqual property="activityPaymentStatus" compareValue="-1">
+		  select ctbi.CORPORATE_NAME COMPANY_SHOW_NAME,
+		        li.login_account,
+		        ai.activity_name,
+		        ai.activity_id,
+		        ase.activity_total_price,
+		        ase.supplier_entry_id,
+		        case
+		          when ai.activity_status = '8' then
+		           8
+		          when (ai.activity_start_time &lt;= sysdate and
+		               ai.activity_end_time &gt; sysdate) then
+		           5
+		          when ai.activity_end_time &lt;= sysdate then
+		           6
+		        end activity_status,
+		       (select ap.total_funds
+		           from activity_payment ap
+		          where ap.supplier_entry_id = ase.supplier_entry_id
+		            and ap.activity_payment_type in (3, 4)
+		            and ap.activity_payment_status = 4
+		            and rownum = 1) total_funds
+		   from activity_info                       ai,
+		        activity_supplier_entry             ase,
+		        suppliers_info                      sinfo,
+		        commercial_tenant_basic_info ctbi,
+		        login_info                   li
+		  where ai.activity_id = ase.activity_id
+		    and ase.supplier_id = sinfo.supplier_id
+		    and sinfo.merchant_id = ctbi.n_commercial_tenant_id
+		    and ctbi.n_login_id = li.n_login_id
+		    and ai.audit_status = 1
+		    and ai.activity_type = 3
+		    and ase.entry_status = 2
+		    and ase.audit_status = 1
+  	  </isEqual> 
+  	  <isEqual property="activityPaymentStatus" compareValue="3">
+		  select ctbi.CORPORATE_NAME COMPANY_SHOW_NAME,
+		        li.login_account,
+		        ai.activity_name,
+		        ai.activity_id,
+		        ase.activity_total_price,
+		        ase.supplier_entry_id,
+		        case
+		          when ai.activity_status = '8' then
+		           8
+		          when (ai.activity_start_time &lt;= sysdate and
+		               ai.activity_end_time &gt; sysdate) then
+		           5
+		          when ai.activity_end_time &lt;= sysdate then
+		           6
+		        end activity_status,
+		       0 total_funds
+		   from activity_info                       ai,
+		        activity_supplier_entry             ase,
+		        suppliers_info                      sinfo,
+		        commercial_tenant_basic_info ctbi,
+		        login_info                   li
+		  where ai.activity_id = ase.activity_id
+		    and ase.supplier_id = sinfo.supplier_id
+		    and sinfo.merchant_id = ctbi.n_commercial_tenant_id
+		    and ctbi.n_login_id = li.n_login_id
+		    and ai.audit_status = 1
+		    and ai.activity_type = 3
+		    and ase.entry_status = 2
+		    and ase.audit_status = 1
+		    and not exists (select 1
+		          from activity_payment ap
+		         where ap.supplier_entry_id = ase.supplier_entry_id
+		           and ap.activity_payment_type in (3, 4)
+		           and ap.activity_payment_status = 4)
+  	  </isEqual> 
+  	   <isEqual property="activityPaymentStatus" compareValue="4">
+		  select ctbi.CORPORATE_NAME COMPANY_SHOW_NAME,
+		        li.login_account,
+		        ai.activity_name,
+		        ai.activity_id,
+		        ase.activity_total_price,
+		        ase.supplier_entry_id,
+		        case
+		          when ai.activity_status = '8' then
+		           8
+		          when (ai.activity_start_time &lt;= sysdate and
+		               ai.activity_end_time &gt; sysdate) then
+		           5
+		          when ai.activity_end_time &lt;= sysdate then
+		           6
+		        end activity_status,
+		        ap.total_funds
+		     from activity_info                       ai,
+		          activity_supplier_entry             ase,
+		          activity_payment                    ap,
+		          suppliers_info                      sinfo,
+		          commercial_tenant_basic_info ctbi,
+		          login_info                   li
+		    where ai.activity_id = ase.activity_id
+		      and ase.supplier_entry_id = ap.supplier_entry_id
+		      and ap.activity_payment_type in (3, 4)
+		      and ap.activity_payment_status = 4
+		      and ase.supplier_id = sinfo.supplier_id
+		      and sinfo.merchant_id = ctbi.n_commercial_tenant_id
+		      and ctbi.n_login_id = li.n_login_id
+		      and ai.audit_status = 1
+		      and ai.activity_type = 3
+		      and ase.entry_status = 2
+		      and ase.audit_status = 1
+  	  </isEqual> 
+	    <isEqual property="activityStatus" compareValue="-1" prepend="and">
+	      ((ai.activity_start_time &lt;= sysdate and
+          ai.activity_end_time &gt; sysdate) or ai.activity_end_time &lt;= sysdate or ai.activity_status = 8)
+	    </isEqual>
+	    <isEqual property="activityStatus" compareValue="5" prepend="and">
+	      (ai.activity_start_time &lt;= sysdate and
+          ai.activity_end_time &gt; sysdate)
+          and ai.activity_status != 8
+	    </isEqual>
+	    <isEqual property="activityStatus" compareValue="6" prepend="and">
+	      ai.activity_end_time &lt;= sysdate
+	    </isEqual>
+	    <isEqual property="activityStatus" compareValue="8" prepend="and">
+	      ai.activity_status = 8
+	    </isEqual>
+        <isNotNull property="supplierEntryId" prepend="and" >
+		  ase.supplier_entry_id=  #supplierEntryId:DECIMAL#
+		</isNotNull>
+		<isNotNull property="activityStartTime" prepend="and" >
+		  ai.activity_start_time &gt; =  #activityStartTime#
+		</isNotNull>
+		<isNotNull property="activityEndTime" prepend="and" >
+		  ai.activity_end_time &lt; =  #activityEndTime#
+		</isNotNull>
+		<isNotNull property="activityName" prepend="and" >
+		  ai.activity_name like  '%'||#activityName#||'%' 
+		</isNotNull>
+	    <isNotNull property="activityId" prepend="and" >
+		  ase.ACTIVITY_ID =  #activityId:DECIMAL#
+		</isNotNull>
+		<isNotNull property="companyShowName" prepend="and" >
+		  ctbi.CORPORATE_NAME like  '%'||#companyShowName#||'%'
+		</isNotNull>
+		<isNotNull property="loginAccount" prepend="and" >
+		  li.LOGIN_ACCOUNT =#loginAccount# 
+		</isNotNull> 
+		order by ai.activity_id desc, ase.supplier_entry_id desc
+  </select>
+  
+  <select id="queryActivityPromotionCostCount" resultClass="java.lang.Integer"  parameterClass="java.util.HashMap" >
+  	   <isEqual property="activityPaymentStatus" compareValue="-1">
+	  	  select count(1)
+		   from activity_info                       ai,
+		        activity_supplier_entry             ase,
+		        suppliers_info                      sinfo,
+		        commercial_tenant_basic_info ctbi,
+		        login_info                   li	     
+		  where ai.activity_id = ase.activity_id
+		    and ase.supplier_id = sinfo.supplier_id
+		    and sinfo.merchant_id = ctbi.n_commercial_tenant_id
+		    and ctbi.n_login_id = li.n_login_id
+		    and ai.audit_status = 1
+		    and ai.activity_type = 3
+		    and ase.entry_status = 2
+		    and ase.audit_status = 1
+  	  </isEqual> 
+  	  <isEqual property="activityPaymentStatus" compareValue="3">
+	  	select count(1)
+		  from activity_info                       ai,
+		       activity_supplier_entry             ase,
+		       suppliers_info                      sinfo,
+		       commercial_tenant_basic_info ctbi,
+		       login_info                   li	       
+		 where ai.activity_id = ase.activity_id
+		   and ase.supplier_id = sinfo.supplier_id
+		   and sinfo.merchant_id = ctbi.n_commercial_tenant_id
+		   and ctbi.n_login_id = li.n_login_id
+		   and ai.audit_status = 1
+		   and ai.activity_type = 3
+		   and ase.entry_status = 2
+		   and ase.audit_status = 1
+		   and not exists (select 1
+		          from activity_payment ap
+		         where ap.supplier_entry_id = ase.supplier_entry_id
+		           and ap.activity_payment_type in (3, 4)
+		           and ap.activity_payment_status = 4)
+  	  </isEqual>
+  	  <isEqual property="activityPaymentStatus" compareValue="4">
+	  	select count(1)
+	     from activity_info                       ai,
+	          activity_supplier_entry             ase,
+	          activity_payment                    ap,
+	          suppliers_info                      sinfo,
+	          commercial_tenant_basic_info ctbi,
+	          login_info                   li
+	    where ai.activity_id = ase.activity_id
+	      and ase.supplier_entry_id = ap.supplier_entry_id
+	      and ap.activity_payment_type in (3, 4)
+	      and ap.activity_payment_status = 4
+	      and ase.supplier_id = sinfo.supplier_id
+	      and sinfo.merchant_id = ctbi.n_commercial_tenant_id
+	      and ctbi.n_login_id = li.n_login_id
+	      and ai.audit_status = 1
+	      and ai.activity_type = 3
+	      and ase.entry_status = 2
+	      and ase.audit_status = 1
+  	  </isEqual>
+	    <isEqual property="activityStatus" compareValue="-1" prepend="and">
+	      ((ai.activity_start_time &lt;= sysdate and
+          ai.activity_end_time &gt; sysdate) or ai.activity_end_time &lt;= sysdate or ai.activity_status = 8)
+	    </isEqual>
+	    <isEqual property="activityStatus" compareValue="5" prepend="and">
+	      (ai.activity_start_time &lt;= sysdate and
+          ai.activity_end_time &gt; sysdate)
+          and ai.activity_status != 8
+	    </isEqual>
+	    <isEqual property="activityStatus" compareValue="6" prepend="and">
+	      ai.activity_end_time &lt;= sysdate
+	    </isEqual>
+	    <isEqual property="activityStatus" compareValue="8" prepend="and">
+	      ai.activity_status = 8
+	    </isEqual>
+        <isNotNull property="supplierEntryId" prepend="and" >
+		  ase.supplier_entry_id=  #supplierEntryId:DECIMAL#
+		</isNotNull>
+		<isNotNull property="activityStartTime" prepend="and" >
+		  ai.activity_start_time &gt; =  #activityStartTime#
+		</isNotNull>
+		<isNotNull property="activityEndTime" prepend="and" >
+		  ai.activity_end_time &lt; =  #activityEndTime#
+		</isNotNull>
+		<isNotNull property="activityName" prepend="and" >
+		  ai.activity_name like  '%'||#activityName#||'%' 
+		</isNotNull>
+	    <isNotNull property="activityId" prepend="and" >
+		  ase.ACTIVITY_ID =  #activityId:DECIMAL#
+		</isNotNull>
+		<isNotNull property="companyShowName" prepend="and" >
+		  ctbi.CORPORATE_NAME like  '%'||#companyShowName#||'%'
+		</isNotNull>
+		<isNotNull property="loginAccount" prepend="and" >
+		  li.LOGIN_ACCOUNT =#loginAccount# 
+		</isNotNull> 
+  </select>
+  
+  <select id="selectActivitySkuList" resultMap="activitySkuCostMap" parameterClass="java.lang.Long">
+	   select distinct sku.supplier_entry_id,
+	          sku.product_sku_id,
+	          sku.activity_price,
+	          sum(sku.sku_total_price) over(partition by sku.supplier_entry_id, sku.product_sku_id) sku_total_price,
+	          sum(sku.pre_sale_quantity) over(partition by sku.supplier_entry_id, sku.product_sku_id) pre_sale_quantity,
+	          sku.commission_rate * 100 commission_rate
+	     from activity_sku sku
+	    where sku.supplier_entry_id = #value:DECIMAL#
+	      and sku.audit_status = 1
+  </select>
+  
+   <select id="querySupplierCostDetailCount" resultClass="java.lang.Integer" parameterClass="com.pltfm.app.vobject.ActivitySku" >
+	  select count(1)
+	   from activity_sku ask, product_sku ps, productmain pm
+	  where ask.product_sku_id = ps.product_sku_id
+	    and ps.product_id = pm.product_id
+	    and ask.activity_sku_type = 1
+		and ask.supplier_entry_id = #supplierEntryId:DECIMAL#
+		<isNotEmpty property="productTitle" prepend="and" >
+		 	 pm.product_title like  '%'||#productTitle#||'%'  
+		 </isNotEmpty>	   		 
+		 <isNotEmpty property="productSkuCode" prepend="and" >
+		 	  ps.product_sku_code=#productSkuCode#
+		 </isNotEmpty>
+   </select>
+   
+  <select id="querySupplierCostDetail" resultMap="activitySkuMap" parameterClass="com.pltfm.app.vobject.ActivitySku" >
+	select distinct ask.supplier_entry_id,
+	                 pm.product_title,
+	                 ask.product_sku_id,
+	                 ps.product_sku_code,
+	                 ps.price,
+	                 ask.activity_price,
+	                 sum(ask.sku_total_price) over(partition by ask.product_sku_id) sku_total_price,
+	                 sum(ask.pre_sale_quantity) over(partition by ask.product_sku_id) pre_sale_quantity,
+	                 ask.commission_rate * 100 commission_rate
+	   from activity_sku ask, product_sku ps, productmain pm
+	  where ask.product_sku_id = ps.product_sku_id
+	    and ps.product_id = pm.product_id
+	    and ask.supplier_entry_id = #supplierEntryId:DECIMAL#
+		<isNotEmpty property="productTitle" prepend="and" >
+		 	 pm.product_title like  '%'||#productTitle#||'%' 
+		 </isNotEmpty>	   		 
+		 <isNotEmpty property="productSkuCode" prepend="and" >
+		 	  ps.product_sku_code=#productSkuCode#
+		 </isNotEmpty>
+	  order by ps.product_sku_code desc
+  </select>
+ 
+</sqlMap>

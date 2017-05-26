@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="BnesAcctTransaction">
+    <resultMap id="bnesAcctTransactionEasy" class="com.kmzyc.b2b.model.BnesAcctTransaction">
+         <result column="ACCOUNT_TRANSACTION_ID" property="accountTransactionId" jdbcType="DECIMAL" />
+	    <result column="ACCOUNT_ID" property="accountId" jdbcType="DECIMAL" />
+    	<result column="ACCOUNT_NUMBER" property="accountNumber" jdbcType="VARCHAR" />
+	    <result column="TYPE" property="type" jdbcType="DECIMAL" />
+	    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+	    <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+	    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+	    <result column="CREATE_DATE" property="createDate"  />
+    </resultMap>
+    
+	<resultMap id="bnesAcctTransaction" class="com.kmzyc.b2b.model.BnesAcctTransaction" extends="bnesAcctTransactionEasy">
+	    <result column="CREATED_ID" property="createdId" jdbcType="DECIMAL" />
+	    <result column="MODIFY_DATE" property="modifyDate" jdbcType="TIMESTAMP" />
+	    <result column="MODIFIE_ID" property="modifieId" jdbcType="DECIMAL" />
+   		<result column="TRAN_BANK" property="tranBank" jdbcType="VARCHAR" />
+  </resultMap>
+	 
+
+	<select id="findById" parameterClass="long" resultMap="bnesAcctTransaction">
+		<![CDATA[
+			SELECT * FROM bnes_acct_transaction
+		]]>
+		<dynamic prepend="WHERE">
+			account_transaction_id=#accountTransactionId:NUMBER#
+		</dynamic>
+	</select>
+	
+	<!--余额支付明细获取  luoyi 213/11/08-->
+	  <select id="searchBnesAcctTransPageByUserId" resultMap="bnesAcctTransactionEasy" parameterClass="pagination">
+           <![CDATA[
+          SELECT * FROM (SELECT t.*, ROWNUM RN FROM (select b.account_transaction_id,b.account_id,b.account_number,b.type,b.content,b.amount,b.status,b.create_date 
+          from bnes_acct_transaction b WHERE 1=1
+		]]>
+		<dynamic prepend="AND">
+            <![CDATA[
+					type in ($objCondition.arry$)
+				]]>
+		</dynamic>
+		<dynamic prepend="AND">
+			 <![CDATA[
+					  account_id = #objCondition.loginId:NUMBER#
+				]]>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="objCondition.startDate">
+            <![CDATA[
+					Trunc(create_date) >= #objCondition.startDate:Date#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="objCondition.endDate">
+             <![CDATA[
+					 Trunc(create_date) <= #objCondition.endDate:Date#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<![CDATA[
+		ORDER BY create_date DESC ) t 
+		WHERE  ROWNUM <= #endindex# ) WHERE RN >= #startindex#
+		]]>
+	</select>
+	
+	<!-- 账号余额总记录数 -->
+	 <select id="searchCountBnesAcctTransPageByUserId"  resultClass="java.lang.Integer" parameterClass="pagination">
+           <![CDATA[
+          SELECT COUNT(ACCOUNT_TRANSACTION_ID) FROM (SELECT t.*, ROWNUM RN FROM (select * from bnes_acct_transaction  
+		]]>
+		<dynamic prepend="WHERE">
+			 <![CDATA[
+					  account_id = #objCondition.loginId:NUMBER#
+				]]>
+		</dynamic>
+		<dynamic prepend="AND">
+            <![CDATA[
+					type in ($objCondition.arry$)
+				]]>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="objCondition.startDate">
+            <![CDATA[
+					Trunc(create_date) >= #objCondition.startDate:Date#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="objCondition.endDate">
+             <![CDATA[
+					 Trunc(create_date) <= #objCondition.endDate:Date#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<![CDATA[
+		) t )  
+		]]>
+	</select>
+	
+	<select id="queryTransaction" resultMap="bnesAcctTransaction" parameterClass="java.util.HashMap">
+		select a.*
+		  from bnes_acct_transaction a, ACCOUNT_INFO b
+		 where a.ACCOUNT_ID = b.N_ACCOUNT_ID
+		   and b.N_LOGIN_ID = #loginId:varchar#
+		   and a.account_transaction_id = #accountTransactionId:NUMBER#
+		   and a.status = #status:NUMBER#
+	</select> 
+	
+	<select id="queryTransationExist" parameterClass="java.util.HashMap" resultMap="bnesAcctTransaction" >
+		select t.*
+		  from bnes_acct_transaction t,(select a.* from ACCOUNT_INFO a ,login_info l where a.N_LOGIN_ID=l.N_LOGIN_ID and l.N_LOGIN_ID=#loginId#)u
+		 where t.ACCOUNT_ID=u.n_account_id
+		   and type = 1
+		   <![CDATA[
+		   and t.STATUS<>1
+		   	]]>
+		   and t.ACCOUNT_TRANSACTION_ID =#accountTransactionId#
+	</select>
+	
+	<select id="findByAccountNumber" parameterClass="string" resultMap="bnesAcctTransaction">
+		<![CDATA[
+			SELECT * FROM bnes_acct_transaction
+		]]>
+		<dynamic prepend="WHERE">
+			ACCOUNT_NUMBER=#accountNumber#
+		</dynamic>
+	</select>
+	
+	<select id="queryCountTransation" parameterClass="int" resultClass="int">
+		select count(1) from bnes_acct_transaction t where t.account_id =#accountId#
+			and t.type=1 and t.status=1
+	</select>
+	
+	<!-- 校验订单、用户是否匹配 -->
+	<select id="SQL_QUERY_CHECK_ORDER_USER" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	<![CDATA[
+		select bat.account_transaction_id
+		  from bnes_acct_transaction bat
+		 where bat.status <> 1
+		   and bat.type = 1
+		   and exists (select 1
+		          from account_info ai
+		         where bat.account_id = ai.acconut_id
+		           and ai.n_login_id = #loginId:NUMBER#)
+		   and bat.account_transaction_id = #orderCode:VARCHAR#
+	]]>		
+	</select>
+</sqlMap>

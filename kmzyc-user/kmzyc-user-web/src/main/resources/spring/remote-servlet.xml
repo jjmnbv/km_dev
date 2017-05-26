@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<bean id="defaultHandlerMapping"
+		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+	
+	<!-- 客户信息 ,提供给总部会员对接使用-->
+	<!-- 使用HessianServiceExporter 将普通bean导出成Hessian服务--> 
+	<bean name="/customerRemoteService" class="org.springframework.remoting.caucho.HessianServiceExporter"> 
+	<!-- 需要导出的目标bean--> 
+	<property name="service" ref="customerRemoteService"/> 
+	<!-- Hessian服务的接口--> 
+	<property name="serviceInterface" value="com.kmzyc.user.remote.service.CustomerRemoteService"/> 
+	</bean> 
+</beans>  

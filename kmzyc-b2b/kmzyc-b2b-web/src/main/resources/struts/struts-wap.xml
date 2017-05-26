@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="wap" extends="BasePackage,json-default" namespace="/wap">
+        <action name="wapSettlement" class="wapSettlementAction" method="wapSettlement">
+            <result name="success">/WEB-INF/jsp/settlement/wapSettlement.jsp</result>
+            <result name="input" type="redirectAction">
+                <param name="namespace">/cart</param>
+                <param name="actionName">listWapShopCar.action</param>
+            </result>
+            <result type="redirect" name="login">http://m.kmb2b.com/html/wapLogin.jsp</result>
+        </action>
+
+        <action name="deleteWapAddress" class="wapSettlementAction" method="deleteWapAddress">
+            <result name="success">/WEB-INF/jsp/settlement/wapSettlement.jsp</result>
+        </action>
+
+        <action name="addWapAddressInfo" class="wapSettlementAction" method="addWapAddressInfo">
+            <result name="success">/WEB-INF/jsp/settlement/wapSettlement.jsp</result>
+        </action>
+
+        <!-- 激活并使用优惠券 -->
+        <action name="changeAddress" class="wapSettlementAction" method="changeAddress">
+            <result type="json" name="success">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="noCache">true</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+
+        <action name="saveAddress" class="wapSettlementAction" method="saveAddress">
+            <result type="json" name="success">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="noCache">true</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+        <action name="savePaymodelDeliveryInfo" class="wapSettlementAction"
+                method="savePaymodelDeliveryInfo">
+            <result type="json" name="success">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="noCache">true</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+        <!-- 使用微信地址 add begin 20150714 -->
+        <action name="useWxAddress" class="wapSettlementAction" method="useWxAddress">
+        </action>
+        <!-- 使用微信地址 add end 20150714 -->
+
+
+
+    </package>
+</struts>

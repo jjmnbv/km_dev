@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!--客户 业务 -->
+<struts>
+<!-- 客户类别定义-->
+	<package name="customers" namespace="/customers"  extends="struts">
+	
+		<action name="cust_*" class="custDefinedAciton" method="{1}">
+			<result name="list">/WEB-INF/jsp/app/customertype/custTypeList.jsp</result>
+			<result name="custDeList">/WEB-INF/jsp/app/customertype/cutDetails.jsp </result>
+			<result name="addSuccess">/WEB-INF/jsp/app/customertype/custTypeAdd.jsp </result>
+			<result name="addTopSuccess">/WEB-INF/jsp/app/customertype/custTopTypeAdd.jsp </result>
+		</action>	
+<!-- 客户类别业务开通-->
+		<action name="bnes_*" class="bnesLinceAciton" method="{1}">
+			<result name="list">/WEB-INF/jsp/app/businesslicense/busiLisceseList.jsp</result>
+			<result name="funList">/WEB-INF/jsp/app/businesslicense/busiLisceList.jsp</result>
+		</action>
+       <!-- 客户参与信息 -->
+		<action name="participate_*" class="participateAction" method="{1}">
+		   <result name="consult">/WEB-INF/jsp/app/participate/consultList.jsp</result>
+		   <result name="posting">/WEB-INF/jsp/app/participate/postingList.jsp</result>
+		   <result name="message">/WEB-INF/jsp/app/participate/messageList.jsp</result>
+		   <result name="comment">/WEB-INF/jsp/app/participate/commentList.jsp</result>
+		</action>
+</package>	
+
+
+<package name="acctBusiness" namespace="/acctBusiness"  extends="struts">
+		   <!-- 安全认证start -->
+		   <!-- 帐户申诉 -->
+		  <action name="acctAppealInfo_*"  class="acctAppealInfoAction"  method="{1}">
+		          <result name="add" >/WEB-INF/jsp/app/acctappealinfo/add.jsp</result>
+		         <result name="list" >/WEB-INF/jsp/app/acctappealinfo/list.jsp</result>   
+		         <result name="edit" >/WEB-INF/jsp/app/acctappealinfo/edit.jsp</result>
+		         <result name="view" >/WEB-INF/jsp/app/acctappealinfo/view.jsp</result>
+		         <result name="refreshList"  type="redirectAction">acctAppealInfo_list</result>	  
+		  	<result name="invalid.token" type="redirectAction">
+				    acctAppealInfo_list
+			 </result>
+		  </action>  
+		  <!--发布消息 -->
+		   <action name="publishMessage_*"  class="publishMessageAction" method="{1}">
+		      <result name="list" type="" >/WEB-INF/jsp/app/publishmessage/list.jsp</result>	
+		       <result name="add" >/WEB-INF/jsp/app/publishmessage/add.jsp</result>	  
+		       <result name="edit" >/WEB-INF/jsp/app/publishmessage/edit.jsp</result>
+		       <result name="refreshList"  type="redirectAction">publishMessage_list</result>	
+		       <result name="invalid.token" type="redirectAction">
+				    publishMessage_list
+			 </result>         
+		  </action> 
+		  <!-- 安全认证end -->	
+	</package>
+</struts>

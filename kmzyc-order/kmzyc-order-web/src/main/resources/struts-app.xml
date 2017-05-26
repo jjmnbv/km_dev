@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="app" namespace="/app" extends="struts">
+		<interceptors>
+			<interceptor name="ajax" class="ajaxInterceptor"/>
+			<interceptor-stack name="ajaxDefault">
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="ajax"/>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="ajaxDefault"/>
+	    <action name="assessInfo" class="orderAssessInfoAction" method="execute">
+			<result name="success">/WEB-INF/jsp/app/index.jsp</result>
+	    </action>
+	    
+
+		<action name="getDictionary" class="orderDictionaryAction" method="getDictionary">
+			<result name="success" >/WEB-INF/jsp/app/orderDictionaryList.jsp</result>
+		</action>
+		<action name="orderItem*Action" class="orderItemQryAction" method="{1}">
+			<result name="orderItem">/WEB-INF/jsp/app/orderItem.jsp</result>
+			<result name="orderInfo">/WEB-INF/jsp/app/orderInfo.jsp</result>
+			<result name="orderLogisticsFee">/WEB-INF/jsp/app/orderLogisticsFee.jsp</result>
+			<result name="remark">/WEB-INF/jsp/app/remark.jsp</result>
+		</action>
+		
+		<action name="orderItemOutAction" class="orderItemQryAction" method="orderItemOutAction">
+			<result name="orderItem">/WEB-INF/jsp/app/orderItemOut.jsp</result>
+		</action>
+
+		<action name="limitBalanceUseAction" class="limitBalanceUseAction" method="limitBalanceUse">
+			<result name="success">/WEB-INF/jsp/app/limitBalanceUse.jsp</result>
+		</action>
+
+		<action name="showLimitBalanceUseAction" >
+			<result >/WEB-INF/jsp/app/limitBalanceUse.jsp</result>
+		</action>
+		
+		<action name="orderPay*Action" class="orderPayAction" method="{1}">
+			<result name="pay">/WEB-INF/jsp/app/pay.jsp</result>
+			<result name="stockout">/WEB-INF/jsp/app/stockout.jsp</result>
+			<result name="ajaxText" type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">result</param>
+			</result>
+		</action>
+		<action name="orderBackdown*Action" class="orderBackdownAction" method="{1}">
+			<result name="returnList">/WEB-INF/jsp/app/orderReturnList.jsp</result>
+			<result name="backdown">/WEB-INF/jsp/app/backdown.jsp</result>
+			<result name="apply">/WEB-INF/jsp/app/apply.jsp</result>
+			<result name="orderAlterItem">/WEB-INF/jsp/app/orderAlterDetail.jsp</result>
+			<result name="returnCode">/WEB-INF/jsp/app/orderAlterReturnCode.jsp</result>
+			<result name="ajaxText" type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">result</param>
+			</result>
+		</action>
+		
+		<!-- 进入批量同步退换货单页面 -->
+		<!--删除总部会员对接 <action name="preBatchSyncOrderAlterInfo" class="orderBackdownAction" method="preBatchSyncOrderAlterInfo">
+			<result name="preBatchSyncSuccess" >/WEB-INF/jsp/app/sync/orderAlterBatchSyncEdit.jsp</result>
+		</action>
+		
+		<action name="syncOrderAlterInfo2Base" class="orderBackdownAction" method="syncOrderAlterInfo2Base">
+		</action>
+		
+		进入批量同步订单页面
+		<action name="preBatchSyncOrderInfo" class="orderQryAction" method="preBatchSyncOrderInfo">
+			<result name="preBatchSyncSuccess" >/WEB-INF/jsp/app/sync/orderBatchSyncEdit.jsp</result>
+		</action>
+		
+		<action name="syncOrder2Base" class="orderQryAction" method="syncOrder2Base">
+		</action> -->
+		
+		<!--删除返利网业务  <action name="order51FanliListByMap" class="orderQryAction" method="order51FanliListByMap">
+			<result name="orderList">/WEB-INF/jsp/app/orderOutList.jsp</result>
+		</action> -->
+		
+		<action name="order*Action" class="orderQryAction" method="{1}">
+			<result name="orderList">/WEB-INF/jsp/app/orderList.jsp</result>
+			<result name="skuList">/WEB-INF/jsp/app/countSKU.jsp</result>
+			<result name="ajaxText" type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">result</param>
+			</result>
+		</action>
+		<action name="fareType*Action" class="fareTypeAction" method="{1}">
+			<result name="fare">/WEB-INF/jsp/app/fare.jsp</result>
+			<result name="fareEdit">/WEB-INF/jsp/app/fareEdit.jsp</result>
+			<result name="ajaxText" type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">result</param>
+			</result>
+		</action>
+		<action name="testCreateOrder">
+			<result>/WEB-INF/jsp/app/shoppingCart.jsp</result>
+		</action>	
+		<action name="testOrderExecute">
+			<result>/WEB-INF/jsp/app/orderExecuteTest.jsp</result>
+		</action>	
+		<action name="iaAllowExecute" class="orderExecuteAction" method="iaAllowExecute" />	
+		<action name="removeExecuteSymbol" class="orderExecuteAction" method="removeExecuteSymbol" />	
+		<action name="orderExecuteHandle" class="orderExecuteAction" method="orderExecute"/>
+		<action name="orderExecuteQry" class="orderExecuteAction" method="qry">
+			<result name="qryList">/WEB-INF/jsp/app/orderExecuteQry.jsp</result>
+		</action>
+		<action name="orderExecuteList" class="orderExecuteAction" method="qryList">
+			<result name="qryList">/WEB-INF/jsp/app/orderExecuteQry.jsp</result>
+		</action>
+		
+		<action name="createOrderAction" class="com.pltfm.app.action.AgencyCreateOrderAction" method="agencyCreateOrder">
+			<result name="sccusess">/WEB-INF/jsp/app/resultReaty.jsp</result>
+			<result name="fail">/WEB-INF/jsp/app/resultFail.jsp</result>
+		</action>
+		
+		<action name="getFareAction" class="com.pltfm.app.action.CreateOrderFareAction" method="getFare">
+			<result name="success">/WEB-INF/jsp/app/index.jsp</result>
+		</action>
+
+
+
+      	<!-- 订单评价 lvxingxing star -->
+      	<action name="fillOutOrderAssess" class="orderAssessInfoAction" method="fillOutAssess">
+			<result name="success">/WEB-INF/jsp/app/orderAssessAddInfo.jsp</result>
+		</action>
+       <action name="assessInfoSave" method="save" class="orderAssessInfoAction" >
+    		<result name="qryList">/WEB-INF/jsp/app/orderAssessInfo.jsp</result>	
+       </action>
+       
+       	<action name="qryAssess" method="qry" class="orderAssessInfoAction" >
+          	<result name="qryList">/WEB-INF/jsp/app/orderAssessInfo.jsp</result>
+       	</action>
+       	<action name="qryAssessInfo" method="qryAssessInfo" class="orderAssessInfoAction" >
+       		<result name="qryList">/WEB-INF/jsp/app/orderAssessInfo.jsp</result>
+       	</action>
+       	<action name="assessShowAction" method="assessShow" class="orderAssessInfoAction">
+       	  	<result name="assessShow">/WEB-INF/jsp/app/orderAssessDetail.jsp</result>
+       	</action>
+       	<action name="deleteAssessInfo" method="delete" class="orderAssessInfoAction">
+   			<result name="qryList" >/WEB-INF/jsp/app/orderAssessInfo.jsp</result>
+       	</action>
+      	<action name="saleReportsearchInitAction" method="searchInit" class="saleReportAction">
+       		<result name="success">/WEB-INF/jsp/app/SeleReport.jsp</result>
+       </action>
+       <action name="saleReportsearchReportAction" method="searchReport" class="saleReportAction">
+       		<result name="success">/WEB-INF/jsp/app/SeleReport.jsp</result>
+       </action>
+       <action name="orderAnalysisReportInitAction" method="analysisReportInit" class="saleReportAction">
+       		<result name="success">/WEB-INF/jsp/app/OrderAnalysisReport.jsp</result>
+       </action>
+       <action name="orderAnalysisReportAction" method="analysisReport" class="saleReportAction">
+       		<result name="success">/WEB-INF/jsp/app/OrderAnalysisReport.jsp</result>
+       </action>
+       <action name="goodsReportsearchInitAction" method="goodsReportInit" class="saleReportAction">
+       		<result name="success">/WEB-INF/jsp/app/GoodsReport.jsp</result>
+       </action>
+       <action name="goodsReportAction" method="goodsReport" class="saleReportAction">
+       		<result name="success">/WEB-INF/jsp/app/GoodsReport.jsp</result>
+       </action>
+        <action name="selectCategory" class="saleReportAction" method="selectCategory" >
+			<result type="dispatcher" name="success">/WEB-INF/jsp/app/GoodsReport.jsp</result>
+	    </action>
+        <action name="saleReport" method="createSaleReport" class="saleReportAction">
+       </action>
+        <action name="goodsReport" method="createGoodsReport" class="saleReportAction">
+       </action>
+        <action name="orderAnalysisReport" method="orderAnalysisReportExport" class="saleReportAction">
+       </action>
+       <!-- 时代销售报表start -->
+       <action name="timeOrderExportPage" class="saleReportAction">
+       		<result name="success">/WEB-INF/jsp/app/timeOrderExportPage.jsp</result>
+       </action>
+       <action name="timeOrderExport" method="timeOrderExport" class="saleReportAction">
+       		<result name="success">/WEB-INF/jsp/app/timeOrderExport.jsp</result>
+       </action>
+       <!-- 时代销售报表 end-->
+        <!-- 订单同步 songmiao -->
+        <action name="showOrderSyncList" method="showOrderSyncList" class="orderSyncAction">
+       		<result name="success">/WEB-INF/jsp/app/orderSyncList.jsp</result>
+       </action>
+        <action name="syncOrder" class="orderSyncAction" method="syncOrder"/>
+        <!-- 导出同步数据 -->
+        <action name="exportSync" class="orderSyncAction" method="exportSync">
+        	<result name="success">/WEB-INF/jsp/app/exportSync.jsp</result>
+        </action>
+       
+		<!-- 客户采购分析报表 -->
+	<!--删除客户采购分析报表 	<action name="customerPurchaseAnalysis" method="customerPurchaseAnalysis" class="saleReportAction">
+			<result name="success">/WEB-INF/jsp/app/CustomerPurchaseAnalysisReport.jsp</result>
+		</action>
+       	<action name="customerPurchaseAnalysisExport" method="customerPurchaseAnalysisExport" class="saleReportAction">
+		</action> -->
+  		<!-- end --> 
+  		
+        <!-- 自营商城订单财务版报表 -->
+		<action name="financeOrderReport" method="financeOrderReport" class="saleReportAction">
+			<result name="success">/WEB-INF/jsp/app/financeOrderReport.jsp</result>
+		</action>
+        <!-- end --> 
+        
+         <!-- 商家订单财务报表-->
+		<action name="merchantsOrderReport" method="merchantsOrderReport" class="saleReportAction">
+			<result name="success">/WEB-INF/jsp/app/merchantsOrderReport.jsp</result>
+		</action>
+        <!-- end --> 
+       
+		   <!-- 收退款数据查询-->
+		<action name="orderPayInfoList" method="orderPayInfoList" class="saleReportAction">
+			<result name="success">/WEB-INF/jsp/app/orderPayReport.jsp</result>
+		</action>
+        <!-- end --> 
+        
+           <!-- 收退款数据报表导出-->
+		<action name="orderPayReport" method="orderPayReport" class="saleReportAction">
+		</action>
+        <!-- end --> 
+        
+        
+           <!-- 查询商城报表导出信息列表-->
+		<action name="queryExportInfoList" method="queryExportInfoList" class="saleReportAction">
+			<result name="finance">/WEB-INF/jsp/app/ExportInfoList.jsp</result>
+			<result  name="merchants">/WEB-INF/jsp/app/ExportInfoListForMerchants.jsp</result>
+		</action>
+        <!-- end --> 
+         <!-- 跳转到商城报表导出页-->
+		<action name="gotoFinanceOrderReport" method="gotoFinanceOrderReport" class="saleReportAction">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/app/exportFinanceOrderReport.jsp</result>
+		</action>
+        <!-- end --> 
+         <!-- 跳转到入驻商家结算报表导出页-->
+		<action name="gotoMerchantsOrderReport" method="gotoMerchantsOrderReport" class="saleReportAction">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/app/ExportMerchantsOrderReport.jsp</result>
+		</action>
+        <!-- end --> 
+        
+        <!-- 商城报表导出 -->
+        <action name="AsynfinanceOrderReport" method="AsynfinanceOrderReport" class="saleReportAction">
+        	<result name="success" type="redirectAction">
+			  	<param name="actionName">queryExportInfoList</param>
+			  	<param name="exportType">0</param>
+			 </result>
+		</action>
+		
+		<!-- 查询商家 -->
+		<action name="findAllSuppliersForJson" class="saleReportAction" method="findAllSuppliersForJson"></action>
+		
+		<!-- 入驻商家报表导出 -->
+		<action name="AsynmerchantsOrderReport" method="AsynmerchantsOrderReport" class="saleReportAction">
+			 <result name = "success" type="redirectAction">
+			  	<param name="actionName">queryExportInfoList</param>
+			  	<param name="exportType">1</param>
+			   </result>
+		</action>
+        
+       	<!-- cps start -->
+		<!--删除cps业务 <action name="cpsOrderFlagList" class="cpsQueryAction" method="cpsOrderFlagList">
+			<result name="success">/WEB-INF/jsp/app/cpsOrderOutSideExtInfoList.jsp</result>
+		</action>
+		<action name="cpsRequestList" class="cpsQueryAction" method="cpsRequestList">
+			<result name="success">/WEB-INF/jsp/app/cpsRequestInfoList.jsp</result>
+		</action>
+		<action name="cpsTrackList" class="cpsQueryAction" method="cpsTrackList">
+			<result name="success">/WEB-INF/jsp/app/cpsTrackInfoList.jsp</result>
+		</action>
+		<action name="cpsOrderList" class="cpsQueryAction" method="cpsOrderList">
+			<result name="success">/WEB-INF/jsp/app/cpsOrderList.jsp</result>
+		</action> -->
+       <!-- cps end -->
+        
+        <!-- 定时任务 -->
+        <action name="quartzManager" class="quartzManagerAction" >
+        	<result name="success">/WEB-INF/jsp/app/quartzTaskManager.jsp</result>
+        </action>
+        <action name="printJob" class="quartzManagerAction" method="printJob"/>
+        <action name="updateQuartzTask" class="quartzManagerAction" method="updateTask"/>
+        <action name="addQuartzTask" class="quartzManagerAction" method="addTask" />
+        <action name="deleteQuartzTask" class="quartzManagerAction" method="deleteTask" />
+        <action name="refleshTask" class="quartzManagerAction" method="refleshTask" />
+        <!-- 定时任务 -->
+        
+        <!-- 退款 -->
+        <action name="refundRequest" class="refundRequestAction" >
+        	<result name="success">/WEB-INF/jsp/app/refundRequestList.jsp</result>
+        </action>
+        <action name="sendRefundData" class="refundRequestAction" method="sendRefundData" />
+        <action name="changeRefundRequest" class="refundRequestAction" method="changeRefundRequest" />
+        <!-- 退款 -->
+        
+        <!-- 取消订单 -->
+        <action name="*MyOrder" class="myOrderAction" method="{1}">
+           <result name="cancleOrder">/WEB-INF/jsp/app/cancleOrder.jsp</result>
+        </action>
+        <!-- 异常订单查询 -->
+        <action name="qryExceptionOrderPageList" class="orderQryAction" method="qryExceptionOrderPageList">
+           <result name="PageList">/WEB-INF/jsp/app/exceptionOrderList.jsp</result>
+        </action>
+        <!-- 预售订单列表查询 -->
+        <action name="qryYsOrderPageList" class="orderQryAction" method="qryYsOrderPageList">
+           <result name="PageList">/WEB-INF/jsp/app/ysOrderList.jsp</result>
+        </action>
+         <!-- 恢复异常订单操作 -->
+        <action name="renewExceptionOrder" class="orderQryAction" method="renewExceptionOrder">
+		</action>
+		<!-- 校验异常订单编码-->
+		 <action name="checkExceptionOrderCode" class="orderQryAction" method="checkExceptionOrderCode">
+		</action>
+         <!-- 新增异常订单操作 -->
+         <action name="addExceptionOrder" class="orderQryAction" method="addExceptionOrder">
+           <result name="PageList">/WEB-INF/jsp/app/exceptionOrderList.jsp</result>
+        </action>
+        
+        <action name="initAddExceptionOrder" class="orderQryAction" method="initAddExceptionOrder">
+           <result name="InsertPage">/WEB-INF/jsp/app/exceptionOrderEdit.jsp</result>
+        </action>
+        
+        <!-- 商家结算(settlement)管理  begin -->
+        <action name="listClearingOrders" class="orderClearingAction" method="turnPage">
+        	<result name="success">/WEB-INF/jsp/app/clearing/listClearingOrders.jsp</result>
+        </action>
+        <action name="toDetailOrder" class="orderClearingAction" method="toDetail">
+        	<result name="success">/WEB-INF/jsp/app/clearing/toDetailOrder.jsp</result>
+        </action>
+        <!-- 导出结算单详情 -->
+        <action name="exportDetailOrder" class="orderClearingAction" method="exportDetailOrder">
+        	<result name="success">/WEB-INF/jsp/app/clearing/toDetailOrder.jsp</result>
+        </action>
+        <action name="createSettlementPage" class="orderClearingAction" method="createSettlementPage">
+        	<result name="success">/WEB-INF/jsp/app/clearing/createSettlement.jsp</result>
+        </action>
+         <action name="showAddDiffAdjPage" class="orderClearingAction" method="showAddDiffAdjPage">
+        	<result name="success">/WEB-INF/jsp/app/clearing/addDiffAdj.jsp</result>
+        </action>
+        <action name="finacialAuditList" class="orderClearingAction" method="turnPage">
+        	<result name="success">/WEB-INF/jsp/app/clearing/finacialAuditList.jsp</result>
+        </action>
+        <!-- 结算单导出 -->
+         <action name="exportFinacialAuditInfo" class="orderClearingAction" method="exportFinacialAuditInfo">
+        </action>
+        <!-- end -->
+        
+        
+        <action name="generateSettlement" class="orderClearingAction" method="handGenerateSettlement">
+        	<result name="ajaxText" type="stream">
+					<param name="contentType">text/html</param>
+					<param name="inputName">result</param>
+			</result>
+        </action>
+         <action name="saveAndSubmitFinancialConfirmation" class="orderClearingAction" method="saveAndSubmitFinancialConfirmation">
+        	<result name="success" type="redirectAction">
+				<param name="actionName">finacialAuditList</param>
+			</result>
+        </action>
+         <action name="saveOperateConfirmation" class="orderClearingAction" method="saveOperateConfirmation">
+        	<result name="success" type="redirectAction">
+				<param name="actionName">toDetailOrder</param>
+              	<param name="sno">${sno}</param>
+			</result>
+        </action>
+         <action name="saveAndSubmitOperateConfirmation" class="orderClearingAction" method="saveAndSubmitOperateConfirmation">
+        	<result name="success" type="redirectAction">
+				<param name="actionName">listClearingOrders</param>
+              	<param name="flag">1</param>
+			</result>
+        </action>
+         <action name="showHurlProductPage" class="orderClearingAction" method="showHurlProductPage">
+        	<result name="success">/WEB-INF/jsp/app/clearing/itemHurlProduct.jsp</result>
+        </action>
+        <action name="showSettlementRefundPage" class="orderClearingAction" method="showSettlementRefundPage">
+        	<result name="success">/WEB-INF/jsp/app/clearing/itemSettlementRefund.jsp</result>
+        </action>
+         <action name="showHurlFarePage" class="orderClearingAction" method="showHurlFarePage">
+        	<result name="success">/WEB-INF/jsp/app/clearing/itemHurlFare.jsp</result>
+        </action>
+         <action name="showDiffAdjPage" class="orderClearingAction" method="showDiffAdjPage">
+        	<result name="success">/WEB-INF/jsp/app/clearing/itemDiffAdj.jsp</result>
+        </action>
+        
+  		<action name="saveDiffAdj" class="orderClearingAction" method="saveDiffAdj">
+        	<result name="ajaxText" type="stream">
+					<param name="contentType">text/html</param>
+					<param name="inputName">result</param>
+				</result>
+        </action>
+    	<action name="deleteDiffAdj" class="orderClearingAction" method="deleteDiffAdj">
+        	<result name="ajaxText" type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">result</param>
+			</result>
+        </action>
+        
+		<action name="output*Data" class="orderClearingAction" method="output{1}Data">
+        	<result name="success">/WEB-INF/jsp/app/clearing/download.jsp</result>
+        </action>	
+        
+		<action name="selectSupplierListByName" class="orderClearingAction" method="selectSupplierListByName">
+        	<result name="ajaxText" type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">result</param>
+			</result>
+        </action>
+	
+        <!-- 商家结算管理  end -->
+        
+		<!-- 风控 -->
+		<!-- 黑白名单 -->
+		<action name="blackList" class="orderRiskRosterAction" method="blackList">
+			<result name="blackList">/WEB-INF/jsp/app/orderRisk/orderRiskBackList.jsp</result>
+		</action>
+		<action name="gotoAddBlackList" class="orderRiskRosterAction" method="gotoAddBlackList">
+			<result name="addBlackList">/WEB-INF/jsp/app/orderRisk/orderRiskBackListAdd.jsp</result>
+		</action>
+		<action name="addBlackList" class="orderRiskRosterAction" method="addBlackList"/>
+		<action name="removeBlackList" class="orderRiskRosterAction" method="removeBlackList"/>
+		
+		<action name="whiteList" class="orderRiskRosterAction" method="whiteList">
+			<result name="whiteList">/WEB-INF/jsp/app/orderRisk/orderRiskWhiteList.jsp</result>
+		</action>
+		<action name="gotoAddWhiteList" class="orderRiskRosterAction" method="gotoAddWhiteList">
+			<result name="addWhiteList">/WEB-INF/jsp/app/orderRisk/orderRiskWhiteListAdd.jsp</result>
+		</action>
+		<action name="addWhiteList" class="orderRiskRosterAction" method="addWhiteList"/>
+		<action name="removeWhiteList" class="orderRiskRosterAction" method="removeWhiteList"/>
+		<!-- 黑白名单 -->
+     	<!-- 风控订单列表 -->
+		<action name="gotoOrderRiskList" class="orderQryAction" method="gotoOrderRiskList">
+			<result name="orderRiskList">/WEB-INF/jsp/app/orderRisk/RiskOrderList.jsp</result>
+		</action>
+		<action name="orderRisk" class="orderItemQryAction" method="orderRisk"/>
+		<action name="gotoOrderRiskDetail" class="orderItemQryAction" method="gotoOrderRiskDetail">
+			<result name="success">/WEB-INF/jsp/app/orderRisk/OrderRiskDetail.jsp</result>
+		</action>
+		<!-- 风控设置初始化 -->
+		<action name="OrderRiskConditionInit" class="orderRiskSettingAction" method="OrderRiskConditionInit">
+			<result name="success" type="redirectAction">queryOrderRiskCondition</result>
+		</action>			
+		<!-- 风控设置保存 -->
+		<action name="saveOrderRiskCondition" class="orderRiskSettingAction" method="saveOrderRiskCondition"/>
+		<!-- 风控设置查询 -->
+		<action name="queryOrderRiskCondition" class="orderRiskSettingAction" method="queryOrderRiskCondition">
+			<result name="success">/WEB-INF/jsp/app/orderRisk/OrderRiskCondition.jsp</result>
+		</action>
+		<action name="ExecRiskJudgeAction" class="execRiskJudgeAction" method="execRiskJudge"/>
+		<!-- 风控 -->
+	</package>
+	
+	<package name="orderAssess" namespace="/app/orderAssess" extends="struts" >
+        <!-- 导入excel订单评分 -->
+        <action name="*OrderAssess" class="importExcelOrderAssessAction" method="{1}">
+            <interceptor-ref name="defaultStack" />
+            <interceptor-ref name="token">
+                 <param name="includeMethods">upload</param>
+            </interceptor-ref>
+            <result name="invalid.token">/WEB-INF/jsp/public/error_repeatSubmit.jsp</result> 
+           <result name="index">/WEB-INF/jsp/app/excel/index.jsp</result>
+        </action>
+	</package>
+</struts>

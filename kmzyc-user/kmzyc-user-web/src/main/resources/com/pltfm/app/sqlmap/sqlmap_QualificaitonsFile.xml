@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="QualificaitonsFile" >
+ 
+  <typeAlias alias="qualificaitonsFileDO" type="com.pltfm.app.vobject.QualificaitonsFileDO" />
+
+  <resultMap id="qualificaitonsFileDOResultMap" class="qualificaitonsFileDO" >
+    <result property="id" column="ID" />
+    <result property="userId" column="USER_ID" />
+      <result property="userName" column="LOGIN_ACCOUNT" />
+    <result property="fileName" column="FILE_NAME" />
+    <result property="fileUrl" column="FILE_URL" />
+    <result property="beginDate" column="BEGIN_DATE" />
+    <result property="endDate" column="END_DATE" />
+    <result property="status" column="STATUS" />
+    <result property="deleted" column="DELETED" />
+    <result property="createDate" column="CREATE_DATE" />
+    <result property="auditingDate" column="AUDITING_DATE" />
+  </resultMap>
+
+
+  <resultMap id="qualificaitonsFileDOResult" class="qualificaitonsFileDO" >
+ 
+    <result property="userId" column="USER_ID" />
+ 
+    <result property="fileUrl" column="FILE_URL" />
+ 
+  </resultMap>
+
+ 
+  <insert id="insert" parameterClass="qualificaitonsFileDO" >
+  
+  
+      <selectKey resultClass="java.lang.Integer" keyProperty="id" >
+           select  SEQ_APP_QUALIFICAITONS_FILE.nextval from dual
+   </selectKey>
+    INSERT INTO QUALIFICAITONS_FILE( ID, USER_ID, FILE_NAME, FILE_URL, BEGIN_DATE, END_DATE, STATUS, 
+      DELETED, CREATE_DATE, AUDITING_DATE)
+     VALUES (#id#,
+             #userId#, 
+             #fileName#,
+             #fileUrl#, 
+             #beginDate#, 
+              #endDate#,
+              #status#, 
+              #deleted#,
+              #createDate#, 
+              #auditingDate#)
+  </insert>
+
+  <update id="update" parameterClass="qualificaitonsFileDO" >
+    UPDATE QUALIFICAITONS_FILE   
+    <dynamic prepend="SET" >
+      <isNotNull property="userId" prepend="," >
+        <![CDATA[  
+        USER_ID = #userId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="fileName" prepend="," >
+        <![CDATA[  
+        FILE_NAME = #fileName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="fileUrl" prepend="," >
+        <![CDATA[  
+        FILE_URL = #fileUrl#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="beginDate" prepend="," >
+        <![CDATA[  
+        BEGIN_DATE = #beginDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="endDate" prepend="," >
+        <![CDATA[  
+        END_DATE = #endDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="status" prepend="," >
+        <![CDATA[  
+        STATUS = #status#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="deleted" prepend="," >
+        <![CDATA[  
+        DELETED = #deleted#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="," >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="auditingDate" prepend="," >
+        <![CDATA[  
+        AUDITING_DATE = #auditingDate#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+     WHERE ID = #id#  
+  </update>
+
+
+
+  <select id="findListQualificaitonsFile" parameterClass="java.lang.Integer" resultMap="qualificaitonsFileDOResult" >
+  
+   select A.USER_ID,A.FILE_URL from QUALIFICAITONS_FILE A where  A.USER_ID=#userId# and A.STATUS=2 and A.end_date>A.begin_date
+  </select>
+
+  <select id="findByPrimaryKey" parameterClass="java.lang.Integer" resultMap="qualificaitonsFileDOResultMap" >
+     select A.*,
+         b.login_account  FROM  QUALIFICAITONS_FILE A , login_info B
+         where a.user_id=b.n_login_id 
+      <!--  and a.status=1--> 
+         and a.id=#id#
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterClass="java.lang.Integer" >
+    <![CDATA[  
+     DELETE FROM QUALIFICAITONS_FILE WHERE ID = #id#
+    ]]>  
+  </delete>
+
+  <select id="countByDOExample" parameterClass="qualificaitonsFileDO" resultClass="java.lang.Integer" >
+   select  count(*) from  QUALIFICAITONS_FILE A , login_info B  
+         where a.user_id=b.n_login_id 
+         <isNotNull property="userName">
+		<isNotEmpty prepend="and" property="userName">
+			   b.LOGIN_ACCOUNT  like '%$userName$%'
+		 </isNotEmpty>
+		 </isNotNull>
+         <isNotNull>
+			   <isNotEmpty prepend="and" property="fileName">
+					      A.FILE_NAME   like '%$fileName$%'
+			        </isNotEmpty>
+		             </isNotNull>
+		             	<isNotNull property="status">
+			   <isNotEmpty prepend="and" property="status">
+					    	 A.STATUS =#status#
+			        </isNotEmpty>
+		             </isNotNull>
+		                 	<isNotNull property="deleted">
+			   <isNotEmpty prepend="and" property="deleted">
+					    	 A.DELETED =#deleted#
+			        </isNotEmpty>
+		             </isNotNull>
+		             
+		              <isNotNull property="beginDate">
+        <![CDATA[
+          and A.END_DATE >= #beginDate:DATE#
+      	]]>
+      </isNotNull>
+       <isNotNull property="endDate" >
+         <![CDATA[
+          and A.END_DATE <= #endDate:DATE#
+      	]]>
+      	</isNotNull>
+          <!--  and a.status=1--> 
+  </select>
+  
+  <select id="findListByDO" resultMap="qualificaitonsFileDOResultMap" parameterClass="qualificaitonsFileDO" >
+     
+      select *  from (select ROW_NUMBER() OVER(order by A.ID desc) as view_row_number,
+         A.*,
+         b.login_account
+         from QUALIFICAITONS_FILE A , login_info B
+         where a.user_id=b.n_login_id 
+              <isNotNull property="userName">
+		<isNotEmpty prepend="and" property="userName">
+			   b.LOGIN_ACCOUNT  like '%$userName$%'
+		 </isNotEmpty>
+		 </isNotNull>
+         <isNotNull>
+			   <isNotEmpty prepend="and" property="fileName">
+					      A.FILE_NAME   like '%$fileName$%'
+			        </isNotEmpty>
+		             </isNotNull>
+		             	<isNotNull property="status">
+			   <isNotEmpty prepend="and" property="status">
+					    	 A.STATUS =#status#
+			        </isNotEmpty>
+		             </isNotNull>
+		                 	<isNotNull property="deleted">
+			   <isNotEmpty prepend="and" property="deleted">
+					    	 A.DELETED =#deleted#
+			        </isNotEmpty>
+		             </isNotNull>
+		             
+		              <isNotNull property="beginDate">
+        <![CDATA[
+          and A.END_DATE >= #beginDate:DATE#
+      	]]>
+      </isNotNull>
+       <isNotNull property="endDate" >
+         <![CDATA[
+          and A.END_DATE <= #endDate:DATE#
+      	]]>
+      	</isNotNull>
+          )
+     
+       <![CDATA[ where view_row_number <= #max# and view_row_number > #skip# ]]>
+     
+     
+  </select>
+  
+ 
+  
+  
+</sqlMap>

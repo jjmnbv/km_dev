@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="TransactionList" >
+
+  <typeAlias alias="transactionListDO" type="com.pltfm.app.dataobject.TransactionList" />
+  <typeAlias alias="transactionListQuery" type="com.pltfm.app.vobject.TransactionListQuery" />
+
+  <resultMap id="transactionListDOResultMap" class="transactionListDO" >
+    <result property="nTransactionListId" column="N_TRANSACTION_LIST_ID" />
+    <result property="nAccountId" column="N_ACCOUNT_ID" />
+    <result property="nAccountTransactionId" column="N_ACCOUNT_TRANSACTION_ID" />
+    <result property="nBeforeAmount" column="N_BEFORE_AMOUNT" />
+    <result property="nAfterAmount" column="N_AFTER_AMOUNT" />
+    <result property="nMoney" column="N_MONEY" />
+    <result property="dModifide" column="D_MODIFIDE" />
+    <result property="dCreateDate" column="D_CREATE_DATE" />
+    <result property="modified" column="MODIFIED" />
+    <result property="creaded" column="CREADED" />
+  </resultMap>
+
+  <resultMap id="transactionListQueryResultMap" class="transactionListQuery" >
+    <result property="nTransactionListId" column="N_TRANSACTION_LIST_ID" />
+    <result property="nAccountId" column="N_ACCOUNT_ID" />
+    <result property="nAccountTransactionId" column="N_ACCOUNT_TRANSACTION_ID" />
+    <result property="nBeforeAmount" column="N_BEFORE_AMOUNT" />
+    <result property="nAfterAmount" column="N_AFTER_AMOUNT" />
+    <result property="nMoney" column="N_MONEY" />
+    <result property="dModifide" column="D_MODIFIDE" />
+    <result property="dCreateDate" column="D_CREATE_DATE" />
+    <result property="modified" column="MODIFIED" />
+    <result property="creaded" column="CREADED" />
+  </resultMap>
+
+  <sql id="transactionList_columns" >
+    a1.N_TRANSACTION_LIST_ID, a1.N_ACCOUNT_ID, a1.N_ACCOUNT_TRANSACTION_ID, a1.N_BEFORE_AMOUNT, 
+      a1.N_AFTER_AMOUNT, a1.N_MONEY, a1.D_MODIFIDE, a1.D_CREATE_DATE, a1.MODIFIED, a1.CREADED
+      
+  </sql>
+
+  <sql id="transactionList_do_columns" >
+    a1.N_TRANSACTION_LIST_ID, a1.N_ACCOUNT_ID, a1.N_ACCOUNT_TRANSACTION_ID, a1.N_BEFORE_AMOUNT, 
+      a1.N_AFTER_AMOUNT, a1.N_MONEY, a1.D_MODIFIDE, a1.D_CREATE_DATE, a1.MODIFIED, a1.CREADED
+      
+  </sql>
+
+  <sql id="transactionList_query_columns" >
+    a1.N_TRANSACTION_LIST_ID, a1.N_ACCOUNT_ID, a1.N_ACCOUNT_TRANSACTION_ID, a1.N_BEFORE_AMOUNT, 
+      a1.N_AFTER_AMOUNT, a1.N_MONEY, a1.D_MODIFIDE, a1.D_CREATE_DATE, a1.MODIFIED, a1.CREADED
+      
+  </sql>
+
+  <sql id="queryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="nTransactionListId" prepend="AND" >
+        <![CDATA[  
+        N_TRANSACTION_LIST_ID = #nTransactionListId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nAccountId" prepend="AND" >
+        <![CDATA[  
+        N_ACCOUNT_ID = #nAccountId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nAccountTransactionId" prepend="AND" >
+        <![CDATA[  
+        N_ACCOUNT_TRANSACTION_ID = #nAccountTransactionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nBeforeAmount" prepend="AND" >
+        <![CDATA[  
+        N_BEFORE_AMOUNT = #nBeforeAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nAfterAmount" prepend="AND" >
+        <![CDATA[  
+        N_AFTER_AMOUNT = #nAfterAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nMoney" prepend="AND" >
+        <![CDATA[  
+        N_MONEY = #nMoney#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dModifide" prepend="AND" >
+        <![CDATA[  
+        D_MODIFIDE = #dModifide#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dCreateDate" prepend="AND" >
+        <![CDATA[  
+        D_CREATE_DATE = #dCreateDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modified" prepend="AND" >
+        <![CDATA[  
+        MODIFIED = #modified#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="creaded" prepend="AND" >
+        <![CDATA[  
+        CREADED = #creaded#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="doQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="nTransactionListId" prepend="AND" >
+        <![CDATA[  
+        N_TRANSACTION_LIST_ID = #nTransactionListId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nAccountId" prepend="AND" >
+        <![CDATA[  
+        N_ACCOUNT_ID = #nAccountId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nAccountTransactionId" prepend="AND" >
+        <![CDATA[  
+        N_ACCOUNT_TRANSACTION_ID = #nAccountTransactionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nBeforeAmount" prepend="AND" >
+        <![CDATA[  
+        N_BEFORE_AMOUNT = #nBeforeAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nAfterAmount" prepend="AND" >
+        <![CDATA[  
+        N_AFTER_AMOUNT = #nAfterAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nMoney" prepend="AND" >
+        <![CDATA[  
+        N_MONEY = #nMoney#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dModifide" prepend="AND" >
+        <![CDATA[  
+        D_MODIFIDE = #dModifide#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dCreateDate" prepend="AND" >
+        <![CDATA[  
+        D_CREATE_DATE = #dCreateDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modified" prepend="AND" >
+        <![CDATA[  
+        MODIFIED = #modified#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="creaded" prepend="AND" >
+        <![CDATA[  
+        CREADED = #creaded#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="queryQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="nTransactionListId" prepend="AND" >
+        <![CDATA[  
+        N_TRANSACTION_LIST_ID = #nTransactionListId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nAccountId" prepend="AND" >
+        <![CDATA[  
+        N_ACCOUNT_ID = #nAccountId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nAccountTransactionId" prepend="AND" >
+        <![CDATA[  
+        N_ACCOUNT_TRANSACTION_ID = #nAccountTransactionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nBeforeAmount" prepend="AND" >
+        <![CDATA[  
+        N_BEFORE_AMOUNT = #nBeforeAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nAfterAmount" prepend="AND" >
+        <![CDATA[  
+        N_AFTER_AMOUNT = #nAfterAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nMoney" prepend="AND" >
+        <![CDATA[  
+        N_MONEY = #nMoney#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dModifide" prepend="AND" >
+        <![CDATA[  
+        D_MODIFIDE = #dModifide#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dCreateDate" prepend="AND" >
+        <![CDATA[  
+        D_CREATE_DATE = #dCreateDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modified" prepend="AND" >
+        <![CDATA[  
+        MODIFIED = #modified#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="creaded" prepend="AND" >
+        <![CDATA[  
+        CREADED = #creaded#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <insert id="insert" parameterClass="transactionListDO" >
+    INSERT INTO TRANSACTION_LIST( N_TRANSACTION_LIST_ID, N_ACCOUNT_ID, N_ACCOUNT_TRANSACTION_ID, N_BEFORE_AMOUNT, 
+      N_AFTER_AMOUNT, N_MONEY, D_MODIFIDE, D_CREATE_DATE, MODIFIED, CREADED)
+     VALUES ( #nTransactionListId#, #nAccountId#, #nAccountTransactionId#, #nBeforeAmount#, 
+      #nAfterAmount#, #nMoney#, #dModifide#, #dCreateDate#, #modified#, #creaded#)
+    <selectKey keyProperty="nTransactionListId" resultClass="java.math.BigDecimal" >
+      SELECT LAST_INSERT_ID() AS value
+    </selectKey>
+  </insert>
+
+  <update id="update" parameterClass="transactionListDO" >
+    UPDATE TRANSACTION_LIST   
+    <dynamic prepend="SET" >
+      <!--
+      <isNotNull property="nTransactionListId" prepend="," >
+        <![CDATA[  
+        N_TRANSACTION_LIST_ID = #nTransactionListId#  
+        ]]>  
+      </isNotNull>
+      -->
+      <isNotNull property="nAccountId" prepend="," >
+        <![CDATA[  
+        N_ACCOUNT_ID = #nAccountId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nAccountTransactionId" prepend="," >
+        <![CDATA[  
+        N_ACCOUNT_TRANSACTION_ID = #nAccountTransactionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nBeforeAmount" prepend="," >
+        <![CDATA[  
+        N_BEFORE_AMOUNT = #nBeforeAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nAfterAmount" prepend="," >
+        <![CDATA[  
+        N_AFTER_AMOUNT = #nAfterAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nMoney" prepend="," >
+        <![CDATA[  
+        N_MONEY = #nMoney#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dModifide" prepend="," >
+        <![CDATA[  
+        D_MODIFIDE = #dModifide#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dCreateDate" prepend="," >
+        <![CDATA[  
+        D_CREATE_DATE = #dCreateDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modified" prepend="," >
+        <![CDATA[  
+        MODIFIED = #modified#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="creaded" prepend="," >
+        <![CDATA[  
+        CREADED = #creaded#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+     WHERE N_TRANSACTION_LIST_ID = #nTransactionListId#  
+  </update>
+
+  <select id="findByPrimaryKey" parameterClass="java.math.BigDecimal" resultMap="transactionListDOResultMap" >
+     SELECT 
+    <include refid="transactionList_do_columns" />
+    <![CDATA[  
+     FROM TRANSACTION_LIST a1 WHERE N_TRANSACTION_LIST_ID = #nTransactionListId#
+    ]]>  
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterClass="java.math.BigDecimal" >
+    <![CDATA[  
+     DELETE FROM TRANSACTION_LIST WHERE N_TRANSACTION_LIST_ID = #nTransactionListId#
+    ]]>  
+  </delete>
+
+  <select id="countByDOExample" parameterClass="transactionListDO" resultClass="java.lang.Integer" >
+    SELECT COUNT(N_TRANSACTION_LIST_ID) AS num FROM TRANSACTION_LIST 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="findListByDO" resultMap="transactionListDOResultMap" parameterClass="transactionListDO" >
+     SELECT 
+    <include refid="transactionList_do_columns" />
+     FROM TRANSACTION_LIST a1 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="countByQueryExample" parameterClass="transactionListQuery" resultClass="java.lang.Integer" >
+    SELECT COUNT(N_TRANSACTION_LIST_ID) AS num FROM TRANSACTION_LIST 
+    <include refid="queryQueryParams" />
+  </select>
+
+  <select id="findListByQuery" resultMap="transactionListQueryResultMap" parameterClass="transactionListQuery" >
+     SELECT 
+    <include refid="transactionList_query_columns" />
+     FROM TRANSACTION_LIST a1 
+    <include refid="queryQueryParams" />
+  </select>
+</sqlMap>

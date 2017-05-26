@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+    xsi:schemaLocation="  
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://code.alibabatech.com/schema/dubbo classpath:dubbo.xsd">
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="express-provider" owner="kmzyc.express" />
+	<!-- 使用zookeeper注册中心暴露服务地址 file使用文件缓存注册中心地址列表 -->
+	<dubbo:registry protocol="zookeeper" client="curator" address="${dubbo.registry.address}"
+					file="kmzyc-express.cache"/>
+	<!-- 远程服务调用重试次数，不包括第一次调用，不需要重试设置为0 -->
+	<dubbo:consumer timeout="10000" check="false" retries="0"/>
+	<!-- 用dubbo协议在20880端口暴露服务 -->
+	<dubbo:protocol name="dubbo" port="24889" />
+	<!-- 当ProtocolConfig和ServiceConfig某属性没有配置时,采用此缺省值 -->	
+	<dubbo:provider timeout="10000"  threadpool="fixed" threads="100" accepts="1000"/>
+	<!-- 监控dubbo接口的状态，性能 -->
+	<dubbo:monitor protocol="registry"/>
+	
+	
+	<dubbo:service interface="com.kmzyc.express.remote.ExpressSubscriptionRemoteService" ref="expressSubscriptionRemoteService" />
+</beans>

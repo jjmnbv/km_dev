@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="Qualifications" >
+
+  <typeAlias alias="qualificationsDO" type="com.pltfm.app.vobject.QualificationsDO" />
+
+  <resultMap id="qualificationsDOResultMap" class="qualificationsDO" >
+    <result property="id" column="ID" />
+    <result property="userId" column="USER_ID" />
+    <result property="type" column="TYPE" />
+    <result property="status" column="STATUS" />
+    <result property="createDate" column="CREATE_DATE" />
+    <result property="modifyDate" column="MODIFY_DATE" />
+    <result property="validDate" column="VALID_DATE" />
+  </resultMap>
+  
+  
+  
+  
+    <resultMap id="qualificationsDOResult" class="qualificationsDO" >
+     <result property="id" column="ID" />
+    <result property="userId" column="USER_ID" />
+    <result property="type" column="TYPE" />
+    <result property="userName" column="LOGIN_ACCOUNT" />
+    <result property="status" column="STATUS" />
+     <result property="createDate" column="CREATE_DATE" />
+    <result property="modifyDate" column="MODIFY_DATE" />
+    <result property="validDate" column="VALID_DATE" />
+  
+  </resultMap>
+
+  <insert id="insert" parameterClass="qualificationsDO" >
+  
+      <selectKey resultClass="java.lang.Integer" keyProperty="id" >
+           select  SEQ_APP_QUALIFICAITONS.nextval from dual
+   </selectKey>
+    INSERT INTO QUALIFICATIONS( ID, USER_ID, TYPE, STATUS, CREATE_DATE, MODIFY_DATE, VALID_DATE
+      )
+     VALUES ( #id#, #userId#, #type#, #status#, #createDate#, #modifyDate#, #validDate#
+      )
+  </insert>
+
+
+  <delete id="deleteByPrimaryKey" parameterClass="java.lang.Integer" >
+    <![CDATA[  
+     DELETE FROM QUALIFICATIONS WHERE USER_ID = #userId#
+    ]]>  
+  </delete>
+  
+  <update id="update" parameterClass="qualificationsDO" >
+    UPDATE QUALIFICATIONS   
+    <dynamic prepend="SET" >
+  
+      <isNotNull property="userId" prepend="," >
+        <![CDATA[  
+        USER_ID = #userId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="type" prepend="," >
+        <![CDATA[  
+        TYPE = #type#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="status" prepend="," >
+        <![CDATA[  
+        STATUS = #status#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="," >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="," >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="validDate" prepend="," >
+        <![CDATA[  
+        VALID_DATE = #validDate#  
+        ]]>  
+      </isNotNull>
+      
+      <isEmpty property="validDate" prepend=",">
+        VALID_DATE = null
+      
+      </isEmpty>
+    
+    </dynamic>
+     WHERE USER_ID = #userId#  
+     and   TYPE = #type#  
+  </update>
+  
+  
+    <update id="updateQualificaitonsDO" parameterClass="qualificationsDO" >
+    UPDATE QUALIFICATIONS   
+    <dynamic prepend="SET" >
+  
+      <isNotNull property="userId" prepend="," >
+        <![CDATA[  
+        USER_ID = #userId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="type" prepend="," >
+        <![CDATA[  
+        TYPE = #type#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="status" prepend="," >
+        <![CDATA[  
+        STATUS = #status#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="," >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="," >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="validDate" prepend="," >
+        <![CDATA[  
+        VALID_DATE = #validDate#  
+        ]]>  
+      </isNotNull>
+      
+      <isEmpty property="validDate" prepend=",">
+        VALID_DATE = null
+      
+      </isEmpty>
+    
+    </dynamic>
+     WHERE ID = #id#  
+  </update>
+  
+  
+  
+  
+    <select id="findListByDO" resultMap="qualificationsDOResultMap" parameterClass="qualificationsDO" >
+     select * from QUALIFICATIONS where USER_ID = #userId# and TYPE=#type#
+    </select>
+     
+     
+       <select id="findByPrimaryKey" resultMap="qualificationsDOResult"  parameterClass="java.lang.Integer"  >
+     select  t.*, b.login_account from 
+    QUALIFICATIONS t  ,login_info b 
+where t.user_id=b.n_login_id
+and t.ID=#id#
+    </select>
+       <select id="countByDOExample" parameterClass="qualificationsDO" resultClass="java.lang.Integer" >
+ 
+     select  count(*) from 
+    QUALIFICATIONS t  ,login_info b 
+where t.user_id=b.n_login_id
+      <isNotNull property="userName">
+		<isNotEmpty prepend="and" property="userName">
+			   b.LOGIN_ACCOUNT  like '%$userName$%'
+		 </isNotEmpty>
+		 </isNotNull>
+        
+		             	<isNotNull property="status">
+			   <isNotEmpty prepend="and" property="status">
+					    	 t.STATUS =#status#
+			        </isNotEmpty>
+		             </isNotNull>
+		                 	<isNotNull property="type">
+			   <isNotEmpty prepend="and" property="type">
+					    	t.type =#type#
+			        </isNotEmpty>
+		             </isNotNull>
+ 
+		  
+  </select>
+  
+  
+  
+  <select id="findListByQualificaitons" resultMap="qualificationsDOResult" parameterClass="qualificationsDO" >
+    select *  from ( select ROW_NUMBER() OVER(order by ID desc) as view_row_number , t.*,
+   b.login_account
+
+from   QUALIFICATIONS t  ,login_info b 
+where t.user_id=b.n_login_id
+  <isNotNull property="userName">
+		<isNotEmpty prepend="and" property="userName">
+			   b.LOGIN_ACCOUNT  like '%$userName$%'
+		 </isNotEmpty>
+		 </isNotNull>
+        
+		             	<isNotNull property="status">
+			   <isNotEmpty prepend="and" property="status">
+					    	 t.STATUS =#status#
+			        </isNotEmpty>
+		             </isNotNull>
+		                 	<isNotNull property="type">
+			   <isNotEmpty prepend="and" property="type">
+					    	t.type =#type#
+			        </isNotEmpty>
+		             </isNotNull>
+)
+       <![CDATA[ where view_row_number <= #max# and view_row_number > #skip# ]]>
+
+  </select>
+     
+      
+     
+     <select id="getQualificaitonsList" resultMap="qualificationsDOResultMap" parameterClass="qualificationsDO">
+     
+      select * from QUALIFICATIONS  t where t.USER_ID=#userId# and t.type=#type#
+     
+     </select>
+     
+     
+   
+</sqlMap>

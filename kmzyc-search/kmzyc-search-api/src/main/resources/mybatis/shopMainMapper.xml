@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kmzyc.search.facade.dao.ShopMainDao" >
+	
+	<!-- 根据店铺ID获取店铺信息 -->
+  	<select id="getShopNameId" parameterType="java.lang.Integer" resultType="java.lang.String">
+     	SELECT 
+    		t.SHOP_NAME as shopName
+	    FROM 
+	    	SHOP_MAIN t
+	    WHERE 
+	    	t.SHOP_ID = #{shopId}
+ 	</select>
+ 	
+ 	<!-- 根据供应商ID获取供应商名称 -->
+ 	<select id="getSupplierById" parameterType="java.lang.Integer" resultType="java.lang.String">
+     	SELECT 
+    		t.COMPANY_SHOW_NAME as supplier
+	    FROM 
+	    	SUPPLIERS_INFO t
+	    WHERE 
+	    	t.SUPPLIER_ID = #{supplierId}
+ 	</select>
+ 	
+</mapper>

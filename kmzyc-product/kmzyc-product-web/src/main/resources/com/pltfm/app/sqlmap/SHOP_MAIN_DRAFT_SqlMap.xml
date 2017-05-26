@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SHOP_MAIN_DRAFT">
+    <typeAlias alias="shopMainDraft" type="com.kmzyc.supplier.model.ShopMainDraft"/>
+    <typeAlias alias="shopMainDraftExample" type="com.kmzyc.supplier.model.example.ShopMainDraftExample"/>
+
+    <resultMap id="baseResultMap" class="shopMainDraft">
+        <result column="SHOP_ID" property="shopId" jdbcType="DECIMAL"/>
+        <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL"/>
+        <result column="SHOP_TYPE" property="shopType" jdbcType="DECIMAL"/>
+        <result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR"/>
+        <result column="SHOP_NAME" property="shopName" jdbcType="VARCHAR"/>
+        <result column="SHOP_TITLE" property="shopTitle" jdbcType="VARCHAR"/>
+        <result column="LOGO_PATH" property="logoPath" jdbcType="VARCHAR"/>
+        <result column="PHYSHOP_IMAGE_PATH" property="physhopImagePath" jdbcType="VARCHAR"/>
+        <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR"/>
+        <result column="CONTACT_INFO" property="contactInfo" jdbcType="VARCHAR"/>
+        <result column="INTRODUCE" property="introduce" jdbcType="VARCHAR"/>
+        <result column="SHOP_LEVEL" property="shopLevel" jdbcType="DECIMAL"/>
+        <result column="STATUS" property="status" jdbcType="CHAR"/>
+        <result column="AUDIT_STATUS" property="auditStatus" jdbcType="CHAR"/>
+        <result column="DEFAULT_DOMAIN_URL" property="defaultDomainUrl" jdbcType="VARCHAR"/>
+        <result column="SHOP_SITE" property="shopSite" jdbcType="VARCHAR"/>
+        <result column="SHOP_SEO_KEY" property="shopSeoKey" jdbcType="VARCHAR"/>
+        <result column="APPLY_USER" property="applyUser" jdbcType="DECIMAL"/>
+        <result column="APPLY_TIME" property="applyTime" jdbcType="Date"/>
+        <result column="AUDIT_TIME" property="auditTime" jdbcType="Date"/>
+        <result column="AUDIT_USER" property="auditUser" jdbcType="DECIMAL"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+        <result column="MANAGE_BRAND" property="manageBrand" jdbcType="VARCHAR"/>
+        <result column="LINKMAN_MOBILE" property="linkmanMobile" jdbcType="VARCHAR"/>
+        <result column="PRINCIPAL_NAME" property="principalName" jdbcType="VARCHAR"/>
+        <result column="SERVICE_QQ" property="serviceQq" jdbcType="VARCHAR"/>
+        <result column="SERVICE_TYPE" property="serviceType" jdbcType="DECIMAL"/>
+        <result column="TEMPLATE_TYPE" property="templateType" jdbcType="DECIMAL"/>
+    </resultMap>
+    <resultMap class="shopMainDraft" id="baseResultMap1"
+               extends="baseResultMap">
+        <result column="CORPORATE_NAME" property="corporateName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="example_Where_Clause">
+        <iterate property="oredCriteria" conjunction="or" prepend="and" removeFirstPrepend="iterate">
+            <isEqual property="oredCriteria[].valid" compareValue="true">
+                (
+                <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and">
+                    $oredCriteria[].criteriaWithoutValue[]$
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and">
+                    $oredCriteria[].criteriaWithSingleValue[].condition$
+                    #oredCriteria[].criteriaWithSingleValue[].value#
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and">
+                    $oredCriteria[].criteriaWithListValue[].condition$
+                    <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")"
+                             conjunction=",">
+                        #oredCriteria[].criteriaWithListValue[].values[]#
+                    </iterate>
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and">
+                    $oredCriteria[].criteriaWithBetweenValue[].condition$
+                    #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+                    #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+                </iterate>
+                )
+            </isEqual>
+        </iterate>
+    </sql>
+
+    <select id="ibatorgenerated_selectByExample" resultMap="baseResultMap1"
+            parameterClass="shopMainDraftExample">
+        select SHOP_ID, p.SUPPLIER_ID, SHOP_TYPE, SHOP_CODE, SHOP_NAME, SHOP_TITLE, LOGO_PATH,
+        PHYSHOP_IMAGE_PATH, FILE_PATH, CONTACT_INFO, INTRODUCE, SHOP_LEVEL, p.STATUS,
+        AUDIT_STATUS,SERVICE_TYPE,TEMPLATE_TYPE,
+        DEFAULT_DOMAIN_URL, SHOP_SITE, SHOP_SEO_KEY, APPLY_USER, APPLY_TIME,
+        AUDIT_TIME, AUDIT_USER, REMARK,MANAGE_BRAND,LINKMAN_MOBILE,PRINCIPAL_NAME,c1.corporate_name,p.SERVICE_QQ
+        from SHOP_MAIN_DRAFT p ,suppliers_info s,commercial_tenant_basic_info c1 where p.supplier_id=s.supplier_id and
+        s.merchant_id=c1.n_commercial_tenant_id and p.audit_status !=0 and s.status!=1
+        <isNotEmpty property="corporateName" prepend="and">
+            c1.corporate_name like '%'||#corporateName#||'%'
+        </isNotEmpty>
+        <isNotEmpty property="status" prepend="and">
+            p.STATUS = #status#
+        </isNotEmpty>
+        <isParameterPresent>
+            <include refid="SHOP_MAIN_DRAFT.example_Where_Clause"/>
+            <isNotNull property="orderByClause">
+                order by $orderByClause$
+            </isNotNull>
+        </isParameterPresent>
+    </select>
+    <select id="ibatorgenerated_countByExample" parameterClass="shopMainDraftExample"
+            resultClass="java.lang.Integer">
+        select count(1) from SHOP_MAIN_DRAFT p ,suppliers_info s,commercial_tenant_basic_info c1 where
+        p.supplier_id=s.supplier_id and s.merchant_id=c1.n_commercial_tenant_id and p.audit_status !=0 and s.status!=1
+        <isNotEmpty property="corporateName" prepend="and">
+            c1.corporate_name like '%'||#corporateName#||'%'
+        </isNotEmpty>
+        <isNotEmpty property="status" prepend="and">
+            p.STATUS = #status#
+        </isNotEmpty>
+        <isParameterPresent>
+            <include refid="SHOP_MAIN_DRAFT.example_Where_Clause"/>
+            <isNotNull property="orderByClause">
+                order by $orderByClause$
+            </isNotNull>
+        </isParameterPresent>
+    </select>
+    <select id="ibatorgenerated_selectByPrimaryKey" resultMap="baseResultMap1"
+            parameterClass="shopMainDraft">
+        select SHOP_ID, p.SUPPLIER_ID, SHOP_TYPE, SHOP_CODE, SHOP_NAME, SHOP_TITLE, LOGO_PATH,
+        PHYSHOP_IMAGE_PATH, FILE_PATH, CONTACT_INFO, INTRODUCE, SHOP_LEVEL, p.STATUS,
+        AUDIT_STATUS,SERVICE_TYPE,TEMPLATE_TYPE,
+        DEFAULT_DOMAIN_URL, SHOP_SITE, SHOP_SEO_KEY, APPLY_USER, APPLY_TIME,
+        AUDIT_TIME, AUDIT_USER, REMARK, MANAGE_BRAND,LINKMAN_MOBILE,PRINCIPAL_NAME,c1.corporate_name,p.SERVICE_QQ
+        from SHOP_MAIN_DRAFT p,suppliers_info s,commercial_tenant_basic_info c1
+        where SHOP_ID = #shopId:DECIMAL# and p.supplier_id=s.supplier_id and s.merchant_id=c1.n_commercial_tenant_id
+    </select>
+    <select id="ibatorgenerated_selectByExampleForOfficial" resultMap="baseResultMap"
+            parameterClass="shopMainDraftExample">
+        select SHOP_ID, SUPPLIER_ID, SHOP_TYPE, SHOP_CODE, SHOP_NAME, SHOP_TITLE, LOGO_PATH,
+        PHYSHOP_IMAGE_PATH, FILE_PATH, CONTACT_INFO, INTRODUCE, SHOP_LEVEL, STATUS, AUDIT_STATUS,
+        DEFAULT_DOMAIN_URL, SHOP_SITE, SHOP_SEO_KEY, APPLY_USER, APPLY_TIME, AUDIT_TIME, AUDIT_USER,
+        REMARK, MANAGE_BRAND, LINKMAN_MOBILE, PRINCIPAL_NAME, SERVICE_QQ, SERVICE_TYPE, TEMPLATE_TYPE
+        from SHOP_MAIN_DRAFT where 1=1
+        <isParameterPresent>
+            <include refid="SHOP_MAIN_DRAFT.example_Where_Clause"/>
+            <isNotNull property="orderByClause">
+                order by $orderByClause$
+            </isNotNull>
+        </isParameterPresent>
+    </select>
+    <update id="ibatorgenerated_updateByPrimaryKey" parameterClass="shopMainDraft">
+        update SHOP_MAIN_DRAFT
+        <dynamic prepend="set">
+            <isNotNull prepend="," property="supplierId">
+                SUPPLIER_ID = #supplierId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="shopType">
+                SHOP_TYPE = #shopType:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="shopCode">
+                SHOP_CODE = #shopCode:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopName">
+                SHOP_NAME = #shopName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopTitle">
+                SHOP_TITLE = #shopTitle:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="logoPath">
+                LOGO_PATH = #logoPath:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="physhopImagePath">
+                PHYSHOP_IMAGE_PATH = #physhopImagePath:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="filePath">
+                FILE_PATH = #filePath:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="contactInfo">
+                CONTACT_INFO = #contactInfo:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="introduce">
+                INTRODUCE = #introduce:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopLevel">
+                SHOP_LEVEL = #shopLevel:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="status">
+                STATUS = #status:CHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="auditStatus">
+                AUDIT_STATUS = #auditStatus:CHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="defaultDomainUrl">
+                DEFAULT_DOMAIN_URL = #defaultDomainUrl:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopSite">
+                SHOP_SITE = #shopSite:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopSeoKey">
+                SHOP_SEO_KEY = #shopSeoKey:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="applyUser">
+                APPLY_USER = #applyUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="applyTime">
+                APPLY_TIME = #applyTime:DATE#
+            </isNotNull>
+            <isNotNull prepend="," property="auditTime">
+                AUDIT_TIME = #auditTime:DATE#
+            </isNotNull>
+            <isNotNull prepend="," property="auditUser">
+                AUDIT_USER = #auditUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="remark">
+                REMARK = #remark:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="manageBrand">
+                MANAGE_BRAND = #manageBrand:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="linkmanMobile">
+                LINKMAN_MOBILE = #linkmanMobile:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="principalName">
+                PRINCIPAL_NAME = #principalName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="serviceQq">
+                SERVICE_QQ = #serviceQq:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="serviceType">
+                SERVICE_TYPE = #serviceType:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="templateType">
+                TEMPLATE_TYPE = #templateType:DECIMAL#
+            </isNotNull>
+        </dynamic>
+        where SHOP_ID = #shopId:DECIMAL#
+    </update>
+    <update id="updateOfficialFromDraftByPrimaryKey" parameterClass="shopMainDraft">
+    update SHOP_MAIN
+    set
+      SHOP_TYPE = #shopType:DECIMAL#,
+      SHOP_CODE = #shopCode:VARCHAR#,
+      SHOP_NAME = #shopName:VARCHAR#,
+      SHOP_TITLE = #shopTitle:VARCHAR#,
+      FILE_PATH = #filePath:VARCHAR#,
+      CONTACT_INFO = #contactInfo:VARCHAR#,
+      INTRODUCE = #introduce:VARCHAR#,
+      SHOP_LEVEL = #shopLevel:DECIMAL#,
+      STATUS = #status:CHAR#,
+      AUDIT_STATUS = #auditStatus:CHAR#,
+      SHOP_SITE = #shopSite:VARCHAR#,
+      SHOP_SEO_KEY = #shopSeoKey:VARCHAR#,
+      APPLY_USER = #applyUser:DECIMAL#,
+      APPLY_TIME = #applyTime:DATE#,
+      AUDIT_TIME = #auditTime:DATE#,
+      AUDIT_USER = #auditUser:DECIMAL#,
+      REMARK = #remark:VARCHAR#,
+      MANAGE_BRAND = #manageBrand:VARCHAR#,
+      LINKMAN_MOBILE = #linkmanMobile:VARCHAR#,
+      PRINCIPAL_NAME = #principalName:VARCHAR#,
+      SERVICE_QQ = #serviceQq:VARCHAR#,
+      SERVICE_TYPE = #serviceType:DECIMAL#,
+      TEMPLATE_TYPE = #templateType:DECIMAL#
+    where SHOP_ID = #shopId:DECIMAL#
+  </update>
+
+    <update id="updateShopMainRemarkByShopId" parameterClass="shopMainDraft">
+    update SHOP_MAIN
+    set
+      REMARK = #remark:VARCHAR# 
+    where SHOP_ID = #shopId:DECIMAL#
+  </update>
+
+    <insert id="insertOfficialFromDraft" parameterClass="shopMainDraft">
+        insert into SHOP_MAIN
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="shopId">
+                SHOP_ID
+            </isNotNull>
+            <isNotNull prepend="," property="supplierId">
+                SUPPLIER_ID
+            </isNotNull>
+            <isNotNull prepend="," property="shopType">
+                SHOP_TYPE
+            </isNotNull>
+            <isNotNull prepend="," property="shopCode">
+                SHOP_CODE
+            </isNotNull>
+            <isNotNull prepend="," property="shopName">
+                SHOP_NAME
+            </isNotNull>
+            <isNotNull prepend="," property="shopTitle">
+                SHOP_TITLE
+            </isNotNull>
+            <isNotNull prepend="," property="logoPath">
+                LOGO_PATH
+            </isNotNull>
+            <isNotNull prepend="," property="physhopImagePath">
+                PHYSHOP_IMAGE_PATH
+            </isNotNull>
+            <isNotNull prepend="," property="filePath">
+                FILE_PATH
+            </isNotNull>
+            <isNotNull prepend="," property="contactInfo">
+                CONTACT_INFO
+            </isNotNull>
+            <isNotNull prepend="," property="introduce">
+                INTRODUCE
+            </isNotNull>
+            <isNotNull prepend="," property="shopLevel">
+                SHOP_LEVEL
+            </isNotNull>
+            <isNotNull prepend="," property="status">
+                STATUS
+            </isNotNull>
+            <isNotNull prepend="," property="auditStatus">
+                AUDIT_STATUS
+            </isNotNull>
+            <isNotNull prepend="," property="defaultDomainUrl">
+                DEFAULT_DOMAIN_URL
+            </isNotNull>
+            <isNotNull prepend="," property="shopSite">
+                SHOP_SITE
+            </isNotNull>
+            <isNotNull prepend="," property="shopSeoKey">
+                SHOP_SEO_KEY
+            </isNotNull>
+            <isNotNull prepend="," property="applyUser">
+                APPLY_USER
+            </isNotNull>
+            <isNotNull prepend="," property="applyTime">
+                APPLY_TIME
+            </isNotNull>
+            <isNotNull prepend="," property="auditTime">
+                AUDIT_TIME
+            </isNotNull>
+            <isNotNull prepend="," property="auditUser">
+                AUDIT_USER
+            </isNotNull>
+            <isNotNull prepend="," property="remark">
+                REMARK
+            </isNotNull>
+            <isNotNull prepend="," property="manageBrand">
+                MANAGE_BRAND
+            </isNotNull>
+            <isNotNull prepend="," property="linkmanMobile">
+                LINKMAN_MOBILE
+            </isNotNull>
+            <isNotNull prepend="," property="principalName">
+                PRINCIPAL_NAME
+            </isNotNull>
+            <isNotNull prepend="," property="serviceQq">
+                SERVICE_QQ
+            </isNotNull>
+            <isNotNull prepend="," property="serviceType">
+                SERVICE_TYPE
+            </isNotNull>
+            <isNotNull prepend="," property="templateType">
+                TEMPLATE_TYPE
+            </isNotNull>
+            )
+        </dynamic>
+        values
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="shopId">
+                #shopId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="supplierId">
+                #supplierId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="shopType">
+                #shopType:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="shopCode">
+                #shopCode:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopName">
+                #shopName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopTitle">
+                #shopTitle:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="logoPath">
+                #logoPath:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="physhopImagePath">
+                #physhopImagePath:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="filePath">
+                #filePath:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="contactInfo">
+                #contactInfo:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="introduce">
+                #introduce:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopLevel">
+                #shopLevel:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="status">
+                #status:CHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="auditStatus">
+                #auditStatus:CHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="defaultDomainUrl">
+                #defaultDomainUrl:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopSite">
+                #shopSite:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopSeoKey">
+                #shopSeoKey:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="applyUser">
+                #applyUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="applyTime">
+                #applyTime:DATE#
+            </isNotNull>
+            <isNotNull prepend="," property="auditTime">
+                #auditTime:DATE#
+            </isNotNull>
+            <isNotNull prepend="," property="auditUser">
+                #auditUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="remark">
+                #remark:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="manageBrand">
+                #manageBrand:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="linkmanMobile">
+                #linkmanMobile:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="principalName">
+                #principalName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="serviceQq">
+                #serviceQq:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="serviceType">
+                #serviceType:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="templateType">
+                #templateType:DECIMAL#
+            </isNotNull>
+            )
+        </dynamic>
+    </insert>
+
+    <delete id="deleteByShopId" parameterClass="java.lang.Long">
+    delete from SHOP_MAIN_DRAFT where SHOP_ID = #shopId:DECIMAL#
+  </delete>
+</sqlMap>

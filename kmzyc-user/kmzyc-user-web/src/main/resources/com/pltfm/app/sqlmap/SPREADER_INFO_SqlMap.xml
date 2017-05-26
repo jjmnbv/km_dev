@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SPREADER_INFO" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.SpreaderInfo" >
+    <result column="SID" property="sid" jdbcType="DECIMAL" />
+    <result column="VS_NUMBER" property="vsNumber" jdbcType="DECIMAL" />
+    <result column="LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+    <result column="RECOMMENDERS" property="recommenders" jdbcType="DECIMAL" />
+    <result column="AFFILIATION" property="affiliation" jdbcType="VARCHAR" />
+    <result column="VX_ACCOUNT" property="vxAccount" jdbcType="VARCHAR" />
+    <result column="BANK_ACCOUNT" property="bankAccount" jdbcType="VARCHAR" />
+    <result column="BANK_NAME" property="bankName" jdbcType="VARCHAR" />
+    <result column="BANK_UNAME" property="bankUname" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime"  />
+    <result column="AUDIT_REMARK" property="auditRemark" jdbcType="VARCHAR" />
+    <result column="IS_VALID" property="isValid" jdbcType="DECIMAL" />
+    <result column="LAST_MODIFIER" property="lastModifier" jdbcType="DECIMAL" />
+    <result column="LAST_MODIFIED_DATE" property="lastModifiedDate" />
+    <result column="BRANCH_NAME" property="branchName" jdbcType="VARCHAR" />
+    <result column="ENCHASHMENT_TYPE" property="enchashmentType" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <!-- 查询微商信息  次查询必须保证条件查询结果唯一 -->
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.pltfm.app.vobject.SpreaderInfo" >
+    select SID, VS_NUMBER, LOGIN_ID, RECOMMENDERS, AFFILIATION, VX_ACCOUNT, BANK_ACCOUNT, BANK_NAME,
+      BANK_UNAME, CREATE_TIME, AUDIT_REMARK, IS_VALID, LAST_MODIFIER, LAST_MODIFIED_DATE,BRANCH_NAME,ENCHASHMENT_TYPE
+    from SPREADER_INFO si where 1=1
+       <isNotEmpty prepend="AND" property="sid"> 
+          si.SID = #sid#
+        </isNotEmpty>
+       <isNotEmpty prepend="AND" property="loginId"> 
+           si.LOGIN_ID = #loginId#
+        </isNotEmpty>
+       <isNotEmpty prepend="AND" property="recommenders"> 
+           si.RECOMMENDERS = #recommenders#
+        </isNotEmpty>
+  </select>
+  
+  <!-- 删除微商信息 -->
+  <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="com.pltfm.app.vobject.SpreaderInfo" >
+    delete from SPREADER_INFO
+    where SID = #sid:DECIMAL#
+  </delete>
+  
+  <!--  -->
+  <select id="querySeqVsnumber" resultClass="java.math.BigDecimal">
+         select SEQ_VS_NUMBER.nextval from dual
+  </select>
+  
+  <!-- 添加微商信息 -->
+  <insert id="ibatorgenerated_insert" parameterClass="com.pltfm.app.vobject.SpreaderInfo" >
+     <selectKey keyProperty="sid" resultClass="java.math.BigDecimal">
+         select SEQ_SPREADER_INFO_ID.nextval from dual
+     </selectKey>
+    insert into SPREADER_INFO (SID, VS_NUMBER, LOGIN_ID, RECOMMENDERS, AFFILIATION, VX_ACCOUNT,
+      BANK_ACCOUNT, BANK_NAME, BANK_UNAME, CREATE_TIME,  AUDIT_REMARK, IS_VALID,
+      LAST_MODIFIER, LAST_MODIFIED_DATE,BRANCH_NAME,ENCHASHMENT_TYPE)
+    values (#sid:DECIMAL#, #vsNumber:DECIMAL#, #loginId:DECIMAL#, #recommenders:DECIMAL#,
+      #affiliation:VARCHAR#, #vxAccount:VARCHAR#, #bankAccount:VARCHAR#, #bankName:VARCHAR#,
+      #bankUname:VARCHAR#, #createTime#,  #auditRemark:VARCHAR#,
+      #isValid:DECIMAL#, #lastModifier:DECIMAL#, #lastModifiedDate#,#branchName:VARCHAR#,#enchashmentType:DECIMAL#)
+  </insert>
+  
+  <!-- 修改微商信息 -->
+  <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="com.pltfm.app.vobject.SpreaderInfo" >
+    update SPREADER_INFO
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="vsNumber" >
+        VS_NUMBER = #vsNumber:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="loginId" >
+        LOGIN_ID = #loginId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="recommenders" >
+        RECOMMENDERS = #recommenders:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="affiliation" >
+        AFFILIATION = #affiliation:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="vxAccount" >
+        VX_ACCOUNT = #vxAccount:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="bankAccount" >
+        BANK_ACCOUNT = #bankAccount:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="bankName" >
+        BANK_NAME = #bankName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="bankUname" >
+        BANK_UNAME = #bankUname:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createTime" >
+        CREATE_TIME = #createTime#
+      </isNotNull>
+      <isNotNull prepend="," property="auditRemark" >
+        AUDIT_REMARK = #auditRemark:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="isValid" >
+        IS_VALID = #isValid:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="lastModifier" >
+        LAST_MODIFIER = #lastModifier:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="lastModifiedDate" >
+        LAST_MODIFIED_DATE = #lastModifiedDate#
+      </isNotNull>
+      <isNotNull prepend="," property="branchName" >
+        BRANCH_NAME = #branchName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="enchashmentType" >
+        ENCHASHMENT_TYPE = #enchashmentType:DECIMAL#
+      </isNotNull>
+    </dynamic>
+    where SID = #sid:DECIMAL#
+  </update>
+</sqlMap>

@@ -1,0 +1,899 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PROD_APPRAISE">
+    <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.ProdAppraise">
+        <result column="APPRAISE_ID" property="appraiseId" jdbcType="DECIMAL"/>
+        <result column="ORDER_DETAIL_ID" property="orderDetailId" jdbcType="DECIMAL"/>
+        <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL"/>
+        <result column="PRODUCT_SKU_ID" property="productSku" select="PROD_APPRAISE.getProductSkuListById"/>
+        <result column="PROD_BUY_DATE" property="prodBuyDate" jdbcType="Date"/>
+        <result column="APPRAISE_CONTENT" property="appraiseContent" jdbcType="VARCHAR"/>
+        <result column="POINT" property="point" jdbcType="DECIMAL"/>
+        <result column="SATISFICING" property="satisficing" jdbcType="VARCHAR"/>
+        <result column="PROP_NAME_1" property="propName1" jdbcType="VARCHAR"/>
+        <result column="PROP_VAL_1" property="propVal1" jdbcType="VARCHAR"/>
+        <result column="PROP_POINT_1" property="propPoint1" jdbcType="DECIMAL"/>
+        <result column="PROP_NAME_2" property="propName2" jdbcType="VARCHAR"/>
+        <result column="PROP_POINT_2" property="propPoint2" jdbcType="DECIMAL"/>
+        <result column="PROP_VAL_2" property="propVal2" jdbcType="VARCHAR"/>
+        <result column="USERFUL_AMOUNT" property="userfulAmount" jdbcType="DECIMAL"/>
+        <result column="REPLY_AMOUNT" property="replyAmount" jdbcType="DECIMAL"/>
+        <result column="CUST_ID" property="custId" jdbcType="DECIMAL"/>
+        <result column="CUST_NAME" property="custName" jdbcType="VARCHAR"/>
+        <result column="CUST_LEVEL" property="custLevel" jdbcType="VARCHAR"/>
+        <result column="CUST_PIC_PATH" property="custPicPath" jdbcType="VARCHAR"/>
+        <result column="APPRAISE_DATE" property="appraiseDate" jdbcType="Date"/>
+        <result column="ELITE" property="elite" jdbcType="DECIMAL"/>
+        <result column="CHECK_STATUS" property="checkStatus" jdbcType="DECIMAL"/>
+        <result column="CHECK_MAN_ID" property="checkManId" jdbcType="DECIMAL"/>
+        <result column="CHECK_MAN" property="checkMan" jdbcType="VARCHAR"/>
+        <result column="DES" property="des" jdbcType="VARCHAR"/>
+        <result column="SPA_1" property="spa1" jdbcType="VARCHAR"/>
+        <result column="SPA_2" property="spa2" jdbcType="VARCHAR"/>
+        <result column="SPA_3" property="spa3" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR"/>
+        <result column="ADVANTAGE" property="advantage" jdbcType="VARCHAR"/>
+        <result column="DEFECT" property="defect" jdbcType="VARCHAR"/>
+        <result column="ADDTO_CONTENT" property="addtoContent" jdbcType="VARCHAR"/>
+        <result column="REPLY_CONTENT" property="replyContent" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="ibatorgenerated_BaseResultMap1" class="com.pltfm.app.vobject.ProdAppraise">
+        <result column="APPRAISE_ID" property="appraiseId" jdbcType="DECIMAL"/>
+        <result column="ORDER_DETAIL_ID" property="orderDetailId" jdbcType="DECIMAL"/>
+        <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL"/>
+        <result column="PRODUCT_SKU_ID" property="productSku" select="PROD_APPRAISE.getProductSkuListById"/>
+        <result column="PROD_BUY_DATE" property="prodBuyDate" jdbcType="Date"/>
+        <result column="APPRAISE_CONTENT" property="appraiseContent" jdbcType="VARCHAR"/>
+        <result column="POINT" property="point" jdbcType="DECIMAL"/>
+        <result column="SATISFICING" property="satisficing" jdbcType="VARCHAR"/>
+        <result column="PROP_NAME_1" property="propName1" jdbcType="VARCHAR"/>
+        <result column="PROP_VAL_1" property="propVal1" jdbcType="VARCHAR"/>
+        <result column="PROP_POINT_1" property="propPoint1" jdbcType="DECIMAL"/>
+        <result column="PROP_NAME_2" property="propName2" jdbcType="VARCHAR"/>
+        <result column="PROP_POINT_2" property="propPoint2" jdbcType="DECIMAL"/>
+        <result column="PROP_VAL_2" property="propVal2" jdbcType="VARCHAR"/>
+        <result column="USERFUL_AMOUNT" property="userfulAmount" jdbcType="DECIMAL"/>
+        <result column="REPLY_AMOUNT" property="replyAmount" jdbcType="DECIMAL"/>
+        <result column="CUST_ID" property="custId" jdbcType="DECIMAL"/>
+        <result column="CUST_NAME" property="custName" jdbcType="VARCHAR"/>
+        <result column="CUST_LEVEL" property="custLevel" jdbcType="VARCHAR"/>
+        <result column="CUST_PIC_PATH" property="custPicPath" jdbcType="VARCHAR"/>
+        <result column="APPRAISE_DATE" property="appraiseDate" jdbcType="Date"/>
+        <result column="ELITE" property="elite" jdbcType="DECIMAL"/>
+        <result column="CHECK_STATUS" property="checkStatus" jdbcType="DECIMAL"/>
+        <result column="CHECK_MAN_ID" property="checkManId" jdbcType="DECIMAL"/>
+        <result column="CHECK_MAN" property="checkMan" jdbcType="VARCHAR"/>
+        <result column="DES" property="des" jdbcType="VARCHAR"/>
+        <result column="SPA_1" property="spa1" jdbcType="VARCHAR"/>
+        <result column="SPA_2" property="spa2" jdbcType="VARCHAR"/>
+        <result column="SPA_3" property="spa3" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR"/>
+        <result column="ADVANTAGE" property="advantage" jdbcType="VARCHAR"/>
+        <result column="DEFECT" property="defect" jdbcType="VARCHAR"/>
+        <result column="ADDTO_CONTENT" property="addtoContent" jdbcType="VARCHAR"/>
+        <result column="REPLY_CONTENT" property="replyContent" jdbcType="VARCHAR"/>
+
+        <result column="REPLY_STATUS" jdbcType="DECIMAL" property="replyStatus"/>
+        <result column="APPR_REPLY_ID" jdbcType="DECIMAL" property="apprReplyId"/>
+        <result column="ADD_CONTENT_ID" property="addContentId" jdbcType="DECIMAL"/>
+        <result column="add_status" property="checkStatus1" jdbcType="DECIMAL"/>
+        <result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="ProductSkuResultMap" class="com.pltfm.app.vobject.ProductSku">
+        <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL"/>
+        <result column="PRODUCT_ID" property="product" select="PROD_APPRAISE.getProductListById"/>
+    </resultMap>
+
+    <resultMap id="ProductResultMap" class="com.pltfm.app.vobject.Product">
+        <result column="PRODUCT_ID" property="id" jdbcType="DECIMAL"/>
+        <result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="prodAppraiseMap" class="java.util.HashMap" groupBy="appraiseId">
+        <result column="APPRAISE_ID" property="appraiseId" jdbcType="DECIMAL"/>
+        <result column="ORDER_DETAIL_ID" property="orderDetailId" jdbcType="DECIMAL"/>
+        <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL"/>
+        <result column="PROD_BUY_DATE" property="prodBuyDate" jdbcType="Date"/>
+        <result column="APPRAISE_CONTENT" property="appraiseContent" jdbcType="VARCHAR"/>
+        <result column="POINT" property="point" jdbcType="DECIMAL"/>
+        <result column="SATISFICING" property="satisficing" jdbcType="VARCHAR"/>
+        <result column="USERFUL_AMOUNT" property="userfulAmount" jdbcType="DECIMAL"/>
+        <result column="REPLY_AMOUNT" property="replyAmount" jdbcType="DECIMAL"/>
+        <result column="CUST_ID" property="custId" jdbcType="DECIMAL"/>
+        <result column="CUST_NAME" property="custName" jdbcType="VARCHAR"/>
+        <result column="CUST_LEVEL" property="custLevel" jdbcType="VARCHAR"/>
+        <result column="CUST_PIC_PATH" property="custPicPath" jdbcType="VARCHAR"/>
+        <result column="APPRAISE_DATE" property="appraiseDate" jdbcType="Date"/>
+        <result column="ELITE" property="elite" jdbcType="DECIMAL"/>
+        <result column="CHECK_STATUS" property="checkStatus" jdbcType="DECIMAL"/>
+        <result column="CHECK_MAN_ID" property="checkManId" jdbcType="DECIMAL"/>
+        <result column="CHECK_MAN" property="checkMan" jdbcType="VARCHAR"/>
+        <result column="DES" property="des" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR"/>
+        <result column="ADVANTAGE" property="advantage" jdbcType="VARCHAR"/>
+        <result column="DEFECT" property="defect" jdbcType="VARCHAR"/>
+        <result property="appReplyList" resultMap="PROD_APPRAISE.appReplyMap" />
+        <result property="appAddToContentList" resultMap="PROD_APPRAISE.appAddToContentMap" />
+    </resultMap>
+
+    <resultMap id="appReplyMap" class="java.util.HashMap" groupBy="appraiseId,apprReplyId">
+        <result column="APPR_REPLY_ID" property="apprReplyId" jdbcType="DECIMAL"/>
+        <result column="REPLY_CONTENT" property="replyContent" jdbcType="VARCHAR"/>
+        <result column="REPLY_PERSON" property="replyPerson" jdbcType="VARCHAR"/>
+        <result column="REPLY_DATE" property="replyDate" jdbcType="Date"/>
+        <result column="REPLY_STATUS" property="replyStatus" jdbcType="DECIMAL" />
+    </resultMap>
+
+    <resultMap id="appAddToContentMap" class="java.util.HashMap" groupBy="appraiseId,addContentId">
+        <result column="ADD_CONTENT_ID" property="addContentId" jdbcType="DECIMAL"/>
+        <result column="ADD_CONTENT" property="addContent" jdbcType="VARCHAR"/>
+        <result column="ADD_CONTENT_DATE" property="addContentDate" jdbcType="Date"/>
+    </resultMap>
+
+    <sql id="ibatorgenerated_Example_Where_Clause">
+        <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate">
+            <isEqual property="oredCriteria[].valid" compareValue="true">
+                (
+                <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and">
+                    $oredCriteria[].criteriaWithoutValue[]$
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and">
+                    $oredCriteria[].criteriaWithSingleValue[].condition$
+                    #oredCriteria[].criteriaWithSingleValue[].value#
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and">
+                    $oredCriteria[].criteriaWithListValue[].condition$
+                    <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")"
+                             conjunction=",">
+                        #oredCriteria[].criteriaWithListValue[].values[]#
+                    </iterate>
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and">
+                    $oredCriteria[].criteriaWithBetweenValue[].condition$
+                    #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+                    #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+                </iterate>
+                )
+            </isEqual>
+        </iterate>
+    </sql>
+
+    <sql id="ibatorgenerated_Example_Where_Clause1">
+        <iterate property="oredCriteria" conjunction="or" prepend="and" removeFirstPrepend="iterate">
+            <isEqual property="oredCriteria[].valid" compareValue="true">
+                (
+                <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and">
+                    $oredCriteria[].criteriaWithoutValue[]$
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and">
+                    $oredCriteria[].criteriaWithSingleValue[].condition$
+                    #oredCriteria[].criteriaWithSingleValue[].value#
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and">
+                    $oredCriteria[].criteriaWithListValue[].condition$
+                    <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")"
+                             conjunction=",">
+                        #oredCriteria[].criteriaWithListValue[].values[]#
+                    </iterate>
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and">
+                    $oredCriteria[].criteriaWithBetweenValue[].condition$
+                    #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+                    #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+                </iterate>
+                )
+            </isEqual>
+        </iterate>
+    </sql>
+
+    <select id="getProductSkuListById" parameterClass="java.lang.Long" resultMap="ProductSkuResultMap">
+	 <![CDATA[
+
+	 select PRODUCT_ID from product_sku where product_sku_id = #value# 
+
+        ]]>
+  	</select>
+
+    <select id="getProductListById" parameterClass="java.lang.Long" resultMap="ProductResultMap">
+        <![CDATA[
+            select PRODUCT_ID,PRODUCT_TITLE from PRODUCTMAIN where PRODUCT_ID = #value#
+        ]]>
+  	</select>
+
+    <select id="ibatorgenerated_selectByExample" resultMap="ibatorgenerated_BaseResultMap1"
+            parameterClass="com.pltfm.app.vobject.ProdAppraiseExample">
+        select c.*,e.reply_status,e.appr_reply_id,d.add_content_id,d.check_status as add_status from ( select
+        APPRAISE_ID, ORDER_DETAIL_ID, app.PRODUCT_SKU_ID, PROD_BUY_DATE, APPRAISE_CONTENT, POINT,
+        SATISFICING, PROP_NAME_1, PROP_VAL_1, PROP_POINT_1, PROP_NAME_2, PROP_POINT_2, PROP_VAL_2,
+        USERFUL_AMOUNT, REPLY_AMOUNT, CUST_ID, CUST_NAME, CUST_LEVEL, CUST_PIC_PATH, APPRAISE_DATE,
+        ELITE, CHECK_STATUS, CHECK_MAN_ID, CHECK_MAN, DES, SPA_1, SPA_2, SPA_3, PRODUCT_NAME,
+        ADVANTAGE, DEFECT, ADDTO_CONTENT, REPLY_CONTENT,p.product_title from PRODUCTMAIN p,PROD_APPRAISE app,product_sku
+        sk where app.product_sku_id=sk.product_sku_id and sk.product_id = p.product_id) c,
+        APPRAISE_ADDTO_CONTENT d,APPRAISE_REPLY e where c.appraise_id=d.appraise_id(+) and
+        e.appraise_id(+)=c.appraise_id
+        <isNotEmpty property="productSku.product.productTitle" prepend="and">
+            PRODUCT_TITLE like '%'||#productSku.product.productTitle#||'%'
+        </isNotEmpty>
+        <isNotEmpty property="replyStatus" prepend="and">
+            e.REPLY_STATUS = #replyStatus#
+        </isNotEmpty>
+        <isNotEmpty property="checkStatus1" prepend="and">
+            d.check_status = #checkStatus1#
+        </isNotEmpty>
+        <isNotEmpty property="replyContent" prepend="and">
+            c.REPLY_CONTENT = #replyContent#
+        </isNotEmpty>
+        <isNotEmpty property="addtoContent" prepend="and">
+            c.ADDTO_CONTENT = #addtoContent#
+        </isNotEmpty>
+        <isNotEmpty property="checkStatus" prepend="and">
+            c.CHECK_STATUS = #checkStatus#
+        </isNotEmpty>
+        <isParameterPresent>
+            <include refid="PROD_APPRAISE.ibatorgenerated_Example_Where_Clause1"/>
+            <isNotNull property="orderByClause">
+                order by $orderByClause$
+            </isNotNull>
+        </isParameterPresent>
+    </select>
+
+    <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap"
+            parameterClass="com.pltfm.app.vobject.ProdAppraise">
+    select APPRAISE_ID, ORDER_DETAIL_ID, PRODUCT_SKU_ID, PROD_BUY_DATE, APPRAISE_CONTENT, POINT,
+      SATISFICING, PROP_NAME_1, PROP_VAL_1, PROP_POINT_1, PROP_NAME_2, PROP_POINT_2, PROP_VAL_2,
+      USERFUL_AMOUNT, REPLY_AMOUNT, CUST_ID, CUST_NAME, CUST_LEVEL, CUST_PIC_PATH, APPRAISE_DATE,
+      ELITE, CHECK_STATUS, CHECK_MAN_ID, CHECK_MAN, DES, SPA_1, SPA_2, SPA_3, PRODUCT_NAME,
+      ADVANTAGE, DEFECT, ADDTO_CONTENT, REPLY_CONTENT
+    from PROD_APPRAISE
+    where APPRAISE_ID = #appraiseId:DECIMAL#
+  </select>
+
+    <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="com.pltfm.app.vobject.ProdAppraise">
+    delete from PROD_APPRAISE
+    where APPRAISE_ID = #appraiseId:DECIMAL#
+  </delete>
+
+    <delete id="ibatorgenerated_deleteByExample" parameterClass="com.pltfm.app.vobject.ProdAppraiseExample">
+        delete from PROD_APPRAISE
+        <include refid="PROD_APPRAISE.ibatorgenerated_Example_Where_Clause"/>
+    </delete>
+
+    <insert id="ibatorgenerated_insert" parameterClass="com.pltfm.app.vobject.ProdAppraise">
+        <selectKey keyProperty="appraiseId" resultClass="java.lang.Long">
+            select SEQ_APP_PRODAPPRAISE.nextval from dual
+        </selectKey>
+        insert into PROD_APPRAISE (APPRAISE_ID, ORDER_DETAIL_ID, PRODUCT_SKU_ID, PROD_BUY_DATE,
+        APPRAISE_CONTENT, POINT, SATISFICING, PROP_NAME_1, PROP_VAL_1, PROP_POINT_1, PROP_NAME_2,
+        PROP_POINT_2, PROP_VAL_2, USERFUL_AMOUNT, REPLY_AMOUNT, CUST_ID, CUST_NAME, CUST_LEVEL,
+        CUST_PIC_PATH, APPRAISE_DATE, ELITE, CHECK_STATUS, CHECK_MAN_ID, CHECK_MAN, DES, SPA_1, SPA_2,
+        SPA_3, PRODUCT_NAME, ADVANTAGE, DEFECT, ADDTO_CONTENT, REPLY_CONTENT)
+        values (#appraiseId:DECIMAL#, #orderDetailId:DECIMAL#, #productSkuId:DECIMAL#,
+        #prodBuyDate#, #appraiseContent:VARCHAR#, #point:DECIMAL#, #satisficing:VARCHAR#,
+        #propName1:VARCHAR#, #propVal1:VARCHAR#, #propPoint1:DECIMAL#, #propName2:VARCHAR#,
+        #propPoint2:DECIMAL#, #propVal2:VARCHAR#, #userfulAmount:DECIMAL#, #replyAmount:DECIMAL#,
+        #custId:DECIMAL#, #custName:VARCHAR#, #custLevel:VARCHAR#, #custPicPath:VARCHAR#,
+        #appraiseDate#, #elite:DECIMAL#, #checkStatus:DECIMAL#, #checkManId:DECIMAL#,
+        #checkMan:VARCHAR#, #des:VARCHAR#, #spa1:VARCHAR#, #spa2:VARCHAR#, #spa3:VARCHAR#,
+        #productName:VARCHAR#, #advantage:VARCHAR#, #defect:VARCHAR#, #addtoContent:VARCHAR#,
+        #replyContent:VARCHAR#)
+    </insert>
+
+    <insert id="ibatorgenerated_insertSelective" parameterClass="com.pltfm.app.vobject.ProdAppraise">
+        <selectKey keyProperty="appraiseId" resultClass="java.lang.Long">
+            select SEQ_APP_PRODAPPRAISE.nextval from dual
+        </selectKey>
+        insert into PROD_APPRAISE
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="appraiseId">
+                APPRAISE_ID
+            </isNotNull>
+            <isNotNull prepend="," property="orderDetailId">
+                ORDER_DETAIL_ID
+            </isNotNull>
+            <isNotNull prepend="," property="productSkuId">
+                PRODUCT_SKU_ID
+            </isNotNull>
+            <isNotNull prepend="," property="prodBuyDate">
+                PROD_BUY_DATE
+            </isNotNull>
+            <isNotNull prepend="," property="appraiseContent">
+                APPRAISE_CONTENT
+            </isNotNull>
+            <isNotNull prepend="," property="point">
+                POINT
+            </isNotNull>
+            <isNotNull prepend="," property="satisficing">
+                SATISFICING
+            </isNotNull>
+            <isNotNull prepend="," property="propName1">
+                PROP_NAME_1
+            </isNotNull>
+            <isNotNull prepend="," property="propVal1">
+                PROP_VAL_1
+            </isNotNull>
+            <isNotNull prepend="," property="propPoint1">
+                PROP_POINT_1
+            </isNotNull>
+            <isNotNull prepend="," property="propName2">
+                PROP_NAME_2
+            </isNotNull>
+            <isNotNull prepend="," property="propPoint2">
+                PROP_POINT_2
+            </isNotNull>
+            <isNotNull prepend="," property="propVal2">
+                PROP_VAL_2
+            </isNotNull>
+            <isNotNull prepend="," property="userfulAmount">
+                USERFUL_AMOUNT
+            </isNotNull>
+            <isNotNull prepend="," property="replyAmount">
+                REPLY_AMOUNT
+            </isNotNull>
+            <isNotNull prepend="," property="custId">
+                CUST_ID
+            </isNotNull>
+            <isNotNull prepend="," property="custName">
+                CUST_NAME
+            </isNotNull>
+            <isNotNull prepend="," property="custLevel">
+                CUST_LEVEL
+            </isNotNull>
+            <isNotNull prepend="," property="custPicPath">
+                CUST_PIC_PATH
+            </isNotNull>
+            <isNotNull prepend="," property="appraiseDate">
+                APPRAISE_DATE
+            </isNotNull>
+            <isNotNull prepend="," property="elite">
+                ELITE
+            </isNotNull>
+            <isNotNull prepend="," property="checkStatus">
+                CHECK_STATUS
+            </isNotNull>
+            <isNotNull prepend="," property="checkManId">
+                CHECK_MAN_ID
+            </isNotNull>
+            <isNotNull prepend="," property="checkMan">
+                CHECK_MAN
+            </isNotNull>
+            <isNotNull prepend="," property="des">
+                DES
+            </isNotNull>
+            <isNotNull prepend="," property="spa1">
+                SPA_1
+            </isNotNull>
+            <isNotNull prepend="," property="spa2">
+                SPA_2
+            </isNotNull>
+            <isNotNull prepend="," property="spa3">
+                SPA_3
+            </isNotNull>
+            <isNotNull prepend="," property="productName">
+                PRODUCT_NAME
+            </isNotNull>
+            <isNotNull prepend="," property="advantage">
+                ADVANTAGE
+            </isNotNull>
+            <isNotNull prepend="," property="defect">
+                DEFECT
+            </isNotNull>
+            <isNotNull prepend="," property="addtoContent">
+                ADDTO_CONTENT
+            </isNotNull>
+            <isNotNull prepend="," property="replyContent">
+                REPLY_CONTENT
+            </isNotNull>
+            )
+        </dynamic>
+        values
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="appraiseId">
+                #appraiseId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="orderDetailId">
+                #orderDetailId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="productSkuId">
+                #productSkuId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="prodBuyDate">
+                #prodBuyDate#
+            </isNotNull>
+            <isNotNull prepend="," property="appraiseContent">
+                #appraiseContent:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="point">
+                #point:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="satisficing">
+                #satisficing:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="propName1">
+                #propName1:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="propVal1">
+                #propVal1:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="propPoint1">
+                #propPoint1:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="propName2">
+                #propName2:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="propPoint2">
+                #propPoint2:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="propVal2">
+                #propVal2:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="userfulAmount">
+                #userfulAmount:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="replyAmount">
+                #replyAmount:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="custId">
+                #custId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="custName">
+                #custName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="custLevel">
+                #custLevel:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="custPicPath">
+                #custPicPath:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="appraiseDate">
+                #appraiseDate#
+            </isNotNull>
+            <isNotNull prepend="," property="elite">
+                #elite:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="checkStatus">
+                #checkStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="checkManId">
+                #checkManId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="checkMan">
+                #checkMan:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="des">
+                #des:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="spa1">
+                #spa1:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="spa2">
+                #spa2:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="spa3">
+                #spa3:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="productName">
+                #productName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="advantage">
+                #advantage:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="defect">
+                #defect:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="addtoContent">
+                #addtoContent:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="replyContent">
+                #replyContent:VARCHAR#
+            </isNotNull>
+            )
+        </dynamic>
+    </insert>
+
+    <select id="ibatorgenerated_countByExample" parameterClass="com.pltfm.app.vobject.ProdAppraiseExample"
+            resultClass="java.lang.Integer">
+        select count(1) from ( select APPRAISE_ID, ORDER_DETAIL_ID, app.PRODUCT_SKU_ID, PROD_BUY_DATE, APPRAISE_CONTENT,
+        POINT,
+        SATISFICING, PROP_NAME_1, PROP_VAL_1, PROP_POINT_1, PROP_NAME_2, PROP_POINT_2, PROP_VAL_2,
+        USERFUL_AMOUNT, REPLY_AMOUNT, CUST_ID, CUST_NAME, CUST_LEVEL, CUST_PIC_PATH, APPRAISE_DATE,
+        ELITE, CHECK_STATUS, CHECK_MAN_ID, CHECK_MAN, DES, SPA_1, SPA_2, SPA_3, PRODUCT_NAME,
+        ADVANTAGE, DEFECT, ADDTO_CONTENT, REPLY_CONTENT,p.product_title from PRODUCTMAIN p,PROD_APPRAISE app,product_sku
+        sk where app.product_sku_id=sk.product_sku_id and sk.product_id = p.product_id) c,
+        APPRAISE_ADDTO_CONTENT d,APPRAISE_REPLY e where c.appraise_id=d.appraise_id(+) and
+        e.appraise_id(+)=c.appraise_id
+        <isNotEmpty property="productSku.product.productTitle" prepend="and">
+            PRODUCT_TITLE like '%'||#productSku.product.productTitle#||'%'
+        </isNotEmpty>
+        <isNotEmpty property="replyStatus" prepend="and">
+            e.REPLY_STATUS = #replyStatus#
+        </isNotEmpty>
+        <isNotEmpty property="checkStatus1" prepend="and">
+            d.check_status = #checkStatus1#
+        </isNotEmpty>
+        <isNotEmpty property="replyContent" prepend="and">
+            c.REPLY_CONTENT = #replyContent#
+        </isNotEmpty>
+        <isNotEmpty property="addtoContent" prepend="and">
+            c.ADDTO_CONTENT = #addtoContent#
+        </isNotEmpty>
+        <isNotEmpty property="checkStatus" prepend="and">
+            c.CHECK_STATUS = #checkStatus#
+        </isNotEmpty>
+        <include refid="PROD_APPRAISE.ibatorgenerated_Example_Where_Clause1"/>
+    </select>
+
+    <update id="ibatorgenerated_updateByExampleSelective">
+        update PROD_APPRAISE
+        <dynamic prepend="set">
+            <isNotNull prepend="," property="record.appraiseId">
+                APPRAISE_ID = #record.appraiseId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.orderDetailId">
+                ORDER_DETAIL_ID = #record.orderDetailId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.productSkuId">
+                PRODUCT_SKU_ID = #record.productSkuId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.prodBuyDate">
+                PROD_BUY_DATE = #record.prodBuyDate#
+            </isNotNull>
+            <isNotNull prepend="," property="record.appraiseContent">
+                APPRAISE_CONTENT = #record.appraiseContent:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.point">
+                POINT = #record.point:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.satisficing">
+                SATISFICING = #record.satisficing:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.propName1">
+                PROP_NAME_1 = #record.propName1:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.propVal1">
+                PROP_VAL_1 = #record.propVal1:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.propPoint1">
+                PROP_POINT_1 = #record.propPoint1:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.propName2">
+                PROP_NAME_2 = #record.propName2:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.propPoint2">
+                PROP_POINT_2 = #record.propPoint2:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.propVal2">
+                PROP_VAL_2 = #record.propVal2:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.userfulAmount">
+                USERFUL_AMOUNT = #record.userfulAmount:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.replyAmount">
+                REPLY_AMOUNT = #record.replyAmount:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.custId">
+                CUST_ID = #record.custId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.custName">
+                CUST_NAME = #record.custName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.custLevel">
+                CUST_LEVEL = #record.custLevel:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.custPicPath">
+                CUST_PIC_PATH = #record.custPicPath:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.appraiseDate">
+                APPRAISE_DATE = #record.appraiseDate#
+            </isNotNull>
+            <isNotNull prepend="," property="record.elite">
+                ELITE = #record.elite:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.checkStatus">
+                CHECK_STATUS = #record.checkStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.checkManId">
+                CHECK_MAN_ID = #record.checkManId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.checkMan">
+                CHECK_MAN = #record.checkMan:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.des">
+                DES = #record.des:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.spa1">
+                SPA_1 = #record.spa1:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.spa2">
+                SPA_2 = #record.spa2:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.spa3">
+                SPA_3 = #record.spa3:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.productName">
+                PRODUCT_NAME = #record.productName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.advantage">
+                ADVANTAGE = #record.advantage:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.defect">
+                DEFECT = #record.defect:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.addtoContent">
+                ADDTO_CONTENT = #record.addtoContent:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.replyContent">
+                REPLY_CONTENT = #record.replyContent:VARCHAR#
+            </isNotNull>
+        </dynamic>
+        <isParameterPresent>
+            <include refid="PROD_APPRAISE.ibatorgenerated_Example_Where_Clause"/>
+        </isParameterPresent>
+    </update>
+
+    <update id="ibatorgenerated_updateByExample">
+        update PROD_APPRAISE
+        set APPRAISE_ID = #record.appraiseId:DECIMAL#,
+        ORDER_DETAIL_ID = #record.orderDetailId:DECIMAL#,
+        PRODUCT_SKU_ID = #record.productSkuId:DECIMAL#,
+        PROD_BUY_DATE = #record.prodBuyDate#,
+        APPRAISE_CONTENT = #record.appraiseContent:VARCHAR#,
+        POINT = #record.point:DECIMAL#,
+        SATISFICING = #record.satisficing:VARCHAR#,
+        PROP_NAME_1 = #record.propName1:VARCHAR#,
+        PROP_VAL_1 = #record.propVal1:VARCHAR#,
+        PROP_POINT_1 = #record.propPoint1:DECIMAL#,
+        PROP_NAME_2 = #record.propName2:VARCHAR#,
+        PROP_POINT_2 = #record.propPoint2:DECIMAL#,
+        PROP_VAL_2 = #record.propVal2:VARCHAR#,
+        USERFUL_AMOUNT = #record.userfulAmount:DECIMAL#,
+        REPLY_AMOUNT = #record.replyAmount:DECIMAL#,
+        CUST_ID = #record.custId:DECIMAL#,
+        CUST_NAME = #record.custName:VARCHAR#,
+        CUST_LEVEL = #record.custLevel:VARCHAR#,
+        CUST_PIC_PATH = #record.custPicPath:VARCHAR#,
+        APPRAISE_DATE = #record.appraiseDate#,
+        ELITE = #record.elite:DECIMAL#,
+        CHECK_STATUS = #record.checkStatus:DECIMAL#,
+        CHECK_MAN_ID = #record.checkManId:DECIMAL#,
+        CHECK_MAN = #record.checkMan:VARCHAR#,
+        DES = #record.des:VARCHAR#,
+        SPA_1 = #record.spa1:VARCHAR#,
+        SPA_2 = #record.spa2:VARCHAR#,
+        SPA_3 = #record.spa3:VARCHAR#,
+        PRODUCT_NAME = #record.productName:VARCHAR#,
+        ADVANTAGE = #record.advantage:VARCHAR#,
+        DEFECT = #record.defect:VARCHAR#,
+        ADDTO_CONTENT = #record.addtoContent:VARCHAR#,
+        REPLY_CONTENT = #record.replyContent:VARCHAR#
+        <isParameterPresent>
+            <include refid="PROD_APPRAISE.ibatorgenerated_Example_Where_Clause"/>
+        </isParameterPresent>
+    </update>
+
+    <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="com.pltfm.app.vobject.ProdAppraise">
+        update PROD_APPRAISE
+        <dynamic prepend="set">
+            <isNotNull prepend="," property="orderDetailId">
+                ORDER_DETAIL_ID = #orderDetailId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="productSkuId">
+                PRODUCT_SKU_ID = #productSkuId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="prodBuyDate">
+                PROD_BUY_DATE = #prodBuyDate#
+            </isNotNull>
+            <isNotNull prepend="," property="appraiseContent">
+                APPRAISE_CONTENT = #appraiseContent:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="point">
+                POINT = #point:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="satisficing">
+                SATISFICING = #satisficing:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="propName1">
+                PROP_NAME_1 = #propName1:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="propVal1">
+                PROP_VAL_1 = #propVal1:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="propPoint1">
+                PROP_POINT_1 = #propPoint1:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="propName2">
+                PROP_NAME_2 = #propName2:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="propPoint2">
+                PROP_POINT_2 = #propPoint2:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="propVal2">
+                PROP_VAL_2 = #propVal2:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="userfulAmount">
+                USERFUL_AMOUNT = #userfulAmount:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="replyAmount">
+                REPLY_AMOUNT = #replyAmount:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="custId">
+                CUST_ID = #custId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="custName">
+                CUST_NAME = #custName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="custLevel">
+                CUST_LEVEL = #custLevel:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="custPicPath">
+                CUST_PIC_PATH = #custPicPath:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="appraiseDate">
+                APPRAISE_DATE = #appraiseDate#
+            </isNotNull>
+            <isNotNull prepend="," property="elite">
+                ELITE = #elite:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="checkStatus">
+                CHECK_STATUS = #checkStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="checkManId">
+                CHECK_MAN_ID = #checkManId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="checkMan">
+                CHECK_MAN = #checkMan:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="des">
+                DES = #des:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="spa1">
+                SPA_1 = #spa1:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="spa2">
+                SPA_2 = #spa2:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="spa3">
+                SPA_3 = #spa3:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="productName">
+                PRODUCT_NAME = #productName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="advantage">
+                ADVANTAGE = #advantage:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="defect">
+                DEFECT = #defect:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="addtoContent">
+                ADDTO_CONTENT = #addtoContent:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="replyContent">
+                REPLY_CONTENT = #replyContent:VARCHAR#
+            </isNotNull>
+        </dynamic>
+        where APPRAISE_ID = #appraiseId:DECIMAL#
+    </update>
+
+    <update id="ibatorgenerated_updateByPrimaryKey" parameterClass="com.pltfm.app.vobject.ProdAppraise">
+        update PROD_APPRAISE
+        set ORDER_DETAIL_ID = #orderDetailId:DECIMAL#,
+          PRODUCT_SKU_ID = #productSkuId:DECIMAL#,
+          PROD_BUY_DATE = #prodBuyDate#,
+          APPRAISE_CONTENT = #appraiseContent:VARCHAR#,
+          POINT = #point:DECIMAL#,
+          SATISFICING = #satisficing:VARCHAR#,
+          PROP_NAME_1 = #propName1:VARCHAR#,
+          PROP_VAL_1 = #propVal1:VARCHAR#,
+          PROP_POINT_1 = #propPoint1:DECIMAL#,
+          PROP_NAME_2 = #propName2:VARCHAR#,
+          PROP_POINT_2 = #propPoint2:DECIMAL#,
+          PROP_VAL_2 = #propVal2:VARCHAR#,
+          USERFUL_AMOUNT = #userfulAmount:DECIMAL#,
+          REPLY_AMOUNT = #replyAmount:DECIMAL#,
+          CUST_ID = #custId:DECIMAL#,
+          CUST_NAME = #custName:VARCHAR#,
+          CUST_LEVEL = #custLevel:VARCHAR#,
+          CUST_PIC_PATH = #custPicPath:VARCHAR#,
+          APPRAISE_DATE = #appraiseDate#,
+          ELITE = #elite:DECIMAL#,
+          CHECK_STATUS = #checkStatus:DECIMAL#,
+          CHECK_MAN_ID = #checkManId:DECIMAL#,
+          CHECK_MAN = #checkMan:VARCHAR#,
+          DES = #des:VARCHAR#,
+          SPA_1 = #spa1:VARCHAR#,
+          SPA_2 = #spa2:VARCHAR#,
+          SPA_3 = #spa3:VARCHAR#,
+          PRODUCT_NAME = #productName:VARCHAR#,
+          ADVANTAGE = #advantage:VARCHAR#,
+          DEFECT = #defect:VARCHAR#,
+          ADDTO_CONTENT = #addtoContent:VARCHAR#,
+          REPLY_CONTENT = #replyContent:VARCHAR#
+        where APPRAISE_ID = #appraiseId:DECIMAL#
+    </update>
+
+    <delete id="deleteByPrimaryKeyBatch">
+        delete PROD_APPRAISE where APPRAISE_ID in
+        <iterate conjunction="," open="(" close=")">
+            #[]#
+        </iterate>
+    </delete>
+
+    <insert id="ibatorgenerated_insertForExcel" parameterClass="com.pltfm.app.vobject.ProdAppraise">
+        <selectKey keyProperty="appraiseId" resultClass="java.lang.Long">
+            select SEQ_APP_PRODAPPRAISE.nextval from dual
+        </selectKey>
+        insert into PROD_APPRAISE (APPRAISE_ID, PRODUCT_SKU_ID, CUST_NAME,
+        APPRAISE_CONTENT, POINT, SATISFICING, USERFUL_AMOUNT, REPLY_AMOUNT, CUST_ID,
+        APPRAISE_DATE, CHECK_STATUS, PRODUCT_NAME, ADDTO_CONTENT, REPLY_CONTENT)
+        values (#appraiseId:DECIMAL#, #productSkuId:DECIMAL#, #custName:VARCHAR#,
+        #appraiseContent:VARCHAR#, #point:DECIMAL#, #satisficing:VARCHAR#,
+        0, 0,
+        (select max(A.n_login_id) from LOGIN_INFO A where A.LOGIN_ACCOUNT=#custName:VARCHAR#),
+        #appraiseDate#, 1, #productName:VARCHAR#, '0', '0')
+    </insert>
+
+    <insert id="ibatorgenerated_insertForExcel_Test" parameterClass="com.pltfm.app.vobject.ProdAppraise">
+        <selectKey keyProperty="appraiseId" resultClass="java.lang.Long">
+            select SEQ_APP_PRODAPPRAISE.nextval from dual
+        </selectKey>
+        insert into prod_appraise_20141120 (APPRAISE_ID, PRODUCT_SKU_ID, CUST_NAME,
+        APPRAISE_CONTENT, POINT, SATISFICING, USERFUL_AMOUNT, REPLY_AMOUNT, CUST_ID,
+        APPRAISE_DATE, CHECK_STATUS, PRODUCT_NAME, ADDTO_CONTENT, REPLY_CONTENT)
+        values (#appraiseId:DECIMAL#, #productSkuId:DECIMAL#, #custName:VARCHAR#,
+        #appraiseContent:VARCHAR#, #point:DECIMAL#, #satisficing:VARCHAR#,
+        0, 0,
+        (select max(A.n_login_id) from PRO_USERINFO A where A.ACCOUNT_LOGIN=#custName:VARCHAR#),
+        #appraiseDate#, 0, #productName:VARCHAR#, '0', '0')
+    </insert>
+
+    <statement id="createTempTable" parameterClass="java.lang.String" remapResults="true">
+  	  create table $tableName$ as select * from prod_appraise
+    </statement>
+
+    <statement id="deleteTempTable" parameterClass="java.lang.String" remapResults="true">
+  	    drop table $tableName$
+    </statement>
+
+    <select id="findIsExistUserName" parameterClass="java.util.List" resultClass="java.lang.String">
+        select A.LOGIN_ACCOUNT from LOGIN_INFO A where A.LOGIN_ACCOUNT in
+        <iterate conjunction="," open="(" close=")">
+            #checkUsers[]#
+        </iterate>
+    </select>
+
+    <!-- 根据 条件查询整个表-->
+    <select id="queryProductAppraise" parameterClass="java.util.HashMap" resultMap="prodAppraiseMap">
+        <![CDATA[SELECT P.*, R.APPR_REPLY_ID,R.REPLY_CONTENT,R.REPLY_PERSON,R.REPLY_STATUS,
+                  TO_CHAR(R.REPLY_DATE, 'yyyy-mm-dd hh24:mi:ss') REPLY_DATE,
+                  TO_CHAR(C.ADD_CONTENT_DATE, 'yyyy-mm-dd hh24:mi:ss') ADD_CONTENT_DATE,
+                C.ADD_CONTENT_ID, C.ADD_CONTENT
+  		FROM (SELECT  X.*, ROWNUM RN FROM (SELECT A.APPRAISE_ID, A.ORDER_DETAIL_ID, A.PRODUCT_SKU_ID,
+  		                TO_CHAR(A.PROD_BUY_DATE, 'yyyy-mm-dd hh24:mi:ss') PROD_BUY_DATE,
+  		                TO_CHAR(A.APPRAISE_DATE, 'yyyy-mm-dd hh24:mi:ss') APPRAISE_DATE,
+  		               A.APPRAISE_CONTENT,A.POINT, A.SATISFICING, A.USERFUL_AMOUNT, A.REPLY_AMOUNT, A.CUST_ID,
+                       A.CUST_NAME, A.CUST_LEVEL, A.ELITE, A.CHECK_STATUS,
+                       A.CHECK_MAN_ID, A.CHECK_MAN, A.DES, A.PRODUCT_NAME, A.ADVANTAGE,A.DEFECT,
+                       KP.HEAD_SCULPTURE AS CUST_PIC_PATH
+              FROM PROD_APPRAISE A
+              LEFT JOIN PERSONALITY_INFO KP ON A.CUST_ID = KP.N_LOGIN_ID
+        	  WHERE A.CHECK_STATUS = 1 AND A.PRODUCT_SKU_ID = #skuId#]]>
+        <isNotEmpty property="time">
+            ORDER BY A.APPRAISE_DATE $sort$
+        </isNotEmpty>
+        <isNotEmpty property="point">
+            ORDER BY A.POINT $sort$
+        </isNotEmpty>
+        <![CDATA[
+            ) X WHERE ROWNUM <= #endIndex#) P
+            LEFT JOIN APPRAISE_REPLY R ON P.APPRAISE_ID = R.APPRAISE_ID AND R.REPLY_STATUS=1
+            LEFT JOIN APPRAISE_ADDTO_CONTENT C ON P.APPRAISE_ID = C.APPRAISE_ID AND C.CHECK_STATUS=1
+            WHERE RN >=#startIndex#
+        ]]>
+    </select>
+
+    <!-- 查询商品评价的总条数 -->
+    <select id="countProductAppraise" parameterClass="java.lang.Long" resultClass="java.lang.Integer">
+        SELECT COUNT(1) FROM PROD_APPRAISE WHERE CHECK_STATUS=1 ANd PRODUCT_SKU_ID = #skuId#
+    </select>
+</sqlMap>

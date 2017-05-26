@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+
+	  <!-- <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxActive" value="${maxActive_r}"/>
+        <property name="maxIdle" value="${maxIdle_r}"/>
+        <property name="maxWait" value="${maxWait_r}"/>
+        <property name="testOnBorrow" value="${testOnBorrow_r}"/>
+        <property name="testOnReturn" value="${testOnReturn_r}"/>
+    </bean> -->
+    <!-- <bean id="shardedJedisPool" class="com.km.framework.redis.KmShardedJedisPool"/>
+    <bean id="readShardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">
+        <constructor-arg index="0" ref="jedisPoolConfig"/>
+        <constructor-arg index="1">
+            <list>
+                <bean class="redis.clients.jedis.JedisShardInfo">
+                    <constructor-arg index="0" value="${server_read_1}"/>
+                    <constructor-arg index="1" value="${port_read_1}" type="int"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="writeShardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">
+        <constructor-arg index="0" ref="jedisPoolConfig"/>
+        <constructor-arg index="1">
+            <list>
+                <bean class="redis.clients.jedis.JedisShardInfo">
+                    <constructor-arg index="0" value="${server_write_1}"/>
+                    <constructor-arg index="1" value="${port_write_1}" type="int"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean> -->
+	
+	
+</beans>

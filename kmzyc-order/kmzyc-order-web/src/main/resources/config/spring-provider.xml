@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://code.alibabatech.com/schema/dubbo classpath:dubbo.xsd">
+
+	<dubbo:application name="order-provider" owner="kmzyc.order" />
+	<dubbo:provider loadbalance="roundrobin"  />
+	<!-- 超时时间默认设置为1秒钟，如果特定的接口的处理时间较长，直接在service中设置超时时间 loadbalance负载机制roundrobin是轮询 
+		<dubbo:provider timeout="1000" loadbalance="roundrobin" /> <dubbo:registry 
+		address="zookeeper://10.2.20.119:2181" /> -->
+	<!-- 用dubbo协议在20880端口暴露服务 -->
+	<dubbo:protocol name="dubbo" port="${dubbo.order.port}" />
+	<dubbo:registry address="${dubbo.registry.address}" client="curator" file="kmzyc-order.cache"/>
+	<dubbo:monitor protocol="registry"/>
+	<!-- 退换货申请状态变更接口 -->
+	<dubbo:service ref="orderAlterChangeStatusRemoteService" interface="com.kmzyc.order.remote.OrderAlterChangeStatusRemoteService" />
+
+	<!-- 退换货申请状态变更接口 -->
+	<dubbo:service ref="orderAlterQryRemoteService" interface="com.kmzyc.order.remote.OrderAlterQryRemoteService" />
+	
+	<!-- 退换货退款接口 -->
+<!-- 	<dubbo:service ref="orderAlterPayRemoteService" interface="com.pltfm.app.remote.OrderAlterPayRemoteService" />
+	 -->
+	<!-- 退款回调接口 -->
+	<dubbo:service ref="refundMentRemoteService" interface="com.kmzyc.order.remote.RefundMentRemoteService" />
+
+	<!-- 退换货回调接口 -->
+	<dubbo:service ref="orderAlterCallBackRemoteService" interface="com.kmzyc.order.remote.OrderAlterCallBackRemoteService" />
+	
+	<!-- 订单状态变更接口 -->
+	<dubbo:service ref="orderChangeStatusRemoteService" interface="com.kmzyc.order.remote.OrderChangeStatusRemoteService" />
+
+	<!-- 订单明细查询接口 -->
+	<dubbo:service ref="orderItemQryRemoteService" interface="com.kmzyc.order.remote.OrderItemQryRemoteService" />
+
+	<!-- 订单支付接口 -->
+	<dubbo:service ref="orderPayRemoteService" interface="com.kmzyc.order.remote.OrderPayRemoteService" />
+
+	<!-- 订单查询接口 -->
+	<dubbo:service ref="orderQryRemoteService" interface="com.kmzyc.order.remote.OrderQryRemoteService" />
+
+	<!-- 订单生成接口 -->
+	<dubbo:service ref="orderCreateRemoteService" interface="com.kmzyc.order.remote.OrderCreateRemoteService" />
+	
+	<!-- 订单评价生成接口 -->
+	<dubbo:service ref="orderAssessRemoteService" interface="com.kmzyc.order.remote.OrderAssessRemoteService" />
+	
+	<!-- 订单运费生成接口 -->
+	<dubbo:service ref="fareRemoteService" interface="com.kmzyc.order.remote.FareRemoteService" />
+
+	<!-- 订单回调接口 -->
+	<dubbo:service ref="orderCallBackRemoteService" interface="com.kmzyc.order.remote.OrderCallBackRemoteService" />
+	
+	<!-- 订单结转接口 -->
+	<dubbo:service ref="orderExecuteRemoteService" interface="com.kmzyc.order.remote.OrderExecuteRemoteService" />
+
+	<!-- 订单同步接口 -->
+	<dubbo:service ref="orderSyncRemoteService" interface="com.kmzyc.order.remote.OrderSyncRemoteService" />
+
+	<!-- 订单取消接口 -->
+	<dubbo:service ref="orderCancelRemoteService" interface="com.kmzyc.order.remote.OrderCancelRemoteService"/>
+	
+	<!-- 系统常量接口 -->
+	<dubbo:service ref="sysConstantsRemoteService" interface="com.kmzyc.order.remote.SysConstantsRemoteService" />
+
+	<!-- 结算单对外接口 -->
+	<dubbo:service ref="supplierSettlementRemoteService" interface="com.kmzyc.order.remote.SupplierSettlementService" />
+	
+	<!-- 查风控黑名单接口 -->
+	<dubbo:service ref="orderRiskRemoteService" interface="com.kmzyc.order.remote.OrderRiskRemoteService" />
+	
+	<!-- 推广效果记录接口 -->
+<!-- 	<dubbo:service ref="spreadEffectRemoteService" interface="com.pltfm.app.remote.SpreadEffectRemoteService" /> -->
+</beans>

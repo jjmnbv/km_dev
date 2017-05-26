@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!-- 配置数据源 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="url" value="${url}" />
+        <property name="username" value="${username}" />
+        <property name="password" value="${password}" />
+        <property name="initialSize" value="${initialSize}" />
+        <property name="minIdle" value="${minIdle}" />
+        <property name="maxActive" value="${maxActive}" />
+        <property name="maxWait" value="${maxWait}" />
+        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+        <property name="validationQuery" value="${validationQuery}" />
+        <property name="testWhileIdle" value="${testWhileIdle}" />
+        <property name="testOnBorrow" value="${testOnBorrow}" />
+        <property name="testOnReturn" value="${testOnReturn}" />
+        <property name="poolPreparedStatements" value="${poolPreparedStatements}" />
+        <property name="maxPoolPreparedStatementPerConnectionSize"
+                  value="${maxPoolPreparedStatementPerConnectionSize}" />
+        <property name="filters" value="stat" />
+        <property name="removeAbandoned" value="true" />
+        <property name="removeAbandonedTimeout" value="300" />
+        <property name="logAbandoned" value="true" />
+    </bean>
+    <!-- 结束 -->
+
+    <!-- Spring提供的iBatis的SqlMap配置 -->
+    <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="configLocation"
+                  value="classpath:ibatis/sql-map-config.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- cms数据源配置 -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- Transaction manager for a single JDBC DataSource -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 添加事物注解 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- 使用拦截器管理事物 -->
+    <bean id="abstractTxDefinition"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+          abstract="true">
+        <property name="transactionManager">
+            <ref bean="transactionManager"/>
+        </property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+                <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+                <prop key="*">PROPAGATION_REQUIRED,-ServiceException</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- spring 发送邮件配置 -->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.163.com"/>
+        <property name="port" value="25"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+            </props>
+        </property>
+    </bean>
+    <!-- spring发送邮件配置结束 -->
+
+    <!-- 每隔一天【一天＝24×60×60×1000微秒】执行一次   timer
+	<bean id="scheduledTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+			<property name="delay" value="0" />
+		     
+			<property name="period" value="86400000" />
+			<property name="timerTask" ref="businessReport" />
+	</bean> 
+	
+	<bean id="businessReport" class="com.test.bean.BusinessReport" /> 
+    <bean name="reportTask"  
+        class="org.springframework.scheduling.quartz.JobDetailBean">  
+        <property name="jobClass" value="com.test.bean.BusinessReport" />  
+    </bean>  
+  -->
+    <!-- 触发器     每天下午16点50分到55分,每分钟运行一次 
+    <bean id="cronTrigger"  
+        class="org.springframework.scheduling.quartz.CronTriggerBean">  
+        <property name="jobDetail" ref="reportTask" />  
+        <property name="cronExpression" value="0 50-55 16 * * ?" />  
+    </bean> -->
+
+    <!-- 调度器  -->
+    <!--  
+    <bean  
+        class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+        <property name="triggers">  
+            <list>  
+              
+                <ref bean="cronTrigger" />  
+            </list>  
+        </property>  
+
+        <property name="configLocation" value="classpath:config/quartz.properties" />   
+    </bean>  
+   
+    
+    <bean id="imageConfig" class="java.util.HashMap">
+    	<constructor-arg>
+			<map>
+				<entry key="image.save.path" value="E:\cms\src\main\webapp\upload" />
+				<entry key="image.server.host" value="http://localhost/upload" />
+			</map>
+		</constructor-arg>
+
+    </bean>
+    -->
+
+    <bean id="propertyConfigurer"
+          class="com.kmzyc.zkconfig.ZKPropertyPlaceholderConfigurer">
+        <constructor-arg ref="zkClient"/>
+        <property name="zkPaths">
+            <list>
+                <value>/kmconfig/commons/jdbc.properties</value>
+                <value>/kmconfig/commons/mq.properties</value>
+                <value>/kmconfig/commons/redis.properties</value>
+                <value>/kmconfig/km-cms/pathConfig.properties</value>
+                <value>/kmconfig/km-cms/msg_zh_CN.properties</value>
+                <value>/kmconfig/km-cms/dateConfig.properties</value>
+                <value>/kmconfig/commons/memcache.properties</value>
+                <value>/kmconfig/km-cms/shiro.properties</value>
+                <!--<value>/kmconfig/km-cms/shiro_local.properties</value>-->
+                <value>/kmconfig/km-cms/dubbo.properties</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="zkClient" class="com.kmzyc.zkconfig.CuratorFrameworkFactoryBean"/>
+
+    <!--<bean id="appApplicationContextUtil" class="com.pltfm.cms.util.AppApplicationContextUtil"/>-->
+    <!-- 开启注解扫描 -->
+    <!-- spring工具类 方便在非spring管理环境中获取bean -->
+    <bean id="springUtils" class="com.kmzyc.util.SpringUtils"/>
+    <context:annotation-config/>
+    <context:component-scan base-package="com.km,com.kmzyc,com.pltfm"/>
+
+</beans>

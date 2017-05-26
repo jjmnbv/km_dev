@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="BnesAcctTransaction" >
+<resultMap id="bnesAcctTransactionQueryResultMap" class="com.pltfm.app.vobject.BnesAcctTransactionQuery" >
+    <result property="accountTransactionId" column="ACCOUNT_TRANSACTION_ID" jdbcType="DECIMAL" />
+    <result property="accountId" column="ACCOUNT_ID" jdbcType="DECIMAL" />
+    <result property="accountNumber" column="ACCOUNT_NUMBER" jdbcType="VARCHAR" />
+    <result property="type" column="TYPE" jdbcType="DECIMAL" />
+    <result property="content" column="CONTENT" jdbcType="VARCHAR" />
+    <result property="amount" column="AMOUNT" jdbcType="DECIMAL" />
+    <result property="status" column="STATUS" jdbcType="DECIMAL" />
+    <result property="createDate" column="CREATE_DATE"  />
+    <result property="createdId" column="CREATED_ID" jdbcType="DECIMAL" />
+    <result property="modifyDate" column="MODIFY_DATE"  />
+    <result property="modifieId" column="MODIFIE_ID" jdbcType="DECIMAL" />
+    <result property="accountLogin" column="ACCOUNT_LOGIN" jdbcType="VARCHAR" />
+        <result property="otherOrder" column="OTHER_ORDER" jdbcType="VARCHAR"  />
+    <result property="trasObject" column="TRAS_OBJECT"  jdbcType="DECIMAL" />
+
+  </resultMap>
+  <resultMap id="ibatorgenerated_CountResult" class="com.pltfm.sys.model.SysModelUtil">
+    <result column="the_count" property="theCount" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="abatorgenerated_Example_Where_Clause" >
+  
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  <!-- 计算流水和 -->
+   <select id="queryAmountAccount" parameterClass="com.pltfm.app.vobject.BnesAcctTransactionQuery" resultClass="java.math.BigDecimal">
+   		select sum(amount) bill from bnes_acct_transaction b where 1=1
+   		<isNotNull property="accountId">
+			  <isNotEmpty  property="accountId">
+				 <![CDATA[ and ACCOUNT_ID = #accountId#  ]]>
+			  </isNotEmpty>
+		</isNotNull>
+		<isNotNull property="arrayList">
+		       <isNotEmpty property="arrayList">
+			      <![CDATA[ and  type in ($arrayList$)]]>
+				</isNotEmpty>
+		</isNotNull>
+		<isNotNull property="type">
+		       <isNotEmpty property="type">
+			       <![CDATA[and  type  = #type#]]>
+				</isNotEmpty>
+		</isNotNull>
+		<isNotNull property="status">
+		       <isNotEmpty property="status">
+			       <![CDATA[and  Status =#status#]]>
+				</isNotEmpty>
+		</isNotNull>
+		<isNotNull property="createDate">
+		   	   <isNotEmpty property="createDate">
+		     		<![CDATA[and   CREATE_DATE  >=#createDate#]]> 
+		       </isNotEmpty>
+		 </isNotNull>
+		 <isNotNull property="endDate">
+		   		<isNotEmpty  property="endDate">
+				 	<![CDATA[and   CREATE_DATE  <#endDate#]]>
+				 </isNotEmpty>
+		  </isNotNull>
+   </select>
+  <!-- start 统计记录数 -->
+   <select id="findListByQueryList" parameterClass="com.pltfm.app.vobject.BnesAcctTransactionQuery" resultMap="ibatorgenerated_CountResult">
+     SELECT COUNT(1) the_count FROM BNES_ACCT_TRANSACTION a1,ACCOUNT_INFO B 
+      <dynamic prepend="where">
+      a1.ACCOUNT_ID =B.N_ACCOUNT_ID
+		  <isNotNull property="accountLogin">
+			  <isNotEmpty  property="accountLogin">
+				and B.ACCOUNT_LOGIN like '%$accountLogin$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		      <isNotNull property="type">
+			  <isNotEmpty  property="type">
+				and A1.TYPE = #type#  
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="accountId">
+			  <isNotEmpty  property="accountId">
+				and A1.ACCOUNT_ID = #accountId#  
+			  </isNotEmpty>
+			  </isNotNull>
+			        <isNotNull property="content">
+		           <isNotEmpty   property="content">
+		         and   A1.CONTENT like '%$content$%' 
+			  </isNotEmpty>
+		  </isNotNull>
+		      <isNotNull property="otherOrder">
+		        <isNotEmpty   property="otherOrder">
+				   and  A1.OTHER_ORDER like  '%$otherOrder$%' 
+				     </isNotEmpty>
+		  </isNotNull>
+		        <isNotNull property="trasObject">
+		             <isNotEmpty  property="trasObject">
+			         and   A1.TRAS_OBJECT =#trasObject# 
+				 </isNotEmpty>
+		  </isNotNull>
+		    <isNotNull property="accountNumber">
+		     <isNotEmpty   property="accountNumber">
+				  and A1.ACCOUNT_NUMBER like '%$accountNumber$%' 
+				 </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="status">
+		       <isNotEmpty  property="status">
+			       and  A1.Status =#status# 
+				 </isNotEmpty>
+			  </isNotNull>
+			  <isNotNull property="createDate">
+		   <isNotEmpty  property="createDate">
+		     and   A1.CREATE_DATE  >=#createDate#   
+		     </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="endDate">
+		   <isNotEmpty   property="endDate">
+				<![CDATA[  and    A1.CREATE_DATE  <=#endDate#]]>
+				 </isNotEmpty>
+		  </isNotNull>
+	  </dynamic>
+  </select>
+  
+
+  <!-- end 统计记录数 -->
+  
+    <select id="findSumListByQueryList" parameterClass="com.pltfm.app.vobject.BnesAcctTransactionQuery" resultMap="ibatorgenerated_CountResult">
+   
+     SELECT SUM(B.AMOUNT) the_count FROM BNES_ACCT_TRANSACTION B
+      <dynamic prepend="where">
+      B.TYPE=3
+		   <isNotNull property="accountId">
+			  <isNotEmpty  property="accountId">
+				AND B.ACCOUNT_ID = #accountId#  
+			  </isNotEmpty>
+		  </isNotNull>
+	  </dynamic>
+  </select>
+ 
+  
+    <select id="findListByQuery" resultMap="bnesAcctTransactionQueryResultMap" parameterClass="com.pltfm.app.vobject.BnesAcctTransactionQuery">
+		   SELECT a1.ACCOUNT_TRANSACTION_ID,
+               a1.ACCOUNT_ID,
+               a1.ACCOUNT_LOGIN,
+               a1.ACCOUNT_NUMBER,
+               a1.TYPE,
+               a1.CONTENT,
+               a1.AMOUNT,
+               a1.STATUS,
+               a1.CREATE_DATE,
+               a1.CREATED_ID,
+               a1.MODIFY_DATE,
+               a1.MODIFIE_ID,
+               a1.OTHER_ORDER,
+              a1.TRAS_OBJECT
+          from (select rownum  rn,
+                       a1.ACCOUNT_TRANSACTION_ID,
+                       a1.ACCOUNT_ID,
+                       a1.ACCOUNT_LOGIN,
+                       a1.ACCOUNT_NUMBER,
+                       a1.TYPE,
+                       a1.CONTENT,
+                       a1.AMOUNT,
+                       a1.STATUS,
+                       a1.CREATE_DATE,
+                       a1.CREATED_ID,
+                       a1.MODIFY_DATE,
+                       a1.MODIFIE_ID,
+                       a1.OTHER_ORDER,
+                      a1.TRAS_OBJECT
+                  from (SELECT A.ACCOUNT_TRANSACTION_ID,
+                               A.ACCOUNT_ID,
+                               B.ACCOUNT_LOGIN,
+                               A.ACCOUNT_NUMBER,
+                               A.TYPE,
+                               A.CONTENT,
+                               A.AMOUNT,
+                               A.STATUS,
+                               A.CREATE_DATE,
+                               A.CREATED_ID,
+                               A.MODIFY_DATE,
+                               A.MODIFIE_ID,
+                               A.OTHER_ORDER,
+                               A.TRAS_OBJECT
+                          FROM BNES_ACCT_TRANSACTION A, ACCOUNT_INFO B
+       <dynamic prepend="where">
+      A.ACCOUNT_ID = B.N_ACCOUNT_ID
+      <isNotNull property="accountLogin">
+			  <isNotEmpty  property="accountLogin">
+				and B.ACCOUNT_LOGIN like '%$accountLogin$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="arrayList">
+			  <isNotEmpty  property="arrayList">
+				and A.TYPE in ($arrayList$)
+			  </isNotEmpty>
+		  </isNotNull>
+		    <isNotNull property="type">
+			  <isNotEmpty  property="type">
+				and A.TYPE = #type#  
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="accountId">
+			  <isNotEmpty  property="accountId">
+				and A.ACCOUNT_ID = #accountId#  
+			  </isNotEmpty>
+			  </isNotNull>
+	        <isNotNull property="content">
+		           <isNotEmpty   property="content">
+		         and   A.CONTENT like '%$content$%' 
+			  </isNotEmpty>
+		  </isNotNull>
+		      <isNotNull property="otherOrder">
+		        <isNotEmpty   property="otherOrder">
+				   and  A.OTHER_ORDER like  '%$otherOrder$%' 
+				     </isNotEmpty>
+		  </isNotNull>
+		        <isNotNull property="trasObject">
+		             <isNotEmpty  property="trasObject">
+			         and   A.TRAS_OBJECT =#trasObject# 
+				 </isNotEmpty>
+		  </isNotNull>
+		    <isNotNull property="accountNumber">
+		     <isNotEmpty   property="accountNumber">
+				  and A.ACCOUNT_NUMBER like '%$accountNumber$%' 
+				 </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="status">
+		       <isNotEmpty  property="status">
+			       and  A.Status =#status# 
+				 </isNotEmpty>
+			  </isNotNull>
+			  <isNotNull property="createDate">
+		   <isNotEmpty  property="createDate">
+		     and   A.CREATE_DATE  >=#createDate#   
+		     </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="endDate">
+		   <isNotEmpty   property="endDate">
+				<![CDATA[  and    A.CREATE_DATE  <=#endDate#]]>
+				 </isNotEmpty>
+		  </isNotNull>
+		
+	  </dynamic>
+       order by A.CREATE_DATE desc) a1) a1
+   
+    <![CDATA[ where rn <= #maxNum# and rn > #mixNum# ]]>
+	</select>
+  <!--start 充值 insert -->
+  <!-- 查询所有交易流水 -->
+  <select id="selectTransactionAll" resultMap="bnesAcctTransactionQueryResultMap" parameterClass="com.pltfm.app.vobject.BnesAcctTransactionQuery">
+  select * from bnes_acct_transaction A, ACCOUNT_INFO B
+   <dynamic prepend="where">
+      A.ACCOUNT_ID = B.N_ACCOUNT_ID
+  		<isNotNull property="arrayList">
+			  <isNotEmpty  property="arrayList">
+				and A.TYPE in ($arrayList$)
+			  </isNotEmpty>
+		  </isNotNull>
+		    <isNotNull property="type">
+			  <isNotEmpty  property="type">
+				and A.TYPE = #type#  
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="accountId">
+			  <isNotEmpty  property="accountId">
+				and A.ACCOUNT_ID = #accountId#  
+			  </isNotEmpty>
+			  </isNotNull>
+	        <isNotNull property="content">
+		           <isNotEmpty   property="content">
+		         and   A.CONTENT like '%$content$%' 
+			  </isNotEmpty>
+		  </isNotNull>
+		      <isNotNull property="otherOrder">
+		        <isNotEmpty   property="otherOrder">
+				   and  A.OTHER_ORDER like  '%$otherOrder$%' 
+				     </isNotEmpty>
+		  </isNotNull>
+		        <isNotNull property="trasObject">
+		             <isNotEmpty  property="trasObject">
+			         and   A.TRAS_OBJECT =#trasObject# 
+				 </isNotEmpty>
+		  </isNotNull>
+		    <isNotNull property="accountNumber">
+		     <isNotEmpty   property="accountNumber">
+				  and A.ACCOUNT_NUMBER like '%$accountNumber$%' 
+				 </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="status">
+		       <isNotEmpty  property="status">
+			       and  A.Status =#status# 
+				 </isNotEmpty>
+			  </isNotNull>
+			  <isNotNull property="createDate">
+		   <isNotEmpty  property="createDate">
+		     and   A.CREATE_DATE  >=#createDate#   
+		     </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="endDate">
+		   <isNotEmpty   property="endDate">
+				<![CDATA[  and    A.CREATE_DATE  <#endDate#]]>
+				 </isNotEmpty>
+		  </isNotNull>
+		</dynamic>
+  </select>
+  <!-- start 查询充值信息-->
+  <select id="findByPrimaryKey" parameterClass="java.lang.Integer" resultMap="bnesAcctTransactionQueryResultMap" >
+     SELECT 
+    a1.ACCOUNT_TRANSACTION_ID, a1.ACCOUNT_ID,B.ACCOUNT_LOGIN, a1.ACCOUNT_NUMBER, a1.TYPE, a1.CONTENT, 
+      a1.AMOUNT, a1.STATUS, a1.CREATE_DATE, a1.CREATED_ID, a1.MODIFY_DATE, a1.MODIFIE_ID,a1.OTHER_ORDER,a1.TRAS_OBJECT
+    <![CDATA[  
+     FROM BNES_ACCT_TRANSACTION a1 ,ACCOUNT_INFO B   WHERE  a1.ACCOUNT_ID =B.N_ACCOUNT_ID and ACCOUNT_TRANSACTION_ID = #accountTransactionId:DECIMAL#
+    ]]>  
+  </select>
+  <!-- end 查询充值信息 -->
+  <insert id="insert" parameterClass="com.pltfm.app.vobject.BnesAcctTransactionQuery" >
+  <selectKey keyProperty="accountTransactionId" resultClass="java.lang.Integer" >
+      SELECT SEQ_APP_BUSINESS.NEXTVAL FROM DUAL
+  </selectKey>
+   merge into bnes_acct_transaction bat
+		using (select #otherOrder:VARCHAR# otherOrder,#status# status, #type# type from dual) cond
+		on (bat.other_order=cond.otherOrder and bat.status=cond.status and bat.type=cond.type)
+   when not matched then
+     INSERT (ACCOUNT_TRANSACTION_ID, ACCOUNT_ID,ACCOUNT_NUMBER,TYPE, CONTENT, 
+     AMOUNT, STATUS,CREATE_DATE,CREATED_ID, MODIFY_DATE,MODIFIE_ID,OTHER_ORDER,TRAS_OBJECT)
+     VALUES ( #accountTransactionId#, #accountId#, #accountNumber#, #type#, #content#, #amount#, 
+      #status#, #createDate#, #createdId#, #modifyDate#, #modifieId#,#otherOrder#,#trasObject#)
+  </insert>
+   <!--end 充值 insert -->
+   
+   
+   <!-- start 更新充值-->
+  <update id="update" parameterClass="com.pltfm.app.vobject.BnesAcctTransactionQuery" >
+    UPDATE BNES_ACCT_TRANSACTION   
+    <dynamic prepend="SET" >
+      <isNotNull property="accountId" prepend="," >
+        <![CDATA[  
+        ACCOUNT_ID = #accountId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="accountNumber" prepend="," >
+        <![CDATA[  
+        ACCOUNT_NUMBER = #accountNumber#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="type" prepend="," >
+        <![CDATA[  
+        TYPE = #type#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="content" prepend="," >
+        <![CDATA[  
+        CONTENT = #content#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="amount" prepend="," >
+        <![CDATA[  
+        AMOUNT = #amount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="status" prepend="," >
+        <![CDATA[  
+        STATUS = #status#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="," >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="," >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="otherOrder" prepend="," >
+        <![CDATA[  
+        OTHER_ORDER = #otherOrder#  
+        ]]>  
+      </isNotNull>
+       <isNotNull property="trasObject" prepend="," >
+        <![CDATA[  
+        TRAS_OBJECT = #trasObject#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+     WHERE ACCOUNT_TRANSACTION_ID = #accountTransactionId#  
+  </update>
+	<!-- end 更新充值 -->
+ 	<!-- start 刪除充值信息 -->
+  	<delete id="deleteByPrimaryKey" parameterClass="java.lang.Integer" >
+    <![CDATA[  
+     DELETE FROM BNES_ACCT_TRANSACTION WHERE ACCOUNT_TRANSACTION_ID = #accountTransactionId#
+    ]]>  
+  	</delete>
+	<!-- end 刪除充值信息 -->
+	
+	<!-- 查询交易ID -->
+	<select id="SQL_QUERY_ACCOUNT_TRANSACTION_ID" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select bat.account_transaction_id
+	        from bnes_acct_transaction bat
+	       where bat.account_transaction_id=#id#
+	</select>
+</sqlMap>

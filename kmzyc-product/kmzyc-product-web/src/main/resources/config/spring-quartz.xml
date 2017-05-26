@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd  
+            http://www.springframework.org/schema/context  
+            http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <!-- 更新PRODUCT_SKU_QUANTITY 的前一天销量 每天定时任务 --> <!-- 每天凌晨3点30 触发 -->
+    <bean name="productSkuQuantityJob" class="com.quartz.product.ProductSkuQuantityJob"/>
+    <bean id="productSkuQuantityJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="productSkuQuantityJob"/>
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
+    <bean id="productSkuQuantityTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="productSkuQuantityJobDetail"/>
+        </property>
+        <property name="cronExpression">
+            <!--<value>0 0 4 1 * ?</value>-->
+            <value>0 30 3 * * ?</value>
+        </property>
+    </bean>
+
+    <bean name="supplierCategoryNameJob" class="com.quartz.product.SupplierCategoryNameJob"/>
+    <bean id="supplierCategoryNameJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="supplierCategoryNameJob"/>
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
+    <bean id="supplierCategoryNameTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="supplierCategoryNameJobDetail"/>
+        </property>
+        <property name="cronExpression">
+            <value>0 30 1 * * ?</value>
+        </property>
+    </bean>
+
+    <bean name="suppliersWarehouseNameJob" class="com.quartz.product.SuppliersWarehouseNameJob"/>
+    <bean id="suppliersWarehouseNameJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="suppliersWarehouseNameJob"/>
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
+    <bean id="suppliersWarehouseNameTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="suppliersWarehouseNameJobDetail"/>
+        </property>
+        <property name="cronExpression">
+            <value>0 0 1 * * ?</value>
+        </property>
+    </bean>
+
+    <bean name="productSkuDetailsJob" class="com.quartz.product.ProductSkuDetailsJob"/>
+    <bean id="productSkuDetailsJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="productSkuDetailsJob"/>
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
+    <bean id="productSkuDetailsJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="productSkuDetailsJobDetail"/>
+        </property>
+        <property name="cronExpression">
+            <value>0 0 4 * * ?</value>
+        </property>
+    </bean>
+
+    <bean id="productAutoJobBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <!-- 添加触发器 -->
+        <property name="triggers">
+            <list>
+                <ref local="supplierCategoryNameTrigger"/>
+                <ref local="suppliersWarehouseNameTrigger"/>
+                <ref local="productSkuQuantityTrigger"/>
+                <ref local="productSkuDetailsJobTrigger"/>
+            </list>
+        </property>
+    </bean>
+</beans>

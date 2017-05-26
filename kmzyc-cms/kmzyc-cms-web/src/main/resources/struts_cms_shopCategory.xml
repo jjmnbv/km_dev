@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="cms_shopCategory" namespace="/cms" extends="struts">		
+		<!-- 店铺分类级联-->
+		<action name="queryShopCategoryByAjax" class="shopCategoryAction" method="queryShopCategoryByAjax"></action>
+		
+		<!-- 店内分类可视化编辑  去新增,准备数据-->
+		<action name="toAddShopCategoryForWindow" class="shopCategoryAction" method="toAddShopCategoryForWindow">
+			<result name="success">/WEB-INF/jsp/cms/shopCategory/addShopCategoryForWindow.jsp</result>
+		</action>	
+		<!-- 店内分类可视化编辑  保存  -->
+		<action name="saveShopCategorySettingForWindow" class="shopCategoryAction" method="saveShopCategorySettingForWindow">
+		</action>	
+	</package>
+</struts>
+
+

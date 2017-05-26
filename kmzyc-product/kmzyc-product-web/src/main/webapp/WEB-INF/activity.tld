@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+  
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"  
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"  
+  version="2.0">  
+      
+  <description>activity functions library</description>  
+  <display-name>activity functions</display-name>  
+  <tlib-version>1.0</tlib-version>  
+  <short-name>activity</short-name>  
+  <uri>http://kmpro.km1818.com/functions</uri>  
+    
+  <function>  
+    <name>activityInfoDynamicStatus</name>  
+    <function-class>com.pltfm.activity.jstl.ActivityDynamicStatusFuntion</function-class>  
+    <function-signature>java.lang.String activityInfoDynamicStatus(com.pltfm.app.vobject.ActivityInfo)</function-signature>  
+  </function>
+  
+  <function>  
+    <name>isCancelActivity</name>  
+    <function-class>com.pltfm.activity.jstl.ActivityDynamicStatusFuntion</function-class>  
+    <function-signature>java.lang.Boolean isCancelActivity(com.pltfm.app.vobject.ActivityInfo)</function-signature>  
+  </function>
+  
+  <function>  
+    <name>isInviteSupplier</name>  
+    <function-class>com.pltfm.activity.jstl.ActivityDynamicStatusFuntion</function-class>  
+    <function-signature>java.lang.Boolean isInviteSupplier(com.pltfm.app.vobject.ActivityInfo)</function-signature>  
+  </function>
+  
+  <function>  
+    <name>isStopActivity</name>  
+    <function-class>com.pltfm.activity.jstl.ActivityDynamicStatusFuntion</function-class>  
+    <function-signature>java.lang.Boolean isStopActivity(com.pltfm.app.vobject.ActivityInfo)</function-signature>  
+  </function>
+  
+    
+</taglib>  

@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="BnesCustomerType" >
+
+  <typeAlias alias="bnesCustomerTypeDO" type="com.pltfm.app.dataobject.BnesCustomerTypeDO" />
+  <typeAlias alias="bnesCustomerTypeQuery" type="com.pltfm.app.vobject.BnesCustomerTypeQuery" />
+
+ <resultMap id="bnesCustomerTypeDOResultMap" class="bnesCustomerTypeDO" >
+    <result property="customerTypeId" column="CUSTOMER_TYPE_ID" />
+    <result property="name" column="NAME" />
+    <result property="description" column="DESCRIPTION" />
+    <result property="parentId" column="PARENT_ID" />
+    <result property="createDate" column="CREATE_DATE" />
+    <result property="createdId" column="CREATED_ID" />
+    <result property="modifyDate" column="MODIFY_DATE" />
+    <result property="modifieId" column="MODIFIE_ID" />
+    <result property="custLv" column="CUST_LV" />
+    <result property="sortno" column="SORTNO" />
+    <result property="isEnable" column="IS_ENABLE" />
+  </resultMap>
+
+  <resultMap id="bnesCustomerTypeQueryResultMap" class="bnesCustomerTypeQuery" >
+    <result property="customerTypeId" column="CUSTOMER_TYPE_ID" />
+    <result property="name" column="NAME" />
+    <result property="description" column="DESCRIPTION" />
+    <result property="parentId" column="PARENT_ID" />
+    <result property="createDate" column="CREATE_DATE" />
+    <result property="createdId" column="CREATED_ID" />
+    <result property="modifyDate" column="MODIFY_DATE" />
+    <result property="modifieId" column="MODIFIE_ID" />
+    <result property="custLv" column="CUST_LV" />
+    <result property="sortno" column="SORTNO" />
+    <result property="isEnable" column="IS_ENABLE" />
+  </resultMap>
+
+  <sql id="bnesCustomerType_columns" >
+    a1.CUSTOMER_TYPE_ID, a1.NAME, a1.DESCRIPTION, a1.PARENT_ID, a1.CREATE_DATE, a1.CREATED_ID, 
+      a1.MODIFY_DATE, a1.MODIFIE_ID, a1.CUST_LV, a1.SORTNO, a1.IS_ENABLE
+  </sql>
+
+  <sql id="bnesCustomerType_do_columns" >
+    a1.CUSTOMER_TYPE_ID, a1.NAME, a1.DESCRIPTION, a1.PARENT_ID, a1.CREATE_DATE, a1.CREATED_ID, 
+      a1.MODIFY_DATE, a1.MODIFIE_ID, a1.CUST_LV, a1.SORTNO, a1.IS_ENABLE
+  </sql>
+
+  <sql id="bnesCustomerType_query_columns" >
+    a1.CUSTOMER_TYPE_ID, a1.NAME, a1.DESCRIPTION, a1.PARENT_ID, a1.CREATE_DATE, a1.CREATED_ID, 
+      a1.MODIFY_DATE, a1.MODIFIE_ID, a1.CUST_LV, a1.SORTNO, a1.IS_ENABLE
+  </sql>
+
+  <sql id="queryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="customerTypeId" prepend="AND" >
+        <![CDATA[  
+        CUSTOMER_TYPE_ID = #customerTypeId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="name" prepend="AND" >
+        <![CDATA[  
+        NAME = #name#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="description" prepend="AND" >
+        <![CDATA[  
+        DESCRIPTION = #description#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="parentId" prepend="AND" >
+        <![CDATA[  
+        PARENT_ID = #parentId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="custLv" prepend="AND" >
+        <![CDATA[  
+        CUST_LV = #custLv#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="sortno" prepend="AND" >
+        <![CDATA[  
+        SORTNO = #sortno#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="isEnable" prepend="AND" >
+        <![CDATA[  
+        IS_ENABLE = #isEnable#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="doQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="customerTypeId" prepend="AND" >
+        <![CDATA[  
+        CUSTOMER_TYPE_ID = #customerTypeId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="name" prepend="AND" >
+        <![CDATA[  
+        NAME = #name#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="description" prepend="AND" >
+        <![CDATA[  
+        DESCRIPTION = #description#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="parentId" prepend="AND" >
+        <![CDATA[  
+        PARENT_ID = #parentId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="custLv" prepend="AND" >
+        <![CDATA[  
+        CUST_LV = #custLv#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="sortno" prepend="AND" >
+        <![CDATA[  
+        SORTNO = #sortno#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="isEnable" prepend="AND" >
+        <![CDATA[  
+        IS_ENABLE = #isEnable#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="queryQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="customerTypeId" prepend="AND" >
+        <![CDATA[  
+        CUSTOMER_TYPE_ID = #customerTypeId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="name" prepend="AND" >
+        <![CDATA[  
+        NAME = #name#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="description" prepend="AND" >
+        <![CDATA[  
+        DESCRIPTION = #description#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="parentId" prepend="AND" >
+        <![CDATA[  
+        PARENT_ID = #parentId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="custLv" prepend="AND" >
+        <![CDATA[  
+        CUST_LV = #custLv#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="sortno" prepend="AND" >
+        <![CDATA[  
+        SORTNO = #sortno#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="isEnable" prepend="AND" >
+        <![CDATA[  
+        IS_ENABLE = #isEnable#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+<!-- start增加客户类别 -->
+  <insert id="insert" parameterClass="bnesCustomerTypeQuery" >
+   <selectKey keyProperty="customerTypeId" resultClass="java.lang.Integer" >
+      SELECT SEQ_APP_BUSINESS.NEXTVAL FROM DUAL
+    </selectKey>
+    INSERT INTO BNES_CUSTOMER_TYPE( CUSTOMER_TYPE_ID, NAME, DESCRIPTION, PARENT_ID, CREATE_DATE, CREATED_ID, 
+      MODIFY_DATE, MODIFIE_ID, CUST_LV, SORTNO, IS_ENABLE)
+     VALUES ( #customerTypeId#, #name#, #description#, #parentId#, #createDate#, #createdId#, 
+      #modifyDate#, #modifieId#, #custLv#, #sortno#, #isEnable#)
+  </insert>
+  <!-- end增加客户类别 -->
+<!-- start 更新客户类别 -->
+  <update id="update" parameterClass="bnesCustomerTypeQuery" >
+    UPDATE BNES_CUSTOMER_TYPE   
+    <dynamic prepend="SET" >
+      <isNotNull property="name" prepend="," >
+        <![CDATA[  
+        NAME = #name#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="description" prepend="," >
+        <![CDATA[  
+        DESCRIPTION = #description#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="parentId" prepend="," >
+        <![CDATA[  
+        PARENT_ID = #parentId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="," >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="," >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="," >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="," >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="custLv" prepend="," >
+        <![CDATA[  
+        CUST_LV = #custLv#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="sortno" prepend="," >
+        <![CDATA[  
+        SORTNO = #sortno#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="isEnable" prepend="," >
+        <![CDATA[  
+        IS_ENABLE = #isEnable#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+     WHERE CUSTOMER_TYPE_ID = #customerTypeId#  
+  </update>
+<!-- end 更新客户类别 -->
+
+<!-- start 客户类别成员 -->
+  <select id="findParentQuery" parameterClass="java.lang.Integer" resultMap="bnesCustomerTypeQueryResultMap" >
+     SELECT 
+    <include refid="bnesCustomerType_query_columns" />
+    <![CDATA[  
+     FROM BNES_CUSTOMER_TYPE a1 WHERE PARENT_ID = #customerTypeId#
+    ]]>  
+  </select>
+  <!-- end 客户类别成员 -->
+
+
+  <select id="findByPrimaryKey" parameterClass="java.lang.Integer" resultMap="bnesCustomerTypeQueryResultMap" >
+     SELECT 
+    <include refid="bnesCustomerType_query_columns" />
+    <![CDATA[  
+     FROM BNES_CUSTOMER_TYPE a1 WHERE CUSTOMER_TYPE_ID = #customerTypeId#
+    ]]>  
+  </select>
+  
+ <!-- start 刪除類別成員 -->
+  <delete id="deleteByPrimaryKey" parameterClass="java.lang.Integer" >
+    <![CDATA[  
+     DELETE FROM BNES_CUSTOMER_TYPE WHERE CUSTOMER_TYPE_ID = #customerTypeId#
+    ]]>  
+  </delete>
+<!-- end 刪除類別成員 -->
+  <select id="countByDOExample" parameterClass="bnesCustomerTypeDO" resultClass="java.lang.Integer" >
+    SELECT COUNT(CUSTOMER_TYPE_ID) AS num FROM BNES_CUSTOMER_TYPE 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="findListByDO" resultMap="bnesCustomerTypeDOResultMap" parameterClass="bnesCustomerTypeDO" >
+     SELECT 
+    <include refid="bnesCustomerType_do_columns" />
+     FROM BNES_CUSTOMER_TYPE a1 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="countByQueryExample" parameterClass="bnesCustomerTypeQuery" resultClass="java.lang.Integer" >
+    SELECT COUNT(CUSTOMER_TYPE_ID) AS num FROM BNES_CUSTOMER_TYPE 
+    <include refid="queryQueryParams" />
+  </select>
+<!-- start 客户类别查询 -->
+  <select id="findListByQuery" resultMap="bnesCustomerTypeQueryResultMap" parameterClass="bnesCustomerTypeQuery" >
+     SELECT 
+    <include refid="bnesCustomerType_query_columns" />
+     FROM BNES_CUSTOMER_TYPE a1 
+    <include refid="queryQueryParams" />
+  </select>
+  <!-- end 客户类别查询 -->
+  <!-- start 客户类别查询所有客户类别 -->
+   <select id="findListByQueryById" resultMap="bnesCustomerTypeQueryResultMap"  parameterClass="java.lang.Integer" >
+     SELECT 
+    <include refid="bnesCustomerType_query_columns" />
+     FROM BNES_CUSTOMER_TYPE a1 
+     START WITH a1.CUSTOMER_TYPE_ID = #customerTypeId#
+CONNECT BY PRIOR a1.CUSTOMER_TYPE_ID= a1.PARENT_ID 
+  </select>
+    <!-- end 客户类别查询所有客户类别 -->
+</sqlMap>

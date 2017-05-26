@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="BnesAcctTransList" >
+
+  <typeAlias alias="bnesAcctTransListDO" type="com.pltfm.app.dataobject.BnesAcctTransListDO" />
+  <typeAlias alias="bnesAcctTransListQuery" type="com.pltfm.app.vobject.BnesAcctTransListQuery" />
+
+  <resultMap id="bnesAcctTransListDOResultMap" class="bnesAcctTransListDO" >
+    <result property="transListId" column="TRANS_LIST_ID" />
+    <result property="accountId" column="ACCOUNT_ID" />
+    <result property="accountTransactionId" column="ACCOUNT_TRANSACTION_ID" />
+    <result property="beforeAmount" column="BEFORE_AMOUNT" />
+    <result property="afterAmount" column="AFTER_AMOUNT" />
+    <result property="moneyAmount" column="MONEY_AMOUNT" />
+    <result property="createDate" column="CREATE_DATE" />
+    <result property="createdId" column="CREATED_ID" />
+    <result property="modifyDate" column="MODIFY_DATE" />
+    <result property="modifieId" column="MODIFIE_ID" />
+  </resultMap>
+
+  <resultMap id="bnesAcctTransListQueryResultMap" class="bnesAcctTransListQuery" >
+    <result property="transListId" column="TRANS_LIST_ID" />
+    <result property="accountId" column="ACCOUNT_ID" />
+    <result property="accountTransactionId" column="ACCOUNT_TRANSACTION_ID" />
+    <result property="beforeAmount" column="BEFORE_AMOUNT" />
+    <result property="afterAmount" column="AFTER_AMOUNT" />
+    <result property="moneyAmount" column="MONEY_AMOUNT" />
+    <result property="createDate" column="CREATE_DATE" />
+    <result property="createdId" column="CREATED_ID" />
+    <result property="modifyDate" column="MODIFY_DATE" />
+    <result property="modifieId" column="MODIFIE_ID" />
+    <result property="accountLogin" column="ACCOUNT_LOGIN" />
+    <result property="accountNumber" column="ACCOUNT_NUMBER" />
+    <result property="content" column="CONTENT" />
+    <result property="type" column="TYPE" />
+    <result property="status" column="STATUS" />
+     <result property="otherOrder" column="OTHER_ORDER" />
+    <result property="trasObject" column="TRAS_OBJECT" />
+  </resultMap>
+  
+  
+  
+  
+  
+    <resultMap id="allListQueryResultMap" class="bnesAcctTransListQuery" >
+    <result property="beforeAmount" column="BEFORE_AMOUNT" />
+    <result property="afterAmount" column="AFTER_AMOUNT" />
+    <result property="moneyAmount" column="MONEY_AMOUNT" />
+    <result property="createDate" column="CREATE_DATE" />
+    <result property="accountLogin" column="ACCOUNT_LOGIN" />
+    <result property="accountNumber" column="ACCOUNT_NUMBER" />
+    <result property="content" column="CONTENT" />
+    <result property="type" column="TYPE" />
+    <result property="status" column="STATUS" />
+         <result property="otherOrder" column="OTHER_ORDER" />
+    <result property="trasObject" column="TRAS_OBJECT" />
+  </resultMap>
+<resultMap id="ibatorgenerated_CountResult" class="com.pltfm.sys.model.SysModelUtil">
+    <result column="the_count" property="theCount" />
+  </resultMap>
+  <sql id="bnesAcctTransList_columns" >
+    a1.TRANS_LIST_ID, a1.ACCOUNT_ID, a1.ACCOUNT_TRANSACTION_ID, a1.BEFORE_AMOUNT, a1.AFTER_AMOUNT, 
+      a1.MONEY_AMOUNT, a1.CREATE_DATE, a1.CREATED_ID, a1.MODIFY_DATE, a1.MODIFIE_ID
+  </sql>
+
+  <sql id="bnesAcctTransList_do_columns" >
+    a1.TRANS_LIST_ID, a1.ACCOUNT_ID, a1.ACCOUNT_TRANSACTION_ID, a1.BEFORE_AMOUNT, a1.AFTER_AMOUNT, 
+      a1.MONEY_AMOUNT, a1.CREATE_DATE, a1.CREATED_ID, a1.MODIFY_DATE, a1.MODIFIE_ID
+  </sql>
+
+  <sql id="bnesAcctTransList_query_columns" >
+    a1.TRANS_LIST_ID, a1.ACCOUNT_ID, a1.ACCOUNT_TRANSACTION_ID, a1.BEFORE_AMOUNT, a1.AFTER_AMOUNT, 
+      a1.MONEY_AMOUNT, a1.CREATE_DATE, a1.CREATED_ID, a1.MODIFY_DATE, a1.MODIFIE_ID
+  </sql>
+
+  <sql id="queryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="transListId" prepend="AND" >
+        <![CDATA[  
+        TRANS_LIST_ID = #transListId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="accountId" prepend="AND" >
+        <![CDATA[  
+        ACCOUNT_ID = #accountId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="accountTransactionId" prepend="AND" >
+        <![CDATA[  
+        ACCOUNT_TRANSACTION_ID = #accountTransactionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="beforeAmount" prepend="AND" >
+        <![CDATA[  
+        BEFORE_AMOUNT = #beforeAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="afterAmount" prepend="AND" >
+        <![CDATA[  
+        AFTER_AMOUNT = #afterAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="moneyAmount" prepend="AND" >
+        <![CDATA[  
+        MONEY_AMOUNT = #moneyAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="doQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="transListId" prepend="AND" >
+        <![CDATA[  
+        TRANS_LIST_ID = #transListId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="accountId" prepend="AND" >
+        <![CDATA[  
+        ACCOUNT_ID = #accountId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="accountTransactionId" prepend="AND" >
+        <![CDATA[  
+        ACCOUNT_TRANSACTION_ID = #accountTransactionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="beforeAmount" prepend="AND" >
+        <![CDATA[  
+        BEFORE_AMOUNT = #beforeAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="afterAmount" prepend="AND" >
+        <![CDATA[  
+        AFTER_AMOUNT = #afterAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="moneyAmount" prepend="AND" >
+        <![CDATA[  
+        MONEY_AMOUNT = #moneyAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="queryQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="transListId" prepend="AND" >
+        <![CDATA[  
+        TRANS_LIST_ID = #transListId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="accountId" prepend="AND" >
+        <![CDATA[  
+        ACCOUNT_ID = #accountId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="accountTransactionId" prepend="AND" >
+        <![CDATA[  
+        ACCOUNT_TRANSACTION_ID = #accountTransactionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="beforeAmount" prepend="AND" >
+        <![CDATA[  
+        BEFORE_AMOUNT = #beforeAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="afterAmount" prepend="AND" >
+        <![CDATA[  
+        AFTER_AMOUNT = #afterAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="moneyAmount" prepend="AND" >
+        <![CDATA[  
+        MONEY_AMOUNT = #moneyAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+
+
+  <update id="update" parameterClass="bnesAcctTransListDO" >
+    UPDATE BNES_ACCT_TRANS_LIST   
+    <dynamic prepend="SET" >
+      <!--
+      <isNotNull property="transListId" prepend="," >
+        <![CDATA[  
+        TRANS_LIST_ID = #transListId#  
+        ]]>  
+      </isNotNull>
+      -->
+      <isNotNull property="accountId" prepend="," >
+        <![CDATA[  
+        ACCOUNT_ID = #accountId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="accountTransactionId" prepend="," >
+        <![CDATA[  
+        ACCOUNT_TRANSACTION_ID = #accountTransactionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="beforeAmount" prepend="," >
+        <![CDATA[  
+        BEFORE_AMOUNT = #beforeAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="afterAmount" prepend="," >
+        <![CDATA[  
+        AFTER_AMOUNT = #afterAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="moneyAmount" prepend="," >
+        <![CDATA[  
+        MONEY_AMOUNT = #moneyAmount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="," >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="," >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="," >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="," >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+     WHERE TRANS_LIST_ID = #transListId#  
+  </update>
+
+  <select id="findByPrimaryKey" parameterClass="java.math.BigDecimal" resultMap="bnesAcctTransListDOResultMap" >
+     SELECT 
+    <include refid="bnesAcctTransList_do_columns" />
+    <![CDATA[  
+     FROM BNES_ACCT_TRANS_LIST a1 WHERE TRANS_LIST_ID = #transListId#
+    ]]>  
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterClass="java.math.BigDecimal" >
+    <![CDATA[  
+     DELETE FROM BNES_ACCT_TRANS_LIST WHERE TRANS_LIST_ID = #transListId#
+    ]]>  
+  </delete>
+
+  <select id="countByDOExample" parameterClass="bnesAcctTransListDO" resultClass="java.lang.Integer" >
+    SELECT COUNT(TRANS_LIST_ID) AS num FROM BNES_ACCT_TRANS_LIST 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="findListByDO" resultMap="bnesAcctTransListDOResultMap" parameterClass="bnesAcctTransListDO" >
+     SELECT 
+    <include refid="bnesAcctTransList_do_columns" />
+     FROM BNES_ACCT_TRANS_LIST a1 
+    <include refid="doQueryParams" />
+  </select>
+
+  
+  <!-- start 统计记录数 -->
+   <select id="countByQueryExample" parameterClass="com.pltfm.app.vobject.BnesAcctTransListQuery" resultMap="ibatorgenerated_CountResult">
+   SELECT COUNT(1) THE_COUNT FROM BNES_ACCT_TRANS_LIST A1,ACCOUNT_INFO B,BNES_ACCT_TRANSACTION C
+      <dynamic prepend="where">
+      A1.ACCOUNT_ID =B.N_ACCOUNT_ID AND C.ACCOUNT_TRANSACTION_ID=A1.ACCOUNT_TRANSACTION_ID
+		  <isNotNull property="accountLogin">
+			  <isNotEmpty  property="accountLogin">
+				 and B.ACCOUNT_LOGIN like '%$accountLogin$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  	     <isNotNull property="content">
+		           <isNotEmpty   property="content">
+		         and   C.CONTENT like '%$content$%' 
+			  </isNotEmpty>
+		  </isNotNull>
+		      <isNotNull property="otherOrder">
+		        <isNotEmpty   property="otherOrder">
+				   and  c.OTHER_ORDER like  '%$otherOrder$%' 
+				     </isNotEmpty>
+		  </isNotNull>
+		        <isNotNull property="trasObject">
+		             <isNotEmpty  property="trasObject">
+			         and   c.TRAS_OBJECT =#trasObject# 
+				 </isNotEmpty>
+		  </isNotNull>
+		        <isNotNull property="type">
+		        <isNotEmpty  property="type">
+			      and  C.TYPE =#type# 
+				 </isNotEmpty>
+		  </isNotNull>
+		    <isNotNull property="accountNumber">
+		     <isNotEmpty   property="accountNumber">
+				  and  C.ACCOUNT_NUMBER like '%$accountNumber$%' 
+				 </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="status">
+		       <isNotEmpty  property="status">
+			       and   C.Status =#status# 
+				 </isNotEmpty>
+			  </isNotNull>
+			  <isNotNull property="createDate">
+		   <isNotEmpty  property="createDate">
+		     and   C.CREATE_DATE  >=#createDate#   
+		     </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="endDate">
+		   <isNotEmpty   property="endDate">
+				<![CDATA[  and    C.CREATE_DATE  <=#endDate#]]>
+				 </isNotEmpty>
+		  </isNotNull>
+	  </dynamic>
+  </select>
+  <!-- end 统计记录数 -->
+  <!-- start 分页查询 -->
+  
+   <select id="findListByQuery" resultMap="bnesAcctTransListQueryResultMap" parameterClass="com.pltfm.app.vobject.BnesAcctTransListQuery">
+    SELECT a1.TRANS_LIST_ID,
+             a1.ACCOUNT_ID,
+             a1.ACCOUNT_LOGIN,
+             a1.ACCOUNT_TRANSACTION_ID,
+             a1.BEFORE_AMOUNT,
+             a1.CONTENT,
+             a1.TYPE,
+             a1.AFTER_AMOUNT,
+             a1.ACCOUNT_NUMBER,
+             a1.MONEY_AMOUNT,
+             a1.CREATE_DATE,
+             a1.CREATED_ID,
+             a1.MODIFY_DATE,
+             a1.MODIFIE_ID,
+             a1.Status,
+             a1.OTHER_ORDER,
+             a1.TRAS_OBJECT
+        from (select rownum as rn,
+                     T.CONTENT,
+                     T.TYPE,
+                     T.ACCOUNT_NUMBER,
+                     T.TRANS_LIST_ID,
+                     T.ACCOUNT_ID,
+                     T.ACCOUNT_LOGIN,
+                     T.ACCOUNT_TRANSACTION_ID,
+                     T.BEFORE_AMOUNT,
+                     T.AFTER_AMOUNT,
+                     T.MONEY_AMOUNT,
+                     T.CREATE_DATE,
+                     T.CREATED_ID,
+                     T.MODIFY_DATE,
+                     T.MODIFIE_ID,
+                     T.Status,
+                     T.OTHER_ORDER,
+                     T.TRAS_OBJECT
+                     from (SELECT 
+                     C.CONTENT,
+                     C.TYPE,
+                     C.ACCOUNT_NUMBER,
+                     a1.TRANS_LIST_ID,
+                     a1.ACCOUNT_ID,
+                     B.ACCOUNT_LOGIN,
+                     a1.ACCOUNT_TRANSACTION_ID,
+                     a1.BEFORE_AMOUNT,
+                     a1.AFTER_AMOUNT,
+                     a1.MONEY_AMOUNT,
+                     C.CREATE_DATE,
+                     a1.CREATED_ID,
+                     a1.MODIFY_DATE,
+                     a1.MODIFIE_ID,
+                     C.Status,
+                     c.OTHER_ORDER,
+                     c.TRAS_OBJECT
+                FROM BNES_ACCT_TRANS_LIST  A1,
+                     ACCOUNT_INFO          B,
+                     BNES_ACCT_TRANSACTION C
+       <dynamic prepend="where">
+        A1.ACCOUNT_ID =B.N_ACCOUNT_ID AND C.ACCOUNT_TRANSACTION_ID=A1.ACCOUNT_TRANSACTION_ID
+      <isNotNull property="accountLogin"> 
+        <isNotEmpty  property="accountLogin">
+	  	  and   B.ACCOUNT_LOGIN = '$accountLogin$'  
+			</isNotEmpty>
+		  </isNotNull>
+		     <isNotNull property="content">
+		           <isNotEmpty   property="content">
+		         and   C.CONTENT like '%$content$%' 
+			  </isNotEmpty>
+		  </isNotNull>
+		      <isNotNull property="otherOrder">
+		        <isNotEmpty   property="otherOrder">
+				   and  c.OTHER_ORDER like  '%$otherOrder$%' 
+				     </isNotEmpty>
+		  </isNotNull>
+		        <isNotNull property="trasObject">
+		             <isNotEmpty  property="trasObject">
+			         and   c.TRAS_OBJECT =#trasObject# 
+				 </isNotEmpty>
+		  </isNotNull>
+		        <isNotNull property="type">
+		        <isNotEmpty  property="type">
+			      and  C.TYPE =#type# 
+				 </isNotEmpty>
+		  </isNotNull>
+		    <isNotNull property="accountNumber">
+		     <isNotEmpty   property="accountNumber">
+				  and  C.ACCOUNT_NUMBER like '%$accountNumber$%' 
+				 </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="status">
+		       <isNotEmpty  property="status">
+			       and   C.Status =#status# 
+				 </isNotEmpty>
+			  </isNotNull>
+			  <isNotNull property="createDate">
+		   <isNotEmpty  property="createDate">
+		     and   C.CREATE_DATE  >=#createDate#   
+		     </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="endDate">
+		   <isNotEmpty   property="endDate">
+				<![CDATA[  and    C.CREATE_DATE  <=#endDate#]]>
+				 </isNotEmpty>
+		  </isNotNull>
+		  
+	  </dynamic>
+       order by C.CREATE_DATE desc) T) a1 
+   
+    <![CDATA[ where rn <= #maxNum# and rn > #mixNum# ]]>
+	</select>
+	<!-- end 分页查询 -->
+	 <!-- start 插入交易记录 -->
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	    <select id="AllBnesAcctTransListQuery" resultMap="allListQueryResultMap" parameterClass="com.pltfm.app.vobject.BnesAcctTransListQuery">
+         select 
+               b.ACCOUNT_LOGIN,
+               C.ACCOUNT_NUMBER,
+               a1.MONEY_AMOUNT,
+               a1.BEFORE_AMOUNT,
+               a1.AFTER_AMOUNT, 
+               C.CONTENT,
+               C.TYPE,
+               C.Status,
+               c.OTHER_ORDER,
+               c.TRAS_OBJECT,
+              C.CREATE_DATE       
+                FROM BNES_ACCT_TRANS_LIST  A1,
+                     ACCOUNT_INFO          B,
+                     BNES_ACCT_TRANSACTION C
+                     
+                     <dynamic prepend="where">
+          A1.ACCOUNT_ID =B.N_ACCOUNT_ID
+       AND C.ACCOUNT_TRANSACTION_ID=A1.ACCOUNT_TRANSACTION_ID
+             <isNotNull property="accountLogin">
+			  <isNotEmpty  property="accountLogin">
+				and B.ACCOUNT_LOGIN like '%$accountLogin$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		     <isNotNull property="content">
+			  <isNotEmpty   property="content">
+				and C.CONTENT like '%$content$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		      <isNotNull property="type">
+			  <isNotEmpty   property="type">
+				and   C.TYPE =#type#
+			  </isNotEmpty>
+		  </isNotNull>
+		    <isNotNull property="accountNumber">
+			  <isNotEmpty  property="accountNumber">
+				   and C.ACCOUNT_NUMBER like '%$accountNumber$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="status">
+			  <isNotEmpty   property="status">
+				   and   C.Status =#status#
+			  </isNotEmpty>
+			  </isNotNull>
+			  	      <isNotNull property="otherOrder">
+			  	      <isNotEmpty   property="otherOrder">
+				    and c.OTHER_ORDER like  '%$otherOrder$%'
+				 </isNotEmpty>
+		  </isNotNull>
+		        <isNotNull property="trasObject">
+		         <isNotEmpty  property="trasObject">
+				   and c.TRAS_OBJECT =#trasObject#
+				    </isNotEmpty>
+		  </isNotNull>
+			  <isNotNull property="createDate">
+			  <isNotEmpty   property="createDate">
+		         and C.CREATE_DATE  >=#createDate#  
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="endDate">
+			  <isNotEmpty   property="endDate">
+				<![CDATA[   and  C.CREATE_DATE  <=#endDate#]]>
+			  </isNotEmpty>
+		  </isNotNull>
+       </dynamic>
+           order by C.CREATE_DATE desc 
+	</select>
+	 
+	  <insert id="insert" parameterClass="bnesAcctTransListDO" >
+	  <selectKey keyProperty="transListId" resultClass="java.lang.Integer" >
+      SELECT SEQ_APP_BUSINESS.NEXTVAL FROM DUAL
+  </selectKey>
+    INSERT INTO BNES_ACCT_TRANS_LIST( TRANS_LIST_ID, ACCOUNT_ID, ACCOUNT_TRANSACTION_ID, BEFORE_AMOUNT, AFTER_AMOUNT, 
+      MONEY_AMOUNT, CREATE_DATE, CREATED_ID, MODIFY_DATE, MODIFIE_ID)
+     VALUES ( #transListId#, #accountId#, #accountTransactionId#, #beforeAmount#, #afterAmount#, 
+      #moneyAmount#, #createDate#, #createdId#, #modifyDate#, #modifieId#)
+  </insert>
+  <!-- end 插入交易记录 -->
+</sqlMap>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+ <bean id="propertyConfigurer" class="com.kmzyc.zkconfig.ZKPropertyPlaceholderConfigurer">
+		<constructor-arg ref="zkClient" />
+		<!-- <property name="locations">
+			<list>
+				<value>classpath:config/jdbc.properties</value>
+				<value>classpath:config/memcache.properties</value>
+				<value>classpath:config/mq.properties</value>
+				<value>classpath:config/dubbo.properties</value>
+				<value>classpath:config/config.properties</value>
+				<value>classpath:config/redis.properties</value>
+			</list>
+		</property> -->
+		<property name="zkPaths">
+			<list>
+				<value>/kmconfig/commons/mq.properties</value> 
+				<value>/kmconfig/commons/jdbc.properties</value>
+				<value>/kmconfig/commons/memcache.properties</value>
+				<value>/kmconfig/commons/redis.properties</value>
+				<value>/kmconfig/commons/dubbo.properties</value> 
+				<value>/kmconfig/km-promotion/config.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="zkClient" class="com.kmzyc.zkconfig.CuratorFrameworkFactoryBean"/>
+	
+	<!-- 相关数据源和事务管理的定义 -->	
+	<bean id="parentDataSource" class="com.alibaba.druid.pool.DruidDataSource" abstract="true" init-method="init" destroy-method="close">
+		<!-- 基本属性 url、user、password -->
+		<property name="url" value="${url}" />
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="${maxWait}" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<!-- <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" /> -->
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<!-- <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" /> -->
+
+		<property name="validationQuery" value="${validationQuery}" />
+		<property name="testWhileIdle" value="${testWhileIdle}" />
+		<property name="testOnBorrow" value="${testOnBorrow}" />
+		<property name="testOnReturn" value="${testOnReturn}" />
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<property name="poolPreparedStatements" value="${poolPreparedStatements}" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="${maxPoolPreparedStatementPerConnectionSize}" />
+		<!-- 配置监控统计拦截的filters -->
+		<property name="filters" value="stat" />
+		<!-- 超过时间限制是否回收 -->  
+		<property name="removeAbandoned" value="true" />  
+		<!-- 超时时间；单位为秒。 -->  
+		<property name="removeAbandonedTimeout" value="180" />
+		<!-- 关闭abanded连接时输出错误日志 -->  
+		<property name="logAbandoned" value="true" />   	   
+	</bean>
+
+	<!-- 产品数据源 --> 
+	<bean id="productDataSource" parent="parentDataSource" >
+		
+		<property name="username" value="${username}"/>
+		<property name="password" value="${password}"/>
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="${initialSize}" />
+		<property name="minIdle" value="${minIdle}" />
+		<property name="maxActive" value="${maxActive}" />
+	</bean>
+	<!-- Spring提供的iBatis的SqlMap配置 -->
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocations">
+		   <list>
+		     <value>classpath:com/kmzyc/promotion/app/sqlmap/sql-map-config.xml</value>
+		     <value>classpath:com/kmzyc/promotion/sys/sqlmap/sql-map-config.xml</value>
+		   </list>
+         </property>
+		<property name="dataSource" ref="productDataSource" />
+	</bean>
+
+	<!-- spring工具类 方便在非spring管理环境中获取bean -->
+	<bean id="springUtils" class="com.kmzyc.util.SpringUtils"/>
+
+	<!-- 事务配置 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="productDataSource" />
+	</bean>
+
+	<!-- 开启事务注解 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+    
+    <!-- 开启注解扫描 -->
+    <context:annotation-config />
+	<context:component-scan base-package="com" />
+	
+	<!-- 配置JdbcTemplate -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="productDataSource" />
+	</bean>
+  
+	<!-- 这个bean主要是为了得到ApplicationContext 所以它不需要其它属性 -->
+	<bean id="appApplicationContextUtil" class="com.kmzyc.promotion.sys.util.AppApplicationContextUtil"></bean>
+	
+	<!-- 线程池 -->
+	<bean id ="taskExecutor"  class ="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor" >
+     	<!-- 线程池维护线程的最少数量 -->
+     	<property name ="corePoolSize" value ="5" />
+     	<!-- 线程池维护线程所允许的空闲时间 -->
+    	<property name ="keepAliveSeconds" value ="3000" />
+    	<!-- 线程池维护线程的最大数量 -->
+	    <property name ="maxPoolSize" value ="50" />
+	    <!-- 线程池所使用的缓冲队列 -->
+	    <property name ="queueCapacity" value ="300" />
+	    <property name="rejectedExecutionHandler">  
+	      <bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />  
+	    </property>
+  	</bean>
+ 
+ 	<aop:aspectj-autoproxy />
+  	
+</beans>

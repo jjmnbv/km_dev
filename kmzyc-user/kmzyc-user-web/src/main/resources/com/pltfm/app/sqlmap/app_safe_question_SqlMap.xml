@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="APP_SAFEQUESTION">
+	<resultMap id="ibatorgenerated_SafeQuestionResult" class="com.pltfm.app.vobject.SafeQuestion">
+		<result property="n_safe_question_id" column="N_SAFE_QUESTION_ID"
+			jdbcType="INTEGER" />
+		<result property="question_name" column="QUESTION_NAME"
+			jdbcType="VARCHAR" />
+		<result property="d_create_date" column="D_CREATE_DATE"
+			jdbcType="DATE" />
+		<result property="n_created" column="N_CREATED" jdbcType="INTEGER" />
+		<result property="d_modify_date" column="D_MODIFY_DATE"
+			jdbcType="DATE" />
+		<result property="n_modified" column="N_MODIFIED" jdbcType="INTEGER" />
+
+	</resultMap>
+	<!-- 添加安全问题 -->
+
+	<insert id="ibatorgenerated_insert" parameterClass="com.pltfm.app.vobject.SafeQuestion">
+		<selectKey resultClass="java.lang.Integer" keyProperty="n_safe_question_id">
+			select SEQ_APP_AUTHEN.nextval from dual
+		</selectKey>
+		INSERT INTO SAFE_QUESTION_INFO( N_SAFE_QUESTION_ID, QUESTION_NAME,
+		D_CREATE_DATE, N_CREATED, D_MODIFY_DATE,
+		N_MODIFIED)
+		VALUES
+		(#n_safe_question_id:INTEGER#,#question_name:VARCHAR#,#d_create_date:DATE#,#n_created:INTEGER#,
+		#d_modify_date:DATE#,#n_modified:INTEGER#)
+
+	</insert>
+
+
+
+	<!-- 查询一条安全问题的信息 -->
+	<select id="ibatorgenerated_getOneSafeQuestion" resultMap="ibatorgenerated_SafeQuestionResult"
+		parameterClass="int">
+
+		select * from Safe_Question_INFO where
+		N_SAFE_QUESTION_ID=#id#
+
+	</select>
+
+
+
+	<!--更改一条安全问题信息 -->
+
+	<update id="ibatorgenerated_updateOneSafeQuestion"
+		parameterClass="com.pltfm.app.vobject.SafeQuestion">
+
+		update SAFE_QUESTION_INFO set
+		QUESTION_NAME=#question_name#,D_MODIFY_DATE=#d_modify_date#,
+		N_MODIFIED=#n_modified# where
+		N_SAFE_QUESTION_ID=#n_safe_question_id#
+
+
+	</update>
+
+	<!-- 根据一条安全问题信息 -->
+
+	<delete id="ibatorgenerated_delSafeQuestion" parameterClass="int">
+		delete from Safe_Question_INFO where N_SAFE_QUESTION_ID=#id#
+
+
+	</delete>
+
+
+
+	<!-- 根据问题名称分页查询 -->
+
+
+	<select id="ibatorgenerated_queryQuestionByName" resultMap="ibatorgenerated_SafeQuestionResult"
+		parameterClass="com.pltfm.app.vobject.SafeQuestion">
+		select * from SAFE_QUESTION_INFO
+		<dynamic prepend="where">
+			<isNotNull property="question_name">
+				<isNotEmpty prepend="and" property="question_name">
+					question_name like
+					'%$question_name$%'
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+
+	</select>
+
+
+<!--计算出总条数- -->
+
+
+<select id="ibatorgenerated_Count" parameterClass="com.pltfm.app.vobject.SafeQuestion" resultClass="java.lang.Integer" >
+	select count(*) from SAFE_QUESTION_INFO
+	<dynamic prepend="where">
+		<isNotNull property="question_name">
+			<isNotEmpty prepend="and" property="question_name">
+				question_name like
+					'%$question_name$%'
+			</isNotEmpty>
+		</isNotNull>
+	</dynamic>
+  </select>
+
+
+
+
+  <select id="abatorgenerated_selectByExample" resultMap="ibatorgenerated_SafeQuestionResult">
+    select N_SAFE_QUESTION_ID, QUESTION_NAME, D_CREATE_DATE, N_CREATED, D_MODIFY_DATE, N_MODIFIED,
+      STATUS
+    from SAFE_QUESTION_INFO
+    </select>
+
+
+
+
+
+
+</sqlMap>

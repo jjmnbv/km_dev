@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ProductSkuQuantity">
+	<resultMap id="productSkuQuantityMap" class="com.kmzyc.b2b.model.ProductSkuQuantity" >
+	   <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+	   <result column="SALE_QUANTITY" property="saleQuantity" jdbcType="DECIMAL" />
+	   <result column="BROWSE_QUANTITY" property="browseQuantity" jdbcType="DECIMAL" />
+	   <result column="COMMENT_QUANTITY" property="commentQuantity" jdbcType="DECIMAL" />
+	   <result column="FAVORITES_QUANTITY" property="favoritesQuantity" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<update id="updateProductSkuQuantity" parameterClass="com.kmzyc.b2b.model.ProductSkuQuantity" >
+		update PRODUCT_SKU_QUANTITY 
+		 <dynamic prepend="set" >
+		 	<isGreaterEqual  compareValue="1" prepend="," compareProperty="saleQuantity">
+		 		SALE_QUANTITY = #saleQuantity:DECIMAL#
+		 	</isGreaterEqual>
+		 	<isNotEmpty  prepend="," property="browseQuantity">
+		 		BROWSE_QUANTITY = BROWSE_QUANTITY+1
+		 	</isNotEmpty>
+		 	<isNotEmpty  prepend="," property="commentQuantity">
+		 		COMMENT_QUANTITY = #commentQuantity:DECIMAL#
+		 	</isNotEmpty>
+		 	<isNotEmpty  prepend="," property="favoritesQuantity">
+		 		FAVORITES_QUANTITY = #favoritesQuantity:DECIMAL#
+		 	</isNotEmpty>
+		 </dynamic>
+		 where PRODUCT_SKU_ID = #productSkuId:DECIMAL#
+	</update>
+	
+	<insert id="insertProductSkuQuantity" parameterClass="com.kmzyc.b2b.model.ProductSkuQuantity" >
+		<selectKey resultClass="java.lang.Long" keyProperty="id" >
+	    	 select SEQ_APP_PRODUCT_SKU_QUANTITY.nextval from dual
+	   	</selectKey>
+		insert into PRODUCT_SKU_QUANTITY(PRODUCT_SKU_QUANTITY_ID,PRODUCT_SKU_ID,SALE_QUANTITY,BROWSE_QUANTITY,COMMENT_QUANTITY,FAVORITES_QUANTITY)
+		values(#id:DECIMAL#,#productSkuId:DECIMAL#,#saleQuantity:DECIMAL#,#browseQuantity:DECIMAL#,#commentQuantity:DECIMAL#,#favoritesQuantity:DECIMAL#)
+	</insert>
+	
+	<select id="selectCountProductSkuQuantity" parameterClass="java.lang.Long" resultClass="java.lang.Integer">
+		select count(*) from PRODUCT_SKU_QUANTITY  where PRODUCT_SKU_ID = #productSkuId:DECIMAL# 
+	</select>
+	
+	<!-- 增加浏览数 -->
+	<insert id="SQL_ADD_BROWSE_QUANTITY" parameterClass="java.lang.Long">
+		  merge into product_sku_quantity psq
+			 using (select #skuid:DECIMAL# skuid from dual) cond
+			 on (psq.product_sku_id = cond.skuid)
+			 when not matched then
+			   insert
+			     (product_sku_quantity_id, product_sku_id, browse_quantity)
+			   values
+			     (SEQ_APP_PRODUCT_SKU_QUANTITY.nextval, #skuid:DECIMAL#, 1)
+			 when matched then
+			   update set browse_quantity = browse_quantity + 1
+	</insert>	
+</sqlMap>

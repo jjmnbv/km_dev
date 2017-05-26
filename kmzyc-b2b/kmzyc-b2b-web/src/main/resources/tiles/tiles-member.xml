@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+    <!-- 会员注册头部 -->
+    <definition name="memTop" template="/html/common/portal-top.jsp"></definition>
+    <!-- 会员注册内容 -->
+    <definition name="content"
+                template="/WEB-INF/jsp/member/regist/template/registContent.jsp"></definition>
+    <!-- 会员注册成功内容 -->
+    <definition name="regContent"
+                template="/WEB-INF/jsp/member/regist/template/reg-successContent.jsp"></definition>
+    <!--邮箱验证内容 -->
+    <definition name="emailContent"
+                template="/WEB-INF/jsp/member/regist/template/emailContent.jsp"></definition>
+
+    <!-- 头部 -->
+    <definition name="memberCenterHead" template="/html/common/portal-head.jsp"></definition>
+    <!-- 会员中心head -->
+    <!-- <definition name="memberCenterHead" template="/WEB-INF/jsp/member/template/memberCenterHead.jsp"></definition> -->
+    <!-- 购物导航 -->
+    <definition name="shoppingNavigation"
+                template="/WEB-INF/jsp/member/template/shoppingNavigation.jsp"></definition>
+    <!-- 会员中心left(导航) -->
+    <definition name="memberCenterLeft"
+                template="/WEB-INF/jsp/member/template/memberCenterLeft.jsp"></definition>
+
+    <!-- 会员订单列表-->
+    <definition name="orderListContent"
+                template="/WEB-INF/jsp/member/myOrder/template/orderListContent.jsp"></definition>
+    <!-- 订单详细信息-->
+    <definition name="orderDetailContent"
+                template="/WEB-INF/jsp/member/myOrder/template/orderDetailContent.jsp"></definition>
+
+    <!-- 退换货记录列表-->
+    <definition name="returnShopListContent"
+                template="/WEB-INF/jsp/member/returnShop/template/returnShopListContent.jsp"></definition>
+    <!-- 退货进度跟踪 -->
+    <definition name="returnGoodsTraceContent"
+                template="/WEB-INF/jsp/member/returnShop/template/returnGoodsTraceContent.jsp"></definition>
+    <!-- 可申请退换货订单列表-->
+    <definition name="applyContent"
+                template="/WEB-INF/jsp/member/returnShop/template/applyContent.jsp"></definition>
+    <!-- 提交申请页-->
+    <definition name="applySubmitContent"
+                template="/WEB-INF/jsp/member/returnShop/template/applySubmitContent.jsp"></definition>
+    <!-- 申请详情页-->
+    <definition name="applyDetailContent"
+                template="/WEB-INF/jsp/member/returnShop/template/applyDetailContent.jsp"></definition>
+    <!-- 物流信息-->
+    <definition name="returnInfoContent"
+                template="/WEB-INF/jsp/member/returnShop/template/returnInfoContent.jsp"></definition>
+
+    <!-- 收货地址信息 -->
+    <definition name="deliveryAddressContent"
+                template="/WEB-INF/jsp/member/deliveryAddress/template/deliveryAddressContent.jsp"></definition>
+    <!-- 收货地址添加和修改 -->
+    <definition name="addressSetContent"
+                template="/WEB-INF/jsp/member/deliveryAddress/template/addressSetContent.jsp"></definition>
+
+    <!-- Wap收货地址信息 -->
+    <definition name="wapDeliveryAddress"
+                template="/WEB-INF/jsp/member/deliveryAddress/template/wapDeliveryAddress.jsp"></definition>
+    <!-- Wap收货地址添加和修改 -->
+    <definition name="addressWapSet"
+                template="/WEB-INF/jsp/member/deliveryAddress/template/addressWapSet.jsp"></definition>
+    <!-- 个人信息 -->
+    <definition name="userInfoContent"
+                template="/WEB-INF/jsp/member/userInfo/template/userInfoContent.jsp"></definition>
+    <!-- 直销用户个人信息  -->
+    <definition name="zxUserInfoContent"
+                template="/WEB-INF/jsp/member/userInfo/template/zxUserInfoContent.jsp"></definition>
+
+    <!-- 充值明细 -->
+    <definition name="rechargeDetailsContent"
+                template="/WEB-INF/jsp/member/rechargeDetails/template/rechargeDetailsContent.jsp"></definition>
+    <!-- 订单跟踪 -->
+    <definition name="orderLogisticsContent"
+                template="/WEB-INF/jsp/member/myOrder/template/orderLogisticsContent.jsp"></definition>
+    <!-- 绑定管理 (由第三方登录引进)-->
+    <definition name="bindManageContent"
+                template="/WEB-INF/jsp/member/bindManage/template/bindManageContent.jsp"></definition>
+    <!-- 完善信息 (由第三方登录引进) -->
+    <definition name="setUserInfoContent"
+                template="/WEB-INF/jsp/third/thirdLogin/template/setUserInfoContent.jsp"></definition>
+    <!-- wap 会员中心-绑定管理  maliqun add 20150331-->
+    <definition name="wapBindManageContent"
+                template="/WEB-INF/jsp/member/bindManage/template/wapBindManageContent.jsp"></definition>
+    <!-- wap 会员中心-绑定管理  maliqun add 20150331-->
+    <definition name="wapSetUserInfoContent"
+                template="/WEB-INF/jsp/third/thirdLogin/template/wapSetUserInfoContent.jsp"></definition>
+    <!-- wap 立即购,结算,我的 在微信环境下提供登录方式选择 20150910 mlq add -->
+    <definition name="wapLoginChooseForWxContent"
+                template="/WEB-INF/jsp/third/thirdLogin/template/wapLoginChooseForWxContent.jsp"></definition>
+
+    <!-- 会员收藏列表-->
+    <definition name="favoriteListContent"
+                template="/WEB-INF/jsp/member/myFavorite/template/favoriteListContent.jsp"></definition>
+    <!-- 会员收藏列表-->
+    <definition name="favoriteShopListContent"
+                template="/WEB-INF/jsp/member/myFavorite/template/favoriteShopListContent.jsp"></definition>
+
+    <!-- 会员中心-我的积分 Begin -->
+    <definition name="pointsRecordContent"
+                template="/WEB-INF/jsp/member/myPoints/template/pointsRecordContent.jsp"></definition>
+    <definition name="eraPointsRecordContent"
+                template="/WEB-INF/jsp/member/myPoints/template/eraPointsRecordContent.jsp"></definition>
+    <definition name="pointsRuleContent"
+                template="/WEB-INF/jsp/member/myPoints/template/pointsRuleContent.jsp"></definition>
+    <definition name="pointsExchangeCouponContent"
+                template="/WEB-INF/jsp/member/myPoints/template/pointsExchangeCouponContent.jsp"></definition>
+    <!-- 会员中心-我的积分 End -->
+
+    <!-- 会员中心-我的评价 Begin -->
+    <definition name="noEvaluateListContent"
+                template="/WEB-INF/jsp/member/myEvaluate/template/noEvaluateListContent.jsp"></definition>
+    <definition name="isEvaluateListContent"
+                template="/WEB-INF/jsp/member/myEvaluate/template/isEvaluateListContent.jsp"></definition>
+    <!-- 会员中心-我的评价 End -->
+
+    <!-- 会员中心-账户查询 -->
+    <definition name="accountQueryContent"
+                template="/WEB-INF/jsp/member/accountQuery/template/accountQueryContent.jsp"></definition>
+    <!-- 会员中心-余额与充值 -->
+    <definition name="rechargeContent"
+                template="/WEB-INF/jsp/member/recharge/template/rechargeContent.jsp"></definition>
+
+    <!-- 会员中心-站内通知 -->
+    <definition name="siteNoticeContent"
+                template="/WEB-INF/jsp/member/siteNotice/template/siteNoticeContent.jsp"></definition>
+
+    <!-- 会员中心-阅读站内通知 -->
+    <definition name="siteNoticeParticularsContent"
+                template="/WEB-INF/jsp/member/siteNotice/template/siteNoticeParticularsContent.jsp"></definition>
+
+    <!-- 会员中心-建议投诉 -->
+    <definition name="complaintsContent"
+                template="/WEB-INF/jsp/member/siteNotice/template/complaintsContent.jsp"></definition>
+
+    <!-- 会员中心-我的抽奖 -->
+    <definition name="lotteryListContent"
+                template="/WEB-INF/jsp/member/mylottery/template/lotteryListContent.jsp"></definition>
+
+
+    <!-- 会员中心-邮件订阅 -->
+    <definition name="mailSubscriptionContent"
+                template="/WEB-INF/jsp/member/siteNotice/template/mailSubscriptionContent.jsp"></definition>
+
+    <!-- 会员中心-优惠券列表 -->
+    <definition name="couponListContent"
+                template="/WEB-INF/jsp/member/myCoupon/template/couponListContent.jsp"></definition>
+
+    <!-- 会员中心-订单详情打分 -->
+    <definition name="orderAssessContent"
+                template="/WEB-INF/jsp/member/orderAssess/template/orderAssessContent.jsp"></definition>
+    <!-- 会员中心- 追加评价页面 -->
+    <definition name="appendAssessContent"
+                template="/WEB-INF/jsp/member/orderAssess/template/appendAssessContent.jsp"></definition>
+    <!-- 忘记密码  输入页面 -->
+    <definition name="resetPwdInitContent"
+                template="/WEB-INF/jsp/member/resetPwd/template/resetPwdInitContent.jsp"></definition>
+    <!-- 忘记密码  选择密码发送方式 -->
+    <definition name="sendPwdContent"
+                template="/WEB-INF/jsp/member/resetPwd/template/sendPwdContent.jsp"></definition>
+    <!-- 忘记密码  重置密码页面 -->
+    <definition name="resetPwdContent"
+                template="/WEB-INF/jsp/member/resetPwd/template/resetPwdContent.jsp"></definition>
+    <!-- 忘记密码  结果页面 -->
+    <definition name="resultPwdContent"
+                template="/WEB-INF/jsp/member/resetPwd/template/resultPwdContent.jsp"></definition>
+    <!--  免注册购物转为会员-->
+    <definition name="unRegMemberContent"
+                template="/WEB-INF/jsp/member/regist/template/unRegMemberContent.jsp"></definition>
+    <!--  免注册购物转为会员	校验-->
+    <definition name="validUnregInfoContent"
+                template="/WEB-INF/jsp/member/regist/template/validUnregInfoContent.jsp"></definition>
+    <!--  免注册购物转为会员	设置密码-->
+    <definition name="setUnregInfoContent"
+                template="/WEB-INF/jsp/member/regist/template/setUnregInfoContent.jsp"></definition>
+    <!--  免注册购物转为会员	结果页面-->
+    <definition name="resultUnregInfoContent"
+                template="/WEB-INF/jsp/member/regist/template/resultUnregContent.jsp"></definition>
+
+    <!-- 会员中心首页 -->
+    <definition name="homeContent"
+                template="/WEB-INF/jsp/member/home/template/homeContent.jsp"></definition>
+
+    <!-- 会员中心顶部页 -->
+    <definition name="portalHead" template="/html/common/portal-head.jsp"></definition>
+    <!-- 会员中心底部页 -->
+    <definition name="portalFoot" template="/html/common/portal-foot.jsp"></definition>
+    <!-- 会员中心-faq常见问题 -->
+    <definition name="faqListContent"
+                template="/WEB-INF/jsp/member/faq/template/faqListContent.jsp"></definition>
+    <!-- 会员中心left(导航) -->
+    <definition name="fnLeft" template="/html/common/fnLeft.jsp"></definition>
+
+    <!-- 资讯列表 -->
+    <definition name="newsContent"
+                template="/WEB-INF/jsp/supplier/template/newsContent.jsp"></definition>
+    <!-- 资讯详情 -->
+    <definition name="newsDetailContent"
+                template="/WEB-INF/jsp/supplier/template/newsDetailContent.jsp"></definition>
+    <!-- 会员中心-我的药方 -->
+    <definition name="purchaseListContent"
+                template="/WEB-INF/jsp/member/planPurchaseList/template/prescriptionListContent.jsp"></definition>
+    <!-- 会员中心-我的药方详情 -->
+    <definition name="purchaseListDetailContent"
+                template="/WEB-INF/jsp/member/planPurchaseList/template/prescriptionListDetailContent.jsp"></definition>
+
+    <!-- 会员中心-微信优惠券列表 -->
+    <definition name="wxConponList"
+                template="/WEB-INF/jsp/member/wxCoupon/template/wxCouponListContent.jsp"></definition>
+
+    <!-- 会员中心-设置我的个人信息 -->
+    <definition name="setSdAccount"
+                template="/WEB-INF/jsp/member/home/template/setSdAccountContent.jsp"></definition>
+    <!-- 会员中心-我的邀请 -->
+    <definition name="prizeInviteContent"
+                template="/WEB-INF/jsp/member/prizeInvite/template/prizeInviteContent.jsp"></definition>
+    <!-- 会员订单列表wap-->
+    <definition name="wapOrderListContent"
+                template="/WEB-INF/jsp/member/myOrder/template/wapOrderListContent.jsp"></definition>
+    <!-- 会员订单详情wap-->
+    <definition name="wapOrderDetailContent"
+                template="/WEB-INF/jsp/member/myOrder/template/wapOrderDetailContent.jsp"></definition>
+    <!-- 会员订单跟踪wap-->
+    <definition name="wapOrderLogisticsContent"
+                template="/WEB-INF/jsp/member/myOrder/template/wapOrderLogisticsContent.jsp"></definition>
+
+
+    <!-- wap我的优惠券 -->
+    <definition name="wapcouponListContent"
+                template="/WEB-INF/jsp/member/myCoupon/template/wapCouponListContent.jsp"></definition>
+
+    <!-- wap个人中心 -->
+    <definition name="wapHomeContent"
+                template="/WEB-INF/jsp/member/home/template/wapHomeContent.jsp"></definition>
+
+    <!-- wap个人中心 -->
+    <definition name="wapApplyContent"
+                template="/WEB-INF/jsp/member/returnShop/template/wapApplyContent.jsp"></definition>
+
+    <!-- wap个人中心-售后服务 -->
+    <definition name="wapAfterSales"
+                template="/WEB-INF/jsp/member/afterSales/template/wapAfterSales.jsp"></definition>
+
+    <!-- wap个人中心-退换货申请 -->
+    <definition name="wapApplySubmit"
+                template="/WEB-INF/jsp/member/returnShop/template/wapApplySubmit.jsp"></definition>
+    <definition name="wapReturnAddress"
+                template="/WEB-INF/jsp/member/returnShop/template/wapReturnAddress.jsp"></definition>
+    <definition name="wapAlertGoodsInfo"
+                template="/WEB-INF/jsp/member/returnShop/template/wapAlertGoodsInfo.jsp"></definition>
+    <!-- wap个人中心-退换货记录 -->
+    <definition name="wapReturnRecords"
+                template="/WEB-INF/jsp/member/returnShop/template/wapReturnRecords.jsp"></definition>
+    <!-- wap个人中心-退换货记录-追踪 -->
+    <definition name="wapTrackingOrders"
+                template="/WEB-INF/jsp/member/returnShop/template/wapTrackingOrders.jsp"></definition>
+    <!-- wap个人中心-退换货记录-详情 -->
+    <definition name="wapReturnDetail"
+                template="/WEB-INF/jsp/member/returnShop/template/wapReturnDetail.jsp"></definition>
+    <!-- wap会员收藏列表-->
+    <definition name="wapFavoriteContent"
+                template="/WEB-INF/jsp/member/myFavorite/template/wapFavoriteContent.jsp"></definition>
+
+    <!-- 进入组合页面-->
+    <definition name="wapCombinePageContent"
+                template="/WEB-INF/jsp/product/template/wapCombinePageContent.jsp"></definition>
+</tiles-definitions>
+

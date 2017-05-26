@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>kmb2b.com</title>
+		<script type="text/javascript">
+			var url=window.location.href;
+			var index=url.indexOf('nextUrl');
+			try{				
+				if(index>0 ){
+					window.parent.location.href=url.substring(index+8,url.length);
+				}else{	
+					try{
+						if(window.parent.location.pathname.indexOf('afterLogin.htm')<0){
+							window.parent.location.reload();
+						}else{
+							window.parent.location.href='http://www.kmb2b.com/';
+						}
+					}catch(e){
+						window.parent.location.href='http://www.kmb2b.com/';
+					}					
+				}
+			}catch(e){				
+				//搜索登录
+				window.parent.location.href='http://search.kmb2b.com/10/search?kw=';
+			}
+		</script>
+	</head>
+</html>

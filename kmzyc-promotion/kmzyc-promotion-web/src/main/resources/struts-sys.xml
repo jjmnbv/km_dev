@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="sys" namespace="/sys" extends="struts">
+		<!-- sys_user-->
+		<action name="gotoSysUserLogin" class="com.kmzyc.promotion.sys.action.SysUserAction" method="gotoSysUserLogin">
+			<result>/index.jsp</result>
+		</action>
+
+		<action name="loginSysUser" class="com.kmzyc.promotion.sys.action.SysUserAction" method="loginSysUser">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/skin/qq/index.jsp</result>
+			<result name="login" type="dispatcher">/WEB-INF/jsp/sys/sysUserLogin.jsp</result>
+			<result name="loginError" type="dispatcher">/WEB-INF/jsp/sys/sysUserLogin.jsp</result>
+		</action>
+		
+		<action name="logoutSysUser" class="com.kmzyc.promotion.sys.action.SysUserAction" method="logoutSysUser">
+			<result name="success" >/WEB-INF/jsp/sys/sysUserLogin.jsp</result>
+		</action>
+
+		<action name="gotoSysTop" class="com.kmzyc.promotion.sys.action.SysUserAction" method="getSysTop">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/skin/qq/top.jsp</result>
+		</action>
+		
+		<action name="gotoSysbuttom">
+			<result>/WEB-INF/jsp/sys/skin/qq/bottom.jsp</result>
+		</action>
+		
+		<action name="gotoSysLeft">
+			<result>/WEB-INF/jsp/sys/skin/qq/left.jsp</result>
+		</action>
+		
+		<action name="gotoSysCompart">
+			<result>/WEB-INF/jsp/sys/skin/qq/compart.jsp</result>
+		</action>
+		
+		<action name="gotoSysMain">
+			<result>/WEB-INF/jsp/sys/sysHomeMain.jsp</result>
+		</action>
+		
+		<action name="changeSysHeaderMenu" class="com.kmzyc.promotion.sys.action.SysUserAction" method="changeSysHeaderMenu">
+			<result name="success" >/WEB-INF/jsp/sys/skin/qq/left.jsp</result>
+			<result name="login" type="dispatcher">/WEB-INF/jsp/sys/sysUserLogin.jsp</result>
+		</action>
+		
+		<action name="gotoSysLeftMenu" class="com.kmzyc.promotion.sys.action.SysUserAction" method="getSysLeftMenu">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/skin/qq/left_tree_menu.jsp</result>
+		</action>
+
+		<action name="gotoSysUserPwdModify" class="com.kmzyc.promotion.sys.action.SysUserAction" method="getSysUserDetailOnly" >
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysUserPwdModify.jsp</result>
+		</action>
+
+		<action name="doSysUserPwdModify" class="com.kmzyc.promotion.sys.action.SysUserAction" method="doSysUserPwdModify" >
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysUserPwdModify.jsp</result>
+		</action>
+		<!-- sys_user-->
+    </package>
+</struts>

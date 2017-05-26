@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="DISTRIBUTION_DETAIL_INFO">
+	<resultMap id="BaseResultMap" class="com.pltfm.app.vobject.DistributionDetailInfo">
+		<result column="DETAIL_ID" property="detailId" jdbcType="LONG" />
+		<result column="DISTRIBUTION_ID" property="distributionId" jdbcType="LONG" />
+		<result column="BILL_DETAIL_ID" property="billDetailId" jdbcType="LONG" />
+		<result column="PRODUCT_ID" property="productId" jdbcType="LONG" />
+		<result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+		<result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+		<result column="PRODUCT_SKU_ID" property="productSkuId"	jdbcType="LONG" />
+		<result column="PRODUCT_SKU_VALUE" property="productSkuValue" jdbcType="VARCHAR" />
+		<result column="QUANTITY" property="quantity" jdbcType="Integer" />
+		<result column="PRICE" property="price" jdbcType="DECIMAL" />
+		<result column="SUM" property="sum" jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+		<result column="PRODUCT_ID" property="product" select="DISTRIBUTION_DETAIL_INFO.getProduct" />
+	</resultMap>
+	<resultMap id="ProductResult" class="com.pltfm.app.vobject.Product" >
+	    <result column="PRODUCT_ID" property="id" jdbcType="DECIMAL" />
+	    <result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+	    <result column="PRODUCT_TYPE" property="productType" jdbcType="DECIMAL" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<iterate property="oredCriteria" conjunction="or" prepend="where"
+			removeFirstPrepend="iterate">
+			<isEqual property="oredCriteria[].valid" compareValue="true">
+				(
+				<iterate prepend="and" property="oredCriteria[].criteriaWithoutValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithSingleValue[].condition$
+					#oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithListValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithListValue[].condition$
+					<iterate property="oredCriteria[].criteriaWithListValue[].values"
+						open="(" close=")" conjunction=",">
+						#oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+				</iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithBetweenValue[].condition$
+					#oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+					#oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+				)
+			</isEqual>
+		</iterate>
+	</sql>
+	
+	<select id="getProduct" parameterClass="java.lang.Long" resultMap="ProductResult">
+		 select PRODUCT_ID,PRODUCT_TITLE,PRODUCT_TYPE from PRODUCTMAIN where PRODUCT_ID = #productId# 
+  	</select>
+	
+	<sql id="Base_Column_List">
+		DETAIL_ID, DISTRIBUTION_ID, BILL_DETAIL_ID, PRODUCT_ID, PRODUCT_NAME,
+		PRODUCT_NO,
+		PRODUCT_SKU_ID, PRODUCT_SKU_VALUE, QUANTITY, PRICE, SUM, REMARK,BATCH_NO 
+  </sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterClass="com.pltfm.app.vobject.DistributionDetailInfoExample">
+		select
+		<isParameterPresent>
+			<isEqual property="distinct" compareValue="true">
+				distinct
+      </isEqual>
+		</isParameterPresent>
+		<include refid="DISTRIBUTION_DETAIL_INFO.Base_Column_List" />
+		from DISTRIBUTION_DETAIL_INFO
+		<isParameterPresent>
+			<include refid="DISTRIBUTION_DETAIL_INFO.Example_Where_Clause" />
+			<isNotNull property="orderByClause">
+				order by $orderByClause$
+      </isNotNull>
+		</isParameterPresent>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterClass="com.pltfm.app.vobject.DistributionDetailInfo">
+		select
+		<include refid="DISTRIBUTION_DETAIL_INFO.Base_Column_List" />
+		from DISTRIBUTION_DETAIL_INFO
+		where DETAIL_ID = #detailId:LONG#
+	</select>
+	<delete id="deleteByPrimaryKey" parameterClass="com.pltfm.app.vobject.DistributionDetailInfo">
+		delete from DISTRIBUTION_DETAIL_INFO
+		where DETAIL_ID = #detailId:LONG#
+			 AND exists(SELECT 1 FROM DISTRIBUTION_DETAIL_INFO dt,DISTRIBUTION_INFO d 
+			 			WHERE dt.DISTRIBUTION_ID = d.DISTRIBUTION_ID AND dt.DETAIL_ID=#detailId:LONG# AND d.IS_DELIVERIES =0)
+  </delete>
+	<delete id="deleteByExample" parameterClass="com.pltfm.app.vobject.DistributionDetailInfoExample">
+		delete from DISTRIBUTION_DETAIL_INFO
+		<include refid="DISTRIBUTION_DETAIL_INFO.Example_Where_Clause" />
+	</delete>
+	<insert id="insert" parameterClass="com.pltfm.app.vobject.DistributionDetailInfo">
+		<selectKey keyProperty="detailId" resultClass="java.lang.Long">
+			select SEQ_DISTRIBUTION_DETAIL.nextval from dual
+  		</selectKey>
+		insert into DISTRIBUTION_DETAIL_INFO (DETAIL_ID, DISTRIBUTION_ID,
+		BILL_DETAIL_ID, PRODUCT_ID,
+		PRODUCT_NAME, PRODUCT_NO, PRODUCT_SKU_ID, PRODUCT_SKU_VALUE,
+		QUANTITY, PRICE, SUM, REMARK)
+		values (#detailId:LONG#, #distributionId:Long#,
+		#billDetailId:LONG#, #productId:LONG#,
+		#productName:VARCHAR#, #productNo:VARCHAR#, #productSkuId:LONG#,
+		#productSkuValue:VARCHAR#,
+		#quantity:Integer#, #price:DECIMAL#, #sum:DECIMAL#, #remark:VARCHAR#)
+	</insert>
+	<insert id="insertSelective" parameterClass="com.pltfm.app.vobject.DistributionDetailInfo">
+		<selectKey keyProperty="detailId" resultClass="java.lang.Long">
+			select SEQ_DISTRIBUTION_DETAIL.nextval from dual
+  		</selectKey>
+		insert into DISTRIBUTION_DETAIL_INFO
+		<dynamic prepend="(">
+			<isNotNull prepend="," property="detailId">
+				DETAIL_ID
+      </isNotNull>
+			<isNotNull prepend="," property="distributionId">
+				DISTRIBUTION_ID
+      </isNotNull>
+			<isNotNull prepend="," property="billDetailId">
+				BILL_DETAIL_ID
+      </isNotNull>
+			<isNotNull prepend="," property="productId">
+				PRODUCT_ID
+      </isNotNull>
+			<isNotNull prepend="," property="productName">
+				PRODUCT_NAME
+      </isNotNull>
+			<isNotNull prepend="," property="productNo">
+				PRODUCT_NO
+      </isNotNull>
+			<isNotNull prepend="," property="productSkuId">
+				PRODUCT_SKU_ID
+      </isNotNull>
+			<isNotNull prepend="," property="productSkuValue">
+				PRODUCT_SKU_VALUE
+      </isNotNull>
+			<isNotNull prepend="," property="quantity">
+				QUANTITY
+      </isNotNull>
+			<isNotNull prepend="," property="price">
+				PRICE
+      </isNotNull>
+			<isNotNull prepend="," property="sum">
+				SUM
+      </isNotNull>
+			<isNotNull prepend="," property="remark">
+				REMARK
+      </isNotNull>
+			)
+		</dynamic>
+		values
+		<dynamic prepend="(">
+			<isNotNull prepend="," property="detailId">
+				#detailId:LONG#
+      </isNotNull>
+			<isNotNull prepend="," property="distributionId">
+				#distributionId:Long#
+      </isNotNull>
+			<isNotNull prepend="," property="billDetailId">
+				#billDetailId:LONG#
+      </isNotNull>
+			<isNotNull prepend="," property="productId">
+				#productId:LONG#
+      </isNotNull>
+			<isNotNull prepend="," property="productName">
+				#productName:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="productNo">
+				#productNo:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="productSkuId">
+				#productSkuId:LONG#
+      </isNotNull>
+			<isNotNull prepend="," property="productSkuValue">
+				#productSkuValue:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="quantity">
+				#quantity:Integer#
+      </isNotNull>
+			<isNotNull prepend="," property="price">
+				#price:DECIMAL#
+      </isNotNull>
+			<isNotNull prepend="," property="sum">
+				#sum:DECIMAL#
+      </isNotNull>
+			<isNotNull prepend="," property="remark">
+				#remark:VARCHAR#
+      </isNotNull>
+			)
+		</dynamic>
+	</insert>
+	<select id="countByExample" parameterClass="com.pltfm.app.vobject.DistributionDetailInfoExample"
+		resultClass="java.lang.Integer">
+		select count(DETAIL_ID) from DISTRIBUTION_DETAIL_INFO
+		<include refid="DISTRIBUTION_DETAIL_INFO.Example_Where_Clause" />
+	</select>
+	<update id="updateByExampleSelective">
+		update DISTRIBUTION_DETAIL_INFO
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="record.detailId">
+				DETAIL_ID = #record.detailId:LONG#
+      </isNotNull>
+			<isNotNull prepend="," property="record.distributionId">
+				DISTRIBUTION_ID = #record.distributionId:Long#
+      </isNotNull>
+			<isNotNull prepend="," property="record.billDetailId">
+				BILL_DETAIL_ID = #record.billDetailId:LONG#
+      </isNotNull>
+			<isNotNull prepend="," property="record.productId">
+				PRODUCT_ID = #record.productId:LONG#
+      </isNotNull>
+			<isNotNull prepend="," property="record.productName">
+				PRODUCT_NAME = #record.productName:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="record.productNo">
+				PRODUCT_NO = #record.productNo:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="record.productSkuId">
+				PRODUCT_SKU_ID = #record.productSkuId:LONG#
+      </isNotNull>
+			<isNotNull prepend="," property="record.productSkuValue">
+				PRODUCT_SKU_VALUE = #record.productSkuValue:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="record.quantity">
+				QUANTITY = #record.quantity:Integer#
+      </isNotNull>
+			<isNotNull prepend="," property="record.price">
+				PRICE = #record.price:DECIMAL#
+      </isNotNull>
+			<isNotNull prepend="," property="record.sum">
+				SUM = #record.sum:DECIMAL#
+      </isNotNull>
+	  <isNotNull prepend="," property="record.remark">
+				REMARK = #record.remark:VARCHAR#
+      </isNotNull>
+	  <isNotNull prepend="," property="record.batchNo">
+				BATCH_NO = #record.batchNo:VARCHAR#
+      </isNotNull>
+		</dynamic>
+		<isParameterPresent>
+			<include refid="DISTRIBUTION_DETAIL_INFO.Example_Where_Clause" />
+		</isParameterPresent>
+	</update>
+	<update id="updateByExample">
+		update DISTRIBUTION_DETAIL_INFO
+		set DETAIL_ID = #record.detailId:LONG#,
+		DISTRIBUTION_ID = #record.distributionId:Long#,
+		BILL_DETAIL_ID = #record.billDetailId:LONG#,
+		PRODUCT_ID = #record.productId:LONG#,
+		PRODUCT_NAME = #record.productName:VARCHAR#,
+		PRODUCT_NO = #record.productNo:VARCHAR#,
+		PRODUCT_SKU_ID = #record.productSkuId:LONG#,
+		PRODUCT_SKU_VALUE = #record.productSkuValue:VARCHAR#,
+		QUANTITY = #record.quantity:Integer#,
+		PRICE = #record.price:DECIMAL#,
+		SUM = #record.sum:DECIMAL#,
+		REMARK = #record.remark:VARCHAR#,
+		BATCH_NO = #record.batchNo:VARCHAR# 
+		<isParameterPresent>
+			<include refid="DISTRIBUTION_DETAIL_INFO.Example_Where_Clause" />
+		</isParameterPresent>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterClass="com.pltfm.app.vobject.DistributionDetailInfo">
+		update DISTRIBUTION_DETAIL_INFO
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="distributionId">
+				DISTRIBUTION_ID = #distributionId:Long#
+      </isNotNull>
+			<isNotNull prepend="," property="billDetailId">
+				BILL_DETAIL_ID = #billDetailId:LONG#
+      </isNotNull>
+			<isNotNull prepend="," property="productId">
+				PRODUCT_ID = #productId:LONG#
+      </isNotNull>
+			<isNotNull prepend="," property="productName">
+				PRODUCT_NAME = #productName:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="productNo">
+				PRODUCT_NO = #productNo:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="productSkuId">
+				PRODUCT_SKU_ID = #productSkuId:LONG#
+      </isNotNull>
+			<isNotNull prepend="," property="productSkuValue">
+				PRODUCT_SKU_VALUE = #productSkuValue:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="quantity">
+				QUANTITY = #quantity:Integer#
+      </isNotNull>
+			<isNotNull prepend="," property="price">
+				PRICE = #price:DECIMAL#
+      </isNotNull>
+			<isNotNull prepend="," property="sum">
+				SUM = #sum:DECIMAL#
+      </isNotNull>
+			<isNotNull prepend="," property="remark">
+				REMARK = #remark:VARCHAR#
+      </isNotNull>
+       <isNotNull prepend="," property="batchNo">
+				BATCH_NO = #batchNo:VARCHAR# 
+      </isNotNull>
+		</dynamic>
+		where DETAIL_ID = #detailId:LONG#
+	</update>
+	<update id="updateByPrimaryKey" parameterClass="com.pltfm.app.vobject.DistributionDetailInfo">
+		update DISTRIBUTION_DETAIL_INFO
+		set DISTRIBUTION_ID = #distributionId:Long#,
+		BILL_DETAIL_ID = #billDetailId:LONG#,
+		PRODUCT_ID = #productId:LONG#,
+		PRODUCT_NAME = #productName:VARCHAR#,
+		PRODUCT_NO = #productNo:VARCHAR#,
+		PRODUCT_SKU_ID = #productSkuId:LONG#,
+		PRODUCT_SKU_VALUE = #productSkuValue:VARCHAR#,
+		QUANTITY = #quantity:Integer#,
+		PRICE = #price:DECIMAL#,
+		SUM = #sum:DECIMAL#,
+		REMARK = #remark:VARCHAR#,
+		BATCH_NO = #batchNo:VARCHAR# 
+		where DETAIL_ID = #detailId:LONG#
+  </update>
+  
+  	<!--批量删除配送明细单 -->
+	<delete id="batchDeleteDistributionDetail" parameterClass="com.pltfm.app.vobject.DistributionInfo">
+		DELETE DISTRIBUTION_DETAIL_INFO
+		WHERE DISTRIBUTION_ID = #distributionId:Long#  
+		AND exists(SELECT 1 FROM DISTRIBUTION_DETAIL_INFO dt,DISTRIBUTION_INFO d 
+			 			WHERE dt.DISTRIBUTION_ID = d.DISTRIBUTION_ID AND dt.DISTRIBUTION_ID=#distributionId:Long# AND d.IS_DELIVERIES =0)
+  </delete>
+</sqlMap>

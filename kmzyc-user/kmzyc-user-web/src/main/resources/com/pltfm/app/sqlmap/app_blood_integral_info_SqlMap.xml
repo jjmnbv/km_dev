@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="BLOOD_INTEGRAL_INFO" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.BloodIntegralInfo" >
+    <result column="INTEGRAL_INFO_ID" property="integralInfoId" jdbcType="DECIMAL" />
+    <result column="LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+    <result column="INTEGRAL_NUMBER" property="integralNumber" jdbcType="DECIMAL" />
+    <result column="DISCRIBE" property="discribe" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="CREATED" property="created" jdbcType="DECIMAL" />
+    <result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+    <result column="MODIFIED" property="modified" jdbcType="DECIMAL" />
+  </resultMap>
+    <resultMap id="ibatorgenerated_BaseResultMapResult" class="com.pltfm.app.vobject.BloodIntegralInfo" >
+    <result column="INTEGRAL_INFO_ID" property="integralInfoId" jdbcType="DECIMAL" />
+    <result column="LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+     <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="DECIMAL" />
+    <result column="INTEGRAL_NUMBER" property="integralNumber" jdbcType="DECIMAL" />
+    <result column="DISCRIBE" property="discribe" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="CREATED" property="created" jdbcType="DECIMAL" />
+    <result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+    <result column="MODIFIED" property="modified" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="ibatorgenerated_CountResult" class="com.pltfm.sys.model.SysModelUtil">
+    <result column="the_count" property="theCount" jdbcType="DECIMAL" />
+  </resultMap>
+<!-- 查询经验明细 
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.pltfm.app.vobject.BloodIntegralInfo" >
+    select INTEGRAL_INFO_ID, LOGIN_ID, INTEGRAL_NUMBER, DISCRIBE, CREATE_DATE, CREATED, MODIFY_DATE,
+      MODIFIED
+    from BLOOD_INTEGRAL_INFO
+    where INTEGRAL_INFO_ID = #integralInfoId:DECIMAL#
+  </select>
+  -->
+  <!-- 分页 -->
+	<!--  ****************  search page by vo  ****************  -->
+	<select id="searchPageByVo" resultMap="ibatorgenerated_BaseResultMapResult"
+		parameterClass="com.pltfm.app.vobject.BloodIntegralInfo">
+		 select INTEGRAL_INFO_ID, LOGIN_ID,LOGIN_ACCOUNT, INTEGRAL_NUMBER, DISCRIBE, CREATE_DATE, CREATED, MODIFY_DATE,
+      MODIFIED  FROM (
+       select  ROW_NUMBER() OVER(order by INTEGRAL_INFO_ID desc) as view_row_number, 
+       tt.*,ll.LOGIN_ACCOUNT LOGIN_ACCOUNT from BLOOD_INTEGRAL_INFO tt,LOGIN_INFO ll
+       where tt.LOGIN_ID=ll.N_LOGIN_ID
+			<isNotNull property="loginAccount">
+				<isNotEmpty prepend="and" property="loginAccount">
+					LOGIN_ACCOUNT like '%$loginAccount$%'
+			  </isNotEmpty>
+			</isNotNull>
+		)
+    <![CDATA[ where view_row_number <= #max# and view_row_number > #skip# ]]>
+	</select>
+
+	<!--
+		**************** search user's roleList by vo ****************
+	-->
+	<select id="selectCountByVo" parameterClass="com.pltfm.app.vobject.BloodIntegralInfo"
+		resultMap="ibatorgenerated_CountResult">
+		select count(1) the_count from BLOOD_INTEGRAL_INFO tt,LOGIN_INFO ll
+       where tt.LOGIN_ID=ll.N_LOGIN_ID
+			<isNotNull property="loginAccount">
+				<isNotEmpty prepend="and" property="loginAccount">
+					LOGIN_ACCOUNT like '%$loginAccount$%'
+			  </isNotEmpty>
+			</isNotNull>
+		
+	</select>
+  <!-- 删除经验明细 -->
+  <delete id="ibatorgenerated_delete" parameterClass="com.pltfm.app.vobject.BloodIntegralInfo" >
+    delete from BLOOD_INTEGRAL_INFO
+    where INTEGRAL_INFO_ID = #integralInfoId:DECIMAL#
+  </delete>
+  <!-- 添加经验明细 -->
+  <insert id="ibatorgenerated_insert" parameterClass="com.pltfm.app.vobject.BloodIntegralInfo" >
+    <selectKey resultClass="java.lang.Integer" keyProperty="integralInfoId" >
+           select seq_app_login.nextval from dual
+      </selectKey>
+    insert into BLOOD_INTEGRAL_INFO
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="integralInfoId" >
+        INTEGRAL_INFO_ID
+      </isNotNull>
+      <isNotNull prepend="," property="loginId" >
+        LOGIN_ID
+      </isNotNull>
+      <isNotNull prepend="," property="integralNumber" >
+        INTEGRAL_NUMBER
+      </isNotNull>
+      <isNotNull prepend="," property="discribe" >
+        DISCRIBE
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="created" >
+        CREATED
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        MODIFY_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="modified" >
+        MODIFIED
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="integralInfoId" >
+        #integralInfoId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="loginId" >
+        #loginId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="integralNumber" >
+        #integralNumber:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="discribe" >
+        #discribe:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        #createDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="created" >
+        #created:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        #modifyDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="modified" >
+        #modified:DECIMAL#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+
+ <!--  
+  <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="com.pltfm.app.vobject.BloodIntegralInfo" >
+    update BLOOD_INTEGRAL_INFO
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="loginId" >
+        LOGIN_ID = #loginId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="integralNumber" >
+        INTEGRAL_NUMBER = #integralNumber:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="discribe" >
+        DISCRIBE = #discribe:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE = #createDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="created" >
+        CREATED = #created:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        MODIFY_DATE = #modifyDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="modified" >
+        MODIFIED = #modified:DECIMAL#
+      </isNotNull>
+    </dynamic>
+    where INTEGRAL_INFO_ID = #integralInfoId:DECIMAL#
+  </update>
+  -->
+</sqlMap>

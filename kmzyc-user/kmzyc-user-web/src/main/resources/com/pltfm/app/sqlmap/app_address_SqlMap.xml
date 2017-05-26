@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ADDRESS" >
+  <!-- 页面展示参数定义 -->
+  <resultMap id="abatorgenerated_AddressResult"  class="com.pltfm.app.vobject.Address" >
+    <result column="N_ADDRESS_ID" property="n_addressId" jdbcType="INTEGER" />
+    <result column="N_ACCOUNT_ID" property="n_accountId" jdbcType="INTEGER" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+    <result column="CITY" property="city" jdbcType="VARCHAR" />
+     <result column="AREA" property="area" jdbcType="VARCHAR" />
+    <result column="DETAILEDADDRESS" property="detailedAddress" jdbcType="VARCHAR" />
+    <result column="POSTALCODE" property="postalcode" jdbcType="VARCHAR" />
+    <result column="ADD_NAME" property="addName" jdbcType="VARCHAR" />
+    <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+    <result column="CELLPHONE" property="cellphone" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="ACCOUNT_LOGIN" property="accountLogin" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="D_CREATEDATE" property="d_createdate" />
+    <result column="D_LASTUPDATE" property="d_lastupdate" />
+    <result column="D_LASTUPDATE" property="d_lastupdate"  />
+  </resultMap>
+  
+   <resultMap id="abatorgenerated_AddressResult2" extends="abatorgenerated_AddressResult"  class="com.pltfm.app.vobject.Address" >
+    <result column="N_LOGIN_ID" property="loginId" jdbcType="INTEGER" />
+  </resultMap> 
+  
+  <!-- 动态查询参数配置 -->
+  <sql id="abatorgenerated_Example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  <!-- 通过主键加载收货地址信息 -->
+  <select id="abatorgenerated_selectByPrimaryKey" resultMap="abatorgenerated_AddressResult" parameterClass="com.pltfm.app.vobject.Address" >
+   select N_ADDRESS_ID, A.N_ACCOUNT_ID N_ACCOUNT_ID,A.NAME NAME,PROVINCE, CITY, AREA,DETAILEDADDRESS, POSTALCODE, ADD_NAME,A.EMAIL,
+      TELEPHONE,CELLPHONE,STATUS,D_CREATEDATE, D_LASTUPDATE,B.ACCOUNT_LOGIN
+    from ADDRESS A,ACCOUNT_INFO B
+    where A.N_ACCOUNT_ID =B.N_ACCOUNT_ID and a.N_ADDRESS_ID = #n_addressId:INTEGER#
+  </select>
+  <!-- 多添件查询收货地址信息 -->
+  <select id="abatorgenerated_selectByExample" resultMap="abatorgenerated_AddressResult" parameterClass="com.pltfm.app.vobject.AddressExample" >
+    select N_ADDRESS_ID, N_ACCOUNT_ID, NAME, PROVINCE, CITY, AREA,DETAILEDADDRESS, POSTALCODE, ADD_NAME,EMAIL,
+        TELEPHONE,CELLPHONE,STATUS,D_CREATEDATE, D_LASTUPDATE
+    from ADDRESS
+    <isParameterPresent >
+      <include refid="ADDRESS.abatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <!--通过主键删除收货地址信息 -->
+  <delete id="abatorgenerated_deleteByPrimaryKey" parameterClass="com.pltfm.app.vobject.Address" >
+    delete from ADDRESS
+    where N_ADDRESS_ID = #n_addressId:INTEGER#
+  </delete>
+  <!-- 多条件查询删除收货地址信息 -->
+  <delete id="abatorgenerated_deleteByExample" parameterClass="com.pltfm.app.vobject.AddressExample" >
+    delete from ADDRESS
+    <include refid="ADDRESS.abatorgenerated_Example_Where_Clause" />
+  </delete>
+   <!-- 添加收货地址信息 -->
+  <insert id="abatorgenerated_insert" parameterClass="com.pltfm.app.vobject.Address" >
+     <!--  <selectKey resultClass="java.lang.Integer" keyProperty="n_addressId" >
+           select seq_app_account.nextval from dual
+      </selectKey> -->
+    merge into ADDRESS addr
+    using (select #n_addressId:INTEGER# n_account_id from dual) addr_temp
+    on (addr.n_account_id=addr_temp.n_account_id)
+    when not matched then
+    insert (N_ADDRESS_ID, N_ACCOUNT_ID, NAME, PROVINCE, CITY,AREA,DETAILEDADDRESS,
+      POSTALCODE, ADD_NAME,TELEPHONE,CELLPHONE,STATUS,D_CREATEDATE, D_LASTUPDATE,EMAIL)
+    values (#n_addressId:INTEGER#, #n_accountId:INTEGER#, #name:VARCHAR#, #province:VARCHAR#,
+      #city:VARCHAR#, #area:VARCHAR#, #detailedAddress:VARCHAR#, #postalcode:VARCHAR#, #addName:VARCHAR#,
+      #telephone:VARCHAR#,#cellphone:VARCHAR#,#status:INTEGER#, #d_createdate#, #d_lastupdate#,#email:VARCHAR#)
+  </insert>
+  <!-- 通过主键更新收货地址信息 -->
+  <update id="abatorgenerated_updateByPrimaryKey" parameterClass="com.pltfm.app.vobject.Address" >
+    update ADDRESS
+    set N_ACCOUNT_ID = #n_accountId:INTEGER#,
+      NAME = #name:VARCHAR#,
+      PROVINCE = #province:VARCHAR#,
+      CITY = #city:VARCHAR#,
+      AREA = #area:VARCHAR#,
+      DETAILEDADDRESS = #detailedAddress:VARCHAR#,
+      POSTALCODE = #postalcode:VARCHAR#,
+      ADD_NAME = #addName:VARCHAR#,
+      TELEPHONE=#telephone:VARCHAR#,
+       EMAIL=#email:VARCHAR#,
+      CELLPHONE = #cellphone:VARCHAR#,
+      STATUS = #status:INTEGER#,
+      D_LASTUPDATE = #d_lastupdate#
+    where N_ADDRESS_ID = #n_addressId:INTEGER#
+  </update>
+    <!-- 通过账号更新收货地址默认状态 -->
+  <update id="abatorgenerated_updateByAccount" parameterClass="com.pltfm.app.vobject.Address" >
+    update ADDRESS
+    set  STATUS =1
+    where N_ACCOUNT_ID = #n_accountId:INTEGER# and STATUS =0
+  </update>
+  <!-- 通过多条件查询统计收货地址总数  -->
+  <select id="abatorgenerated_countByAddress" parameterClass="com.pltfm.app.vobject.Address"  resultClass="java.lang.Integer" >
+      select count(*) from ADDRESS aa,ACCOUNT_INFO bb 
+          where aa.N_ACCOUNT_ID = bb.N_ACCOUNT_ID
+            <isNotNull property="name">
+			  <isNotEmpty prepend="and" property="name">
+					aa.NAME like '%$name$%'
+			  </isNotEmpty>
+		    </isNotNull>
+	      <isNotNull property="accountLogin">
+		  <isNotEmpty prepend="and" property="accountLogin">
+			bb.ACCOUNT_LOGIN like '%$accountLogin$%'
+		  </isNotEmpty>
+	     </isNotNull>
+	        <isNotNull property="loginId">
+			  <isNotEmpty prepend="and" property="loginId">
+				bb.N_LOGIN_ID=#loginId:INTEGER#
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="cellphone">
+			  <isNotEmpty prepend="and" property="cellphone">
+				aa.CELLPHONE like '%$cellphone$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="d_createdate">
+			  <isNotEmpty prepend="and" property="d_createdate">
+				<![CDATA[  aa.D_CREATEDATE  >=#d_createdate#]]>
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="endDate">
+			  <isNotEmpty prepend="and" property="endDate">
+				<![CDATA[  aa.D_CREATEDATE  <=#endDate#]]>
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="fuzzyAddress">
+			  <isNotEmpty prepend="and" property="fuzzyAddress">
+			<![CDATA[  aa.province||aa.city||aa.area||aa.detailedaddress like '%$fuzzyAddress$%' ]]>
+			  </isNotEmpty>
+			  </isNotNull>
+		  
+  </select>
+  <!-- 分页查询收货地址信息 -->
+  <select id="abatorgenerated_pageByAddress" resultMap="abatorgenerated_AddressResult2"  parameterClass="com.pltfm.app.vobject.Address" >
+     select N_ADDRESS_ID, N_ACCOUNT_ID,N_LOGIN_ID, ACCOUNT_LOGIN,NAME, PROVINCE, CITY,AREA, DETAILEDADDRESS, POSTALCODE, ADD_NAME,EMAIL,
+        TELEPHONE,CELLPHONE,STATUS,D_CREATEDATE, D_LASTUPDATE  from(
+          select  ROW_NUMBER() OVER(order by N_ADDRESS_ID desc) as view_row_number, aa.*,bb.ACCOUNT_LOGIN,bb.N_LOGIN_ID from ADDRESS aa,ACCOUNT_INFO bb 
+          where aa.N_ACCOUNT_ID = bb.N_ACCOUNT_ID
+            <isNotNull property="name">
+			  <isNotEmpty prepend="and" property="name">
+				aa.NAME like '%$name$%'
+			  </isNotEmpty>
+			  </isNotNull>
+			  <isNotNull property="accountLogin">
+			  <isNotEmpty prepend="and" property="accountLogin">
+				bb.ACCOUNT_LOGIN like '%$accountLogin$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		    <isNotNull property="loginId">
+			  <isNotEmpty prepend="and" property="loginId">
+				bb.N_LOGIN_ID=#loginId:INTEGER#
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="cellphone">
+			  <isNotEmpty prepend="and" property="cellphone">
+				aa.CELLPHONE like '%$cellphone$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		    <isNotNull property="d_createdate">
+			  <isNotEmpty prepend="and" property="d_createdate">
+				<![CDATA[  aa.D_CREATEDATE  >=#d_createdate#]]>
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="endDate">
+			  <isNotEmpty prepend="and" property="endDate">
+				<![CDATA[  aa.D_CREATEDATE  <=#endDate#]]>
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="fuzzyAddress">
+			  <isNotEmpty prepend="and" property="fuzzyAddress">
+			<![CDATA[  aa.province||aa.city||aa.area||aa.detailedaddress like '%$fuzzyAddress$%' ]]>
+			  </isNotEmpty>
+			  </isNotNull>
+			   
+			  
+      ) 
+       <![CDATA[ where view_row_number <= #endIndex# and view_row_number > #startIndex# ]]>
+    </select>
+  <select id="selectByLoginID" resultMap="abatorgenerated_AddressResult"  parameterClass="java.lang.Integer" >
+   select aa.N_ADDRESS_ID, aa.N_ACCOUNT_ID, bb.ACCOUNT_LOGIN,aa.NAME, aa.PROVINCE, aa.CITY,aa.AREA, aa.DETAILEDADDRESS, aa.POSTALCODE, aa.ADD_NAME,aa.EMAIL,
+        aa.TELEPHONE,aa.CELLPHONE,aa.STATUS,aa.D_CREATEDATE, aa.D_LASTUPDATE from ADDRESS aa,ACCOUNT_INFO bb ,login_info  li
+        where li.N_LOGIN_ID=bb.N_LOGIN_ID and li.N_LOGIN_ID = #n_LoginId:DECIMAL# and aa.n_account_id = bb.n_account_id
+  </select>
+  </sqlMap>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="User">
+    <typeAlias alias="users" type="com.kmzyc.supplier.model.User"/>
+
+    <resultMap id="userMapAndNick" class="users">
+        <result jdbcType="DECIMAL" property="loginId" column="N_LOGIN_ID"/>
+        <result jdbcType="DECIMAL" property="levelId" column="N_LEVEL_ID"/>
+        <result jdbcType="DECIMAL" property="customerTypeId" column="N_CUSTOMER_TYPE_ID"/>
+        <result jdbcType="VARCHAR" property="loginAccount" column="LOGIN_ACCOUNT"/>
+        <result jdbcType="VARCHAR" property="loginPassword" column="LOGIN_PASSWORD"/>
+        <result jdbcType="VARCHAR" property="mobile" column="MOBILE"/>
+        <result jdbcType="VARCHAR" property="email" column="EMAIL"/>
+        <result jdbcType="DECIMAL" property="status" column="N_STATUS"/>
+        <result jdbcType="DATE" property="createDate" column="D_CREATE_DATE"/>
+        <result jdbcType="DECIMAL" property="created" column="N_CREATED"/>
+        <result jdbcType="DATE" property="modifyDate" column="D_MODIFY_DATE"/>
+        <result jdbcType="DECIMAL" property="modified" column="N_MODIFIED"/>
+        <result jdbcType="DECIMAL" property="nickName" column="NICKNAME"/>
+    </resultMap>
+    <resultMap id="userMap" class="users">
+        <result jdbcType="DECIMAL" property="loginId" column="N_LOGIN_ID"/>
+        <result jdbcType="DECIMAL" property="levelId" column="N_LEVEL_ID"/>
+        <result jdbcType="DECIMAL" property="customerTypeId" column="N_CUSTOMER_TYPE_ID"/>
+        <result jdbcType="VARCHAR" property="loginAccount" column="LOGIN_ACCOUNT"/>
+        <result jdbcType="VARCHAR" property="loginPassword" column="LOGIN_PASSWORD"/>
+        <result jdbcType="VARCHAR" property="mobile" column="MOBILE"/>
+        <result jdbcType="VARCHAR" property="email" column="EMAIL"/>
+        <result jdbcType="DECIMAL" property="status" column="N_STATUS"/>
+        <result jdbcType="DATE" property="createDate" column="D_CREATE_DATE"/>
+        <result jdbcType="DECIMAL" property="created" column="N_CREATED"/>
+        <result jdbcType="DATE" property="modifyDate" column="D_MODIFY_DATE"/>
+        <result jdbcType="DECIMAL" property="modified" column="N_MODIFIED"/>
+    </resultMap>
+    <sql id="ByLoginId1">
+	    <![CDATA[
+
+		l.n_login_id= #loginId:NUMBER#
+
+        ]]>
+	</sql>
+    <sql id="findByLogin">
+        (
+        <isNotEmpty property="email">
+            email = #email:VARCHAR2(50)#
+        </isNotEmpty>
+        <isNotEmpty property="loginAccount">
+            <isNotEmpty property="email">
+                or
+            </isNotEmpty>
+            LOGIN_ACCOUNT = #loginAccount:VARCHAR2(50)#
+        </isNotEmpty>
+        <isNotEmpty property="mobile">
+            <isNotEmpty property="email">or</isNotEmpty>
+            <isEmpty property="email">
+                <isNotEmpty prepend="loginAccount">or</isNotEmpty>
+            </isEmpty>
+            mobile = #mobile:VARCHAR2(50)#
+        </isNotEmpty>
+        )
+        <isNotEmpty property="loginPassword">
+            and LOGIN_PASSWORD = #loginPassword:VARCHAR2(50)#
+        </isNotEmpty>
+    </sql>
+    <parameterMap id="userpar" class="users">
+
+        <parameter jdbcType="DECIMAL" property="loginId" javaType="Long"/>
+        <parameter jdbcType="DECIMAL" property="levelId" javaType="Integer"/>
+        <parameter jdbcType="DECIMAL" property="customerTypeId" javaType="Integer"/>
+        <parameter jdbcType="VARCHAR" property="loginAccount" javaType="String"/>
+        <parameter jdbcType="VARCHAR" property="loginPassword" javaType="String"/>
+        <parameter jdbcType="VARCHAR" property="mobile" javaType="String"/>
+        <parameter jdbcType="VARCHAR" property="email" javaType="String"/>
+        <parameter jdbcType="DECIMAL" property="status" javaType="Integer"/>
+        <parameter jdbcType="DATE" property="createDate" javaType="Date"/>
+        <parameter jdbcType="DECIMAL" property="created" javaType="Long"/>
+        <parameter jdbcType="DATE" property="modifyDate" javaType="Date"/>
+        <parameter jdbcType="DECIMAL" property="modified" javaType="Integer"/>
+    </parameterMap>
+
+    <select id="findUser" resultMap="userMap" parameterClass="users">
+        <![CDATA[
+			SELECT * FROM LOGIN_INFO 
+		]]>
+        <dynamic prepend="where">
+            <include refid="findByLogin"/>
+        </dynamic>
+    </select>
+
+    <select id="verifyName" resultMap="userMap" parameterClass="users">
+		<![CDATA[
+
+			SELECT * FROM LOGIN_INFO u where  u.LOGIN_ACCOUNT=#loginAccount:VARCHAR#
+
+        ]]>
+	</select>
+
+    <!-- 用户当天是否登录 -->
+    <select id="getUserByLoginId" resultMap="userMap" parameterClass="Long">
+	<![CDATA[
+
+		select l.n_login_id,
+		       l.n_level_id,
+		       l.n_customer_type_id,
+		       l.login_account,
+		       l.login_password,
+		       l.mobile,
+		       l.email,
+		       l.n_status,
+		       l.d_create_date,
+		       l.n_created,
+		       l.d_modify_date,
+		       l.n_modified
+		  from login_info l
+		 where l.n_login_id = #loginId:NUMBER#
+
+        ]]>
+   </select>
+    <!-- 今天已登录 -->
+    <select id="todaySigned" parameterClass="Long" resultClass="Long">
+	<![CDATA[
+
+		select 1
+		  from score_rule r
+		 inner join SCORE_INFO i
+		    on (i.n_score_rule_id = r.n_score_rule_id)
+		 where to_char(sysdate, 'yyyy-MM-dd') =
+		       to_char(i.d_create_date, 'yyyy-MM-dd')
+		   and r.code = 'RU0011'
+		   and i.n_login_id = #loginId:NUMBER#
+
+        ]]>
+   </select>
+    <!-- 查询用户类型 -->
+    <select id="queryCustomerType" parameterClass="users" resultClass="Long">
+        <![CDATA[
+		select ai.n_customer_type_id from account_info ai where ai.n_status = 1
+	]]>
+        <dynamic>
+            <isNotEmpty prepend="and" property="email">
+                ai.email = #email:VARCHAR#
+            </isNotEmpty>
+            <isNotEmpty prepend="and" property="mobile">
+                ai.mobile = #mobile:VARCHAR2(50)#
+            </isNotEmpty>
+            <isNotEmpty prepend="and" property="loginAccount">
+                ai.account_login = #loginAccount:VARCHAR2(50)#
+            </isNotEmpty>
+        </dynamic>
+        order by ai.d_create_date desc
+    </select>
+    <!-- 查询用户信息 -->
+    <select id="queryUserInfo" resultClass="java.util.HashMap" parameterClass="users">
+        <![CDATA[
+		select li.n_login_id loginId,
+		       li.login_account uname,
+		       (select ai.amount_avlibal
+		          from account_info ai
+		         where ai.n_login_id = li.n_login_id) amountAvlibal,
+		       (select count(1)
+		          from coupon_grant c
+		         where c.coupon_status = 3
+		           and c.custom_id = li.n_login_id) couponAvlibalSum,
+		       pi.n_available_integral integralAvlibal,
+		       li.n_level_id levelId,
+		       pi.head_sculpture headImg
+		  from login_info li
+		 inner join personality_info pi
+		    on (li.n_login_id = pi.n_login_id)
+		]]>
+        <dynamic prepend="where">
+            <include refid="findByLogin"/>
+        </dynamic>
+    </select>
+    <!-- 验证用户是否存在 -->
+    <select id="validUserExists" resultClass="java.util.HashMap" parameterClass="users">
+        <![CDATA[
+	    select ai.email email, ai.mobile mobile, ai.account_login uname
+		  from account_info ai
+		 where n_status=1 and (
+	]]>
+        <dynamic>
+            <isNotEmpty property="email">
+                ai.email = #email:VARCHAR#
+            </isNotEmpty>
+            <isNotEmpty property="mobile">
+                <isNotEmpty property="email">
+                    or
+                </isNotEmpty>
+                ai.mobile = #mobile:VARCHAR2(50)#
+            </isNotEmpty>
+            <isNotEmpty property="loginAccount">
+                <isNotEmpty property="email">
+                    or
+                </isNotEmpty>
+                <isEmpty property="email">
+                    <isNotEmpty property="mobile">
+                        or
+                    </isNotEmpty>
+                </isEmpty>
+                ai.account_login = #loginAccount:VARCHAR2(50)#
+            </isNotEmpty>
+        </dynamic>
+        <![CDATA[	  ) and rownum = 1]]>
+    </select>
+    <!-- 校验用户名 -->
+    <select id="validUserName" resultClass="Long" parameterClass="String">
+	<![CDATA[
+
+		select rs
+		  from (select ai.n_customer_type_id rs
+		          from account_info ai
+		         where ai.account_login = #uName#
+		        union all
+		        select -1 rs
+		          from key_words kw
+		         where kw.key_words = #uName#
+		           and kw.words_type = 2)  where rownum=1
+
+        ]]>
+	</select>
+
+    <select id="queryEmailExist" parameterClass="String" resultMap="userMap">
+		select b.*
+		  from account_info a, login_info b
+		 where a.N_LOGIN_ID = b.N_LOGIN_ID
+		   and a.EMAIL = #email:varchar#
+	</select>
+
+    <select id="queryMobilExist" parameterClass="String" resultMap="userMap">
+				select b.*
+		  from account_info a, login_info b
+		 where a.N_LOGIN_ID = b.N_LOGIN_ID
+		   and a.MOBILE =#mobile:varchar#
+	</select>
+
+    <select id='queryUserByLoginId' parameterClass="users" resultMap="userMap">
+		select * from login_info where  N_LOGIN_ID=#loginId:NUMBER# 
+	</select>
+
+    <select id='queryUserBySupplierId' parameterClass="java.lang.Long" resultMap="userMap">
+		select * from SUPPLIERS_INFO si,COMMERCIAL_TENANT_BASIC_INFO ctbi,login_info li where 
+			si.MERCHANT_ID = ctbi.N_COMMERCIAL_TENANT_ID and ctbi.N_LOGIN_ID = li.N_LOGIN_ID 
+			and si.SUPPLIER_ID =  #supplierId#
+	</select>
+
+    <select id="findLoginInfoByOrderCode" parameterClass="java.util.HashMap" resultMap="userMap">
+        select l.*
+        from ORDER_MAIN o, login_info l
+        where o.CUSTOMER_ID = l.N_LOGIN_ID
+        and o.ORDER_STATUS=1
+        <dynamic>
+            <isNotEmpty prepend="and" property="orderCode">
+                o.ORDER_CODE = #orderCode#
+            </isNotEmpty>
+            <isNotEmpty prepend="and" property="loginId">
+                l.N_LOGIN_ID = #loginId#
+            </isNotEmpty>
+        </dynamic>
+    </select>
+
+    <update id="updateUserByLonginId" parameterClass="users">
+    update login_info
+    set n_customer_type_id = #customerTypeId:DECIMAL# 
+    where n_login_id = #loginId:DECIMAL#
+  </update>
+
+    <select id='queryUserByUserName' parameterClass="users" resultMap="userMap">
+		select * from login_info where  login_account=#loginAccount:VARCHAR# 
+	</select>
+</sqlMap>

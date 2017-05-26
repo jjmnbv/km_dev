@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PromotionRuleData" >
+  	<resultMap id="baseResultMap" class="com.kmzyc.b2b.model.PromotionRuleData" >
+    	<result column="PROMOTION_RULE_DATA_ID" property="promotionRuleDataId" jdbcType="DECIMAL" />
+    	<result column="MEET_DATA" property="meetData" jdbcType="DECIMAL" />
+    	<result column="MEET_DATA_TYPE" property="meetDataType" jdbcType="DECIMAL" />
+    	<result column="PRIZE_DATA" property="prizeData" jdbcType="VARCHAR" />
+    	<result column="PRIZE_DATA_TYPE" property="prizeDataType" jdbcType="DECIMAL" />
+    	<result column="entity_id" property="entityId" jdbcType="DECIMAL" />
+    	<result column="promotion_id" property="promotionId" jdbcType="DECIMAL" />
+	    <result column="num1" property="num1" jdbcType="DECIMAL" />
+	    <result column="num2" property="num2" jdbcType="DECIMAL" />
+	    <result column="num3" property="num3" jdbcType="DECIMAL" />
+  	</resultMap>
+  
+  	<select id="findByPromotionRuleDataInfo" parameterClass="java.lang.Long" resultMap="baseResultMap">
+  	<![CDATA[
+	  	select promotion_rule_data_id,
+		       meet_data,
+		       meet_data_type,
+		       prize_data,
+		       prize_data_type,
+		       entity_id,
+		       num1,
+  				num2,
+  				num3,
+  				promotion_id
+		  from promotion_rule_data d
+		 where d.promotion_id = #promotionId:NUMBER#
+		 order by meet_data desc
+	]]>
+  	</select>
+  	
+  	<!-- 根据活动ID和金额查询活动规则数据 -->
+  	<select id="QUERY_PROMOTION_RULE_DATA_BY_PROMOTION_ID" parameterClass="java.util.Map" resultMap="baseResultMap">
+  	<![CDATA[
+  		select prd.promotion_rule_data_id,
+		       prd.promotion_rule_id,
+		       prd.meet_data,
+		       prd.meet_data_type,
+		       prd.prize_data,
+		       prd.prize_data_type,
+		       entity_id,
+		       num1,
+  				num2,
+  				num3,
+  				promotion_id
+		  from promotion_rule_data prd
+		 where prd.meet_data <= #money:DECIMAL#
+		   and prd.promotion_id = #promotionInfoId:DECIMAL#
+		 order by prd.meet_data asc
+  	]]>
+  	</select>
+</sqlMap>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans.xsd">
+    
+    <!-- 推送mq和活动定时任务start -->
+    <bean name="mQProductPriceAutoJob" class="com.kmzyc.promotion.quartz.product.MQProductPriceAutoJob" scope="singleton"/>
+    <bean id="methodInvokingJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+       <property name="targetObject">
+           <ref bean="mQProductPriceAutoJob" />
+       </property>
+       <property name="targetMethod">
+           <value>execute</value>
+       </property>
+    </bean>
+    <bean id="promotionPriceMQTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+       <property name="jobDetail">
+           <ref bean="methodInvokingJobDetail" />
+       </property>
+       <property name="cronExpression"><!-- 每天0~1，5~23点每15分钟一次  20160429 mkw modif 配合搜索测试改成5分钟-->
+           <value>0 0/5 0-1,5-23 * * ?</value>
+       </property>
+    </bean>
+    <!-- 推送mq和活动定时任务end -->
+    
+    <!-- 优惠券过期的判断 -->
+    <bean name="mqcouponExpiredJob" class="com.kmzyc.promotion.quartz.product.MQCouponExpiredJob" />
+    <bean id="mqcouponMethodInvokingJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+       <property name="targetObject">
+           <ref bean="mqcouponExpiredJob" />
+       </property>
+       <property name="targetMethod">
+           <value>executeInternal</value>
+       </property>
+    </bean>
+    <bean id="mqcouponExpiredRemindTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+       <property name="jobDetail">
+           <ref bean="mqcouponMethodInvokingJobDetail" />
+       </property>
+       <!-- 每天的凌晨3点进行判断 -->
+      <property name="cronExpression">
+        <value>0 0 3 * * ?</value>
+       </property>   
+    </bean>
+    <!-- 优惠券 过期的判断 end-->
+     
+    <!-- 预售活动到期 -->
+    <bean name="StopPresellJob" class="com.kmzyc.promotion.quartz.product.StopPresellJob" />
+    <bean id="StopPresellMethodInvokingJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+       <property name="targetObject">
+           <ref bean="StopPresellJob" />
+       </property>
+       <property name="targetMethod">
+           <value>stopPresell</value>
+       </property>
+    </bean>
+    <bean id="StopPresellExpiredRemindTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+       <property name="jobDetail">
+           <ref bean="StopPresellMethodInvokingJobDetail" />
+       </property>
+       <!--  每5分钟执行一次 -->
+      <property name="cronExpression"><!-- -->
+        <value> 0 0/5 * * * ?</value>
+       </property>   
+    </bean>
+    <!--预售活动到期 end-->
+    <bean id="mQProductPriceAutoJobBean" lazy-init="false" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+       <!-- 添加触发器 -->
+       <property name="triggers">
+           <list>
+               <ref local="promotionPriceMQTrigger" />
+               <ref local="mqcouponExpiredRemindTrigger" />
+               <ref local="StopPresellExpiredRemindTrigger" />
+            </list>
+       </property>
+    </bean>
+    
+</beans>

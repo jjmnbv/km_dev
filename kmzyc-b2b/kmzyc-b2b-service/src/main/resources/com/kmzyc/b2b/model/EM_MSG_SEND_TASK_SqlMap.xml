@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="EM_MSG_SEND_TASK">
+	<resultMap id="ibatorgenerated_BaseResultMap" class="com.kmzyc.b2b.model.EmMsgSendTask">
+		<result column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="CONTENT" property="content" jdbcType="VARCHAR" />
+		<result column="SENDTYPE" property="type" jdbcType="DECIMAL" />
+		<result column="SEND_TIME" property="sendTime" jdbcType="DATE" />
+		<result column="IS_SUCCESS" property="isSuccess" jdbcType="DECIMAL" />
+		<result column="SEND_COUNT" property="sendCount" jdbcType="DECIMAL" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
+		<result column="MSG_TYPE" property="msgType" jdbcType="DECIMAL" />
+	</resultMap>
+	<resultMap id="ibatorgenerated_ResultMapWithBLOBs" class="com.kmzyc.b2b.model.EmMsgSendTask"
+		extends="EM_MSG_SEND_TASK.ibatorgenerated_BaseResultMap">
+		<result column="RECEIVER" property="receiver" jdbcType="CLOB" />
+	</resultMap>
+	
+
+	<select id="selectEmMsgSendTaskByMobile" parameterClass="java.util.Map"
+		resultMap="ibatorgenerated_BaseResultMap">
+		select id,
+		receiver,
+		content,
+		type SENDTYPE,
+		send_time,
+		is_success,
+		send_count,
+		create_time,
+		update_time,
+		msg_type
+		from EM_MSG_SEND_TASK m
+		WHERE M.RECEIVER =  #mobile#
+				AND
+		(M.SEND_SUCCESS='DELIVRD' or M.msg_type=42 )
+		<isNotEmpty property="sendType1" prepend="and">
+		M.msg_type=#sendType1#
+		</isNotEmpty>
+	    <!-- AND to_char(m.send_time, 'yyyy-mm-dd') = '#nowDate#' -->
+	   and m.send_time between
+           to_date('$nowDate$ 0:00:01', 'yyyy-mm-dd hh24:mi:ss') and
+           to_date('$nowDate$ 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+	</select>
+
+
+
+</sqlMap>

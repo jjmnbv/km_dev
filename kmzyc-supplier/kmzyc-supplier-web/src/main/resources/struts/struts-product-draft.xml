@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="productDraft" extends="BasePackage">
+		<!-- 测试 -->
+		<action name="showProductDraftList" class="productDraftAction" method="showProductDraftList">
+			<result name="success">/WEB-INF/jsp/productDraft/productDraftList.jsp</result>
+		</action>
+		<!-- 产品提交审核 -->
+		<action name="submitDraftTheAudit" class="productDraftAction" method="submitDraftTheAudit">
+			<result type="dispatcher" name="product">/WEB-INF/jsp/productDraft/productDraftList.jsp</result>
+		</action>
+		
+		<action name="viewProductDraft" class="productDraftAction" method="viewProductDraft">
+			<result name="success">/WEB-INF/jsp/productDraft/productDraftMainDetail.jsp</result>
+		</action>
+		
+		<action name="findImageDraftBySkuId" class="productDraftAction" method="findImageDraftBySkuId">
+			<result name="success">/WEB-INF/jsp/productDraft/productSkuImageDraftView.jsp</result>
+		</action>
+		<action name="toUpdateProdImageDraft" class="productDraftAction" method="toUpdateProdImageDraft">
+			<result name="success">/WEB-INF/jsp/productDraft/productUpdatePicture.jsp</result>
+		</action>
+		<!--<action name="productUpdateToAddDraft" class="productDraftAction" method="productUpdateToAddDraft">
+			<result name="success">/WEB-INF/jsp/productDraft/productDraftList.jsp</result>
+		</action>-->
+		<action name="toProductDraftCategory" class="productDraftAction" method="toProductDraftCategory" >
+			<result  name="success">/WEB-INF/jsp/productDraft/productDraftCategory.jsp</result>
+		</action>
+		<action name="toProductDraftAdd" class="productDraftAction" method="toProductDraftAdd" >
+			<result  name="success">/WEB-INF/jsp/productDraft/productDraftAdd.jsp</result>
+			<result  name="toCategory" type="redirectAction">toProductDraftCategory</result>
+		</action>
+		<action name="toProductDraftUpdate" class="productDraftAction" method="toProductDraftUpdate" >
+			<result  name="success">/WEB-INF/jsp/productDraft/productDraftUpdate.jsp</result>
+		</action>
+		<action name="productAddDraft" class="productDraftAction" method="productAddDraft" >
+			<result name="add">/WEB-INF/jsp/productDraft/productMoreAddPicture.jsp</result>
+		</action>
+		<action name="toAuditProduct" class="productDraftAction" method="toAuditProduct">
+			<result name="success">/WEB-INF/jsp/productDraft/productWait.jsp</result>
+		</action>
+		<action name="modifyProductDraft" class="productDraftAction" method="modifyProductDraft" >
+			<result name="success">/WEB-INF/jsp/productDraft/productDraftList.jsp</result>
+			<result name="addImage">/WEB-INF/jsp/productDraft/productMoreAddPicture.jsp</result>
+		</action>
+		<action name="toUploadSkuProductImage" class="productDraftAction" method="toUploadSkuProductImage">
+			<result name="add">/WEB-INF/jsp/productDraft/productMoreAddPicture.jsp</result>
+			<result name="update">/WEB-INF/jsp/productDraft/productMoreUpdatePicture.jsp</result>
+		</action>
+		<action name="updateImage" class="productDraftAction" method="updateImage">
+			<result name="success">/WEB-INF/jsp/productDraft/productDraftList.jsp</result>
+		</action>
+		<action name="updateSortImage" class="productDraftAction" method="updateSortImage">
+			<result name="success">/WEB-INF/jsp/productDraft/productWait.jsp</result>
+		</action>
+	</package>
+</struts>

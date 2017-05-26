@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ProductRelation">
+
+	<resultMap id="productRelationResultMap" class="com.kmzyc.b2b.model.ProductRelation">
+		<result column="RELATION_ID" property="relationId" jdbcType="DECIMAL" />
+		<result column="RELATION_NAME" property="relationName"
+			jdbcType="VARCHAR" />
+		<result column="MAIN_SKU_ID" property="mainSkuId" jdbcType="DECIMAL" />
+		<result column="MAIN_SKU_PRICE" property="mainSkuPrice"
+			jdbcType="DECIMAL" />
+		<result column="TOTAL_RELATION_PRICE" property="totalRelationPrice"
+			jdbcType="DECIMAL" />
+		<result column="RELATION_TYPE" property="relationType"
+			jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	
+
+	
+  <resultMap id="productRelationResultMap2" class="com.kmzyc.b2b.model.ProductRelation" groupBy="relationId" >
+		<result column="RELATION_ID" property="relationId" jdbcType="DECIMAL" />
+		<result column="RELATION_NAME" property="relationName" jdbcType="VARCHAR" />
+		<result column="MAIN_SKU_ID" property="mainSkuId" jdbcType="DECIMAL" />
+		 <result column="MAIN_SKU_PRICE" property="mainSkuPrice"	jdbcType="DECIMAL" />
+		<result column="TOTAL_RELATION_PRICE" property="totalRelationPrice"	jdbcType="DECIMAL" />
+		<result column="RELATION_TYPE" property="relationType"	jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result property="prdList" resultMap="ProductRelationDetailAll.ProductRelationDetail" /> 
+	</resultMap>  
+
+	<select id="findById" parameterClass="java.lang.Long" resultMap="productRelationResultMap">
+		SELECT * FROM PRODUCT_RELATION where RELATION_ID= #Id:NUMBER#
+	</select>
+
+	
+	
+	
+	<select id="findByProductRelationId" parameterClass="java.lang.Long" resultMap="productRelationResultMap2">
+   select pr.relation_id,
+       pr.relation_name,
+       pr.main_sku_id,
+       pr.main_sku_price,
+       pr.total_relation_price,
+       pr.relation_type,
+       pr.remark,
+       pr.status,
+       prd.relation_sku_id,
+       prd.product_count
+  from PRODUCT_RELATION pr, PRODUCT_RELATION_DETAIL prd
+ where pr.relation_id = prd.relation_id
+   and pr.relation_id = #Id:NUMBER#
+    </select>
+	
+	<resultMap class="com.kmzyc.b2b.model.ProductRelation" id="RESULT_MAP_PRODUCT_RELATION" groupBy="relationId">
+		<result column="RELATIONID" property="relationId" jdbcType="DECIMAL" />
+		<result column="RELATIONNAME" property="relationName" jdbcType="VARCHAR" />
+		<result column="RELATIONINTRODUCE" property="relationIntroduce" jdbcType="VARCHAR" />
+		<result column="RELATIONVIDEO" property="relationVideo" jdbcType="VARCHAR" />
+		<result column="MAINSKUID" property="mainSkuId" jdbcType="DECIMAL" />
+		<result column="CREATEDATE" property="createDate" jdbcType="date" />
+		<result column="TOTALRELATIONPRICE" property="totalRelationPrice" jdbcType="DECIMAL" />
+		<result property="prdList" resultMap="ProductRelationDetailAll.RESULT_MAP_PRODUCTRELATIONDETAIL" /> 
+	</resultMap>
+	<!-- 查询主SKUID的所有组合产品 -->
+	<select id="SQL_QUERY_PRODUCT_RELATION_BY_SKU_ID" parameterClass="java.lang.Long" resultMap="RESULT_MAP_PRODUCT_RELATION">
+	<![CDATA[
+		select rs.relationId relationId,
+		       rs.relationName relationName,
+		       rs.relationIntroduce relationIntroduce,
+		       rs.relationVideo relationVideo,
+		       ps.price relationSkuPrice,
+		       rs.skuId relationSkuId,
+		       rs.mainSkuId mainSkuId,
+		       rs.mainSkuPrice mainSkuPrice,
+		       rs.totalRelationPrice totalRelationPrice,
+		       rs.productCount productCount,
+		       rs.createDate createDate,
+		       (select max(st.stock_quality - (case
+		                     when st.order_quality < 0 then
+		                      0
+		                     else
+		                      st.order_quality
+		                   end))
+		          from product_stock st
+		         where st.sku_attribute_id = rs.skuId) stock,
+		       pm.product_title productTile,
+		       pm.procuct_name productName,
+		       ps.mark_price marketPrice,
+		       decode(ps.status, 0, 1, pm.status) status,
+		       pi.img_path imagePath,
+		       pi.img_path6 imagePath6,
+		       pi.img_path7 imagePath7
+		  from productmain pm,
+		       product_sku ps,
+		       product_image pi,
+		       (select pr.relation_id          relationId,
+		               pr.relation_name        relationName,
+		               pr.relation_intro       relationIntroduce,
+		               pr.relation_video       relationVideo,
+		               pr.main_sku_price       price,
+		               pr.main_sku_id          skuId,
+		               pr.main_sku_id          mainSkuId,
+		               pr.main_sku_price       mainSkuPrice,
+		               pr.total_relation_price totalRelationPrice,
+		               1                       productCount,
+		               pr.create_date          createDate
+		          from product_relation pr
+		         where pr.relation_type = 4
+		           and pr.status = 1
+		           and pr.main_sku_id = #skuId:NUMBER#
+		        union all
+		        select pr.relation_id relationId,
+		               pr.relation_name relationName,
+		               pr.relation_intro relationIntroduce,
+		               pr.relation_video relationVideo,
+		               prd.relation_sku_price price,
+		               prd.relation_sku_id skuId,
+		               pr.main_sku_id mainSkuId,
+		               pr.main_sku_price mainSkuPrice,
+		               pr.total_relation_price totalRelationPrice,
+		               nvl(prd.product_count, 1) productCount,
+		               pr.create_date createDate
+		          from product_relation pr, product_relation_detail prd
+		         where prd.relation_id = pr.relation_id
+		           and pr.status = 1
+		           and pr.relation_type = 4
+		           and pr.main_sku_id = #skuId:NUMBER#) rs
+		 where pm.product_id = ps.product_id
+		   and pi.is_default = 0
+		   and ps.status = 1
+		   and pi.sku_id = ps.product_sku_id
+		   and ps.product_sku_id = rs.skuid
+	]]>		   
+	</select>
+</sqlMap>

@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SUPPLIERS_AVAILABLE_CATEGORYS" >
+  <resultMap id="BaseResultMap" class="com.kmzyc.supplier.model.SuppliersAvailableCategorys" >
+    <result column="SAC_ID" property="sacId" jdbcType="DECIMAL" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL" />
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+    <result column="COMMISSION_RATIO" property="commissionRatio" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="BaseResultMap5" class="com.kmzyc.supplier.model.SuppliersAvailableCategorys" >
+    <result column="SAC_ID" property="sacId" jdbcType="DECIMAL" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL" />
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+    <result column="COMMISSION_RATIO" property="commissionRatio" jdbcType="DECIMAL" />
+    <result column="CATEGORY_PARENT_ID" property="categoryParentId" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="BaseResultMap1" class="com.kmzyc.supplier.model.SuppliersAvailableCategorys" >
+    <result column="SAC_ID" property="sacId" jdbcType="DECIMAL" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL" />
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+    <result column="COMMISSION_RATIO" property="commissionRatio" jdbcType="DECIMAL" />
+    <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+    <result column="CATEGORY_PARENT_ID" property="categoryParentId" jdbcType="DECIMAL" />
+  </resultMap>
+ <!-- 添加一个类目名称字段 -->
+  <resultMap id="BaseResultMap2" class="com.kmzyc.supplier.model.SuppliersAvailableCategorys" >
+    <result column="SAC_ID" property="sacId" jdbcType="DECIMAL" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL" />
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+    <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+    <result column="COMMISSION_RATIO" property="commissionRatio" jdbcType="DECIMAL" />
+    <result column="CATEGORY_PARENT_ID" property="categoryParentId" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$ #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  <sql id="Base_Column_List" >
+    SAC_ID, SUPPLIER_ID, CATEGORY_ID, COMMISSION_RATIO
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterClass="com.kmzyc.supplier.model.example.SuppliersAvailableCategorysExample" >
+    select
+    <isParameterPresent >
+      <isEqual property="distinct" compareValue="true" >
+        distinct
+      </isEqual>
+    </isParameterPresent>
+    <include refid="SUPPLIERS_AVAILABLE_CATEGORYS.Base_Column_List" />
+    from SUPPLIERS_AVAILABLE_CATEGORYS
+    <isParameterPresent >
+      <include refid="SUPPLIERS_AVAILABLE_CATEGORYS.Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterClass="com.kmzyc.supplier.model.SuppliersAvailableCategorys" >
+    select 
+    <include refid="SUPPLIERS_AVAILABLE_CATEGORYS.Base_Column_List" />
+    from SUPPLIERS_AVAILABLE_CATEGORYS
+    where SAC_ID = #sacId:DECIMAL#
+  </select>
+  <delete id="deleteByPrimaryKey" parameterClass="com.kmzyc.supplier.model.SuppliersAvailableCategorys" >
+    delete from SUPPLIERS_AVAILABLE_CATEGORYS
+    where SAC_ID = #sacId:DECIMAL#
+  </delete>
+  <delete id="deleteByExample" parameterClass="com.kmzyc.supplier.model.example.SuppliersAvailableCategorysExample" >
+    delete from SUPPLIERS_AVAILABLE_CATEGORYS
+    <include refid="SUPPLIERS_AVAILABLE_CATEGORYS.Example_Where_Clause" />
+  </delete>
+  <insert id="insert" parameterClass="com.kmzyc.supplier.model.SuppliersAvailableCategorys" >
+    insert into SUPPLIERS_AVAILABLE_CATEGORYS (SAC_ID, SUPPLIER_ID, CATEGORY_ID, COMMISSION_RATIO
+      )
+    values (#sacId:DECIMAL#, #supplierId:DECIMAL#, #categoryId:DECIMAL#, #commissionRatio:DECIMAL#
+      )
+  </insert>
+  <insert id="insertSelective" parameterClass="com.kmzyc.supplier.model.SuppliersAvailableCategorys" >
+   <selectKey keyProperty="sacId" resultClass="java.lang.Long">
+  		select SEQ_suppliers_categorys.Nextval from dual
+  	</selectKey>
+    insert into SUPPLIERS_AVAILABLE_CATEGORYS
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="sacId" >
+        SAC_ID
+      </isNotNull>
+      <isNotNull prepend="," property="supplierId" >
+        SUPPLIER_ID
+      </isNotNull>
+      <isNotNull prepend="," property="categoryId" >
+        CATEGORY_ID
+      </isNotNull>
+      <isNotNull prepend="," property="commissionRatio" >
+        COMMISSION_RATIO
+      </isNotNull>
+      <isNotNull prepend="," property="categoryParentId" >
+        CATEGORY_PARENT_ID
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="sacId" >
+        #sacId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="supplierId" >
+        #supplierId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="categoryId" >
+        #categoryId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="commissionRatio" >
+        #commissionRatio:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="categoryParentId" >
+        #categoryParentId:DECIMAL#
+      </isNotNull>
+      
+      )
+    </dynamic>
+  </insert>
+  <select id="countByExample" parameterClass="com.kmzyc.supplier.model.example.SuppliersAvailableCategorysExample" resultClass="java.lang.Integer" >
+    select count(*) from SUPPLIERS_AVAILABLE_CATEGORYS
+    <include refid="SUPPLIERS_AVAILABLE_CATEGORYS.Example_Where_Clause" />
+  </select>
+  <update id="updateByExampleSelective" >
+    update SUPPLIERS_AVAILABLE_CATEGORYS
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.sacId" >
+        SAC_ID = #record.sacId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.supplierId" >
+        SUPPLIER_ID = #record.supplierId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.categoryId" >
+        CATEGORY_ID = #record.categoryId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.commissionRatio" >
+        COMMISSION_RATIO = #record.commissionRatio:DECIMAL#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="SUPPLIERS_AVAILABLE_CATEGORYS.Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="updateByExample" >
+    update SUPPLIERS_AVAILABLE_CATEGORYS
+    set SAC_ID = #record.sacId:DECIMAL#,
+      SUPPLIER_ID = #record.supplierId:DECIMAL#,
+      CATEGORY_ID = #record.categoryId:DECIMAL#,
+      COMMISSION_RATIO = #record.commissionRatio:DECIMAL#
+    <isParameterPresent >
+      <include refid="SUPPLIERS_AVAILABLE_CATEGORYS.Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterClass="com.kmzyc.supplier.model.SuppliersAvailableCategorys" >
+    update SUPPLIERS_AVAILABLE_CATEGORYS
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="supplierId" >
+        SUPPLIER_ID = #supplierId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="categoryId" >
+        CATEGORY_ID = #categoryId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="commissionRatio" >
+        COMMISSION_RATIO = #commissionRatio:DECIMAL#
+      </isNotNull>
+    </dynamic>
+    where SAC_ID = #sacId:DECIMAL#
+  </update>
+  <update id="updateByPrimaryKey" parameterClass="com.kmzyc.supplier.model.SuppliersAvailableCategorys" >
+    update SUPPLIERS_AVAILABLE_CATEGORYS
+    set SUPPLIER_ID = #supplierId:DECIMAL#,
+      CATEGORY_ID = #categoryId:DECIMAL#,
+      COMMISSION_RATIO = #commissionRatio:DECIMAL#
+    where SAC_ID = #sacId:DECIMAL#
+  </update>
+  
+  <!-- 查找含有类别名称的信息 -->
+  <select id="selectBySupplierId" resultMap="BaseResultMap2" parameterClass="java.lang.Long" >
+    WITH TAB AS
+		 (SELECT A.SAC_ID,
+		         A.SUPPLIER_ID,
+		         A.CATEGORY_ID,
+		         A.COMMISSION_RATIO * 100 COMMISSION_RATIO,
+		         A.CATEGORY_PARENT_ID,
+		         B.CATEGORY_NAME
+		    FROM SUPPLIERS_AVAILABLE_CATEGORYS A, CATEGORYS B
+		   WHERE A.CATEGORY_ID = B.CATEGORY_ID
+		     AND A.SUPPLIER_ID = #supplierid#
+		     AND A.STATUS = 1)
+		SELECT TAB.SAC_ID,
+		       TAB.SUPPLIER_ID,
+		       TAB.CATEGORY_ID,
+		       TAB.COMMISSION_RATIO,
+		       TAB.CATEGORY_PARENT_ID,
+		       TAB.CATEGORY_NAME
+		  FROM TAB
+		 WHERE NOT (LEVEL = 1 AND CONNECT_BY_ISLEAF = 1)
+		 START WITH CATEGORY_PARENT_ID = 0
+		CONNECT BY PRIOR CATEGORY_ID = CATEGORY_PARENT_ID
+		ORDER BY CATEGORY_ID
+  </select>
+   <select id="categorys_selectBysupplierId" resultMap="BaseResultMap5" parameterClass="com.kmzyc.supplier.model.SuppliersAvailableCategorys" >
+    select SAC_ID, SUPPLIER_ID, CATEGORY_ID,COMMISSION_RATIO,CATEGORY_PARENT_ID
+    from SUPPLIERS_AVAILABLE_CATEGORYS where 1=1
+      <isNotNull prepend="and" property="supplierId" >
+        SUPPLIER_ID = #supplierId:DECIMAL#
+      </isNotNull>
+       <isNotNull prepend="and" property="categoryId" >
+        CATEGORY_ID = #categoryId:DECIMAL#
+      </isNotNull>
+  </select>
+   <delete id="ibatorgenerated_deleteByPrimaryCretgorId" parameterClass="com.kmzyc.supplier.model.SuppliersAvailableCategorys" >
+  	delete from SUPPLIERS_AVAILABLE_CATEGORYS l where l.SUPPLIER_ID = #supplierId:DECIMAL#  and l.CATEGORY_ID = #categoryId:DECIMAL#
+  </delete>
+  
+  
+  <select id="categorys_findSupplierIdCategorys" resultMap="BaseResultMap1" parameterClass="com.kmzyc.supplier.model.SuppliersAvailableCategorys" >
+	  select * from (
+		select SAC.*,CAT.CATEGORY_NAME
+		  from SUPPLIERS_AVAILABLE_CATEGORYS SAC,CATEGORYS CAT
+		 where SAC.CATEGORY_ID = CAT.CATEGORY_ID
+		   <isNotNull prepend="and" property="supplierId" >
+	        SUPPLIER_ID = #supplierId:DECIMAL#
+	      </isNotNull>
+		   ) tab
+		 start with tab.CATEGORY_PARENT_ID = 0
+	connect by prior tab.CATEGORY_ID = tab.CATEGORY_PARENT_ID
+  
+  </select>
+  <delete id="ibatorgenerated_delSupplierIdCategorys">
+	  delete from SUPPLIERS_AVAILABLE_CATEGORYS where SUPPLIER_ID = #supplierId:DECIMAL#
+  </delete>
+  <insert id="ibatorgenerated_insertSupplierIdCategorys"  parameterClass="java.util.Map" >
+	   insert into SUPPLIERS_AVAILABLE_CATEGORYS SAS
+		  (SAS.SAC_ID,
+		   SAS.SUPPLIER_ID,
+		   SAS.CATEGORY_ID,
+		   SAS.CATEGORY_PARENT_ID,
+		   SAS.COMMISSION_RATIO,
+		   SAS.STATUS)
+		  select SEQ_suppliers_categorys.Nextval,
+		         #supplierId#,
+		         scs.category_id,
+		         scs.category_parent_id,
+		         scs.default_rebate,
+		         1 
+		    from suppliers_categorys_scope scs
+		   where scs.category_id in
+		   <iterate conjunction="," open="(" close=")" property="categoryIdList">
+		        #categoryIdList[]#
+		    </iterate>
+    
+  </insert>
+
+    <select id="findSupplierCategory" resultClass="java.lang.String" parameterClass="java.lang.Long" >
+        select CATEGORY_ID
+        from SUPPLIERS_AVAILABLE_CATEGORYS
+        where SUPPLIER_ID = #supplierId:DECIMAL#
+        AND CATEGORY_PARENT_ID = 0
+    </select>
+  
+</sqlMap>

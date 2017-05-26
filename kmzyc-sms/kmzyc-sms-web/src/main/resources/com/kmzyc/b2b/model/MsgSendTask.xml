@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="MsgSendTask">
+
+	<typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+	<!-- 数据源 KMCMS 表为cms_information -->
+	<resultMap id="ibatorgenerated_BaseResultMap" class="com.kmzyc.mailmobile.model.MsgSendTask">
+		<result column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="RECEIVER" property="receiver" jdbcType="VARCHAR" />
+		<result column="CONTENT" property="content" jdbcType="VARCHAR" />
+		<result column="TYPE" property="type" jdbcType="DECIMAL" />
+		<result column="IS_SUCCESS" property="isSuccess" jdbcType="DECIMAL" />
+		<result column="SEND_COUNT" property="sendCount" jdbcType="DECIMAL" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="VARCHAR" />
+		<result column="MSG_TYPE" property="msgType" jdbcType="DECIMAL" />
+		<result column="SEND_RETURN" property="sendReturn" jdbcType="VARCHAR" />
+		<result column="SEND_SUCCESS" property="sendSuccess" jdbcType="VARCHAR" />
+		<result column="RETURN_TIME" property="returnTime" jdbcType="VARCHAR" />
+		<result column="MSG_CHANNEL" property="msgChannel" jdbcType="VARCHAR" />
+		<result column="CHANNEL_TYPE" property="channelType" jdbcType="DECIMAL" />
+		<result column="REPEAT_SEND_ID" property="repeatSendId" jdbcType="DECIMAL" />
+
+	</resultMap>
+
+	<insert id="msgSendTask_insert" parameterClass="com.kmzyc.mailmobile.model.MsgSendTask">
+		<selectKey resultClass="java.lang.Long" keyProperty="id">
+			select SEQ_EM_MSG_SEND_TASK.NEXTVAL from dual
+		</selectKey>
+	    <![CDATA[
+	    	insert into EM_MSG_SEND_TASK (ID, RECEIVER, CONTENT, TYPE, MSG_TYPE,SEND_TIME,
+		      IS_SUCCESS, SEND_COUNT, CREATE_TIME, UPDATE_TIME,SEND_RETURN,SEND_SUCCESS,RETURN_TIME,MSG_CHANNEL,CHANNEL_TYPE,REPEAT_SEND_ID)
+		      values (#id:DECIMAL#, #receiver:VARCHAR#, #content:VARCHAR#,
+		      #type:DECIMAL#,#msgType:DECIMAL#, sysdate, #isSuccess:DECIMAL#, #sendCount:DECIMAL#,
+		      sysdate,sysdate,#sendReturn:VARCHAR#,#sendSuccess:VARCHAR#,#returnTime:VARCHAR#,#msgChannel:VARCHAR#,#channelType:DECIMAL#,#repeatSendId:DECIMAL#)
+	    ]]>
+	</insert>
+
+	<update id="msgSendTask_update" parameterClass="com.kmzyc.mailmobile.model.MsgSendTask">
+		update EM_MSG_SEND_TASK
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="receiver">
+				RECEIVER = #receiver:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="content">
+				CONTENT = #content:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="type">
+				TYPE = #type:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="sendTime">
+				SEND_TIME = sysdate
+			</isNotNull>
+			<isNotNull prepend="," property="isSuccess">
+				IS_SUCCESS = #isSuccess:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="sendCount">
+				SEND_COUNT = #sendCount:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="updateTime">
+				UPDATE_TIME = sysdate
+			</isNotNull>
+			<isNotNull prepend="," property="msgType">
+				MSG_TYPE = #msgType:DECIMAL#
+			</isNotNull>
+
+			<isNotNull prepend="," property="sendReturn">
+				SEND_RETURN = #sendReturn:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="sendSuccess">
+				SEND_SUCCESS = #sendSuccess:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="returnTime">
+				RETURN_TIME = sysdate
+			</isNotNull>
+			
+			<isNotNull prepend="," property="msgChannel">
+				MSG_CHANNEL = #msgChannel:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="channelType">
+				CHANNEL_TYPE = #channelType:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="repeatSendId">
+				REPEAT_SEND_ID = #repeatSendId:DECIMAL#
+			</isNotNull>
+		</dynamic>
+		where ID = #id:DECIMAL#
+	</update>
+
+	<select id="queryMsgSendTask" resultMap="ibatorgenerated_BaseResultMap"
+		parameterClass="java.util.Map">
+		select id,
+		receiver,
+		content,
+		type,
+		SEND_RETURN,
+		SEND_SUCCESS,
+		RETURN_TIME,
+		send_time,
+		is_success,
+		send_count,
+		create_time,
+		update_time,
+		MSG_CHANNEL,
+		CHANNEL_TYPE,
+		REPEAT_SEND_ID,
+		msg_type,SEND_RETURN,SEND_SUCCESS,RETURN_TIME
+		from EM_MSG_SEND_TASK where SEND_RETURN=#sendReturn# and
+		receiver =#mobile#
+	</select>
+
+	<!--查询需要发送的短信任务 -->
+	<select id="queryMsgSendTaskByTiming" resultMap="ibatorgenerated_BaseResultMap"
+		parameterClass="java.util.Map">
+        <![CDATA[
+ select  id,
+		receiver,
+		content,
+		type,
+		SEND_RETURN,
+		SEND_SUCCESS,
+		RETURN_TIME,
+		send_time,
+		is_success,
+		send_count,
+		create_time,
+		update_time,
+		MSG_CHANNEL,
+		CHANNEL_TYPE,
+		REPEAT_SEND_ID,
+		msg_type,SEND_RETURN,SEND_SUCCESS,RETURN_TIME
+   from EM_MSG_SEND_TASK m
+  where ( (m.type = 2 and m.send_count < #timingCount# and m.is_success = 0 and m.send_time <= sysdate)
+     or (m.type = 2 and m.is_success is null and m.send_time <= sysdate))
+     and send_time>=sysdate - #timingTimeOut#/(24*60)
+    
+         ]]>
+	</select>
+
+	<select id="queryMsgSendTaskByTimely" resultMap="ibatorgenerated_BaseResultMap"
+		parameterClass="java.util.Map">
+        <![CDATA[
+         select  id,
+		receiver,
+		content,
+		type,
+		SEND_RETURN,
+		SEND_SUCCESS,
+		RETURN_TIME,
+		send_time,
+		is_success,
+		send_count,
+		create_time,
+		update_time,
+		MSG_CHANNEL,
+		CHANNEL_TYPE,
+		REPEAT_SEND_ID,
+		msg_type,SEND_RETURN,SEND_SUCCESS,RETURN_TIME
+   from EM_MSG_SEND_TASK m
+  where    m.send_count < #timelyCount#  and REPEAT_SEND_ID is null    and
+  (( m.msg_type=27 and  create_time>=sysdate-30/(24*60*60) and (m.send_success<>'DELIVRD'OR  m.is_success =0))
+  or 
+   ( m.msg_type<>27 and  m.msg_type<>26  and m.type = 1  and m.is_success =0   and  create_time>=sysdate-#timelyTimeOut#/(24*60))) and m.msg_type<>999
+ ]]>
+ 
+	</select>
+	
+<select id="selectEmMsgSendTaskCountByDate" parameterClass="java.util.Map"
+	resultClass="java.lang.Integer">
+	select count(1)
+	from EM_MSG_SEND_TASK m
+	WHERE m.is_success =1
+	and m.send_time between
+	to_date('$nowDate$ 0:00:01', 'yyyy-mm-dd hh24:mi:ss') and
+	to_date('$nowDate$ 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+</select>
+
+</sqlMap>

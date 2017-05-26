@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- 重连策略 -->
+    <bean id="retryPolicy" class="org.apache.curator.retry.ExponentialBackoffRetry">
+        <!-- 间隔时间基数 -->
+        <constructor-arg index="0" value="${zk.sleepTime}" />
+        <!-- 重连策略 -->
+        <constructor-arg index="1" value="${zk.retryTimes}" />
+    </bean>
+
+    <bean id="curatorFramework" class="org.apache.curator.framework.CuratorFrameworkFactory"
+          factory-method="newClient" scope="prototype">
+        <constructor-arg index="0" value="${zk.host}" />
+        <!-- sessionTimeoutMs会话超时时间，单位为毫秒。默认是60000ms  -->
+        <constructor-arg index="1" value="${zk.client.timeout}" />
+        <!-- connectionTimeoutMs连接创建超时时间，单位毫秒，默认15000ms -->
+        <constructor-arg index="2" value="${zk.connect.timeout}" />
+        <constructor-arg index="3" ref="retryPolicy" />
+    </bean>
+
+    <!--<bean id="interProcessMutex" class="org.apache.curator.framework.recipes.locks.InterProcessMutex">
+        <constructor-arg index="0" ref="curatorFramework" />
+        <constructor-arg index="1" value="${zk.client.timeout}" />
+    </bean>-->
+</beans>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PRODUCT_CERTIFICATE_FILE" >
+	<resultMap id="productCertificateFileResult" class="com.pltfm.cms.vobject.ProductCertificateFile" >
+		<result column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+		<result column="FILE_CODE" property="fileCode" jdbcType="VARCHAR" />
+		<result column="VALID_TIME" property="validTime" jdbcType="DECIMAL" />
+		<result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+		<result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+		<result column="IS_VALID" property="isValid" jdbcType="DECIMAL" />
+		<result column="CREATE_USER" property="createUser" jdbcType="DECIMAL" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="Date" />
+		<result column="MODIF_USER" property="modifUser" jdbcType="DECIMAL" />
+		<result column="MODIF_TIME" property="modifTime" jdbcType="Date" />
+		<result column="ADVERT_APPROVAL_NO" property="advertApprovalNo" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="findListByProductId" resultMap="productCertificateFileResult" parameterClass="java.lang.Long" >
+	 	SELECT t.ID,
+	           t.PRODUCT_ID,
+	           t.FILE_CODE,
+	           t.VALID_TIME,
+	           t.FILE_PATH,
+	           t.FILE_NAME,
+	           t.IS_VALID,
+	           t.CREATE_USER,
+	           t.CREATE_TIME,
+	           t.MODIF_USER,
+	           t.MODIF_TIME,
+	           t.ADVERT_APPROVAL_NO
+	      FROM PRODUCT_CERTIFICATE_FILE t
+	     WHERE t.PRODUCT_ID = #productId:DECIMAL#
+     </select>
+</sqlMap>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://code.alibabatech.com/schema/dubbo classpath:dubbo.xsd">
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="user-provider" owner="kmzyc.user" />
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry address="${dubbo.registry.address}" client="curator" file="kmzyc-user.cache"/>
+	<!-- 用dubbo协议在20881端口暴露服务 -->
+	<dubbo:protocol name="dubbo" port="20881" /> 
+	<!-- 当ProtocolConfig和ServiceConfig某属性没有配置时,采用此缺省值 -->	
+	<dubbo:provider timeout="10000"  threadpool="fixed" threads="100" accepts="1000"/>
+
+	<!-- 对外暴露的服务 -->
+	<!--删除机构业务 <dubbo:service ref="institutionApplyRecordService"
+		interface="com.km.crowdsourcing.service.InstitutionApplyRecordService" />
+
+	<dubbo:service ref="bagmanService"
+		interface="com.km.crowdsourcing.service.BagmanService" />
+
+	<dubbo:service ref="institutionInfoService"
+		interface="com.km.crowdsourcing.service.InstitutionInfoService" />
+
+	<dubbo:service ref="institutionImageService"
+		interface="com.km.crowdsourcing.service.InstitutionImageService" />
+
+	<dubbo:service ref="institutionAdminService"
+		interface="com.km.crowdsourcing.service.InstitutionAdminService" />
+
+	<dubbo:service ref="qrcodeApplyRecordService"
+		interface="com.km.crowdsourcing.service.QrcodeApplyRecordService" />
+
+	<dubbo:service ref="institutionUserService"
+		interface="com.km.crowdsourcing.service.InstitutionUserService" /> -->
+
+	<!-- 用户注册 -->
+<!--删除机构业务  	<dubbo:service ref="userRegisterService"
+		interface="com.km.crowdsourcing.service.UserRegisterService" />
+	全局变量
+	<dubbo:service ref="globalVariableService"
+		interface="com.km.crowdsourcing.service.GlobalVariableService" />
+	机构结算
+	 <dubbo:service ref="withdrawalsService"
+		interface="com.km.crowdsourcing.service.WithdrawalsService" /> 
+
+	<dubbo:service ref="crowdKeyWordsService"
+		interface="com.km.crowdsourcing.service.KeyWordsService" />
+ -->
+	<!-- 客户成长远程接口 -->
+	<dubbo:service ref="userGrowingService"
+		interface="com.kmzyc.user.remote.service.UserGrowingService">
+		<!--删除此方法 <dubbo:method name="updateScoreInfoAndCreateEP" timeout="30000"></dubbo:method> -->
+	</dubbo:service>
+
+	<!-- 用户收件地址服务 -->
+	<dubbo:service ref="addressRemoteService"
+		interface="com.kmzyc.user.remote.service.AddressRemoteService" />
+
+	<!-- 账户订单交易远程接口 -->
+	<dubbo:service ref="trationListRemoteService"
+		interface="com.kmzyc.user.remote.service.TrationListRemoteService" />
+
+	<!-- 登录记录 -->
+	<dubbo:service ref="latestLoginRemoteService"
+		interface="com.kmzyc.user.remote.service.LatestLoginRemoteService" />
+
+	<!--用户注册远程接口 -->
+	<dubbo:service ref="customerRemoteService"
+		interface="com.kmzyc.user.remote.service.CustomerRemoteService" />
+	<!--时代直销会员远程接口 -->
+	<dubbo:service ref="eraInfoRemoteService"
+		interface="com.kmzyc.user.remote.service.EraInfoRemoteService" />
+	<!--站内通知相关接口 -->
+	<dubbo:service ref="publishMessageRemoteService"
+		interface="com.kmzyc.user.remote.service.PublishMessageRemoteService" />
+	<!--账户列表信息远程接口 -->
+	<dubbo:service ref="accountInfoRemoteService"
+		interface="com.kmzyc.user.remote.service.AccountInfoRemoteService" />
+	 <!--微商相关信息远程接口 -->
+	 <!--删除微商业务
+	<dubbo:service ref="spreaderApplyRecordRemoteService"
+		interface="com.pltfm.remote.service.SpreaderApplyRecordRemoteService" /> -->
+	<!--供应商余额取现相关接口 -->
+	<dubbo:service ref="bnesAcctEnchashmentRemoteService"
+		interface="com.kmzyc.user.remote.service.BnesAcctEnchashmentRemoteService" />
+
+	<!-- 专家经验 -->
+<!-- 	<dubbo:service ref="userExperienceService"
+		interface="com.pltfm.remote.service.UserExperienceService" /> -->
+
+	<!-- 专家信息 -->
+	<dubbo:service ref="specialistRemoteService"
+		interface="com.kmzyc.user.remote.service.SpecialistRemoteService" />
+
+	<!-- 消息中心 -->
+<!-- 	<dubbo:service ref="userMessageCenterService"
+		interface="com.pltfm.remote.service.UserMessageCenterService" /> -->
+
+	<!-- 邮箱验证信息 -->
+	<!--删除邮箱业务  <dubbo:service ref="emailInfoRemoteService"
+		interface="com.pltfm.remote.service.EmailInfoRemoteService" />
+ -->
+	<!-- 安全问题答案信息 -->
+<!-- 	<dubbo:service ref="bnesAnswerInfoRemoteService"
+		interface="com.pltfm.remote.service.BnesAnswerInfoRemoteService" />
+ -->
+	<!-- 安全问题信息 -->
+<!-- 	<dubbo:service ref="safeQuestionRemoteService"
+		interface="com.pltfm.remote.service.SafeQuestionRemoteService" /> -->
+
+	<!-- 实名认证信息 -->
+<!-- 	<dubbo:service ref="bnesAuthenticationInfoRemoteService"
+		interface="com.pltfm.remote.service.BnesAuthenticationInfoRemoteService" /> -->
+
+	<!-- 手机随机码信息 -->
+	<dubbo:service ref="mobileCodeInfRemoteService"
+		interface="com.kmzyc.user.remote.service.MobileCodeInfRemoteService" />
+
+	<!-- 添加申诉 -->
+<!-- 	<dubbo:service ref="bnesAcctAppealInfoService"
+		interface="com.pltfm.app.service.BnesAcctAppealInfoService" /> -->
+
+	<!-- 添加预备金申请记录 -->
+<!-- 删除	<dubbo:service ref="reserverApplyInfoRemoteServce"
+		interface="com.pltfm.remote.service.ReserverApplyInfoRemoteServce" /> -->
+
+	<!--删除 添加采购资格记录 -->
+<!-- 	<dubbo:service ref="qualificaitonsApplyRemoteService"
+		interface="com.pltfm.remote.service.QualificaitonsApplyRemoteService" /> -->
+
+	<!-- 添加资质文件记录 -->
+<!-- 	<dubbo:service ref="qualificaitonsFileRemoteService"
+		interface="com.pltfm.remote.service.QualificaitonsFileRemoteService" /> -->
+
+	<!-- 添加资质文件记录 -->
+<!-- 	<dubbo:service ref="qualificationsRemoteService"
+		interface="com.pltfm.remote.service.QualificationsRemoteService" /> -->
+
+	<!-- 同步总部信息远程接口 -->
+	<!--删除  <dubbo:service ref="sync2BaseRemoteService"
+		interface="com.pltfm.remote.service.Sync2BaseRemoteService" /> -->
+</beans>

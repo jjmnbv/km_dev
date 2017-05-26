@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Information" >
+    
+    <typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+    <!-- 数据源 KMCMS 表为cms_information-->
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.kmzyc.b2b.model.Information" >
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="byPageCondition">
+  	<isNotEmpty property="objCondition.keyWord" prepend="and">
+  		<![CDATA[
+  			info.name like '%'||#objCondition.keyWord:VARCHAR#|| '%' 
+  		]]>
+  	</isNotEmpty>
+  </sql>
+  
+  <select id="searchPage" resultMap="ibatorgenerated_BaseResultMap" parameterClass="pagination" >
+    <![CDATA[
+    SELECT * FROM (SELECT C.*,ROWNUM RN FROM 
+     (select info.name,info.content, info.description from cms_information info,cms_information_type type where
+    info.type_id=type.id and type.name =#objCondition.faqType:VARCHAR# and info.status=0 and info.description is not null and info.site_id=1
+    ]]>
+    <include refid="byPageCondition"/>
+    order by info.orders asc
+    <![CDATA[
+	) C WHERE ROWNUM <= #endindex#) WHERE RN >= #startindex#
+	]]>
+  </select>
+  
+  <select id="searchCountPage" parameterClass="pagination" resultClass="java.lang.Integer">
+	<![CDATA[
+		select count(1) from cms_information info,cms_information_type type where
+    	info.type_id=type.id and type.name = #objCondition.faqType:VARCHAR# and info.status=0 and info.description is not null and info.site_id=1
+	]]>
+	<include refid="byPageCondition"/>
+  </select>
+  	
+</sqlMap>

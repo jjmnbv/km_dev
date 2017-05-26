@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="activity" extends="BasePackage">
+		<!-- 活动列表 -->
+		<action name="getActivityList" class="activityAction" method="getActivityList">
+			<result name="success">/WEB-INF/jsp/activity/activityList.jsp</result>
+		</action>
+
+        <!-- 活动详情 -->
+        <action name="viewActivityInfo" class="activityAction" method="viewActivityInfo">
+            <result name="success">/WEB-INF/jsp/activity/activityDetail.jsp</result>
+        </action>
+
+        <!-- 检查报名权限 -->
+        <action name="checkAuthority" class="activityAction" method="checkAuthority">
+        </action>
+        <!-- 检查报名权限 -->
+        <action name="checkUpdate" class="activityAction" method="checkUpdate">
+        </action>
+
+        <!-- 撤销报名 -->
+        <action name="cancelActivity" class="activityAction" method="cancelActivity">
+        </action>
+
+		<!-- 进入立即报名页面 -->
+        <action name="toRegisterActivity" class="activityAction" method="toRegisterActivity">
+            <result name="success">/WEB-INF/jsp/activity/activityDetail.jsp</result>
+        </action>
+
+		<!-- 进入修改报名页面 -->
+        <action name="toUpdateRegisterActivity" class="activityAction" method="toUpdateRegisterActivity">
+            <result name="success">/WEB-INF/jsp/activity/activityDetail.jsp</result>
+        </action>
+
+        <!-- 进入选择SKU商品页面 -->
+        <action name="getProductSkuList4Activity" class="activityAction" method="getProductSkuList4Activity">
+            <result name="success">/WEB-INF/jsp/activity/supplierSku.jsp</result>
+        </action>
+
+        <!-- 渠道推广时计算单个sku费用 -->
+        <action name="computeMoney" class="activityAction" method="computeMoney">
+        </action>
+
+        <!-- 渠道推广时计算所有费用 -->
+        <action name="computeAllMoney" class="activityAction" method="computeAllMoney">
+        </action>
+
+        <!-- 商家报名活动 -->
+        <action name="saveRegisterActivity" class="activityAction" method="saveRegisterActivity">
+        </action>
+
+        <!-- 商家修改报名活动 -->
+        <action name="updateRegisterActivity" class="activityAction" method="updateRegisterActivity">
+        </action>
+
+        <!-- 进入追加推广页面 -->
+        <action name="toAppendActivity" class="activityAction" method="toAppendActivity">
+            <result name="success">/WEB-INF/jsp/activity/activityAppendSku.jsp</result>
+        </action>
+
+        <!-- 保存追加推广 -->
+        <action name="saveAppendActivity" class="activityAction" method="saveAppendActivity">
+        </action>
+
+        <!-- 进入追加推广缴费页面 -->
+        <action name="toAppendPayment" class="activityAction" method="toAppendPayment">
+            <result name="success">/WEB-INF/jsp/activity/activityPay.jsp</result>
+        </action>
+
+        <!-- 进入立即缴费页面 -->
+        <action name="toPayment" class="activityAction" method="toPayment">
+            <result name="success">/WEB-INF/jsp/activity/activityPay.jsp</result>
+        </action>
+        
+        <!-- 去充值页面 -->
+        <action name="toTopUp" class="activityAction" method="toTopUp">
+        	<result name="success">/WEB-INF/jsp/activity/topUpPage.jsp</result>
+        </action>
+        
+        <!-- 充值 -->
+        <action name="insertTopUp" class="activityAction" method="insertTopUp"></action>
+
+        <!-- 支付 -->
+        <action name="pay" class="activityAction" method="pay">
+        </action>
+
+        <!-- 活动推广效果列表 -->
+		<action name="findMyPromotionEffectList" class="supplierActivityResultAction" method="findMyPromotionEffectList">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/activityPromotionEffectList.jsp
+			</result>
+		</action>
+		
+		<!-- 促销活动销量统计 -->
+		<action name="findMyPromotionActivitySales" class="supplierActivityResultAction" method="findMyPromotionActivitySales">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/productSales_promotion.jsp
+			</result>
+		</action>
+		
+		<!-- 图文活动销量统计 -->
+		<action name="findMyTeletextActivitySales" class="supplierActivityResultAction" method="findMyTeletextActivitySales">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/productSales_teleText.jsp
+			</result>
+		</action>
+		
+		<!-- 渠道活动销量统计 -->
+		<action name="findMyChannelActivitySalesList" class="supplierActivityResultAction" method="findMyChannelActivitySalesList">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/productSales_channel.jsp
+			</result>
+		</action>
+		
+		<!-- 活动追加推广明细 -->
+		<action name="findAppendProductDetail" class="supplierActivityResultAction" method="findAppendProductDetail">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/appendProductDetail.jsp
+			</result>
+		</action>
+		
+		<!-- 活动SKU销量明细 -->
+		<action name="findMyActivitySkuSalesDetail" class="supplierActivityResultAction" method="findMyActivitySkuSalesDetail">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/skuSalesDetail.jsp
+			</result>
+		</action>
+		
+		<!-- 活动详情 -->
+		<action name="findActivityDetail" class="supplierActivityResultAction" method="findActivityDetail">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/activityPromotionDetail.jsp
+			</result>
+		</action>
+		
+		<!-- 订单详情 -->
+		<action name="showOrderDetail" class="supplierActivityResultAction" method="showOrderDetail">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/orderDetail.jsp
+			</result>
+		</action>
+    </package>
+</struts>

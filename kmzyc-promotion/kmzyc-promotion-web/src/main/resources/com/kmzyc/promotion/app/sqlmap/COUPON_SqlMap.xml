@@ -1,0 +1,841 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="COUPON" >
+    <resultMap id="ibatorgenerated_CouponResult" class="com.kmzyc.promotion.sys.model.SysModelUtil">
+    <result column="the_count" property="theCount" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.kmzyc.promotion.app.vobject.Coupon" >
+    <result column="COUPON_ID" property="couponId" jdbcType="DECIMAL" />
+    <result column="COUPON_GIVETYPE_ID" property="couponGivetypeId" jdbcType="DECIMAL" />
+    <result column="COUPON_NAME" property="couponName" jdbcType="VARCHAR" />
+    <result column="COUPON_DESCRIBE" property="couponDescribe" jdbcType="VARCHAR" />
+    <result column="COUPON_MONEY" property="couponMoney" jdbcType="DECIMAL" />
+    <result column="STARTTIME" property="starttime" jdbcType="date"  />
+    <result column="ENDTIME" property="endtime" jdbcType="date"  />
+    <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="CUSTOM_LEVEID" property="customLeveid" jdbcType="VARCHAR" />
+    <result column="CUSTOM_REG_START" property="customRegStart" jdbcType="VARCHAR" />
+    <result column="CUSTOM_REG_END" property="customRegEnd" jdbcType="VARCHAR" />
+    <result column="PAY_LEAST_MONEY" property="payLeastMoney" jdbcType="DECIMAL" />
+    <result column="SHOP_CODE" property="shopCode"  jdbcType="VARCHAR" />
+    <result column="CUSTOM_ID" property="customId" jdbcType="VARCHAR" />
+    <result column="IS_GRANT" property="isGrant" jdbcType="VARCHAR" />
+    <result column="COUPON_VALID_DAY" property="couponValidDay" jdbcType="DECIMAL" />
+    <result column="IS_VALIDE" property="isValide"  jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ibatorgeneratedNew_BaseResultMap" class="com.kmzyc.promotion.app.vobject.Coupon" extends="ibatorgenerated_BaseResultMap">
+    <result column="SUPPLIER_TYPE" property="supplierType" jdbcType="DECIMAL" />
+    <result column="IS_STATUS" property="isStatus" jdbcType="DECIMAL" />
+    <result column="TIME_TYPE" property="timeType" jdbcType="DECIMAL" />
+    <result column="RANG_TYPE" property="rangType" jdbcType="DECIMAL" />
+    <result column="USE_LIMITS_TYPE" property="useLimitsType" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="ibatorgenerated_CouponGrantMap" class="com.kmzyc.promotion.app.vobject.Coupon">
+    <result column="COUPON_ID" property="couponId" jdbcType="DECIMAL" />
+    <result column="SUPPLIER_TYPE" property="supplierType" jdbcType="DECIMAL" />
+    <result column="SHOP_CODE" property="shopCode"  jdbcType="VARCHAR" />
+    <result column="COUPON_NAME" property="couponName" jdbcType="VARCHAR" />
+    <result column="PAY_LEAST_MONEY" property="payLeastMoney" jdbcType="DECIMAL" />
+    <result column="COUPON_MONEY" property="couponMoney" jdbcType="DECIMAL" />
+    <result column="RANG_TYPE" property="rangType" jdbcType="DECIMAL" />
+    <result column="USE_LIMITS_TYPE" property="useLimitsType" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap class="com.kmzyc.promotion.app.vobject.Coupon" id="couponOBJMap">
+  	<result column="COUPON_ID" property="couponId" jdbcType="DECIMAL" />
+    <result column="COUPON_GIVETYPE_ID" property="couponGivetypeId" jdbcType="DECIMAL" />
+    <result column="COUPON_NAME" property="couponName" jdbcType="VARCHAR" />
+    <result column="COUPON_DESCRIBE" property="couponDescribe" jdbcType="VARCHAR" />
+    <result column="COUPON_MONEY" property="couponMoney" jdbcType="DECIMAL" />
+    <result column="STARTTIME" property="starttime" jdbcType="date"  />
+    <result column="ENDTIME" property="endtime" jdbcType="date"  />
+    <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="SUPPLIER_TYPE" property="supplierType" jdbcType="DECIMAL" />
+    <result column="CUSTOM_LEVEID" property="customLeveid" jdbcType="VARCHAR" />
+    <result column="CUSTOM_REG_START" property="customRegStart" jdbcType="VARCHAR" />
+    <result column="CUSTOM_REG_END" property="customRegEnd" jdbcType="VARCHAR" />
+    <result column="PAY_LEAST_MONEY" property="payLeastMoney" jdbcType="DECIMAL" />
+    <result column="SHOP_CODE" property="shopCode"  jdbcType="VARCHAR" />
+    <result column="CUSTOM_ID" property="customId" jdbcType="VARCHAR" />
+    <result column="IS_GRANT" property="isGrant" jdbcType="VARCHAR" />
+    <result column="COUPON_VALID_DAY" property="couponValidDay" jdbcType="DECIMAL" />
+    <result column="IS_VALIDE" property="isValide"  jdbcType="VARCHAR" />
+    <result column="RANG_TYPE" property="rangType"  jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <!-- 规则优化部分 -->
+  <!-- 优惠券名称重复验证 -->
+  <select id="ibatorgenerated_selectCouponName" resultMap="ibatorgeneratedNew_BaseResultMap" parameterClass="java.util.Map" >
+  	select COUPON_ID, COUPON_GIVETYPE_ID, COUPON_NAME, COUPON_DESCRIBE, COUPON_MONEY, STARTTIME,
+      ENDTIME, CREATETIME, STATUS, CUSTOM_LEVEID, CUSTOM_REG_START, CUSTOM_REG_END, PAY_LEAST_MONEY,
+      CUSTOM_ID, IS_GRANT, COUPON_VALID_DAY, IS_VALIDE, SHOP_CODE, SUPPLIER_TYPE,
+      IS_STATUS, TIME_TYPE, RANG_TYPE,USE_LIMITS_TYPE
+   	 from COUPON where COUPON_NAME = #newCouponName#
+   	 <isNotNull prepend="AND" property="oldCouponName" >
+   		<isNotEmpty property="oldCouponName">
+   		 #oldCouponName# not in COUPON_NAME
+   		</isNotEmpty>
+   </isNotNull>
+  </select>
+  <!-- 分页查询规则 -->
+  <select id="ibatorgenerated_selectByCondition" resultMap="ibatorgeneratedNew_BaseResultMap" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+   select * from 
+    (select ROW_NUMBER() OVER(order by COUPON_ID desc) as view_row_number, COUPON_ID, COUPON_GIVETYPE_ID, COUPON_NAME, COUPON_DESCRIBE, COUPON_MONEY, STARTTIME,
+      ENDTIME , CREATETIME, STATUS, CUSTOM_LEVEID, CUSTOM_REG_START, CUSTOM_REG_END, PAY_LEAST_MONEY,
+      CUSTOM_ID, IS_GRANT, COUPON_VALID_DAY,IS_VALIDE,SHOP_CODE,SUPPLIER_TYPE,IS_STATUS,TIME_TYPE,RANG_TYPE,USE_LIMITS_TYPE
+    from COUPON where 1=1 and status in (1,2)
+   <isNotNull prepend="AND" property="couponName" >
+   		<isNotEmpty property="couponName">
+   		 COUPON_NAME   like '%$couponName$%'
+   		</isNotEmpty>
+   </isNotNull>
+    <isNotNull prepend="AND" property="supplierType" >
+   		<isNotEmpty property="supplierType">
+   		 SUPPLIER_TYPE   = #supplierType#
+   		</isNotEmpty>
+   </isNotNull>
+    <isNotNull prepend="AND" property="status" >
+   		<isNotEmpty property="status">
+   		STATUS   = #status#
+   		</isNotEmpty>
+   </isNotNull>
+    ) WHERE view_row_number between #skip# and #max#
+	order by CREATETIME desc
+  </select>
+  <!-- 分页查询可用优惠券总数 -->
+    <select id="ibatorgenerated_selectByStatus" resultMap="ibatorgeneratedNew_BaseResultMap" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+   select * from 
+    (select ROW_NUMBER() OVER(order by COUPON_ID desc) as view_row_number, COUPON_ID, COUPON_GIVETYPE_ID, COUPON_NAME, COUPON_DESCRIBE, COUPON_MONEY, STARTTIME,
+      ENDTIME , CREATETIME, STATUS, CUSTOM_LEVEID, CUSTOM_REG_START, CUSTOM_REG_END, PAY_LEAST_MONEY,
+      CUSTOM_ID, IS_GRANT, COUPON_VALID_DAY,IS_VALIDE,SHOP_CODE,SUPPLIER_TYPE,IS_STATUS,TIME_TYPE,RANG_TYPE,USE_LIMITS_TYPE
+    from COUPON where STATUS IN (1,2)
+   <isNotNull prepend="AND" property="couponName" >
+   		<isNotEmpty property="couponName">
+   		 COUPON_NAME   like '%$couponName$%'
+   		</isNotEmpty>
+   </isNotNull>
+    <isNotNull prepend="AND" property="couponId" >
+   		<isNotEmpty property="couponId">
+   		 coupon_id   = #couponId#
+   		</isNotEmpty>
+   </isNotNull>
+    ) WHERE view_row_number between #skip# and #max#
+	order by CREATETIME desc
+  </select>
+  <!-- 获取规则总数 -->
+   <select id="ibatorgenerated_selectCount" resultClass="java.lang.Integer" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+  select count(*) from COUPON where 1=1  and status in (1,2)
+  <isNotNull prepend="AND" property="couponName" >
+   		<isNotEmpty property="couponName">
+   		 COUPON_NAME   like '%$couponName$%'
+   		</isNotEmpty>
+   </isNotNull>
+    <isNotNull prepend="AND" property="supplierType" >
+   		<isNotEmpty property="supplierType">
+   		 SUPPLIER_TYPE   = #supplierType#
+   		</isNotEmpty>
+   </isNotNull>
+    <isNotNull prepend="AND" property="status" >
+   		<isNotEmpty property="status">
+   		STATUS   = #status#
+   		</isNotEmpty>
+   </isNotNull>
+  </select>
+  <!-- 查询可用优惠券总数 -->
+     <select id="selectCountByStatus" resultClass="java.lang.Integer" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+  select count(*) from COUPON where STATUS IN (1,2)
+  <isNotNull prepend="AND" property="couponName" >
+   		<isNotEmpty property="couponName">
+   		 COUPON_NAME   like '%$couponName$%'
+   		</isNotEmpty>
+   </isNotNull>
+    <isNotNull prepend="AND" property="couponId" >
+   		<isNotEmpty property="couponId">
+   		 coupon_id   = #couponId#
+   		</isNotEmpty>
+   </isNotNull>
+  </select>
+  <!-- 规则添加 -->
+   <insert id="ibatorgeneratedRule_insert" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+    <selectKey resultClass="java.lang.Long" keyProperty="couponId" >
+           select SEQ_APP_COUPONID.nextval from dual
+    </selectKey>
+    insert into COUPON (COUPON_ID, COUPON_GIVETYPE_ID, COUPON_NAME, COUPON_DESCRIBE, COUPON_MONEY,
+      STARTTIME, ENDTIME, CREATETIME, STATUS, CUSTOM_LEVEID, CUSTOM_REG_START, CUSTOM_REG_END,
+      PAY_LEAST_MONEY, CUSTOM_ID, IS_GRANT, COUPON_VALID_DAY, IS_VALIDE, SHOP_CODE,
+      SUPPLIER_TYPE, IS_STATUS, TIME_TYPE, RANG_TYPE,USE_LIMITS_TYPE)
+    values (#couponId:DECIMAL#, #couponGivetypeId:DECIMAL#, #couponName:VARCHAR#,
+      #couponDescribe:VARCHAR#, #couponMoney:DECIMAL#, #starttime#, #endtime#,
+      #createtime#, #status:DECIMAL#, #customLeveid:VARCHAR#, #customRegStart:DATE#,
+      #customRegEnd:DATE#, #payLeastMoney:DECIMAL#, #customId:VARCHAR#, #isGrant:VARCHAR#,
+      #couponValidDay:DECIMAL#, #isValide:VARCHAR#, #shopCode:VARCHAR#,
+      #supplierType:DECIMAL#, #isStatus:DECIMAL#, #timeType:DECIMAL#, #rangType:DECIMAL#, #useLimitsType:VARCHAR#)
+  </insert>
+   <!-- 查询优惠券规则 -->
+   <select id="ibatorgenerated_selectByCoupon" resultMap="ibatorgeneratedNew_BaseResultMap" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+    select COUPON_ID, COUPON_GIVETYPE_ID, COUPON_NAME, COUPON_DESCRIBE, COUPON_MONEY, STARTTIME,
+      ENDTIME, CREATETIME, STATUS, CUSTOM_LEVEID, CUSTOM_REG_START, CUSTOM_REG_END, PAY_LEAST_MONEY,
+      CUSTOM_ID, IS_GRANT, COUPON_VALID_DAY, IS_VALIDE, SHOP_CODE, SUPPLIER_TYPE,
+      IS_STATUS, TIME_TYPE, RANG_TYPE,USE_LIMITS_TYPE
+    from COUPON  where 1=1
+     <isNotNull prepend="AND" property="couponId" >
+   		<isNotEmpty property="couponId">
+   		 COUPON_ID   = #couponId:DECIMAL#
+   		</isNotEmpty>
+   </isNotNull>
+   <isNotNull prepend="AND" property="couponName" >
+   		<isNotEmpty property="couponName">
+   		 COUPON_NAME   like '%$couponName$%'
+   		</isNotEmpty>
+   </isNotNull>
+    <isNotNull prepend="AND" property="supplierType" >
+   		<isNotEmpty property="supplierType">
+   		 SUPPLIER_TYPE  = #supplierType#
+   		</isNotEmpty>
+   </isNotNull>
+   <isNotNull prepend="AND" property="status" >
+   		<isNotEmpty property="status">
+   		 STATUS   = #status#
+   		</isNotEmpty>
+   </isNotNull>
+    <isNotNull prepend="AND" property="notStatus" >
+   		<isNotEmpty property="notStatus">
+   		 STATUS   != #notStatus#
+   		</isNotEmpty>
+   </isNotNull>
+    <isNotNull prepend="AND" property="timeType" >
+   		<isNotEmpty property="timeType">
+   		 TIME_TYPE   = #timeType#
+   		</isNotEmpty>
+   </isNotNull>
+    <isNotNull prepend="AND" property="endtime" >
+   		<isNotEmpty property="endtime">
+   		<![CDATA[
+   		 ENDTIME  <= #endtime#
+   		 	]]>
+   		</isNotEmpty>
+   </isNotNull>
+  </select>
+  <!-- 修改优惠券规则 -->
+  <update id="ibatorgenerated_updateCoupon" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+    update COUPON
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="couponGivetypeId" >
+        COUPON_GIVETYPE_ID = #couponGivetypeId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="couponName" >
+        COUPON_NAME = #couponName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="couponDescribe" >
+        COUPON_DESCRIBE = #couponDescribe:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="couponMoney" >
+        COUPON_MONEY = #couponMoney:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="starttime" >
+        STARTTIME = #starttime#
+      </isNotNull>
+      <isNotNull prepend="," property="endtime" >
+        ENDTIME = #endtime#
+      </isNotNull>
+      <isNotNull prepend="," property="createtime" >
+        CREATETIME = #createtime#
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        STATUS = #status:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="customLeveid" >
+        CUSTOM_LEVEID = #customLeveid:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="customRegStart" >
+        CUSTOM_REG_START = #customRegStart:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="customRegEnd" >
+        CUSTOM_REG_END = #customRegEnd:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="payLeastMoney" >
+        PAY_LEAST_MONEY = #payLeastMoney:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="customId" >
+        CUSTOM_ID = #customId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="isGrant" >
+        IS_GRANT = #isGrant:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="couponValidDay" >
+        COUPON_VALID_DAY = #couponValidDay:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="isValide" >
+        IS_VALIDE = #isValide:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="shopCode" >
+        SHOP_CODE = #shopCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="supplierType" >
+        SUPPLIER_TYPE = #supplierType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="isStatus" >
+        IS_STATUS = #isStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="timeType" >
+        TIME_TYPE = #timeType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="rangType" >
+        RANG_TYPE = #rangType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="useLimitsType" >
+        USE_LIMITS_TYPE = #useLimitsType:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    where COUPON_ID = #couponId:DECIMAL#
+  </update>
+   
+  <sql id="ibatorgenerated_Example_Where_Clause" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Thu Aug 22 09:31:11 CST 2013.
+    -->
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  <select id="ibatorgenerated_selectByExample" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.kmzyc.promotion.app.vobject.CouponExample" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Thu Aug 22 09:31:11 CST 2013.
+    -->
+    select COUPON_ID, COUPON_GIVETYPE_ID, COUPON_NAME, COUPON_DESCRIBE, COUPON_MONEY, STARTTIME,
+      ENDTIME, CREATETIME, STATUS, CUSTOM_LEVEID, CUSTOM_REG_START, CUSTOM_REG_END, PAY_LEAST_MONEY,
+      CUSTOM_ID, IS_GRANT, COUPON_VALID_DAY ,IS_VALIDE,SHOP_CODE
+    from COUPON
+    <isParameterPresent >
+      <include refid="COUPON.ibatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Thu Aug 22 09:31:11 CST 2013.
+    -->
+    select COUPON_ID, COUPON_GIVETYPE_ID, COUPON_NAME, COUPON_DESCRIBE, COUPON_MONEY, STARTTIME,
+      ENDTIME , CREATETIME, STATUS, CUSTOM_LEVEID, CUSTOM_REG_START, CUSTOM_REG_END, PAY_LEAST_MONEY,
+      CUSTOM_ID, IS_GRANT, COUPON_VALID_DAY,IS_VALIDE,SHOP_CODE
+    from COUPON
+    where COUPON_ID = #couponId:DECIMAL#
+  </select>
+  <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Thu Aug 22 09:31:11 CST 2013.
+    -->
+    delete from COUPON
+    where COUPON_ID = #couponId:DECIMAL#
+  </delete>
+  <delete id="ibatorgenerated_deleteByExample" parameterClass="com.kmzyc.promotion.app.vobject.CouponExample" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Thu Aug 22 09:31:11 CST 2013.
+    -->
+    delete from COUPON
+    <include refid="COUPON.ibatorgenerated_Example_Where_Clause" />
+  </delete>
+  <insert id="ibatorgenerated_insert" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Thu Aug 22 09:31:11 CST 2013.
+    -->
+     <selectKey resultClass="java.lang.Long" keyProperty="couponId" >
+           select SEQ_APP_COUPONID.nextval from dual
+    </selectKey>
+    insert into COUPON (COUPON_ID, COUPON_GIVETYPE_ID, COUPON_NAME, COUPON_DESCRIBE, COUPON_MONEY,
+      STARTTIME, ENDTIME, CREATETIME, STATUS, CUSTOM_LEVEID, CUSTOM_REG_START, CUSTOM_REG_END,
+      PAY_LEAST_MONEY, CUSTOM_ID, IS_GRANT, COUPON_VALID_DAY)
+    values (#couponId:DECIMAL#, #couponGivetypeId:DECIMAL#, #couponName:VARCHAR#,
+      #couponDescribe:VARCHAR#, #couponMoney:DECIMAL#, #starttime:VARCHAR#, #endtime:VARCHAR#,
+      #createtime:VARCHAR#, #status:DECIMAL#, #customLeveid:VARCHAR#, #customRegStart:VARCHAR#,
+      #customRegEnd:VARCHAR#, #payLeastMoney:DECIMAL#, #customId:VARCHAR#, #isGrant:VARCHAR#,
+      #couponValidDay:DECIMAL#)
+  </insert>
+  <!-- 优惠券新增 -->
+  <insert id="ibatorgenerated_insertSelective" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Thu Aug 22 09:31:11 CST 2013.
+    -->
+    <selectKey resultClass="java.lang.Long" keyProperty="couponId" >
+           select SEQ_APP_COUPONID.nextval from dual
+    </selectKey>
+    insert into COUPON
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="couponId" >
+        COUPON_ID
+      </isNotNull>
+      <isNotNull prepend="," property="couponGivetypeId" >
+        COUPON_GIVETYPE_ID
+      </isNotNull>
+      <isNotNull prepend="," property="couponName" >
+        COUPON_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="couponDescribe" >
+        COUPON_DESCRIBE
+      </isNotNull>
+      <isNotNull prepend="," property="couponMoney" >
+        COUPON_MONEY
+      </isNotNull>
+      <isNotNull prepend="," property="starttime" >
+        STARTTIME
+      </isNotNull>
+      <isNotNull prepend="," property="endtime" >
+        ENDTIME
+      </isNotNull>
+      <isNotNull prepend="," property="createtime" >
+        CREATETIME
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        STATUS
+      </isNotNull>
+      <isNotNull prepend="," property="customLeveid" >
+        CUSTOM_LEVEID
+      </isNotNull>
+      <isNotNull prepend="," property="customRegStart" >
+        CUSTOM_REG_START
+      </isNotNull>
+      <isNotNull prepend="," property="customRegEnd" >
+        CUSTOM_REG_END
+      </isNotNull>
+      <isNotNull prepend="," property="payLeastMoney" >
+        PAY_LEAST_MONEY
+      </isNotNull>
+      <isNotNull prepend="," property="customId" >
+        CUSTOM_ID
+      </isNotNull>
+      <isNotNull prepend="," property="isGrant" >
+        IS_GRANT
+      </isNotNull>
+      <isNotNull prepend="," property="couponValidDay" >
+        COUPON_VALID_DAY
+      </isNotNull>
+      <isNotNull prepend="," property="isValide" >
+        IS_VALIDE
+      </isNotNull>
+      <isNotNull prepend="," property="shopCode" >
+        SHOP_CODE
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="couponId" >
+        #couponId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="couponGivetypeId" >
+        #couponGivetypeId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="couponName" >
+        #couponName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="couponDescribe" >
+        #couponDescribe:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="couponMoney" >
+        #couponMoney:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="starttime" >
+        #starttime#
+      </isNotNull>
+      <isNotNull prepend="," property="endtime" >
+        #endtime#
+      </isNotNull>
+      <isNotNull prepend="," property="createtime" >
+        #createtime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        #status:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="customLeveid" >
+        #customLeveid:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="customRegStart" >
+        #customRegStart:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="customRegEnd" >
+        #customRegEnd:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="payLeastMoney" >
+        #payLeastMoney:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="customId" >
+        #customId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="isGrant" >
+        #isGrant:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="couponValidDay" >
+        #couponValidDay:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="isValide" >
+        #isValide:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="shopCode" >
+        #shopCode:VARCHAR#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  <select id="ibatorgenerated_countByExample" parameterClass="com.kmzyc.promotion.app.vobject.CouponExample" resultClass="java.lang.Integer" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Thu Aug 22 09:31:11 CST 2013.
+    -->
+    select count(*) from COUPON
+    <include refid="COUPON.ibatorgenerated_Example_Where_Clause" />
+  </select>
+  <update id="ibatorgenerated_updateByExampleSelective" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Thu Aug 22 09:31:11 CST 2013.
+    -->
+    update COUPON
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.couponId" >
+        COUPON_ID = #record.couponId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.couponGivetypeId" >
+        COUPON_GIVETYPE_ID = #record.couponGivetypeId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.couponName" >
+        COUPON_NAME = #record.couponName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.couponDescribe" >
+        COUPON_DESCRIBE = #record.couponDescribe:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.couponMoney" >
+        COUPON_MONEY = #record.couponMoney:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.starttime" >
+        STARTTIME = #record.starttime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.endtime" >
+        ENDTIME = #record.endtime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createtime" >
+        CREATETIME = #record.createtime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.status" >
+        STATUS = #record.status:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.customLeveid" >
+        CUSTOM_LEVEID = #record.customLeveid:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.customRegStart" >
+        CUSTOM_REG_START = #record.customRegStart:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.customRegEnd" >
+        CUSTOM_REG_END = #record.customRegEnd:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.payLeastMoney" >
+        PAY_LEAST_MONEY = #record.payLeastMoney:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.customId" >
+        CUSTOM_ID = #record.customId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.isGrant" >
+        IS_GRANT = #record.isGrant:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.couponValidDay" >
+        COUPON_VALID_DAY = #record.couponValidDay:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.isValide" >
+        IS_VALIDE = #record.isValide:VARCHAR#
+      </isNotNull>
+            <isNotNull prepend="," property="record.shopCode" >
+        SHOP_CODE = #record.shopCode:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="COUPON.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="ibatorgenerated_updateByExample" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Thu Aug 22 09:31:11 CST 2013.
+    -->
+    update COUPON
+    set COUPON_ID = #record.couponId:DECIMAL#,
+      COUPON_GIVETYPE_ID = #record.couponGivetypeId:DECIMAL#,
+      COUPON_NAME = #record.couponName:VARCHAR#,
+      COUPON_DESCRIBE = #record.couponDescribe:VARCHAR#,
+      COUPON_MONEY = #record.couponMoney:DECIMAL#,
+      STARTTIME = #record.starttime:VARCHAR#,
+      ENDTIME = #record.endtime:VARCHAR#,
+      CREATETIME = #record.createtime:VARCHAR#,
+      STATUS = #record.status:DECIMAL#,
+      CUSTOM_LEVEID = #record.customLeveid:VARCHAR#,
+      CUSTOM_REG_START = #record.customRegStart:VARCHAR#,
+      CUSTOM_REG_END = #record.customRegEnd:VARCHAR#,
+      PAY_LEAST_MONEY = #record.payLeastMoney:DECIMAL#,
+      CUSTOM_ID = #record.customId:VARCHAR#,
+      IS_GRANT = #record.isGrant:VARCHAR#,
+      COUPON_VALID_DAY = #record.couponValidDay:DECIMAL#,
+      IS_VALIDE = #record.isValide:VARCHAR#
+      SHOP_CODE = #record.shopCode:VARCHAR#
+    <isParameterPresent >
+      <include refid="COUPON.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Thu Aug 22 09:31:11 CST 2013.
+    -->
+    update COUPON
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="couponGivetypeId" >
+        COUPON_GIVETYPE_ID = #couponGivetypeId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="couponName" >
+        COUPON_NAME = #couponName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="couponDescribe" >
+        COUPON_DESCRIBE = #couponDescribe:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="couponMoney" >
+        COUPON_MONEY = #couponMoney:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="starttime" >
+        STARTTIME = #starttime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="endtime" >
+        ENDTIME = #endtime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createtime" >
+        CREATETIME = #createtime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        STATUS = #status:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="customLeveid" >
+        CUSTOM_LEVEID = #customLeveid:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="customRegStart" >
+        CUSTOM_REG_START = #customRegStart:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="customRegEnd" >
+        CUSTOM_REG_END = #customRegEnd:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="payLeastMoney" >
+        PAY_LEAST_MONEY = #payLeastMoney:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="customId" >
+        CUSTOM_ID = #customId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="isGrant" >
+        IS_GRANT = #isGrant:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="couponValidDay" >
+        COUPON_VALID_DAY = #couponValidDay:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="isValide" >
+        IS_VALIDE = #isValide:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    where COUPON_ID = #couponId:DECIMAL#
+  </update>
+  <update id="ibatorgenerated_updateByPrimaryKey" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Thu Aug 22 09:31:11 CST 2013.
+    -->
+    update COUPON
+    set COUPON_GIVETYPE_ID = #couponGivetypeId:DECIMAL#,
+      COUPON_NAME = #couponName:VARCHAR#,
+      COUPON_DESCRIBE = #couponDescribe:VARCHAR#,
+      COUPON_MONEY = #couponMoney:DECIMAL#,
+      STARTTIME = #starttime:VARCHAR#,
+      ENDTIME = #endtime:VARCHAR#,
+      CREATETIME = #createtime:VARCHAR#,
+      STATUS = #status:DECIMAL#,
+      CUSTOM_LEVEID = #customLeveid:VARCHAR#,
+      CUSTOM_REG_START = #customRegStart:VARCHAR#,
+      CUSTOM_REG_END = #customRegEnd:VARCHAR#,
+      PAY_LEAST_MONEY = #payLeastMoney:DECIMAL#,
+      CUSTOM_ID = #customId:VARCHAR#,
+      IS_GRANT = #isGrant:VARCHAR#,
+      COUPON_VALID_DAY = #couponValidDay:DECIMAL#,
+      IS_VALIDE = #isValide:VARCHAR#
+    where COUPON_ID = #couponId:DECIMAL#
+  </update>
+  
+  <!-- 分页查询 -->
+  <select id="searchPageByVo" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.kmzyc.promotion.app.vobject.Coupon">
+    select
+    COUPON_ID, COUPON_GIVETYPE_ID, COUPON_NAME, COUPON_DESCRIBE, COUPON_MONEY,
+    STARTTIME, ENDTIME, CREATETIME, STATUS, CUSTOM_LEVEID, CUSTOM_REG_START, CUSTOM_REG_END,
+    PAY_LEAST_MONEY, CUSTOM_ID, IS_GRANT, COUPON_VALID_DAY,IS_VALIDE,SHOP_CODE
+    FROM (
+    select  ROW_NUMBER() OVER(order by COUPON_ID desc) as view_row_number, COUPON_ID, COUPON_GIVETYPE_ID, COUPON_NAME, COUPON_DESCRIBE, COUPON_MONEY,
+    STARTTIME, ENDTIME, CREATETIME, STATUS, CUSTOM_LEVEID, CUSTOM_REG_START, CUSTOM_REG_END,
+    PAY_LEAST_MONEY, CUSTOM_ID, IS_GRANT, COUPON_VALID_DAY,IS_VALIDE,SHOP_CODE
+    from Coupon c where 1=1
+      <isNotNull   property="couponGivetypeId" >
+   		and   COUPON_GIVETYPE_ID  = #couponGivetypeId:DECIMAL#
+      </isNotNull>
+       <isNotNull   property="couponName" >
+  		 and   COUPON_NAME   like '%$couponName$%'
+      </isNotNull>
+      <isNotEmpty property="shopCode">
+	      <isEqual property="shopCode" compareValue="0">
+	      	and (c.shop_code is null
+	  		or exists (select 1
+	          from suppliers_info s
+	         where (s.supplier_type = 1
+	            or s.supplier_type = 3)
+	           and instr(',' || c.shop_code || ',', ',' || s.supplier_id || ',',1,1) > 0))
+	      </isEqual>
+	      <isNotEqual property="shopCode" compareValue="0">
+	      		and (c.shop_code is null or instr(',' || c.shop_code || ',',',' ||$shopCode$|| ',',1,1) > 0)
+	      </isNotEqual>
+      </isNotEmpty>
+    )
+    WHERE view_row_number between #skip# and #max#
+	order by CREATETIME desc
+	</select>
+	
+ <!-- 查询总条数 --> 
+  <select id="getCouponCount" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" resultMap="ibatorgenerated_CouponResult">
+     select count(1) the_count from Coupon c 
+     WHERE  COUPON_NAME like '%$couponName$%'
+       <isNotNull   property="couponGivetypeId" >
+      AND  COUPON_GIVETYPE_ID  = #couponGivetypeId:DECIMAL#
+      </isNotNull>
+      <isNotNull   property="couponName" >
+  		 and   COUPON_NAME   like '%$couponName$%'
+      </isNotNull>
+       <isNotEmpty property="shopCode">
+	         <isEqual property="shopCode" compareValue="0">
+	      	and (c.shop_code is null
+	  		or exists (select 1
+	          from suppliers_info s
+	         where (s.supplier_type = 1
+	            or s.supplier_type = 3)
+	           and instr(',' || c.shop_code || ',', ',' || s.supplier_id || ',',1,1) > 0))
+	      </isEqual>
+	      <isNotEqual property="shopCode" compareValue="0">
+	      		and (c.shop_code is null 
+	      		 or instr(',' || c.shop_code || ',',',' ||$shopCode$|| ',',1,1) > 0)
+	      </isNotEqual>
+      </isNotEmpty>
+  </select>
+  
+  <!-- 远程接口 -->
+  <select id="selectValidCoupon" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Thu Aug 22 09:31:11 CST 2013.
+    -->
+    select COUPON_ID, COUPON_GIVETYPE_ID, COUPON_NAME, COUPON_DESCRIBE, COUPON_MONEY, STARTTIME,
+      ENDTIME, CREATETIME, STATUS, CUSTOM_LEVEID, CUSTOM_REG_START, CUSTOM_REG_END, PAY_LEAST_MONEY,
+      CUSTOM_ID, IS_GRANT, COUPON_VALID_DAY,IS_VALIDE,SHOP_CODE
+    from COUPON c 
+    where c.endtime > sysdate and C.IS_VALIDE = 2
+    <isNotNull property="couponGivetypeId" prepend="and">  
+       COUPON_GIVETYPE_ID  = #couponGivetypeId:DECIMAL#  
+     </isNotNull>
+  </select>
+  
+  <select id="selectValidCouponById" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Thu Aug 22 09:31:11 CST 2013.
+    -->
+    select COUPON_ID, COUPON_GIVETYPE_ID, COUPON_NAME, COUPON_DESCRIBE, COUPON_MONEY, STARTTIME,
+      ENDTIME, CREATETIME, STATUS, CUSTOM_LEVEID, CUSTOM_REG_START, CUSTOM_REG_END, PAY_LEAST_MONEY,
+      CUSTOM_ID, IS_GRANT, COUPON_VALID_DAY,IS_VALIDE,SHOP_CODE
+    from COUPON c 
+    where   c.endtime > sysdate
+    <isNotNull property="couponId" prepend="and">  
+       COUPON_ID  = #couponId:DECIMAL#  
+        </isNotNull>
+  </select>
+  
+  <!-- 改变优惠券的状态 -->
+   <update id="ibatorgenerated_updateCouponStatus" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Thu Aug 22 09:31:11 CST 2013.
+    -->
+    update COUPON
+    set 
+      STATUS = #status:DECIMAL#
+    where COUPON_ID = #couponId:DECIMAL#
+  </update>
+  
+  
+  <delete id="deleteCouponById" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+    delete from COUPON
+    where COUPON_ID = #couponId:DECIMAL#
+  </delete>
+  
+  <!--查找已经过期的优惠券-->
+   <select id="selecetExpiredCoupon" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+    
+    select COUPON_ID, COUPON_GIVETYPE_ID, COUPON_NAME, COUPON_DESCRIBE, COUPON_MONEY, STARTTIME,
+      ENDTIME, CREATETIME, STATUS, CUSTOM_LEVEID, CUSTOM_REG_START, CUSTOM_REG_END, PAY_LEAST_MONEY,
+      CUSTOM_ID, IS_GRANT, COUPON_VALID_DAY,IS_VALIDE,SHOP_CODE
+    from COUPON c 
+      where sysdate > c.endtime
+     and c.coupon_givetype_id!=4 and c.STATUS !=5
+  </select>
+  
+  <!-- 改变优惠券的启用转台 -->
+   <update id="ibatorgenerated_updateCouponValide" parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Thu Aug 22 09:31:11 CST 2013.
+    -->
+    update COUPON
+    set 
+      IS_VALIDE = #isValide:VARCHAR#
+    where COUPON_ID = #couponId:DECIMAL#
+  </update>
+    
+   <select id="selectCouponOBJ" resultMap="couponOBJMap"  parameterClass="com.kmzyc.promotion.app.vobject.Coupon" >
+  		select COUPON_ID, COUPON_GIVETYPE_ID, COUPON_NAME, COUPON_DESCRIBE, COUPON_MONEY, STARTTIME,SUPPLIER_TYPE,
+      ENDTIME , CREATETIME, STATUS, CUSTOM_LEVEID, CUSTOM_REG_START, CUSTOM_REG_END, PAY_LEAST_MONEY,
+      CUSTOM_ID, IS_GRANT, COUPON_VALID_DAY,IS_VALIDE,SHOP_CODE,RANG_TYPE
+    from COUPON
+    where COUPON_ID = #couponId:DECIMAL#
+  </select>
+  
+  
+</sqlMap>

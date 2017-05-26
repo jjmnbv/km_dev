@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ScoreRule">
+
+	<typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+
+  <resultMap id="scoreRuleResultMap" class="com.kmzyc.b2b.model.ScoreRule" >
+    <result column="N_SCORE_RULE_ID" property="nScoreRuleId" jdbcType="DECIMAL" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="DISCRIBE" property="discribe" jdbcType="VARCHAR" />
+    <result column="CLIENT_TYPE" property="clientType" jdbcType="DECIMAL" />
+    <result column="SCOREEXPRESS" property="scoreexpress" jdbcType="VARCHAR" />
+    <result column="D_CREATE_DATE" property="dCreateDate" jdbcType="DATE" />
+    <result column="N_CREATED" property="nCreated" jdbcType="DECIMAL" />
+    <result column="D_MODIFY_DATE" property="dModifyDate" jdbcType="DATE" />
+    <result column="N_MODIFIED" property="nModified" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="DAY_MAX" property="dayMax" jdbcType="DECIMAL" />
+    <result column="SCORE_VALUE" property="scoreValue" jdbcType="VARCHAR" />
+  </resultMap>
+  
+	<sql id="byCodeCondition">
+		<![CDATA[
+		   CODE = #code:VARCHAR#
+	    ]]>
+	</sql>
+
+
+	<select id="findByCode" parameterClass="String" resultMap="scoreRuleResultMap">
+		<![CDATA[
+			SELECT * FROM SCORE_RULE
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byCodeCondition" />
+		</dynamic>
+	</select>
+
+	<select id="findAllRule"  resultMap="scoreRuleResultMap">
+		<![CDATA[
+			SELECT * FROM SCORE_RULE WHERE CLIENT_TYPE=1  order by N_SCORE_RULE_ID 
+		]]>
+	</select>	
+
+	<!-- 根据编码查询规则 -->
+    <select id="SQL_QUERY_SCORE_RULE_BY_RULE_CODE" resultMap="scoreRuleResultMap" parameterClass="string">
+    	select n_score_rule_id,
+		       code,
+		       discribe,
+		       client_type,
+		       scoreexpress,
+		       remark,
+		       d_create_date,
+		       n_created,
+		       d_modify_date,
+		       n_modified,		       
+		       day_max,
+		       score_value
+		  from score_rule sr
+		 where sr.code = #ruleCode:VARCHAR#
+    </select>
+
+</sqlMap>

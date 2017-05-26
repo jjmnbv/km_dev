@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="KMORDER_ORDER_RISK_SCORE" >
+	<resultMap id="ORDER_RISK_SCORE_BaseResultMap" class="com.pltfm.app.entities.OrderRiskScore" >
+	    <result column="ossid" property="ossid" jdbcType="DECIMAL" />
+	    <result column="latitude" property="latitude" jdbcType="DECIMAL" />
+	    <result column="label" property="label" jdbcType="VARCHAR" />
+	    <result column="checkValue" property="checkValue" jdbcType="DECIMAL" />
+	    <result column="score" property="score" jdbcType="DECIMAL" />
+	    <result column="extValue" property="extValue" jdbcType="VARCHAR" />
+	    <result column="createDate" property="createDate" />
+	    <result column="orderCode" property="orderCode" jdbcType="VARCHAR" />
+	    <result column="isValid" property="isValid" jdbcType="VARCHAR" />
+  	</resultMap>
+  	
+  	<insert id="SQL_INSERT_ORDER_RISK_SCORE" parameterClass="com.pltfm.app.entities.OrderRiskScore">
+  		INSERT INTO ORDER_RISK_SCORE
+		  (ossid,
+		   latitude,
+		   label,
+		<isNotEmpty property="checkValue">		   
+		   check_value,
+		</isNotEmpty>	
+		<isNotEmpty property="score">		   
+		   score,
+		</isNotEmpty>
+		<isNotEmpty property="extValue"> 	
+		   ext_value,
+		</isNotEmpty>		   
+		   create_date,
+		   order_code,is_valid)
+		VALUES
+		  (SEQ_ORDER_RISK_SCORE.NEXTVAL,
+		  #latitude:DECIMAL#,
+		  #label:VARCHAR#,
+		<isNotEmpty property="checkValue">
+		  #checkValue:DECIMAL#,
+		</isNotEmpty>					  
+		<isNotEmpty property="score">
+		  #score:DECIMAL#,
+		</isNotEmpty>
+		<isNotEmpty property="extValue">
+		  #extValue:VARCHAR#,
+		</isNotEmpty>
+		  sysdate,
+		  #orderCode:VARCHAR#
+		  ,1)
+  	</insert>
+  	
+  	<select id="SQL_QUERY_ORDER_RISK_SCORE" parameterClass="String" resultMap="ORDER_RISK_SCORE_BaseResultMap">
+  		SELECT OSSID       ossid,
+		       LATITUDE    latitude,
+		       LABEL       label,
+		       CHECK_VALUE checkValue,
+		       SCORE       score,
+		       EXT_VALUE   extValue,
+		       CREATE_DATE createDate,
+		       ORDER_CODE  orderCode,
+		       IS_VALID    isValid
+		  FROM ORDER_RISK_SCORE ORS
+		 where IS_VALID = 1 and ORS.Order_Code = #orderCode:VARCHAR#
+  	</select>
+  	
+  	<!-- 将订单之前风控判断得分置空 -->
+  	<update id="SQL_UPDATE_EMPTY_ORDER_RISKS_CORE" parameterClass="String" >
+  		UPDATE ORDER_RISK_SCORE ORS SET ORS.IS_VALID = 0 WHERE ORS.ORDER_CODE = #orderCode:VARCHAR#
+  	</update>
+</sqlMap>

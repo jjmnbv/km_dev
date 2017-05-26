@@ -1,0 +1,1310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="PromotionInfo">
+	<sql id="SQL_CONDITION_QUERY_PROMOTION_BY_PAGE">
+		where 1=1
+		<isNotEmpty property="isSycnIndex">
+		<![CDATA[and p.is_sync_index = #isSycnIndex:DECIMAL#]]>
+		</isNotEmpty>
+		<isEqual property="promotionPriority" compareValue="1">
+		<![CDATA[ and p.start_time >= sysdate ]]>
+		</isEqual>
+		<isEqual property="promotionPriority" compareValue="2">
+		<![CDATA[and sysdate between p.start_time and p.end_time]]>
+		</isEqual>
+		<isEqual property="promotionPriority" compareValue="3">
+		<![CDATA[and p.end_time <= sysdate]]>
+		</isEqual>
+		<isNotEmpty property="nature">
+        <![CDATA[and p.nature = #nature:DECIMAL#]]>
+		</isNotEmpty>
+		<isNotEmpty property="shopSort">
+        <![CDATA[and p.shop_sort = #shopSort:DECIMAL#]]>
+		</isNotEmpty>
+		<isNotNull property="status">
+			<isGreaterThan property="status" compareValue="0">
+     	<![CDATA[and p.status = #status:DECIMAL#]]>
+			</isGreaterThan>
+		</isNotNull>
+		<isNotEmpty property="promotionType">
+		<![CDATA[and p.promotion_type = #promotionType:DECIMAL#]]>
+		</isNotEmpty>
+		<isNotEmpty property="promotionName">
+       	<![CDATA[and p.promotion_name like '%'||#promotionName#||'%']]>
+		</isNotEmpty>
+		<isNotNull property="startTime">
+      	<![CDATA[and p.start_time >= #startTime:java.util.DATE#]]>
+		</isNotNull>
+		<isNotNull property="endTime">
+      	<![CDATA[and p.end_time <= #endTime:java.util.DATE#]]>
+		</isNotNull>
+		<isNotEmpty property="promotionTitle">
+        <![CDATA[and p.promotion_title like '%'||#promotionTitle#||'%']]>
+		</isNotEmpty>
+		<isNotEmpty property="supplierId">
+        <![CDATA[and p.supplier_id = #supplierId:DECIMAL#]]>
+		</isNotEmpty>
+		<isNotNull property="promotionId">
+        <![CDATA[and p.promotion_id = #promotionId:DECIMAL#]]>
+		</isNotNull>
+		<isNotEmpty property="promotionDescribe">
+        <![CDATA[and p.end_time > sysdate]]>
+		</isNotEmpty>
+		<isNotEmpty property="shopNames">
+       	<![CDATA[
+       	and
+       	p.supplier_id in (select s.supplier_id
+  from commercial_tenant_basic_info f, suppliers_info s
+ where f.n_commercial_tenant_id = s.merchant_id
+   and f.corporate_name like '%'||#shopNames#||'%')
+       	
+       	
+       	]]>
+		</isNotEmpty>
+		<isNotEmpty property="promotionIds">
+       	<![CDATA[
+       	and p.promotion_id in (
+       SELECT PM.promotion_id FROM PROMOTION PM,
+ ( SELECT ',' || PDM.Category_Id || ',' as categoryId FROM PRODUCT_SKU PSKU INNER JOIN PRODUCTMAIN PDM 
+ ON PSKU.PRODUCT_ID=PDM.PRODUCT_ID  inner join suppliers_info s on to_char(s.supplier_id) = pdm.SHOP_CODE 
+  WHERE PSKU.product_sku_code=#promotionIds#  and (s.supplier_type=1 or s.supplier_type=3)) SINFO 
+  WHERE  PM.NATURE='1'  AND PM.PRODUCT_FILTER_TYPE='3'
+ AND instr(','|| PM.PRODUCT_FILTER_SQL,SINFO.categoryId) > 0
+ AND pm.shop_sort='3'
+ 
+ UNION
+ 
+
+ SELECT PM.promotion_id FROM PROMOTION PM,
+ ( SELECT ',' || PDM.Category_Id || ',' as categoryId,s.supplier_id,s.supplier_type FROM PRODUCT_SKU PSKU INNER JOIN PRODUCTMAIN PDM 
+ ON PSKU.PRODUCT_ID=PDM.PRODUCT_ID inner join suppliers_info s on to_char(s.supplier_id) = pdm.SHOP_CODE 
+ WHERE PSKU.product_sku_code=#promotionIds#) SINFO 
+  WHERE  PM.NATURE='1'  AND PM.PRODUCT_FILTER_TYPE='3'
+ AND instr(','|| PM.PRODUCT_FILTER_SQL,SINFO.categoryId) > 0 and pm.shop_sort=sinfo.supplier_type and pm.supplier_id=sinfo.supplier_id 
+ AND pm.shop_sort='2'
+ 
+ UNION
+
+
+  SELECT PM.promotion_id FROM PROMOTION PM,
+ ( SELECT ',' || PDM.BRAND_ID || ',' as brandId FROM PRODUCT_SKU PSKU INNER JOIN PRODUCTMAIN PDM 
+ ON PSKU.PRODUCT_ID=PDM.PRODUCT_ID inner join suppliers_info s on to_char(s.supplier_id) = pdm.SHOP_CODE 
+ WHERE PSKU.product_sku_code=#promotionIds# and (s.supplier_type=1 or s.supplier_type=3)) SINFO 
+  WHERE  PM.NATURE='1'  AND PM.PRODUCT_FILTER_TYPE='4'
+ AND instr(','|| PM.PRODUCT_FILTER_SQL,SINFO.brandId) > 0
+ AND pm.shop_sort='3'
+ 
+ UNION
+ 
+
+ SELECT PM.promotion_id FROM PROMOTION PM,
+ ( SELECT ',' || PDM.BRAND_ID || ',' as brandId,s.supplier_id,s.supplier_type FROM PRODUCT_SKU PSKU INNER JOIN PRODUCTMAIN PDM 
+ ON PSKU.PRODUCT_ID=PDM.PRODUCT_ID inner join suppliers_info s on to_char(s.supplier_id) = pdm.SHOP_CODE 
+ WHERE PSKU.product_sku_code=#promotionIds#) SINFO 
+  WHERE  PM.NATURE='1'  AND PM.PRODUCT_FILTER_TYPE='4'
+ AND instr(','|| PM.PRODUCT_FILTER_SQL,SINFO.brandId) > 0 and pm.shop_sort=sinfo.supplier_type and pm.supplier_id=sinfo.supplier_id 
+ AND pm.shop_sort='2'
+ 
+ UNION
+ 
+
+ SELECT PM.promotion_id FROM PROMOTION PM,( 
+        select s.*  from PRODUCT_SKU sku 
+        inner join PRODUCTMAIN pdm on pdm.PRODUCT_ID = sku.PRODUCT_ID
+        inner join suppliers_info s on to_char(s.supplier_id) = pdm.SHOP_CODE      
+        where sku.product_sku_code=#promotionIds#) SINFO WHERE  PM.NATURE='1' and (sinfo.supplier_type=1 or sinfo.supplier_type=3)
+         and  PM.SHOP_SORT=3 AND PM.PRODUCT_FILTER_TYPE='1'
+        
+ UNION
+ 
+
+ SELECT PM.promotion_id FROM PROMOTION PM,( 
+        select s.*  from PRODUCT_SKU sku 
+        inner join PRODUCTMAIN pdm on pdm.PRODUCT_ID = sku.PRODUCT_ID
+        inner join suppliers_info s on to_char(s.supplier_id) = pdm.SHOP_CODE      
+        where sku.product_sku_code=#promotionIds#) SINFO WHERE  PM.NATURE='1' 
+        AND PM.SHOP_SORT=SINFO.SUPPLIER_TYPE AND PM.SUPPLIER_ID=SINFO.SUPPLIER_ID 
+         and PM.SHOP_SORT=2  AND PM.PRODUCT_FILTER_TYPE='1'
+
+UNION  
+
+select PM.promotion_id from PROMOTION PM,promotion_product pp,product_sku ps where  PM.NATURE='1'  and ps.product_sku_code=#promotionIds# 
+and  pm.promotion_id=pp.promotion_id and pp.product_sku_id=ps.product_sku_id  
+
+       	
+       	)
+       	]]>
+		</isNotEmpty>
+		order by p.createtime desc
+	</sql>
+	<!-- 活动查询通用条件 -->
+	<sql id="SQL_QUERY_COMMON_CONDITION">
+		<isNotEmpty property="promotionIds">
+		<![CDATA[and p.promotion_id in ($promotionIds$)]]>
+		</isNotEmpty>
+		<isNotEmpty property="supplierId">
+        <![CDATA[and p.supplier_id = #supplierId:DECIMAL#]]>
+		</isNotEmpty>
+		<isNotEmpty property="shopSort">
+        <![CDATA[and p.shop_sort = #shopSort:DECIMAL#]]>
+		</isNotEmpty>
+		<isNotEmpty property="promotionType">
+		<![CDATA[and p.promotion_type = #promotionType:DECIMAL#]]>
+		</isNotEmpty>
+		<isNotNull property="startTime">
+      	<![CDATA[and p.start_time <= #startTime:java.util.DATE#]]>
+		</isNotNull>
+		<isNull property="endTime">
+      	<![CDATA[and p.end_time >= #endTime:java.util.DATE#]]>
+		</isNull>
+
+		<isNotEmpty property="promotionTitle">
+        <![CDATA[and p.promotion_title like '%'||#promotionTitle#||'%']]>
+		</isNotEmpty>
+		<isNotNull property="promotionId">
+        <![CDATA[and p.promotion_id = #promotionId:DECIMAL#]]>
+		</isNotNull>
+	</sql>
+
+	<!-- 根据查询条件查询有效的（通过审核）活动 -->
+	<select id="SQL_QUERY_AUDITED_PROMOTION_INFO" parameterClass="java.util.HashMap"
+		resultClass="com.kmzyc.promotion.app.vobject.PromotionInfo">
+	<![CDATA[
+		select p.promotion_id        promotionId,
+		       p.promotion_name      promotionName,
+		       p.start_time          startTime,
+		       p.end_time            endTime,
+		       p.mutex_promotion_id  mutexPromotionId,
+		       p.promotion_priority  promotionPriority,
+		       p.product_filter_type productFilterType,
+		       p.product_filter_sql  productFilterSql,
+		       p.status              status,
+		       p.shop_sort           shopSort,
+		       p.promotion_type      promotionType,
+		       p.promotion_prize_num promotionPrizeNum,
+		       p.promotion_title     promotionTitle,
+		       p.supplier_id         supplierId,
+		       p.promotion_data      promotionData,
+		       p.promotion_note      promotionNote,
+		       p.sell_up_type 		 sellUpType
+		  from promotion p
+		 where p.status = 2
+		   and p.nature = 1
+	]]>
+		<isNotEmpty property="isSycnIndex">
+			and p.is_sync_index =
+			#isSycnIndex:DECIMAL#
+		</isNotEmpty>
+		<isNotEmpty property="shopSort">
+			and p.shop_sort = #shopSort:DECIMAL#
+		</isNotEmpty>
+		<isNotEmpty property="supplierId">
+			and p.supplier_id =
+			#supplierId:DECIMAL#
+		</isNotEmpty>
+		<isNotEmpty property="queryDate">
+			and #queryDate:java.util.DATE# between
+			p.start_time and p.end_time
+		</isNotEmpty>
+		<isNotEmpty property="queryEndDate">
+			and p.end_time >=
+			#queryEndDate:java.util.DATE#
+		</isNotEmpty>
+		<isNotEmpty property="promotionType">
+			and p.promotion_type =
+			#promotionType:DECIMAL#
+		</isNotEmpty>
+		<isNotEmpty property="promotionTypes">
+			and p.promotion_type in
+			<iterate open="(" close=")" conjunction="," property="promotionTypes">
+				#promotionTypes[]#
+			</iterate>
+		</isNotEmpty>
+	</select>
+
+	<!-- 根据活动ID查询 -->
+	<select id="SQL_QUERY_PROMOTION_INFO_BY_ID" parameterClass="java.lang.Long"
+		resultClass="com.kmzyc.promotion.app.vobject.PromotionInfo">
+	<![CDATA[
+			select p.promotion_id promotionId,
+			       p.promotion_name promotionName,
+			       p.start_time startTime,
+			       p.end_time endTime,
+			       p.mutex_promotion_id mutexPromotionId,
+			       p.promotion_priority promotionPriority,
+			       p.product_filter_type productFilterType,
+			       p.product_filter_sql productFilterSql,
+			       p.status status,
+			       p.shop_sort shopSort,
+			       p.promotion_type promotionType,
+			       p.promotion_prize_num promotionPrizeNum,
+			       p.promotion_title promotionTitle,
+			       p.promotion_describe promotionDescribe,
+			       p.slogan slogan,
+			       p.sell_up_type sellUpType,
+			       p.online_Status onlineStatus,
+			       decode(p.shop_sort,
+			              1,
+			              '所有商家',
+			              3,
+			              '康美自营代销',
+			              2,
+			              (select f.corporate_name
+			                 from commercial_tenant_basic_info f, suppliers_info s
+			                where f.n_commercial_tenant_id = s.merchant_id
+			                  and s.supplier_id = p.supplier_id)) shopNames,
+			       p.supplier_id supplierId,
+			       p.promotion_data promotionData,
+			       p.promotion_note promotionNote,
+			       p.nature
+			  from promotion p
+			 where p.promotion_id = #promotionInfoId:DECIMAL#
+	]]>
+	</select>
+
+	<!-- 根据规则ID查询活动个数 -->
+	<select id="SQL_QUERY_COUNT_PROMOTION_RULE_ID" parameterClass="java.lang.Long"
+		resultClass="java.lang.Integer">
+  	<![CDATA[select count(1) from promotion p where p.promotion_rule_id = #promotionRuleId:DECIMAL#]]>
+	</select>
+
+	<!-- 根据商家类型查询有效活动 -->
+	<select id="SQL_QUERY_PROMTION_INFO_BY_SUPPLIER_TYPE"
+		parameterClass="java.util.HashMap" resultClass="com.kmzyc.promotion.app.vobject.PromotionInfo">
+	<![CDATA[
+		select p.promotion_id        promotionId,
+		       p.promotion_name      promotionName,
+		       p.start_time          startTime,
+		       p.end_time            endTime,
+		       p.mutex_promotion_id  mutexPromotionId,
+		       p.promotion_priority  promotionPriority,
+		       p.product_filter_type productFilterType,
+		       p.product_filter_sql  productFilterSql,
+		       p.status              status,
+		       p.shop_sort           shopSort,
+		       p.promotion_type      promotionType,
+		       p.promotion_prize_num promotionPrizeNum,
+		       p.promotion_title     promotionTitle,
+		       p.supplier_id         supplierId,
+		       p.promotion_data      promotionData,
+		       p.promotion_note      promotionNote
+		  from promotion p
+		 where p.status = 2
+		   and p.online_status=2
+		   and p.shop_sort = #shopSort:DECIMAL#
+		   and p.start_time <= sysdate
+		   and p.end_time >= sysdate
+		 order by p.supplier_id
+	]]>
+	</select>
+
+	<!-- 查询有效活动 -->
+	<select id="SQL_QUERY_PROMTION_INFO" parameterClass="java.lang.String"
+		resultClass="com.kmzyc.promotion.app.vobject.PromotionInfo">
+	<![CDATA[
+		select p.promotion_id        promotionId,
+		       p.promotion_name      promotionName,
+		       p.start_time          startTime,
+		       p.end_time            endTime,
+		       p.mutex_promotion_id  mutexPromotionId,
+		       p.promotion_priority  promotionPriority,
+		       p.product_filter_type productFilterType,
+		       p.product_filter_sql  productFilterSql,
+		       p.status              status,
+		       p.shop_sort           shopSort,
+		       p.promotion_type      promotionType,
+		       p.promotion_prize_num promotionPrizeNum,
+		       p.promotion_title     promotionTitle,
+		       p.supplier_id         supplierId,
+		       p.promotion_data      promotionData,
+		       p.promotion_note      promotionNote
+		  from promotion p
+		 where p.status = 2
+		  and p.online_status=2
+		   and p.start_time <= sysdate
+		   and p.end_time >= sysdate
+		 order by p.supplier_id
+	]]>
+	</select>
+
+	<!-- 根据SKUID查询限购活动 -->
+	<select id="SQL_PURCHASE_PROMONTION_BY_SKU_ID" parameterClass="java.lang.Long"
+		resultClass="com.kmzyc.promotion.app.vobject.PromotionInfo">
+	<![CDATA[
+		select pp.promotion_id promotionId,
+		       p.product_filter_type productFilterType,
+		       p.promotion_priority promotionPriority,
+		       p.promotion_type promotionType,
+		       p.start_time startTime,
+		       p.end_time endTime,
+		       nvl(pp.min_buy, 0) minBuy,
+		       nvl(pp.max_buy, 0) maxBuy,
+		       nvl(pp.promotion_stock, 0) promotionStock,
+		       nvl(pp.promotion_sell, 0) promotionSell,
+		       p.mutex_promotion_id mutexPromotionId,
+		       p.promotion_data promotionData
+		  from promotion_product pp, promotion p
+		 where pp.promotion_id = p.promotion_id
+		   and p.status = 2
+		   and p.nature = 1
+		   and p.product_filter_type = 2
+		   and (p.promotion_type = 8 or p.promotion_type = 10)
+		   and p.start_time <= sysdate
+		   and p.end_time >= sysdate
+		   and pp.product_sku_id = #skuId#
+	]]>
+	</select>
+	<!-- 查询商家有效活动 -->
+	<select id="SQL_QUERY_VALID_PROMOTION_BY_SUPPLIER_ID"
+		parameterClass="java.util.HashMap" resultClass="com.kmzyc.promotion.app.vobject.PromotionInfo">
+	<![CDATA[
+		select p.promotion_id        promotionId,
+		       p.promotion_name      promotionName,
+		       p.start_time          startTime,
+		       p.end_time            endTime,
+		       p.mutex_promotion_id  mutexPromotionId,
+		       p.promotion_priority  promotionPriority,
+		       p.product_filter_type productFilterType,
+		       p.product_filter_sql  productFilterSql,
+		       p.status              status,
+		       p.shop_sort           shopSort,
+		       p.promotion_type      promotionType,
+		       p.promotion_prize_num promotionPrizeNum,
+		       p.promotion_title     promotionTitle,
+		       p.supplier_id         supplierId,
+		       p.supplier_id         sellerId,
+		       p.promotion_data      promotionData,
+		       p.promotion_note      promotionNote
+		  from promotion p
+		 where p.status = 2
+		   and p.online_status=2
+		   and p.start_time <= sysdate
+		   and p.end_time >= sysdate
+	]]>
+		<isNotEmpty property="sellerIds">
+			and p.supplier_id in
+			<iterate open="(" close=")" property="sellerIds" conjunction=",">
+				#sellerIds[]#
+			</iterate>
+		</isNotEmpty>
+		<isNotEmpty property="sellerId">
+			and p.supplier_id = #sellerId:DECIMAL#
+		</isNotEmpty>
+		order by p.supplier_id
+	</select>
+
+	<!-- 活动分页查询 -->
+	<select id="SQL_QUERY_PROMOTION_BY_PAGE" resultClass="com.kmzyc.promotion.app.vobject.PromotionInfo"
+		parameterClass="com.kmzyc.promotion.app.vobject.PromotionInfo">
+  	<![CDATA[
+		select rs.promotionId,
+		       rs.promotionName,
+		       rs.slogan,
+		       rs.promotionDescribe,
+		       rs.status,
+		       rs.isUseCoupon,
+		       rs.startTime,
+		       rs.endTime,
+		       rs.mutexPromotionId,
+		       rs.promotionPriority,
+		       rs.productFilterType,
+		       rs.productFilterSql,
+		       rs.createrUser,
+		       rs.createtime,
+		       rs.isSycnIndex,
+		       rs.isSycnCache,
+		       rs.onlineStatus,
+		       rs.nature,
+		       rs.shopSort,
+		       rs.promotionType,
+		       rs.promotionPrizeNum,
+		       rs.promotionTitle,
+		       rs.supplierId,
+		       rs.promotionData,
+		       rs.promotionNote,
+		       rs.sellUpType,
+		       f.CORPORATE_NAME shopNames
+		  from (select rownum rn,
+		               rsi.promotionId,
+		               rsi.promotionName,
+		               rsi.slogan,
+		               rsi.promotionDescribe,
+		               rsi.status,
+		               rsi.isUseCoupon,
+		               rsi.startTime,
+		               rsi.endTime,
+		               rsi.mutexPromotionId,
+		               rsi.promotionPriority,
+		               rsi.productFilterType,
+		               rsi.productFilterSql,
+		               rsi.createrUser,
+		               rsi.createtime,
+		               rsi.isSycnIndex,
+		               rsi.isSycnCache,
+		               rsi.onlineStatus,
+		               rsi.nature,
+		               rsi.shopSort,
+		               rsi.promotionType,
+		               rsi.promotionPrizeNum,
+		               rsi.promotionTitle,
+		               rsi.supplierId,
+		               rsi.promotionData,
+		               rsi.promotionNote,
+		               rsi.sellUpType,
+		               rsi.merchant_id
+		          from (select p.promotion_id        promotionId,
+		                       p.promotion_name      promotionName,
+		                       p.slogan              slogan,
+		                       p.promotion_describe  promotionDescribe,
+		                       p.status              status,
+		                       p.is_use_coupon       isUseCoupon,
+		                       p.start_time          startTime,
+		                       p.end_time            endTime,
+		                       p.mutex_promotion_id  mutexPromotionId,
+		                       p.promotion_priority  promotionPriority,
+		                       p.product_filter_type productFilterType,
+		                       p.product_filter_sql  productFilterSql,
+		                       p.creater_user        createrUser,
+		                       p.createtime          createtime,
+		                       p.is_sync_index       isSycnIndex,
+		                       p.is_sync_cache       isSycnCache,
+		                       p.online_status       onlineStatus,
+		                       p.nature              nature,
+		                       p.shop_sort           shopSort,
+		                       p.promotion_type      promotionType,
+		                       p.promotion_prize_num promotionPrizeNum,
+		                       p.promotion_title     promotionTitle,
+		                       p.supplier_id         supplierId,
+		                       p.promotion_data      promotionData,
+		                       p.promotion_note      promotionNote,
+		                       p.SELL_UP_TYPE        sellUpType,
+		                       s.merchant_id merchant_id
+		                  from promotion p left join suppliers_info s on  p.supplier_id =s.supplier_id
+	]]>
+		<include refid="SQL_CONDITION_QUERY_PROMOTION_BY_PAGE" />
+	<![CDATA[
+					 ) rsi
+		         where rownum <= #endIndex#) rs left join commercial_tenant_basic_info f on rs.merchant_id=f.n_commercial_tenant_id
+		 where rs.rn >= #startIndex# order by  rs.promotionId desc
+	]]>
+	</select>
+
+	<!-- 分页查询总数 -->
+	<select id="SQL_QUERY_PROMOTION_BY_PAGE_COUNT" parameterClass="com.kmzyc.promotion.app.vobject.PromotionInfo"
+		resultClass="java.lang.Integer">
+	<![CDATA[select count(p.promotion_id) from promotion p]]>
+		<include refid="SQL_CONDITION_QUERY_PROMOTION_BY_PAGE" />
+	</select>
+
+	<!-- 根据活动种类查询活动 -->
+	<select id="SQL_QUERY_PROMOTION_BY_NATURE" resultClass="com.kmzyc.promotion.app.vobject.PromotionInfo"
+		parameterClass="java.lang.Long">
+	<![CDATA[
+		select rs.promotionId,
+		       rs.promotionName,
+		       rs.slogan,
+		       rs.promotionDescribe,
+		       rs.status,
+		       rs.isUseCoupon,
+		       rs.startTime,
+		       rs.endTime,
+		       rs.mutexPromotionId,
+		       rs.promotionPriority,
+		       rs.productFilterType,
+		       rs.productFilterSql,
+		       rs.createrUser,
+		       rs.createtime,
+		       rs.isSycnIndex,
+		       rs.isSycnCache,
+		       rs.onlineStatus,
+		       rs.nature,
+		       rs.shopSort,
+		       rs.promotionType,
+		       rs.promotionPrizeNum,
+		       rs.promotionTitle,
+		       rs.supplierId,
+		       rs.promotionData,
+		       rs.promotionNote
+		  from (select rownum rn,
+		               rsi.promotionId,
+		               rsi.promotionName,
+		               rsi.slogan,
+		               rsi.promotionDescribe,
+		               rsi.status,
+		               rsi.isUseCoupon,
+		               rsi.startTime,
+		               rsi.endTime,
+		               rsi.mutexPromotionId,
+		               rsi.promotionPriority,
+		               rsi.productFilterType,
+		               rsi.productFilterSql,
+		               rsi.createrUser,
+		               rsi.createtime,
+		               rsi.isSycnIndex,
+		               rsi.isSycnCache,
+		               rsi.onlineStatus,
+		               rsi.nature,
+		               rsi.shopSort,
+		               rsi.promotionType,
+		               rsi.promotionPrizeNum,
+		               rsi.promotionTitle,
+		               rsi.supplierId,
+		               rsi.promotionData,
+		               rsi.promotionNote
+		          from (select p.promotion_id        promotionId,
+		                       p.promotion_name      promotionName,
+		                       p.slogan              slogan,
+		                       p.promotion_describe  promotionDescribe,
+		                       p.status              status,
+		                       p.is_use_coupon       isUseCoupon,
+		                       p.start_time          startTime,
+		                       p.end_time            endTime,
+		                       p.mutex_promotion_id  mutexPromotionId,
+		                       p.promotion_priority  promotionPriority,
+		                       p.product_filter_type productFilterType,
+		                       p.product_filter_sql  productFilterSql,
+		                       p.creater_user        createrUser,
+		                       p.createtime          createtime,
+		                       p.is_sync_index       isSycnIndex,
+		                       p.is_sync_cache       isSycnCache,
+		                       p.online_status       onlineStatus,
+		                       p.nature              nature,
+		                       p.shop_sort           shopSort,
+		                       p.promotion_type      promotionType,
+		                       p.promotion_prize_num promotionPrizeNum,
+		                       p.promotion_title     promotionTitle,
+		                       p.supplier_id         supplierId,
+		                       p.promotion_data      promotionData,
+		                       p.promotion_note      promotionNote
+		                  from promotion p 
+	]]>
+		<include refid="SQL_QUERY_COMMON_CONDITION" />
+	<![CDATA[
+					 ) rsi
+		         where rownum <= #endIndex#) rs
+		 where rs.rn > #startIndex#	
+	]]>
+	</select>
+
+	<!-- 查询时间存在冲突的促销活动 -->
+	<select id="SQL_QUERY_MUTEX_PROMOTION" resultClass="com.kmzyc.promotion.app.vobject.PromotionInfo"
+		parameterClass="com.kmzyc.promotion.app.vobject.PromotionInfo">
+	<![CDATA[
+		select p.promotion_id        promotionId,
+		       p.promotion_name      promotionName,
+		       p.slogan              slogan,
+		       p.promotion_describe  promotionDescribe,
+		       p.status              status,
+		       p.is_use_coupon       isUseCoupon,
+		       p.start_time          startTime,
+		       p.end_time            endTime,
+		       p.mutex_promotion_id  mutexPromotionId,
+		       p.promotion_priority  promotionPriority,
+		       p.product_filter_type productFilterType,
+		       p.product_filter_sql  productFilterSql,
+		       p.creater_user        createrUser,
+		       p.createtime          createtime,
+		       p.is_sync_index       isSycnIndex,
+		       p.is_sync_cache       isSycnCache,
+		       p.online_status       onlineStatus,
+		       p.nature              nature,
+		       p.shop_sort           shopSort,
+		       p.promotion_type      promotionType,
+		       p.promotion_prize_num promotionPrizeNum,
+		       p.promotion_title     promotionTitle,
+		       p.supplier_id         supplierId,
+		       p.promotion_data      promotionData,
+		       p.promotion_note      promotionNote
+		  from promotion p
+		 where p.nature = 1 
+	]]>
+		<isNotEmpty prepend="and" property="startTime"
+			removeFirstPrepend="true">
+   			<![CDATA[
+      	 	(
+      	 	(START_TIME between #startTime:java.util.DATE# and #endTime:java.util.DATE#
+			 or END_TIME between #startTime:java.util.DATE# and #endTime:java.util.DATE#
+			 )
+			 or( START_TIME <= #startTime:java.util.DATE# and END_TIME >=#endTime:java.util.DATE#)
+			 )
+			 ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="promotionId"
+			removeFirstPrepend="true">
+       		<![CDATA[
+	      	p.PROMOTION_ID <> #promotionId:DECIMAL#
+	      	]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="promotionType"
+			removeFirstPrepend="true">
+       		<![CDATA[
+	      	p.PROMOTION_TYPE = #promotionType:DECIMAL#
+	      	]]>
+		</isNotEmpty>
+
+		<isNotEmpty prepend="and" property="promotionIds"
+			removeFirstPrepend="true">
+       		<![CDATA[
+	      	p.PROMOTION_ID in ($promotionIds$)
+	      	]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="status"
+			removeFirstPrepend="true">
+
+			p.status = #status:DECIMAL#
+
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="shopSort"
+			removeFirstPrepend="true">
+			p.SHOP_SORT in ( #shopSort:DECIMAL# , 1)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="supplierId"
+			removeFirstPrepend="true">
+			p.SUPPLIER_ID = #supplierId:DECIMAL#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="promotionName">
+			p.PROMOTION_NAME like
+			'%$promotionName$%'
+		</isNotEmpty>
+	</select>
+
+	<!-- 查询是否存在相同的优先级 -->
+	<select id="SQL_QUERY_COUNT_PROMOTION_PRIORITY" parameterClass="com.kmzyc.promotion.app.vobject.PromotionInfo"
+		resultClass="java.lang.Integer">
+	<![CDATA[
+		select count(promotion_id) from promotion p
+			 where promotion_id <> #promotionId:DECIMAL#
+			   and promotion_priority = #promotionPriority:DECIMAL#
+			   and p.promotion_type = #promotionType:DECIMAL#
+			   and p.end_time > sysdate
+	]]>
+	</select>
+
+
+	<!-- 查询互斥活动 -->
+	<select id="SQL_QUERY_EXCLUSION_PROMOTION" parameterClass="java.util.List"
+		resultClass="java.util.HashMap">
+  	<![CDATA[
+  		select p.promotion_id,p.promotion_name from promotion p
+			where p.promotion_id in
+	]]>
+		<iterate open="(" close=")" conjunction=",">
+			#[]#
+		</iterate>
+	</select>
+
+	<!-- 更新活动 -->
+	<update id="SQL_UPDATE_PROMOTION_BY_PID" parameterClass="com.kmzyc.promotion.app.vobject.PromotionInfo">
+  	<![CDATA[
+  		update promotion p set p.promotion_id = #promotionId# 
+	]]>
+		<isNotEmpty prepend="," property="promotionName">
+			p.promotion_name =
+			#promotionName:VARCHAR#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="mutexPromotionId">
+			p.mutex_promotion_id =
+			#mutexPromotionId:VARCHAR#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="promotionTitle">
+			p.promotion_title =
+			#promotionTitle:VARCHAR#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="slogan">
+			p.slogan =
+			#slogan:VARCHAR#
+		</isNotEmpty>
+		<isEmpty prepend="," property="slogan">
+			p.slogan = null
+		</isEmpty>
+		<isNotEmpty prepend="," property="promotionDescribe">
+			p.promotion_describe =
+			#promotionDescribe:VARCHAR#
+		</isNotEmpty>
+		<isEmpty prepend="," property="promotionDescribe">
+			p.promotion_describe = null
+		</isEmpty>
+		<isNotEmpty prepend="," property="status">
+			p.status =
+			#status:DECIMAL#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="isUseCoupon">
+			p.is_use_coupon =
+			#isUseCoupon:DECIMAL#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="startTime">
+			p.start_time =
+			#startTime:java.util.DATE#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="endTime">
+			p.end_time =
+			#endTime:java.util.DATE#
+		</isNotEmpty>
+
+		<isNotEmpty prepend="," property="promotionPriority">
+			p.promotion_priority =
+			#promotionPriority:DECIMAL#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="productFilterType">
+			p.product_filter_type =
+			#productFilterType:DECIMAL#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="productFilterSql">
+			p.product_filter_sql =
+			#productFilterSql:VARCHAR#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="isSycnIndex">
+			p.is_sync_index =
+			#isSycnIndex:DECIMAL#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="isSycnCache">
+			p.is_sync_cache =
+			#isSycnCache:DECIMAL#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="onlineStatus">
+			p.online_status =
+			#onlineStatus:DECIMAL#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="nature">
+			p.nature =
+			#nature:DECIMAL#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="shopSort">
+			p.shop_sort =
+			#shopSort:DECIMAL#
+		</isNotEmpty>
+	<![CDATA[
+		 where p.promotion_id = #promotionId#
+  	]]>
+	</update>
+
+	<!-- 更新未上线 -->
+	<update id="SQL_UPDATE_PROMOTION_NOT_ONLINE">
+  	<![CDATA[
+		update PROMOTION p
+		   set p.online_status = 1, p.is_sync_index = 0, p.is_sync_cache = 0
+		 where p.online_status <> 1
+		   and sysdate < p.start_time
+  	]]>
+	</update>
+
+	<!-- 更新已上线 -->
+	<update id="SQL_UPDATE_PROMOTION_IS_ING">
+  	<![CDATA[
+		update promotion p
+		   set p.online_status = 2, p.is_sync_index = 0, p.is_sync_cache = 0
+		 where (p.online_status = 1 or p.online_status = 3)
+		   and sysdate between p.start_time and p.end_time
+  	]]>
+	</update>
+
+	<!-- 更新已过期 -->
+	<update id="SQL_UPDATE_PROMOTION_DOWN">
+  	<![CDATA[
+		update promotion p
+		   set p.online_status = 3, p.is_sync_index = 0, p.is_sync_cache = 0
+		 where (p.online_status = 1 or p.online_status = 2)
+		   and sysdate > p.end_time
+  	]]>
+	</update>
+
+	<!-- 删除活动 -->
+	<delete id="SQL_DELETE_PROMOTION_BY_PID">
+  	<![CDATA[delete from promotion where promotion_id = #promotionId:DECIMAL#]]>
+	</delete>
+	<!--判断是否被锁 -->
+	<select id="promotionIsLock" parameterClass="java.lang.Long"
+		resultClass="java.lang.Integer">
+  	<![CDATA[select count(asku.promotion_id)
+  from activity_sku            asku,
+       activity_info           ai,
+       activity_supplier_entry ase
+ where ai.activity_id = asku.activity_id
+   and ase.activity_id = ai.activity_id
+   and sysdate <= ai.activity_end_time
+   and ai.audit_status = 1
+   and ase.entry_status = 2
+   and ase.audit_status = 1
+   and asku.promotion_id is not null
+   and asku.promotion_id = #promotionId:DECIMAL#]]>
+	</select>
+	<!-- 新增活动 -->
+	<insert id="SQL_INSER_PROMOTION_INFO" parameterClass="com.kmzyc.promotion.app.vobject.PromotionInfo">
+		<selectKey resultClass="java.lang.Long" keyProperty="promotionId">
+			select
+			SEQ_PROD_APP_PROMOTION.nextval from dual
+		</selectKey>
+		insert into PROMOTION
+		<dynamic prepend="(">
+			<isNotNull prepend="," property="promotionId">
+				PROMOTION_ID
+			</isNotNull>
+			<isNotNull prepend="," property="promotionName">
+				PROMOTION_NAME
+			</isNotNull>
+			<isNotNull prepend="," property="slogan">
+				SLOGAN
+			</isNotNull>
+			<isNotNull prepend="," property="promotionDescribe">
+				PROMOTION_DESCRIBE
+			</isNotNull>
+			<isNotNull prepend="," property="status">
+				STATUS
+			</isNotNull>
+			<isNotNull prepend="," property="isUseCoupon">
+				IS_USE_COUPON
+			</isNotNull>
+			<isNotNull prepend="," property="startTime">
+				START_TIME
+			</isNotNull>
+			<isNotNull prepend="," property="endTime">
+				END_TIME
+			</isNotNull>
+			<isNotNull prepend="," property="mutexPromotionId">
+				MUTEX_PROMOTION_ID
+			</isNotNull>
+			<isNotNull prepend="," property="promotionPriority">
+				PROMOTION_PRIORITY
+			</isNotNull>
+			<isNotNull prepend="," property="productFilterType">
+				PRODUCT_FILTER_TYPE
+			</isNotNull>
+			<isNotNull prepend="," property="productFilterSql">
+				PRODUCT_FILTER_SQL
+			</isNotNull>
+			<isNotNull prepend="," property="createrUser">
+				CREATER_USER
+			</isNotNull>
+			<isNotNull prepend="," property="createtime">
+				CREATETIME
+			</isNotNull>
+			<isNotNull prepend="," property="isSycnIndex">
+				IS_SYNC_INDEX
+			</isNotNull>
+			<isNotNull prepend="," property="isSycnCache">
+				IS_SYNC_CACHE
+			</isNotNull>
+			<isNotNull prepend="," property="onlineStatus">
+				ONLINE_STATUS
+			</isNotNull>
+			<isNotEmpty prepend="," property="nature">
+				NATURE
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="shopSort">
+				SHOP_SORT
+			</isNotEmpty>
+			<isNotNull prepend="," property="promotionType">
+				PROMOTION_TYPE
+			</isNotNull>
+			<isNotNull prepend="," property="promotionPrizeNum">
+				PROMOTION_PRIZE_NUM
+			</isNotNull>
+			<isNotNull prepend="," property="promotionTitle">
+				PROMOTION_TITLE
+			</isNotNull>
+			<isNotNull prepend="," property="supplierId">
+				SUPPLIER_ID
+			</isNotNull>
+			<isNotNull prepend="," property="promotionData">
+				PROMOTION_DATA
+			</isNotNull>
+			<isNotNull prepend="," property="promotionNote">
+				PROMOTION_NOTE
+			</isNotNull>
+			<isNotNull prepend="," property="sellUpType">
+				SELL_UP_TYPE
+			</isNotNull>
+			)
+		</dynamic>
+		values
+		<dynamic prepend="(">
+			<isNotNull prepend="," property="promotionId">
+				#promotionId:DECIMAL#
+			</isNotNull>
+			<isNotEmpty prepend="," property="promotionName">
+				#promotionName:VARCHAR#
+			</isNotEmpty>
+			<isNotNull prepend="," property="slogan">
+				#slogan:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="promotionDescribe">
+				#promotionDescribe:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="status">
+				#status:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="isUseCoupon">
+				#isUseCoupon:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="startTime">
+				#startTime:java.util.DATE#
+			</isNotNull>
+			<isNotNull prepend="," property="endTime">
+				#endTime:java.util.DATE#
+			</isNotNull>
+			<isNotNull prepend="," property="mutexPromotionId">
+				#mutexPromotionId:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="promotionPriority">
+				#promotionPriority:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="productFilterType">
+				#productFilterType:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="productFilterSql">
+				#productFilterSql:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="createrUser">
+				#createrUser:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="createtime">
+				#createtime:java.util.DATE#
+			</isNotNull>
+			<isNotNull prepend="," property="isSycnIndex">
+				#isSycnIndex:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="isSycnCache">
+				#isSycnCache:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="onlineStatus">
+				#onlineStatus:DECIMAL#
+			</isNotNull>
+			<isNotEmpty prepend="," property="nature">
+				#nature:DECIMAL#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="shopSort">
+				#shopSort:DECIMAL#
+			</isNotEmpty>
+			<isNotNull prepend="," property="promotionType">
+				#promotionType:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="promotionPrizeNum">
+				#promotionPrizeNum:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="promotionTitle">
+				#promotionTitle:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="supplierId">
+				#supplierId:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="promotionData">
+				#promotionData:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="promotionNote">
+				#promotionNote:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="sellUpType">
+				#sellUpType:DECIMAL#
+			</isNotNull>
+			)
+		</dynamic>
+	</insert>
+
+	<!-- 更新活动 -->
+	<update id="SQL_UPDATE_IS_SYNC_INDEX" parameterClass="java.lang.Long">
+		update
+		promotion p set p.is_sync_index = 1 where
+		p.promotion_id = #promotionId:DECIMAL#
+
+	</update>
+	<update id="SQL_UPDATE_PROMOTION_ISSYNCCACHE" parameterClass="com.kmzyc.promotion.app.vobject.PromotionInfo">
+		UPDATE PROMOTION SET IS_SYNC_CACHE=#isSycnCache:DECIMAL# where
+		PROMOTION_ID=#promotionId:DECIMAL#
+	</update>
+
+	<!-- 查询商品可参加的促销活动 ===自营代销：指定类目/入驻商家：指定类目/自营代销：指定品牌/入驻商家：指定品牌/自营代销：全场/入驻商家：全场/指定商品 
+		排除例外商品 -->
+	<select id="queryProductEnterablePromotion" parameterClass="java.util.Map"
+		resultClass="com.kmzyc.promotion.app.vobject.PromotionInfo">
+
+		SELECT * FROM (
+		SELECT
+		PM.promotion_id promotionId,
+		PM.promotion_name promotionName,
+		PM.start_time startTime,
+		PM.end_time
+		endTime,
+		PM.mutex_promotion_id mutexPromotionId,
+		PM.promotion_priority
+		promotionPriority,
+		PM.product_filter_type productFilterType,
+		PM.product_filter_sql productFilterSql,
+		PM.status status,
+		PM.shop_sort shopSort,
+		PM.promotion_type promotionType,
+		PM.promotion_prize_num promotionPrizeNum,
+		PM.promotion_title
+		promotionTitle,
+		PM.supplier_id supplierId,
+		PM.promotion_data
+		promotionData,
+		PM.promotion_note promotionNote,
+		PM.sell_up_type
+		sellUpType
+		FROM PROMOTION PM,
+		( SELECT ',' || PDM.Category_Id || ',' as
+		categoryId FROM PRODUCT_SKU
+		PSKU INNER JOIN PRODUCTMAIN PDM
+		ON
+		PSKU.PRODUCT_ID=PDM.PRODUCT_ID inner join suppliers_info s on
+		to_char(s.supplier_id) = pdm.SHOP_CODE
+		WHERE PDM.STATUS=3 AND
+		PSKU.PRODUCT_SKU_ID=#productSkuId# and
+		(s.supplier_type=1 or
+		s.supplier_type=3)) SINFO
+		WHERE PM.STATUS = '2' AND PM.NATURE='1' AND
+		PM.END_TIME >=SYSDATE AND
+		PM.PRODUCT_FILTER_TYPE='3'
+		AND instr(','||
+		PM.PRODUCT_FILTER_SQL,SINFO.categoryId) > 0
+		AND pm.shop_sort='3'
+
+		UNION
+
+		SELECT
+		PM.promotion_id promotionId,
+		PM.promotion_name promotionName,
+		PM.start_time startTime,
+		PM.end_time endTime,
+		PM.mutex_promotion_id
+		mutexPromotionId,
+		PM.promotion_priority promotionPriority,
+		PM.product_filter_type productFilterType,
+		PM.product_filter_sql
+		productFilterSql,
+		PM.status status,
+		PM.shop_sort
+		shopSort,
+		PM.promotion_type promotionType,
+		PM.promotion_prize_num
+		promotionPrizeNum,
+		PM.promotion_title promotionTitle,
+		PM.supplier_id
+		supplierId,
+		PM.promotion_data promotionData,
+		PM.promotion_note
+		promotionNote,
+		PM.sell_up_type sellUpType
+		FROM PROMOTION PM,
+		( SELECT ','
+		|| PDM.Category_Id || ',' as
+		categoryId,s.supplier_id,s.supplier_type
+		FROM PRODUCT_SKU PSKU INNER
+		JOIN PRODUCTMAIN PDM
+		ON
+		PSKU.PRODUCT_ID=PDM.PRODUCT_ID inner join suppliers_info s on
+		to_char(s.supplier_id) = pdm.SHOP_CODE
+		WHERE PDM.STATUS=3 AND
+		PSKU.PRODUCT_SKU_ID=#productSkuId#) SINFO
+		WHERE PM.STATUS = '2' AND
+		PM.NATURE='1' AND PM.END_TIME >=SYSDATE AND
+		PM.PRODUCT_FILTER_TYPE='3'
+		AND instr(','|| PM.PRODUCT_FILTER_SQL,SINFO.categoryId) > 0 and
+		pm.shop_sort=sinfo.supplier_type and pm.supplier_id=sinfo.supplier_id
+		AND pm.shop_sort='2'
+
+		UNION
+
+		SELECT
+		PM.promotion_id promotionId,
+		PM.promotion_name promotionName,
+		PM.start_time startTime,
+		PM.end_time
+		endTime,
+		PM.mutex_promotion_id mutexPromotionId,
+		PM.promotion_priority
+		promotionPriority,
+		PM.product_filter_type productFilterType,
+		PM.product_filter_sql productFilterSql,
+		PM.status status,
+		PM.shop_sort shopSort,
+		PM.promotion_type promotionType,
+		PM.promotion_prize_num promotionPrizeNum,
+		PM.promotion_title
+		promotionTitle,
+		PM.supplier_id supplierId,
+		PM.promotion_data
+		promotionData,
+		PM.promotion_note promotionNote,
+		PM.sell_up_type
+		sellUpType
+		FROM PROMOTION PM,
+		( SELECT ',' || PDM.BRAND_ID || ',' as
+		brandId FROM PRODUCT_SKU PSKU
+		INNER JOIN PRODUCTMAIN PDM
+		ON
+		PSKU.PRODUCT_ID=PDM.PRODUCT_ID inner join suppliers_info s on
+		to_char(s.supplier_id) = pdm.SHOP_CODE
+		WHERE PDM.STATUS=3 AND
+		PSKU.PRODUCT_SKU_ID=#productSkuId# and
+		(s.supplier_type=1 or
+		s.supplier_type=3)) SINFO
+		WHERE PM.STATUS = '2' AND PM.NATURE='1' AND
+		PM.END_TIME >=SYSDATE AND
+		PM.PRODUCT_FILTER_TYPE='4'
+		AND instr(','||
+		PM.PRODUCT_FILTER_SQL,SINFO.brandId) > 0
+		AND pm.shop_sort='3'
+
+		UNION
+
+		SELECT
+		PM.promotion_id promotionId,
+		PM.promotion_name promotionName,
+		PM.start_time startTime,
+		PM.end_time endTime,
+		PM.mutex_promotion_id
+		mutexPromotionId,
+		PM.promotion_priority promotionPriority,
+		PM.product_filter_type productFilterType,
+		PM.product_filter_sql
+		productFilterSql,
+		PM.status status,
+		PM.shop_sort
+		shopSort,
+		PM.promotion_type promotionType,
+		PM.promotion_prize_num
+		promotionPrizeNum,
+		PM.promotion_title promotionTitle,
+		PM.supplier_id
+		supplierId,
+		PM.promotion_data promotionData,
+		PM.promotion_note
+		promotionNote,
+		PM.sell_up_type sellUpType
+		FROM PROMOTION PM,
+		( SELECT ','
+		|| PDM.BRAND_ID || ',' as
+		brandId,s.supplier_id,s.supplier_type FROM
+		PRODUCT_SKU PSKU INNER JOIN
+		PRODUCTMAIN PDM
+		ON
+		PSKU.PRODUCT_ID=PDM.PRODUCT_ID inner join suppliers_info s on
+		to_char(s.supplier_id) = pdm.SHOP_CODE
+		WHERE PDM.STATUS=3 AND
+		PSKU.PRODUCT_SKU_ID=#productSkuId#) SINFO
+		WHERE PM.STATUS = '2' AND
+		PM.NATURE='1' AND PM.END_TIME >=SYSDATE AND
+		PM.PRODUCT_FILTER_TYPE='4'
+		AND instr(','|| PM.PRODUCT_FILTER_SQL,SINFO.brandId) > 0 and
+		pm.shop_sort=sinfo.supplier_type and pm.supplier_id=sinfo.supplier_id
+		AND pm.shop_sort='2'
+
+		UNION
+
+		SELECT
+		PM.promotion_id promotionId,
+		PM.promotion_name promotionName,
+		PM.start_time startTime,
+		PM.end_time
+		endTime,
+		PM.mutex_promotion_id mutexPromotionId,
+		PM.promotion_priority
+		promotionPriority,
+		PM.product_filter_type productFilterType,
+		PM.product_filter_sql productFilterSql,
+		PM.status status,
+		PM.shop_sort shopSort,
+		PM.promotion_type promotionType,
+		PM.promotion_prize_num promotionPrizeNum,
+		PM.promotion_title
+		promotionTitle,
+		PM.supplier_id supplierId,
+		PM.promotion_data
+		promotionData,
+		PM.promotion_note promotionNote,
+		PM.sell_up_type
+		sellUpType
+		FROM PROMOTION PM,(
+		select s.* from PRODUCT_SKU sku
+		inner join
+		PRODUCTMAIN pdm on pdm.PRODUCT_ID = sku.PRODUCT_ID
+		inner join
+		suppliers_info s on to_char(s.supplier_id) = pdm.SHOP_CODE
+		where
+		pdm.STATUS=3 AND sku.product_sku_id=#productSkuId#) SINFO WHERE
+		PM.STATUS = '2' AND PM.NATURE='1' and (sinfo.supplier_type=1 or
+		sinfo.supplier_type=3)
+		AND PM.END_TIME >=SYSDATE and PM.SHOP_SORT=3 AND
+		PM.PRODUCT_FILTER_TYPE='1'
+
+		UNION
+
+		SELECT
+		PM.promotion_id promotionId,
+		PM.promotion_name promotionName,
+		PM.start_time startTime,
+		PM.end_time
+		endTime,
+		PM.mutex_promotion_id mutexPromotionId,
+		PM.promotion_priority
+		promotionPriority,
+		PM.product_filter_type productFilterType,
+		PM.product_filter_sql productFilterSql,
+		PM.status status,
+		PM.shop_sort shopSort,
+		PM.promotion_type promotionType,
+		PM.promotion_prize_num promotionPrizeNum,
+		PM.promotion_title
+		promotionTitle,
+		PM.supplier_id supplierId,
+		PM.promotion_data
+		promotionData,
+		PM.promotion_note promotionNote,
+		PM.sell_up_type
+		sellUpType
+		FROM PROMOTION PM,(
+		select s.* from PRODUCT_SKU sku
+		inner join
+		PRODUCTMAIN pdm on pdm.PRODUCT_ID = sku.PRODUCT_ID
+		inner join
+		suppliers_info s on to_char(s.supplier_id) = pdm.SHOP_CODE
+		where
+		pdm.STATUS=3 AND sku.product_sku_id=#productSkuId#) SINFO WHERE
+		PM.STATUS = '2' AND PM.NATURE='1'
+		AND PM.SHOP_SORT=SINFO.SUPPLIER_TYPE
+		AND PM.SUPPLIER_ID=SINFO.SUPPLIER_ID
+		AND PM.END_TIME >=SYSDATE and
+		PM.SHOP_SORT=2 AND
+		PM.PRODUCT_FILTER_TYPE='1'
+
+		UNION
+
+		SELECT
+		PM.promotion_id promotionId,
+		PM.promotion_name promotionName,
+		PM.start_time startTime,
+		PM.end_time endTime,
+		PM.mutex_promotion_id
+		mutexPromotionId,
+		PM.promotion_priority promotionPriority,
+		PM.product_filter_type productFilterType,
+		PM.product_filter_sql
+		productFilterSql,
+		PM.status status,
+		PM.shop_sort
+		shopSort,
+		PM.promotion_type promotionType,
+		PM.promotion_prize_num
+		promotionPrizeNum,
+		PM.promotion_title promotionTitle,
+		PM.supplier_id
+		supplierId,
+		PM.promotion_data promotionData,
+		PM.promotion_note
+		promotionNote,
+		PM.sell_up_type sellUpType
+		FROM PROMOTION PM inner join
+		PROMOTION_PRODUCT pp on
+		pm.promotion_id=pp.promotion_id
+		WHERE PM.STATUS
+		= '2' AND PM.NATURE='1' AND PM.END_TIME >=SYSDATE and
+		pp.product_sku_id=#productSkuId#
+		and pp.status=2
+		) PM WHERE NOT EXISTS (SELECT 1
+		FROM
+		PROMOTION_PRODUCT b WHERE b.product_sku_id =#productSkuId#
+		AND
+		b.category='-1' AND promotion_id=PM.promotionId)
+	</select>
+</sqlMap>

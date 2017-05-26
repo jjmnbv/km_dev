@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PROM_REWARD_AMOUNT_LIST" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.PromRewardAmountList" >
+    <result column="REWARD_AMOUNT_LIST_ID" property="rewardAmountListId" jdbcType="DECIMAL" />
+    <result column="MEMBERS_INVITATION_LIST_ID" property="membersInvitationListId" jdbcType="DECIMAL" />
+    <result column="REWARD_RULE_ID" property="rewardRuleId" jdbcType="DECIMAL" />
+    <result column="REWARD_AMOUNT_LIST" property="rewardAmountList" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate"  />
+  </resultMap>
+  
+  <!-- 查询 -->
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.pltfm.app.vobject.PromRewardAmountList" >
+    select REWARD_AMOUNT_LIST_ID, MEMBERS_INVITATION_LIST_ID, REWARD_RULE_ID, REWARD_AMOUNT_LIST,
+      CREATE_DATE
+    from PROM_REWARD_AMOUNT_LIST
+    where REWARD_AMOUNT_LIST_ID = #rewardAmountListId:DECIMAL#
+  </select>
+  
+  <!-- 删除 -->
+  <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="com.pltfm.app.vobject.PromRewardAmountList" >
+    delete from PROM_REWARD_AMOUNT_LIST
+    where REWARD_AMOUNT_LIST_ID = #rewardAmountListId:DECIMAL#
+  </delete>
+
+  <!-- 添加 -->
+  <insert id="ibatorgenerated_insert" parameterClass="com.pltfm.app.vobject.PromRewardAmountList" >
+    <selectKey resultClass="java.math.BigDecimal" keyProperty="rewardAmountListId" >
+           select SEQ_PROM_REWARD_AMOUNT_LIST.nextval from dual
+      </selectKey>
+    insert into PROM_REWARD_AMOUNT_LIST (REWARD_AMOUNT_LIST_ID, MEMBERS_INVITATION_LIST_ID,
+      REWARD_RULE_ID, REWARD_AMOUNT_LIST, CREATE_DATE)
+    values (#rewardAmountListId:DECIMAL#, #membersInvitationListId:DECIMAL#, #rewardRuleId:DECIMAL#,
+      #rewardAmountList:DECIMAL#, #createDate#)
+  </insert>
+  
+  <!-- 修改 -->
+  <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="com.pltfm.app.vobject.PromRewardAmountList" >
+    update PROM_REWARD_AMOUNT_LIST
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="membersInvitationListId" >
+        MEMBERS_INVITATION_LIST_ID = #membersInvitationListId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="rewardRuleId" >
+        REWARD_RULE_ID = #rewardRuleId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="rewardAmountList" >
+        REWARD_AMOUNT_LIST = #rewardAmountList:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE = #createDate#
+      </isNotNull>
+    </dynamic>
+    where REWARD_AMOUNT_LIST_ID = #rewardAmountListId:DECIMAL#
+  </update>
+</sqlMap>

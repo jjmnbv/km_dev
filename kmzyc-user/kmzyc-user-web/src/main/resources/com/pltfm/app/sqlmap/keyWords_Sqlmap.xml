@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="KeyWords" >
+
+  <typeAlias alias="keyWordsDO" type="com.pltfm.app.dataobject.KeyWordsDO" />
+  <typeAlias alias="keyWordsQuery" type="com.pltfm.app.vobject.KeyWordsQuery" />
+
+  <resultMap id="keyWordsDOResultMap" class="keyWordsDO" >
+    <result property="keyWordsId" column="KEY_WORDS_ID" />
+    <result property="keyWords" column="KEY_WORDS" />
+    <result property="repWords" column="REP_WORDS" />
+    <result property="status" column="STATUS" />
+    <result property="createDate" column="CREATE_DATE" />
+    <result property="createdId" column="CREATED_ID" />
+    <result property="modifyDate" column="MODIFY_DATE" />
+    <result property="modifieId" column="MODIFIE_ID" />
+    <result property="wordsType" column="WORDS_TYPE" />
+  </resultMap>
+
+  <resultMap id="keyWordsQueryResultMap" class="keyWordsQuery" >
+    <result property="keyWordsId" column="KEY_WORDS_ID" />
+    <result property="keyWords" column="KEY_WORDS" />
+    <result property="repWords" column="REP_WORDS" />
+    <result property="status" column="STATUS" />
+    <result property="createDate" column="CREATE_DATE" />
+    <result property="createdId" column="CREATED_ID" />
+    <result property="modifyDate" column="MODIFY_DATE" />
+    <result property="modifieId" column="MODIFIE_ID" />
+    <result property="wordsType" column="WORDS_TYPE" />
+  </resultMap>
+
+  <sql id="keyWords_columns" >
+    a1.KEY_WORDS_ID, a1.KEY_WORDS, a1.REP_WORDS, a1.STATUS, a1.CREATE_DATE, a1.CREATED_ID, 
+      a1.MODIFY_DATE, a1.MODIFIE_ID, a1.WORDS_TYPE
+  </sql>
+
+  <sql id="keyWords_do_columns" >
+    a1.KEY_WORDS_ID, a1.KEY_WORDS, a1.REP_WORDS, a1.STATUS, a1.CREATE_DATE, a1.CREATED_ID, 
+      a1.MODIFY_DATE, a1.MODIFIE_ID, a1.WORDS_TYPE
+  </sql>
+
+  <sql id="keyWords_query_columns" >
+    a1.KEY_WORDS_ID, a1.KEY_WORDS, a1.REP_WORDS, a1.STATUS, a1.CREATE_DATE, a1.CREATED_ID, 
+      a1.MODIFY_DATE, a1.MODIFIE_ID, a1.WORDS_TYPE
+  </sql>
+
+  <sql id="queryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="keyWordsId" prepend="AND" >
+        <![CDATA[  
+        KEY_WORDS_ID = #keyWordsId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="keyWords" prepend="AND" >
+        <![CDATA[  
+        KEY_WORDS = #keyWords#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="repWords" prepend="AND" >
+        <![CDATA[  
+        REP_WORDS = #repWords#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="status" prepend="AND" >
+        <![CDATA[  
+        STATUS = #status#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="wordsType" prepend="AND" >
+        <![CDATA[  
+        WORDS_TYPE = #wordsType#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="doQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="keyWordsId" prepend="AND" >
+        <![CDATA[  
+        KEY_WORDS_ID = #keyWordsId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="keyWords" prepend="AND" >
+        <![CDATA[  
+        KEY_WORDS = #keyWords#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="repWords" prepend="AND" >
+        <![CDATA[  
+        REP_WORDS = #repWords#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="status" prepend="AND" >
+        <![CDATA[  
+        STATUS = #status#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="wordsType" prepend="AND" >
+        <![CDATA[  
+        WORDS_TYPE = #wordsType#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="queryQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="keyWordsId" prepend="AND" >
+        <![CDATA[  
+        KEY_WORDS_ID = #keyWordsId#  
+        ]]>  
+      </isNotNull>
+      <isNotEmpty property="keyWords">
+      <isNotNull property="keyWords" prepend="AND" >
+        <![CDATA[  
+        KEY_WORDS like '%'||#keyWords#||'%' 
+        ]]>  
+      </isNotNull>
+      </isNotEmpty>
+      <isNotNull property="repWords" prepend="AND" >
+        <![CDATA[  
+        REP_WORDS = #repWords#  
+        ]]>  
+      </isNotNull>
+      <isNotEmpty property="status">
+      <isNotNull property="status" prepend="AND" >
+        <![CDATA[  
+        STATUS = #status#  
+        ]]>  
+      </isNotNull>
+      </isNotEmpty>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+       <isNotEmpty property="wordsType">
+      <isNotNull property="wordsType" prepend="AND" >
+        <![CDATA[  
+        WORDS_TYPE = #wordsType#  
+        ]]>  
+      </isNotNull>
+      </isNotEmpty>
+    </dynamic>
+  </sql>
+
+  <insert id="insert" parameterClass="keyWordsDO" >
+     <selectKey resultClass="java.lang.Integer" keyProperty="keyWordsId" >
+           select SEQ_APP_BUSINESS.nextval from dual
+      </selectKey>
+    INSERT INTO KEY_WORDS( KEY_WORDS_ID, KEY_WORDS, REP_WORDS, STATUS, CREATE_DATE, CREATED_ID, 
+      MODIFY_DATE, MODIFIE_ID, WORDS_TYPE)
+     VALUES ( #keyWordsId#, #keyWords#, #repWords#, #status#, #createDate#, #createdId#, 
+      #modifyDate#, #modifieId#, #wordsType#)
+    
+  </insert>
+
+  <update id="update" parameterClass="keyWordsDO" >
+    UPDATE KEY_WORDS   
+    <dynamic prepend="SET" >
+      <!--
+      <isNotNull property="keyWordsId" prepend="," >
+        <![CDATA[  
+        KEY_WORDS_ID = #keyWordsId#  
+        ]]>  
+      </isNotNull>
+      -->
+      <isNotNull property="keyWords" prepend="," >
+        <![CDATA[  
+        KEY_WORDS = #keyWords#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="repWords" prepend="," >
+        <![CDATA[  
+        REP_WORDS = #repWords#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="status" prepend="," >
+        <![CDATA[  
+        STATUS = #status#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="," >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="," >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="," >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="," >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="wordsType" prepend="," >
+        <![CDATA[  
+        WORDS_TYPE = #wordsType#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+     WHERE KEY_WORDS_ID = #keyWordsId#  
+  </update>
+
+  <select id="findByPrimaryKey" parameterClass="java.lang.Integer" resultMap="keyWordsDOResultMap" >
+     SELECT 
+    <include refid="keyWords_do_columns" />
+    <![CDATA[  
+     FROM KEY_WORDS a1 WHERE KEY_WORDS_ID = #keyWordsId#
+    ]]>  
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterClass="java.lang.Integer" >
+    <![CDATA[  
+     DELETE FROM KEY_WORDS WHERE KEY_WORDS_ID = #keyWordsId#
+    ]]>  
+  </delete>
+
+  <select id="countByDOExample" parameterClass="keyWordsDO" resultClass="java.lang.Integer" >
+    SELECT COUNT(KEY_WORDS_ID) AS num FROM KEY_WORDS 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="findListByDO" resultMap="keyWordsDOResultMap" parameterClass="keyWordsDO" >
+     SELECT 
+    <include refid="keyWords_do_columns" />
+     FROM KEY_WORDS a1 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="countByQueryExample" parameterClass="keyWordsQuery" resultClass="java.lang.Integer" >
+    SELECT COUNT(KEY_WORDS_ID) AS num FROM KEY_WORDS 
+    <include refid="queryQueryParams" />
+  </select>
+
+  <select id="findListByQuery" resultMap="keyWordsQueryResultMap" parameterClass="keyWordsQuery" >
+    SELECT 
+    <include refid="keyWords_query_columns" /> 
+    FROM ( 
+    SELECT 
+   ROW_NUMBER() OVER(order by KEY_WORDS_ID desc) as view_row_number , a1.KEY_WORDS_ID, a1.KEY_WORDS, a1.REP_WORDS, a1.STATUS, a1.CREATE_DATE, a1.CREATED_ID, 
+      a1.MODIFY_DATE, a1.MODIFIE_ID, a1.WORDS_TYPE
+     FROM KEY_WORDS a1 
+     <include refid="queryQueryParams" />
+      
+    ) a1
+    <![CDATA[ where view_row_number <= #maxNum# and view_row_number > #mixNum# ]]>
+  </select>
+  
+  
+  
+    
+    <select id="queryKeyWorks" resultClass="java.util.HashMap">
+    	<![CDATA[ 
+           select KEY_WORDS,REP_WORDS,STATUS,WORDS_TYPE from  key_words where words_type=1 and status=1
+           ]]>
+    </select>
+</sqlMap>

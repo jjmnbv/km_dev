@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.kmzyc</groupId>
+        <artifactId>kmzyc-b2b</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>kmzyc-b2b-facade</artifactId>
+    <packaging>jar</packaging>
+
+    <name>kmzyc-b2b-facade</name>
+
+    <dependencies>
+        <!--<dependency>-->
+            <!--<groupId>com.km.commons</groupId>-->
+            <!--<artifactId>zk-config</artifactId>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>com.kmzyc</groupId>
+            <artifactId>kmzyc-b2b-common</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kmzyc</groupId>
+            <artifactId>kmzyc-b2b-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kmzyc</groupId>
+            <artifactId>kmzyc-promotion-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kmzyc</groupId>
+            <artifactId>kmzyc-supplier-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kmzyc</groupId>
+            <artifactId>kmzyc-product-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kmzyc</groupId>
+            <artifactId>kmzyc-order-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>km</groupId>
+            <artifactId>km-container</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>km</groupId>
+            <artifactId>km-communication</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kmzyc</groupId>
+            <artifactId>kmzyc-user-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kmzyc</groupId>
+            <artifactId>kmzyc-express-api</artifactId>
+        </dependency>
+        <!-- struts2 json -->
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-json-plugin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+        </dependency>
+        <!-- axis begin -->
+        <dependency>
+            <groupId>org.apache.axis.axis</groupId>
+            <artifactId>axis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis.axis-ant</groupId>
+            <artifactId>axis-ant</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis.saaj</groupId>
+            <artifactId>saaj</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis.wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis.jaxrpc</groupId>
+            <artifactId>jaxrpc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis.commons-discovery</groupId>
+            <artifactId>commons-discovery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
+        <!-- axis end -->
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

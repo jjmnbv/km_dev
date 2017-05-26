@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="MobileCodeInf">
+
+	<resultMap id="mobileCodeInfResultMap" class="com.kmzyc.b2b.model.MobileCodeInf">
+		<result column="N_CELL_PHONE_TATTED_CODE_ID" property="nCellPhoneTattedCodeId"
+			jdbcType="DECIMAL" />
+		<result column="N_ACCOUNT_ID" property="nAccountId" jdbcType="DECIMAL" />
+		<result column="TATTED_CODE" property="tattedCode" jdbcType="VARCHAR" />
+		<result column="LAST_SEND_TATTEDCODE_TIME" property="lastSendTattedcodeTime"
+			jdbcType="VARCHAR" />
+		<result column="N_FAILURE_TIME_VALUE" property="nFailureTimeValue"
+			jdbcType="DECIMAL" />
+		<result column="D_CREATE_DATE" property="dCreateDate" jdbcType="DATE" />
+		<result column="N_CREATED" property="nCreated" jdbcType="DECIMAL" />
+		<result column="D_MODIFY_DATE" property="dModifyDate" jdbcType="DATE" />
+		<result column="N_MODIFIED" property="nModified" jdbcType="DECIMAL" />
+		<result column="N_LOGIN_ID" property="nLoginId" jdbcType="DECIMAL" />
+		<result column="IS_STATUS" property="isStatus" jdbcType="DECIMAL" />
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="findByMobileAndNLoginId" parameterClass="com.kmzyc.b2b.model.MobileCodeInf"
+		resultMap="mobileCodeInfResultMap">
+		<![CDATA[
+			SELECT * FROM MOBILE_CODE_INF where MOBILE=#mobile# and N_LOGIN_ID=#nLoginId#  and IS_STATUS=1
+		]]>
+	</select>
+
+</sqlMap>

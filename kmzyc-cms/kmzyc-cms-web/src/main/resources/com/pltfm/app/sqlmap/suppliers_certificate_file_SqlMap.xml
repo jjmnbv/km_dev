@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SUPPLIERS_CERTIFICATE_FILE" >
+	<resultMap id="suppliersCertificateFileResult" class="com.pltfm.cms.vobject.SuppliersCertificateFile" >
+		<result column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="INFO_ID" property="infoId" jdbcType="DECIMAL" />
+		<result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+		<result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+		<result column="IS_VALID" property="isValid" jdbcType="DECIMAL" />
+		<result column="CREATE_USER" property="createUser" jdbcType="DECIMAL" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="Date" />
+		<result column="MODIF_USER" property="modifUser" jdbcType="DECIMAL" />
+		<result column="MODIF_TIME" property="modifTime" jdbcType="Date" />
+	</resultMap>
+	
+	<select id="findListByInfoId" resultMap="suppliersCertificateFileResult" parameterClass="java.lang.Long" >
+    	SELECT t.ID,
+		       t.INFO_ID,
+		       t.FILE_PATH,
+		       t.FILE_NAME,
+		       t.IS_VALID,
+		       t.CREATE_USER,
+		       t.CREATE_TIME,
+		       t.MODIF_USER,
+		       t.MODIF_TIME
+		  FROM SUPPLIERS_CERTIFICATE_FILE t
+		 WHERE t.INFO_ID = #infoId:DECIMAL#
+    </select>
+    
+</sqlMap>

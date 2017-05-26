@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<!-- 开启注解扫描 -->
+	<context:annotation-config />
+	<context:component-scan base-package="com.pltfm,com.kmzyc,com.km" />
+	<bean id="propertyConfigurer"
+		  class="com.kmzyc.zkconfig.ZKPropertyPlaceholderConfigurer">
+		<constructor-arg ref="zkClient" />
+		<property name="zkPaths">
+			<list>
+				<value>/kmconfig/commons/redis.properties</value>
+				<value>/kmconfig/commons/mq.properties</value>
+				<value>/kmconfig/km-order/jdbc.properties</value>
+				<value>/kmconfig/km-order/local_config.properties</value>
+				<value>/kmconfig/km-order/dubbo.properties</value>
+				<value>/kmconfig/km-order/quartz.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="zkClient"
+		  class="com.kmzyc.zkconfig.CuratorFrameworkFactoryBean" />
+	<bean id="logisticsMap" class="com.kmzyc.zkconfig.ConfigurationUtil"
+		  factory-method="load">
+		<constructor-arg ref="zkClient"/>
+		<constructor-arg value="/kmconfig/commons/logistics.properties"/>
+	</bean>
+	<!-- 配置数据源 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		  init-method="init" destroy-method="close">
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+		<property name="initialSize" value="${initialSize}" />
+		<property name="minIdle" value="${minIdle}" />
+		<property name="maxActive" value="${maxActive}" />
+		<property name="maxWait" value="${maxWait}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+		<property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+		<property name="validationQuery" value="${validationQuery}" />
+		<property name="testWhileIdle" value="${testWhileIdle}" />
+		<property name="testOnBorrow" value="${testOnBorrow}" />
+		<property name="testOnReturn" value="${testOnReturn}" />
+		<property name="poolPreparedStatements" value="${poolPreparedStatements}" />
+		<property name="maxPoolPreparedStatementPerConnectionSize"
+				  value="${maxPoolPreparedStatementPerConnectionSize}" />
+		<property name="filters" value="stat" />
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="300" />
+		<property name="logAbandoned" value="true" />
+	</bean>
+	<!-- 结束 -->
+
+	<!-- Spring提供的iBatis的SqlMap配置 -->
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation"
+				  value="classpath:com/pltfm/app/sqlmap/sql-map-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- 结束 -->
+
+	<bean id="sqlMapClientSys" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation"
+				  value="classpath:com/pltfm/sys/sqlmap/sql-map-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- spring工具类方便在非spring管理环境中获取bean -->
+	<bean id="springUtils" class="com.kmzyc.util.SpringUtils" />
+
+
+	<bean id="transactionManager"
+		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 使用拦截器管理事物 -->
+	<bean id="abstractTxDefinition"
+		  class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		  abstract="true">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRED,-ServiceException</prop>
+			</props>
+		</property>
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean name="quartzManager" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.pltfm.app.service.impl.QuartzManager" />
+	</bean>
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="quartzManager" />
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="1440000" />
+	</bean>
+	<bean name="scheduler" lazy-init="false" autowire="no"
+		  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cronTrigger" />
+			</list>
+		</property>
+		<property name="schedulerContextAsMap">
+			<map>
+				<!-- 定时任务注解的类 -->
+				<description>schedulerContextAsMap</description>
+				<entry key="orderExecuteService" value-ref="orderExecuteService" />
+				<entry key="orderAlterOperateStatementService" value-ref="orderAlterOperateStatementService" />
+				<entry key="quartzInfoService" value-ref="quartzInfoService" />
+				<entry key="orderSyncDAO" value-ref="orderSyncDAO" />
+				<entry key="orderPvSyncRemoteService" value-ref="orderPvSyncRemoteService" />
+				<!--删除微商业务 <entry key="spreadEffectDAO" value-ref="spreadEffectDAO" /> -->
+				<entry key="orderMainDAO" value-ref="orderMainDAO" />
+				<!--<entry key="jedisClusterPool" value-ref="jedisClusterPool" />-->
+				<entry key="jedisCluster" value-ref="jedisCluster" />
+				<!-- 定时任务加入短信邮件配置 -->
+				<entry key="jmsTemplate" value-ref="jmsTemplate" />
+				<entry key="destination" value-ref="destination" />
+				<!-- 定时生成结算单数据 -->
+				<entry key="sellerSettlementService" value-ref="sellerSettlementService" />
+				<!-- 定时尾款支付通知 -->
+				<entry key="orderPayInformForPressellService" value-ref="orderPayInformForPressellService" />
+				<!-- 取消未支付定金的预售订单 -->
+				<entry key="orderOperateStatementService" value-ref="orderOperateStatementService"/>
+			</map>
+		</property>
+	</bean>
+
+	<import resource="classpath:config/spring-consumer.xml" />
+	<import resource="classpath:config/spring-provider.xml" />
+	<import resource="classpath:config/spring-redis.xml" />
+	<import resource="classpath:config/spring-mq.xml" />
+	<bean class="com.pltfm.app.util.OrderCodeUtil"/>
+</beans>

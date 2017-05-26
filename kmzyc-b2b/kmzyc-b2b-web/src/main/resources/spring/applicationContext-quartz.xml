@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--人数的增长   -->
+    <bean id="mqIncreaseJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="com.kmzyc.quartz.QuartzIncreaseCount"/>
+    </bean>
+    <bean id="mqIncreaseJTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="mqIncreaseJobDetail"/>
+        <property name="cronExpression" value="0/30 * * * * ?"/>
+    </bean>
+    <!--  添加触发器   -->
+
+    <bean id="mQB2cAutoJobBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+
+        <property name="triggers">
+            <list>
+                <ref bean="mqIncreaseJTrigger"/>
+            </list>
+        </property>
+
+        <property name="schedulerContextAsMap">
+            <map>
+                <!-- 定时任务注解的类 -->
+                <description>schedulerContextAsMap</description>
+                <entry key="jedisCluster" value-ref="jedisCluster"/>
+            </map>
+        </property>
+
+    </bean>
+
+
+</beans>

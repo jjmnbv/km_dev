@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SUPPLIER_FARE">
+    <typeAlias alias="supplierFare" type="com.kmzyc.supplier.model.SupplierFare"/>
+    <typeAlias alias="supplierFareExample" type="com.kmzyc.supplier.model.example.SupplierFareExample"/>
+    
+    <resultMap id="baseResultMap" class="supplierFare">
+        <result column="FARE_ID" property="fareId" jdbcType="DECIMAL"/>
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL"/>
+        <result column="FREE_PRICE" property="freePrice" jdbcType="DECIMAL"/>
+        <result column="FIRST_HEAVY_FREIGHT" property="firstHeavyFreight" jdbcType="DECIMAL"/>
+        <result column="SITE" property="site" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="example_Where_Clause">
+        <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate">
+            <isEqual property="oredCriteria[].valid" compareValue="true">
+                (
+                <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and">
+                    $oredCriteria[].criteriaWithoutValue[]$
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and">
+                    $oredCriteria[].criteriaWithSingleValue[].condition$
+                    #oredCriteria[].criteriaWithSingleValue[].value#
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and">
+                    $oredCriteria[].criteriaWithListValue[].condition$
+                    <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")"
+                             conjunction=",">
+                        #oredCriteria[].criteriaWithListValue[].values[]#
+                    </iterate>
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and">
+                    $oredCriteria[].criteriaWithBetweenValue[].condition$
+                    #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+                    #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+                </iterate>
+                )
+            </isEqual>
+        </iterate>
+    </sql>
+    <select id="ibatorgenerated_selectByExample" resultMap="baseResultMap"
+            parameterClass="supplierFareExample">
+        select FARE_ID, NAME, SUPPLIER_ID, FREE_PRICE, FIRST_HEAVY_FREIGHT, SITE
+        from SUPPLIER_FARE
+        <isParameterPresent>
+            <include refid="SUPPLIER_FARE.example_Where_Clause"/>
+            <isNotNull property="orderByClause">
+                order by $orderByClause$
+            </isNotNull>
+        </isParameterPresent>
+    </select>
+    <select id="ibatorgenerated_selectByPrimaryKey" resultMap="baseResultMap"
+            parameterClass="supplierFare">
+        select FARE_ID, NAME, SUPPLIER_ID, FREE_PRICE, FIRST_HEAVY_FREIGHT, SITE
+        from SUPPLIER_FARE
+        where FARE_ID = #fareId:DECIMAL#
+    </select>
+    <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="supplierFare">
+        delete from SUPPLIER_FARE
+        where FARE_ID = #fareId:DECIMAL#
+    </delete>
+    <delete id="ibatorgenerated_deleteByExample" parameterClass="supplierFareExample">
+        delete from SUPPLIER_FARE
+        <include refid="SUPPLIER_FARE.example_Where_Clause"/>
+    </delete>
+    <insert id="ibatorgenerated_insert" parameterClass="supplierFare">
+        <selectKey keyProperty="fareId" resultClass="java.lang.Long">
+            select SEQ_SUPPLIER_Fare from dual
+        </selectKey>
+        insert into SUPPLIER_FARE (FARE_ID, NAME, SUPPLIER_ID, FREE_PRICE, FIRST_HEAVY_FREIGHT, SITE)
+        values (#fareId:DECIMAL#, #name:VARCHAR#, #supplierId:DECIMAL#, #freePrice:DECIMAL#,
+        #firstHeavyFreight:DECIMAL#, #site:VARCHAR#)
+    </insert>
+    <insert id="ibatorgenerated_insertSelective" parameterClass="supplierFare">
+        <selectKey keyProperty="fareId" resultClass="java.lang.Long">
+            select SEQ_SUPPLIER_Fare.nextval from dual
+        </selectKey>
+        insert into SUPPLIER_FARE
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="fareId">
+                FARE_ID
+            </isNotNull>
+            <isNotNull prepend="," property="name">
+                NAME
+            </isNotNull>
+            <isNotNull prepend="," property="supplierId">
+                SUPPLIER_ID
+            </isNotNull>
+            <isNotNull prepend="," property="freePrice">
+                FREE_PRICE
+            </isNotNull>
+            <isNotNull prepend="," property="firstHeavyFreight">
+                FIRST_HEAVY_FREIGHT
+            </isNotNull>
+            <isNotNull prepend="," property="site">
+                SITE
+            </isNotNull>
+            )
+        </dynamic>
+        values
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="fareId">
+                #fareId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="name">
+                #name:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="supplierId">
+                #supplierId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="freePrice">
+                #freePrice:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="firstHeavyFreight">
+                #firstHeavyFreight:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="site">
+                #site:VARCHAR#
+            </isNotNull>
+            )
+        </dynamic>
+    </insert>
+    <select id="ibatorgenerated_countByExample" parameterClass="supplierFareExample"
+            resultClass="java.lang.Integer">
+        select count(1) from SUPPLIER_FARE
+        <include refid="SUPPLIER_FARE.example_Where_Clause"/>
+    </select>
+    <update id="ibatorgenerated_updateByExampleSelective">
+        update SUPPLIER_FARE
+        <dynamic prepend="set">
+            <isNotNull prepend="," property="record.fareId">
+                FARE_ID = #record.fareId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.name">
+                NAME = #record.name:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.supplierId">
+                SUPPLIER_ID = #record.supplierId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.freePrice">
+                FREE_PRICE = #record.freePrice:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.firstHeavyFreight">
+                FIRST_HEAVY_FREIGHT = #record.firstHeavyFreight:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.site">
+                SITE = #record.site:VARCHAR#
+            </isNotNull>
+        </dynamic>
+        <isParameterPresent>
+            <include refid="SUPPLIER_FARE.example_Where_Clause"/>
+        </isParameterPresent>
+    </update>
+    <update id="ibatorgenerated_updateByExample">
+        update SUPPLIER_FARE
+        set FARE_ID = #record.fareId:DECIMAL#,
+        NAME = #record.name:VARCHAR#,
+        SUPPLIER_ID = #record.supplierId:DECIMAL#,
+        FREE_PRICE = #record.freePrice:DECIMAL#,
+        FIRST_HEAVY_FREIGHT = #record.firstHeavyFreight:DECIMAL#,
+        SITE = #record.site:VARCHAR#
+        <isParameterPresent>
+            <include refid="SUPPLIER_FARE.example_Where_Clause"/>
+        </isParameterPresent>
+    </update>
+    <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="supplierFare">
+        update SUPPLIER_FARE
+        <dynamic prepend="set">
+            <isNotNull prepend="," property="name">
+                NAME = #name:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="supplierId">
+                SUPPLIER_ID = #supplierId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="freePrice">
+                FREE_PRICE = #freePrice:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="firstHeavyFreight">
+                FIRST_HEAVY_FREIGHT = #firstHeavyFreight:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="site">
+                SITE = #site:VARCHAR#
+            </isNotNull>
+        </dynamic>
+        where FARE_ID = #fareId:DECIMAL#
+    </update>
+    <update id="ibatorgenerated_updateByPrimaryKey" parameterClass="supplierFare">
+        update SUPPLIER_FARE
+        set NAME = #name:VARCHAR#,
+        SUPPLIER_ID = #supplierId:DECIMAL#,
+        FREE_PRICE = #freePrice:DECIMAL#,
+        FIRST_HEAVY_FREIGHT = #firstHeavyFreight:DECIMAL#,
+        SITE = #site:VARCHAR#
+        where FARE_ID = #fareId:DECIMAL#
+    </update>
+    <!-- 运费列表记录数 -->
+    <select id="selectCountForFareBySupplierId" resultClass="java.lang.Integer" parameterClass="pagination">
+        <![CDATA[
+          SELECT COUNT(FARE_ID) FROM (SELECT t.*, ROWNUM RN FROM (select * from supplier_fare   
+		]]>
+        <dynamic prepend="WHERE">
+            <![CDATA[
+					  SUPPLIER_ID = #objCondition.supplierId:DECIMAL#
+				]]>
+        </dynamic>
+        <dynamic prepend="AND">
+            <isNotEmpty property="objCondition.name">
+                <![CDATA[
+					NAME like '%'||#objCondition.name:VARCHAR#||'%'
+				]]>
+            </isNotEmpty>
+        </dynamic>
+        <dynamic prepend="AND">
+            <isNotEmpty property="objCondition.site">
+                <![CDATA[
+					SITE like '%'||#objCondition.site:VARCHAR#||'%'
+				]]>
+            </isNotEmpty>
+        </dynamic>
+        <![CDATA[
+		) t )  
+		]]>
+    </select>
+    <!-- 运费管理列表 -->
+    <select id="selectFareListBySupplierId" resultMap="baseResultMap" parameterClass="pagination">
+        <![CDATA[
+          SELECT * FROM (SELECT t.*, ROWNUM RN FROM (select * from supplier_fare  WHERE 1=1
+		]]>
+        <dynamic prepend="AND">
+            <![CDATA[
+					  SUPPLIER_ID = #objCondition.supplierId:DECIMAL#
+				]]>
+        </dynamic>
+        <dynamic prepend="AND">
+            <isNotEmpty property="objCondition.name">
+                <![CDATA[
+					NAME like '%'||#objCondition.name:VARCHAR#||'%'
+				]]>
+            </isNotEmpty>
+        </dynamic>
+        <dynamic prepend="AND">
+            <isNotEmpty property="objCondition.site">
+                <![CDATA[
+					SITE like '%'||#objCondition.site:VARCHAR#||'%'
+				]]>
+            </isNotEmpty>
+        </dynamic>
+        <![CDATA[
+		ORDER BY FARE_ID DESC ) t 
+		WHERE  ROWNUM <= $endindex$ ) WHERE RN >= #startindex# 
+		]]>
+    </select>
+    <!-- 根据站点和供应商id查找运费信息 -->
+    <select id="findFareBySiteAndSupplierId" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+  		SELECT COUNT(fare_id) FROM supplier_fare WHERE site = #site:VARCHAR# AND SUPPLIER_ID = #supplierId:DECIMAL#
+  	</select>
+    <!-- 根据供应商id查找运费信息 -->
+    <select id="findFareBySupplierId" parameterClass="java.util.Map" resultMap="baseResultMap">
+  		select * from supplier_fare fa where fa.supplier_id =  #supplierId:DECIMAL#
+  	</select>
+    <select id="selectSupplierFareInfoList" resultMap="baseResultMap"
+            parameterClass="java.util.ArrayList">
+        select *
+        from supplier_fare fa
+        where fa.free_price is not null
+        and fa.supplier_id in
+        <iterate open="(" close=")" conjunction=",">
+            #[]#
+        </iterate>
+    </select>
+</sqlMap>

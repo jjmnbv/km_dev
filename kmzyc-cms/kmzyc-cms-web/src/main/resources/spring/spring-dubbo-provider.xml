@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://code.alibabatech.com/schema/dubbo classpath:dubbo.xsd">
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="cms-provider" owner="km.cms" />
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" client="curator"  file="km-cms.cache"/>
+	<!-- 用dubbo协议在20881端口暴露服务 -->
+	<dubbo:protocol name="dubbo" port="20882" /> 
+	
+	<dubbo:monitor protocol="registry"/>
+	
+	<!-- 当ProtocolConfig和ServiceConfig某属性没有配置时,采用此缺省值 -->	
+	<dubbo:provider timeout="10000"  threadpool="fixed" threads="100" accepts="1000"/>
+	
+	
+    <!-- 详细页面发布信息 -->
+	<dubbo:service ref="detailPublishService" interface="com.kmzyc.cms.remote.service.DetailPublishService"/>
+    
+    <!-- 供应商详细页面发布信息 -->
+	<dubbo:service ref="supplierRemoteService" interface="com.kmzyc.cms.remote.service.SupplierRemoteService"/>
+	
+	<!-- 供应商页面发布信息 -->
+	<dubbo:service ref="remoteSupplierParseService" interface="com.kmzyc.cms.remote.service.RemoteSupplierParseService"/>
+	
+	<!-- 套餐页面发布信息 -->
+	<dubbo:service ref="remoteDulitaocanService" interface="com.kmzyc.cms.remote.service.RemoteDulitaocanService"/>
+
+	<!-- 产品标签信息 -->
+	<dubbo:service ref="viewProductInfoRemoteService" interface="com.kmzyc.cms.remote.service.ViewProductInfoRemoteService"/>
+
+</beans>

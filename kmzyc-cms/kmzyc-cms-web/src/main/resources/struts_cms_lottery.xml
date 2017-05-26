@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="cms_lottery" namespace="/cms" extends="struts">
+		<!-- 抽奖 -->
+		<action name="cmsLottery_*" class="lotteryActin" method="{1}">
+			<result name="lotteryActinList">/WEB-INF/jsp/cms/lottery/popLottertList.jsp</result>
+			<result name="opLotteryActinList">/WEB-INF/jsp/cms/lottery/lottertList.jsp</result>
+		</action>
+		
+		<!-- 奖品 -->
+		<action name="cmsLotteryPrize_*" class="lotteryPrizeActin" method="{1}">
+			<result name="lotteryPrizeActinList">/WEB-INF/jsp/cms/lottery/popLottertPrizeList.jsp</result>
+			<result name="opLotteryPrizeActinList">/WEB-INF/jsp/cms/lottery/lottertPrizeList.jsp</result>
+		</action>
+		
+	</package>
+</struts>
+
+

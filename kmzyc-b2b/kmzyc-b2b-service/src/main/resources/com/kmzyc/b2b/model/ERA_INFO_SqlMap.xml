@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ERA_INFO" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.kmzyc.b2b.vo.EraInfo" >
+    <result column="ERA_INFO_ID" property="eraInfoId" jdbcType="DECIMAL" />
+    <result column="N_LOGIN_ID" property="nLoginId" jdbcType="DECIMAL" />
+    <result column="ERA_ID" property="eraId" jdbcType="DECIMAL" />
+    <result column="ERA_NO" property="eraNo" jdbcType="OTHER" />
+    <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+    <result column="CONTACT_INFORMATION" property="contactInformation" jdbcType="VARCHAR" />
+    <result column="EXP_INTEGRAL_VALUE" property="expIntegralValue" jdbcType="DECIMAL" />
+    <result column="ERA_GRADE_ID" property="eraGradeId" jdbcType="DECIMAL" />
+    <result column="ERA_GRADE_NAME" property="eraGradeName" jdbcType="VARCHAR" />
+    <result column="ERA_GRADE_RATE" property="eraGradeRate" jdbcType="DECIMAL" />
+    <result column="RECOMMENDED_NO" property="recommendedNo" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="DATE" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+    <result column="CERTIFICATE_NUMBER" property="certificateNumber" jdbcType="VARCHAR" />
+    <result column="D_CREATE_DATE" property="dCreateDate" jdbcType="DATE" />
+    <result column="D_MODIFY_DATE" property="dModifyDate" jdbcType="DATE" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMap" class="com.kmzyc.b2b.vo.EraInfo" >
+    <result column="ERA_INFO_ID" property="eraInfoId" jdbcType="DECIMAL" />
+    <result column="N_LOGIN_ID" property="nLoginId" jdbcType="DECIMAL" />
+    <result column="ERA_ID" property="eraId" jdbcType="DECIMAL" />
+    <result column="ERA_NO" property="eraNo" jdbcType="OTHER" />
+    <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+    <result column="CONTACT_INFORMATION" property="contactInformation" jdbcType="VARCHAR" />
+    <result column="EXP_INTEGRAL_VALUE" property="expIntegralValue" jdbcType="DECIMAL" />
+    <result column="ERA_GRADE_ID" property="eraGradeId" jdbcType="DECIMAL" />
+    <result column="ERA_GRADE_NAME" property="eraGradeName" jdbcType="VARCHAR" />
+    <result column="ERA_GRADE_RATE" property="eraGradeRate" jdbcType="DECIMAL" />
+    <result column="RECOMMENDED_NO" property="recommendedNo" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="DATE" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+    <result column="CERTIFICATE_NUMBER" property="certificateNumber" jdbcType="VARCHAR" />
+    <result column="D_CREATE_DATE" property="dCreateDate" jdbcType="DATE" />
+    <result column="D_MODIFY_DATE" property="dModifyDate" jdbcType="DATE" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="AIEMAIL" property="aiEmail" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 手机端获取时代个人信息 -->
+  <resultMap id="BaseResultEraPersonalinfoMap" class="com.kmzyc.b2b.vo.EraInfo" extends="ibatorgenerated_BaseResultMap">
+  	 <result column="EMAIL" property="email" jdbcType="DECIMAL" />
+  	 <result column="MOBILE" property="mobile" jdbcType="DECIMAL" />
+  	 <result column="head_sculpture" property="headSculpture" jdbcType="DECIMAL" />
+  	  <result column="kmLoginAccount" property="kmLoginAccount" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+	<select id="findEranInfoByLogin"  parameterClass="java.util.HashMap"  resultMap="ibatorgenerated_BaseResultMap">
+ 			 	select  e.era_info_id,
+          e.n_login_id,
+          e.era_id,
+          e.era_no,
+          e.login_account,
+          e.contact_information,
+          e.exp_integral_value,
+          e.era_grade_id,
+          e.era_grade_name,
+          e.era_grade_rate,
+          e.recommended_no,
+          e.sex,
+          e.birthday,
+          e.name,
+          e.nickname,
+          e.certificate_number,
+          e.d_create_date,
+          e.d_modify_date
+        from   era_info e 
+ 			where 1=1
+ 		<isNotEmpty prepend="and" property="loginId">
+ 		     e.n_login_id = #loginId:VARCHAR#
+ 		</isNotEmpty>	
+ 		<isNotEmpty prepend="and" property="eraNo">	   
+			 ( e.era_no= upper(#eraNo:VARCHAR#) or e.era_no= lower(#eraNo:VARCHAR#) )
+		</isNotEmpty>
+ 			  
+	</select>
+	
+	<select id="findEranInfoByLoginInfo"  parameterClass="java.util.HashMap"  resultMap="BaseResultMap">
+ 			 	 	select  e.era_info_id,
+ 			 	 	 e.login_account,
+          e.n_login_id,
+          e.era_id,
+          e.era_no,
+          e.contact_information,
+          e.exp_integral_value,
+          e.era_grade_id,
+          e.era_grade_name,
+          e.era_grade_rate,
+          e.recommended_no,
+          e.sex,
+          e.birthday,
+          e.name,
+          e.nickname,
+          e.certificate_number,
+          e.d_create_date,
+          e.d_modify_date,
+          li.email,
+          li.mobile,
+          ai.email  AIEMAIL
+        from   era_info e,Login_Info li, account_info ai
+ 		where
+ 		     e.n_login_id = #loginId:VARCHAR#
+ 	    and  e.n_login_id=li.n_login_id
+ 		and  ai.n_login_id= e.n_login_id	  
+	</select>
+  
+   	<!-- 查询时代会员 -->
+   	<select id="SQL_QUERY_ERA_INFO_BY_LOGIN_ID"  parameterClass="Long"  resultMap="BaseResultMap">
+		select e.era_info_id,
+		       e.login_account,
+		       e.n_login_id,
+		       e.era_id,
+		       e.era_no,
+		       e.contact_information,
+		       e.exp_integral_value,
+		       e.era_grade_id,
+		       e.era_grade_name,
+		       e.era_grade_rate,
+		       e.recommended_no,
+		       e.sex,
+		       e.birthday,
+		       e.name,
+		       e.nickname,
+		       e.certificate_number,
+		       e.d_create_date,
+		       e.d_modify_date,
+		       li.email,
+		       li.mobile,
+		       ai.email AIEMAIL
+		  from era_info e, Login_Info li, account_info ai
+		 where e.n_login_id = li.n_login_id
+		   and ai.n_login_id = e.n_login_id
+		   and e.n_login_id = #loginId:NUMBER#
+	</select>
+	
+	<!-- 手机端获取时代个人信息 -->
+	<select id="queryEraPersonalInfo"  parameterClass="Long"  resultMap="BaseResultEraPersonalinfoMap">
+		select l.login_account kmLoginAccount,l.email,l.mobile,p.head_sculpture,
+			   e.era_info_id,
+		       e.login_account,
+		       e.n_login_id,
+		       e.era_id,
+		       e.era_no,
+		       e.contact_information,
+		       e.exp_integral_value,
+		       e.era_grade_id,
+		       e.era_grade_name,
+		       e.era_grade_rate,
+		       e.recommended_no,
+		       e.sex,
+		       e.birthday,
+		       e.name,
+		       e.nickname,
+		       e.certificate_number,
+		       e.d_create_date,
+		       e.d_modify_date
+		from login_info l,era_info e,personality_info p
+		where l.n_login_id = e.n_login_id and l.n_login_id = p.n_login_id
+		and e.n_login_id = #loginId:NUMBER#
+    </select>
+    
+    <resultMap class="com.kmzyc.b2b.vo.EraInfo" id="eraMap">
+    	<result column="ERA_ID" property="eraId" jdbcType="DECIMAL" />
+	    <result column="N_LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+	    <result column="ERA_ID" property="eraId" jdbcType="DECIMAL" />
+	    <result column="ERA_NO" property="eraNo" jdbcType="OTHER" />
+	    <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+	    <result column="CONTACT_INFORMATION" property="contactInformation" jdbcType="VARCHAR" />
+	    <result column="EXP_INTEGRAL_VALUE" property="expIntegralValue" jdbcType="DECIMAL" />
+	    <result column="ERA_GRADE_ID" property="eraGradeId" jdbcType="DECIMAL" />
+	    <result column="ERA_GRADE_NAME" property="eraGradeName" jdbcType="VARCHAR" />
+	    <result column="ERA_GRADE_RATE" property="eraGradeRate" jdbcType="DECIMAL" />
+	    <result column="RECOMMENDED_NO" property="recommendedNo" jdbcType="VARCHAR" />
+	    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+	    <result column="BIRTHDAY" property="birthday" jdbcType="DATE" />
+	    <result column="NAME" property="name" jdbcType="VARCHAR" />
+	    <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+	    <result column="CERTIFICATE_NUMBER" property="certificateNumber" jdbcType="VARCHAR" />
+	    <result column="D_CREATE_DATE" property="createDate" jdbcType="DATE" />
+	    <result column="D_MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+		<result column="PERSONAL_ID" property="personalId" jdbcType="DECIMAL" />
+		<result column="PAPERTYPE" property="papertype" jdbcType="VARCHAR" />
+    </resultMap>
+    <!-- 根据时代编号查询时代帐号 -->
+    <select id="SQL_QUERY_ERAINFO_BY_ERANO"  parameterClass="string"  resultMap="eraMap">
+		select e.n_login_id,
+		       e.era_id,
+		       e.era_no,
+		       e.login_account,
+		       e.contact_information,
+		       e.exp_integral_value,
+		       e.era_grade_id,
+		       e.era_grade_name,
+		       e.era_grade_rate,
+		       e.recommended_no,
+		       e.sex,
+		       e.birthday,
+		       e.name,
+		       e.nickname,
+		       e.certificate_number,
+		       e.d_create_date,
+		       e.d_modify_date,
+		       e.personal_id,
+		       e.papertype
+		  from era_info e
+		 where e.era_no =  LOWER (#eraNo:VARCHAR#)
+	</select>
+</sqlMap>

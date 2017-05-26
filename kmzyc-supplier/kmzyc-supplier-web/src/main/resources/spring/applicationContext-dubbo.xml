@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"  xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+            http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="${dubbo.application.name}" owner="${dubbo.application.owner}"/>
+	<dubbo:registry address="${dubbo.registry.address}" client="${dubbo.registry.client}" file="${dubbo.registry.file}"/>
+    <dubbo:protocol name="${dubbo.protocol.name}" port="${dubbo.protocol.port}"/>
+	<dubbo:consumer timeout="10000" check="false" retries="0"/>
+	<dubbo:monitor protocol="registry"/>
+
+	<!--订单系统-->
+	<dubbo:reference id="sysConstantsRemoteService" interface="com.kmzyc.order.remote.SysConstantsRemoteService"/>
+
+	<dubbo:reference id="supplierSettlementService" interface="com.kmzyc.order.remote.SupplierSettlementService"/>
+
+	<dubbo:reference id="orderAlterQryRemoteService" interface="com.kmzyc.order.remote.OrderAlterQryRemoteService"/>
+
+	<dubbo:reference id="orderAlterCallBackRemoteService" interface="com.kmzyc.order.remote.OrderAlterCallBackRemoteService"/>
+
+	<dubbo:reference id="orderAlterChangeStatusRemoteService" interface="com.kmzyc.order.remote.OrderAlterChangeStatusRemoteService"/>
+
+	<dubbo:reference id="orderExecuteRemoteService" interface="com.kmzyc.order.remote.OrderExecuteRemoteService"/>
+
+	<dubbo:reference id="orderChangeStatusRemoteService" interface="com.kmzyc.order.remote.OrderChangeStatusRemoteService"/>
+
+	<dubbo:reference id="orderSyncRemoteService" interface="com.kmzyc.order.remote.OrderSyncRemoteService"/>
+
+	<dubbo:reference id="orderAssessRemoteService" interface="com.kmzyc.order.remote.OrderAssessRemoteService"/>
+
+	<dubbo:reference id="orderCallBackRemoteService" interface="com.kmzyc.order.remote.OrderCallBackRemoteService"/>
+
+	<dubbo:reference id="fareRemoteService" interface="com.kmzyc.order.remote.FareRemoteService"/>
+
+	<dubbo:reference id="orderQryRemoteService" interface="com.kmzyc.order.remote.OrderQryRemoteService"
+					 timeout="30000"/>
+
+    <!--产品系统-->
+	<dubbo:reference id="aftersaleReturnOrderRemoteService" interface="com.kmzyc.product.remote.service.AftersaleReturnOrderRemoteService"/>
+
+	<dubbo:reference id="productDraftRemoteService" interface="com.kmzyc.product.remote.service.ProductDraftRemoteService"/>
+
+	<dubbo:reference id="productRemoteService" interface="com.kmzyc.product.remote.service.ProductRemoteService"/>
+
+	<dubbo:reference id="stockRemoteService" interface="com.kmzyc.product.remote.service.StockRemoteService"/>
+
+    <!--CMS-->
+	<dubbo:reference id="supplierRemoteService" interface="com.kmzyc.cms.remote.service.SupplierRemoteService"
+					 timeout="30000"/>
+
+	<dubbo:reference id="remoteSupplierParseService" interface="com.kmzyc.cms.remote.service.RemoteSupplierParseService"
+					 timeout="30000"/>
+
+    <!--B2B-->
+	<dubbo:reference id="orderPvSyncRemoteService" interface="com.kmzyc.b2b.service.OrderPvSyncRemoteService"/>
+
+    <!--快递-->
+	<dubbo:reference id="expressSubscriptionRemoteService" interface="com.kmzyc.express.remote.ExpressSubscriptionRemoteService"/>
+
+    <!--客户-->
+	<dubbo:reference id="trationListRemoteService" interface="com.kmzyc.user.remote.service.TrationListRemoteService"/>
+
+	<dubbo:reference id="bnesAcctEnchashmentRemoteService" interface="com.kmzyc.user.remote.service.BnesAcctEnchashmentRemoteService"/>
+
+	<dubbo:reference id="eraInfoRemoteService" interface="com.kmzyc.user.remote.service.EraInfoRemoteService"/>
+
+	<dubbo:reference id="specialistRemoteService" interface="com.kmzyc.user.remote.service.SpecialistRemoteService"/>
+
+	<!--用户系统提供服务 -->
+	<dubbo:reference id="customerRemoteService" interface="com.kmzyc.user.remote.service.CustomerRemoteService"/>
+
+    <!--促销-->
+	<dubbo:reference id="promotionRemoteService" interface="com.kmzyc.promotion.remote.service.PromotionRemoteService"/>
+</beans>

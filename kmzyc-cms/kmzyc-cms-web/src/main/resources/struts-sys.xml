@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <package name="sys" namespace="/sys" extends="struts">
+
+
+
+
+<!-- sys_user  ============ -->
+		<action name="listSysUser" class="com.pltfm.sys.action.SysUserAction" method="listSysUser">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysUserList.jsp</result>
+		</action>
+		
+		<action name="listSysUserPop" class="com.pltfm.sys.action.SysUserAction" method="listSysUserPop">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysUserPopList.jsp</result>
+		</action>
+		
+		<action name="gotoSysUserAdd">
+			<result>/WEB-INF/jsp/sys/sysUserAdd.jsp</result>
+		</action>
+		<action name="saveSysUser" class="com.pltfm.sys.action.SysUserAction" method="saveUserRole">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysUserList.jsp</result>
+		</action>
+
+		<action name="gotoSysUserUpdate" class="com.pltfm.sys.action.SysUserAction" method="getDetail">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysUserUpdate.jsp</result>
+		</action>
+		<action name="doUpdateSysUser" class="com.pltfm.sys.action.SysUserAction" method="doUpdateUserRole">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysUserList.jsp</result>
+		</action>
+
+		<action name="deleteSysuser" class="com.pltfm.sys.action.SysUserAction" method="deleteSysuser">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysUserList.jsp</result>
+		</action>
+
+
+		<action name="gotoSysUserLogin">
+			<result>/index.jsp</result>
+		</action>
+
+		<action name="loginSysUser" class="com.pltfm.sys.action.SysUserAction" method="loginSysUser">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/skin/qq/index.jsp</result>
+			<result name="login" type="redirect">${loginSysPath}</result>
+			<result name="loginError" type="redirect">${loginSysPath}</result>
+		</action>
+		<action name="logoutSysUser" class="com.pltfm.sys.action.SysUserAction" method="logoutSysUser">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysUserLogin.jsp</result>
+		</action>
+
+		<action name="gotoSysTop" class="com.pltfm.sys.action.SysUserAction" method="getSysTop">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/skin/qq/top.jsp</result>
+		</action>
+		<action name="gotoSysbuttom">
+			<result>/WEB-INF/jsp/sys/skin/qq/bottom.jsp</result>
+		</action>
+		<action name="gotoSysLeft">
+			<result>/WEB-INF/jsp/sys/skin/qq/left.jsp</result>
+		</action>
+		<action name="gotoSysCompart">
+			<result>/WEB-INF/jsp/sys/skin/qq/compart.jsp</result>
+		</action>
+		<action name="gotoSysMain">
+			<result>/WEB-INF/jsp/sys/sysHomeMain.jsp</result>
+		</action>
+		<action name="changeSysHeaderMenu" class="com.pltfm.sys.action.SysUserAction" method="changeSysHeaderMenu">
+			<result name="success" >/WEB-INF/jsp/sys/skin/qq/left.jsp</result>
+		</action>
+		<action name="gotoSysLeftMenu" class="com.pltfm.sys.action.SysUserAction" method="getSysLeftMenu">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/skin/qq/left_tree_menu.jsp</result>
+		</action>
+
+		<action name="gotoSysUserMyInfo" class="com.pltfm.sys.action.SysUserAction" method="getSysUserDetail" >
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysUserMyInfo.jsp</result>
+		</action>
+
+		<action name="doSysUserMyInfoUpdate" class="com.pltfm.sys.action.SysUserAction" method="doUpdateMyInfo" >
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysUserMyInfo.jsp</result>
+		</action>
+		
+		<action name="gotoSysUserPwdModify" class="com.pltfm.sys.action.SysUserAction" method="getSysUserDetailOnly" >
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysUserPwdModify.jsp</result>
+		</action>
+
+		<action name="doSysUserPwdModify" class="com.pltfm.sys.action.SysUserAction" method="doSysUserPwdModify" >
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysUserPwdModify.jsp</result>
+		</action>
+
+        <action name="gotoPopSelectUser" class="com.pltfm.sys.action.SysUserAction" method="popSearchUser">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/popSelectUser.jsp</result>
+		</action>
+        <action name="ajaxGetUsersByDept" class="com.pltfm.sys.action.SysUserAction" method="ajaxGetUsersByDept">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/ajaxUserList.jsp</result>
+		</action>
+		<action name="gotoSysUserSelect" class="com.pltfm.sys.action.SysUserAction" method="listSysUser">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/popSysUserSelect.jsp</result>
+		</action>
+<!-- / sys_user  -->
+
+
+
+<!-- sys_dept ============= -->
+        <action name="gotoSysDeptList" class="com.pltfm.sys.action.SysDeptAction" method="gotoList">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysDeptList.jsp</result>
+		</action>
+
+        <action name="gotoSysDeptAdd"  class="com.pltfm.sys.action.SysDeptAction" method="gotoAdd">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysDeptAdd.jsp</result>
+		</action>
+
+        <action name="saveSysDept" class="com.pltfm.sys.action.SysDeptAction" method="doSave">
+		</action>
+
+        <action name="gotoSysDeptUpdate" class="com.pltfm.sys.action.SysDeptAction" method="getDetail">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysDeptUpdate.jsp</result>
+		</action>
+
+        <action name="doUpdateSysDept" class="com.pltfm.sys.action.SysDeptAction" method="doUpdate">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysDeptList.jsp</result>
+		</action>
+
+        <action name="gotoSearchDeptPage">
+			<result>/WEB-INF/jsp/sys/popSearchSysDept.jsp</result>
+		</action>
+        <action name="gotoPopSelectDept" class="com.pltfm.sys.action.SysDeptAction" method="listSysDept">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysDeptPopSelect.jsp</result>
+		</action>
+
+        <action name="searchDept" class="com.pltfm.sys.action.SysDeptAction" method="listSysDept">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysDeptPopSelect.jsp</result>
+		</action>
+
+		<action name="deleteSysDept" class="com.pltfm.sys.action.SysDeptAction" method="doDelete">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysDeptList.jsp</result>
+		</action>
+		
+		<action name="gotoPopSelectUpDept" class="com.pltfm.sys.action.SysDeptAction" method="otherList">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysDeptPopSelectUp.jsp</result>
+		</action>
+		
+<!-- / sys_dept  -->
+
+
+
+<!-- sys_role ============= -->
+        <action name="listSysRole" class="com.pltfm.sys.action.SysRoleAction" method="listSysRole">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysRoleList.jsp</result>
+		</action>
+
+        <action name="gotoSysRoleAdd">
+			<result>/WEB-INF/jsp/sys/sysRoleAdd.jsp</result>
+		</action>
+
+        <action name="saveSysRole" class="com.pltfm.sys.action.SysRoleAction" method="save">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysRoleList.jsp</result>
+		</action>
+
+        <action name="gotoSysRoleUpdate" class="com.pltfm.sys.action.SysRoleAction" method="getDetail">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysRoleUpdate.jsp</result>
+		</action>
+
+        <action name="doUpdateSysRole" class="com.pltfm.sys.action.SysRoleAction" method="doUpdate">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysRoleList.jsp</result>
+		</action>
+
+        <action name="gotoPopSelectRole" class="com.pltfm.sys.action.SysRoleAction" method="listSysRole">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysRolePopSelect.jsp</result>
+		</action>
+
+		<action name="deleteSysRole" class="com.pltfm.sys.action.SysRoleAction" method="doDelete">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysRoleList.jsp</result>
+		</action>
+
+<!-- / sys_role  -->
+
+
+
+<!-- sys_menu ============ -->
+
+        <action name="listMenu" class="com.pltfm.sys.action.SysMenuAction" method="gotoList">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysMenuList.jsp</result>
+		</action>
+
+        <action name="gotoSysMenuUpdate" class="com.pltfm.sys.action.SysMenuAction" method="getDetail">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysMenuUpdate.jsp</result>
+		</action>
+
+        <action name="doUpdateSysMenu" class="com.pltfm.sys.action.SysMenuAction" method="doUpdate">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysMenuList.jsp</result>
+		</action>
+        <action name="gotoSysMenuAdd" class="com.pltfm.sys.action.SysMenuAction" method="gotoAdd">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysMenuAdd.jsp</result>
+		</action>
+        <action name="saveSysMenu" class="com.pltfm.sys.action.SysMenuAction" method="saveMenu">
+		</action>
+		<action name="gotoSysMenuDelete" class="com.pltfm.sys.action.SysMenuAction" method="doDelete">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysMenuList.jsp</result>
+		</action>
+
+<!-- / sys_menu -->
+
+
+
+<!-- sys_role_menu ============= -->
+        <action name="gotoRoleMenuEdit">
+			<result>/WEB-INF/jsp/sys/sysRoleMenuEdit.jsp</result>
+		</action>
+
+        <action name="listMenuByRole" class="com.pltfm.sys.action.SysRoleAction" method="getMenuListByRole">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysRoleMenuEdit.jsp</result>
+		</action>
+
+        <action name="saveRoleMenu" class="com.pltfm.sys.action.SysRoleAction" method="saveRoleMenu">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysRoleMenuEdit.jsp</result>
+		</action>
+<!-- / sys_role_menu  -->
+
+
+
+<!-- sys_notice  ============ -->
+		<action name="gotoNoticeList" class="com.pltfm.sys.action.SysNoticeAction" method="gotoList">
+		    <result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysNoticeList.jsp</result>
+		</action>
+
+		<action name="gotoSysNoticeAdd">
+			<result>/WEB-INF/jsp/sys/sysNoticeAdd.jsp</result>
+		</action>
+
+        <action name="saveSysNotice" class="com.pltfm.sys.action.SysNoticeAction" method="doSave">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysNoticeList.jsp</result>
+		</action>
+
+        <action name="deleteSysNotice" class="com.pltfm.sys.action.SysNoticeAction" method="doDelete">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysNoticeList.jsp</result>
+		</action>
+
+        <action name="gotoNoticeUpdate" class="com.pltfm.sys.action.SysNoticeAction" method="getDetail">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysNoticeUpdate.jsp</result>
+		</action>
+
+        <action name="updateSysNotice" class="com.pltfm.sys.action.SysNoticeAction" method="doUpdate">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysNoticeList.jsp</result>
+		</action>
+
+        <action name="updateAndSend" class="com.pltfm.sys.action.SysNoticeAction" method="doUpdateAndSend">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysNoticeList.jsp</result>
+		</action>
+
+        <action name="disableSysNotice" class="com.pltfm.sys.action.SysNoticeAction" method="doDisable">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysNoticeList.jsp</result>
+		</action>
+
+
+		<action name="gotoMyNoticeList" class="com.pltfm.sys.action.SysNoticeAction" method="getMyNoticeList">
+		    <result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysNoticeMyList.jsp</result>
+		</action>
+
+        <action name="gotoNoticeDetail" class="com.pltfm.sys.action.SysNoticeAction" method="getMyNoticeDetail">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysNoticeDetail.jsp</result>
+		</action>
+
+        <action name="deleteMyNotice" class="com.pltfm.sys.action.SysNoticeAction" method="doDeleteMyNotice">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysNoticeMyList.jsp</result>
+		</action>
+
+		<action name="ajaxHomeMainMyNotice" class="com.pltfm.sys.action.SysNoticeAction" method="ajaxGetHomeMainMyNotice">
+		    <result name="success" type="dispatcher">/WEB-INF/jsp/sys/ajaxHomeMainMyNoticeList.jsp</result>
+		</action>
+
+<!-- / sys_notice  -->
+
+
+
+<!-- sys_log begin ============== -->
+		<action name="gotoLogList" class="com.pltfm.sys.action.SysLogAction" method="listLog">
+				<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysLogList.jsp</result>
+		</action>
+<!-- / sys_log -->
+
+
+
+
+
+
+<!-- file_upload ==============-->
+		<!--<action name="gotoSysUploadImage" class="com.pltfm.sys.action.SysUploadFileAction" method="gotoUpload">-->
+				<!--<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysUploadFileUploadImage.jsp</result>-->
+		<!--</action>-->
+		<!---->
+		<!--<action name="gotoSysUploadFile" class="com.pltfm.sys.action.SysUploadFileAction" method="gotoUpload">-->
+				<!--<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysUploadFileUploadFile.jsp</result>-->
+		<!--</action>-->
+		<!---->
+		<!--<action name="uploadSysUploadImage" class="com.pltfm.sys.action.SysUploadFileAction" method="doUpload">-->
+	 		<!--<interceptor-ref name="defaultStack">-->
+	       		<!--<param name="fileUpload.maximumSize">2097152</param>-->
+				<!--<param name="fileUpload.allowedTypes">-->
+	                    <!--image/bmp,image/png,image/gif,image/jpeg,image/jpg,image/x-png, image/pjpeg-->
+	            <!--</param>-->
+       		<!--</interceptor-ref>-->
+			<!--<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysUploadFileUploadImageEnd.jsp</result>-->
+			<!--<result name="input" type="dispatcher">/WEB-INF/jsp/sys/sysUploadFileUploadImageError.jsp</result>-->
+		<!--</action>-->
+		<!---->
+		<!--<action name="uploadSysUploadFile" class="com.pltfm.sys.action.SysUploadFileAction" method="doUpload">-->
+			<!--<interceptor-ref name="defaultStack">-->
+	       		<!--<param name="fileUpload.maximumSize">5242880</param>-->
+			<!--</interceptor-ref>-->
+	 		<!--<result name="success" type="dispatcher">/WEB-INF/jsp/sys/sysUploadFileUploadFileEnd.jsp</result>-->
+	 		<!--<result name="input" type="dispatcher">/WEB-INF/jsp/sys/sysUploadFileUploadFileError.jsp</result>-->
+		<!--</action>-->
+<!-- / file_upload -->
+
+<!-- freemarker >
+        <action name="goLogin" class="com.pltfm.sys.action.FreemarkerAction" method="goLogin">   
+            <result type="freemarker">/WEB-INF/jsp/sys/login.ftl</result>   
+        </action>   
+  
+        <action name="login" class="com.pltfm.sys.action.FreemarkerAction" method="login">   
+            <result name="input" type="freemarker">/WEB-INF/jsp/sys/login.ftl</result>   
+            <result name="success" type="freemarker">/WEB-INF/jsp/sys/success.ftl</result>   
+        </action>   
+</freemarker -->
+
+
+
+    </package>
+</struts>

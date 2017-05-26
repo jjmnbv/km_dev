@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="app/cart" extends="BasePackage" namespace="/app/cart">
+        <!-- 添加商品 -->
+        <action name="addProduct" class="appShopCartAction" method="addProduct"/>
+        <!-- 修改商品数量 -->
+        <action name="updateProductNumber" class="appShopCartAction" method="updateProductNumber"/>
+        <!-- 删除所有选中状态的商品 -->
+        <action name="deleteAllCheckProduct" class="appShopCartAction"
+                method="deleteAllCheckProduct"/>
+        <!-- 删除商品 -->
+        <action name="deleteProduct" class="appShopCartAction" method="deleteProduct"/>
+        <!-- 全选 -->
+        <action name="checkAllProduct" class="appShopCartAction" method="checkAllProduct"/>
+        <!-- 选中商品 -->
+        <action name="checkProduct" class="appShopCartAction" method="checkProduct"/>
+        <!-- 设置商品参加的活动 -->
+        <action name="updateProductPromotion" class="appShopCartAction"
+                method="updateProductPromotion"/>
+        <!-- 选择加价购商品 -->
+        <action name="chooseIncreaseProduct" class="appShopCartAction"
+                method="chooseIncreaseProduct"/>
+        <!-- 删除加价购商品 -->
+        <action name="deleteIncreaseProduct" class="appShopCartAction"
+                method="deleteIncreaseProduct"/>
+        <!-- 选择赠品 -->
+        <action name="choosePresentGift" class="appShopCartAction" method="choosePresentGift"/>
+        <!-- 获取购物车信息 -->
+        <action name="info" class="appShopCartAction" method="getShopcartInfo"/>
+    </package>
+</struts>

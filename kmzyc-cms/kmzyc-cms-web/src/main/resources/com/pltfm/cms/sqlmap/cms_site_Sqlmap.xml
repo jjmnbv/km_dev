@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="CMS_SITE">
+	<resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.cms.vobject.CmsSite">
+		<result column="SITE_ID" property="siteId" jdbcType="Integer" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="ENGNAME" property="engName" jdbcType="VARCHAR" />
+		<result column="URL" property="url" jdbcType="VARCHAR" />
+		<result column="TEMPLATE_PATH" property="templatePath"
+			jdbcType="VARCHAR" />
+		<result column="PAGE_OUTPUT_PATH" property="pageOutputPath"
+			jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="Integer" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="CREATED" property="created" jdbcType="Integer" />
+		<result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+		<result column="MODIFIED" property="modified" jdbcType="Integer" />
+		<!--<result column="CHANNEL" property="channel" jdbcType="VARCHAR" />-->
+	</resultMap>
+
+	<resultMap id="ibatorgenerated_BaseResultMapRul" class="com.pltfm.cms.vobject.CmsSite">
+		<result column="SITE_ID" property="siteId" jdbcType="Integer" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="ENGNAME" property="engName" jdbcType="VARCHAR" />
+		<result column="URL" property="url" jdbcType="VARCHAR" />
+		<result column="TEMPLATE_PATH" property="templatePath"
+			jdbcType="VARCHAR" />
+		<result column="PAGE_OUTPUT_PATH" property="pageOutputPath"
+			jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="Integer" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="CREATED" property="created" jdbcType="Integer" />
+		<result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+		<result column="MODIFIED" property="modified" jdbcType="Integer" />
+						
+	</resultMap>
+
+	<!-- 用户实体 -->
+	<resultMap id="ibatorgenerated_SysUserResultMap" class="com.pltfm.cms.vobject.CmsUser">
+		<result column="USER_ID" property="userId" jdbcType="INTEGER" />
+		<result column="DEPT_ID" property="deptId" jdbcType="INTEGER" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		<result column="USER_PWD" property="userPwd" jdbcType="VARCHAR" />
+		<result column="USER_REAL" property="userReal" jdbcType="VARCHAR" />
+		<result column="USER_SEX" property="userSex" jdbcType="VARCHAR" />
+		<result column="USER_BIRTHDAY" property="userBirthday"
+			jdbcType="DATE" />
+		<result column="USER_CARDNO" property="userCardno" jdbcType="VARCHAR" />
+		<result column="USER_PHONE" property="userPhone" jdbcType="VARCHAR" />
+		<result column="USER_MPHONE" property="userMphone" jdbcType="VARCHAR" />
+		<result column="USER_IP" property="userIp" jdbcType="VARCHAR" />
+		<result column="USER_LASTTIME" property="userLasttime"
+			jdbcType="DATE" />
+		<result column="USER_ST" property="userSt" jdbcType="VARCHAR" />
+		<result column="USER_REMARK" property="userRemark" jdbcType="VARCHAR" />
+		<result column="IS_ENABLE" property="isEnable" jdbcType="CHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="CREATE_USER" property="createUser" jdbcType="INTEGER" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="DATE" />
+		<result column="UPDATE_USER" property="updateUser" jdbcType="INTEGER" />
+		<result column="USER_ALIAS" property="userAlias" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 用户实体 -->
+	<resultMap id="ibatorgenerated_SysUserResultRul" class="com.pltfm.cms.vobject.CmsUser">
+		<result column="USER_ID" property="userId" jdbcType="INTEGER" />
+		<result column="DEPT_ID" property="deptId" jdbcType="INTEGER" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		<result column="USER_PWD" property="userPwd" jdbcType="VARCHAR" />
+		<result column="USER_REAL" property="userReal" jdbcType="VARCHAR" />
+		<result column="USER_SEX" property="userSex" jdbcType="VARCHAR" />
+		<result column="USER_BIRTHDAY" property="userBirthday"
+			jdbcType="DATE" />
+		<result column="USER_CARDNO" property="userCardno" jdbcType="VARCHAR" />
+		<result column="USER_PHONE" property="userPhone" jdbcType="VARCHAR" />
+		<result column="USER_MPHONE" property="userMphone" jdbcType="VARCHAR" />
+		<result column="USER_IP" property="userIp" jdbcType="VARCHAR" />
+		<result column="USER_LASTTIME" property="userLasttime"
+			jdbcType="DATE" />
+		<result column="USER_ST" property="userSt" jdbcType="VARCHAR" />
+		<result column="USER_REMARK" property="userRemark" jdbcType="VARCHAR" />
+		<result column="IS_ENABLE" property="isEnable" jdbcType="CHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="CREATE_USER" property="createUser" jdbcType="INTEGER" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="DATE" />
+		<result column="UPDATE_USER" property="updateUser" jdbcType="INTEGER" />
+		<result column="USER_ALIAS" property="userAlias" jdbcType="VARCHAR" />
+		<result column="DEPTNAME" property="deptName" jdbcType="VARCHAR" />
+	</resultMap>
+ 
+   <resultMap id="ibatorgenerated_SysUserResult2" class="com.pltfm.sys.model.SysRole">
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="role_explain" property="roleExplain" jdbcType="VARCHAR" />
+    <result column="role_remark" property="roleRemark" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+ 
+	<select id="ibatorgenerated_select" resultMap="ibatorgenerated_BaseResultMap"
+		parameterClass="com.pltfm.cms.vobject.CmsSite">
+		select SITE_ID, NAME,ENGNAME, URL, TEMPLATE_PATH,
+		PAGE_OUTPUT_PATH, REMARK,
+		STATUS, CREATE_DATE,
+		CREATED, MODIFY_DATE,
+		MODIFIED
+		from CMS_SITE where SITE_ID =#siteId:Integer# 
+	</select>
+
+
+	
+	<select id="ibatorgenerated_querySite" resultMap="ibatorgenerated_BaseResultMap"
+		parameterClass="com.pltfm.cms.vobject.CmsSite">
+		select SITE_ID, NAME,ENGNAME, URL, TEMPLATE_PATH,
+		PAGE_OUTPUT_PATH, REMARK,
+		STATUS, CREATE_DATE,
+		CREATED, MODIFY_DATE,
+		MODIFIED
+		from CMS_SITE  
+		
+		where ENGNAME = #engName:VARCHAR# 
+		
+	
+	</select>
+
+	<select id="ibatorgenerated_selectIsName" resultMap="ibatorgenerated_BaseResultMap"
+		parameterClass="com.pltfm.cms.vobject.CmsSite">
+		select SITE_ID, NAME,ENGNAME, URL, TEMPLATE_PATH, PAGE_OUTPUT_PATH, REMARK,
+		STATUS, CREATE_DATE,
+		CREATED, MODIFY_DATE, MODIFIED
+		from CMS_SITE
+		<dynamic prepend="where">
+
+
+			<isNotNull property="name">
+				<isNotEmpty prepend="and" property="name">
+					NAME =#name:VARCHAR#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
+
+
+	<delete id="ibatorgenerated_delete" parameterClass="com.pltfm.cms.vobject.CmsSite">
+		delete from
+		CMS_SITE
+		where SITE_ID = #siteId:Integer#
+  </delete>
+
+	<insert id="ibatorgenerated_insert" parameterClass="com.pltfm.cms.vobject.CmsSite">
+		<selectKey resultClass="java.lang.Integer" keyProperty="siteId">
+			select seq_app_cms.nextval from dual
+      </selectKey>
+		insert into CMS_SITE
+		<dynamic prepend="(">
+			<isNotNull prepend="," property="siteId">
+				SITE_ID
+      </isNotNull>
+	  <isNotNull prepend="," property="engName">
+				ENGNAME
+      </isNotNull>
+      <isNotNull prepend="," property="name">
+				NAME
+      </isNotNull>
+			<isNotNull prepend="," property="url">
+				URL
+      </isNotNull>
+			<isNotNull prepend="," property="templatePath">
+				TEMPLATE_PATH
+      </isNotNull>
+			<isNotNull prepend="," property="pageOutputPath">
+				PAGE_OUTPUT_PATH
+			</isNotNull>
+			<isNotNull prepend="," property="remark">
+				REMARK
+      </isNotNull>
+			<isNotNull prepend="," property="status">
+				STATUS
+      </isNotNull>
+      	<!--<isNotNull prepend="," property="channel">-->
+				<!--CHANNEL-->
+      <!--</isNotNull>-->
+			<isNotNull prepend="," property="createDate">
+				CREATE_DATE
+      </isNotNull>
+			<isNotNull prepend="," property="created">
+				CREATED
+      </isNotNull>
+			<isNotNull prepend="," property="modifyDate">
+				MODIFY_DATE
+      </isNotNull>
+			<isNotNull prepend="," property="modified">
+				MODIFIED
+      </isNotNull>
+			)
+		</dynamic>
+		values
+		<dynamic prepend="(">
+			<isNotNull prepend="," property="siteId">
+				#siteId:Integer#
+			</isNotNull>
+			<isNotNull prepend="," property="name">
+				#name:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="engName">
+				#engName:VARCHAR#
+      </isNotNull>
+      
+			<isNotNull prepend="," property="url">
+				#url:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="templatePath">
+				#templatePath:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="pageOutputPath">
+				#pageOutputPath:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="remark">
+				#remark:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="status">
+				#status:Integer#
+			</isNotNull>
+			<!--<isNotNull prepend="," property="channel">-->
+				<!--#channel:VARCHAR#-->
+			<!--</isNotNull>-->
+			<isNotNull prepend="," property="createDate">
+				#createDate:DATE#
+			</isNotNull>
+			<isNotNull prepend="," property="created">
+				#created:Integer#
+			</isNotNull>
+			<isNotNull prepend="," property="modifyDate">
+				#modifyDate:DATE#
+			</isNotNull>
+			<isNotNull prepend="," property="modified">
+				#modified:Integer#
+			</isNotNull>
+			)
+		</dynamic>
+	</insert>
+
+	<update id="ibatorgenerated_update" parameterClass="com.pltfm.cms.vobject.CmsSite">
+		update CMS_SITE
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="engName">
+				ENGNAME = #engName:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="name">
+				NAME = #name:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="url">
+				URL = #url:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="templatePath">
+				TEMPLATE_PATH =
+				#templatePath:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="pageOutputPath">
+				PAGE_OUTPUT_PATH =
+				#pageOutputPath:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="remark">
+				REMARK = #remark:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="status">
+				STATUS = #status:Integer#
+			</isNotNull>
+			<!--<isNotNull prepend="," property="channel">-->
+				<!--CHANNEL = #channel:VARCHAR#-->
+			<!--</isNotNull>-->
+			<isNotNull prepend="," property="createDate">
+				CREATE_DATE =
+				#createDate:DATE#
+      </isNotNull>
+			<isNotNull prepend="," property="created">
+				CREATED = #created:Integer#
+			</isNotNull>
+			<isNotNull prepend="," property="modifyDate">
+				MODIFY_DATE =
+				#modifyDate:DATE#
+      </isNotNull>
+			<isNotNull prepend="," property="modified">
+				MODIFIED =
+				#modified:Integer#
+      </isNotNull>
+		</dynamic>
+		where SITE_ID = #siteId:Integer#
+	</update>
+
+
+
+
+	<select id="selectCountByVo" parameterClass="com.pltfm.cms.vobject.CmsSite"
+		resultClass="java.lang.Integer">
+		select count(*) from CMS_SITE
+		<dynamic prepend="where">
+			<isNotNull property="userId">
+				<isNotEmpty prepend="and" property="userId">
+					site_id not in (select
+					site_id from cms_user_site where user_id=
+					#userId:Integer#)
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="name">
+				<isNotEmpty prepend="and" property="name">
+					NAME like
+					'%'||#name#||'%'
+			  </isNotEmpty>
+			</isNotNull>
+
+			<isNotNull property="url">
+				<isNotEmpty prepend="and" property="url">
+					URL like
+					'%'||#url#||'%'
+			  </isNotEmpty>
+			</isNotNull>
+
+			<isNotNull property="templatePath">
+				<isNotEmpty prepend="and" property="templatePath">
+					TEMPLATE_PATH like
+					'%'||#templatePath#||'%'
+			  </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="pageOutputPath">
+				<isNotEmpty prepend="and" property="pageOutputPath">
+					PAGE_OUTPUT_PATH like
+					'%'||#pageOutputPath#||'%'
+			  </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="status">
+				<isNotEmpty prepend="and" property="status">
+					STATUS =
+					#status:Integer#
+			  </isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
+	
+	<!--  ****************  search page by vo  ****************  -->
+	<select id="searchPageByVo" resultMap="ibatorgenerated_BaseResultMap"
+		parameterClass="com.pltfm.cms.vobject.CmsSite">
+		select SITE_ID, NAME,ENGNAME, URL, TEMPLATE_PATH, PAGE_OUTPUT_PATH, REMARK,
+		STATUS, CREATE_DATE,
+		CREATED, MODIFY_DATE, MODIFIED
+		FROM (
+		select
+		ROW_NUMBER() OVER(order by SITE_ID
+		desc) as view_row_number,
+		l.* from
+		CMS_SITE l
+		<dynamic prepend="where">
+			<isNotNull property="userId">
+				<isNotEmpty prepend="and" property="userId">
+					site_id not in (select
+					site_id from cms_user_site where user_id=
+					#userId:Integer#)
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="name">
+				<isNotEmpty prepend="and" property="name">
+					NAME like
+					'%'||#name#||'%'
+			  </isNotEmpty>
+			</isNotNull>
+
+			<isNotNull property="url">
+				<isNotEmpty prepend="and" property="url">
+					URL like
+					'%'||#url#||'%'
+			  </isNotEmpty>
+			</isNotNull>
+
+			<isNotNull property="templatePath">
+				<isNotEmpty prepend="and" property="templatePath">
+					TEMPLATE_PATH like
+					'%'||#templatePath#||'%'
+			  </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="pageOutputPath">
+				<isNotEmpty prepend="and" property="pageOutputPath">
+					PAGE_OUTPUT_PATH like
+					'%'||#pageOutputPath#||'%'
+			  </isNotEmpty>
+			</isNotNull>
+
+			<isNotNull property="status">
+				<isNotEmpty prepend="and" property="status">
+					STATUS =
+					#status:Integer#
+			  </isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		)
+  <![CDATA[ where view_row_number <= #endIndex# and view_row_number > #startIndex# ]]>
+	</select>
+	
+	
+	<!-- 分布查询用户  -->
+	<select id="searchUserPageByVo" parameterClass="com.pltfm.cms.vobject.CmsUser"
+		resultMap="ibatorgenerated_SysUserResultMap">
+		SELECT user_id, dept_id, user_cardno, user_name, user_pwd,
+		user_real,user_alias, user_sex, user_birthday, user_phone,
+		user_mphone, user_ip, user_lasttime, user_st, user_remark, is_enable,
+		create_date,
+		create_user, update_date, update_user
+		FROM (
+		select ROW_NUMBER() OVER(order by user_id desc) as view_row_number, tt.*
+		from sys_user tt
+		<dynamic prepend="where">
+			 <isNotNull property="userReal">
+			  <isNotEmpty prepend="and" property="userReal">
+				user_real like '%'||#userReal#||'%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="userName">
+			  <isNotEmpty prepend="and" property="userName">
+				user_name like  '%'||#userName#||'%' 
+			  </isNotEmpty>
+		  </isNotNull>
+		</dynamic>
+		)
+	 <![CDATA[ where view_row_number <= #endIndex# and view_row_number > #startIndex# ]]>
+	</select>
+	<!-- 分布查询用户总数  -->
+	
+	<select id="selectUserCountByVo" parameterClass="com.pltfm.cms.vobject.CmsUser"
+		resultClass="java.lang.Integer">
+		select count(*) from sys_user
+		<dynamic prepend="where">
+				 <isNotNull property="userReal">
+			  <isNotEmpty prepend="and" property="userReal">
+				user_real like '%'||#userReal#||'%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="userName">
+			  <isNotEmpty prepend="and" property="userName">
+				user_name like  '%'||#userName#||'%' 
+			  </isNotEmpty>
+		  </isNotNull>
+		</dynamic>
+	</select>
+	
+  <select id="selectUser" resultMap="ibatorgenerated_SysUserResultRul" parameterClass="com.pltfm.cms.vobject.CmsUser" >
+     select s.* , d.dept_name as deptName from sys_user s, sys_dept d
+    where s.dept_id=d.dept_id and s.USER_ID = #userId:INTEGER#
+  </select>
+  <!-- **************** search user's roleList by vo  ****************  -->
+  <select id="selectUsersRoleList" parameterClass="com.pltfm.cms.vobject.CmsUser" resultMap="ibatorgenerated_SysUserResult2">
+    select c.role_id, c.role_name, c.role_explain, c.role_remark
+    from sys_user a, sys_user_role b, sys_role c
+	where  a.user_id = b.user_id   and   b.role_id = c.role_id    and   a.user_id = #userId:INTEGER#
+  </select>
+  
+  <!-- 多站点查询 -->
+  	<select id="ibatorgenerated_querySiteAll" resultMap="ibatorgenerated_BaseResultMap"
+		parameterClass="com.pltfm.cms.vobject.CmsSite">
+		select SITE_ID, NAME,ENGNAME, URL, TEMPLATE_PATH,
+		PAGE_OUTPUT_PATH, REMARK,
+		STATUS, CREATE_DATE,
+		CREATED, MODIFY_DATE,
+		MODIFIED
+		from CMS_SITE  
+		<dynamic prepend="where">
+				 <isNotNull property="engName">
+			  <isNotEmpty prepend="and" property="engName">
+				ENGNAME in ($engName$) 
+			  </isNotEmpty>
+		  </isNotNull>
+		</dynamic>
+	</select>
+</sqlMap>

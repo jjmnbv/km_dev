@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.i18n.encoding" value="utf-8"></constant>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<!--开发模式 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- 当修改配置文件不需要重启服务，开发比较有用 -->
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<constant name="struts.action.extension" value="action"></constant>
+	<package name="struts2" extends="struts-default">
+		<action name="index">
+			<result name="success">/jsp/index.jsp</result>
+		</action>
+	</package>
+
+
+</struts>

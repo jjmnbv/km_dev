@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="BNES_FROZEN_RECORD" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.BnesFrozenRecord" >
+    <result column="FROZEN_RECORD_ID" property="frozenRecordId" jdbcType="Integer" />
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="Integer" />
+    <result column="LOGIN_ID" property="loginId" jdbcType="Integer" />
+    <result column="FROZEN_TYPE" property="frozenType" jdbcType="Integer" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+    <result column="SUE_NAME" property="sueName" jdbcType="VARCHAR" />
+    <result column="SUE_REAL_NAME" property="sueRealName" jdbcType="VARCHAR" />
+    <result column="SUE_DATE" property="sueDate" />
+    <result column="SUE_REASON" property="sueReason" jdbcType="VARCHAR" />
+    <result column="THAW_REASON" property="thawReason" jdbcType="VARCHAR" />
+    <result column="FROZEN_REASON" property="frozenReason" jdbcType="VARCHAR" />
+    <result column="FROZEN_PICTURE" property="frozenPicture" jdbcType="VARCHAR" />
+    <result column="FROZEN_NUMBER" property="frozenNumber" jdbcType="Integer" />
+    <result column="OPERATOR" property="operator" jdbcType="Integer" />
+    <result column="OPERATOR_DATE" property="operatorDate"  />
+    <result column="CREATE_DATE" property="createDate" jdbcType="date" />
+    <result column="CREATED" property="created" jdbcType="Integer" />
+    <result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+    <result column="MODIFIED" property="modified" jdbcType="Integer" />
+  </resultMap>
+    <resultMap id="ibatorgenerated_BaseResultMapResults" class="com.pltfm.app.vobject.BnesFrozenRecord" >
+    <result column="FROZEN_RECORD_ID" property="frozenRecordId" jdbcType="Integer" />
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="Integer" />
+    <result column="LOGIN_ID" property="loginId" jdbcType="Integer" />
+    <result column="FROZEN_TYPE" property="frozenType" jdbcType="Integer" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+    <result column="SUE_NAME" property="sueName" jdbcType="VARCHAR" />
+    <result column="SUE_REAL_NAME" property="sueRealName" jdbcType="VARCHAR" />
+    <result column="SUE_DATE" property="sueDate" jdbcType="DATE" />
+    <result column="SUE_REASON" property="sueReason" jdbcType="VARCHAR" />
+    <result column="THAW_REASON" property="thawReason" jdbcType="VARCHAR" />
+    <result column="FROZEN_REASON" property="frozenReason" jdbcType="VARCHAR" />
+    <result column="FROZEN_PICTURE" property="frozenPicture" jdbcType="VARCHAR" />
+    <result column="FROZEN_NUMBER" property="frozenNumber" jdbcType="Integer" />
+    <result column="OPERATOR" property="operator" jdbcType="Integer" />
+      <result column="OPERATOR_DATE" property="operatorDate"  />
+    <result column="CREATE_DATE" property="createDate" jdbcType="date" />
+    <result column="CREATED" property="created" jdbcType="Integer" />
+    <result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+    <result column="MODIFIED" property="modified" jdbcType="Integer" />
+    <result column="MODIFIED" property="modified" jdbcType="Integer" />
+    <result column="N_STATUS" property="n_Status" jdbcType="INTEGER" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="SYS_USER_NAME" property="sysUserName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="ibatorgenerated_BaseResultMapResultsSysUser" class="com.pltfm.app.vobject.BnesFrozenRecord" >
+    <result column="FROZEN_RECORD_ID" property="frozenRecordId" jdbcType="Integer" />
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="Integer" />
+    <result column="LOGIN_ID" property="loginId" jdbcType="Integer" />
+     <result column="N_customer_type_id" property="customerType" jdbcType="Integer" />
+    
+    <result column="FROZEN_TYPE" property="frozenType" jdbcType="Integer" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+    <result column="SUE_NAME" property="sueName" jdbcType="VARCHAR" />
+    <result column="SUE_REAL_NAME" property="sueRealName" jdbcType="VARCHAR" />
+    <result column="SUE_DATE" property="sueDate" />
+    <result column="SUE_REASON" property="sueReason" jdbcType="VARCHAR" />
+    <result column="THAW_REASON" property="thawReason" jdbcType="VARCHAR" />
+    <result column="FROZEN_REASON" property="frozenReason" jdbcType="VARCHAR" />
+    <result column="FROZEN_PICTURE" property="frozenPicture" jdbcType="VARCHAR" />
+    <result column="FROZEN_NUMBER" property="frozenNumber" jdbcType="Integer" />
+    <result column="OPERATOR" property="operator" jdbcType="Integer" />
+     <result column="SYS_USER_NAME" property="sysUserName" jdbcType="VARCHAR" />
+   
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="CREATED" property="created" jdbcType="Integer" />
+    <result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+    <result column="MODIFIED" property="modified" jdbcType="Integer" />
+    <result column="MODIFIED" property="modified" jdbcType="Integer" />
+    <result column="N_STATUS" property="n_Status" jdbcType="INTEGER" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="OPERATOR_DATE" property="operatorDate"  />
+  </resultMap>
+  
+   <resultMap id="ibatorgenerated_CountResult" class="com.pltfm.sys.model.SysModelUtil">
+    <result column="the_count" property="theCount" jdbcType="DECIMAL" />
+  </resultMap>
+  <select id="ibatorgenerated_getFrozenRecordId" resultMap="ibatorgenerated_BaseResultMap" parameterClass="java.lang.Integer" >
+    select FROZEN_RECORD_ID, ACCOUNT_ID, LOGIN_ID, FROZEN_TYPE, USERNAME, REAL_NAME, ACCOUNT,
+      SUE_NAME, SUE_REAL_NAME, SUE_DATE, SUE_REASON, FROZEN_REASON,THAW_REASON, FROZEN_PICTURE, FROZEN_NUMBER,
+      OPERATOR, OPERATOR_DATE, CREATE_DATE, CREATED, MODIFY_DATE, MODIFIED,STATUS
+    from BNES_FROZEN_RECORD
+    where FROZEN_RECORD_ID = #frozenRecordId:Integer#
+  </select>
+  <!-- 通过登录账号查询冻结解冻信息 -->
+    <select id="iabatorgenerated_selectByLoginAccount" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.pltfm.app.vobject.BnesFrozenRecord" >
+    select FROZEN_RECORD_ID, ACCOUNT_ID, LOGIN_ID, FROZEN_TYPE, USERNAME, REAL_NAME, ACCOUNT,
+      SUE_NAME, SUE_REAL_NAME, SUE_DATE, SUE_REASON, FROZEN_REASON,THAW_REASON, FROZEN_PICTURE, FROZEN_NUMBER,
+      OPERATOR, OPERATOR_DATE, CREATE_DATE, CREATED, MODIFY_DATE, MODIFIED,STATUS
+    from BNES_FROZEN_RECORD 
+    where STATUS=0 and USERNAME = #username:VARCHAR#
+  </select>
+
+  <delete id="ibatorgenerated_delete" parameterClass="com.pltfm.app.vobject.BnesFrozenRecord" >
+    delete from BNES_FROZEN_RECORD
+    where FROZEN_RECORD_ID = #frozenRecordId:Integer#
+  </delete>
+  <insert id="ibatorgenerated_insert" parameterClass="com.pltfm.app.vobject.BnesFrozenRecord" >
+     <selectKey resultClass="java.lang.Integer" keyProperty="frozenRecordId" >
+           select seq_app_account.nextval from dual
+      </selectKey>
+    insert into BNES_FROZEN_RECORD
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="frozenRecordId" >
+        FROZEN_RECORD_ID
+      </isNotNull>
+      <isNotNull prepend="," property="accountId" >
+        ACCOUNT_ID
+      </isNotNull>
+      <isNotNull prepend="," property="loginId" >
+        LOGIN_ID
+      </isNotNull>
+      <isNotNull prepend="," property="frozenType" >
+        FROZEN_TYPE
+      </isNotNull>
+      <isNotNull prepend="," property="username" >
+        USERNAME
+      </isNotNull>
+      <isNotNull prepend="," property="realName" >
+        REAL_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="account" >
+        ACCOUNT
+      </isNotNull>
+      <isNotNull prepend="," property="sueName" >
+        SUE_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="sueRealName" >
+        SUE_REAL_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="sueDate" >
+        SUE_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="sueReason" >
+        SUE_REASON
+      </isNotNull>
+      <isNotNull prepend="," property="frozenReason" >
+        FROZEN_REASON
+      </isNotNull>
+       <isNotNull prepend="," property="thawReason" >
+        THAW_REASON
+      </isNotNull>
+      <isNotNull prepend="," property="frozenPicture" >
+        FROZEN_PICTURE
+      </isNotNull>
+      <isNotNull prepend="," property="frozenNumber" >
+        FROZEN_NUMBER
+      </isNotNull>
+      <isNotNull prepend="," property="operator" >
+        OPERATOR
+      </isNotNull>
+      <isNotNull prepend="," property="operatorDate" >
+        OPERATOR_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="created" >
+        CREATED
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        MODIFY_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="modified" >
+        MODIFIED
+      </isNotNull>
+        <isNotNull prepend="," property="status" >
+        STATUS
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="frozenRecordId" >
+        #frozenRecordId:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="accountId" >
+        #accountId:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="loginId" >
+        #loginId:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="frozenType" >
+        #frozenType:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="username" >
+        #username:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="realName" >
+        #realName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="account" >
+        #account:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="sueName" >
+        #sueName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="sueRealName" >
+        #sueRealName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="sueDate" >
+        #sueDate#
+      </isNotNull>
+      <isNotNull prepend="," property="sueReason" >
+        #sueReason:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="frozenReason" >
+        #frozenReason:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="thawReason" >
+        #thawReason:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="frozenPicture" >
+        #frozenPicture:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="frozenNumber" >
+        #frozenNumber:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="operator" >
+        #operator:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="operatorDate" >
+        #operatorDate#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        #createDate#
+      </isNotNull>
+      <isNotNull prepend="," property="created" >
+        #created:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        #modifyDate#
+      </isNotNull>
+      <isNotNull prepend="," property="modified" >
+        #modified:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        #status:Integer#
+      </isNotNull>
+      
+      )
+    </dynamic>
+  </insert>
+
+  <update id="ibatorgenerated_update" parameterClass="com.pltfm.app.vobject.BnesFrozenRecord" >
+    update BNES_FROZEN_RECORD
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="accountId" >
+        ACCOUNT_ID = #accountId:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="loginId" >
+        LOGIN_ID = #loginId:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="frozenType" >
+        FROZEN_TYPE = #frozenType:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="username" >
+        USERNAME = #username:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="realName" >
+        REAL_NAME = #realName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="account" >
+        ACCOUNT = #account:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="sueName" >
+        SUE_NAME = #sueName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="sueRealName" >
+        SUE_REAL_NAME = #sueRealName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="sueDate" >
+        SUE_DATE = #sueDate#
+      </isNotNull>
+      <isNotNull prepend="," property="sueReason" >
+        SUE_REASON = #sueReason:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="frozenReason" >
+        FROZEN_REASON = #frozenReason:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="thawReason" >
+        THAW_REASON=#thawReason:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="frozenPicture" >
+        FROZEN_PICTURE = #frozenPicture:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="frozenNumber" >
+        FROZEN_NUMBER = #frozenNumber:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="operator" >
+        OPERATOR = #operator:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="operatorDate" >
+        OPERATOR_DATE = #operatorDate#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE = #createDate#
+      </isNotNull>
+      <isNotNull prepend="," property="created" >
+        CREATED = #created:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        MODIFY_DATE = #modifyDate#
+      </isNotNull>
+      <isNotNull prepend="," property="modified" >
+        MODIFIED = #modified:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        STATUS = #status:Integer#
+      </isNotNull>
+    </dynamic>
+    where FROZEN_RECORD_ID = #frozenRecordId:Integer#
+  </update>
+  
+   <!-- 登录帐户冻结 ****************  search page by vo  ****************  -->
+  <select id="searchPageByVo" resultMap="ibatorgenerated_BaseResultMapResultsSysUser" parameterClass="com.pltfm.app.vobject.BnesFrozenRecord">
+		select FROZEN_RECORD_ID, ACCOUNT_ID, LOGIN_ID,N_customer_type_id, FROZEN_TYPE, USERNAME, REAL_NAME, ACCOUNT,
+      SUE_NAME, SUE_REAL_NAME, SUE_DATE, SUE_REASON, FROZEN_REASON,THAW_REASON, FROZEN_PICTURE, FROZEN_NUMBER,
+      OPERATOR,SYS_USER_NAME,OPERATOR_DATE, CREATE_DATE, CREATED, MODIFY_DATE, MODIFIED,STATUS,N_STATUS FROM (
+    select  ROW_NUMBER() OVER(order by FROZEN_RECORD_ID desc) as view_row_number, tt.* 
+    ,LL.N_STATUS,ll.N_customer_type_id,uu.user_name SYS_USER_NAME from BNES_FROZEN_RECORD tt,LOGIN_INFO LL ,sys_user uu
+     where tt.LOGIN_ID  =LL.N_LOGIN_ID AND TT.FROZEN_TYPE=0 and tt.OPERATOR=uu.user_id
+		   <isNotNull property="username">
+			  <isNotEmpty prepend="and" property="username">
+				   USERNAME like '%$username$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="status">
+			  <isNotEmpty prepend="and" property="status">
+				  tt.STATUS = #status:Integer#
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="realName">
+			  <isNotEmpty prepend="and" property="realName">
+				   REAL_NAME like '%$realName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="sueName">
+			  <isNotEmpty prepend="and" property="sueName">
+				   SUE_NAME like '%$sueName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="sueRealName">
+			  <isNotEmpty prepend="and" property="sueRealName">
+				   SUE_REAL_NAME like '%$sueRealName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="sysUserName">
+			  <isNotEmpty prepend="and" property="sysUserName">
+				   uu.USER_NAME like '%$sysUserName$%'
+				   and tt.STATUS = 1
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="sueDateStart">
+			  <isNotEmpty prepend="and" property="sueDateStart">
+				   <![CDATA[ SUE_DATE >=#sueDateStart:Date# ]]>
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="sueDateEnd">
+			  <isNotEmpty prepend="and" property="sueDateEnd">
+				 <![CDATA[ SUE_DATE < =#sueDateEnd:Date# ]]>
+			  </isNotEmpty>
+		  </isNotNull>		  
+		   <isNotNull property="operatorDateStart">
+			  <isNotEmpty prepend="and" property="operatorDateStart">
+				   <![CDATA[ OPERATOR_DATE >=#operatorDateStart:Date# ]]>
+				   and tt.STATUS = 1
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="operatorDateEnd">
+			  <isNotEmpty prepend="and" property="operatorDateEnd">
+				 <![CDATA[ OPERATOR_DATE < =#operatorDateEnd:Date# ]]>
+				 and tt.STATUS = 1
+			  </isNotEmpty>
+		  </isNotNull>
+		   order by OPERATOR_DATE desc
+    )
+    <![CDATA[ where view_row_number <= #max# and view_row_number > #skip# ]]>
+	</select>
+	
+ <!-- **************** search user's roleList by vo  ****************  -->
+  <select id="selectCountByVo" parameterClass="com.pltfm.app.vobject.BnesFrozenRecord" resultClass="java.lang.Integer">
+     select count(1) the_count from BNES_FROZEN_RECORD tt,LOGIN_INFO LL ,sys_user uu
+     where tt.LOGIN_ID  =LL.N_LOGIN_ID AND TT.FROZEN_TYPE=0 and tt.OPERATOR=uu.user_id 
+		  	<isNotNull property="username">
+			  <isNotEmpty prepend="and" property="username">
+				   USERNAME like '%$username$%'
+			  </isNotEmpty>
+			 </isNotNull>
+		   <isNotNull property="status">
+			  <isNotEmpty prepend="and" property="status">
+				tt.STATUS = #status:Integer#
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="realName">
+			  <isNotEmpty prepend="and" property="realName">
+				   REAL_NAME like '%$realName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="sueName">
+			  <isNotEmpty prepend="and" property="sueName">
+				   SUE_NAME like '%$sueName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="sueRealName">
+			  <isNotEmpty prepend="and" property="sueRealName">
+				   SUE_REAL_NAME like '%$sueRealName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="sysUserName">
+			  <isNotEmpty prepend="and" property="sysUserName">
+				   uu.USER_NAME like '%$sysUserName$%'
+				   and tt.STATUS = 1
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="sueDateStart">
+			  <isNotEmpty prepend="and" property="sueDateStart">
+				   <![CDATA[ SUE_DATE >=#sueDateStart:Date# ]]>
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="sueDateEnd">
+			  <isNotEmpty prepend="and" property="sueDateEnd">
+				 <![CDATA[ SUE_DATE < =#sueDateEnd:Date# ]]>
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="operatorDateStart">
+			  <isNotEmpty prepend="and" property="operatorDateStart">
+				   <![CDATA[ OPERATOR_DATE >=#operatorDateStart:Date# ]]>
+				   and tt.STATUS = 1
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="operatorDateEnd">
+			  <isNotEmpty prepend="and" property="operatorDateEnd">
+				 <![CDATA[ OPERATOR_DATE < =#operatorDateEnd:Date# ]]>
+				 and tt.STATUS = 1
+			  </isNotEmpty>
+		  </isNotNull>
+		    order by OPERATOR_DATE desc
+  </select>
+  <!--账户、金额冻结 -->
+  <select id="selectPageByAccount" resultMap="ibatorgenerated_BaseResultMapResults" parameterClass="com.pltfm.app.vobject.BnesFrozenRecord">
+     select FROZEN_RECORD_ID, ACCOUNT_ID, LOGIN_ID, FROZEN_TYPE, USERNAME, REAL_NAME, ACCOUNT,
+      SUE_NAME, SUE_REAL_NAME, SUE_DATE, SUE_REASON, FROZEN_REASON,THAW_REASON, FROZEN_PICTURE, FROZEN_NUMBER,user_name as SYS_USER_NAME,
+      OPERATOR,OPERATOR_DATE, CREATE_DATE, CREATED, MODIFY_DATE, MODIFIED,STATUS,N_STATUS FROM (
+      select  ROW_NUMBER() OVER(order by OPERATOR_DATE desc) as view_row_number, tt.* 
+      ,LL.N_STATUS,uu.user_name  from ACCOUNT_INFO LL left join BNES_FROZEN_RECORD tt
+        on tt.ACCOUNT_ID  =LL.N_ACCOUNT_ID left join sys_user uu on tt.operator=uu.user_id
+        <dynamic prepend="where">
+          <isNotNull property="status">
+			  <isNotEmpty prepend="and" property="status">
+				       <![CDATA[ STATUS =#status:INTEGER# ]]>
+			  </isNotEmpty>
+		  </isNotNull>
+         	<isNotNull property="username">
+			  <isNotEmpty prepend="and" property="username">
+				   ACCOUNT like '%$username$%'
+			  </isNotEmpty>
+			  </isNotNull>
+		   <isNotNull property="n_Status">
+			  <isNotEmpty prepend="and" property="n_Status">
+				 N_STATUS=#n_Status:INTEGER# 
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="realName">
+			  <isNotEmpty prepend="and" property="realName">
+				   REAL_NAME like '%$realName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="sueName">
+			  <isNotEmpty prepend="and" property="sueName">
+				   SUE_NAME like '%$sueName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="sueRealName">
+			  <isNotEmpty prepend="and" property="sueRealName">
+				   SUE_REAL_NAME like '%$sueRealName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  	<isNotNull property="frozenType">
+			  <isNotEmpty prepend="and" property="frozenType">
+				  FROZEN_TYPE =#frozenType:INTEGER#
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="createDateStart">
+			  <isNotEmpty prepend="and" property="createDateStart">
+				<![CDATA[  tt.CREATE_DATE >=#createDateStart#]]>
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="createDateEnd">
+			  <isNotEmpty prepend="and" property="createDateEnd">
+				<![CDATA[  tt.CREATE_DATE  <=#createDateEnd#]]>
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="operatorDateStart">
+			  <isNotEmpty prepend="and" property="operatorDateStart">
+				<![CDATA[  tt.OPERATOR_DATE  >=#operatorDateStart#]]>
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="operatorDateEnd">
+			  <isNotEmpty prepend="and" property="operatorDateEnd">
+				<![CDATA[   tt.OPERATOR_DATE   <=#operatorDateEnd#]]>
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		</dynamic>
+     )
+     <![CDATA[ where view_row_number <= #max# and view_row_number > #skip# ]]>
+  </select>
+   <select id="selectCountByAccount"  resultClass="java.lang.Integer" parameterClass="com.pltfm.app.vobject.BnesFrozenRecord">
+       select  count(*)    from ACCOUNT_INFO LL left join BNES_FROZEN_RECORD tt
+         on tt.ACCOUNT_ID  =LL.N_ACCOUNT_ID left join sys_user uu on tt.operator=uu.user_id
+         <dynamic prepend="where">
+             <isNotNull property="status">
+			  <isNotEmpty prepend="and" property="status">
+				     <![CDATA[ STATUS =#status:INTEGER# ]]>
+			  </isNotEmpty>
+		  </isNotNull>
+         	<isNotNull property="username">
+			  <isNotEmpty prepend="and" property="username">
+				   ACCOUNT like '%$username$%'
+			  </isNotEmpty>
+			  </isNotNull>
+		   <isNotNull property="n_Status">
+			  <isNotEmpty prepend="and" property="n_Status">
+				 N_STATUS=#n_Status:INTEGER# 
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="realName">
+			  <isNotEmpty prepend="and" property="realName">
+				   REAL_NAME like '%$realName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="sueName">
+			  <isNotEmpty prepend="and" property="sueName">
+				   SUE_NAME like '%$sueName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="sueRealName">
+			  <isNotEmpty prepend="and" property="sueRealName">
+				   SUE_REAL_NAME like '%$sueRealName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="frozenType">
+			  <isNotEmpty prepend="and" property="frozenType">
+				  FROZEN_TYPE =#frozenType:INTEGER#
+			  </isNotEmpty>
+		  </isNotNull>
+		    order by OPERATOR_DATE desc
+		</dynamic>
+   </select>
+</sqlMap>

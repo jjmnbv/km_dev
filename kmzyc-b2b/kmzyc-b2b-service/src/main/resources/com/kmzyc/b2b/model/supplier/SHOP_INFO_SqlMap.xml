@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SHOP_INFO" >
+	
+	<!-- 店铺信息map -->
+	<resultMap id="shopInfoMapForApp" class="com.kmzyc.b2b.model.ShopInfo" >
+		<result column="shop_id" property="shopId" jdbcType="DECIMAL" />
+		<result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+		<result column="supplier_id" property="supplierId" 	jdbcType="DECIMAL" />
+		<result column="logo_path" property="logoPath" jdbcType="VARCHAR" />
+		<result column="physhop_image_path" property="physhopImagePath" jdbcType="VARCHAR" />
+		<result column="introduce" property="introduce" jdbcType="VARCHAR" />
+		<result column="contact_info" property="telephone" jdbcType="VARCHAR" />	
+		<result column="{shopCode=shop_id}" property="collectCount" select="SHOP_INFO.findFavoriteShopUserCount"/>
+		<result column="{supplierId=supplier_id}" property="productTotalCount" select="SHOP_INFO.queryAllProductCount"/>
+		<result column="{supplierId=supplier_id}" property="newProductCount" select="SHOP_INFO.queryNewestProductCount"/>
+		<result column="{supplierId=supplier_id}" property="promotionProductCount" select="SHOP_INFO.queryPromotionProductCount"/>	
+		<result column="{supplierId=supplier_id}" property="companyName" select="SHOP_INFO.queryCompanyName"/>	
+		<result column="{supplierId=supplier_id}" property="companyAddress" select="SHOP_INFO.queryCompanyAddress"/>	
+	</resultMap>
+
+<!-- 店内分类查询返回map -->
+	<resultMap id="baseResultMap_shopCategory" class="com.kmzyc.b2b.model.ShopCategory" >
+	    <result column="shop_category_id" property="categoryId" jdbcType="DECIMAL" />
+	    <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+	    <result column="remark" property="categoryDesc" jdbcType="VARCHAR" />
+	    <result column="{parentCategoryId=shop_category_id,shopId=shop_id}" property="shopCategoryChildrenList" select="SHOP_INFO.queryChildrenShopCategoryByParentId" />
+  	</resultMap>
+  	
+  	<!-- 查询店铺基本信息 -->
+	<select id="queryShopInfoForAppById" resultMap="shopInfoMapForApp" parameterClass="java.lang.Long">
+		select shop_id, supplier_id, shop_name, logo_path, physhop_image_path, contact_info, introduce from shop_main where shop_id=#shopId#
+	</select>
+	
+	<!-- 店铺的公司显示名称 -->
+	<select id="queryCompanyName" resultClass="java.lang.String" parameterClass="java.util.HashMap">
+		select company_show_name from suppliers_info where supplier_id=#supplierId#
+	</select>
+	
+	<!-- 店铺的公司地址,其实是该供应商的公司注册地址 -->
+	<select id="queryCompanyAddress" resultClass="java.lang.String" parameterClass="java.util.HashMap">
+		select corporate_location from commercial_tenant_basic_info where n_commercial_tenant_id=(select merchant_id from suppliers_info where supplier_id=#supplierId# )
+	</select>
+	
+	<!-- 商品总数  (select supplier_id from shop_main where shop_id=224)-->
+	<select id="queryAllProductCount" resultClass="java.lang.Integer" parameterClass="java.util.HashMap">
+		<![CDATA[
+			select count(1) from product_sku ps left join productmain pm on ps.product_id=pm.product_id  where pm.shop_code=#supplierId# and pm.STATUS='3' and ps.status=1
+		]]>
+	</select>
+	<!-- 上新商品总数 -->
+	<select id="queryNewestProductCount" resultClass="java.lang.Integer" parameterClass="java.util.HashMap">
+		<![CDATA[
+		select count(1) from product_sku ps left join productmain pm on ps.product_id=pm.product_id 
+		where pm.product_id in(select product_id from productmain where shop_code=#supplierId#) and pm.STATUS='3' and pm.up_time between add_months(sysdate,-1) and sysdate 
+		 and ps.status=1
+		]]>
+	</select>
+	
+		<!-- 促销商品总数 -->
+	<select id="queryPromotionProductCount" resultClass="java.lang.Integer" parameterClass="java.util.HashMap">
+		<![CDATA[
+			select count(1) from product_sku where status=1 and  product_id in(select product_id from productmain where shop_code=#supplierId# and status='3') and product_sku_id in(select distinct product_sku_id from promotion_product where status=2)
+		]]>
+	</select>
+	
+  <!--查询所有的以及类目 -->
+  <select id="queryAllFirstShopCategory" resultMap="baseResultMap_shopCategory" parameterClass="java.lang.Long">
+  	 select shop_category_id, shop_id, parent_category_id,remark,category_name from shop_categorys
+	where  status=1  and shop_id=#shopId# and parent_category_id=0
+  </select>
+  
+  <!-- 迭代查询子类目 -->
+  <select id="queryChildrenShopCategoryByParentId" resultClass="com.kmzyc.b2b.model.ShopCategory" parameterClass="java.util.HashMap">
+  	select shop_category_id categoryId,remark categoryDesc,category_name categoryName from shop_categorys
+	where  status=1 and parent_category_id=#parentCategoryId# and shop_id=#shopId# 
+  </select>
+  
+  
+  <!-- 查询店铺关注人数 -->
+  <select id="findFavoriteShopUserCount" parameterClass="java.util.HashMap" resultClass="int">
+        <![CDATA[
+			 select Count(1)  from bnes_favorites  bf where   bf.content_code=to_char(#shopCode#) and  bf.favorites_type=2
+		]]>
+  </select>
+  
+<!-- 查询简易店铺信息,要什么放什么 -->
+<select id="queryShopInfoByMap" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	select distinct shop_id,shop_name,supplier_id,logo_path,shop_title from shop_main where 1=1
+	<isNotNull prepend="and" property="shopId" >
+        shop_id=#shopId#
+    </isNotNull>	
+    <isNotNull prepend="and" property="commerceId" >
+        supplier_id=#commerceId#
+    </isNotNull> 
+    <isNotNull prepend="and" property="skuId" >
+        supplier_id=(select  shop_code from productmain where product_id=(select product_id from product_sku where product_sku_id=#skuId#))
+    </isNotNull>
+</select>
+
+
+
+  <!-- 根据供应商id查询店铺运费  -->
+  <select id="queryShopFareBySupplierId" parameterClass="java.lang.Long" resultClass="java.util.HashMap">
+        <![CDATA[
+			 select fare_id, name, supplier_id, free_price, first_heavy_freight, site from supplier_fare where supplier_id=#supplierId#
+		]]>
+  </select>
+</sqlMap>

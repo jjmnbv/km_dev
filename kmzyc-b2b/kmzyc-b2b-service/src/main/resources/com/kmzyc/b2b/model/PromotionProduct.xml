@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="PromotionProduct">
+<typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+<resultMap id="promotionProductResult" class="com.kmzyc.b2b.model.PromotionProduct" >
+	<result column="procuct_name" property="productName" jdbcType="VARCHAR" />
+	<result column="PRODUCT_SKU_CODE" property="productSkuCode" jdbcType="VARCHAR" />
+	<result column="IMG_PATH" property="defaultProductSkuImgPath" jdbcType="VARCHAR" />
+	<result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+	<result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+	<result column="mark_price" property="marketPrice" jdbcType="DECIMAL" />
+	<result column="PRICE" property="price" jdbcType="DECIMAL" />
+	</resultMap>
+<resultMap id="promotionProductResultForApp" class="com.kmzyc.b2b.model.PromotionProduct" >
+	<result column="procuct_name" property="productName" jdbcType="VARCHAR" />
+	<result column="PRODUCT_SKU_CODE" property="productSkuCode" jdbcType="VARCHAR" />
+	<result column="IMG_PATH" property="defaultProductSkuImgPath" jdbcType="VARCHAR" />
+	<result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+	<result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+	<result column="mark_price" property="marketPrice" jdbcType="DECIMAL" />
+	<result column="PRICE" property="price" jdbcType="DECIMAL" />
+	<result column="skuAttrs" property="CategoryAttrName" jdbcType="DECIMAL" />
+	<result column="MIN_BUY" property="minBuy" jdbcType="DECIMAL" />
+	<result column="MAX_BUY" property="maxBuy" jdbcType="DECIMAL" />
+	<result column="PROMOTION_STOCK" property="promotionStock" jdbcType="DECIMAL" />
+	
+	
+</resultMap>
+	<!-- 查询活动商品  start-->
+	<select id="getProductSkuIdBySku" parameterClass="pagination" resultMap="promotionProductResultForApp">
+	 	<![CDATA[
+	 select pp.*, ta_temp.col as skuAttrs from (select ROW_NUMBER() OVER(order by sku.PRODUCT_SKU_ID desc) as view_row_number,sku.PRODUCT_SKU_ID,sku.PRODUCT_ID,sku.PRICE 
+ ,sku.mark_price,pm.product_title procuct_name
+ ,i.img_path,sku.product_sku_code,pp.min_buy,pp.MAX_BUY,pp.PROMOTION_STOCK,pp.PROMOTION_SELL
+        from Promotion_Product pp
+ 	 inner join PRODUCT_SKU sku on sku.PRODUCT_SKU_ID = pp.PRODUCT_SKU_ID
+ 	 inner join PRODUCTMAIN pm on pm.PRODUCT_ID = sku.PRODUCT_ID
+   left join product_image i on i.sku_id = sku.product_sku_id
+ 	 where pm.STATUS = 3 and sku.STATUS=1  and i.is_default = 0
+ 	  ]]>
+ 	 <isNotEmpty prepend="and" property="objCondition.promotionId">  
+ 	 pp.PROMOTION_ID = #objCondition.promotionId#
+ 	 </isNotEmpty>
+ 	 <isNotEmpty prepend="and" property="objCondition.promotionStatus">  
+ 	 pp.status = #objCondition.promotionStatus#
+ 	 </isNotEmpty>
+   
+   ) pp left join (select temp.product_sku_id,
+                    wm_concat(temp.CATEGORY_ATTR_VALUE) col
+               from (select ps1.product_sku_id,
+                            decode(psa.new_attr,
+                                   null,
+                                   cav.CATEGORY_ATTR_VALUE,
+                                   psa.new_attr) as CATEGORY_ATTR_VALUE
+                       from product_sku ps1
+                       left join product_sku_attr psa
+                         on psa.product_sku_id = ps1.product_sku_id
+                       left join category_attr_value cav
+                         on cav.CATEGORY_ATTR_ID = psa.CATEGORY_ATTR_ID
+                        and psa.CATEGORY_ATTR_VALUE_ID =
+                            cav.CATEGORY_ATTR_VALUE_ID) temp
+              group by temp.product_sku_id) ta_temp
+    on pp.product_sku_id = ta_temp.product_sku_id
+   where view_row_number between #startindex:DECIMAL#  and #endindex:DECIMAL#
+   
+  
+  </select>
+  <select id="getProductSkuIdBySkuCount" parameterClass="pagination" resultClass="java.lang.Integer">
+	 	<![CDATA[
+	 select count(sku.PRODUCT_SKU_ID) 
+        from Promotion_Product pp
+ 	 inner join PRODUCT_SKU sku on sku.PRODUCT_SKU_ID = pp.PRODUCT_SKU_ID
+ 	 inner join PRODUCTMAIN pm on pm.PRODUCT_ID = sku.PRODUCT_ID
+   left join product_image i on i.sku_id = sku.product_sku_id
+ 	 where pm.STATUS = 3 and sku.STATUS=1  and i.is_default = 0
+    ]]>
+ 	 <isNotEmpty prepend="and" property="objCondition.promotionId">  
+ 	 pp.PROMOTION_ID = #objCondition.promotionId#
+ 	 </isNotEmpty>
+ 	 <isNotEmpty prepend="and" property="objCondition.promotionStatus">  
+ 	 pp.status = #objCondition.promotionStatus#
+ 	 </isNotEmpty>
+  </select>
+  
+   <select id="getProductInfo" parameterClass="pagination" resultMap="promotionProductResult">
+ 	<![CDATA[
+  select * from (
+  select ROW_NUMBER() OVER(order by sku.PRODUCT_SKU_ID desc) as view_row_number
+  ,sku.PRODUCT_SKU_ID
+  ,sku.PRODUCT_ID
+  ,sku.PRICE 
+  ,sku.mark_price
+  ,pm.product_title procuct_name
+  ,i.img_path
+  ,sku.product_sku_code
+  from PRODUCT_SKU sku 
+ 	 inner join PRODUCTMAIN pm on pm.PRODUCT_ID = sku.PRODUCT_ID
+ 	 left join product_image i on i.sku_id = sku.product_sku_id
+ 	 where pm.STATUS = 3 and sku.STATUS=1  and i.is_default = 0
+ 	 ]]>
+ 	 <dynamic>
+
+ 	 	<isNotEmpty  prepend="and"  property="objCondition.categoryIds">
+ 	 		pm.CATEGORY_ID  in
+ 		  <iterate open="(" close=")" conjunction="," property="objCondition.categoryIds" > 
+ 		   #objCondition.categoryIds[]#
+ 		  </iterate>
+ 	 	</isNotEmpty>
+ 	 	<isNotEmpty  prepend="and"  property="objCondition.brandIds">
+ 	 		pm.BRAND_ID in   
+ 	 		<iterate open="(" close=")" conjunction="," property="objCondition.brandIds" > 
+ 		   #objCondition.brandIds[]#
+ 		  </iterate>
+ 	 	</isNotEmpty>
+ 	 	<isNotEmpty  prepend="and"  property="objCondition.shopCode">
+ 	 		pm.SHOP_CODE =#objCondition.shopCode#
+ 	 	</isNotEmpty>
+ 	 	<isNotEmpty  prepend="and"  property="objCondition.shopCodes">
+	 		pm.SHOP_CODE in
+		 	<iterate open="(" close=")" conjunction="," property="objCondition.shopCodes" > 
+	 		  #objCondition.shopCodes[]#
+	 		</iterate>
+ 	 	</isNotEmpty>
+ 	 </dynamic>
+ 	 )
+   where view_row_number between #startindex:DECIMAL#  and #endindex:DECIMAL#
+  </select>
+  <select id="getProductInfoCount" resultClass="java.lang.Integer" parameterClass="pagination">
+  	<![CDATA[
+  	select count(sku.PRODUCT_SKU_ID)
+	 from PRODUCT_SKU sku 
+ 	 inner join PRODUCTMAIN pm on pm.PRODUCT_ID = sku.PRODUCT_ID
+ 	 left join product_image i on i.sku_id = sku.product_sku_id
+ 	 where pm.STATUS = 3 and sku.STATUS=1  and i.is_default = 0
+ 	 ]]>
+ 	 <dynamic>
+
+ 	 	<isNotEmpty  prepend="and"  property="objCondition.categoryIds">
+ 	 		pm.CATEGORY_ID  in
+ 		  <iterate open="(" close=")" conjunction="," property="objCondition.categoryIds" > 
+ 		   #objCondition.categoryIds[]#
+ 		  </iterate>
+ 	 	</isNotEmpty>
+ 	 	<isNotEmpty  prepend="and"  property="objCondition.brandIds">
+ 	 		pm.BRAND_ID in   
+ 	 		<iterate open="(" close=")" conjunction="," property="objCondition.brandIds" > 
+ 		   #objCondition.brandIds[]#
+ 		  </iterate>
+ 	 	</isNotEmpty>
+ 	 	<isNotEmpty  prepend="and"  property="objCondition.shopCode">
+ 	 		pm.SHOP_CODE =#objCondition.shopCode#
+ 	 	</isNotEmpty>
+ 	 	<isNotEmpty  prepend="and"  property="objCondition.shopCodes">
+	 		pm.SHOP_CODE in
+		 	<iterate open="(" close=")" conjunction="," property="objCondition.shopCodes" > 
+	 		  #objCondition.shopCodes[]#
+	 		</iterate>
+ 	 	</isNotEmpty>
+ 	 </dynamic>
+  </select>
+ 
+	<!-- 查询活动商品 end-->
+	
+	<select id="getPromotionProductBySku" parameterClass="java.util.HashMap" resultMap="promotionProductResult">
+	 	<![CDATA[
+	 select * from (select ROW_NUMBER() OVER(order by sku.PRODUCT_SKU_ID desc) as view_row_number,sku.PRODUCT_SKU_ID,sku.PRODUCT_ID,pp.PRICE 
+ ,sku.mark_price,pm.product_title procuct_name
+ ,i.img_path,sku.product_sku_code
+        from Promotion_Product pp
+ 	 inner join PRODUCT_SKU sku on sku.PRODUCT_SKU_ID = pp.PRODUCT_SKU_ID
+ 	 inner join PRODUCTMAIN pm on pm.PRODUCT_ID = sku.PRODUCT_ID
+   left join product_image i on i.sku_id = sku.product_sku_id
+ 	 where pm.STATUS = 3 and sku.STATUS=1  and i.is_default = 0
+ 	  ]]>
+ 	 <isNotEmpty prepend="and" property="promotionId">  
+ 	 pp.PROMOTION_ID = #promotionId#
+ 	 </isNotEmpty>
+   <isNotEmpty prepend="and" property="productSkuId">  
+ 	 pp.PRODUCT_SKU_ID = #productSkuId#
+ 	 </isNotEmpty>
+   )
+   where 1=1
+   
+  
+  </select>
+	
+</sqlMap>

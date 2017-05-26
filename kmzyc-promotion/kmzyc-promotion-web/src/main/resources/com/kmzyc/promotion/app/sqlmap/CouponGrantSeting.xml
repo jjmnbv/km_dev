@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="COUPON_GRANT_SETING" >
+  <resultMap id="couponGrantSetMap" class="com.kmzyc.promotion.app.vobject.CouponGrantSeting">
+  	 <result column="COUPON_GIVETYPE_ID" property="couponGivetypeId"  jdbcType="DECIMAL"  />
+     <result column="COUPON_ID" property="couponId" jdbcType="DECIMAL" />
+     <result column="COUPON_ISSUING_ID" property="couponIssuingId" jdbcType="DECIMAL" />
+     <result column="COUPON_NAME" property="couponName" jdbcType="VARCHAR" />
+     <result column="ISSUING_STARTTIME" property="issuingStartTime" jdbcType="date" />
+     <result column="ISSUING_ENDTIME" property="issuingEndTime" jdbcType="date" />
+     <result column="CREATETIME" property="createTime" jdbcType="date" />
+     <result column="IS_STATUS" property="isStatus" jdbcType="DECIMAL" />
+     <result column="PAY_LEAST_MONEY" property="payLeastMoney" jdbcType="DECIMAL" />
+     <result column="COUPON_MONEY" property="couponMoney" jdbcType="DECIMAL" />
+     <result property="customId" column="CUSTOM_ID"  jdbcType="VARCHAR" />
+     <result property="customLeveId" column="CUSTOM_LEVEID"  jdbcType="VARCHAR" />
+     <result property="issuingCount" column="ISSUING_COUNT" jdbcType="DECIMAL" />
+     <result property="couponDesc" column="COUPON_DESC" jdbcType="VARCHAR"/>
+  </resultMap>
+  <resultMap id="couponGrantSetUpdateOBj" class="com.kmzyc.promotion.app.vobject.CouponGrantSeting">
+  		<result column="COUPON_ISSUING_ID" property="couponIssuingId" jdbcType="DECIMAL" />
+  		<result column="ISSUING_STARTTIME" property="issuingStartTime" jdbcType="date" />
+     	<result column="ISSUING_ENDTIME" property="issuingEndTime" jdbcType="date" />
+     	<result column="COUPON_ID" property="couponId" jdbcType="DECIMAL" />
+     	<result column="IS_STATUS" property="isStatus" jdbcType="DECIMAL" />
+  </resultMap>
+  	<!-- 查询符合注册时发放 的发放券规则  -->
+    <resultMap id="couponGrantSetMapForRegist" class="com.kmzyc.promotion.app.vobject.CouponGrantSeting">
+	     <result column="coupon_issuing_id" property="couponIssuingId" jdbcType="DECIMAL" />
+	     <result column="coupon_id" property="coupon.couponId" jdbcType="DECIMAL" />
+	     <result column="coupon_name" property="coupon.couponName" jdbcType="VARCHAR" />
+	     <result column="starttime" property="coupon.starttime" jdbcType="Date" />
+	     <result column="endtime" property="coupon.endtime" jdbcType="Date" />
+	     <result column="time_type" property="coupon.timeType" jdbcType="DECIMAL" /> 
+	     <result column="coupon_valid_day" property="coupon.couponValidDay" jdbcType="DECIMAL" />
+	     <result column="pay_least_money" property="coupon.payLeastMoney" jdbcType="DECIMAL" />
+	     <result column="coupon_money" property="coupon.couponMoney" jdbcType="DECIMAL" />
+  	</resultMap>
+  
+  
+  <resultMap class="com.kmzyc.promotion.app.vobject.UserLoginId" id="userLongId">
+  		<result property="customId" column="N_LOGIN_ID"  jdbcType="DECIMAL"  />
+  		<result property="loginAccount" column="LOGIN_ACCOUNT" jdbcType="VARCHAR" />
+  		<result property="name" column="NAME" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap class="com.kmzyc.promotion.app.vobject.UserLeve" id="userLevel">
+  		<result property="levelId"  column="N_LEVEL_ID" jdbcType="DECIMAL" />
+  		<result property="code" column="CODE" jdbcType="VARCHAR"/>
+  		<result property="levelName" column="LEVEL_NAME" jdbcType="VARCHAR"/>
+  </resultMap>
+  <resultMap class="com.kmzyc.promotion.app.vobject.Product" id="productMap">
+  	<result property="productId" column="product_id"  jdbcType="DECIMAL" />
+  	<result property="productNo" column="product_no"  jdbcType="VARCHAR"/>
+  	<result property="shopCode"  column="shop_code" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <resultMap class="com.kmzyc.promotion.app.vobject.Product" id="productAndSuppliersMap">
+  	<result property="productId" column="product_id"  jdbcType="DECIMAL" />
+  	<result property="productNo" column="product_no"  jdbcType="VARCHAR"/>
+  	<result property="shopCode"  column="shop_code" jdbcType="VARCHAR"/>  
+  	<result property="productSkus"  column="product_sku_code" resultMap="PRODUCT_SKU.productSkuCode"/>
+  	<result property="categoryId"  column="category_id" jdbcType="INTEGER"/>  
+  </resultMap>
+  
+    <resultMap id="UserVo" class="com.pltfm.app.dataobject.UserInfoDO" >
+           <result column="loginId" property="loginId"  />
+            <result column="levelId" property="levelId"  />
+           <result column="customerTypeId" property="customerTypeId"  />
+           <result column="name" property="name"  />
+            <result column="loginAccount" property="loginAccount"  />
+            <result column="customerTypeName" property="customerTypeName"  />
+           <result column="email" property="email"  />
+            <result column="mobile" property="mobile" />
+           <result column="status" property="status"  />
+            <result column="loginPassword" property="loginPassword" />
+           
+    </resultMap>
+  
+  
+  <select id="selectCouponGrantset" parameterClass="com.kmzyc.promotion.app.vobject.CouponGrantSeting" resultMap="couponGrantSetMap">
+  		SELECT  CIS.COUPON_GIVETYPE_ID,CIS.COUPON_ID,C.COUPON_NAME,CIS.COUPON_ISSUING_ID,CIS.CUSTOM_ID,CIS.CUSTOM_LEVEID,
+  		CIS.ISSUING_STARTTIME,CIS.ISSUING_ENDTIME,CIS.CREATETIME,CIS.IS_STATUS,C.PAY_LEAST_MONEY,CIS.ISSUING_COUNT,
+  		C.COUPON_MONEY,CIS.COUPON_DESC  FROM COUPON_ISSUING_SETTING CIS,COUPON C
+  		where cis.COUPON_ID=c.COUPON_ID
+  		
+  			<isNotNull property="couponGivetypeId" >
+        		AND CIS.COUPON_GIVETYPE_ID = #couponGivetypeId:DECIMAL#
+      		</isNotNull>
+      		<isNotNull  property="couponId" >
+        	   AND	CIS.COUPON_ID = #couponId:DECIMAL#
+      		</isNotNull>
+      		<isNotNull  property="couponName" >
+        	  AND	C.COUPON_NAME = #couponName:DECIMAL#
+      		</isNotNull>
+  			<isNotNull  property="isStatus" >
+        	  AND	CIS.IS_STATUS = #isStatus:DECIMAL#
+      		</isNotNull>
+      		<isNotNull  property="couponIssuingId" >
+        	  AND	CIS.COUPON_ISSUING_ID = #couponIssuingId:DECIMAL#
+      		</isNotNull>
+  </select>
+  <select id="selectCount" parameterClass="com.kmzyc.promotion.app.vobject.CouponGrantSeting" resultClass="java.lang.Integer">
+  		SELECT COUNT(*) FROM COUPON_ISSUING_SETTING CIS,COUPON C
+  		where cis.COUPON_ID=c.COUPON_ID 
+      		<isNotNull property="couponGivetypeId" >
+        		AND CIS.COUPON_GIVETYPE_ID = #couponGivetypeId:DECIMAL#
+      		</isNotNull>
+      		<isNotNull  property="couponId" >
+        	   AND	CIS.COUPON_ID = #couponId:DECIMAL#
+      		</isNotNull>
+      		<isNotNull  property="couponName" >
+        	  AND	C.COUPON_NAME like '%$couponName$%'
+      		</isNotNull>
+  			<isNotNull  property="isStatus" >
+        	  AND	CIS.IS_STATUS = #isStatus:DECIMAL#
+      		</isNotNull>
+  </select>
+  <!-- 分页查询 -->
+  <select id="selectPageCouponGrantSet" parameterClass="com.kmzyc.promotion.app.vobject.CouponGrantSeting" resultMap="couponGrantSetMap">
+  		SELECT   COUPON_GIVETYPE_ID,COUPON_ID,COUPON_NAME,COUPON_ISSUING_ID，CUSTOM_ID,CUSTOM_LEVEID,
+ISSUING_STARTTIME,ISSUING_ENDTIME,CREATETIME,IS_STATUS,PAY_LEAST_MONEY, ISSUING_COUNT,COUPON_DESC,  
+COUPON_MONEY from (select  ROW_NUMBER() OVER(order by CIS.COUPON_ISSUING_ID desc) as view_row_number,
+CIS.COUPON_GIVETYPE_ID,CIS.COUPON_ID,C.COUPON_NAME,CIS.COUPON_ISSUING_ID, CIS.ISSUING_COUNT,
+CIS.ISSUING_STARTTIME,CIS.ISSUING_ENDTIME,CIS.CREATETIME,CIS.IS_STATUS,C.PAY_LEAST_MONEY,CIS.CUSTOM_ID,CIS.CUSTOM_LEVEID,     
+C.COUPON_MONEY,CIS.COUPON_DESC 
+FROM COUPON_ISSUING_SETTING CIS,COUPON C     where CIS.COUPON_ID=c.COUPON_ID                                        
+
+  		
+      		<isNotNull property="couponGivetypeId" >
+        		AND CIS.COUPON_GIVETYPE_ID = #couponGivetypeId:DECIMAL#
+      		</isNotNull>
+      		<isNotNull  property="couponId" >
+        	   AND	CIS.COUPON_ID = #couponId:DECIMAL#
+      		</isNotNull>
+      		<isNotNull  property="couponName" >
+        	  AND	C.COUPON_NAME  like '%$couponName$%'
+      		</isNotNull>
+  			<isNotNull  property="isStatus" >
+        	  AND	CIS.IS_STATUS = #isStatus:DECIMAL#
+      		</isNotNull>
+      		)
+      		WHERE view_row_number between  #startIndex# and #endIndex#  order by CREATETIME desc     
+  </select>
+  
+  <!-- 20141105 maliqun add 查询符合注册发放类型的发放设置以及优惠券信息  begin -->
+  	<select id="queryGrantSetForRegist" resultMap="couponGrantSetMapForRegist" >
+  		select b.coupon_issuing_id,
+		       a.coupon_id,
+		       a.coupon_name,
+		       a.starttime,
+		       a.endtime,
+		       a.time_type,
+		       a.coupon_valid_day,
+		       a.pay_least_money,
+		       a.coupon_money
+		  from coupon a, coupon_issuing_setting b
+		 where a.coupon_id = b.coupon_id
+		   and b.is_status = 3
+		   and (sysdate between b.issuing_starttime and b.issuing_endtime)
+		   and b.coupon_givetype_id = 2
+  	</select>
+  <!-- 20141105 maliqun add 查询符合注册发放类型的发放设置以及优惠券信息  end -->
+  
+  <update id="updateCouponGrantset" parameterClass="com.kmzyc.promotion.app.vobject.CouponGrantSeting" >
+  			UPDATE COUPON_ISSUING_SETTING  SET IS_STATUS=#isStatus#
+  			<isNotNull prepend="," property="issuingStartTime" >
+        		ISSUING_STARTTIME = #issuingStartTime#
+      			</isNotNull>
+		      	<isNotNull prepend="," property="issuingEndTime" >
+		       		ISSUING_ENDTIME= #issuingEndTime#
+		      	</isNotNull>
+  			 WHERE COUPON_ISSUING_ID=#couponIssuingId#  
+  </update>
+  <update id="updateGrantSeting" parameterClass="com.kmzyc.promotion.app.vobject.CouponGrantSeting" >
+  			UPDATE COUPON_ISSUING_SETTING 
+  			<dynamic prepend="set" >
+  				<isNotNull prepend="," property="couponGivetypeId" >
+       				 COUPON_GIVETYPE_ID = #couponGivetypeId:DECIMAL#
+      			</isNotNull>
+      			<isNotNull prepend="," property="couponId" >
+       				 COUPON_ID = #couponId:DECIMAL#
+      			</isNotNull>
+      			<isNotNull prepend="," property="issuingStartTime" >
+       				 ISSUING_STARTTIME = #issuingStartTime#
+      			</isNotNull>
+      			<isNotNull prepend="," property="issuingEndTime" >
+       				 ISSUING_ENDTIME = #issuingEndTime#
+      			</isNotNull>
+      			<isNotNull prepend="," property="createTime" >
+       				 CREATETIME = #createTime#
+      			</isNotNull>
+      			<isNotNull prepend="," property="isStatus" >
+       				 IS_STATUS = #isStatus:DECIMAL#
+      			</isNotNull>
+      			<isNotNull prepend="," property="issuingCount" >
+       				 ISSUING_COUNT = #issuingCount:DECIMAL#
+      			</isNotNull>
+      			
+      			<isNotNull prepend="," property="customLeveId" >
+       				 CUSTOM_LEVEID = #customLeveId:VARCHAR#
+      			</isNotNull>
+      			<isNotNull prepend="," property="customId" >
+       				 CUSTOM_ID = #customId:VARCHAR#
+      			</isNotNull>
+      			<isNotNull prepend="," property="couponDesc" >
+       				 COUPON_DESC = #couponDesc:VARCHAR#
+      			</isNotNull>
+  			</dynamic>
+  			WHERE COUPON_ISSUING_ID=#couponIssuingId:DECIMAL#
+  </update>
+  <select id="selectBystarAndEndTime" parameterClass="com.kmzyc.promotion.app.vobject.CouponGrantSeting" resultMap="couponGrantSetUpdateOBj"  >
+  		 select coupon_id,COUPON_ISSUING_ID, ISSUING_STARTTIME,ISSUING_ENDTIME,IS_STATUS
+  		 from COUPON_ISSUING_SETTING where 1=1
+  		 <isNotNull property="issuingStartTime">
+	  		 <![CDATA[
+	        AND  IS_STATUS=1   AND  ISSUING_STARTTIME <= #issuingStartTime#
+	      	]]>
+	      </isNotNull>
+	      <isNotNull property="issuingEndTime">
+	  		 <![CDATA[
+	        AND  IS_STATUS=3   AND  ISSUING_ENDTIME <= #issuingEndTime#
+	      	]]>
+	      </isNotNull>
+  </select>
+  <delete id="deleteCouponGrantset" parameterClass="com.kmzyc.promotion.app.vobject.CouponGrantSeting">
+  			delete COUPON_ISSUING_SETTING CIS WHERE 1=1 
+  			<isNotNull  property="couponId" >
+        	  AND 	CIS.COUPON_ID = #couponId:DECIMAL# 
+      		</isNotNull>
+      		<isNotNull  property="couponIssuingId" >
+        	  AND	COUPON_ISSUING_ID = #couponIssuingId:DECIMAL#
+      		</isNotNull>
+  </delete>
+  <insert id="saveCouponGrantset"  parameterClass="com.kmzyc.promotion.app.vobject.CouponGrantSeting" >
+  		<selectKey resultClass="java.lang.Long" keyProperty="couponIssuingId" >
+           select SEQ_COUPON_ISSUING_SETTING.nextval from dual
+    	</selectKey>
+    	insert into COUPON_ISSUING_SETTING
+    	<dynamic prepend="(" >
+     		 <isNotNull prepend="," property="couponIssuingId" >
+        		COUPON_ISSUING_ID
+		      </isNotNull>
+		      <isNotNull prepend="," property="couponId" >
+		        COUPON_ID
+		      </isNotNull>
+		      <isNotNull prepend="," property="issuingStartTime" >
+		        ISSUING_STARTTIME
+		      </isNotNull>
+		      <isNotNull prepend="," property="issuingEndTime" >
+		        ISSUING_ENDTIME
+		      </isNotNull>
+		      <isNotNull prepend="," property="isStatus" >
+		        IS_STATUS
+		      </isNotNull>
+		      <isNotNull prepend="," property="issuingCount" >
+		        ISSUING_COUNT
+		      </isNotNull>
+		      <isNotNull prepend="," property="customLeveId" >
+		        CUSTOM_LEVEID
+		      </isNotNull>
+		      <isNotNull prepend="," property="customId" >
+		        CUSTOM_ID
+		      </isNotNull>
+		      <isNotNull prepend="," property="couponGivetypeId" >
+		        COUPON_GIVETYPE_ID
+		      </isNotNull>
+		      <isNotNull prepend="," property="couponDesc" >
+		        COUPON_DESC
+		      </isNotNull>
+		      )
+		    </dynamic>
+		    values
+		    <dynamic prepend="(" >
+		    <isNotNull prepend="," property="couponIssuingId" >
+        		#couponIssuingId:DECIMAL#
+		      </isNotNull>
+		      <isNotNull prepend="," property="couponId" >
+		        #couponId:DECIMAL#
+		      </isNotNull>
+		      <isNotNull prepend="," property="issuingStartTime" >
+		         #issuingStartTime#
+		      </isNotNull>
+		      <isNotNull prepend="," property="issuingEndTime" >
+		        #issuingEndTime#
+		      </isNotNull>
+		      <isNotNull prepend="," property="isStatus" >
+		        #isStatus:DECIMAL#
+		      </isNotNull>
+		      <isNotNull prepend="," property="issuingCount" >
+		        #issuingCount:DECIMAL#
+		      </isNotNull>
+		      <isNotNull prepend="," property="customLeveId" >
+        		#customLeveId:VARCHAR#
+      		  </isNotNull>
+		      <isNotNull prepend="," property="customId" >
+		        #customId:VARCHAR#
+		      </isNotNull>
+		      <isNotNull prepend="," property="couponGivetypeId" >
+		        #couponGivetypeId:DECIMAL#
+		      </isNotNull>
+		      <isNotNull prepend="," property="couponDesc" >
+		        #couponDesc:VARCHAR#
+		      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  
+    <insert id="ibatorgenerated_insertSelective" parameterClass="com.kmzyc.promotion.app.vobject.CouponGrant" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Thu Aug 22 09:45:29 CST 2013.
+    -->
+     <selectKey resultClass="java.lang.Long" keyProperty="couponGrantId" >
+           select SEQ_APP_COUPONPGRANT.nextval from dual
+    </selectKey>
+    insert into COUPON_GRANT
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="couponGrantId" >
+        COUPON_GRANT_ID
+      </isNotNull>
+      <isNotNull prepend="," property="couponId" >
+        COUPON_ID
+      </isNotNull>
+      <isNotNull prepend="," property="customId" >
+        CUSTOM_ID
+      </isNotNull>
+      <isNotNull prepend="," property="couponStatus" >
+        COUPON_STATUS
+      </isNotNull>
+       <isNotNull prepend="," property="grantCreattime" >
+       grant_creattime
+      </isNotNull>
+         <isNotNull prepend="," property="grantCreateman" >
+      GRANT_CRATEMAN
+      </isNotNull>
+        <isNotNull prepend="," property="grantUpdatetime" >
+      grant_updatetime
+      </isNotNull>
+      <isNotNull prepend="," property="grantUpdateman" >
+       grant_updateman
+      </isNotNull>
+      <isNotNull prepend="," property="grantType" >
+       GRANT_TYPE
+      </isNotNull>
+      <isNotNull prepend="," property="grantRelatedCode" >
+       GRANT_RELATED_CODE
+      </isNotNull>
+      <isNotNull prepend="," property="grantRemark" >
+       GRANT_REMARK
+      </isNotNull>
+      <isNotNull prepend="," property="grantEndtime" >
+       GRANT_ENDTIME
+      </isNotNull>
+      <isNotNull prepend="," property="endTime" >
+       ENDTIME
+      </isNotNull>
+      <isNotNull prepend="," property="startTime" >
+       STARTTIME
+      </isNotNull>
+      <isNotNull prepend="," property="couponIssuingId" >
+       COUPON_ISSUING_ID
+      </isNotNull>
+      <isNotNull prepend="," property="actStatus" >
+       ACT_STATUS
+      </isNotNull>
+      <isNotNull prepend="," property="actTime" >
+       GRANT_ACTTIME
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="couponGrantId" >
+        #couponGrantId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="couponId" >
+        #couponId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="customId" >
+        #customId:DECIMAL#
+      </isNotNull>
+       <isNotNull prepend="," property="couponStatus" >
+        #couponStatus:DECIMAL#
+      </isNotNull>
+        <isNotNull prepend="," property="grantCreattime" >
+       #grantCreattime:VARCHAR#
+      </isNotNull>
+         <isNotNull prepend="," property="grantCreateman" >
+      #grantCreateman:DECIMAL#
+      </isNotNull>
+        <isNotNull prepend="," property="grantUpdatetime" >
+      #grantUpdatetime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="grantUpdateman" >
+       #grantUpdateman:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="grantType" >
+       #grantType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="grantRelatedCode" >
+       #grantRelatedCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="grantRemark" >
+       #grantRemark:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="grantEndtime" >
+       #grantEndtime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="endTime" >
+       #endTime#
+      </isNotNull>
+      <isNotNull prepend="," property="startTime" >
+       #startTime#
+      </isNotNull>
+      <isNotNull prepend="," property="couponIssuingId" >
+       #couponIssuingId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="actStatus" >
+       #actStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="actTime" >
+       #actTime#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  <select id="selectLoginId" parameterClass="java.lang.Integer" resultMap="userLongId">
+  		SELECT LO.N_LOGIN_ID,LO.LOGIN_ACCOUNT,A.NAME  FROM LOGIN_INFO LO,ACCOUNT_INFO A WHERE LO.N_LOGIN_ID=A.N_LOGIN_ID AND lO.N_LEVEL_ID=#leveId:DECIMAL#
+  </select>
+  <!-- 查询商品是否为自营商品 -->
+  <select id="selectProductBySKU"  parameterClass="java.lang.String" resultMap="productMap" >
+  		select PM.PRODUCT_ID,PM.PRODUCT_NO,PM.SHOP_CODE from PRODUCTMAIN PM,PRODUCT_SKU PS WHERE PM.PRODUCT_ID=PS.PRODUCT_ID AND 
+  		PS.PRODUCT_SKU_CODE=#skuCode:VARCHAR#
+  </select>
+    <!-- 查询商品信息与供应商信息 -->
+  <select id="selectProductAndSuppliersBySKU"  parameterClass="java.util.List"  resultMap="productAndSuppliersMap" >
+  		<![CDATA[
+  		select PM.PRODUCT_ID,PM.PRODUCT_NO,PM.SHOP_CODE,ps.product_sku_code,pm.category_id from PRODUCTMAIN PM,PRODUCT_SKU PS  WHERE PM.PRODUCT_ID=PS.PRODUCT_ID  
+  		 and PS.PRODUCT_SKU_CODE in 
+  		 ]]> 
+  		<iterate open="(" close=")" conjunction=",">
+		   	#skuCodes[]#
+		</iterate>
+  </select>
+  <select id="selectUserByLoginId" parameterClass="java.lang.Integer" resultMap="userLongId">
+  		SELECT L.N_LOGIN_ID,LOGIN_ACCOUNT,A.NAME FROM LOGIN_INFO L,ACCOUNT_INFO A WHERE 
+  		  L.N_LOGIN_ID=A.N_LOGIN_ID AND  L.N_LOGIN_ID=#loginId:DECIMAL#
+  </select>
+  <select id="selectUserLevelByLevelId" parameterClass="java.lang.Integer" resultMap="userLevel">
+  		SELECT UL.N_LEVEL_ID,UL.CODE,UL.LEVEL_NAME  FROM USER_LEVEL UL WHERE
+  		UL.N_LEVEL_ID=#levelId:DECIMAL#
+  </select>
+   <insert id="grantInfo_insertSelective" parameterClass="com.kmzyc.promotion.app.vobject.CouponGrantInfo" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Thu Aug 22 09:45:29 CST 2013.
+    -->
+     <selectKey resultClass="java.lang.Long" keyProperty="couponInfoId" >
+           select SEQ_APP_COUPON_INFO.nextval from dual
+    </selectKey>
+    insert into COUPON_GRANT_INFO
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="couponInfoId" >
+        COUPON_INFO_ID
+      </isNotNull>
+      <isNotNull prepend="," property="couponGrantId" >
+        COUPON_GRANT_ID
+      </isNotNull>
+      <isNotNull prepend="," property="couponInfoNo" >
+        COUPON_INFO_NO
+      </isNotNull>
+      <isNotNull prepend="," property="activeCode" >
+        ACTIVE_CODE
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="couponInfoId" >
+        #couponInfoId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="couponGrantId" >
+        #couponGrantId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="couponInfoNo" >
+        #couponInfoNo:VARCHAR#
+      </isNotNull>
+       <isNotNull prepend="," property="activeCode" >
+        #activeCode:VARCHAR#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  
+   <select id="selectUserbyId" parameterClass="com.pltfm.app.dataobject.UserInfoDO"  resultMap="UserVo">
+       				 SELECT T.N_LOGIN_ID loginId,
+					       T.N_LEVEL_ID levelId,
+					       T.N_CUSTOMER_TYPE_ID customerTypeId,
+					       T.LOGIN_ACCOUNT loginAccount,
+					        T.LOGIN_ACCOUNT name,
+					       C.NAME  customerTypeName,
+					        T.LOGIN_PASSWORD loginPassword,
+					       A.MOBILE mobile,
+					       A.EMAIL email,
+					       T.N_STATUS status   
+					  FROM LOGIN_INFO T,ACCOUNT_INFO A,BNES_CUSTOMER_TYPE C
+            		where  T.N_LOGIN_ID=A.N_LOGIN_ID
+             		 AND T.N_CUSTOMER_TYPE_ID =C.CUSTOMER_TYPE_ID
+             		 <isNotNull   property="loginId" >
+       					AND T.N_LOGIN_ID =#loginId#
+       				</isNotNull>
+   </select>
+   
+   
+</sqlMap>

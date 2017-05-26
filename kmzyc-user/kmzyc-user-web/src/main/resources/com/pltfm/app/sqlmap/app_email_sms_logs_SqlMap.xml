@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="EMAIL_SMS_LOGS" >
+  <resultMap id="abatorgenerated_EmailSmsLogsResult" class="com.pltfm.app.vobject.EmailSmsLogs" >
+     <result column="SELOG_ID" property="selogId" jdbcType="DECIMAL" />
+     <result column="PROMOTION_ID" property="promotionId" jdbcType="DECIMAL" />
+     <result column="SEND_DATE" property="sendDate" jdbcType="DATE" />
+     <result column="STATUS" property="status" jdbcType="DECIMAL" />
+     <result column="CREATE_DATE" property="createdDate" jdbcType="DATE" />
+     <result column="CREATED_ID" property="createdId" jdbcType="DECIMAL" />
+     <result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+     <result column="MODIFIE_ID" property="modifyId" jdbcType="DECIMAL" />
+      <result column="LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+     <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+        <result column="TITLE" property="title" jdbcType="VARCHAR" />
+     <result column="LOGIN_ACCOUNT" property="loginName" jdbcType="VARCHAR" />
+        <result column="P_TYPE" property="promotionType" jdbcType="DECIMAL" />
+     <result column="EMAIL" property="email" jdbcType="VARCHAR" /> 
+      <result column="MARK" property="mark" jdbcType="VARCHAR" />
+           <result column="CHANNEL_ID" property="channelId" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  
+  
+    <resultMap id="abatorgenerated_EmailSmsLogsResult2" class="com.pltfm.app.vobject.EmailSmsLogs" >  
+       <result column="PROMOTION_ID" property="promotionId" jdbcType="DECIMAL" />
+         <result column="SELOG_ID" property="selogId" jdbcType="DECIMAL" />
+     <result column="STATUS" property="status" jdbcType="DECIMAL" />
+     <result column="CREATE_DATE" property="createdDate" jdbcType="DATE" />
+      <result column="LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+     <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+     <result column="LOGIN_ACCOUNT" property="loginName" jdbcType="VARCHAR" />
+     <result column="EMAIL" property="email" jdbcType="VARCHAR" /> 
+  </resultMap>
+  
+  
+ 
+  
+  <select id="getCountEmailSmsLogs" parameterClass="com.pltfm.app.vobject.EmailSmsLogs"  resultClass="java.lang.Integer" >
+     
+     	 select count(*) from EMAIL_SMS_logs A , login_info B ,email_sms_promotion C
+    <dynamic prepend="where">
+               a.PROMOTION_ID=c.PROMOTION_ID
+               and 
+               a.login_id=b.n_login_id 
+							  <isNotEmpty property="promotionType">
+								AND c.P_TYPE =#promotionType#
+							  </isNotEmpty>
+							    <isNotEmpty property="title">
+								AND c.TITLE   like '%$title$%'
+							  </isNotEmpty>
+							    <isNotEmpty property="loginName">
+								AND b.login_account  like '%$loginName$%'
+							  </isNotEmpty>
+						   <isNotEmpty property="email">
+								AND a.EMAIL   like '%$email$%'
+							  </isNotEmpty>
+							    <isNotEmpty property="mobile">
+								AND a.MOBILE  like '%$mobile$%' 
+							  </isNotEmpty>
+						   <isNotEmpty property="status">
+								AND a.STATUS =#status#
+							  </isNotEmpty>
+							    <isNotEmpty property="channelId">
+								AND c.CHANNEL_ID =#channelId#
+							  </isNotEmpty>
+						  </dynamic> 
+						   order by A.SELOG_ID desc
+						  
+  </select>
+  <select id="getListEmailSmsLogs" resultMap="abatorgenerated_EmailSmsLogsResult" parameterClass="com.pltfm.app.vobject.EmailSmsLogs">
+      select *  from (select ROW_NUMBER() OVER(order by A.PROMOTION_ID desc) as view_row_number,
+         A.*,
+         C.Title,
+         C.p_Type,
+         C.CHANNEL_ID,
+         b.login_account
+         from EMAIL_SMS_logs A , login_info B,email_sms_promotion C 
+    <dynamic prepend="where">
+                   a.PROMOTION_ID=c.PROMOTION_ID
+               and 
+               a.login_id=b.n_login_id 
+							  <isNotEmpty property="promotionType">
+								AND c.P_TYPE =#promotionType#
+							  </isNotEmpty>
+							    <isNotEmpty property="title">
+								AND c.TITLE   like '%$title$%'
+							  </isNotEmpty>
+							    <isNotEmpty property="loginName">
+								AND b.login_account  like '%$loginName$%'
+							  </isNotEmpty>
+						   <isNotEmpty property="email">
+								AND a.EMAIL   like '%$email$%'
+							  </isNotEmpty>
+							    <isNotEmpty property="mobile">
+								AND a.MOBILE  like '%$mobile$%' 
+							  </isNotEmpty>
+						   <isNotEmpty property="status">
+								AND a.STATUS =#status#
+							  </isNotEmpty>
+							      <isNotEmpty property="channelId">
+								AND c.CHANNEL_ID =#channelId#
+							  </isNotEmpty>
+						  </dynamic>
+						  )
+						  <![CDATA[ where view_row_number <= #max# and view_row_number > #skip# ]]>
+	</select>
+
+	<insert id="insertEmailSmsLogs" parameterClass="com.pltfm.app.vobject.EmailSmsLogs" >
+  
+    <selectKey resultClass="java.lang.Integer" keyProperty="selogId" >
+           select  SEQ_APP_PROMOTION_LOGS.nextval from dual
+   </selectKey>
+			    insert into EMAIL_SMS_LOGS 
+			    (SELOG_ID,
+			     PROMOTION_ID,
+			     SEND_DATE,
+			     STATUS,
+			     CREATE_DATE,
+			     CREATED_ID,
+			     MODIFY_DATE, 
+			     MODIFIE_ID,
+			     LOGIN_ID,
+			     MOBILE,
+			     EMAIL,
+			     MARK)
+			    values (
+			           #selogId:DECIMAL#,
+			           #promotionId:DECIMAL#,
+			            #sendDate:DATE#,
+			            #status:DECIMAL#, 
+			            #createdDate:DATE#, 
+			             #createdId:DECIMAL#, 
+			             #modifyDate:DATE#,
+			             #modifyId:DECIMAL#,
+			             #loginId:DECIMAL#,
+			            #mobile:VARCHAR#,
+			            #email:VARCHAR#,
+			            #mark:VARCHAR#
+					)
+  </insert>
+  
+  
+  
+    <!-- 根据条件查询 -->
+  <select id="getEmailSmsLogs" resultMap="abatorgenerated_EmailSmsLogsResult2" parameterClass="com.pltfm.app.vobject.EmailSmsLogs" >
+   select 
+             A.SELOG_ID,
+             A.PROMOTION_ID,
+             B.LOGIN_ACCOUNT,
+     	        a.EMAIL,
+     	        a.MOBILE,
+     	        a.CREATE_DATE,
+     	        a.MARK,
+     	        a.STATUS,
+     	        a.LOGIN_ID  from   EMAIL_SMS_logs A , login_info B where  a.login_id=b.n_login_id  and PROMOTION_ID = #promotionId:INTEGER#
+   
+  </select>
+  
+  
+  
+  
+      <!--删除推广邮件短信记录  -->
+    <delete id="deleteEmailSmsLogs"    parameterClass="com.pltfm.app.vobject.EmailSmsLogs" >
+    delete from EMAIL_SMS_LOGS
+    where SELOG_ID = #selogId:INTEGER#
+  </delete>
+  
+  
+     <!--删除推广邮件短信记录  -->
+    <delete id="deleteEmailSms"    parameterClass="com.pltfm.app.vobject.EmailSmsLogs" >
+    delete from EMAIL_SMS_LOGS
+    where PROMOTION_ID = #promotionId:INTEGER#
+  </delete>
+
+    	  <update id="updateSendStatus" parameterClass="com.pltfm.app.vobject.EmailSmsLogs" >
+    update EMAIL_SMS_LOGS
+    set 
+         SEND_DATE= #sendDate:VARCHAR#,
+	     STATUS= #status:DECIMAL#, 
+	     MARK=#mark:VARCHAR#
+    where LOGIN_ID= #loginId:DECIMAL# 
+    and  PROMOTION_ID = #promotionId:INTEGER#
+			            
+  </update>
+  
+  
+</sqlMap>

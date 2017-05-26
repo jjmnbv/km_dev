@@ -1,0 +1,15 @@
+<div class="sortsub fn-clear">
+	<div class="sortsub-l">
+		<#list category as item>
+		<dl class="sortsub-item">
+			<dt><a href="" target="_blank">${item.name}</a><dt>
+			<#list item.sublist as subItem>
+			<dd><a href="" target="_blank">${subItem.name}</a></dd> 
+			</#list>
+		</dl>
+		</#list>																												
+	</div>
+	<div class="sortsub-r">
+	   	${advert_1}
+	</div>
+</div>

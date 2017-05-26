@@ -1,0 +1,29 @@
+<!-- js、css样式存放地址 -->
+<!--#set var="cssAndJsPath" value="http://jscss.kmb2b.com"-->
+<!-- cms系统上传图片存放地址 -->
+<!--#set var="cmsPath" value="http://img.kmb2b.com/cms"-->
+<!-- 产品系统上传图片存放地址 -->
+<!--#set var="picPath" value="http://img.kmb2b.com/product"-->
+<!-- cms系统生成详细静态页面存放地址 -->
+<!--#set var="detailPath" value="http://www.kmb2b.com/products"--> 
+<!-- 广告存放地址 -->
+<!--#set var="advPath" value="http://www.kmb2b.com/adv"--> 
+<!-- 前段portal系统访问地址 -->
+<!--#set var="searchPath" value="http://search.kmb2b.com/10"-->
+<!-- 前段portal系统访问地址 -->
+<!--#set var="portalPath" value="http://www.kmb2b.com"--> 
+<!-- 静态页面存放地址 -->
+<!--#set var="staticPath" value="http://www.kmb2b.com"-->  
+
+<!--#include file="version.html" -->  <!-- 版本号 -->
+<!--#set var="cssUrl" value="css"-->  <!-- css style -->
+<!--#set var="jsUrl" value="js"--> <!-- js  script -->
+
+<!--#set var="sslLoginPath" value="https://login.kmb2b.com"-->
+<!--#if expr="1=1" -->
+<!--#set var="sslCssAndJsPath" value="http://login.kmb2b.com"-->
+<!--#else -->
+<!--#set var="sslCssAndJsPath" value="https://login.kmb2b.com"-->
+<!--#set var="enable_ssl" value="0"-->
+<input type="hidden" id="enable_ssl" value="0"/>
+<!--#endif -->

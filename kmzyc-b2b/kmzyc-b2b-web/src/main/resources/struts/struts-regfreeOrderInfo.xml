@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="regfreeOrderInfo" extends="BasePackage,json-default" namespace="/regfree">
+
+       <!-- <action name="freeOrderInfo" class="regfreeOrderInfoAction" method="gotoSettlement">
+            <result name="success">/WEB-INF/jsp/settlement/regfreeOrderInfo.jsp</result>
+            <result name="input" type="redirectAction">
+                <param name="namespace">/cart</param>
+                <param name="actionName">listShopCar.action</param>
+            </result>
+        </action>-->
+
+        <!--<action name="addAddressInfo" class="regfreeOrderInfoAction" method="addAddressInfo">
+            <result name="success">/WEB-INF/jsp/settlement/regfreeOrderInfo.jsp</result>
+        </action>-->
+        <!--<action name="deleteAddress" class="regfreeOrderInfoAction" method="deleteAddress">
+            <result name="success">/WEB-INF/jsp/settlement/regfreeOrderInfo.jsp</result>
+        </action>-->
+        <!--<action name="addressChangedAndGetPayMoney" class="regfreeOrderInfoAction"
+                method="addressChangedAndGetPayMoney">
+            <result name="success">/WEB-INF/jsp/settlement/regfreeOrderInfo.jsp</result>
+        </action>-->
+        <action name="saveUser" class="regfreeOrderInfoAction" method="saveUser">
+            <result name="success">/WEB-INF/jsp/settlement/settlement.jsp</result>
+        </action>
+        <action name="getAddressListByNaccountId" class="regfreeOrderInfoAction"
+                method="getAddressListByNaccountId"/>
+        <action name="saveInvoiceInfo" class="regfreeOrderInfoAction" method="saveInvoiceInfo"/>
+        <action name="removeInvoiceInfo" class="regfreeOrderInfoAction" method="removeInvoiceInfo"/>
+        <action name="checkisLogin" class="regfreeOrderInfoAction" method="checkisLogin"/>
+        <action name="removeCouponMoney" class="regfreeOrderInfoAction" method="removeCouponMoney"/>
+        <action name="getcouponMoneyByCouponId" class="regfreeOrderInfoAction"
+                method="getcouponMoneyByCouponId"/>
+        <action name="checkOrder" class="regfreeOrderInfoAction" method="checkOrder">
+            <result type="json" name="success">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">cheorder_discription</param>
+            </result>
+        </action>
+
+
+    </package>
+</struts>

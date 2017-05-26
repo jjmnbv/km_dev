@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="cms" namespace="/cms"  extends="struts">
+    
+    <!-- 窗口管理 -->
+     <action name="cmsAppManageAction_*"  class="cmsAppManageAction" method="{1}">
+		      <result name="openBanner">/WEB-INF/jsp/shop/banner.jsp</result>
+		      
+	 </action> 
+	 
+	
+	 
+
+		
+    </package>
+</struts>
+
+

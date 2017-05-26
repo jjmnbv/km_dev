@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PRODUCT" >
+	
+	 <resultMap id="skuMapForOms" class="com.kmzyc.b2b.vo.OmsProductSkuData" >
+	    <result column="product_sku_id" property="productSkuId" jdbcType="DECIMAL" />
+	    <result column="product_sku_code" property="productSkuCode" jdbcType="VARCHAR" />
+	    <result column="product_id" property="productId" jdbcType="DECIMAL" />
+	    <result column="{productId=product_id}" property="product" select="PRODUCT.queryProductInfoForOms" />
+	    <result column="price" property="price" jdbcType="DECIMAL" />
+	    <result column="cost_price" property="unitWeight" jdbcType="DECIMAL" />
+	    <result column="unit_weight" property="markPrice" jdbcType="DECIMAL" />
+	    <result column="mark_price" property="skuAttrs" jdbcType="VARCHAR" />
+	    <result column="stock_quality" property="stockQuantity" jdbcType="DECIMAL" />
+	    <result column="erp_pro_code" property="erpProCodeForOms" jdbcType="VARCHAR" />
+    </resultMap>	
+	
+	<!-- oms系统查询sku的相关属性 ,根据erpCode查询sku的信息-->
+	<select id="querySkuInfoForOms" parameterClass="java.util.HashMap" resultClass="com.kmzyc.b2b.vo.OmsProductSkuData">
+	 <![CDATA[	  select distinct ps.product_sku_id    productSkuId,
+        ps.product_sku_code  productSkuCode,
+        ps.product_id        productId,
+        ps.price             price,
+        ps.cost_price        costPrice,
+        ps.unit_weight       unitWeight,
+        ps.mark_price        markPrice,
+        ta_temp.col          as skuAttrs,
+        psktmp.stock_quality stockQuantity,
+        erp.erp_pro_code        erpProCodeForOms
+   from product_sku ps
+   left join product_stock psktmp  on psktmp.sku_attribute_id=ps.product_sku_id  and psktmp.warehouse_id=#wareHouseId:DECIMAL# and rownum=1
+   left join product_erp_relation  erp on ps.product_sku_id = erp.product_sku_id
+   left join (select temp.product_sku_id,
+                     wm_concat(temp.category_attr_value) col
+                from (select ps1.product_sku_id, cav.category_attr_value
+                        from product_sku ps1
+                        left join product_sku_attr psa on psa.product_sku_id =
+                                                          ps1.product_sku_id
+                        left join category_attr_value cav on cav.category_attr_id =
+                                                             psa.category_attr_id
+                                                         and psa.category_attr_value_id =
+                                                             cav.category_attr_value_id) temp
+               group by temp.product_sku_id) ta_temp on ps.product_sku_id =
+                                                        ta_temp.product_sku_id
+	  where ps.product_id=#productId:DECIMAL# and ps.status=1 order by ps.product_sku_code ]]>
+	 </select>
+	 
+	 <!-- oms系统查询sku的相关属性 ,根据erpCode查询sku的信息-->
+	<select id="querySkuInfoForOms_original" parameterClass="java.util.HashMap" resultClass="com.kmzyc.b2b.vo.OmsProductSkuData">
+	 <![CDATA[	  select ps.product_sku_id    productSkuId,
+        ps.product_sku_code  productSkuCode,
+        ps.product_id        productId,
+        ps.price             price,
+        ps.cost_price        costPrice,
+        ps.unit_weight       unitWeight,
+        ps.mark_price        markPrice,
+        ta_temp.col          as skuAttrs,
+        psktmp.stock_quality stockQuantity,
+        erp.erp_pro_code        erpProCodeForOms
+   from product_sku ps
+   left join product_stock psktmp  on psktmp.sku_attribute_id=ps.product_sku_id  and psktmp.warehouse_id=#wareHouseId:DECIMAL# and rownum=1
+   left join product_erp_relation  erp on ps.product_sku_id = erp.product_sku_id
+   left join (select temp.product_sku_id,
+                     wm_concat(temp.category_attr_value) col
+                from (select ps1.product_sku_id, cav.category_attr_value
+                        from product_sku ps1
+                        left join product_sku_attr psa on psa.product_sku_id =
+                                                          ps1.product_sku_id
+                        left join category_attr_value cav on cav.category_attr_id =
+                                                             psa.category_attr_id
+                                                         and psa.category_attr_value_id =
+                                                             cav.category_attr_value_id) temp
+               group by temp.product_sku_id) ta_temp on ps.product_sku_id =
+                                                        ta_temp.product_sku_id
+	  where ps.status=1 ]]>
+	  <isNotEmpty prepend="and" property="erpProCode">
+	  	<![CDATA[
+	  		erp.erp_pro_code=#erpProCode:VARCHAR#
+	  	]]>
+	  </isNotEmpty>
+	   <isNotEmpty prepend="and" property="productSkuCode">
+	  	<![CDATA[
+	  		ps.product_sku_code=#productSkuCode:VARCHAR#
+	  	]]>
+	  </isNotEmpty>  
+	  order by ps.product_sku_code
+	 </select>
+	 
+	 <!-- 查询product信息 -->
+	 <select id="queryProductInfoForOms" parameterClass="java.util.HashMap" resultClass="com.kmzyc.b2b.vo.OmsProductData">
+	 	select product_id productId, procuct_name name, product_title productTitle, status status, product_no productNo,product_subtitle productSubtitle from productmain where 
+	 	<isNotEmpty property="productNo">
+	  	<![CDATA[
+	  		product_no=#productNo:VARCHAR#
+	  	]]>
+	  </isNotEmpty>
+	   <isNotEmpty property="productId">
+	  	<![CDATA[
+	  		product_id=#productId:DECIMAL#
+	  	]]>
+	  </isNotEmpty>
+	  <isNotEmpty property="productSkuCode">
+	  	<![CDATA[
+	  		product_id=(select product_id from product_sku where status=1 and product_sku_code=#productSkuCode:VARCHAR#)
+	  	]]>
+	  </isNotEmpty>
+	 </select>
+	 
+	 <!-- 根据erpcode查询商品信息 -->
+	 <select id="queryProductInfoByErpCode" parameterClass="java.lang.String" resultClass="com.kmzyc.b2b.vo.OmsProductData">
+	 	<![CDATA[select product_id productId, procuct_name name, product_title productTitle, status status, product_no productNo,product_subtitle productSubtitle from productmain where product_id in(
+	 	select product_id from product_sku where status=1 and product_sku_id in (select product_sku_id from product_erp_relation where erp_pro_code=#erpProCode:VARCHAR#)
+	 	) ]]>
+	 </select>	 
+	 	 
+	 	 
+	 <!-- 批量查询商品列表 oms批量  20151030 add-->
+	<select id="queryProductListForOms" resultClass="com.kmzyc.b2b.vo.OmsProductData" parameterClass="java.util.HashMap">
+           <![CDATA[
+          select product_id productId, procuct_name name, product_title productTitle, status status, product_no productNo,product_subtitle productSubtitle from (select t.*, rownum rn from (select product_id,
+                       procuct_name,
+                       product_title,
+                       productmain.status,
+                       product_no,
+                       product_subtitle
+                  from productmain,suppliers_info 
+                 where shop_code=to_char(supplier_id) and (SUPPLIER_TYPE=1 or SUPPLIER_TYPE=3) and productmain.status in (3, 4) and  (modif_time between to_date(#startTime:VARCHAR#,'yyyy-MM-dd HH24:mi:ss') and to_date(#endTime:VARCHAR#,'yyyy-MM-dd HH24:mi:ss'))
+		order by up_time desc ) t
+		where  rownum <= #endIndex# ) where rn >= #startIndex#
+		]]>
+	</select>
+	
+	
+	<!-- 查询总数 -->
+	<select id="queryProductCountForOms" resultClass="java.lang.Integer" parameterClass="java.util.HashMap">
+           <![CDATA[
+           select count(1) from productmain,suppliers_info 
+                  where shop_code=to_char(supplier_id) and (SUPPLIER_TYPE=1 or SUPPLIER_TYPE=3) and productmain.status in (3, 4) 
+                    and modif_time between
+                        to_date(#startTime:VARCHAR#, 'yyyy-MM-dd HH24:mi:ss') and
+                        to_date(#endTime:VARCHAR#, 'yyyy-MM-dd HH24:mi:ss')
+                  order by up_time desc 
+		]]>
+	</select>
+		 
+	<resultMap id="skuMapForKMCloud" class="com.kmzyc.b2b.vo.KMCloudProductData" >
+	    <!-- <result column="product_no" property="productNo" jdbcType="DECIMAL" /> -->
+	    <result column="product_type" property="productType" jdbcType="DECIMAL" />
+	    <result column="product_title" property="productTitle" jdbcType="VARCHAR" />
+	    <result column="product_subtitle" property="productSubtitle" jdbcType="VARCHAR" />
+	    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+	    <result column="keyword" property="keyword" jdbcType="VARCHAR" />
+	    <result column="pack_listing" property="packListing" jdbcType="VARCHAR" />
+	    <result column="price" property="salePrice" jdbcType="DECIMAL" />
+	    <result column="mark_price" property="marketPrice" jdbcType="DECIMAL" />
+	    <result column="product_id" property="productId" jdbcType="DECIMAL" />
+	    <result column="status" property="status" jdbcType="VARCHAR" />
+	    <result column="drug_cate_code" property="drugCateCode" jdbcType="VARCHAR" />
+	    <result column="drug_cate_id" property="drugCategory" select="PRODUCT.getDrugCategoryName" />
+	    <result column="category_id" property="categoryId" jdbcType="DECIMAL" />
+	    <result column="modif_time" property="modifTime" jdbcType="VARCHAR" />
+	    <result column="category_id" property="categoryId" jdbcType="DECIMAL" />
+	    <result column="product_sku_id" property="productSkuId" jdbcType="DECIMAL" />
+	    
+	    <result column="product_sku_id" property="skuImgPath" select="PRODUCT.querySelfProductSkuImg"/>
+	    <result column="product_sku_code" property="productSkuCode" jdbcType="VARCHAR"/>
+	    
+	    <result column="product_sku_id" property="viewSkuAttrs" select="PRODUCT.querySKUAttr" />
+	    
+   	    <result column="procuct_name" property="productName" jdbcType="VARCHAR" />
+	    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    </resultMap>
+     	 
+    <resultMap id="DrugCategoryResult" class="com.pltfm.app.vobject.DrugCategory" >
+	    <result column="DRUG_CATEGORY_ID" property="id" jdbcType="DECIMAL" />
+	    <result column="DRUG_CATEGORY_NAME" property="name" jdbcType="VARCHAR" />
+  	</resultMap>
+  	
+    <select id="getDrugCategoryName" parameterClass="java.lang.Long" resultMap="DrugCategoryResult">
+		 select DRUG_CATEGORY_ID,DRUG_CATEGORY_NAME from DRUG_CATEGORY where DRUG_CATEGORY_ID = #drugCateId#
+  	</select>
+  	
+    <!-- 查询自营商品SKU图片 康美云 20160918 add-->
+    <select id="querySelfProductSkuImg" resultClass="java.lang.String" parameterClass="java.lang.Long">
+    	select pi.img_path3 from product_image pi where pi.sku_id=#skuId# and pi.is_default=0
+    </select>
+	 	 
+	 <select id="queryCategoryParentList" resultClass="com.pltfm.app.vobject.Category" parameterClass="com.pltfm.app.vobject.Category" >
+	    select CATEGORY_ID as categoryId , CATEGORY_NAME as categoryName  
+	    from CATEGORYS where STATUS = 1 start with 
+	     <isNotNull property="categoryId" >
+	      category_id = #categoryId#
+	    </isNotNull>
+	      connect by prior parent_id = category_id
+  	</select>
+  	
+  	<resultMap id="skuAttrValue" class="com.pltfm.app.vobject.ViewSkuAttr" >
+    	<result column="CATEGORY_ATTR_NAME" property="categoryAttrName" jdbcType="VARCHAR" />
+    	<result column="CATEGORY_ATTR_VALUE" property="categoryAttrValue" jdbcType="VARCHAR" />
+  	</resultMap>
+  
+  	<select id="querySKUAttr" parameterClass="java.lang.Long" resultMap="skuAttrValue">  
+    	select 
+    	   a.product_id,
+	       a.product_sku_id,
+	       a.product_sku_code,
+	       b.category_attr_id,
+	       b.PRODUCT_SKU_ATTR_ID,
+	       c.category_attr_name,
+	       d.category_attr_value_id,
+	       decode(b.new_attr, null, d.category_attr_value, b.new_attr) category_attr_value,
+	       b.status,
+	       b.category_attr_value_id sku_Attr_Value_Id,
+	       b.new_attr,
+	       a.status sku_Status
+	  from product_sku a
+	 inner join product_sku_attr b
+	    on a.product_sku_id = b.product_sku_id
+	  left join category_attr c
+	    on c.category_attr_id = b.category_attr_id
+	  left join category_attr_value d
+	    on b.category_attr_value_id = d.category_attr_value_id
+	 where a.product_sku_id= #productSkuId#
+ 	order by a.product_sku_id, b.category_attr_id, d.category_attr_value_id
+  </select>
+  
+  
+</sqlMap>

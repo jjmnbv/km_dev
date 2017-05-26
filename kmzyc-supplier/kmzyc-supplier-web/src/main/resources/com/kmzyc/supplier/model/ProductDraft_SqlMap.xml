@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PRODUCT_DRAFT" >
+	<typeAlias alias="ProductDraft" type="com.pltfm.app.vobject.ProductDraft"/>
+	<typeAlias alias="ProductSkuDraft" type="com.pltfm.app.vobject.ProductSkuDraft"/>
+	<typeAlias alias="ProductImageDraft" type="com.pltfm.app.vobject.ProductImageDraft"/>
+    <typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+    <typeAlias alias="ProductDraftVo" type="com.kmzyc.supplier.vo.ProductDraftVo"/>
+    <typeAlias alias="ProdBrand" type="com.pltfm.app.vobject.ProdBrand"/>
+
+ <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.ProductDraft" >
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_ID" property="productSkuDrafts" select="PRODUCT_DRAFT.getSkusByProdIdForPrice"/>
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+    <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+    <result column="PACK_LISTING" property="packListing" jdbcType="VARCHAR" />
+    <result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SUBTITLE" property="productSubtitle" jdbcType="VARCHAR" />
+    <result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
+    <result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+    <result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+    <result column="DRUG_CATE_ID" property="drugCateId" jdbcType="DECIMAL" />
+    <result column="DRUG_CATE_CODE" property="drugCateCode" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="Date" />
+    <result column="CHECK_USER" property="checkUser" jdbcType="DECIMAL" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="Date" />
+    <result column="MODIF_USER" property="modifUser" jdbcType="DECIMAL" />
+    <result column="MODIF_TIME" property="modifTime" jdbcType="Date" />
+    <result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR" />
+    <result column="UP_TIME" property="upTime" jdbcType="Date" />
+    <result column="ARCHIVE_TIME" property="archiveTime" jdbcType="Date" />
+    <result column="APPROVAL_TYPE" property="approvalType" jdbcType="DECIMAL" />
+    <result column="APPROVAL_NO" property="approvalNo" jdbcType="VARCHAR" />
+    <result column="PRODUCTHOT" property="producthot" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="OP_TYPE" property="opType" jdbcType="DECIMAL" />
+    <result column="REASONS" property="reasons" jdbcType="VARCHAR" />
+    <result column="PRODUCT_DESC" property="productDesc" jdbcType="VARCHAR" />
+    <result column="ERP_PRODUCT_CODE" property="erpProductCode" jdbcType="VARCHAR" />
+ <!--     <result column="DRUG_CATE_ID" property="drugCategory" select="PRODUCT_DRAFT.getDrugCategoryName" />-->
+    <result column="BRAND_ID" property="prodBrand" select="PRODUCT_DRAFT.getProdBrandName" />
+  	<result column="PRICE_STATUS" property="priceStatus" jdbcType="VARCHAR" />
+    <result column="PRICE_REASONS" property="priceReasons" jdbcType="VARCHAR" />
+    <result column="IMAGE_STATUS" property="imageStatus" jdbcType="VARCHAR" />
+    <result column="IMAGE_REASONS" property="imageReasons" jdbcType="VARCHAR" />
+     <result column="INTRODUCE" property="introduce" jdbcType="CLOB" />
+  </resultMap>
+  
+   <resultMap id="ibatorgenerated_BaseResultMap2" class="com.pltfm.app.vobject.ProductDraft" >
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+    <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+    <result column="PACK_LISTING" property="packListing" jdbcType="VARCHAR" />
+    <result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+    <result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
+    <result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+    <result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+    <result column="DRUG_CATE_ID" property="drugCateId" jdbcType="DECIMAL" />
+    <result column="DRUG_CATE_CODE" property="drugCateCode" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="Date" />
+    <result column="CHECK_USER" property="checkUser" jdbcType="DECIMAL" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="Date" />
+    <result column="MODIF_USER" property="modifUser" jdbcType="DECIMAL" />
+    <result column="MODIF_TIME" property="modifTime" jdbcType="Date" />
+    <result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR" />
+    <result column="UP_TIME" property="upTime" jdbcType="Date" />
+    <result column="ARCHIVE_TIME" property="archiveTime" jdbcType="Date" />
+    <result column="APPROVAL_TYPE" property="approvalType" jdbcType="DECIMAL" />
+    <result column="APPROVAL_NO" property="approvalNo" jdbcType="VARCHAR" />
+    <result column="PRODUCTHOT" property="producthot" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="OP_TYPE" property="opType" jdbcType="DECIMAL" />
+    <result column="REASONS" property="reasons" jdbcType="VARCHAR" />
+    <result column="PRODUCT_DESC" property="productDesc" jdbcType="VARCHAR" />
+    <result column="ERP_PRODUCT_CODE" property="erpProductCode" jdbcType="VARCHAR" />
+    <result column="BRAND_ID" property="prodBrand" select="PRODUCT_DRAFT.getProdBrandName" /> 
+  	<result column="PRICE_STATUS" property="priceStatus" jdbcType="VARCHAR" />
+    <result column="PRICE_REASONS" property="priceReasons" jdbcType="VARCHAR" />
+    <result column="IMAGE_STATUS" property="imageStatus" jdbcType="VARCHAR" />
+    <result column="IMAGE_REASONS" property="imageReasons" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ProductDraftResult" class="ProductDraft">
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_ID" property="productSkuDrafts" select="PRODUCT_DRAFT.getSkusByProductDraftId"/>
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="PRICE_STATUS" property="priceStatus" jdbcType="VARCHAR" />
+    <result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+    <result column="BRAND_ID" property="prodBrand" select="PRODUCT_DRAFT.getProdBrandName" />
+  </resultMap>
+  
+  <resultMap class="ProductSkuDraft" id="ProductSkuDraftResult">
+  	<result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+  	<result column="PRODUCT_SKU_ID" property="productSkuImages" select="PRODUCT_DRAFT.getImagesDraftByskuId" />
+  	<result column="PRODUCT_SKU_CODE" property="productSkuCode" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL"/>
+    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+    <result column="UNIT_WEIGHT" property="unitWeight" jdbcType="DECIMAL" />
+	<result column="MARK_PRICE" property="markPrice" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="ProductImageDraftResult" class="ProductImageDraft" >
+    <result column="IMAGE_ID" property="imageId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+    <result column="SKU_ID" property="skuId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="ibatorgenerated_ResultMapWithBLOBs" class="com.pltfm.app.vobject.ProductDraft" extends="PRODUCT_DRAFT.ibatorgenerated_BaseResultMap" >
+    <result column="INTRODUCE" property="introduce" jdbcType="CLOB" />
+    <result column="INTRODUCE_LAZY" property="introduceLazy" jdbcType="CLOB" />
+  </resultMap>
+  <resultMap id="DrugCategoryResult" class="com.pltfm.app.vobject.DrugCategory" >
+    <result column="DRUG_CATEGORY_ID" property="id" jdbcType="DECIMAL" />
+    <result column="DRUG_CATEGORY_NAME" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ProductBrandResult" class="ProdBrand" >
+    <result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+    <result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+   <!-- <result column="IS_VALID" property="isValid" jdbcType="VARCHAR" />--> 
+  </resultMap>
+  
+  
+  <resultMap id="singProductDraftMap" class="com.pltfm.app.vobject.ProductDraft" groupBy="productId" >
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+    <result property="productSkuDrafts" resultMap="PRODUCT_DRAFT.productSkuDraftsMap"  />
+  </resultMap>
+  
+  <resultMap id="productSkuDraftsMap" class="com.pltfm.app.vobject.ProductSkuDraft" groupBy="productSkuId" >
+    <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_SKU_ID" property="productSkuImages" select="PRODUCT_DRAFT.findImagesBySkuId" />
+    <result column="PRODUCT_SKU_CODE" property="productSkuCode" jdbcType="VARCHAR" />
+    <result column="MARK_PRICE" property="markPrice" jdbcType="DECIMAL" />
+    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+    <result column="UNIT_WEIGHT" property="unitWeight" jdbcType="DECIMAL" />
+    <result column="PV_VALUE" property="pvValue" jdbcType="DECIMAL" />
+    <result column="STOCK" property="stock" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="SELLER_SKU_CODE" property="sellerSkuCode" jdbcType="VARCHAR" />
+    <result property="attributeValues" resultMap="PRODUCT_DRAFT.attributeValue" />
+  </resultMap>
+  <resultMap id="attributeValue" class="com.pltfm.app.fobject.AttributeValue">
+  	<result column="CATEGORY_ATTR_ID" property="categoryAttrId" jdbcType="DECIMAL" />
+  	<result column="CATEGORY_ATTR_VALUE_ID" property="categoryAttrValueId" jdbcType="DECIMAL" />
+    <result column="CATEGORY_ATTR_NAME" property="attribute" jdbcType="VARCHAR" />
+    <result column="CATEGORY_ATTR_VALUE" property="value" jdbcType="VARCHAR" />
+    <result column="IS_NEW_ATTR" property="isNewAttr" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap class="ProductDraftVo" id="ProductMainVoResultMap">
+  	<result property="product" resultMap="PRODUCT_DRAFT.ibatorgenerated_BaseResultMap" />
+  	<result column="CATEGORY_ID" property="categoryList" select="PRODUCT_DRAFT.getCategoryList" />
+  </resultMap>
+    <resultMap id="skuImagesMap" class="com.pltfm.app.vobject.ProductImageDraft" >
+    <result column="IMAGE_ID" property="imageId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+    <result column="SKU_ID" property="skuId" jdbcType="DECIMAL" />
+    <result column="IS_DEFAULT" property="isDefault" jdbcType="CHAR" />
+    <result column="IMG_PATH" property="imgPath" jdbcType="VARCHAR" />
+    <result column="IMG_PATH1" property="imgPath1" jdbcType="VARCHAR" />
+    <result column="IMG_PATH2" property="imgPath2" jdbcType="VARCHAR" />
+    <result column="IMG_PATH3" property="imgPath3" jdbcType="VARCHAR" />
+    <result column="IMG_PATH4" property="imgPath4" jdbcType="VARCHAR" />
+    <result column="SPC1" property="spc1" jdbcType="VARCHAR" />
+    <result column="SPC2" property="spc2" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+    <result column="IMG_PATH5" property="imgPath5" jdbcType="VARCHAR" />
+    <result column="IMG_PATH6" property="imgPath6" jdbcType="VARCHAR" />
+    <result column="IMG_PATH7" property="imgPath7" jdbcType="VARCHAR" />
+    <result column="SORTNO" property="sortno" jdbcType="DECIMAL" />
+  	<result column="IMG_PATH8" jdbcType="VARCHAR" property="imgPath8" />
+    <result column="IMG_PATH9" jdbcType="VARCHAR" property="imgPath9" />
+    <result column="IMG_PATH10" jdbcType="VARCHAR" property="imgPath10" />
+  </resultMap>
+  
+  
+<sql id="example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+
+                                                                             
+	<select id="getProdBrandName" parameterClass="java.lang.Long" resultMap="ProductBrandResult">
+		 select BRAND_ID,BRAND_NAME from PROD_BRAND where BRAND_ID = #brandId# 
+  	</select>
+  
+    <!-- 商品列表 -->
+	<select id="selectProductDraftListByMerchantId" resultMap="ibatorgenerated_BaseResultMap" parameterClass="pagination">
+           <![CDATA[
+          SELECT * FROM (SELECT t.*, ROWNUM RN FROM (select * from PRODUCT_DRAFT  WHERE 1=1
+		]]>
+		<dynamic prepend="AND">
+			 <![CDATA[
+					  SHOP_CODE = #objCondition.supplierId:VARCHAR#
+				]]>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.name">
+            <![CDATA[
+					PRODUCT_NAME like '%'||#objCondition.name:VARCHAR#||'%'
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.productTitle">
+            <![CDATA[
+					PRODUCT_TITLE like '%'||#objCondition.productTitle:VARCHAR#||'%'
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.productNo">
+            <![CDATA[
+					PRODUCT_NO like '%'||#objCondition.productNo:VARCHAR#||'%'
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.status">
+            <![CDATA[
+					( STATUS = #objCondition.status:VARCHAR# AND PRICE_STATUS = #objCondition.status:VARCHAR# )
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="objCondition.auditUnPassStatus">
+            <![CDATA[
+					( STATUS = #objCondition.auditUnPassStatus:VARCHAR# OR PRICE_STATUS = #objCondition.auditUnPassStatus:VARCHAR# )
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="objCondition.unAuditStatus">
+            <![CDATA[
+				 AND STATUS != #objCondition.unAuditStatus:VARCHAR# AND PRICE_STATUS != #objCondition.unAuditStatus:VARCHAR#
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<!--
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.status">
+            <![CDATA[
+					status = #objCondition.status:VARCHAR#
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.priceStatus">
+            <![CDATA[
+					PRICE_STATUS = #objCondition.priceStatus:VARCHAR#
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		-->
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.keyWord">
+            <![CDATA[
+					KEYWORD like '%'||#objCondition.keyWord:VARCHAR#||'%'
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.searchBrandName">
+            <![CDATA[
+					brand_id in ( select brand_id from prod_brand where brand_name like '%'||#objCondition.searchBrandName:VARCHAR#||'%')
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.opTypes">
+	    		<iterate open="(" close=")" conjunction=" OR " property="objCondition.opTypes">
+	    			OP_TYPE = #objCondition.opTypes[]#
+	    		</iterate>
+    		</isNotEmpty>
+    	</dynamic>
+    	<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.categoryId">
+            <![CDATA[
+					CATEGORY_ID = #objCondition.categoryId:DECIMAL#
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.mCategoryId">
+            <![CDATA[
+					CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where PARENT_ID = #objCondition.mCategoryId:DECIMAL# ) 
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.shopCategoryId">
+            <![CDATA[
+					 product_id in(select product_id from shop_product_category where shop_category_id=#objCondition.shopCategoryId:DECIMAL#)
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.bCategoryId">
+            <![CDATA[
+			 CATEGORY_ID in (select sc.CATEGORY_ID from categorys sc
+			inner join categorys mc on sc.parent_id=mc.category_id 
+			inner join categorys bc on mc.parent_id=bc.category_id 
+			where bc.category_id = #objCondition.bCategoryId:DECIMAL# ) 
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<![CDATA[
+		ORDER BY MODIF_TIME DESC ) t 
+		WHERE  ROWNUM <= $endindex$ ) WHERE RN >= #startindex# 
+		]]>
+	</select>
+	
+	<select id="getSkusByProdIdForPrice" parameterClass="java.lang.Long" resultClass="com.pltfm.app.vobject.ProductSkuDraft">
+	<!-- 原查询
+	select ps.PRODUCT_SKU_ID productSkuId,ps.PRODUCT_SKU_CODE productSkuCode,ps.PRODUCT_ID productId,ps.PRICE price,ps.COST_PRICE costPrice,ps.UNIT_WEIGHT unitWeight,ps.MARK_PRICE markPrice,ps.PV_VALUE pvValue,ta_temp.col as skuAttrs
+		,psktmp.STOCK_QUALITY stockQuantity 
+		from product_sku_draft ps
+		left join (select a.*,wi.WAREHOUSE_NAME  
+		from
+		(select e.*,
+		       row_number() over(partition by SKU_ATTRIBUTE_ID order by (stock_quality-order_quality) desc) rn
+		from product_stock e) a,WAREHOUSE_INFO wi 
+		where a.rn=1 and a.WAREHOUSE_ID = wi.WAREHOUSE_ID ) psktmp on psktmp.SKU_ATTRIBUTE_ID=ps.product_sku_id 
+		left join 
+		(select temp.product_sku_id, wm_concat(temp.CATEGORY_ATTR_VALUE) col from (select ps1.product_sku_id,cav.CATEGORY_ATTR_VALUE from product_sku_draft ps1 
+		left join product_sku_attr_draft psa on psa.product_sku_id = ps1.product_sku_id 
+		left join category_attr_value cav on cav.CATEGORY_ATTR_ID = psa.CATEGORY_ATTR_ID and psa.CATEGORY_ATTR_VALUE_ID=cav.CATEGORY_ATTR_VALUE_ID) temp  
+		group by temp.product_sku_id) ta_temp  on ps.product_sku_id=ta_temp.product_sku_id
+	 where ps.PRODUCT_ID = #value# 
+	
+	 -->
+	 <![CDATA[  
+	 select ps.PRODUCT_SKU_ID   productSkuId,
+	       ps.PRODUCT_SKU_CODE productSkuCode,
+	       ps.PRODUCT_ID       productId,
+	       ps.PRICE            price,
+	       ps.COST_PRICE       costPrice,
+	       ps.UNIT_WEIGHT      unitWeight,
+	       ps.MARK_PRICE       markPrice,
+	       ps.PV_VALUE         pvValue,
+	       ps.SELLER_SKU_CODE  sellerSkuCode,
+	       ta_temp.col         skuAttrs,
+	       ps.stock            stock,
+	       pid.img_path6 viewImgPath
+	  from product_sku_draft ps
+	  left join (select sku_id,img_path6 from product_image_draft where is_default = 0) pid
+	    on ps.product_sku_id = pid.sku_id
+	  left join (select temp.product_sku_id,
+	                    wm_concat(temp.CATEGORY_ATTR_VALUE) col
+	               from (select ps1.product_sku_id,
+	                            nvl(cav.CATEGORY_ATTR_VALUE, psa.NEW_ATTR) CATEGORY_ATTR_VALUE
+	                       from product_sku_draft ps1
+	                       left join product_sku_attr_draft psa
+	                         on psa.product_sku_id = ps1.product_sku_id
+	                       left join category_attr_value cav
+	                         on cav.CATEGORY_ATTR_ID = psa.CATEGORY_ATTR_ID
+	                        and psa.CATEGORY_ATTR_VALUE_ID =
+	                            cav.CATEGORY_ATTR_VALUE_ID) temp
+	              group by temp.product_sku_id) ta_temp
+	    on ps.product_sku_id = ta_temp.product_sku_id
+	 where ps.PRODUCT_ID = #value#
+
+	 ]]>
+  	</select> 
+	
+	<!-- 商品发布列表记录数 -->
+	<select id="selectCountForProductDraftByMerchantId" resultClass="java.lang.Integer" parameterClass="pagination">
+           <![CDATA[
+          SELECT COUNT(PRODUCT_ID) FROM (SELECT t.*, ROWNUM RN FROM (select * from PRODUCT_DRAFT   
+		]]>
+		<dynamic prepend="WHERE">
+			 <![CDATA[
+					  SHOP_CODE = #objCondition.supplierId:VARCHAR#
+				]]>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.name">
+            <![CDATA[
+					PRODUCT_NAME like '%'||#objCondition.name:VARCHAR#||'%'
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.productNo">
+            <![CDATA[
+					PRODUCT_NO like '%'||#objCondition.productNo:VARCHAR#||'%'
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.searchBrandName">
+            <![CDATA[
+					brand_id in ( select brand_id from prod_brand where brand_name like '%'||#objCondition.searchBrandName:VARCHAR#||'%')
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.status">
+            <![CDATA[
+					( STATUS = #objCondition.status:VARCHAR# AND PRICE_STATUS = #objCondition.status:VARCHAR# )
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="objCondition.auditUnPassStatus">
+            <![CDATA[
+					( STATUS = #objCondition.auditUnPassStatus:VARCHAR# OR PRICE_STATUS = #objCondition.auditUnPassStatus:VARCHAR# )
+				]]>
+			</isNotEmpty>
+            <isNotEmpty property="objCondition.unAuditStatus">
+                <![CDATA[
+				 AND STATUS != #objCondition.unAuditStatus:VARCHAR# AND PRICE_STATUS != #objCondition.unAuditStatus:VARCHAR#
+				]]>
+            </isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.keyWord">
+            <![CDATA[
+					KEYWORD like '%'||#objCondition.keyWord:VARCHAR#||'%'
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.brandId">
+            <![CDATA[
+					brand_id = #objCondition.brandId:VARCHAR#
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.opTypes">
+	    		<iterate open="(" close=")" conjunction=" OR " property="objCondition.opTypes">
+	    			OP_TYPE = #objCondition.opTypes[]#
+	    		</iterate>
+    		</isNotEmpty>
+    	</dynamic>
+    	<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.categoryId">
+            <![CDATA[
+					CATEGORY_ID = #objCondition.categoryId:DECIMAL#
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.mCategoryId">
+            <![CDATA[
+					CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where PARENT_ID = #objCondition.mCategoryId:DECIMAL# ) 
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.shopCategoryId">
+            <![CDATA[
+					 product_id in(select product_id from shop_product_category where shop_category_id=#objCondition.shopCategoryId:DECIMAL#)
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.bCategoryId">
+            <![CDATA[
+			 CATEGORY_ID in (select sc.CATEGORY_ID from categorys sc
+			inner join categorys mc on sc.parent_id=mc.category_id 
+			inner join categorys bc on mc.parent_id=bc.category_id 
+			where bc.category_id = #objCondition.bCategoryId:DECIMAL# ) 
+				]]>
+			</isNotEmpty>
+		</dynamic>
+    	<![CDATA[
+		) t )  
+		]]>
+	</select>
+	
+	  <select id="ibatorgenerated_selectByExample" resultMap="ibatorgenerated_BaseResultMap2" parameterClass="com.pltfm.app.vobject.ProductDraftExample" >
+    select PRODUCT_ID, CATEGORY_ID, CATEGORY_NAME, PRODUCT_NAME, PRODUCT_NO, PACK_LISTING,
+      PRODUCT_TITLE, KEYWORD, BRAND_ID, BRAND_NAME, DRUG_CATE_ID, DRUG_CATE_CODE, CREATE_USER,
+      CREATE_TIME, CHECK_USER, CHECK_TIME, MODIF_USER, MODIF_TIME, SHOP_CODE, UP_TIME, ARCHIVE_TIME,
+       APPROVAL_TYPE, APPROVAL_NO, PRODUCTHOT, STATUS, OP_TYPE, REASONS, PRODUCT_DESC,
+      ERP_PRODUCT_CODE, PRICE_STATUS, PRICE_REASONS, IMAGE_STATUS, IMAGE_REASONS
+    from PRODUCT_DRAFT
+    <isParameterPresent >
+      <include refid="PRODUCT_DRAFT.example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <select id="findProductDraftVoByProductId" resultMap="ProductMainVoResultMap" parameterClass="java.lang.Long">
+		select product.* from product_draft product where product.PRODUCT_ID = #productId:DECIMAL#
+	</select>
+	<select id="getCategoryList" parameterClass="java.lang.Long" resultClass="com.pltfm.app.vobject.Category" >
+	  select CATEGORY_ID as categoryId , CATEGORY_NAME as categoryName  
+	    from CATEGORYS where STATUS = 1 start with category_id = #categoryId#
+	    connect by prior parent_id = category_id
+  	</select>
+  	
+  	<select id="findSingleProductAndSkusAndAttrValues" resultMap="singProductDraftMap" parameterClass="com.pltfm.app.vobject.ProductDraft" >
+  	select pd.product_id,
+       pd.product_name,
+       pd.product_no,
+       psd.product_sku_id,
+       psd.product_sku_code,
+       psd.mark_price,
+       psd.price,
+       psd.unit_weight,
+       psd.pv_value,
+       psd.status,
+       psd.stock,
+       psd.seller_sku_code,
+       ca.category_attr_id,
+       ca.category_attr_name,
+       psad.category_attr_value_id,
+       nvl(cav.category_attr_value,psad.new_attr) category_attr_value,
+       nvl2(psad.category_attr_id,decode(psad.new_attr, null, 'false', 'true'),null) IS_NEW_ATTR
+  from product_draft          pd,
+       product_sku_draft      psd,
+       product_sku_attr_draft psad,
+       category_attr_value    cav,
+       category_attr          ca
+ where pd.product_id = psd.product_id(+) 
+   and psd.product_sku_id = psad.product_sku_id(+)
+   and psad.category_attr_value_id = cav.category_attr_value_id(+)
+   and psad.category_attr_id = ca.category_attr_id(+)
+   
+   <isNotNull prepend="and" property="productId" >
+    pd.product_id = #productId#
+   </isNotNull>
+   <isNotNull prepend="and" property="skuStatus" >
+    psd.status = #skuStatus#
+   </isNotNull>
+      order by ca.category_attr_id,psad.product_sku_attr_id
+    </select>
+    <select id="productDraft_selectByPrimaryKey2" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.pltfm.app.vobject.ProductDraft" >
+    select PRODUCT_ID, CATEGORY_ID, PRODUCT_NAME, PRODUCT_DESC,INTRODUCE ,PACK_LISTING, PRODUCT_TITLE,
+      KEYWORD, STATUS, CREATE_USER, CREATE_TIME, PRODUCTHOT, ARCHIVE_TIME, CHECK_TIME, MODIF_TIME,
+      SHOP_CODE, MODIF_USER, UP_TIME,  PRODUCT_NO ,
+      CHECK_USER, BRAND_ID, BRAND_NAME,APPROVAL_TYPE,APPROVAL_NO,CATEGORY_NAME,DRUG_CATE_ID,DRUG_CATE_CODE,ERP_PRODUCT_CODE      
+    from product_draft
+    where PRODUCT_ID = #productId:DECIMAL#
+  </select>
+  
+  <select id="findImagesBySkuId" resultMap="skuImagesMap" parameterClass="java.lang.Long">
+  	select IMAGE_ID, PRODUCT_NO, SKU_ID, IS_DEFAULT, IMG_PATH, IMG_PATH1, IMG_PATH2, IMG_PATH3,
+      IMG_PATH4, SPC1, SPC2, PRODUCT_ID, IMG_PATH5, IMG_PATH6, IMG_PATH7, SORTNO, IMG_PATH8,
+      IMG_PATH9, IMG_PATH10 from product_image_draft t where t.sku_id = #productSkuId:DECIMAL# order by t.is_default,t.sortno
+  </select>
+</sqlMap>

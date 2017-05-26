@@ -1,0 +1,3142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="KMREPORT" >
+   <resultMap class="com.pltfm.app.entities.ExportInfo" id="exportInfo_resultMap">
+   	<result property="exportId" column="EXPORT_ID" jdbcType="VARCHAR"/>
+   	<result property="createDate" column="CREATE_DATE" jdbcType="TIMESTAMP"/>
+   	<result property="operator" column="OPERATOR" jdbcType="VARCHAR"/>
+   	<result property="exportType" column="EXPORT_TYPE" jdbcType="VARCHAR"/>
+   	<result property="exportStatus" column="EXPORT_STATUS" jdbcType="VARCHAR"/>
+   	<result property="exportContent" column="EXPORT_CONTENT" jdbcType="VARCHAR"/>
+   	<result property="url" column="url"/>
+   
+   
+   </resultMap>
+   
+   <resultMap id="baseResultMap" class="com.kmzyc.supplier.model.MerchantInfoOrSuppliers">
+        <result column="N_COMMERCIAL_TENANT_ID" property="merchantId" jdbcType="DECIMAL"/>
+        <result column="N_LOGIN_ID" property="loginId" jdbcType="DECIMAL"/>
+        <result column="CONTACTS_NAME" property="contactsName" jdbcType="VARCHAR"/>
+        <result column="MOBILE" property="mobile" jdbcType="VARCHAR"/>
+        <result column="CORPORATE_NAME" property="corporateName" jdbcType="VARCHAR"/>
+        <result column="ORGANIZATION_CODE" property="organizationCode" jdbcType="VARCHAR"/>
+        <result column="D_CREATE_Date" property="createDate" jdbcType="Date"/>
+        <result column="BUSINESS_LICENCE_REGISTER" property="businessLicenceRegister" jdbcType="VARCHAR"/>
+        <result column="corporate_location" property="corporateLocation" jdbcType="VARCHAR"/>
+        <result column="N_ENTERPRISE_STATUS" property="enterpriseStatus" jdbcType="DECIMAL"/>
+        <result column="PROVINCE" property="province" jdbcType="VARCHAR"/>
+        <result column="CITY" property="city" jdbcType="VARCHAR"/>
+        <result column="AREA" property="area" jdbcType="VARCHAR"/>
+        <!-- 供应商属性 -->
+        <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL"/>
+        <result column="SALE_PRODUCT_DESCRIBE" property="saleProductDescribe" jdbcType="VARCHAR"/>
+        <result column="SUPPLIER_TYPE" property="supplierType" jdbcType="DECIMAL"/>
+        <result column="STATUS" property="status" jdbcType="DECIMAL"/>
+        <result column="LOGIN_STATUS" property="loginStatus" jdbcType="DECIMAL"/>
+        <result column="BUSINESS_STATUS" property="businessStatus" jdbcType="DECIMAL"/>
+        <result column="CLOSE_STATUS" property="closeStatus" jdbcType="DECIMAL"/>
+        <!--  <result column="MERCHANT_ID" property="suppliersMerchantId" jdbcType="DECIMAL" />-->
+        <!--  <result column="SETTLEMENT_CYCLE" property="settlementCycle" jdbcType="DECIMAL" />-->
+        <!--  <result column="SETTLEMENT_WAY" property="settlementWay" jdbcType="DECIMAL" />-->
+        <!--  <result column="DESCRIBE" property="describe" jdbcType="VARCHAR" />-->
+    </resultMap>
+   
+   
+	<!--   销售统计报表	 -->
+  	<select id="SQL_QUERY_SALE_REPORT_COUNT" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+  	<![CDATA[
+	  	select count(1)
+			  from order_pay_statement ops
+			 inner join order_main om
+			    on (ops.order_code = om.order_code)
+			 where ops.state = 1
+			   and ops.payment_way <> 2
+			   and om.parent_order_code is null
+	]]>       
+		<!--
+		<isNotEmpty property="flag" prepend=" and ">
+		       	ops.FLAG=#flag#
+		</isNotEmpty>
+		-->
+		<isNotEmpty property="paymentWay" prepend=" and ">
+		       	ops.payment_way=#paymentWay#
+		</isNotEmpty>
+		<isNotEmpty property="channel" prepend=" and ">
+		       	om.order_channel=#channel#
+		</isNotEmpty>
+		<isNotEmpty property="startDate" prepend=" and ">
+			ops.end_date between
+		       to_date(#startDate#, 'yyyy-mm-dd hh24:mi:ss') and
+		       to_date(#endDate#, 'yyyy-mm-dd hh24:mi:ss')
+		</isNotEmpty>
+  	</select>
+  	<!-- QUERYSALEREPORT -->
+  	<select id="SQL_QUERY_SALE_REPORT" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	<![CDATA[
+		select order_code,order_channel,login_account,flag,amount_payable,act_money,order_dictionary_value,order_money,create_date,platform_name
+		  from (select order_code,order_channel,login_account,flag,amount_payable,act_money,order_dictionary_value,order_money,create_date,platform_name,rownum rn
+		          from (select ops.order_code order_code,
+		                       (select order_dictionary_value
+		                          from order_dictionary od1
+		                         where od1.order_dictionary_type = 'Channel'
+		                           and od1.order_dictionary_code = om.order_channel
+		                           and rownum = 1) order_channel,
+		                       om.customer_account login_account,
+		                       (select order_dictionary_value
+		                          from order_dictionary od2
+		                         where od2.order_dictionary_type = 'Order_Status'
+		                           and od2.order_dictionary_key = om.order_status
+		                           and rownum = 1) flag,
+		                       om.amount_payable,
+		                       ops.order_money act_money,
+		                       (select order_dictionary_value
+		                          from order_dictionary od3
+		                         where od3.order_dictionary_type = 'Pay_Method'
+		                           and od3.order_dictionary_key = ops.payment_way) order_dictionary_value,
+		                       ops.order_money order_money,
+		                       to_char(ops.end_date, 'yyyy-mm-dd hh24:mi:ss') create_date,
+		                       ops.platform_name platform_name
+		                  from order_pay_statement ops
+		                 inner join order_main om
+		                    on (ops.order_code = om.order_code)
+		                 where ops.state = 1
+		                   and ops.payment_way <> 2
+		                   and om.parent_order_code is null
+	]]>
+		<!--
+		<isNotEmpty property="flag" prepend=" and ">
+		       	ops.FLAG=#flag#
+		</isNotEmpty>
+		-->
+		<isNotEmpty property="paymentWay" prepend=" and ">
+		       	ops.payment_way=#paymentWay#
+		</isNotEmpty>
+		<isNotEmpty property="channel" prepend=" and ">
+		       	om.order_channel=#channel#
+		</isNotEmpty>
+		<isNotEmpty property="startDate" prepend=" and ">
+			ops.end_date between
+		       to_date(#startDate#, 'yyyy-mm-dd hh24:mi:ss') and
+		       to_date(#endDate#, 'yyyy-mm-dd hh24:mi:ss')
+		</isNotEmpty>
+	<![CDATA[
+		                 order by create_date) irs
+		         where rownum <= #end#) rs
+		 where rs.rn >= #start#
+	]]> 	
+  	</select>
+  	<!-- SALEREPORTEXPORTEXCEL -->
+  	<select id="SQL_SALE_REPORT_EXPORT" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+  	<![CDATA[
+		select ops.order_code order_code,
+		       (select order_dictionary_value
+		          from order_dictionary od1
+		         where od1.order_dictionary_type = 'Channel'
+		           and od1.order_dictionary_code = om.order_channel
+		           and rownum = 1) order_channel,
+		       om.customer_account login_account,
+		       (select order_dictionary_value
+		          from order_dictionary od2
+		         where od2.order_dictionary_type = 'Order_Status'
+		           and od2.order_dictionary_key = om.order_status
+		           and rownum = 1) flag,
+		       om.amount_payable,
+		       ops.order_money act_money,
+		       (select order_dictionary_value
+		          from order_dictionary od3
+		         where od3.order_dictionary_type = 'Pay_Method'
+		           and od3.order_dictionary_key = ops.payment_way) order_dictionary_value,
+		       ops.order_money order_money,
+		       to_char(ops.end_date, 'yyyy-mm-dd hh24:mi:ss') create_date,
+		       ops.platform_name platform_name
+		  from order_pay_statement ops
+		 inner join order_main om
+		    on (ops.order_code = om.order_code)
+		 where ops.state = 1
+		   and ops.payment_way <> 2
+		   and om.parent_order_code is null
+	]]>
+		<!--
+		<isNotEmpty property="flag" prepend=" and ">
+		       	ops.FLAG=#flag#
+		</isNotEmpty>
+		-->
+		<isNotEmpty property="paymentWay" prepend=" and ">
+		       	ops.payment_way=#paymentWay#
+		</isNotEmpty>
+		<isNotEmpty property="channel" prepend=" and ">
+		       	om.order_channel=#channel#
+		</isNotEmpty>
+		<isNotEmpty property="startDate" prepend=" and ">
+			ops.end_date between
+		       to_date(#startDate#, 'yyyy-mm-dd hh24:mi:ss') and
+		       to_date(#endDate#, 'yyyy-mm-dd hh24:mi:ss')
+		</isNotEmpty>
+	<![CDATA[		   
+		 order by create_date
+	]]>
+  	</select>
+  	<!--   销售统计报表	 -->
+  	
+  	<!-- 订单分析表 -->
+  	<sql id="QUERY_ANALYSIS_CONDITION">
+  	<![CDATA[
+  		where m.order_status not in (1, -1, -19,-2)
+           and m.parent_order_code is null
+	]]>
+  		<isNotEmpty property="channel" prepend="and"> 
+	<![CDATA[m.order_channel=#channel#]]>
+		</isNotEmpty>
+		<isNotEmpty property="startDate" prepend="and">
+	<![CDATA[
+            m.pay_date between
+               to_date(#startDate#, 'yyyy-mm-dd hh24:mi:ss') and
+               to_date(#endDate#, 'yyyy-mm-dd hh24:mi:ss')
+	]]>               
+		</isNotEmpty>
+	</sql>
+	<!-- QUERYANALYSISACCOUNT -->
+  	<select id="SQL_QUERY_ANALYSIS_CCOUNT" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	<![CDATA[
+		select count(1)
+		  from (select 1
+		          from order_main m
+	]]>		          
+	<include refid="QUERY_ANALYSIS_CONDITION"/>
+	<![CDATA[
+	 	group by m.PROVINCE)
+	]]>	
+	</select>
+	<!-- QUERYANALYSISREPORT -->
+	<select id="SQL_QUERY_ANALYSIS_REPORT" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	<![CDATA[
+		select rs.province        province,
+		       rs.ordercount      ordercount,
+		       rs.totalamount     totalamount,
+		       rs.avgorderamount  avgorderamount,
+		       rs.productcount    productcount,
+		       rs.avgproductorder avgproductorder,
+		       rs.avgorderfare    avgorderfare,
+		       rs.veto            veto
+		  from (select rsi.province,
+		               rsi.ordercount,
+		               rsi.totalamount,
+		               rsi.avgorderamount,
+		               rsi.productcount,
+		               rsi.avgproductorder,
+		               rsi.avgorderfare,
+		               rsi.veto,
+		               rownum rn
+		          from (select o.province,
+		                       o.ordercount,
+		                       o.totalamount,
+		                       round(o.totalamount / o.ordercount, 2) as avgorderamount,
+		                       nvl(p.productcount, 0) productcount,
+		                       round(p.productcount / o.ordercount, 2) as avgproductorder,
+		                       round(o.totalfare / o.ordercount, 2) as avgorderfare,
+		                       nvl(v.veto, 0) veto
+		                  from (select count(1) as totalorder,
+		                               sum(m.amount_payable) totalamount,
+		                               count(m.order_code) ordercount,
+		                               sum(m.fare) as totalfare,
+		                               nvl(m.province, ' ') province
+		                          from order_main m
+	]]>
+		<include refid="QUERY_ANALYSIS_CONDITION"/>						
+	<![CDATA[                         
+		                         group by province) o
+		                  left join (select sum(i.commodity_number) as productcount,
+		                                   nvl(m.province, ' ') province
+		                              from order_main m
+		                              left join order_item i
+		                                on m.order_code = i.order_code
+	]]>
+		<include refid="QUERY_ANALYSIS_CONDITION"/>						
+	<![CDATA[
+		                             group by province) p
+		                    on o.province = p.province
+		                  left join (select count(1) veto,
+		                                   nvl(m.province, ' ') province
+		                              from order_main m
+	]]>
+		<include refid="QUERY_ANALYSIS_CONDITION"/>						
+	<![CDATA[
+									and exists (select 1
+				                       from order_alter oa
+				                      where propose_status in
+				                            (2, 3, 4, 51, 52, 54, 61, 62, 63, 7)
+				                        and m.order_code = oa.order_code)
+		                             group by province) v
+		                    on o.province = v.province
+		                 order by o.province) rsi
+		         where rownum <= #end#) rs
+		 where rs.rn >= #start#
+	]]>
+	</select>
+	<!-- ANALYSISREPORTEXPORT -->
+	<select id="SQL_ANALYSIS_REPORT_EXPORT" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	<![CDATA[
+		select o.province province,
+		       o.ordercount ordercount,
+		       o.totalamount totalamount,
+		       round(o.totalamount / o.ordercount, 2) avgorderamount,
+		       nvl(p.productcount, 0) productcount,
+		       round(p.productcount / o.ordercount, 2) avgproductorder,
+		       round(o.totalfare / o.ordercount, 2) avgorderfare,
+		       nvl(v.veto, 0) veto
+		  from (select count(1) as totalorder,
+		               sum(m.amount_payable) totalamount,
+		               count(m.order_code) ordercount,
+		               sum(m.fare) as totalfare,
+		               nvl(m.province, ' ') province
+		          from order_main m
+	]]>
+		<include refid="QUERY_ANALYSIS_CONDITION"/>						
+	<![CDATA[
+		         group by province) o
+		  left join (select sum(i.commodity_number) as productcount,
+		                    nvl(m.province, ' ') province
+		               from order_main m
+		               left join order_item i
+		                 on m.order_code = i.order_code
+	]]>
+		<include refid="QUERY_ANALYSIS_CONDITION"/>						
+	<![CDATA[
+		              group by province) p
+		    on o.province = p.province
+		  left join (select count(1) veto, nvl(m.province, ' ') province
+		               from order_main m
+	]]>
+		<include refid="QUERY_ANALYSIS_CONDITION"/>						
+	<![CDATA[
+						and exists (select 1
+				                       from order_alter oa
+				                      where propose_status in
+				                            (2, 3, 4, 51, 52, 54, 61, 62, 63, 7)
+				                        and m.order_code = oa.order_code)
+		              group by province) v
+		    on o.province = v.province
+		 order by o.province
+	]]>
+	</select>
+	<!-- 订单分析表 -->
+	
+	<!-- 查询自营商城订单财务版数据 -->
+	<select id="SQL_QUERY_FINANCE_ORDER_REPORT_DATA"  parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	<![CDATA[	
+		select to_char(om.pay_date, 'yyyy-mm-dd hh24:mi:ss') payDate,
+			    (select to_char(finish_date, 'yyyy-mm-dd hh24:mi:ss') from order_main where order_code =
+                 nvl((select oii.order_code from order_item oii where oii.commodity_sku=oi.commodity_sku 
+                 and exists (select 1 from order_main omi where omi.parent_order_code=om.order_code and omi.order_code=oii.order_code) 
+                 and rownum=1 ),om.order_code) 
+                ) finishDate,
+			   om.customer_account customerAccount,
+		       nvl(om.parent_order_code,om.order_code) orderCode,
+		       nvl((select oii.order_code from order_item oii where oii.commodity_sku=oi.commodity_sku 
+           			and exists (select 1 from order_main omi where omi.parent_order_code=om.order_code and omi.order_code=oii.order_code) 
+           			and rownum=1 ),om.order_code) childcode,
+		       (select wi.warehouse_name
+		          from  warehouse_info wi
+		         where wi.warehouse_id = oi.warehouse_id) warehouseName,
+		       om.order_channel orderChannel,
+		        nvl((select bi.corporate_name
+                 from  suppliers_info sinfo
+                inner join   commercial_tenant_basic_info bi
+                   on (bi.n_commercial_tenant_id = sinfo.merchant_id)
+                where to_char(sinfo.supplier_id) = oi.supplier),
+                (select ct.corporate_name from    commercial_tenant_basic_info ct 
+                  left join  suppliers_info si  on ct.n_commercial_tenant_id = si.merchant_id
+                  left join  productmain pt on si.supplier_id = pt.shop_code
+                  left join  product_sku ps on ps.product_id = pt.product_id
+                  where ps.product_sku_code = oi.commodity_sku
+                  )
+                 ) supplier,
+		       decode(oi.supplier_type, 1, '自营', 2, '入驻', 3, '代销') supplierTypeStr,
+		       oi.commodity_title commodityTitle,
+		       oi.commodity_called_price commodityCalledPrice,
+		       nvl(oi.commodity_unit_incoming, 0) commodityUnitPrice,
+		       to_char(oi.commodity_number) commodityNumber,
+		       oi.commodity_number * nvl(oi.commodity_unit_incoming, 0) commoditySum,
+		       oi.commodity_called_sum commodityCalledSum,
+		       oi.commodity_sku commoditySku,
+		       nvl((select sum(ops.order_money)
+		             from order_pay_statement ops
+		            where ops.state = 1
+		              and ops.payment_way <> 2
+		              and ops.order_code = om.order_code),
+		           0) amountPayable,
+		       oi.commodity_cost_price commodityCostPrice,
+		       (oi.commodity_cost_price * oi.commodity_number) commodityCostSum,
+		       oi.commodity_pv commodityPv,
+		       oi.cost_income_money costIncomeMoney,
+		       om.fare fare,
+		       decode(om.invoice_info_type, null, 'N', 'Y') hasInvoice,
+		       om.invoice_info_type invoiceType,
+		       decode(om.invoice_info_type,
+		              null,
+		              '',
+		              nvl(om.invoice_info_title, '个人')) invoiceTitle,
+		       om.consignee_name consignee,
+		       om.consignee_addr deliveryAddress,
+		       om.consignee_mobile cellphone,
+		       om.amount_payable orderSum,
+		       om.order_source orderSource,
+		       (select pb.brand_name from  prod_brand pb where brand_id = pm.brand_id) brandName
+		  from order_main om
+		 inner join order_item oi
+		    on (oi.order_code = om.order_code)
+		 left join  productmain pm
+    		on (pm.product_no = oi.commodity_code)
+		 where om.order_status not in (1, -1, -2, -3)
+		   and om.parent_order_code is null
+	]]>		   
+		   <isNotEmpty property="supplier">
+			and exists
+	 		(select 1
+	          from   commercial_tenant_basic_info stbi
+	          left join  suppliers_info si
+	            on (stbi.n_commercial_tenant_id = si.merchant_id)
+	         where to_char(si.supplier_id) = oi.supplier
+	           and stbi.corporate_name like '%'||#supplier#||'%')
+			</isNotEmpty>
+	<![CDATA[				
+		   and om.pay_date between
+				to_date(#startDate#, 'yyyy-mm-dd hh24:mi:ss') and
+				to_date(#endDate#, 'yyyy-mm-dd hh24:mi:ss')
+		 order by om.order_code desc,om.FINISH_DATE desc
+	]]>		 
+	</select>
+	
+	<!-- 查询自营商城订单财务版退款数据 -->
+	<select id="SQL_QUERY_FINANCE_ORDER_REPORT_REFUND_DATA"  parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	<![CDATA[
+		select odrs.tradeDate tradeDate,
+			   om.order_channel orderChannel,
+		       nvl(om.parent_order_code, om.order_code) parentOrderCode,
+		       om.order_code orderCode,
+		       om.order_source orderSource,
+		       odrs.batchNo batchNo,
+		       to_char(odrs.alterNum) alterNum,
+		       odrs.money returnMoney,
+		       odrs.RETURNFARE,
+		       odrs.payPlatform payPlatform,
+		       
+	]]>		       
+			<isNotEmpty property="supplier">
+		       sp.corporateName corporateName,
+		 	</isNotEmpty>
+			<isEmpty property="supplier">
+		       (select nvl(stbi.corporate_name,'康美') from   commercial_tenant_basic_info stbi
+            	where exists
+            	(select 1
+                     from  suppliers_info si
+                    where stbi.n_commercial_tenant_id = si.merchant_id
+                      and to_char(si.supplier_id) = oi.supplier)
+           		) corporateName,
+		 	</isEmpty>
+	<![CDATA[		
+	           oi.cost_income_money costIncomeMoney, 	
+		       oi.commodity_sku commoditySku,
+		       decode(oi.supplier_type, 1, '自营', 2, '入驻', 3, '代销') supplierTypeStr,
+		       (select wi.warehouse_name
+		                  from  warehouse_info wi
+		                 where wi.warehouse_id = oi.warehouse_id) warehouseName,
+		       oi.commodity_title commodityTitle,
+		       oi.commodity_called_price commodityCalledPrice,
+		       oi.commodity_number*nvl((case when oi.commodity_unit_incoming < 0 then 0 else oi.commodity_unit_incoming end), 0) commoditySum,
+		       nvl((case when oi.commodity_unit_incoming < 0 then 0 else oi.commodity_unit_incoming end), 0) commodityUnitPrice,
+		       to_char(oi.commodity_number) commodityNumber,
+		       oi.commodity_called_sum commodityCalledSum,
+		       nvl(oi.commodity_pv,0) commodityPv,
+		       nvl(oi.commodity_unit_incoming,0) * nvl(odrs.alterNum,0) amountPayable,
+		       oi.commodity_cost_price commodityCostPrice,
+		       (oi.commodity_cost_price * oi.commodity_number) commodityCostSum,
+		       om.fare fare,
+		       decode(om.invoice_info_type, null, 'N', 'Y') hasInvoice,
+		       om.invoice_info_type invoiceType,
+		       decode(om.invoice_info_type,
+		              null,
+		              '',
+		              nvl(om.invoice_info_title, '个人')) invoiceTitle,
+		       om.consignee_name consignee,
+		       om.consignee_addr deliveryAddress,
+		       om.consignee_mobile cellphone,
+		       om.amount_payable orderSum,
+		       ROUND(nvl(oi.commission_rate,0)*oi.commodity_unit_incoming*oi.commodity_number,2) as commission,
+		        decode(oi.COMMISSION_RATE,null,'',cast(cast(oi.COMMISSION_RATE*100 as numeric(10,2)) as varchar(20))||'%') COMMISSION_RATE,
+		         oi.SETTLEMENT_LOAN
+		  from (select oa.order_item_id itemId,
+		               oa.ruturn_sum,
+		               oa.alter_num alterNum,
+		               oa.RETURN_FARE RETURNFARE,
+		               (select od.order_dictionary_value
+				          from order_dictionary od
+				         where od.order_dictionary_type = 'Order_Return_Method'
+				           and od.order_dictionary_key = oaps.payment_way) payPlatform,
+		               to_char(oa.finish_date, 'yyyy-mm-dd hh24:mi:ss') tradeDate,
+		               nvl(oaps.outside_pay_statement_no, oaps.pay_statement_no) batchNo,
+		               nvl(abs(oaps.order_money)*(-1), 0) money
+		          from order_alter oa, order_alter_pay_statement oaps
+		         where oaps.order_alter_code = oa.order_alter_code
+		           and oa.propose_status in (7, 61)
+		           and oaps.flag = 2
+		           and oaps.payment_way <> 2
+		           and oaps.state = 1
+		           and oa.finish_date between
+		               to_date(#startDate#, 'yyyy-mm-dd hh24:mi:ss') and
+		               to_date(#endDate#, 'yyyy-mm-dd hh24:mi:ss')) odrs
+		  left join order_item oi
+		    on (oi.order_item_id = odrs.itemId)
+		  left join order_main om
+		    on (oi.order_code = om.order_code)
+	]]>		    
+		<isNotEmpty property="supplier">
+		  inner join (select nvl(stbi.corporate_name, '康美') corporateName,
+		                    si.supplier_id supplierId
+		               from   commercial_tenant_basic_info stbi
+		               left join  suppliers_info si
+		                 on (stbi.n_commercial_tenant_id = si.merchant_id)
+		              where stbi.corporate_name like '%'||#supplier#||'%') sp
+		    on (to_char(sp.supplierId) = oi.supplier)
+		</isNotEmpty>	    
+		 order by odrs.tradeDate
+	</select>
+	<!-- 查询自营商城订单财务版数据 -->
+	
+	
+	<!-- 查询商城订单财务版数据 -->
+	<select id="SHOP_ORDER_REPORT_DATA"  parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	
+		select to_char(om.pay_date, 'yyyy-mm-dd hh24:mi:ss') payDate,
+          (select to_char(finish_date, 'yyyy-mm-dd hh24:mi:ss') from order_main where order_code =
+                 nvl((select oii.order_code from order_item oii where oii.commodity_sku=oi.commodity_sku 
+                 and exists (select 1 from order_main omi where omi.parent_order_code=om.order_code and omi.order_code=oii.order_code) 
+                 and rownum=1 ),om.order_code) 
+                ) finishDate,
+         om.customer_account customerAccount,
+           nvl(om.parent_order_code,om.order_code) orderCode,
+           nvl((select oii.order_code from order_item oii where oii.commodity_sku=oi.commodity_sku 
+                 and exists (select 1 from order_main omi where omi.parent_order_code=om.order_code and omi.order_code=oii.order_code) 
+                 and rownum=1 ),om.order_code) childcode,
+             ( select od.order_dictionary_value from ORDER_DICTIONARY  od where od.order_dictionary_type = 'Order_Status' and od.order_dictionary_key = 
+            (select oms.order_status from order_main oms where oms.order_code = 
+                    (
+                        nvl((select oii.order_code from order_item oii where oii.commodity_sku=oi.commodity_sku 
+                 and exists (select 1 from order_main omi where omi.parent_order_code=om.order_code and omi.order_code=oii.order_code) 
+                 and rownum=1 ),om.order_code)   
+                    )
+               )     
+            ) orderStatus,
+            nvl((select bi.corporate_name
+                 from  suppliers_info sinfo
+                inner join   commercial_tenant_basic_info bi
+                   on (bi.n_commercial_tenant_id = sinfo.merchant_id)
+                where to_char(sinfo.supplier_id) = oi.supplier),
+                (select ct.corporate_name from    commercial_tenant_basic_info ct 
+                  left join  suppliers_info si  on ct.n_commercial_tenant_id = si.merchant_id
+                  left join  productmain pt on si.supplier_id = pt.shop_code
+                  left join  product_sku ps on ps.product_id = pt.product_id
+                  where ps.product_sku_code = oi.commodity_sku
+                  )
+                 ) supplier,
+           decode(oi.supplier_type, 1, '自营', 2, '入驻', 3, '代销') supplierTypeStr,
+           oi.commodity_title commodityTitle,
+           oi.commodity_called_price commodityCalledPrice,
+           nvl(oi.commodity_unit_incoming, 0) commodityUnitPrice,
+           to_char(oi.commodity_number) commodityNumber,
+           oi.commodity_sum commoditySum,
+           oi.commodity_sku commoditySku,
+           decode(oi.commodity_type,1,'普通商品',2,'套餐主产品',3,'套餐附属产品',4,'赠品',5,'加价购产品') commodityType,
+           <![CDATA[
+           nvl((select sum(ops.order_money)
+                 from order_pay_statement ops
+                where ops.state = 1
+                  and ops.payment_way <> 2
+                  and ops.order_code = om.order_code),
+               0) amountPayable,
+               ]]>
+           oi.commodity_cost_price commodityCostPrice,
+           (oi.commodity_cost_price * oi.commodity_number) commodityCostSum,
+           oi.commodity_pv commodityPv,
+           decode(om.invoice_info_type, null, 'N', 'Y') hasInvoice,
+           om.invoice_info_type invoiceType,
+           oi.coupon_divide couponDivide,
+           oi.full_reduction_divide fullReductionDivide,
+           oi.commodity_sku_description commoditySkuDescription,
+           decode(om.invoice_info_type,
+                  null,
+                  '',
+                  nvl(om.invoice_info_title, '个人')) invoiceTitle,
+            om.fare fare,       
+           om.consignee_name consignee,
+           om.consignee_addr deliveryAddress,
+           om.consignee_mobile cellphone,
+           om.order_source orderSource,
+           om.customer_account customerAccount,
+           (select pb.brand_name from  prod_brand pb where brand_id = pm.brand_id) brandName,
+          ops.platform_name platformName,
+          ops.outside_pay_statement_no outsidePayStatementNo,
+          pm.Procuct_Name productName,
+          nvl(op.order_preferential_code,(select order_preferential_code from order_preferential opt where opt.order_code = om.order_code and rownum = 1 )) orderPreferentialCode,
+          t.L1,
+          t.L2,
+          t.L3
+      from order_main om
+     inner join order_item oi
+        on (oi.order_code = om.order_code)
+     left join  productmain pm
+        on (pm.product_no = oi.commodity_code)
+     left join (select opst.order_code,opst.outside_pay_statement_no,opst.platform_name,opst.platform_code from order_pay_statement opst
+                 where opst.state = 1 and opst.flag = 1 and opst.payment_way = 4) ops  
+       on(ops.order_code = om.order_code)
+     left join order_preferential op
+     on(op.order_item_id = oi.order_item_id)  
+     left join  ( select ps.product_sku_code,
+            bca.CATEGORY_NAME L1,mca.CATEGORY_NAME L2,ca.CATEGORY_NAME L3
+            from product_sku ps 
+            inner join productmain p on ps.product_id=p.product_id 
+            inner join categorys ca on p.category_id = ca.category_id  
+            inner join (select * from categorys) mca on mca.category_id = ca.PARENT_ID 
+            inner join (select * from categorys) bca on bca.category_id = mca.PARENT_ID ) t 
+           on(t.product_sku_code = oi.commodity_sku)     
+     where om.order_status not in (1, -1, -2, -3)
+       and om.parent_order_code is null
+         
+       <isNotEmpty property="supplier">
+       
+      and exists
+       (select 1
+            from   commercial_tenant_basic_info stbi
+            left join  suppliers_info si
+              on (stbi.n_commercial_tenant_id = si.merchant_id)
+           where to_char(si.supplier_id) = oi.supplier
+             and stbi.corporate_name like '%'||#supplier#||'%')
+      </isNotEmpty>
+      <isNotEmpty property="supplierType">
+      	and oi.supplier_type = #supplierType#
+      </isNotEmpty>
+       and om.pay_date between
+        to_date(#startDate#, 'yyyy-mm-dd hh24:mi:ss') and
+        to_date(#endDate#, 'yyyy-mm-dd hh24:mi:ss')
+     order by om.order_code desc,om.FINISH_DATE desc
+	</select>
+	
+	<!-- 查询商城订单财务版退款数据 -->
+	<select id="SHOP_ORDER_REPORT_REFUND_DATA"  parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		 select odrs.tradeDate tradeDate,
+         om.customer_account customerAccount,
+		       nvl(om.parent_order_code, om.order_code) parentOrderCode,
+		       om.order_code orderCode,
+		       om.order_source orderSource,
+		       odrs.batchNo batchNo,
+		       to_char(odrs.alterNum) alterNum,
+		       odrs.money returnMoney,
+		       odrs.RETURNFARE,
+           odrs.fareSubsidy,
+		       odrs.payPlatform payPlatform,
+			<isNotEmpty property="supplier">
+		       sp.corporateName corporateName,
+		 	</isNotEmpty>
+			<isEmpty property="supplier">
+		       (select nvl(stbi.corporate_name,'康美中药城') from   commercial_tenant_basic_info stbi
+            	where exists
+            	(select 1
+                     from  suppliers_info si
+                    where stbi.n_commercial_tenant_id = si.merchant_id
+                      and to_char(si.supplier_id) = oi.supplier)
+           		) corporateName,
+		 	</isEmpty>
+	<![CDATA[		
+	           oi.cost_income_money costIncomeMoney, 	
+		       oi.commodity_sku commoditySku,
+		       decode(oi.supplier_type, 1, '自营', 2, '入驻', 3, '代销') supplierTypeStr,
+		       oi.coupon_divide couponDivide,
+           oi.full_reduction_divide fullReductionDivide,
+		       oi.commodity_title commodityTitle,
+           decode(oi.commodity_type,1,'普通商品',2,'套餐主产品',3,'套餐附属产品',4,'赠品',5,'加价购产品') commodityType,
+		       oi.commodity_called_price commodityCalledPrice,
+		       oi.commodity_number*nvl((case when oi.commodity_unit_incoming < 0 then 0 else oi.commodity_unit_incoming end), 0) commoditySum,
+		       nvl((case when oi.commodity_unit_incoming < 0 then 0 else oi.commodity_unit_incoming end), 0) commodityUnitPrice,
+		       to_char(oi.commodity_number) commodityNumber,
+		       oi.commodity_called_sum commodityCalledSum,
+		       nvl(oi.commodity_pv,0) commodityPv,
+		       nvl(oi.commodity_unit_incoming,0) * nvl(odrs.alterNum,0) amountPayable,
+		       oi.commodity_cost_price commodityCostPrice,
+		       (oi.commodity_cost_price * oi.commodity_number) commodityCostSum,
+		       om.fare fare,
+		       decode(om.invoice_info_type, null, 'N', 'Y') hasInvoice,
+		       om.invoice_info_type invoiceType,
+		       decode(om.invoice_info_type,
+		              null,
+		              '',
+		              nvl(om.invoice_info_title, '个人')) invoiceTitle,
+		       om.consignee_name consignee,
+		       om.consignee_addr deliveryAddress,
+		       om.consignee_mobile cellphone,
+           pm.Procuct_Name productName,
+           oi.commodity_sku_description commoditySkuDescription
+		  from (select oa.order_item_id itemId,
+		               oa.ruturn_sum,
+		               oa.alter_num alterNum, 
+		               oa.RETURN_FARE RETURNFARE,
+                   oa.fare_subsidy fareSubsidy,
+		               (select nvl(od.order_dictionary_value,'康美钱包')
+				          from order_dictionary od
+				         where od.order_dictionary_type = 'Order_Return_Method'
+				           and od.order_dictionary_key = oaps.payment_way) payPlatform, 
+		               to_char(oa.finish_date, 'yyyy-mm-dd hh24:mi:ss') tradeDate,
+		               nvl(oaps.outside_pay_statement_no, oaps.pay_statement_no) batchNo,
+		               nvl(abs(oaps.order_money)*(-1), 0) money
+		          from order_alter oa, order_alter_pay_statement oaps
+		         where oaps.order_alter_code = oa.order_alter_code
+		           and oa.propose_status in (7, 61)
+		           and oaps.flag = 2
+		           and oaps.payment_way <> 2
+		           and oaps.state = 1
+		           and oaps.create_date between
+		               to_date(#startDate#, 'yyyy-mm-dd hh24:mi:ss') and
+		               to_date(#endDate#, 'yyyy-mm-dd hh24:mi:ss')) odrs
+		  left join order_item oi
+		    on (oi.order_item_id = odrs.itemId)
+		  left join order_main om
+		    on (oi.order_code = om.order_code)
+      left join  productmain pm
+        on (pm.product_no = oi.commodity_code)
+		 ]]>    
+		<isNotEmpty property="supplier">
+		  inner join (select nvl(stbi.corporate_name, '康美') corporateName,
+		                    si.supplier_id supplierId
+		               from   commercial_tenant_basic_info stbi
+		               left join  suppliers_info si
+		                 on (stbi.n_commercial_tenant_id = si.merchant_id)
+		              where stbi.corporate_name like '%'||#supplier#||'%') sp
+		    on (to_char(sp.supplierId) = oi.supplier)
+		</isNotEmpty>
+		
+		where 1=1
+		<isNotEmpty property="supplierType">
+      	and oi.supplier_type = #supplierType#
+      </isNotEmpty>	    
+		 order by odrs.tradeDate   
+	</select>
+	
+	<!-- 查询商家订单财务版数据 -->
+	<select id="SQL_QUERY_MERCHANTS_ORDER_REPORT_DATA"  parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	<![CDATA[	
+		select to_char(om.pay_date, 'yyyy-mm-dd hh24:mi:ss') payDate, #ZQ# as zq,
+		(select to_char(finish_date, 'yyyy-mm-dd hh24:mi:ss') from order_main where order_code =
+                 nvl((select oii.order_code from order_item oii where oii.commodity_sku=oi.commodity_sku 
+           			and exists (select 1 from order_main omi where omi.parent_order_code=om.order_code and omi.order_code=oii.order_code) 
+           			and rownum=1 ),om.order_code) 
+                ) finishDate,
+		       om.order_code orderCode,
+		       nvl((select oii.order_code from order_item oii where oii.commodity_sku=oi.commodity_sku 
+           			and exists (select 1 from order_main omi where omi.parent_order_code=om.order_code and omi.order_code=oii.order_code) 
+           			and rownum=1 ),om.order_code) childcode,
+		       (select wi.warehouse_name
+		          from  warehouse_info wi
+		         where wi.warehouse_id = oi.warehouse_id) warehouseName,
+		       om.order_channel orderChannel,
+		       ROUND(nvl(oi.commission_rate,0)*oi.commodity_unit_incoming*oi.commodity_number,2) as commission,oi.SETTLEMENT_LOAN,
+		       decode(oi.COMMISSION_RATE,null,'',cast(cast(oi.COMMISSION_RATE*100 as numeric(10,2)) as varchar(20))||'%') COMMISSION_RATE,
+		       nvl((select bi.corporate_name
+                 from  suppliers_info sinfo
+                inner join   commercial_tenant_basic_info bi
+                   on (bi.n_commercial_tenant_id = sinfo.merchant_id)
+                where to_char(sinfo.supplier_id) = oi.supplier),
+                (select ct.corporate_name from    commercial_tenant_basic_info ct 
+                  left join  suppliers_info si  on ct.n_commercial_tenant_id = si.merchant_id
+                  left join  productmain pt on si.supplier_id = pt.shop_code
+                  left join  product_sku ps on ps.product_id = pt.product_id
+                  where ps.product_sku_code = oi.commodity_sku
+                  )
+                 )   supplier,
+		       decode(oi.supplier_type, 1, '自营', 2, '入驻', 3, '代销') supplierTypeStr,
+		       oi.commodity_title commodityTitle,
+		       oi.commodity_called_price commodityCalledPrice,
+		       nvl((case when oi.commodity_unit_incoming < 0 then 0 else oi.commodity_unit_incoming end), 0) commodityUnitPrice,
+		       oi.commodity_number commodityNumber,
+		       oi.commodity_number * nvl((case when oi.commodity_unit_incoming < 0 then 0 else oi.commodity_unit_incoming end), 0) commoditySum,
+		       oi.commodity_called_sum commodityCalledSum,
+		       oi.commodity_sku commoditySku,
+		       nvl((select sum(ops.order_money)
+		             from order_pay_statement ops
+		            where ops.state = 1
+		              and ops.payment_way <> 2
+		              and ops.order_code = om.order_code),
+		           0) amountPayable,
+		       oi.commodity_cost_price commodityCostPrice,
+		       (oi.commodity_cost_price * oi.commodity_number) commodityCostSum,
+		       oi.commodity_pv commodityPv,
+		       oi.cost_income_money costIncomeMoney,
+		       om.fare fare,
+		       decode(om.invoice_info_type, null, 'N', 'Y') hasInvoice,
+		       om.invoice_info_type invoiceType,
+		       decode(om.invoice_info_type,
+		              null,
+		              '',
+		              nvl(om.invoice_info_title, '个人')) invoiceTitle,
+		       om.consignee_name consignee,
+		       om.consignee_addr deliveryAddress,
+		       om.consignee_mobile cellphone,
+		       om.amount_payable orderSum,
+		       om.order_source orderSource,
+		       (select pb.brand_name from  prod_brand pb where brand_id = pm.brand_id) brandName
+		  from order_main om
+		 inner join order_item oi
+		    on (oi.order_code = om.order_code)
+		 left join  productmain pm
+    		on (pm.product_no = oi.commodity_code)
+		 where om.order_status not in (1, -1, -2, -3)
+		   and om.commerce_id is not null
+		   and om.parent_order_code is null
+	]]>		   
+		   <isNotEmpty property="supplier">
+			and exists
+	 		(select 1
+	          from   commercial_tenant_basic_info stbi
+	          left join  suppliers_info si
+	            on (stbi.n_commercial_tenant_id = si.merchant_id)
+	         where to_char(si.supplier_id) = om.commerce_id
+	           and stbi.corporate_name like '%'||#supplier#||'%')
+			</isNotEmpty>
+	<![CDATA[				
+		   and om.FINISH_DATE between
+				to_date(#startDate#, 'yyyy-mm-dd hh24:mi:ss') and
+				to_date(#endDate#, 'yyyy-mm-dd hh24:mi:ss')
+		 order by om.order_code desc,oi.supplier,om.FINISH_DATE desc
+	]]>		 
+	</select>
+	
+	<!-- 商家订单财务版报表差异调整明细导出数据查询 -->
+	<select id="queryExportTzInfo"  parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		            select DIFF_ADJ_ID, SELLER_ID, CURR_SETTMENT_NO, ADJ_MONEY, ADJ_TITLE, ADJ_DETAIL, OPERATER_ID,
+    to_char(ADJ_TIME,'yyyy-mm-dd hh24:mi:ss') ADJ_TIME, SETTMENT_STATUS, CALC_SETTMENT_NO, SETTMENT_DATE,user_name, SETTLEMENT_PERIOD,rownum rn
+    from (
+     select DIFF_ADJ_ID, SELLER_ID, CURR_SETTMENT_NO, ADJ_MONEY, ADJ_TITLE, ADJ_DETAIL, OPERATER_ID,
+        ADJ_TIME, SETTMENT_STATUS, CALC_SETTMENT_NO, SETTMENT_DATE,user_name,SETTLEMENT_PERIOD, rownum rn
+      from (
+          select t.DIFF_ADJ_ID,  t.SELLER_ID,  t.CURR_SETTMENT_NO,  t.ADJ_MONEY,  t.ADJ_TITLE,  t.ADJ_DETAIL,  t.OPERATER_ID,
+             t.ADJ_TIME,  t.SETTMENT_STATUS,  t.CALC_SETTMENT_NO,  t.SETTMENT_DATE,s.user_name, p.SETTLEMENT_PERIOD
+          from DIFF_ADJ t 
+          left join
+             sys_user s 
+           on  s.user_id =  t.operater_id
+           left join
+           SELLER_SETTLEMENT p
+           on (p.SETTLEMENT_NO = t.CURR_SETTMENT_NO )
+           where
+            p.SETTLEMENT_STATUS=6
+            and t.calc_settment_no in
+           (select ss.settlement_no from SELLER_SETTLEMENT ss where
+              ss.SETTLEMENT_PERIOD in 
+                 <iterate open="(" close=")" conjunction="," property="selectTimes">
+                      #selectTimes[]#
+              </iterate>
+              and ss.seller_id =
+       (select stbi.n_commercial_tenant_id  
+           from    commercial_tenant_basic_info stbi
+           where stbi.corporate_name like '%'||#supplier#||'%'
+           and rownum = 1))
+            order by t.DIFF_ADJ_ID desc
+         )a 
+    )  b 
+	</select>
+	<!-- 查询入驻商家结算报表数据 -->
+	<select id="ASYN_MERCHANTS_ORDER_REPORT_DATA"  parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	<![CDATA[
+		select to_char(om.pay_date, 'yyyy-mm-dd hh24:mi:ss') payDate,
+       #ZQ# as zq,
+       om.customer_account customerAccount,
+    (select to_char(finish_date, 'yyyy-mm-dd hh24:mi:ss') from order_main where order_code =
+                 nvl((select oii.order_code from order_item oii where oii.commodity_sku=oi.commodity_sku 
+                 and exists (select 1 from order_main omi where omi.parent_order_code=om.order_code and omi.order_code=oii.order_code) 
+                 and rownum=1 ),om.order_code) 
+                ) finishDate,
+           om.order_code orderCode,
+           nvl((select oii.order_code from order_item oii where oii.commodity_sku=oi.commodity_sku 
+                 and exists (select 1 from order_main omi where omi.parent_order_code=om.order_code and omi.order_code=oii.order_code) 
+                 and rownum=1 ),om.order_code) childcode,
+           ROUND(nvl(oi.commission_rate,0)*oi.commodity_unit_incoming*oi.commodity_number,2) as commission,
+           oi.SETTLEMENT_LOAN,
+           decode(oi.COMMISSION_RATE,null,'',cast(cast(oi.COMMISSION_RATE*100 as numeric(10,2)) as varchar(20))||'%') COMMISSION_RATE,
+           nvl((select bi.corporate_name
+                 from  suppliers_info sinfo
+                inner join   commercial_tenant_basic_info bi
+                   on (bi.n_commercial_tenant_id = sinfo.merchant_id)
+                where to_char(sinfo.supplier_id) = oi.supplier),
+                (select ct.corporate_name from    commercial_tenant_basic_info ct 
+                  left join  suppliers_info si  on ct.n_commercial_tenant_id = si.merchant_id
+                  left join  productmain pt on si.supplier_id = pt.shop_code
+                  left join  product_sku ps on ps.product_id = pt.product_id
+                  where ps.product_sku_code = oi.commodity_sku
+                  )
+                 )   supplier,
+           oi.commodity_title commodityTitle,
+            decode(oi.commodity_type,1,'普通商品',2,'套餐主产品',3,'套餐附属产品',4,'赠品',5,'加价购产品') commodityType,
+           oi.commodity_called_price commodityCalledPrice,
+           nvl((case when oi.commodity_unit_incoming < 0 then 0 else oi.commodity_unit_incoming end), 0) commodityUnitPrice,
+           oi.commodity_number commodityNumber,
+            oi.commodity_sum commoditySum,
+           oi.commodity_sku commoditySku,
+           nvl((select sum(ops.order_money)
+                 from order_pay_statement ops
+                where ops.state = 1
+                  and ops.payment_way <> 2
+                  and ops.order_code = om.order_code),
+               0) amountPayable,
+           oi.commodity_pv commodityPv,
+           om.fare fare,
+           oi.coupon_divide couponDivide,
+           oi.full_reduction_divide fullReductionDivide,
+           om.order_source orderSource,
+           ops.platform_name platformName,
+           ops.outside_pay_statement_no outsidePayStatementNo,
+           (select pb.brand_name from  prod_brand pb where brand_id = pm.brand_id) brandName,
+           (  select 
+             case when ((select count(omt.order_code) from order_main omt
+             where omt.parent_order_code is not null
+              start with omt.order_code =om.order_code  connect by omt.parent_order_code = prior omt.order_code)>0 )
+              then
+              (select nvl(sum(oit.settlement_loan),0)+nvl(om.fare,0) from order_item oit 
+              where oit.order_code in (
+              select omt.order_code  from order_main omt
+             where omt.parent_order_code is not null
+              start with omt.order_code =om.order_code  connect by omt.parent_order_code = prior omt.order_code)) 
+              else
+              (select nvl(sum(oit.settlement_loan),0)+nvl(om.fare,0) settlement_loan from order_item oit 
+              where oit.order_code =om.order_code) 
+              end
+              from dual
+              ) settleMoney
+              
+      from order_main om
+     inner join order_item oi
+        on (oi.order_code = om.order_code)
+     left join  productmain pm
+        on (pm.product_no = oi.commodity_code)
+     left join (select opst.order_code,opst.outside_pay_statement_no,opst.platform_name,opst.platform_code from order_pay_statement opst
+                 where opst.state = 1 and opst.flag = 1 and opst.payment_way = 4) ops 
+       on(ops.order_code = om.order_code)   
+     where om.order_status not in (1, -1, -2, -3)
+       and om.commerce_id is not null
+       and om.parent_order_code is null
+      and exists(select 1 from HURL_PRODUCT hp where hp.order_code = ( nvl((select oii.order_code from order_item oii where oii.commodity_sku=oi.commodity_sku 
+                 and exists (select 1 from order_main omi where omi.parent_order_code=om.order_code and omi.order_code=oii.order_code) 
+                 and rownum=1 ),om.order_code)) and exists (select 1 from seller_settlement ss where ss.settlement_period = #ZQ# and ss.settlement_no = hp.settlement_no))
+  ]]>       
+       <isNotEmpty property="supplier">
+      and exists
+       (select 1
+            from   commercial_tenant_basic_info stbi
+            left join  suppliers_info si
+              on (stbi.n_commercial_tenant_id = si.merchant_id)
+           where to_char(si.supplier_id) = om.commerce_id
+             and stbi.corporate_name like '%'||#supplier#||'%')
+      </isNotEmpty>
+     order by om.order_code desc,oi.supplier desc
+   
+	</select>
+	
+	 <!-- 查询入驻商家结算差异调整报表数据 -->
+	<select id="ASYN_ExportTzInfo"  parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		   select DIFF_ADJ_ID, SELLER_ID, CURR_SETTMENT_NO, ADJ_MONEY, ADJ_TITLE, ADJ_DETAIL, OPERATER_ID,
+    to_char(ADJ_TIME,'yyyy-mm-dd hh24:mi:ss') ADJ_TIME, SETTMENT_STATUS, CALC_SETTMENT_NO, SETTMENT_DATE,user_name, SETTLEMENT_PERIOD,SUPPLIER,rownum rn
+    from (
+     select DIFF_ADJ_ID, SELLER_ID, CURR_SETTMENT_NO, ADJ_MONEY, ADJ_TITLE, ADJ_DETAIL, OPERATER_ID,
+        ADJ_TIME, SETTMENT_STATUS, CALC_SETTMENT_NO, SETTMENT_DATE,user_name,SETTLEMENT_PERIOD,SUPPLIER, rownum rn
+      from (
+          select t.DIFF_ADJ_ID,  t.SELLER_ID,  t.CURR_SETTMENT_NO,  t.ADJ_MONEY,  t.ADJ_TITLE,  t.ADJ_DETAIL,  t.OPERATER_ID,
+             t.ADJ_TIME,  t.SETTMENT_STATUS,  t.CALC_SETTMENT_NO,  t.SETTMENT_DATE,s.user_name, p.SETTLEMENT_PERIOD,
+            ( select  cbi.corporate_name  from   commercial_tenant_basic_info cbi
+              where cbi.n_commercial_tenant_id = p.seller_id) supplier
+          from DIFF_ADJ t 
+          left join
+             sys_user s 
+           on  s.user_id =  t.operater_id
+           left join
+           SELLER_SETTLEMENT p
+           on (p.SETTLEMENT_NO = t.CURR_SETTMENT_NO )
+           where
+            p.SETTLEMENT_STATUS=6
+            and t.calc_settment_no in
+           (select ss.settlement_no from SELLER_SETTLEMENT ss where
+              ss.SETTLEMENT_PERIOD in 
+                 <iterate open="(" close=")" conjunction="," property="selectTimes">
+                      #selectTimes[]#
+              </iterate>
+              and ss.seller_id =
+       (select stbi.n_commercial_tenant_id  
+           from    commercial_tenant_basic_info stbi
+           where stbi.corporate_name like '%'||#supplier#||'%'
+           and rownum = 1))
+            order by t.DIFF_ADJ_ID desc
+         )a 
+    )  b 
+	</select>
+	<!-- 查询入驻商家结算单退款数据 -->
+	<select id="ASYN_ORDER_REPORT_REFUND_DATA"  parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select odrs.tradeDate tradeDate,
+			  #ZQ# as zq,
+		       nvl(om.parent_order_code, om.order_code) parentOrderCode,
+		       om.order_code orderCode,
+		       om.order_source orderSource,
+           om.customer_account customerAccount,
+		       odrs.batchNo batchNo,
+		       to_char(odrs.alterNum) alterNum,
+		       odrs.money returnMoney,
+		       odrs.RETURNFARE,
+		       odrs.payPlatform payPlatform,
+			<isNotEmpty property="supplier">
+		       sp.corporateName corporateName,
+		 	</isNotEmpty>
+			<isEmpty property="supplier">
+		       (select nvl(stbi.corporate_name,'康美') from   commercial_tenant_basic_info stbi
+            	where exists
+            	(select 1
+                     from  suppliers_info si
+                    where stbi.n_commercial_tenant_id = si.merchant_id
+                      and to_char(si.supplier_id) = oi.supplier)
+           		) corporateName,
+		 	</isEmpty>
+	<![CDATA[		
+	           oi.cost_income_money costIncomeMoney, 	
+		       oi.commodity_sku commoditySku,
+		       oi.commodity_title commodityTitle,
+           decode(oi.commodity_type,1,'普通商品',2,'套餐主产品',3,'套餐附属产品',4,'赠品',5,'加价购产品') commodityType,
+		       oi.commodity_called_price commodityCalledPrice,
+           oi.commodity_sum commoditySum,
+		       nvl((case when oi.commodity_unit_incoming < 0 then 0 else oi.commodity_unit_incoming end), 0) commodityUnitPrice,
+		       to_char(oi.commodity_number) commodityNumber,
+           oi.coupon_divide couponDivide,
+           oi.full_reduction_divide fullReductionDivide,
+		       nvl(oi.commodity_pv,0) commodityPv,
+		       nvl(oi.commodity_unit_incoming,0) * nvl(odrs.alterNum,0) amountPayable,
+		       om.fare fare,
+		       ROUND(nvl(oi.commission_rate,0)*oi.commodity_unit_incoming*oi.commodity_number,2) as commission,
+		        decode(oi.COMMISSION_RATE,null,'',cast(cast(oi.COMMISSION_RATE*100 as numeric(10,2)) as varchar(20))||'%') COMMISSION_RATE
+		  from (select oa.order_item_id itemId,
+		               oa.ruturn_sum,
+		               oa.alter_num alterNum,
+		               oa.RETURN_FARE RETURNFARE,
+		               (select od.order_dictionary_value
+				          from order_dictionary od
+				         where od.order_dictionary_type = 'Order_Return_Method'
+				           and od.order_dictionary_key = oaps.payment_way) payPlatform,
+		               to_char(oa.finish_date, 'yyyy-mm-dd hh24:mi:ss') tradeDate,
+		               nvl(oaps.outside_pay_statement_no, oaps.pay_statement_no) batchNo, 
+		               nvl(abs(oaps.order_money)*(-1), 0) money
+		          from order_alter oa, order_alter_pay_statement oaps
+		         where oaps.order_alter_code = oa.order_alter_code
+		           and oa.propose_status in (7, 61)
+		           and oaps.flag = 2
+		           and oaps.payment_way <> 2
+		           and oaps.state = 1
+		           and exists( select 1 from SETTLEMENT_REFUND sr where sr.order_alter_code=oaps.order_alter_code 
+		           			   and exists (select 1 from seller_settlement ss where ss.settlement_period=#ZQ# and ss.settlement_no = sr.settlement_no))
+		           ) odrs
+		  left join order_item oi
+		    on (oi.order_item_id = odrs.itemId)
+		  left join order_main om
+		    on (oi.order_code = om.order_code)
+	]]>		    
+		<isNotEmpty property="supplier">
+		  inner join (select nvl(stbi.corporate_name, '康美') corporateName,
+		                    si.supplier_id supplierId
+		               from   commercial_tenant_basic_info stbi
+		               left join  suppliers_info si
+		                 on (stbi.n_commercial_tenant_id = si.merchant_id)
+		              where stbi.corporate_name like '%'||#supplier#||'%') sp
+		    on (to_char(sp.supplierId) = oi.supplier)
+		</isNotEmpty>	    
+		 order by odrs.tradeDate
+	
+	</select>
+	<!-- 客户采购分析报表 start -->
+	<sql id="QUERY_CUSTOMER_PURCHASE_ANALYSIS">
+		select rownum rn,
+			   rs.province,
+		       rs.customerCount,
+		       rs.commodityNumber,
+		       rs.amountPayable,
+		       round(rs.commodityNumber /
+		             decode(rs.customerCount, 0, 1, rs.customerCount),
+		             2) avgCommodityNumber,
+		       round(rs.amountPayable /
+		             decode(rs.customerCount, 0, 1, rs.customerCount),
+		             2) avgAmountPayable,
+		       round(100 * ratio_to_report(customerCount) OVER(),2) ccRatio
+		  from (select rsi.province province,rsi.customerCount customerCount,rsi.amountPayable amountPayable,
+       			(select sum(oi.commodity_number) from order_item oi
+            		where exists (select 1 from order_main omi
+                 where omi.order_status not in (1, -1, -19,-2)
+                   and omi.parent_order_code is null
+                   and omi.order_code = oi.order_code
+                  	<isNotEmpty property="channel" prepend="and">
+		       					omi.order_channel=#channel#
+					</isNotEmpty>
+					<isNotEmpty property="startDate" prepend="and">
+		       					omi.pay_date 
+		       		between to_date(#startDate#,'yyyy-mm-dd hh24:mi:ss') 
+		       		    	and to_date(#endDate#,'yyyy-mm-dd hh24:mi:ss')
+					</isNotEmpty>
+                   and nvl(substr(omi.province,1,instr(omi.province,'省')-1),omi.province) = rsi.province)) commodityNumber
+			  from (select nvl(substr(om.province,1,instr(om.province,'省')-1),om.province) province,
+			               nvl(count(distinct om.customer_id), 0) customerCount,
+			               nvl(sum(om.amount_payable), 0) amountPayable
+			          from order_main om
+			         where om.order_status not in (1, -1, -19,-2)
+			           and om.parent_order_code is null
+           <isNotEmpty property="channel" prepend="and">
+      					om.order_channel=#channel#
+			</isNotEmpty>
+			<isNotEmpty property="startDate" prepend="and">
+      					om.pay_date 
+      		between to_date(#startDate#,'yyyy-mm-dd hh24:mi:ss') 
+      		    	and to_date(#endDate#,'yyyy-mm-dd hh24:mi:ss')
+			</isNotEmpty>
+         group by nvl(substr(om.province,1,instr(om.province,'省')-1),om.province)
+         order by customerCount desc) rsi ) rs
+	</sql>
+	<select id="SQL_QUERY_CUSTOMER_PURCHASE_ANALYSIS" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	<![CDATA[
+		select * from (
+	]]>	
+		<include refid="QUERY_CUSTOMER_PURCHASE_ANALYSIS"/>
+	<![CDATA[	         
+			where rownum <= #end#)
+		 where rn >= #start#
+	]]>
+	</select>
+	
+	<select id="SQL_QUERY_CUSTOMER_PURCHASE_ANALYSIS_COUNT" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(1) from (<include refid="QUERY_CUSTOMER_PURCHASE_ANALYSIS"/>)
+	</select>
+	
+	<select id="SQL_CUSTOMER_PURCHASE_ANALYSIS_EXPORT" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		<include refid="QUERY_CUSTOMER_PURCHASE_ANALYSIS"/>
+	</select>
+	<!-- 客户采购分析报表 end-->
+	
+	<!--   商品统计报表	 -->
+	<sql id="GOODS_REPORT_SQL">
+  	<![CDATA[
+  	from (select pr.category_name,
+	       pr.brand_name,
+	       pr.cost_price,
+	       ors.commodity_cost_price commodity_cost_price,
+	       (select oii.commodity_name from order_item oii where oii.commodity_sku=ors.commodity_sku and rownum=1)commodity_name,
+	       ors.commodity_sku,
+	       round(ors.commodity_sum / ors.commodity_number, 2) as commodity_unit_price,
+	       ors.commodity_number,
+	       ors.commodity_sum,
+	       nvl(ors.alter_num,0) alter_number
+	  from (select nvl(sum(iors.commodity_number),0) commodity_number,
+	               sum(iors.commodity_sum) commodity_sum,
+	               sum(iors.alter_num) alter_num,
+	               iors.commodity_cost_price commodity_cost_price,
+	               iors.commodity_sku commodity_sku
+	          from (select distinct oi.commodity_number commodity_number,
+	                                oi.commodity_sum    commodity_sum,
+	                                oi.commodity_cost_price commodity_cost_price,
+	                                (select sum(oa.alter_num)
+                                   		from order_alter oa
+                                  	where oi.order_item_id = oa.order_item_id(+)) alter_num,
+	                                oi.commodity_sku    commodity_sku,
+	                                oi.order_item_id
+	                  from order_item oi
+	                 where exists
+	                 (select 1
+	                          from order_main om
+	                         where om.order_status not in (1, -1,-2)
+	]]>                         
+		<isNotEmpty property="channel" prepend="and">
+		       					om.order_channel=#channel#
+		</isNotEmpty>
+		<isNotEmpty property="startDate" prepend="and">
+		       					om.pay_date 
+		       		between to_date(#startDate#,'yyyy-mm-dd hh24:mi:ss') 
+		       		    	and to_date(#endDate#,'yyyy-mm-dd hh24:mi:ss')
+		</isNotEmpty>
+	<![CDATA[	
+                           and om.parent_order_code is null
+                           and oi.order_code = om.order_code)) iors
+			         group by iors.commodity_sku,iors.commodity_cost_price) ors,
+			       (select pm.category_name    category_name,
+			               pm.brand_name       brand_name,
+			               ps.product_sku_code product_sku_code,
+			               ps.cost_price cost_price
+			          from  product_sku ps,  productmain pm
+			         where pm.product_id = ps.product_id(+)) pr
+			 where ors.commodity_sku = pr.product_sku_code(+)
+			 order by ors.commodity_number desc 
+		) a 
+	]]>
+  	</sql>
+  	<select id="SQL_QUERY_GOODS_COUNT" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		SELECT COUNT(*) <include refid="GOODS_REPORT_SQL"/>
+	</select>
+  	<select id="SQL_QUERY_GOODS_REPORT" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+ 	<![CDATA[	
+	select category_name,
+       brand_name,
+       commodity_name,
+       commodity_sku,
+       commodity_cost_price,
+       commodity_unit_price,
+       commodity_number,
+       commodity_sum,
+       alter_number
+  	from (select a.*, rownum rn
+  	]]>
+		<include refid="GOODS_REPORT_SQL"/>
+	<![CDATA[	         
+			where rownum <= #end#)
+		 where rn >= #start#
+	]]>
+  	</select>
+  	<select id="SQL_QUERY_GOODS_REPORT_EXPORT" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select category_name,
+		       brand_name,
+		       commodity_name,
+		       commodity_sku,
+		       commodity_unit_price,
+		       commodity_cost_price,
+		       commodity_number,
+		       commodity_sum,
+		       alter_number
+  		<include refid="GOODS_REPORT_SQL"/>
+ 	</select>
+ 	<!--   商品统计报表	 -->
+ 	
+ 	
+ 	<!--   新商品统计报表 -->
+ 	
+ 	<select id="SQL_QUERY_GOODS_COUNT_NEW_OLD" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+        <![CDATA[	
+	select count(*)
+    from (select oi.commodity_sku,
+               t.procuct_name,
+               t.supplier_name,
+                              
+               t.brand_name,
+               t.c1,
+               t.c2,
+               t.c3,
+               (case 
+                 when oi.supplier_type = 1 or oi.supplier_type = 3 then
+                  '自营'
+                 else
+                  '第三方'
+               end) supplier_type_str,
+               om.customer_account,
+               om.order_code,
+               om.create_date,
+               (select od1.order_dictionary_value
+                  from order_dictionary od1
+                 where od1.order_dictionary_type = 'Order_Source'
+                   and od1.order_dictionary_key = om.order_source) order_source_str,               
+               (case
+                 when (select ei.n_login_id
+                         from era_info ei
+                        where ei.n_login_id = om.customer_id) is not null then
+                  '时代会员下单'
+                 when om.order_purchaser_type = 1 then
+                  '注册客户下单'
+                 when om.order_purchaser_type = 2 then
+                  '免注册客户下单'
+               end) order_purchaser_type_str,
+               (select od1.order_dictionary_value
+                  from order_dictionary od1
+                 where od1.order_dictionary_type = 'Order_Type'
+                   and od1.order_dictionary_key = om.order_type
+                   and rownum = 1) order_type_str,
+               om.commodity_sum,
+               oi.commodity_number * nvl(oi.commodity_unit_incoming, 0) commodity_incoming_sum,
+               (select wm_concat(od3.order_dictionary_value)
+                  from order_pay_statement ops, order_dictionary od3
+                 where ops.order_code = om.order_code
+                   and ops.payment_way = od3.order_dictionary_key
+                   and od3.order_dictionary_type = 'Pay_Method'
+                   and ops.state = 1) payment_way_str,
+               oi.commodity_unit_incoming,
+               oi.commodity_cost_price,
+               oi.commodity_number,
+               oi.commodity_number * nvl(oi.commodity_cost_price, 0) cost_sum,
+               
+               decode(oi.COMMISSION_RATE,
+                      null,
+                      '0%',
+                      cast(cast(oi.COMMISSION_RATE * 100 as numeric(10, 2)) as
+                           varchar(20)) || '%') COMMISSION_RATE,
+               
+               ROUND(nvl(oi.commission_rate, 0) * oi.commodity_unit_incoming *
+                     oi.commodity_number,2) commission_money,
+               (select wm_concat(op.order_preferential_code)
+                  from ORDER_PREFERENTIAL op
+                 where op.order_code = om.order_code) order_preferential_code,
+               nvl((select sum(oa.alter_num)
+                     from order_alter oa
+                    where oi.order_item_id = oa.order_item_id(+)),
+                   0) alter_num,
+               nvl((select sum(oa.ruturn_sum)
+                     from order_alter oa
+                    where oi.order_item_id = oa.order_item_id(+)),
+                   0) alter_money_sum
+          from order_main om
+         inner join order_item oi
+            on (oi.order_code = om.order_code)
+          left join (select ps.product_sku_code,
+                           p.procuct_name,
+                           p.product_title,
+                           p.shop_code,
+                           pb.brand_name,
+                           bca.CATEGORY_NAME c1,
+                           mca.CATEGORY_NAME c2,
+                           ca.CATEGORY_NAME c3,
+                           bca.category_id cid1,
+                           mca.category_id cid2,
+                           ca.category_id cid3,
+                           
+                           (select f.CORPORATE_NAME
+                              from commercial_tenant_basic_info f,
+                                   suppliers_info               s
+                             where f.n_commercial_tenant_id = s.merchant_id
+                               and to_char(s.supplier_id) = p.shop_code) supplier_name
+                      from product_sku ps
+                     inner join productmain p
+                        on ps.product_id = p.product_id
+                     inner join prod_brand pb
+                        on p.brand_id = pb.brand_id
+                     inner join categorys ca
+                        on p.category_id = ca.category_id
+                     inner join (select * from categorys) mca
+                        on mca.category_id = ca.PARENT_ID
+                     inner join (select * from categorys) bca
+                        on bca.category_id = mca.PARENT_ID) t
+            on (t.product_sku_code = oi.commodity_sku)
+        
+         where om.parent_order_code is null
+           and om.order_status > 1
+     ]]>
+        <!-- 渠道-->
+        <isNotEmpty property="channel" prepend="and">
+		       					om.order_channel=#channel#
+		</isNotEmpty>
+		<isNotEmpty property="startDate" prepend="and">
+		       					om.pay_date 
+		       		between to_date(#startDate#,'yyyy-mm-dd hh24:mi:ss') 
+		       		    	and to_date(#endDate#,'yyyy-mm-dd hh24:mi:ss')
+		</isNotEmpty>
+		<!-- 订单来源 -->
+		<isNotEmpty prepend="AND" property="orderSource">
+			om.ORDER_SOURCE = #orderSource#
+		</isNotEmpty>
+		<!-- 销售类型 -->
+		<isNotEmpty prepend="AND" property="commerceId">
+		<isEqual property="commerceId" compareValue="1">
+		 om.commerce_id is null
+		 </isEqual>
+		 <isEqual property="commerceId" compareValue="2">
+		 om.commerce_id is not null
+		
+		 </isEqual>
+		</isNotEmpty>
+		
+		 <!-- 供应商 -->
+		<isNotEmpty prepend="AND" property="supplier">
+			t.supplier_name = #supplier# 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="commoditySku">
+			oi.commodity_sku = #commoditySku# 
+		</isNotEmpty>
+		
+		<isNotEmpty prepend="AND" property="bCategoryId">
+			t.cid1 = #bCategoryId# 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="mCategoryId">
+			t.cid2 = #mCategoryId# 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="sCategoryId">
+			t.cid3 = #sCategoryId# 
+		</isNotEmpty>
+		
+	<![CDATA[	
+        ) a
+        
+       where 1=1
+       ]]>
+       <isNotEmpty prepend="AND" property="paymentWay">
+			a.payment_way_str like #paymentWay# 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="orderPreferentialCode">
+			a.order_preferential_code like concat(concat('%',#orderPreferentialCode#),'%')
+		</isNotEmpty>
+		
+	</select>
+	
+ 	<select id="SQL_QUERY_GOODS_REPORT_NEW_OLD" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+ 	<![CDATA[	
+	select ress.*  from
+    ( select res.*,rownum rn
+    from (
+        select a.*
+        from (select oi.commodity_sku,
+               t.procuct_name,
+               t.supplier_name,
+               t.brand_name,
+               t.c1,
+               t.c2,
+               t.c3,
+               (case 
+                 when oi.supplier_type = 1 or oi.supplier_type = 3 then
+                  '自营'
+                 else
+                  '第三方'
+               end) supplier_type_str,
+               om.customer_account,
+               om.order_code,
+               om.create_date,
+               to_char(om.create_date, 'yyyy-mm-dd hh24:mi:ss') create_date_str,
+               (select od1.order_dictionary_value
+                  from order_dictionary od1
+                 where od1.order_dictionary_type = 'Order_Source'
+                   and od1.order_dictionary_key = om.order_source) order_source_str,               
+               (case
+                 when (select ei.n_login_id
+                         from era_info ei
+                        where ei.n_login_id = om.customer_id) is not null then
+                  '时代会员下单'
+                 when om.order_purchaser_type = 1 then
+                  '注册客户下单'
+                 when om.order_purchaser_type = 2 then
+                  '免注册客户下单'
+               end) order_purchaser_type_str,
+               (select od1.order_dictionary_value
+                  from order_dictionary od1
+                 where od1.order_dictionary_type = 'Order_Type'
+                   and od1.order_dictionary_key = om.order_type
+                   and rownum = 1) order_type_str,
+               om.commodity_sum,
+               om.amount_payable,
+               oi.commodity_number * nvl(oi.commodity_unit_incoming, 0) commodity_incoming_sum,
+               (select wm_concat(od3.order_dictionary_value)
+                  from order_pay_statement ops, order_dictionary od3
+                 where ops.order_code = om.order_code
+                   and ops.payment_way = od3.order_dictionary_key
+                   and od3.order_dictionary_type = 'Pay_Method'
+                   and ops.state = 1) payment_way_str,
+               oi.commodity_unit_incoming,
+               oi.commodity_called_price,
+               oi.commodity_cost_price,
+               oi.commodity_number,
+               oi.commodity_number * nvl(oi.commodity_cost_price, 0) cost_sum,
+               
+               decode(oi.COMMISSION_RATE,
+                      null,
+                      '0%',
+                      cast(cast(oi.COMMISSION_RATE * 100 as numeric(10, 2)) as
+                           varchar(20)) || '%') COMMISSION_RATE,
+               
+               ROUND(nvl(oi.commission_rate, 0) * oi.commodity_unit_incoming *
+                     oi.commodity_number,2) commission_money,
+                     
+               (select wm_concat(op.order_preferential_code)
+                  from order_preferential op
+                 where  (op.order_code = om.order_code and op.order_item_id is null)
+                 or op.order_code = om.order_item_id) order_preferential_code,      
+                     
+               nvl((select sum(oa.alter_num)
+                     from order_alter oa
+                    where oi.order_item_id = oa.order_item_id(+)),
+                   0) alter_num,
+               nvl((select sum(oa.ruturn_sum)
+                     from order_alter oa
+                    where oi.order_item_id = oa.order_item_id(+)),
+                   0) alter_money_sum
+          from order_main om
+         inner join order_item oi
+            on (oi.order_code = om.order_code)
+          left join (select ps.product_sku_code,
+                           p.procuct_name,
+                           p.product_title,
+                           p.shop_code,
+                           pb.brand_name,
+                           bca.CATEGORY_NAME c1,
+                           mca.CATEGORY_NAME c2,
+                           ca.CATEGORY_NAME c3,
+                            bca.category_id cid1,
+                           mca.category_id cid2,
+                           ca.category_id cid3,
+                           
+                           (select f.CORPORATE_NAME
+                              from commercial_tenant_basic_info f,
+                                   suppliers_info               s
+                             where f.n_commercial_tenant_id = s.merchant_id
+                               and to_char(s.supplier_id) = p.shop_code) supplier_name
+                      from product_sku ps
+                     inner join productmain p
+                        on ps.product_id = p.product_id
+                     inner join prod_brand pb
+                        on p.brand_id = pb.brand_id
+                     inner join categorys ca
+                        on p.category_id = ca.category_id
+                     inner join (select * from categorys) mca
+                        on mca.category_id = ca.PARENT_ID
+                     inner join (select * from categorys) bca
+                        on bca.category_id = mca.PARENT_ID) t
+            on (t.product_sku_code = oi.commodity_sku)
+        
+         where om.parent_order_code is null
+           and om.order_status > 1
+     ]]>
+        <!-- 渠道-->
+        <isNotEmpty property="channel" prepend="and">
+		       					om.order_channel=#channel#
+		</isNotEmpty>
+		<isNotEmpty property="startDate" prepend="and">
+		       					om.pay_date 
+		       		between to_date(#startDate#,'yyyy-mm-dd hh24:mi:ss') 
+		       		    	and to_date(#endDate#,'yyyy-mm-dd hh24:mi:ss')
+		</isNotEmpty>
+		<!-- 订单来源 -->
+		<isNotEmpty prepend="AND" property="orderSource">
+			om.ORDER_SOURCE = #orderSource#
+		</isNotEmpty>
+		<!-- 销售类型 -->
+		<isNotEmpty prepend="AND" property="commerceId">
+		<isEqual property="commerceId" compareValue="1">
+		 om.commerce_id is null
+		 </isEqual>
+		 <isEqual property="commerceId" compareValue="2">
+		 om.commerce_id is not null
+		 
+		 </isEqual>
+		</isNotEmpty>
+		<!-- 供应商 -->
+		<isNotEmpty prepend="AND" property="supplier">
+			t.supplier_name = #supplier# 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="commoditySku">
+			oi.commodity_sku = #commoditySku# 
+		</isNotEmpty>
+		
+		<isNotEmpty prepend="AND" property="bCategoryId">
+			t.cid1 = #bCategoryId# 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="mCategoryId">
+			t.cid2 = #mCategoryId# 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="sCategoryId">
+			t.cid3 = #sCategoryId# 
+		</isNotEmpty>
+		
+	<![CDATA[	
+        ) a
+        
+       where 1=1
+       ]]>
+       <isNotEmpty prepend="AND" property="paymentWay">
+			a.payment_way_str like #paymentWay# 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="orderPreferentialCode">
+			a.order_preferential_code like concat(concat('%',#orderPreferentialCode#),'%')
+		</isNotEmpty>
+       
+       <![CDATA[
+      ) res  
+      
+      where rownum <= #end# ) ress
+    where ress.rn >= #start#
+     
+     ]]>
+     
+  	
+  	</select>
+
+
+	<select id="SQL_QUERY_GOODS_MONEY_OLD" parameterClass="java.util.Map"	 resultClass="java.util.HashMap">
+	
+	
+	 select sum(total.orderMoney)  as orderMoney ,sum(total.totalMoney) as actualMONEY from      
+   ( select sum(nvl(a.amount_payable,0)) as orderMoney, 0 as totalMoney
+    from (select oi.commodity_sku,
+
+               t.c1,
+               t.c2,
+               t.c3,
+
+               om.order_code,
+               
+               om.amount_payable,
+
+
+               (select wm_concat(od3.order_dictionary_value)
+                  from order_pay_statement ops, order_dictionary od3
+                 where ops.order_code = om.order_code
+                   and ops.payment_way = od3.order_dictionary_key
+                   and od3.order_dictionary_type = 'Pay_Method'
+                   and ops.state = 1) payment_way_str,
+
+              
+               (select wm_concat(op.order_preferential_code)
+                  from ORDER_PREFERENTIAL op
+                 where op.order_code = om.order_code) order_preferential_code
+                 
+          from order_main om
+         inner join order_item oi
+            on (oi.order_code = om.order_code)
+          left join (select ps.product_sku_code,
+                           bca.CATEGORY_NAME c1,
+                           mca.CATEGORY_NAME c2,
+                           ca.CATEGORY_NAME c3,
+                            bca.category_id cid1,
+                           mca.category_id cid2,
+                           ca.category_id cid3,
+                           
+                           (select f.CORPORATE_NAME
+                              from commercial_tenant_basic_info f,
+                                   suppliers_info               s
+                             where f.n_commercial_tenant_id = s.merchant_id
+                               and to_char(s.supplier_id) = p.shop_code) supplier_name
+                                     
+                      from product_sku ps
+                     inner join productmain p
+                        on ps.product_id = p.product_id
+                     inner join prod_brand pb
+                        on p.brand_id = pb.brand_id
+                     inner join categorys ca
+                        on p.category_id = ca.category_id
+                     inner join (select * from categorys) mca
+                        on mca.category_id = ca.PARENT_ID
+                     inner join (select * from categorys) bca
+                        on bca.category_id = mca.PARENT_ID) t
+            on (t.product_sku_code = oi.commodity_sku)
+        
+         where om.parent_order_code is null
+           and om.order_status > 1
+                      
+        <!-- 渠道-->
+        <isNotEmpty property="channel" prepend="and">
+		       					om.order_channel=#channel#
+		</isNotEmpty>
+		<isNotEmpty property="startDate" prepend="and">
+		       					om.pay_date 
+		       		between to_date(#startDate#,'yyyy-mm-dd hh24:mi:ss') 
+		       		    	and to_date(#endDate#,'yyyy-mm-dd hh24:mi:ss')
+		</isNotEmpty>
+		<!-- 订单来源 -->
+		<isNotEmpty prepend="AND" property="orderSource">
+			om.ORDER_SOURCE = #orderSource#
+		</isNotEmpty>
+		<!-- 销售类型 -->
+		<isNotEmpty prepend="AND" property="commerceId">
+		<isEqual property="commerceId" compareValue="1">
+		 om.commerce_id is null
+		 </isEqual>
+		 <isEqual property="commerceId" compareValue="2">
+		 om.commerce_id is not null
+		
+		 </isEqual>
+		</isNotEmpty>
+		
+		  <!-- 供应商 -->
+		<isNotEmpty prepend="AND" property="supplier">
+			t.supplier_name = #supplier# 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="commoditySku">
+			oi.commodity_sku = #commoditySku# 
+		</isNotEmpty>
+		
+		<isNotEmpty prepend="AND" property="bCategoryId">
+			t.cid1 = #bCategoryId# 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="mCategoryId">
+			t.cid2 = #mCategoryId# 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="sCategoryId">
+			t.cid3 = #sCategoryId# 
+		</isNotEmpty>
+
+
+        ) a
+        
+       where 1=1
+
+       <isNotEmpty prepend="AND" property="paymentWay">
+			a.payment_way_str like #paymentWay# 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="orderPreferentialCode">
+			a.order_preferential_code like concat(concat('%',#orderPreferentialCode#),'%')
+		</isNotEmpty>
+       
+  
+      union all
+
+
+        select 0 as orderMoney ,sum(nvl(opsMoney.Order_Money,0)) as totalMoney
+    from (select oi.commodity_sku,
+               t.c1,
+               t.c2,
+               t.c3,
+
+               om.order_code,
+               
+               om.amount_payable,
+
+               (select wm_concat(od3.order_dictionary_value)
+                  from order_pay_statement ops, order_dictionary od3
+                 where ops.order_code = om.order_code
+                   and ops.payment_way = od3.order_dictionary_key
+                   and od3.order_dictionary_type = 'Pay_Method'
+                   and ops.state = 1) payment_way_str,
+              
+               (select wm_concat(op.order_preferential_code)
+                  from ORDER_PREFERENTIAL op
+                 where op.order_code = om.order_code) order_preferential_code
+                 
+          from order_main om
+         inner join order_item oi
+            on (oi.order_code = om.order_code)
+          left join (select ps.product_sku_code,
+                           bca.CATEGORY_NAME c1,
+                           mca.CATEGORY_NAME c2,
+                           ca.CATEGORY_NAME c3,
+                            bca.category_id cid1,
+                           mca.category_id cid2,
+                           ca.category_id cid3,
+                           
+                           (select f.CORPORATE_NAME
+                              from commercial_tenant_basic_info f,
+                                   suppliers_info               s
+                             where f.n_commercial_tenant_id = s.merchant_id
+                               and to_char(s.supplier_id) = p.shop_code) supplier_name
+                                     
+                      from product_sku ps
+                     inner join productmain p
+                        on ps.product_id = p.product_id
+                     inner join prod_brand pb
+                        on p.brand_id = pb.brand_id
+                     inner join categorys ca
+                        on p.category_id = ca.category_id
+                     inner join (select * from categorys) mca
+                        on mca.category_id = ca.PARENT_ID
+                     inner join (select * from categorys) bca
+                        on bca.category_id = mca.PARENT_ID) t
+            on (t.product_sku_code = oi.commodity_sku)
+        
+         where om.parent_order_code is null
+           and om.order_status > 1
+                      
+        <!-- 渠道-->
+        <isNotEmpty property="channel" prepend="and">
+		       					om.order_channel=#channel#
+		</isNotEmpty>
+		<isNotEmpty property="startDate" prepend="and">
+		       					om.pay_date 
+		       		between to_date(#startDate#,'yyyy-mm-dd hh24:mi:ss') 
+		       		    	and to_date(#endDate#,'yyyy-mm-dd hh24:mi:ss')
+		</isNotEmpty>
+		<!-- 订单来源 -->
+		<isNotEmpty prepend="AND" property="orderSource">
+			om.ORDER_SOURCE = #orderSource#
+		</isNotEmpty>
+		<!-- 销售类型 -->
+		<isNotEmpty prepend="AND" property="commerceId">
+		<isEqual property="commerceId" compareValue="1">
+		 om.commerce_id is null
+		 </isEqual>
+		 <isEqual property="commerceId" compareValue="2">
+		 om.commerce_id is not null
+		 
+		 </isEqual>
+		 
+		
+		</isNotEmpty>
+		
+		 <!-- 供应商 -->
+		<isNotEmpty prepend="AND" property="supplier">
+			t.supplier_name = #supplier# 
+		</isNotEmpty>
+		
+		<isNotEmpty prepend="AND" property="commoditySku">
+			oi.commodity_sku = #commoditySku# 
+		</isNotEmpty>
+		
+		<isNotEmpty prepend="AND" property="bCategoryId">
+			t.cid1 = #bCategoryId# 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="mCategoryId">
+			t.cid2 = #mCategoryId# 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="sCategoryId">
+			t.cid3 = #sCategoryId# 
+		</isNotEmpty>
+
+        ) a ,order_pay_statement opsMoney
+        
+       where 1=1
+       and a.order_code =  opsMoney.order_code
+       and opsMoney.state= 1 
+       and opsMoney.payment_way not in (-1, 2)
+       <isNotEmpty prepend="AND" property="paymentWay">
+			a.payment_way_str like #paymentWay# 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="orderPreferentialCode">
+			a.order_preferential_code like concat(concat('%',#orderPreferentialCode#),'%')
+		</isNotEmpty>
+      
+      
+      ) total
+
+	
+		
+	</select>
+ 
+ <!-- 优化后的报表 --> 
+  
+   	<select id="SQL_QUERY_GOODS_COUNT_NEW" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+<![CDATA[	
+	select count(*) 
+	
+                 from (
+                 
+                 select om.customer_account,
+                        om.order_code,
+                        om.create_date,
+                        om.order_source,
+                        om.customer_id,
+                        om.order_purchaser_type,
+                        om.commodity_sum,
+                        om.amount_payable, 
+                        om.commodity_called_price,
+                        om.order_type,
+                        om.commodity_sku,
+                        om.supplier_type,
+                        om.commodity_unit_incoming,
+                        om.commodity_cost_price,
+                        om.commodity_number,
+                        om.commission_rate,
+                        om.order_item_id,
+                        om.product_id,
+                        p.procuct_name,
+                        p.shop_code,
+                        pb.brand_name,
+                        bca.category_name c1,
+                                   mca.category_name c2,
+                                   ca.category_name c3,
+                                   bca.category_id cid1,
+                                   mca.category_id cid2,
+                                   ca.category_id cid3,                                  
+                                   
+                                   (select f.corporate_name
+                                      from commercial_tenant_basic_info f,
+                                           suppliers_info               s
+                                     where f.n_commercial_tenant_id =
+                                           s.merchant_id
+                                       and to_char(s.supplier_id) =
+                                           p.shop_code) supplier_name,                                           
+                                           
+                                           (select wm_concat(od3.order_dictionary_value)
+                  from order_pay_statement ops, order_dictionary od3
+                 where ops.order_code = om.order_code
+                   and ops.payment_way = od3.order_dictionary_key
+                   and od3.order_dictionary_type = 'Pay_Method'
+                   and ops.state = 1) payment_way_str,
+                   
+                   (select wm_concat(distinct op.order_preferential_code)
+                  from order_preferential op
+                 where op.order_code = om.order_code ) order_preferential_code
+                                              
+                 from
+                 (select 
+                   omv.customer_account,
+                       omv.order_code,
+                       omv.create_date,
+                       omv.order_source,
+                       omv.customer_id,
+                        omv.order_purchaser_type,
+                        omv.commodity_sum,
+                        omv.amount_payable,                       
+                        omv.order_type,
+                        oi.commodity_sku,
+                        oi.supplier_type, 
+                       oi.commodity_unit_incoming,
+                        oi.commodity_called_price,
+                       oi.commodity_cost_price,
+                       oi.commodity_number,
+                       oi.commission_rate,
+                       oi.order_item_id,
+                       (select ps.product_id                    
+                       from product_sku ps
+                       where oi.commodity_sku = ps.product_sku_code   
+                       ) product_id                                               
+                       
+                   from order_main omv,order_item oi
+                   where oi.order_code = omv.order_code
+                   and omv.parent_order_code is null
+                   and omv.order_status > 1
+      ]]>             
+        <!-- 渠道-->
+        <isNotEmpty property="channel" prepend="and">
+		       					omv.order_channel=#channel#
+		</isNotEmpty>
+		<isNotEmpty property="startDate" prepend="and">
+		       					omv.pay_date 
+		       		between to_date(#startDate#,'yyyy-mm-dd hh24:mi:ss') 
+		       		    	and to_date(#endDate#,'yyyy-mm-dd hh24:mi:ss')
+		</isNotEmpty>
+		<!-- 订单来源 -->
+		<isNotEmpty prepend="AND" property="orderSource">
+			omv.ORDER_SOURCE = #orderSource#
+		</isNotEmpty>
+		<!-- 销售类型 -->
+		<isNotEmpty prepend="AND" property="commerceId">
+		<isEqual property="commerceId" compareValue="1">
+		 omv.commerce_id is null
+		 </isEqual>
+		 <isEqual property="commerceId" compareValue="2">
+		 omv.commerce_id is not null
+		 
+		 </isEqual>
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="commoditySku">
+			oi.commodity_sku = #commoditySku# 
+		 </isNotEmpty>
+		 
+        <![CDATA[
+                       order by omv.create_date desc  
+                       
+                       )  om 
+                       inner join productmain p
+                       on om.product_id = p.product_id                       
+                       inner join prod_brand pb
+                       on p.brand_id = pb.brand_id
+                       
+                       inner join categorys ca
+                                on p.category_id = ca.category_id
+                             inner join (select category_id,parent_id,category_name from categorys) mca
+                                on mca.category_id = ca.parent_id
+                             inner join (select category_id,parent_id,category_name from categorys) bca
+                                on bca.category_id = mca.parent_id      
+            ) omt
+            
+            
+            
+            where 1 = 1 
+            ]]>
+            
+            
+               <!-- 供应商 -->
+		  <isNotEmpty prepend="AND" property="supplier">
+			omt.supplier_name = #supplier# 
+		  </isNotEmpty>
+		
+		  <isNotEmpty prepend="AND" property="bCategoryId">
+			omt.cid1 = #bCategoryId# 
+		  </isNotEmpty>
+		  <isNotEmpty prepend="AND" property="mCategoryId">
+			omt.cid2 = #mCategoryId# 
+		  </isNotEmpty>
+		  <isNotEmpty prepend="AND" property="sCategoryId">
+			omt.cid3 = #sCategoryId# 
+		  </isNotEmpty>
+		
+          <isNotEmpty prepend="AND" property="paymentWay">
+			omt.payment_way_str like #paymentWay# 
+		  </isNotEmpty>
+		  <isNotEmpty prepend="AND" property="orderPreferentialCode">
+			omt.order_preferential_code like concat(concat('%',#orderPreferentialCode#),'%')
+		 </isNotEmpty>
+  	
+		
+	</select>
+	
+  <select id="SQL_QUERY_GOODS_REPORT_NEW" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+ 	<![CDATA[	
+	select res.commodity_sku,
+       res.procuct_name,
+       res.supplier_name,
+       res.brand_name,
+       res.c1,
+       res.c2,
+       res.c3,
+       res.supplier_type_str,
+       res.customer_account,
+       res.order_code,
+       res.create_date,
+       res.create_date_str,
+       res.order_source_str,               
+       res.order_type_str,
+       res.commodity_sum,
+       res.amount_payable,
+       res.commodity_incoming_sum,
+       res.payment_way_str,
+       res.commodity_unit_incoming,
+       res.commodity_called_price,
+       res.commodity_cost_price,
+       res.commodity_number,
+       res.cost_sum,
+       res.commission_rate,               
+       res.order_preferential_code,
+       res.alter_num,
+       res.alter_money_sum,
+       res.order_purchaser_type_str,
+       res.commission_money    
+       from (
+               select omt.commodity_sku,
+               omt.procuct_name,
+               omt.supplier_name,
+               omt.brand_name,
+               omt.c1,
+               omt.c2,
+               omt.c3,
+               (case 
+                 when omt.supplier_type = 1 or omt.supplier_type = 3 then
+                  '自营'
+                 else
+                  '第三方'
+               end) supplier_type_str,
+               omt.customer_account,
+               omt.order_code,
+               omt.create_date,
+               to_char(omt.create_date, 'yyyy-mm-dd hh24:mi:ss') create_date_str,
+               (select od1.order_dictionary_value
+                  from order_dictionary od1
+                 where od1.order_dictionary_type = 'Order_Source'
+                   and od1.order_dictionary_key = omt.order_source) order_source_str,               
+               (case
+                 when (select ei.n_login_id
+                         from era_info ei
+                        where ei.n_login_id = omt.customer_id) is not null then
+                  '时代会员下单'
+                 when omt.order_purchaser_type = 1 then
+                  '注册客户下单'
+                 when omt.order_purchaser_type = 2 then
+                  '免注册客户下单'
+               end) order_purchaser_type_str,
+               (select od1.order_dictionary_value
+                  from order_dictionary od1
+                 where od1.order_dictionary_type = 'Order_Type'
+                   and od1.order_dictionary_key = omt.order_type
+                   and rownum = 1) order_type_str,
+               omt.commodity_sum,
+               omt.amount_payable,
+               omt.commodity_number * nvl(omt.commodity_unit_incoming, 0) commodity_incoming_sum,
+               
+               omt.payment_way_str,
+               omt.order_preferential_code,
+               
+               omt.commodity_unit_incoming,
+               omt.commodity_called_price,
+               omt.commodity_cost_price,
+               omt.commodity_number,
+               omt.commodity_number * nvl(omt.commodity_cost_price, 0) cost_sum,
+               
+               decode(omt.commission_rate,
+                      null,
+                      '0%',
+                      cast(cast(omt.commission_rate * 100 as numeric(10, 2)) as
+                           varchar(20)) || '%') commission_rate,
+               
+               round(nvl(omt.commission_rate, 0) * omt.commodity_unit_incoming *
+                     omt.commodity_number,2) commission_money,
+
+               nvl((select sum(oa.alter_num)
+                     from order_alter oa
+                    where omt.order_item_id = oa.order_item_id(+)
+                    and oa.propose_status not in (-2,-1,1)),
+                   0) alter_num,
+               nvl((select sum(oa.ruturn_sum)
+                     from order_alter oa
+                    where omt.order_item_id = oa.order_item_id(+)
+                    and oa.propose_status not in (-2,-1,1)),
+                   0) alter_money_sum,
+                   rownum rn
+                   
+                 from (
+                 
+                 select om.customer_account,
+                        om.order_code,
+                        om.create_date,
+                        om.order_source,
+                        om.customer_id,
+                        om.order_purchaser_type,
+                        om.commodity_sum,
+                        om.amount_payable, 
+                        om.commodity_called_price,
+                        om.order_type,
+                        om.commodity_sku,
+                        om.supplier_type,
+                        om.commodity_unit_incoming,
+                        om.commodity_cost_price,
+                        om.commodity_number,
+                        om.commission_rate,
+                        om.order_item_id,
+                        om.product_id,
+                        p.procuct_name,
+                        p.shop_code,
+                        pb.brand_name,
+                        bca.category_name c1,
+                                   mca.category_name c2,
+                                   ca.category_name c3,
+                                   bca.category_id cid1,
+                                   mca.category_id cid2,
+                                   ca.category_id cid3,                                  
+                                   
+                                   (select f.corporate_name
+                                      from commercial_tenant_basic_info f,
+                                           suppliers_info               s
+                                     where f.n_commercial_tenant_id =
+                                           s.merchant_id
+                                       and to_char(s.supplier_id) =
+                                           p.shop_code) supplier_name,                                           
+                                           
+                                           (select wm_concat(od3.order_dictionary_value)
+                  from order_pay_statement ops, order_dictionary od3
+                 where ops.order_code = om.order_code
+                   and ops.payment_way = od3.order_dictionary_key
+                   and od3.order_dictionary_type = 'Pay_Method'
+                   and ops.state = 1) payment_way_str,
+                   
+                   (select wm_concat(distinct op.order_preferential_code)
+                  from order_preferential op
+                 where op.order_code = om.order_code ) order_preferential_code
+                                              
+                 from
+                 (select 
+                   omv.customer_account,
+                       omv.order_code,
+                       omv.create_date,
+                       omv.order_source,
+                       omv.customer_id,
+                        omv.order_purchaser_type,
+                        omv.commodity_sum,
+                        omv.amount_payable,                       
+                        omv.order_type,
+                        oi.commodity_sku,
+                        oi.supplier_type, 
+                       oi.commodity_unit_incoming,
+                        oi.commodity_called_price,
+                       oi.commodity_cost_price,
+                       oi.commodity_number,
+                       oi.commission_rate,
+                       oi.order_item_id,
+                       (select ps.product_id                    
+                       from product_sku ps
+                       where oi.commodity_sku = ps.product_sku_code   
+                       ) product_id                                               
+                       
+                   from order_main omv,order_item oi
+                   where oi.order_code = omv.order_code
+                   and omv.parent_order_code is null
+                   and omv.order_status > 1
+      ]]>             
+        <!-- 渠道-->
+        <isNotEmpty property="channel" prepend="and">
+		       					omv.order_channel=#channel#
+		</isNotEmpty>
+		<isNotEmpty property="startDate" prepend="and">
+		       					omv.pay_date 
+		       		between to_date(#startDate#,'yyyy-mm-dd hh24:mi:ss') 
+		       		    	and to_date(#endDate#,'yyyy-mm-dd hh24:mi:ss')
+		</isNotEmpty>
+		<!-- 订单来源 -->
+		<isNotEmpty prepend="AND" property="orderSource">
+			omv.ORDER_SOURCE = #orderSource#
+		</isNotEmpty>
+		<!-- 销售类型 -->
+		<isNotEmpty prepend="AND" property="commerceId">
+		<isEqual property="commerceId" compareValue="1">
+		 omv.commerce_id is null
+		 </isEqual>
+		 <isEqual property="commerceId" compareValue="2">
+		 omv.commerce_id is not null
+		 
+		 </isEqual>
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="commoditySku">
+			oi.commodity_sku = #commoditySku# 
+		 </isNotEmpty>
+		 
+        <![CDATA[
+                                            
+                       )  om 
+                       inner join productmain p
+                       on om.product_id = p.product_id                       
+                       inner join prod_brand pb
+                       on p.brand_id = pb.brand_id
+                       
+                       inner join categorys ca
+                                on p.category_id = ca.category_id
+                             inner join (select category_id,parent_id,category_name from categorys) mca
+                                on mca.category_id = ca.parent_id
+                             inner join (select category_id,parent_id,category_name from categorys) bca
+                                on bca.category_id = mca.parent_id      
+            ) omt
+            
+            
+            
+            where 1 = 1 
+            ]]>
+            
+            
+               <!-- 供应商 -->
+		  <isNotEmpty prepend="AND" property="supplier">
+			omt.supplier_name = #supplier# 
+		  </isNotEmpty>
+		
+		  <isNotEmpty prepend="AND" property="bCategoryId">
+			omt.cid1 = #bCategoryId# 
+		  </isNotEmpty>
+		  <isNotEmpty prepend="AND" property="mCategoryId">
+			omt.cid2 = #mCategoryId# 
+		  </isNotEmpty>
+		  <isNotEmpty prepend="AND" property="sCategoryId">
+			omt.cid3 = #sCategoryId# 
+		  </isNotEmpty>
+		
+          <isNotEmpty prepend="AND" property="paymentWay">
+			omt.payment_way_str like #paymentWay# 
+		  </isNotEmpty>
+		  <isNotEmpty prepend="AND" property="orderPreferentialCode">
+			omt.order_preferential_code like concat(concat('%',#orderPreferentialCode#),'%')
+		 </isNotEmpty>
+		
+            <![CDATA[
+      and rownum <= #end# ) res
+      where res.rn >= #start# 
+     ]]>   
+  	
+  	</select>
+
+
+	<select id="SQL_QUERY_GOODS_MONEY_OLD2" parameterClass="java.util.Map"	 resultClass="java.util.HashMap">
+	  <![CDATA[
+	
+	 select sum(total.orderMoney)  as orderMoney ,sum(total.totalMoney) as actualMoney from      
+   ( ( select sum(nvl(omtt.amount_payable,0)) as orderMoney, 0 as totalMoney
+    from ( select 
+               distinct omt.order_code,
+              
+               omt.amount_payable               
+                   
+                 from (
+                 
+                 select om.customer_account,
+                        om.order_code,
+                        om.create_date,
+                        om.order_source,
+                        om.customer_id,
+                        om.order_purchaser_type,
+                        om.commodity_sum,
+                        om.amount_payable, 
+                        om.commodity_called_price,
+                        om.order_type,
+                        om.commodity_sku,
+                        om.supplier_type,
+                        om.commodity_unit_incoming,
+                        om.commodity_cost_price,
+                        om.commodity_number,
+                        om.commission_rate,
+                        om.order_item_id,
+                        om.product_id,
+                        p.procuct_name,
+                        p.shop_code,
+                        pb.brand_name,
+                        bca.category_name c1,
+                                   mca.category_name c2,
+                                   ca.category_name c3,
+                                   bca.category_id cid1,
+                                   mca.category_id cid2,
+                                   ca.category_id cid3,                                  
+                                   
+                                   (select f.corporate_name
+                                      from commercial_tenant_basic_info f,
+                                           suppliers_info               s
+                                     where f.n_commercial_tenant_id =
+                                           s.merchant_id
+                                       and to_char(s.supplier_id) =
+                                           p.shop_code) supplier_name,                                           
+                                           
+                                           (select wm_concat(od3.order_dictionary_value)
+                  from order_pay_statement ops, order_dictionary od3
+                 where ops.order_code = om.order_code
+                   and ops.payment_way = od3.order_dictionary_key
+                   and od3.order_dictionary_type = 'Pay_Method'
+                   and ops.state = 1) payment_way_str,
+                   
+                   (select wm_concat(distinct op.order_preferential_code)
+                  from order_preferential op
+                 where op.order_code = om.order_code ) order_preferential_code
+                                              
+                 from
+                 (select 
+                   omv.customer_account,
+                       omv.order_code,
+                       omv.create_date,
+                       omv.order_source,
+                       omv.customer_id,
+                        omv.order_purchaser_type,
+                        omv.commodity_sum,
+                        omv.amount_payable,                       
+                        omv.order_type,
+                        oi.commodity_sku,
+                        oi.supplier_type, 
+                       oi.commodity_unit_incoming,
+                        oi.commodity_called_price,
+                       oi.commodity_cost_price,
+                       oi.commodity_number,
+                       oi.commission_rate,
+                       oi.order_item_id,
+                       (select ps.product_id                    
+                       from product_sku ps
+                       where oi.commodity_sku = ps.product_sku_code   
+                       ) product_id                                               
+                       
+                   from order_main omv,order_item oi
+                   where oi.order_code = omv.order_code
+                   and omv.parent_order_code is null
+                   and omv.order_status > 1
+      ]]>             
+        <!-- 渠道-->
+        <isNotEmpty property="channel" prepend="and">
+		       					omv.order_channel=#channel#
+		</isNotEmpty>
+		<isNotEmpty property="startDate" prepend="and">
+		       					omv.pay_date 
+		       		between to_date(#startDate#,'yyyy-mm-dd hh24:mi:ss') 
+		       		    	and to_date(#endDate#,'yyyy-mm-dd hh24:mi:ss')
+		</isNotEmpty>
+		<!-- 订单来源 -->
+		<isNotEmpty prepend="AND" property="orderSource">
+			omv.ORDER_SOURCE = #orderSource#
+		</isNotEmpty>
+		<!-- 销售类型 -->
+		<isNotEmpty prepend="AND" property="commerceId">
+		<isEqual property="commerceId" compareValue="1">
+		 omv.commerce_id is null
+		 </isEqual>
+		 <isEqual property="commerceId" compareValue="2">
+		 omv.commerce_id is not null
+		 
+		 </isEqual>
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="commoditySku">
+			oi.commodity_sku = #commoditySku# 
+		 </isNotEmpty>
+		 
+        <![CDATA[
+                       
+                                              
+                       )  om 
+                       inner join productmain p
+                       on om.product_id = p.product_id                       
+                       inner join prod_brand pb
+                       on p.brand_id = pb.brand_id
+                       
+                       inner join categorys ca
+                                on p.category_id = ca.category_id
+                             inner join (select category_id,parent_id,category_name from categorys) mca
+                                on mca.category_id = ca.parent_id
+                             inner join (select category_id,parent_id,category_name from categorys) bca
+                                on bca.category_id = mca.parent_id      
+            ) omt
+            
+            
+            
+            where 1 = 1 
+            ]]>
+            
+            
+               <!-- 供应商 -->
+		  <isNotEmpty prepend="AND" property="supplier">
+			omt.supplier_name = #supplier# 
+		  </isNotEmpty>
+		
+		  <isNotEmpty prepend="AND" property="bCategoryId">
+			omt.cid1 = #bCategoryId# 
+		  </isNotEmpty>
+		  <isNotEmpty prepend="AND" property="mCategoryId">
+			omt.cid2 = #mCategoryId# 
+		  </isNotEmpty>
+		  <isNotEmpty prepend="AND" property="sCategoryId">
+			omt.cid3 = #sCategoryId# 
+		  </isNotEmpty>
+		
+          <isNotEmpty prepend="AND" property="paymentWay">
+			omt.payment_way_str like #paymentWay# 
+		  </isNotEmpty>
+		  <isNotEmpty prepend="AND" property="orderPreferentialCode">
+			omt.order_preferential_code like concat(concat('%',#orderPreferentialCode#),'%')
+		 </isNotEmpty>
+		 
+		  <![CDATA[
+		  
+		 ) omtt    )
+		 
+ 
+      union all
+
+     (
+        select 0 as orderMoney ,sum(nvl(opsMoney.order_money,0)) as totalMoney
+           from            
+           order_pay_statement opsMoney
+        
+             where opsMoney.state= 1              
+             and opsMoney.payment_way not in (-1, 2)
+             and exists (
+             select 1 from                          
+              (
+                 
+                 select om.customer_account,
+                        om.order_code,
+                        om.create_date,
+                        om.order_source,
+                        om.customer_id,
+                        om.order_purchaser_type,
+                        om.commodity_sum,
+                        om.amount_payable, 
+                        om.commodity_called_price,
+                        om.order_type,
+                        om.commodity_sku,
+                        om.supplier_type,
+                        om.commodity_unit_incoming,
+                        om.commodity_cost_price,
+                        om.commodity_number,
+                        om.commission_rate,
+                        om.order_item_id,
+                        om.product_id,
+                        p.procuct_name,
+                        p.shop_code,
+                        pb.brand_name,
+                        bca.category_name c1,
+                                   mca.category_name c2,
+                                   ca.category_name c3,
+                                   bca.category_id cid1,
+                                   mca.category_id cid2,
+                                   ca.category_id cid3,                                  
+                                   
+                                   (select f.corporate_name
+                                      from commercial_tenant_basic_info f,
+                                           suppliers_info               s
+                                     where f.n_commercial_tenant_id =
+                                           s.merchant_id
+                                       and to_char(s.supplier_id) =
+                                           p.shop_code) supplier_name,                                           
+                                           
+                                           (select wm_concat(od3.order_dictionary_value)
+                  from order_pay_statement ops, order_dictionary od3
+                 where ops.order_code = om.order_code
+                   and ops.payment_way = od3.order_dictionary_key
+                   and od3.order_dictionary_type = 'Pay_Method'
+                   and ops.state = 1) payment_way_str,
+                   
+                   (select wm_concat(distinct op.order_preferential_code)
+                  from order_preferential op
+                 where op.order_code = om.order_code ) order_preferential_code
+                                              
+                 from
+                 (select 
+                   omv.customer_account,
+                       omv.order_code,
+                       omv.create_date,
+                       omv.order_source,
+                       omv.customer_id,
+                        omv.order_purchaser_type,
+                        omv.commodity_sum,
+                        omv.amount_payable,                       
+                        omv.order_type,
+                        oi.commodity_sku,
+                        oi.supplier_type, 
+                       oi.commodity_unit_incoming,
+                        oi.commodity_called_price,
+                       oi.commodity_cost_price,
+                       oi.commodity_number,
+                       oi.commission_rate,
+                       oi.order_item_id,
+                       (select ps.product_id                    
+                       from product_sku ps
+                       where oi.commodity_sku = ps.product_sku_code   
+                       ) product_id                                               
+                       
+                   from order_main omv,order_item oi
+                   where oi.order_code = omv.order_code
+                   and omv.parent_order_code is null
+                   and omv.order_status > 1
+      ]]>             
+        <!-- 渠道-->
+        <isNotEmpty property="channel" prepend="and">
+		       					omv.order_channel=#channel#
+		</isNotEmpty>
+		<isNotEmpty property="startDate" prepend="and">
+		       					omv.pay_date 
+		       		between to_date(#startDate#,'yyyy-mm-dd hh24:mi:ss') 
+		       		    	and to_date(#endDate#,'yyyy-mm-dd hh24:mi:ss')
+		</isNotEmpty>
+		<!-- 订单来源 -->
+		<isNotEmpty prepend="AND" property="orderSource">
+			omv.ORDER_SOURCE = #orderSource#
+		</isNotEmpty>
+		<!-- 销售类型 -->
+		<isNotEmpty prepend="AND" property="commerceId">
+		<isEqual property="commerceId" compareValue="1">
+		 omv.commerce_id is null
+		 </isEqual>
+		 <isEqual property="commerceId" compareValue="2">
+		 omv.commerce_id is not null
+		 
+		 </isEqual>
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="commoditySku">
+			oi.commodity_sku = #commoditySku# 
+		 </isNotEmpty>
+		 
+        <![CDATA[
+                        
+                       
+                       )  om 
+                       inner join productmain p
+                       on om.product_id = p.product_id                       
+                       inner join prod_brand pb
+                       on p.brand_id = pb.brand_id
+                       
+                       inner join categorys ca
+                                on p.category_id = ca.category_id
+                             inner join (select category_id,parent_id,category_name from categorys) mca
+                                on mca.category_id = ca.parent_id
+                             inner join (select category_id,parent_id,category_name from categorys) bca
+                                on bca.category_id = mca.parent_id      	
+
+        ) omt 
+        where omt.order_code = opsMoney.order_code
+        
+        ]]>
+        
+         <!-- 供应商 -->
+		  <isNotEmpty prepend="AND" property="supplier">
+			omt.supplier_name = #supplier# 
+		  </isNotEmpty>
+		
+		  <isNotEmpty prepend="AND" property="bCategoryId">
+			omt.cid1 = #bCategoryId# 
+		  </isNotEmpty>
+		  <isNotEmpty prepend="AND" property="mCategoryId">
+			omt.cid2 = #mCategoryId# 
+		  </isNotEmpty>
+		  <isNotEmpty prepend="AND" property="sCategoryId">
+			omt.cid3 = #sCategoryId# 
+		  </isNotEmpty>
+		
+          <isNotEmpty prepend="AND" property="paymentWay">
+			omt.payment_way_str like #paymentWay# 
+		  </isNotEmpty>
+		  <isNotEmpty prepend="AND" property="orderPreferentialCode">
+			omt.order_preferential_code like concat(concat('%',#orderPreferentialCode#),'%')
+		 </isNotEmpty>
+        
+        ) 
+		    )
+      
+      ) total
+
+	
+		
+	</select>
+	
+	
+	<select id="SQL_QUERY_GOODS_MONEY" parameterClass="java.util.Map"	 resultClass="java.util.HashMap">
+	  <![CDATA[
+	      
+   select nvl(sum(omtt.amount_payable),0) as orderMoney,
+       nvl(sum(omtt.amount_payable) - sum(omtt.youhui),0) as actualMoney
+    from ( select 
+               omt.order_code,
+               nvl(avg(omt.amount_payable),0) amount_payable,
+               nvl(avg(omt.youhui),0) youhui                       
+                   
+                 from (
+                 
+                 select om.customer_account,
+                        om.order_code,
+                        om.create_date,
+                        om.order_source,
+                        om.customer_id,
+                        om.order_purchaser_type,
+                        om.commodity_sum,
+                        om.amount_payable, 
+                        om.commodity_called_price,
+                        om.order_type,
+                        om.commodity_sku,
+                        om.supplier_type,
+                        om.commodity_unit_incoming,
+                        om.commodity_cost_price,
+                        om.commodity_number,
+                        om.commission_rate,
+                        om.order_item_id,
+                        om.product_id,
+                        p.procuct_name,
+                        p.shop_code,
+                        pb.brand_name,
+                        bca.category_name c1,
+                                   mca.category_name c2,
+                                   ca.category_name c3,
+                                   bca.category_id cid1,
+                                   mca.category_id cid2,
+                                   ca.category_id cid3,                                  
+                                   
+                                   (select f.corporate_name
+                                      from commercial_tenant_basic_info f,
+                                           suppliers_info               s
+                                     where f.n_commercial_tenant_id =
+                                           s.merchant_id
+                                       and to_char(s.supplier_id) =
+                                           p.shop_code) supplier_name,                                           
+                                           
+                                           (select wm_concat(od3.order_dictionary_value)
+                  from order_pay_statement ops, order_dictionary od3
+                 where ops.order_code = om.order_code
+                   and ops.payment_way = od3.order_dictionary_key
+                   and od3.order_dictionary_type = 'Pay_Method'
+                   and ops.state = 1) payment_way_str,
+                   
+                   (select wm_concat(distinct op.order_preferential_code)
+                  from order_preferential op
+                 where op.order_code = om.order_code ) order_preferential_code,
+                 
+                 (select sum(ops.order_money)
+                  from order_pay_statement ops                  
+                 where ops.order_code = om.order_code
+                   and ops.payment_way = 2 
+                   and ops.state = 1) youhui
+                                              
+                 from
+                 (select 
+                   omv.customer_account,
+                       omv.order_code,
+                       omv.create_date,
+                       omv.order_source,
+                       omv.customer_id,
+                        omv.order_purchaser_type,
+                        omv.commodity_sum,
+                        omv.amount_payable,                       
+                        omv.order_type,
+                        oi.commodity_sku,
+                        oi.supplier_type, 
+                       oi.commodity_unit_incoming,
+                        oi.commodity_called_price,
+                       oi.commodity_cost_price,
+                       oi.commodity_number,
+                       oi.commission_rate,
+                       oi.order_item_id,
+                       (select ps.product_id                    
+                       from product_sku ps
+                       where oi.commodity_sku = ps.product_sku_code   
+                       ) product_id                                               
+                       
+                   from order_main omv,order_item oi
+                   where oi.order_code = omv.order_code
+                   and omv.parent_order_code is null
+                   and omv.order_status > 1
+      ]]>             
+        <!-- 渠道-->
+        <isNotEmpty property="channel" prepend="and">
+		       					omv.order_channel=#channel#
+		</isNotEmpty>
+		<isNotEmpty property="startDate" prepend="and">
+		       					omv.pay_date 
+		       		between to_date(#startDate#,'yyyy-mm-dd hh24:mi:ss') 
+		       		    	and to_date(#endDate#,'yyyy-mm-dd hh24:mi:ss')
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="paymentWay">			
+			
+			exists (
+                      
+                      (select 1
+                    from order_pay_statement ops, order_dictionary od3
+                    where ops.payment_way = od3.order_dictionary_key
+                    and od3.order_dictionary_type = 'Pay_Method'
+                     and ops.state = 1
+                     and od3.order_dictionary_value like #paymentWay#
+                     and ops.order_code = omv.order_code 
+                     )
+                   ) 
+                    
+		  </isNotEmpty>
+		  
+		<!-- 订单来源 -->
+		<isNotEmpty prepend="AND" property="orderSource">
+			omv.ORDER_SOURCE = #orderSource#
+		</isNotEmpty>
+		<!-- 销售类型 -->
+		<isNotEmpty prepend="AND" property="commerceId">
+		<isEqual property="commerceId" compareValue="1">
+		 omv.commerce_id is null
+		 </isEqual>
+		 <isEqual property="commerceId" compareValue="2">
+		 omv.commerce_id is not null
+		 
+		 </isEqual>
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="commoditySku">
+			oi.commodity_sku = #commoditySku# 
+		 </isNotEmpty>
+		 
+        <![CDATA[
+                       
+                                              
+                       )  om 
+                       inner join productmain p
+                       on om.product_id = p.product_id                       
+                       inner join prod_brand pb
+                       on p.brand_id = pb.brand_id
+                       
+                       inner join categorys ca
+                                on p.category_id = ca.category_id
+                             inner join (select category_id,parent_id,category_name from categorys) mca
+                                on mca.category_id = ca.parent_id
+                             inner join (select category_id,parent_id,category_name from categorys) bca
+                                on bca.category_id = mca.parent_id      
+            ) omt
+            
+            
+            
+            where 1 = 1 
+            ]]>
+            
+            
+               <!-- 供应商 -->
+		  <isNotEmpty prepend="AND" property="supplier">
+			omt.supplier_name = #supplier# 
+		  </isNotEmpty>
+		
+		  <isNotEmpty prepend="AND" property="bCategoryId">
+			omt.cid1 = #bCategoryId# 
+		  </isNotEmpty>
+		  <isNotEmpty prepend="AND" property="mCategoryId">
+			omt.cid2 = #mCategoryId# 
+		  </isNotEmpty>
+		  <isNotEmpty prepend="AND" property="sCategoryId">
+			omt.cid3 = #sCategoryId# 
+		  </isNotEmpty>	
+		  
+		  <isNotEmpty prepend="AND" property="orderPreferentialCode">
+			omt.order_preferential_code like concat(concat('%',#orderPreferentialCode#),'%')
+		 </isNotEmpty>
+		 
+		  <![CDATA[
+		   group by omt.order_code
+		 ) omtt
+		 
+		 ]]>
+	
+		
+	</select>
+	
+	
+	
+	
+  
+ 	<!--  -->
+ 	
+ 	<!-- 时代订单报表 -->
+ 	<select id="SQL_QUERY_TIMES_SALE_INFO"  parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	<![CDATA[
+		select count(1) oc,
+		       sum(om.amount_payable) ap,
+		       sum(om.order_pv) op,
+		       sum(case
+		             when om.order_status > 1 then
+		              1
+		             else
+		              0
+		           end) poc,
+		       sum(case
+		             when om.order_status > 1 then
+		              om.amount_payable
+		             else
+		              0
+		           end) pap,
+		       sum(nvl((select sum(ops.order_money)
+		                 from  order_pay_statement ops
+		                where ops.state = 1
+		                  and ops.flag = 1
+		                  and om.order_status > 1
+		                  and ops.payment_way <> 2
+		                  and ops.order_code = om.order_code),
+		               0)) pom,
+		       sum(case
+		             when om.order_status > 1 then
+		              om.order_pv
+		             else
+		              0
+		           end) pop,
+		       sum(case
+		             when om.order_status = 1 then
+		              1
+		             else
+		              0
+		           end) uoc,
+		       sum(case
+		             when om.order_status = 1 then
+		              om.amount_payable
+		             else
+		              0
+		           end) uap,
+		       sum(case
+		             when om.order_status = 1 then
+		              om.order_pv
+		             else
+		              0
+		           end) uop,
+		       sum(case
+		             when om.order_status = -1 then
+		              1
+		             else
+		              0
+		           end) coc,
+		       sum(case
+		             when om.order_status = -1 then
+		              om.amount_payable
+		             else
+		              0
+		           end) cap,
+		       sum(case
+		             when om.order_status = -1 then
+		              om.order_pv
+		             else
+		              0
+		           end) cop,
+		       sum(case
+		             when om.commerce_id is null then
+		              1
+		             else
+		              0
+		           end) soc,
+		       sum(case
+		             when om.commerce_id is null then
+		              om.amount_payable
+		             else
+		              0
+		           end) sap,
+		       sum(case
+		             when om.commerce_id is null and om.order_status > 1 then
+		              1
+		             else
+		              0
+		           end) spoc,
+		       sum(case
+		             when om.commerce_id is null and om.order_status > 1 then
+		              om.amount_payable
+		             else
+		              0
+		           end) spap,
+		       sum(nvl((select sum(ops.order_money)
+		                 from  order_pay_statement ops
+		                where ops.state = 1
+		                  and ops.flag = 1
+		                  and ops.payment_way <> 2
+		                  and om.commerce_id is null
+		                  and om.order_status > 1
+		                  and ops.order_code = om.order_code),
+		               0)) spom,
+		       sum(case
+		             when om.commerce_id is null and om.order_status = 1 then
+		              1
+		             else
+		              0
+		           end) suoc,
+		       sum(case
+		             when om.commerce_id is null and om.order_status = 1 then
+		              om.amount_payable
+		             else
+		              0
+		           end) suap,
+		       sum(case
+		             when om.commerce_id is null and om.order_status = -1 then
+		              1
+		             else
+		              0
+		           end) scoc,
+		       sum(case
+		             when om.commerce_id is null and om.order_status = -1 then
+		              om.amount_payable
+		             else
+		              0
+		           end) scap,
+		       sum(case
+		             when om.commerce_id is not null then
+		              1
+		             else
+		              0
+		           end) eoc,
+		       sum(case
+		             when om.commerce_id is not null then
+		              om.amount_payable
+		             else
+		              0
+		           end) eap,
+		       sum(case
+		             when om.commerce_id is not null and om.order_status > 1 then
+		              1
+		             else
+		              0
+		           end) epoc,
+		       sum(case
+		             when om.commerce_id is not null and om.order_status > 1 then
+		              om.amount_payable
+		             else
+		              0
+		           end) epap,
+		       sum(nvl((select sum(ops.order_money)
+		                 from  order_pay_statement ops
+		                where ops.state = 1
+		                  and ops.flag = 1
+		                  and ops.payment_way <> 2
+		                  and om.commerce_id is not null
+		                  and om.order_status > 1
+		                  and ops.order_code = om.order_code),
+		               0)) epom,
+		       sum(case
+		             when om.commerce_id is not null and om.order_status = 1 then
+		              1
+		             else
+		              0
+		           end) euoc,
+		       sum(case
+		             when om.commerce_id is not null and om.order_status = 1 then
+		              om.amount_payable
+		             else
+		              0
+		           end) euap,
+		       sum(case
+		             when om.commerce_id is not null and om.order_status = -1 then
+		              1
+		             else
+		              0
+		           end) ecoc,
+		       sum(case
+		             when om.commerce_id is not null and om.order_status = -1 then
+		              om.amount_payable
+		             else
+		              0
+		           end) ecap
+		  from order_main om
+		 where exists (select 1
+		          from   era_info ei
+		         where ei.n_login_id = om.customer_id)
+		   and om.create_date between
+		       to_date(#startDate#, 'yyyy-mm-dd hh24:mi:ss') and
+		  	   to_date(#endDate#, 'yyyy-mm-dd hh24:mi:ss')
+		   and om.parent_order_code is null
+	]]> 		
+ 	</select>
+ 	<select id="SQL_QUERY_TIMES_ORDER_STA_BY_PROVINCE"  parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	<![CDATA[
+		select rs.province province,
+		       rs.money || '' orderAmount,
+		       rs.pay || '' orderMoney,
+		       rs.pv || '' orderPv,
+		       rs.num || '' orderCount
+		  from (select rs1.province,
+		               sum(rs1.money) money,
+		               sum(rs1.pay) pay,
+		               sum(rs1.pv) pv,
+		               count(1) num
+		          from (select nvl(substr(om.province,1,instr(om.province,'省')-1),om.province) province,
+		                       om.amount_payable money,
+		                       (select sum(ops.order_money)
+		                          from  order_pay_statement ops
+		                         where ops.state = 1
+		                           and ops.flag = 1
+		                           and ops.payment_way <> 2
+		                           and ops.order_code = om.order_code
+		                           and om.order_status > 1) pay,
+		                       om.order_pv pv
+		                  from  order_main om
+		                 where exists
+		                 (select 1
+		                          from   era_info ei
+		                         where ei.n_login_id = om.customer_id)
+		                   and om.create_date between
+		                       to_date(#startDate#, 'yyyy-mm-dd hh24:mi:ss') and
+		     				   to_date(#endDate#, 'yyyy-mm-dd hh24:mi:ss')
+		                   and om.parent_order_code is null) rs1
+		         group by rs1.province) rs
+		 order by rs.money desc
+	]]>
+ 	</select>
+ 	<select id="SQL_QUERY_RANK_PRODUCT_BY_SALE_VOLUME"  parameterClass="java.util.Map" resultClass="java.util.HashMap">
+ 	<![CDATA[
+ 		select rs.sale || '' amount,
+		       rs.incoming || '' money,
+		       rs.num || '' num,
+		       rs.commodity_sku SKU,
+		       rs.commodity_name productName
+		  from (select rs1.sale,
+		               rs1.commodity_sku,
+		               rs1.commodity_name,
+		               rs1.incoming,
+		               rs1.num
+		          from (select sum(oi.commodity_unit_price*oi.commodity_number) sale,
+		                       sum(oi.commodity_unit_incoming*oi.commodity_number) incoming,
+		                       sum(oi.commodity_number) num,
+		                       oi.commodity_sku,
+		                       oi.commodity_name
+		                  from order_item oi
+		                 where exists (select 1
+		                          from order_main om
+		                         where oi.order_code = om.order_code
+		                           and exists
+		                         (select 1
+		                                  from   era_info ei
+		                                 where ei.n_login_id = om.customer_id)
+		                           and om.order_status > 1 and om.create_date between
+		                               to_date(#startDate#, 'yyyy-mm-dd hh24:mi:ss') and
+		     				 		   to_date(#endDate#, 'yyyy-mm-dd hh24:mi:ss')
+		                           and om.parent_order_code is null)
+		                 group by oi.commodity_sku, oi.commodity_name) rs1
+		         order by rs1.sale desc) rs
+		 where rownum < #rank:DECIMAL#
+	]]>
+ 	</select>
+ 	<select id="SQL_QUERY_RANK_PRODUCT_BY_SALE_AMOUNT"  parameterClass="java.util.Map" resultClass="java.util.HashMap">
+ 	<![CDATA[
+ 		select rs.sale || '' amount,
+		       rs.incoming || '' money,
+		       rs.num || '' num,
+		       rs.commodity_sku SKU,
+		       rs.commodity_name productName
+		  from (select rs1.sale,
+		               rs1.commodity_sku,
+		               rs1.commodity_name,
+		               rs1.incoming,
+		               rs1.num
+		          from (select sum(oi.commodity_unit_price*oi.commodity_number) sale,
+		                       sum(oi.commodity_unit_incoming*oi.commodity_number) incoming,
+		                       sum(oi.commodity_number) num,
+		                       oi.commodity_sku,
+		                       oi.commodity_name
+		                  from order_item oi
+		                 where exists (select 1
+		                          from order_main om
+		                         where oi.order_code = om.order_code
+		                           and exists
+		                         (select 1
+		                                  from   era_info ei
+		                                 where ei.n_login_id = om.customer_id)
+		                           and om.order_status > 1 and om.create_date between
+		                               to_date(#startDate#, 'yyyy-mm-dd hh24:mi:ss') and
+		     				 		   to_date(#endDate#, 'yyyy-mm-dd hh24:mi:ss')
+		                           and om.parent_order_code is null)
+		                 group by oi.commodity_sku, oi.commodity_name) rs1
+		         order by rs1.num desc) rs
+		 where rownum < #rank:DECIMAL#
+	]]>
+ 	</select>
+ 	
+ 	<insert id="exportInfo_insert" parameterClass="com.pltfm.app.entities.ExportInfo">
+ 		<selectKey resultClass="java.lang.Long" keyProperty="exportId">
+ 		    select SEQ_EXPORT_INFO.NEXTVAL from dual
+ 		</selectKey>
+ 		INSERT INTO EXPORT_INFO(EXPORT_ID,CREATE_DATE,OPERATOR,EXPORT_TYPE,EXPORT_STATUS,EXPORT_CONTENT,URL)
+ 		VALUES(#exportId:DECIMAL#,#createDate#,#operator:VARCHAR#,#exportType#,#exportStatus#,#exportContent#,#url#)
+ 	</insert>
+ 	
+ 	<update id="exportInfo_updateStatus" parameterClass="com.pltfm.app.entities.ExportInfo">
+ 		UPDATE EXPORT_INFO SET export_status = 1 where export_id = #exportId:DECIMAL#
+ 	</update>
+ 	
+ 	<select id="exportInfo_query" resultMap="exportInfo_resultMap" parameterClass="java.util.Map">
+ 	 select * from (
+	     select t.*,ROWNUM rn from (
+	 	  SELECT ei.* FROM export_Info ei
+	 	 <dynamic prepend="WHERE">
+	 	      <isNotEmpty prepend="AND" property="startDate">
+	 	         trunc(ei.create_date,'dd') &gt;=  to_date(#startDate#, 'yyyy-mm-dd')
+			       AND
+			     trunc(ei.create_date,'dd') &lt;=  to_date(#endDate#, 'yyyy-mm-dd')
+	 	      </isNotEmpty>
+	 	      <isNotEmpty prepend="AND" property="operator">
+	 	      	   ei.operator = #operator#
+	 	      </isNotEmpty>
+	 	  	<isNotEmpty prepend="AND" property="exportType">
+	 	      	   ei.export_type = #exportType#
+	 	      </isNotEmpty>
+	 	  </dynamic>
+	 	   order by ei.create_date desc
+	 	  )t 
+	<![CDATA[ 	   
+       where rownum <=10 )re
+     where rn >=1
+     ]]>
+ 	</select>
+ 	
+ 	<select id="exportInfo_queryCount"  parameterClass="java.util.Map"  resultClass="java.lang.Integer">
+ 	  select count(export_id) from export_Info
+ 	  <dynamic prepend="WHERE">
+ 	      <isNotEmpty prepend="AND" property="startDate">
+ 	         trunc(create_date,'dd') &gt;=  to_date(#startDate#, 'yyyy-mm-dd')
+		       AND
+		     trunc(create_date,'dd') &lt;=  to_date(#endDate#, 'yyyy-mm-dd')
+ 	      </isNotEmpty>
+ 	      <isNotEmpty prepend="AND" property="operator">
+ 	      	   operator = #operator#
+ 	      </isNotEmpty>
+ 	  	<isNotEmpty prepend="AND" property="exportType">
+ 	      	   export_type = #exportType#
+ 	      </isNotEmpty>
+ 	  </dynamic>
+ 	</select>
+ 	
+ 	<select id="getSupplierByCloseStatus" resultMap="baseResultMap"
+            parameterClass="com.kmzyc.supplier.model.MerchantInfoOrSuppliers">
+        select
+        f.n_commercial_tenant_id,f.n_login_id,f.contacts_name,f.mobile,f.corporate_name,f.organization_code,f.d_create_date,f.business_licence_register
+        ,f.corporate_location,f.N_ENTERPRISE_STATUS,f.PROVINCE,f.CITY,f.AREA,s.supplier_id,s.sale_product_describe,s.supplier_type,s.status,s.LOGIN_STATUS,s.BUSINESS_STATUS,s.CLOSE_STATUS
+        from commercial_tenant_basic_info f,suppliers_info s where f.n_commercial_tenant_id=s.merchant_id and
+        s.status!=1 and s.CLOSE_STATUS!=1
+        <dynamic>
+            <isNotNull property="corporateName" prepend="and">
+                f.CORPORATE_NAME like
+                '%$corporateName$%'
+            </isNotNull>
+            <isNotNull property="contactsName" prepend="and">
+                f.CONTACTS_NAME like
+                '%$contactsName$%'
+            </isNotNull>
+            <isNotNull property="corporateLocation" prepend="and">
+                f.corporate_location like
+                '%$corporateLocation$%'
+            </isNotNull>
+            <isNotNull property="status" prepend="and">
+                s.status =
+                #status:DECIMAL#
+            </isNotNull>
+            <isNotNull property="enterpriseStatus" prepend="and">
+                f.N_ENTERPRISE_STATUS =
+                #enterpriseStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull property="province" prepend="and">
+                f.PROVINCE like
+                '%$province$%'
+            </isNotNull>
+            <isNotNull property="city" prepend="and">
+                f.CITY like
+                '%$city$%'
+            </isNotNull>
+            <isNotNull property="area" prepend="and">
+                f.AREA like
+                '%$area$%'
+            </isNotNull>
+            <isNotNull property="supplierType" prepend="and">
+                s.supplier_type = #supplierType:DECIMAL#
+            </isNotNull>
+            <isNotNull property="supplierId" prepend="and">
+                s.SUPPLIER_ID = #supplierId#
+            </isNotNull>
+        </dynamic>
+        ORDER BY f.n_commercial_tenant_id DESC
+    </select>
+    
+</sqlMap>

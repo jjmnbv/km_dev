@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <!-- 账单定时生成开始 -->
+    <bean id="reserverBillTask"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 调用的类 -->
+        <property name="targetObject">
+            <ref bean="reserverBillAddJOB"/>
+        </property>
+        <!-- 调用类中的方法 -->
+        <property name="targetMethod">
+            <value>reserverBillAdd</value>
+        </property>
+    </bean>
+    <!-- 定义触发时间 -->
+    <bean id="reserverBillTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="reserverBillTask"/>
+        </property>
+        <!-- cron表达式 -->
+        <property name="cronExpression">
+            <!-- 测试 -->
+            <!-- <value>1 * * * * ?</value> -->
+            <!--  真实 -->
+            <value>0 0 2 1 * ?</value>
+        </property>
+    </bean>
+    <!-- 账单定时结束 -->
+
+    <!-- 账单更新生成开始 -->
+    <bean id="reserverBillFlushTask"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 调用的类 -->
+        <property name="targetObject">
+            <ref bean="reserverBillUpdateJOB"/>
+        </property>
+        <!-- 调用类中的方法 -->
+        <property name="targetMethod">
+            <value>ReserverBillUpdate</value>
+        </property>
+    </bean>
+    <!-- 定义触发时间 -->
+    <bean id="reserverBillFlushTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="reserverBillFlushTask"/>
+        </property>
+        <!-- cron表达式 -->
+        <property name="cronExpression">
+            <!-- 测试 -->
+            <!--  <value>1 * * * * ?</value> -->
+            <!--  真实 -->
+            <value>0 0 2 16 * ?</value>
+        </property>
+    </bean>
+    <!-- 账单更新结束 -->
+
+
+    <!-- 调度器  -->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <!--   <ref bean="cronTrigger" />  -->
+            </list>
+        </property>
+
+        <property name="configLocation" value="classpath:config/quartz.properties"/>
+    </bean>
+
+
+    <bean id="jobtask"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 调用的类 -->
+        <property name="targetObject">
+            <ref bean="userUpdateLevelJob"/>
+        </property>
+        <!-- 调用类中的方法 -->
+        <property name="targetMethod">
+            <value>executeUpdate</value>
+        </property>
+    </bean>
+
+
+    <!-- 定义触发时间 -->
+    <bean id="doTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="jobtask"/>
+        </property>
+        <property name="cronExpression">
+            <!--  <value>0 0/1 * * * ?</value> -->
+            <!-- <value>0 */10 * * * ?</value> -->
+            <!-- <value>0 0 0 1 1 ?</value> -->
+            <!--  <value>0 50 21 * * ?</value> -->
+            <value>0 0 0 1 1 ?</value>
+        </property>
+    </bean>
+
+
+    <!-- 配置定时任务用于定时发送邮件短信 -->
+    <bean id="jobEmailSmstask"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 调用的类 -->
+        <property name="targetObject">
+            <ref bean="emailSmsSendJob"/>
+        </property>
+        <!-- 调用类中的方法 -->
+        <property name="targetMethod">
+            <value>executeEmailSmsSend</value>
+        </property>
+    </bean>
+
+    <!-- 定义触发时间为每天早上9点 -->
+    <bean id="doTimeSendEmailSms" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="jobEmailSmstask"/>
+        </property>
+        <property name="cronExpression">
+            <value>0 0 8 * * ?</value>
+        </property>
+    </bean>
+
+
+    <!--  <bean name="reportTask"
+         class="org.springframework.scheduling.quartz.JobDetailBean">
+         <property name="jobClass" value="com.quartz.UserLevelJob" />
+     </bean>   -->
+
+    <!-- 触发器     每天下午16点50分到55分,每分钟运行一次 -->
+    <!--   <bean id="cronTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean">
+          <property name="jobDetail" ref="reportTask" />
+          <property name="cronExpression" value="0 0/1 * * * ?" />
+      </bean>  -->
+
+
+    <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序  -->
+    <bean id="startQuertz" autowire="no"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <!-- <ref bean="doTime"/> -->
+                <!-- <ref bean="reserverBillTime"/> -->
+                <!--  <ref bean="reserverBillFlushTime"/>  -->
+                <ref bean="doTimeSendEmailSms"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="LOTTERY_PRIZE">
+	<resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.cms.vobject.LotteryPrize">
+		<result column="PRIZE_ID" property="prizeId" jdbcType="DECIMAL" />
+		<result column="AWARDS_ID" property="awardsId" jdbcType="DECIMAL" />
+		<result column="TYPE" property="type" jdbcType="DECIMAL" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="PRIZE_COUNT" property="prizeCount" jdbcType="DECIMAL" />
+		<result column="COUPON_ID" property="couponId" jdbcType="DECIMAL" />
+		<result column="INTEGRAL_VALUE" property="integralValue"
+			jdbcType="DECIMAL" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="CREATED_ID" property="createdId" jdbcType="DECIMAL" />
+		<result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+		<result column="MODIFIED_ID" property="modifiedId" jdbcType="DECIMAL" />
+		<result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+  <resultMap id="ibatorgenerated_BaseResultMap2" class="com.pltfm.cms.vobject.LotteryAwards" >
+    <result column="AWARDS_ID" property="awardsId" jdbcType="DECIMAL" />
+    <result column="LUCK_DRAW_ID" property="luckDrawId" jdbcType="DECIMAL" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="PROBABILITY" property="probability" jdbcType="DECIMAL" />
+    <result column="AWARDS_COUNT" property="awardsCount" jdbcType="DECIMAL" />
+    <result column="AWARDS_DATE" property="awardsDate" jdbcType="DATE" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="CREATED_ID" property="createdId" jdbcType="DECIMAL" />
+    <result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+    <result column="MODIFIED_ID" property="modifiedId" jdbcType="DECIMAL" />
+  </resultMap>
+  
+    <resultMap id="ibatorgenerated_BaseResultMap3" class="com.pltfm.cms.vobject.LotteryAwards" >
+    <result column="AWARDS_ID" property="awardsId" jdbcType="DECIMAL" />
+    <result column="LUCK_DRAW_ID" property="luckDrawId" jdbcType="DECIMAL" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="PROBABILITY" property="probability" jdbcType="DECIMAL" />
+    <result column="AWARDS_COUNT" property="awardsCount" jdbcType="DECIMAL" />
+    <result column="AWARDS_DATE" property="awardsDate" jdbcType="DATE" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="CREATED_ID" property="createdId" jdbcType="DECIMAL" />
+    <result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+    <result column="MODIFIED_ID" property="modifiedId" jdbcType="DECIMAL" />
+    <result column="USER_DEFINED_NAME" property="user_defined_name" jdbcType="VARCHAR" />
+    <result column="USER_DEFINED_URL" property="user_defined_url" jdbcType="VARCHAR" />
+  </resultMap>
+  
+<select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap2" 
+	parameterClass="com.pltfm.cms.vobject.LotteryAwards">
+	SELECT AWARDS_ID, LUCK_DRAW_ID, TITLE, PROBABILITY, AWARDS_COUNT, AWARDS_DATE, STATUS,
+      CREATE_DATE, CREATED_ID, MODIFY_DATE, MODIFIED_ID from LOTTERY_AWARDS 
+      where AWARDS_ID=#awardsId:DECIMAL#
+  </select>
+  
+  
+  <select id="ibatorgenerated_selectListAll" resultMap="ibatorgenerated_BaseResultMap3" 
+	parameterClass="java.lang.Integer">
+	SELECT l.AWARDS_ID,l.LUCK_DRAW_ID, l.TITLE, l.PROBABILITY, l.AWARDS_COUNT, l.AWARDS_DATE, l.STATUS,
+      l.CREATE_DATE, l.CREATED_ID, l.MODIFY_DATE, l.MODIFIED_ID,a.USER_DEFINED_NAME,a.USER_DEFINED_URL from LOTTERY_AWARDS l left join CMS_WINDOW_DATA a on l.awards_id=a.data_id
+       where a.data_type=10 and a.window_id=#windowId:DECIMAL#
+  </select>
+  
+
+	<select id="ibatorgenerated_selectList" resultMap="ibatorgenerated_BaseResultMap2" 
+	parameterClass="com.pltfm.cms.vobject.LotteryAwards">
+	SELECT AWARDS_ID, LUCK_DRAW_ID, TITLE, PROBABILITY, AWARDS_COUNT, AWARDS_DATE, STATUS,
+      CREATE_DATE, CREATED_ID, MODIFY_DATE, MODIFIED_ID from LOTTERY_AWARDS 
+      where AWARDS_ID in 
+	    <iterate open="(" close=")" conjunction="," property="awardsIds" > 
+                #awardsIds[]# 
+        </iterate> 
+  </select>
+	<!-- 分布查询 
+	<select id="searchLotteryPrizePageByVo" parameterClass="com.pltfm.cms.vobject.LotteryPrize"
+		resultMap="ibatorgenerated_BaseMap">
+		SELECT LOTTERYPRIZEID,LOTTERYAWARDSID,TITLE,PRIZENAME,PROBABILITY,PRIZE_COUNT
+		from (
+		select ROW_NUMBER() OVER(order by p.PRIZE_ID desc) as
+		view_row_number,p.PRIZE_ID as lotteryPrizeId,
+		p.AWARDS_ID as lotteryawardsId,a.title as title,p.name as PRIZENAME,
+		a.PROBABILITY as probability,p.prize_count as PRIZE_COUNT
+		from LOTTERY_AWARDS a,LUCK_DRAW l,LOTTERY_PRIZE p
+		where a.awards_id= p.awards_id and a.luck_draw_id= l.luck_draw_id
+		<isNotNull property="luckDrawId">
+			<isNotEmpty prepend="and" property="luckDrawId">
+				l.luck_draw_id = #luckDrawId:DECIMAL#
+			 </isNotEmpty>
+		</isNotNull>
+
+		<isNotNull property="title">
+			<isNotEmpty prepend="and" property="title">
+				a.title like
+				'%'||#title#||'%'
+			  </isNotEmpty>
+		</isNotNull>
+
+		<isNotNull property="prizeName">
+			<isNotEmpty prepend="and" property="prizeName">
+				p.name like
+				'%'||#prizeName#||'%'
+			  </isNotEmpty>
+		</isNotNull>
+
+		)
+	 <![CDATA[ where view_row_number <= #endIndex# and view_row_number > #startIndex# ]]>
+	</select>
+	
+		<select id="selectLotteryPrizeCountByVo" parameterClass="com.pltfm.cms.vobject.LotteryPrize"
+		resultClass="java.lang.Integer">
+		select count(*) from LOTTERY_AWARDS a,LUCK_DRAW
+		l,LOTTERY_PRIZE p
+		where a.awards_id= p.awards_id and a.luck_draw_id= l.luck_draw_id
+		<isNotNull property="luckDrawId">
+			<isNotEmpty prepend="and" property="luckDrawId">
+				l.luck_draw_id = #luckDrawId:DECIMAL#
+			 </isNotEmpty>
+		</isNotNull>
+
+		<isNotNull property="title">
+			<isNotEmpty prepend="and" property="title">
+				a.title like
+				'%'||#title#||'%'
+			  </isNotEmpty>
+		</isNotNull>
+
+		<isNotNull property="prizeName">
+			<isNotEmpty prepend="and" property="prizeName">
+				p.name like
+				'%'||#prizeName#||'%'
+			  </isNotEmpty>
+		</isNotNull>
+
+	</select>
+	 -->
+
+
+
+<!-- 分布查询  -->
+	<select id="searchLotteryAwardsPageByVo" parameterClass="com.pltfm.cms.vobject.LotteryAwards"
+		resultMap="ibatorgenerated_BaseResultMap2">
+	SELECT AWARDS_ID, LUCK_DRAW_ID, TITLE, PROBABILITY, AWARDS_COUNT, AWARDS_DATE, STATUS,
+      CREATE_DATE, CREATED_ID, MODIFY_DATE, MODIFIED_ID
+    from  (
+		select ROW_NUMBER() OVER(order by AWARDS_ID desc) as view_row_number, a.*
+		from LOTTERY_AWARDS a
+		<dynamic prepend="where">
+			<isNotNull property="luckDrawId">  
+			 <isNotEmpty prepend="and" property="luckDrawId">
+				  LUCK_DRAW_ID = #luckDrawId:DECIMAL#
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+			 <isNotNull property="title">
+			  <isNotEmpty prepend="and" property="title">
+				a.TITLE like '%'||#title#||'%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  </dynamic>
+		)
+	 <![CDATA[ where view_row_number <= #endIndex# and view_row_number > #startIndex# ]]>
+	</select>
+	
+	<!-- 分布查询总数  -->
+	<select id="selectLotteryAwardsCountByVo" parameterClass="com.pltfm.cms.vobject.LotteryAwards"
+		resultClass="java.lang.Integer">
+		select count(*)   from LOTTERY_AWARDS 
+		<dynamic prepend="where">
+			<isNotNull property="luckDrawId">  
+			 <isNotEmpty prepend="and" property="luckDrawId">
+				  LUCK_DRAW_ID = #luckDrawId:DECIMAL#
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="title">
+			  <isNotEmpty prepend="and" property="title">
+				a.TITLE like '%'||#title#||'%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   </dynamic>
+	</select>
+
+</sqlMap>

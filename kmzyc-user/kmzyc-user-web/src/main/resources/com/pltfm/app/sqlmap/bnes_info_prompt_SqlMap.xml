@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="BnesInfoPrompt" >
+  <resultMap id="bnesInfoPrompt"  class="com.pltfm.app.vobject.BnesInfoPrompt" >
+     <result property="infoPromptId" column="INFO_PROMPT_ID"/>   
+     <result property="loginId" column="LOGIN_ID"/>
+     <result property="content" column="CONTENT"/>
+     <result property="createDate" column="CREATE_DATE"/>
+     <result property="type" column="TYPE"/>
+     <result property="status" column="STATUS"/>
+     <result property="modified" column="MODIFIED"/>
+     <result property="modifiedDate" column="MODIFIED_DATE"/>
+     <result property="title" column="TITLE"/>
+     <result property="isTime" column="IS_TIME"/>
+     <result property="releaseDate" column="RELEASE_DATE"/>
+    
+     <result property="createId" column="CREATE_ID"/>
+     <result property="customerType" column="CUSTOMER_TYPE"/>
+     <result property="releaseObject" column="RELEASE_OBJECT"/>    
+     <result property="messagePlatform" column="MESSAGE_PLATFORM"/> 
+  </resultMap>
+  
+ 
+  
+    <!-- 通过多条件查询-->
+  <select id="countBnesInfoPrompt" parameterClass="com.pltfm.app.vobject.BnesInfoPrompt" resultClass="java.lang.Integer" >
+	select count(*) from  bnes_info_prompt where 1=1
+		<isNotNull property="title">
+			<isNotEmpty prepend="and" property="title">
+				TITLE like  '%$title$%'
+			</isNotEmpty>
+		</isNotNull>
+		<isNotNull property="type">
+			<isNotEmpty prepend="and" property="type">
+				TYPE = #type#
+			</isNotEmpty>
+		</isNotNull>
+		<isNotNull property="messagePlatform">
+			<isNotEmpty prepend="and" property="messagePlatform">
+				MESSAGE_PLATFORM = #messagePlatform#
+			</isNotEmpty>
+		</isNotNull>
+  </select>
+  
+    <select id="searchPageByVo" resultMap="bnesInfoPrompt" parameterClass="com.pltfm.app.vobject.BnesInfoPrompt">
+		select INFO_PROMPT_ID,LOGIN_ID,CONTENT,CREATE_DATE,TYPE,STATUS,MODIFIED,MODIFIED_DATE,TITLE,IS_TIME,RELEASE_DATE,CREATE_ID,CUSTOMER_TYPE,RELEASE_OBJECT,MESSAGE_PLATFORM
+		from (
+		  select  bb.* 
+		  , ROW_NUMBER() OVER(order by INFO_PROMPT_ID desc) as view_row_number  from BNES_INFO_PROMPT bb 
+		   where 1=1
+           <isNotNull property="title">
+			<isNotEmpty prepend="and" property="title">
+				TITLE like  '%$title$%'
+			</isNotEmpty>
+		</isNotNull>
+		   <isNotNull property="type">
+			  <isNotEmpty prepend="and" property="type">
+				   TYPE =#type:Integer#
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="status">
+			  <isNotEmpty prepend="and" property="status">
+				   STATUS =#status:Integer#
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="messagePlatform">
+			<isNotEmpty prepend="and" property="messagePlatform">
+				MESSAGE_PLATFORM = #messagePlatform#
+			</isNotEmpty>
+		</isNotNull>
+    ) where 1=1 
+    <![CDATA[  and  view_row_number <= #max# and view_row_number > #skip# ]]>
+	</select>
+	
+	   <!-- 动态添加消息信息 -->
+  <insert id="insertPrompt" parameterClass="com.pltfm.app.vobject.BnesInfoPrompt" >
+     <selectKey resultClass="java.lang.Integer" keyProperty="infoPromptId" >
+           select SEQ_APP_PROMPT.nextval from dual
+    </selectKey>
+    insert into BNES_INFO_PROMPT (INFO_PROMPT_ID,LOGIN_ID,CONTENT,CREATE_DATE,TYPE,STATUS,TITLE
+    
+    ,IS_TIME,RELEASE_DATE,CREATE_ID,CUSTOMER_TYPE,RELEASE_OBJECT,MESSAGE_PLATFORM) values( #infoPromptId:INTEGER#, #loginId:VARCHAR#, #content:VARCHAR#, #createDate#,#type:INTEGER#
+    ,#status:INTEGER#,  #title:VARCHAR#,#isTime:INTEGER#,#releaseDate#,#createId:INTEGER#,#customerType:INTEGER#,#releaseObject:INTEGER#,#messagePlatform#)
+   
+   
+  </insert>
+  
+     <!--查看消息详细信息  -->
+    <select id="detailPrompt" resultMap="bnesInfoPrompt"
+	 parameterClass="com.pltfm.app.vobject.BnesInfoPrompt">
+    select * FROM BNES_INFO_PROMPT
+    where INFO_PROMPT_ID = #infoPromptId:Integer#
+  </select>
+  
+  <!-- 更新 -->
+    <update id="updatePrompt" parameterClass="com.pltfm.app.vobject.BnesInfoPrompt" >
+   
+    update BNES_INFO_PROMPT
+    set TITLE = #title:VARCHAR#,
+     CONTENT = #content:VARCHAR#,
+     TYPE = #type:INTEGER#,
+     STATUS = #status:INTEGER#,
+     IS_TIME = #isTime:INTEGER#,
+     RELEASE_DATE = #releaseDate#,
+     MODIFIED = #modified:INTEGER#,
+     CUSTOMER_TYPE= #customerType:INTEGER#,
+     MODIFIED_DATE = #modifiedDate#,
+     RELEASE_OBJECT= #releaseObject:INTEGER#
+     MESSAGE_PLATFORM=#messagePlatform#
+     where INFO_PROMPT_ID = #infoPromptId:INTEGER#
+  </update>
+  
+  
+    <!--删除消息信息  -->
+    <delete id="deletePrompt" parameterClass="com.pltfm.app.vobject.BnesInfoPrompt" >
+    delete from BNES_INFO_PROMPT
+    where INFO_PROMPT_ID = #infoPromptId:Integer#
+  </delete>
+  
+  
+   <select id="ibatorgenerated_select" resultMap="bnesInfoPrompt" parameterClass="com.pltfm.app.vobject.BnesInfoPrompt" >
+    select INFO_PROMPT_ID, LOGIN_ID, CONTENT, CREATE_DATE, TYPE, STATUS, MODIFIED,
+      MODIFIED_DATE, TITLE, IS_TIME, RELEASE_DATE
+    from BNES_INFO_PROMPT
+    where STATUS = 1
+  </select>
+ 
+</sqlMap>

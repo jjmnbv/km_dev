@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+
+"http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="BNES_MESSAGE_CENTER" >
+
+	<typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+	
+	  <resultMap id="ibatorgenerated_BaseResultMap" class="com.kmzyc.b2b.model.SiteNoticeDetail" >
+	    <result column="MESSAGE_ID" property="messageId" jdbcType="DECIMAL" />
+	    <result column="ACCOUNT_ID" property="accountId" jdbcType="DECIMAL" />
+	    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+	    <result column="INFO_PROMPT_ID" property="infoPromptId" jdbcType="DECIMAL" />
+	    <result column="CUSTOMER_TYPE_ID" property="customerTypeId" jdbcType="DECIMAL" />
+	    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+	    <result column="RELEASE_DATE" property="releaseDate" jdbcType="DATE" />
+	    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+	  </resultMap>
+	  
+	  <resultMap id="SIMAPLE_MESSAGE_RESULT_MAP" class="com.kmzyc.b2b.model.SiteNoticeDetail" >
+	    <result column="MESSAGE_ID" property="messageId" jdbcType="DECIMAL" />
+	    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+	    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+	    <result column="RELEASE_DATE" property="releaseDate" />
+	    <result column="CHECK_DATE" property="checkDate" />
+	    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+	  </resultMap>
+	  
+	  <resultMap id="BaseResultMapResult" class="com.kmzyc.b2b.model.BnesMessageCenter" >
+	    <result column="MESSAGE_ID" property="messageId" jdbcType="DECIMAL" />
+	    <result column="ACCOUNT_ID" property="accountId" jdbcType="DECIMAL" />
+	    <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" /> 
+	    <result column="CHECK_DATE" property="checkDate" jdbcType="DATE" />
+	    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+	    <result column="INFO_PROMPT_ID" property="infoPromptId" jdbcType="DECIMAL" />
+	    <result column="TYPE" property="type" jdbcType="DECIMAL" />
+	    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+	    <result column="IS_TIME" property="isTime" jdbcType="DECIMAL" />
+	    <result column="RELEASE_DATE" property="releaseDate" jdbcType="DATE" />
+	  </resultMap>
+	  
+	   <resultMap id="ibatorgenerated_BaseResultMapResult" class="com.kmzyc.b2b.model.BnesMessageCenter" extends="BaseResultMapResult">
+	     <result column="customer_type_id" property="customerTypeId" jdbcType="Integer" />
+	    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+	    <result property="customerName"  column="customerName"  jdbcType="VARCHAR"/>
+	  </resultMap>
+		  
+	  <resultMap id="ibatorgenerated_CountResult" class="com.kmzyc.b2b.model.SysModelUtil">
+	    <result column="the_count" property="theCount" jdbcType="DECIMAL" />
+	   </resultMap>
+
+   
+  
+   <!-- 分页查询站内通知 -->
+   <!--  ****************  search page by vo  ****************  -->
+	  <select id="searchPageByUserId" resultMap="BaseResultMapResult" parameterClass="pagination">
+  SELECT * FROM (
+          SELECT ROWNUM RN,MESSAGE_ID, ACCOUNT_ID, INFO_PROMPT_ID,CHECK_DATE,STATUS,LOGIN_ACCOUNT,TYPE,TITLE, IS_TIME, RELEASE_DATE
+                     FROM(select  ROW_NUMBER() OVER(order by MESSAGE_ID desc) as view_row_number, tt.MESSAGE_ID,tt.ACCOUNT_ID,tt.INFO_PROMPT_ID,tt.CHECK_DATE,tt.STATUS,ll.LOGIN_ACCOUNT,pp.LOGIN_ID, pp.TYPE,pp.TITLE, pp.IS_TIME, pp.RELEASE_DATE
+                     from BNES_MESSAGE_CENTER tt,BNES_INFO_PROMPT pp,LOGIN_INFO ll,BNES_CUSTOMER_TYPE com 
+                    where tt.ACCOUNT_ID=ll.N_LOGIN_ID AND ll.N_CUSTOMER_TYPE_ID = com.CUSTOMER_TYPE_ID and  tt.INFO_PROMPT_ID=pp.INFO_PROMPT_ID and pp.STATUS=1
+					<dynamic >
+							<isNotNull prepend="and" property="objCondition.userId">
+						 		tt.ACCOUNT_ID=#objCondition.userId:NUMBER# 
+				      		</isNotNull>
+							<isNotNull prepend="and" property="objCondition.readStatus">
+						 		tt.status=#objCondition.readStatus:NUMBER# 
+				      		</isNotNull>
+				      		<isNotNull prepend="and" property="objCondition.platform">
+						 		pp.message_platform=#objCondition.platform:NUMBER# 
+				      		</isNotNull>
+					</dynamic>
+			   		 ORDER BY RELEASE_DATE DESC
+			   		 )) WHERE  
+			   		 <![CDATA[ 
+			   		 RN >= #startindex# AND RN <= #endindex#
+			   		 ]]>
+		</select>
+	
+  <!-- 分页站内通知总条数 -->
+  <!--  ****************  search page by vo  ****************  -->
+	    <select id="searchCountPageByUserId" resultClass="java.lang.Integer" parameterClass="pagination">
+			select COUNT(MESSAGE_ID) MESSAGE_ID from BNES_MESSAGE_CENTER tt,BNES_INFO_PROMPT pp,LOGIN_INFO ll,BNES_CUSTOMER_TYPE com 
+				where tt.ACCOUNT_ID=ll.N_LOGIN_ID AND ll.N_CUSTOMER_TYPE_ID = com.CUSTOMER_TYPE_ID and  tt.INFO_PROMPT_ID=pp.INFO_PROMPT_ID and pp.STATUS=1
+				<dynamic>
+					<isNotNull prepend="and" property="objCondition.userId">
+				 		tt.ACCOUNT_ID=#objCondition.userId:NUMBER#
+		      		</isNotNull>
+		      		<isNotNull prepend="and" property="objCondition.readStatus">
+						 tt.status=#objCondition.readStatus:NUMBER# 
+				    </isNotNull>
+				    <isNotNull prepend="and" property="objCondition.platform">
+						 		pp.message_platform=#objCondition.platform:NUMBER# 
+				    </isNotNull>
+				</dynamic>
+		</select>
+
+  <!--删除消息信息  -->
+	  <delete id="deleteMessageCenterById" parameterClass="java.util.Map" >
+		    delete from BNES_MESSAGE_CENTER
+		           where MESSAGE_ID = #messageId:Integer#
+		           AND ACCOUNT_ID= #userId:Integer#
+	  </delete>
+
+  <!--查看消息详细信息  -->
+	   <select id="ibatorgenerated_getMessageId" resultMap="ibatorgenerated_BaseResultMap" parameterClass="java.lang.Integer">
+	        SELECT A.message_Id,A.Account_Id,A.status,A.info_prompt_id,A.CUSTOMER_TYPE_ID,B.content,B.release_Date,B.Title
+	              FROM  BNES_MESSAGE_CENTER A,BNES_INFO_PROMPT B
+	          	  WHERE A.Info_Prompt_Id = B.Info_Prompt_Id
+	              AND A.Message_Id = #messageId:Integer#
+	  </select>
+	
+  <!-- 修改站内通知略读之后的状态 -->
+	  <update id="isReaderMessageByMessageId" parameterClass="java.util.Map">
+			UPDATE BNES_MESSAGE_CENTER SET STATUS = 1,check_date=#checkDate:DATE#
+				WHERE Message_Id = #messageId:Integer#
+				AND STATUS = 0
+	  </update>
+	  
+	   <!-- 修改站内通知略读之后的状态 -->
+	  <update id="updateNoticeStatus">
+			UPDATE BNES_MESSAGE_CENTER SET STATUS = 1
+				WHERE Message_Id = #messageId:DECIMAL#
+				AND STATUS = 0
+	  </update>
+
+	<!--获取未读消息count -->
+    <select id="countNew" parameterClass="java.util.HashMap" resultClass="long">
+        <![CDATA[
+			select nvl(count(1),0) from bnes_message_center tt,BNES_INFO_PROMPT pp
+			 where tt.INFO_PROMPT_ID = pp.INFO_PROMPT_ID  and pp.STATUS = 1
+			  and account_id=#userId:NUMBER#
+		]]>
+        <isNotEmpty property="status" prepend="and">
+            <![CDATA[
+             tt.status=#status:NUMBER#
+            ]]>
+        </isNotEmpty>
+         <isNotEmpty property="platform" prepend="and">
+            <![CDATA[
+             pp.message_platform=#platform:NUMBER#
+            ]]>
+        </isNotEmpty>
+    </select>
+    
+    <!--通过 -->
+    <select id="countNum" parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
+        <![CDATA[
+			select nvl(count(1),0) from bnes_message_center where account_id=#userId:NUMBER#
+		]]>
+    </select>
+    
+    <select id="getLatestSiteNotice" resultMap="ibatorgenerated_BaseResultMapResult" parameterClass="pagination">
+			SELECT * FROM (
+				SELECT ROWNUM RN,MESSAGE_ID, ACCOUNT_ID, INFO_PROMPT_ID, customer_type_id,CHECK_DATE,STATUS, CONTENT,LOGIN_ACCOUNT, TYPE,
+			       TITLE, IS_TIME, RELEASE_DATE,customerName 
+			       			FROM(select  ROW_NUMBER() OVER(order by MESSAGE_ID desc) as view_row_number, tt.*,ll.LOGIN_ACCOUNT,pp.LOGIN_ID, pp.CONTENT, pp.TYPE,pp.TITLE, pp.IS_TIME, pp.RELEASE_DATE,ll.N_CUSTOMER_TYPE_ID,com.NAME customerName 
+			       			from BNES_MESSAGE_CENTER tt,BNES_INFO_PROMPT pp,LOGIN_INFO ll,BNES_CUSTOMER_TYPE com 
+					        where tt.ACCOUNT_ID=ll.N_LOGIN_ID AND ll.N_CUSTOMER_TYPE_ID = com.CUSTOMER_TYPE_ID and  tt.INFO_PROMPT_ID=pp.INFO_PROMPT_ID and pp.STATUS=1
+					<dynamic >
+							<isNotNull prepend="and" property="objCondition.userId">
+						 		tt.ACCOUNT_ID=#objCondition.userId:NUMBER# 
+				      		</isNotNull>
+				      		<isNotNull prepend="and" property="objCondition.status">
+						 		tt.STATUS=#objCondition.status:NUMBER# 
+				      		</isNotNull>
+					</dynamic>
+			   		 ORDER BY RELEASE_DATE DESC
+			   		 )) WHERE  
+			   		 <![CDATA[ 
+			   		 RN >= #startindex# AND RN <=#endindex#
+			   		 ]]>
+		</select>
+	
+	<!-- 分页查询 -->
+	<select id="SQL_QUERY_MESSAGE_LIST_BY_PAGE" resultMap="SIMAPLE_MESSAGE_RESULT_MAP" parameterClass="java.util.Map" >
+		select rs.message_id, rs.status, rs.release_date, rs.check_date, rs.title, '' content
+		  from (select rs1.message_id,
+		               rs1.status,
+		               rs1.release_date,
+		               rs1.check_date,
+		               rs1.title,
+		               rownum rn
+		          from (select bmc.message_id,
+		                       bmc.status,
+		                       bip.release_date,
+		                       bmc.check_date,
+		                       bip.title
+		                  from bnes_message_center bmc, bnes_info_prompt bip
+		                 where bmc.info_prompt_id = bip.info_prompt_id
+		                   <!-- and bip.type = #messageType:DECIMAL# -->
+		<isNotEmpty property="status"> 
+		                   and bmc.status=#status:DECIMAL#
+		</isNotEmpty>
+		<![CDATA[         
+		                   and bip.message_platform = #messagePlatform:DECIMAL#
+		                   and bmc.account_id = #uid:DECIMAL#
+		                 order by bmc.message_id desc) rs1
+		         where rownum <= #endindex:DECIMAL#) rs
+		 where rs.rn >= #startindex:DECIMAL#
+		]]>
+	</select>
+	
+	<!--  获取个人消息个数 -->
+	<select id="SQL_GET_MESSAGE_COUNT" resultClass="int" parameterClass="java.util.Map" >
+		select count(1)
+		  from bnes_message_center bmc
+		 where
+		<isNotEmpty property="status"> 
+			bmc.status=#status:DECIMAL# and 
+		</isNotEmpty>
+		  exists
+		 (select 1
+		          from bnes_info_prompt bip
+		         where  bmc.info_prompt_id = bip.info_prompt_id
+		           <!-- and bip.message_platform = #messagePlatform:DECIMAL# -->)
+		   and bmc.account_id = (select ai.n_account_id
+                           from account_info ai
+                          where ai.n_login_id = #loginId:DECIMAL#)
+	</select>
+	
+	<!-- 查询单个消息 -->
+	<select id="SQL_QUERY_MESSAGE" parameterClass="java.util.Map" resultMap="SIMAPLE_MESSAGE_RESULT_MAP" >
+		select bmc.message_id, bmc.status, bip.release_date,bmc.check_date, bip.title,bip.content
+		  from bnes_message_center bmc, bnes_info_prompt bip
+		 where bmc.info_prompt_id = bip.info_prompt_id
+		   and bmc.account_id = (select ai.n_account_id from account_info ai where ai.n_login_id=#uid:DECIMAL#)
+		   and bmc.message_id = #msgId:DECIMAL#
+	</select>
+	
+	<!-- 修改已读 -->
+	<update id="SQL_UPDATE_MESSAGE_READED" parameterClass="java.util.Map">
+		update bnes_message_center bmc
+		   set bmc.status = 1, bmc.check_date = sysdate
+		 where bmc.account_id = (select ai.n_account_id from account_info ai where ai.n_login_id=#uid:DECIMAL#)
+		   and bmc.message_id in
+		   <iterate open="(" close=")" conjunction="," property="msgIds"> #msgIds[]# </iterate>	
+	</update>
+	
+	<!-- 删除 -->
+	<update id="SQL_DELETE_MESSAGE" parameterClass="java.util.Map">
+		delete from bnes_message_center bmc
+		 where bmc.account_id = #uid:DECIMAL#
+		   and bmc.message_id in 
+		   <iterate open="(" close=")" conjunction="," property="msgIds"> #msgIds[]# </iterate>	
+	</update>
+	
+	
+	<!-- APP分页查询 -->
+	<select id="APP_QUERY_MESSAGE_LIST_BY_PAGE" resultClass="java.util.HashMap" parameterClass="java.util.Map" >
+			select rs.Message_Id messageId,rs.title title, rs.release_date releaseDate, rs.status,
+							rs.content content
+							from (select 
+							Message_Id,
+							title,
+							release_date,
+							status,
+							content,
+							rownum rn
+							from (select
+							bmc.Message_Id,
+							bip.title,
+							bip.release_date,
+							bmc.status,
+							bip.content
+							from bnes_message_center bmc, bnes_info_prompt bip
+							where bmc.info_prompt_id = bip.info_prompt_id
+		                 <isNotEmpty property="status">
+		                     and bmc.status=#status:DECIMAL#
+		                 </isNotEmpty>
+		                 <isNotEmpty property="loginId">
+                             and bmc.account_id = (select ai.n_account_id from account_info ai where ai.n_login_id=#loginId:DECIMAL#)
+		                 </isNotEmpty>
+		                 order by bmc.message_id desc) rs1
+		         where rownum &lt;= #endindex:DECIMAL#) rs
+		 where rs.rn &gt;= #startindex:DECIMAL#
+	</select>
+</sqlMap>

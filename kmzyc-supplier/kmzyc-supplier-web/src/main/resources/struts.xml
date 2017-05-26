@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<!--开发模式 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- 当修改配置文件不需要重启服务，开发比较有用 -->
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<constant name="struts.action.extension" value="action"></constant>
+	<constant name="struts.custom.i18n.resources" value="message"></constant>
+	<package name="BasePackage" extends="struts-default">
+        <global-results>
+            <result name="login">/WEB-INF/jsp/member/login/login.jsp</result>
+            <result name="error">/error.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"></exception-mapping>
+        </global-exception-mappings>
+		<action name="index">
+			<result name="success">index.jsp</result>
+		</action>
+	</package>
+
+<!-- 	<include file="struts/struts-company.xml" /> -->
+	<include file="struts/struts-upload.xml" />
+	<include file="struts/struts-supplier.xml" />	
+	<include file="struts/struts-product.xml" />	
+	<include file="struts/struts-product-draft.xml" />	
+	<include file="struts/struts-prod-brand-draft.xml" />
+	<include file="struts/struts-ajaxJson.xml" />
+    <include file="struts/struts-order.xml" />
+    <include file="struts/struts-promotion.xml" />
+    <include file="struts/struts-activity.xml" />
+
+</struts>

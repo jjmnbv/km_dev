@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="CMS_SUPPLIER_ADCOLUMN" >
+  <resultMap id="abatorgenerated_CmsSupplierAdcolumnResult" class="com.pltfm.cms.vobject.CmsSupplierAdcolumn" >
+  
+    <result column="supplier_adcolumn_id" property="supplierAdcolumnId" jdbcType="DECIMAL" />
+    <result column="supplier_id" property="supplierId" jdbcType="DECIMAL" />
+    
+    
+    <result column="adcolumn_id" property="adcolumnId" jdbcType="DECIMAL" />
+    
+    <result column="content_path" property="contentPath" jdbcType="VARCHAR" />
+    <result column="site_code" property="siteCode" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="create_date" property="createDate" jdbcType="Date" />
+    <result column="created" property="created" jdbcType="DECIMAL" />
+    <result column="modify_date" property="modifyDate" jdbcType="Date" />
+    <result column="modified" property="modified" jdbcType="DECIMAL" />
+   
+  </resultMap>
+  
+    <resultMap id="abatorgenerated_CmsSupplierAdcolumnResultNew" class="com.pltfm.cms.vobject.CmsSupplierAdcolumn" >
+  
+    <result column="supplier_adcolumn_id" property="supplierAdcolumnId" jdbcType="DECIMAL" />
+    <result column="supplier_id" property="supplierId" jdbcType="DECIMAL" />
+     <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+    
+    <result column="adcolumn_id" property="adcolumnId" jdbcType="DECIMAL" />
+     <result column="adcolumn_name" property="adcolumnName" jdbcType="VARCHAR" />
+    <result column="content_path" property="contentPath" jdbcType="VARCHAR" />
+    <result column="site_code" property="siteCode" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="create_date" property="createDate" jdbcType="Date" />
+    <result column="created" property="created" jdbcType="DECIMAL" />
+    <result column="modify_date" property="modifyDate" jdbcType="Date" />
+    <result column="modified" property="modified" jdbcType="DECIMAL" />
+   
+  </resultMap>	
+  
+  	<resultMap id="abatorgenerated_CmsAdcolumnResult" class="com.pltfm.cms.vobject.CmsAdcolumn">
+		<!--
+			广告
+		-->
+		<result column="ADCOLUMN_ID" property="adcolumnId" jdbcType="DECIMAL" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="TYPE" property="type" jdbcType="DECIMAL" />
+		<result column="HEIGHT" property="height" jdbcType="VARCHAR" />
+		<result column="WIDTH" property="width" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="Date" />
+		<result column="CREATED" property="created" jdbcType="DECIMAL" />
+		<result column="MODIFY_DATE" property="modifyDate" jdbcType="Date" />
+		<result column="MODIFIED" property="modified" jdbcType="DECIMAL" />
+		<result column="OUTPUT" property="output" jdbcType="VARCHAR" />
+		<result column="SITE_ID" property="siteId" jdbcType="Integer" />
+	</resultMap>
+	
+  <insert id="abatorgenerated_insert" parameterClass="com.pltfm.cms.vobject.CmsSupplierAdcolumn" >
+   
+      <selectKey resultClass="java.lang.Integer" keyProperty="supplierAdcolumnId" >
+           select seq_app_cms.nextval from dual
+      </selectKey>
+    
+    insert into CMS_SUPPLIER_ADCOLUMN (supplier_adcolumn_id, supplier_id, adcolumn_id, content_path, site_code, remark, STATUS, create_date,
+      CREATED, MODIFY_DATE, MODIFIED)
+    values (#supplierAdcolumnId:DECIMAL#, #supplierId:DECIMAL#, #adcolumnId:DECIMAL#, #contentPath:VARCHAR#, #siteCode:VARCHAR#,
+      #remark:VARCHAR#, #status:DECIMAL#, #createDate:Date#, #created:DECIMAL#, #modifyDate:Date#,
+      #modified:DECIMAL#)
+  </insert>
+  <update id="abatorgenerated_update" parameterClass="com.pltfm.cms.vobject.CmsSupplierAdcolumn" >
+   
+    update CMS_SUPPLIER_ADCOLUMN
+    set 
+      supplier_id = #supplierId:Integer#,
+      adcolumn_id = #adcolumnId:Integer#,
+      content_path = #contentPath:VARCHAR#,
+      site_Code = #siteCode:VARCHAR#,
+      remark = #remark:VARCHAR#,
+      STATUS = #status:Integer#, 
+      CREATED= #created:Integer#,
+      create_date = #createDate:Date#,
+      MODIFY_DATE = #modifyDate:Date#,
+      MODIFIED = #modified:Integer#
+    where supplier_adcolumn_id = #supplierAdcolumnId:Integer#
+  </update>
+
+	<!--查询供应商广告位 -->
+	<select id="abatorgenerated_queryAdcolumnList"
+		resultMap="abatorgenerated_CmsSupplierAdcolumnResultNew" parameterClass="com.pltfm.cms.vobject.CmsSupplierAdcolumn">
+
+		select csa.supplier_adcolumn_id,
+       csa.supplier_id,
+       sm.shop_name as supplier_name,
+       csa.adcolumn_id,
+       ca.name as adcolumn_name,
+        ca.output as content_path,
+       csa.site_code,
+       csa.remark,
+       csa.STATUS,
+       csa.create_date,
+       csa.CREATED,
+       csa.MODIFY_DATE,
+       csa.MODIFIED
+  from CMS_SUPPLIER_ADCOLUMN csa, SHOP_MAIN sm,cms_adcolumn ca
+ where csa.supplier_id = sm.supplier_id and ca.adcolumn_id=csa.adcolumn_id  and 1=1
+      
+      
+	          <isNotNull property="supplierId">
+				     <isNotEmpty prepend="and" property="supplierId">
+				      csa.SUPPLIER_ID= '$supplierId$'
+				      </isNotEmpty>
+			  </isNotNull>
+		   
+		      <isNotNull property="adcolumnId">
+				     <isNotEmpty prepend="and" property="adcolumnId">
+				     csa.adcolumn_id = '$adcolumnId$'
+				      </isNotEmpty>
+		     </isNotNull>	 
+		       <isNotNull property="siteCode">
+				     <isNotEmpty prepend="and" property="siteCode">
+				     csa.site_code = '$siteCode$'
+				      </isNotEmpty>
+		     </isNotNull>	             
+	
+      
+  </select>
+    
+   <select id="abatorgenerated_countByAdcolumn" parameterClass="com.pltfm.cms.vobject.CmsSupplierAdcolumn" resultClass="java.lang.Integer" >
+	select count(*) from  CMS_SUPPLIER_ADCOLUMN
+		 <dynamic prepend="where">
+	          <isNotNull property="supplierId">
+				     <isNotEmpty prepend="and" property="supplierId">
+				      SUPPLIER_ID= '$supplierId$'
+				      </isNotEmpty>
+			  </isNotNull>
+		   
+		      <isNotNull property="adcolumnId">
+				     <isNotEmpty prepend="and" property="adcolumnId">
+				     adcolumn_id = '$adcolumnId$'
+				      </isNotEmpty>
+		     </isNotNull>	  
+		       <isNotNull property="siteCode">
+				     <isNotEmpty prepend="and" property="siteCode">
+				     site_code = '$siteCode$'
+				      </isNotEmpty>
+		     </isNotNull>	                  
+		</dynamic>
+  </select>
+  <!-- 详情 -->
+   <select id="abatorgenerated_byId" parameterClass="com.pltfm.cms.vobject.CmsSupplierAdcolumn" resultMap="abatorgenerated_CmsSupplierAdcolumnResultNew" >
+			select csa.supplier_adcolumn_id,
+	       csa.supplier_id,
+	       sm.shop_name as supplier_name,
+	       csa.adcolumn_id,
+	       ca.name as adcolumn_name,
+	        ca.output as content_path,
+	    
+	       csa.site_code,
+	       csa.remark,
+	       csa.STATUS,
+	       csa.create_date,
+	       csa.CREATED,
+	       csa.MODIFY_DATE,
+	       csa.MODIFIED
+	  from CMS_SUPPLIER_ADCOLUMN csa, SHOP_MAIN sm,cms_adcolumn ca
+	 where csa.supplier_id = sm.supplier_id and ca.adcolumn_id=csa.adcolumn_id  
+     and sm.shop_site=csa.site_code
+		
+		
+	          <isNotNull property="supplierAdcolumnId">
+				     <isNotEmpty prepend="and" property="supplierAdcolumnId">
+				      SUPPLIER_ADCOLUMN_ID= '$supplierAdcolumnId$'  
+				      </isNotEmpty>
+			  </isNotNull>             
+		
+  </select>
+  
+  <!-- 根据广告位查询 -->
+   <select id="abatorgenerated_byAdcolumnId" parameterClass="com.pltfm.cms.vobject.CmsSupplierAdcolumn" resultMap="abatorgenerated_CmsSupplierAdcolumnResult" >
+	select supplier_adcolumn_id, supplier_id, adcolumn_id, content_path, site_code, remark, STATUS, create_date,
+      CREATED, MODIFY_DATE, MODIFIED from  CMS_SUPPLIER_ADCOLUMN
+		 <dynamic prepend="where">
+	          <isNotNull property="adcolumnId">
+				     <isNotEmpty prepend="and" property="adcolumnId">
+				      ADCOLUMN_ID= '$adcolumnId$'  
+				      </isNotEmpty>
+			  </isNotNull>             
+		</dynamic>	
+  </select>
+  <!-- 该供应商下广告位是否已上传广告	-->
+  <select id="abatorgenerated_checkAdvIsUpload" parameterClass="com.pltfm.cms.vobject.CmsSupplierAdcolumn" resultClass="java.lang.Integer">
+     select count(*) from cms_supplier_adcolumn csa,cms_adcolumn ca 
+     ,cms_adv cadv
+     where csa.adcolumn_id=ca.adcolumn_id and ca.adcolumn_id=cadv.adcolumn_id
+     and csa.SUPPLIER_ID = #supplierId:Integer# and csa.SITE_CODE = #siteCode:VARCHAR#
+  </select>
+
+	<!-- 查询是否供应商下有广告 -->
+   <select id="abatorgenerated_adv" parameterClass="java.lang.Long" resultMap="abatorgenerated_CmsAdcolumnResult" >
+	      select  ADCOLUMN_ID,name,type,height,width,remark,status,create_date,created,modify_date,modified,OUTPUT,SITE_ID
+		  from cms_adcolumn  where ADCOLUMN_ID  in (select adcolumn_id  from cms_supplier_adcolumn  where adcolumn_id not in(select adv.adcolumn_id from  
+       cms_adv  adv left join  cms_adcolumn adc on adv.adcolumn_id=adc.adcolumn_id left join 
+       cms_supplier_adcolumn su on adc.adcolumn_id=su.adcolumn_id  where su.SUPPLIER_ID= #supplierId:DECIMAL#) and  SUPPLIER_ID= #supplierId:DECIMAL#)
+  </select>
+  <!-- 根据广告位查询 -->
+  <select id="abatorgenerated_querySupplierIdByAdcolumn" parameterClass="java.lang.String" resultMap="abatorgenerated_CmsSupplierAdcolumnResult">
+      	select supplier_adcolumn_id, supplier_id, adcolumn_id, content_path, site_code, remark, STATUS, create_date,
+      CREATED, MODIFY_DATE, MODIFIED from  CMS_SUPPLIER_ADCOLUMN where $value$
+  </select>
+    
+</sqlMap>

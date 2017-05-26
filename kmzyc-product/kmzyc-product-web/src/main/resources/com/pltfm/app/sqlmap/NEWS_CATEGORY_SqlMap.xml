@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="NEWS_CATEGORY">
+    <typeAlias alias="pagination" type="com.km.framework.page.Pagination"/>
+    <typeAlias alias="newsCategory" type="com.kmzyc.supplier.model.NewsCategory"/>
+    <typeAlias alias="newsCategoryExample" type="com.kmzyc.supplier.model.example.NewsCategoryExample"/>
+
+    <resultMap id="ibatorgenerated_BaseResultMap" class="newsCategory">
+        <result column="NEWS_CATEGORY_ID" property="newsCategoryId" jdbcType="DECIMAL"/>
+        <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL"/>
+        <result column="NEWS_CATEGORY_NAME" property="newsCategoryName" jdbcType="VARCHAR"/>
+        <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL"/>
+        <result column="SORT_NO" property="sortNo" jdbcType="VARCHAR"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+        <result column="CREATE_USER" property="createUser" jdbcType="DECIMAL"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="Date"/>
+    </resultMap>
+    <sql id="ibatorgenerated_Example_Where_Clause">
+        <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate">
+            <isEqual property="oredCriteria[].valid" compareValue="true">
+                (
+                <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and">
+                    $oredCriteria[].criteriaWithoutValue[]$
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and">
+                    $oredCriteria[].criteriaWithSingleValue[].condition$
+                    #oredCriteria[].criteriaWithSingleValue[].value#
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and">
+                    $oredCriteria[].criteriaWithListValue[].condition$
+                    <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")"
+                             conjunction=",">
+                        #oredCriteria[].criteriaWithListValue[].values[]#
+                    </iterate>
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and">
+                    $oredCriteria[].criteriaWithBetweenValue[].condition$
+                    #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+                    #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+                </iterate>
+                )
+            </isEqual>
+        </iterate>
+    </sql>
+    <select id="ibatorgenerated_selectByExample" resultMap="ibatorgenerated_BaseResultMap"
+            parameterClass="newsCategoryExample">
+        select NEWS_CATEGORY_ID, SUPPLIER_ID, NEWS_CATEGORY_NAME, PARENT_ID, SORT_NO, REMARK,
+        CREATE_USER, CREATE_TIME
+        from NEWS_CATEGORY
+        <isParameterPresent>
+            <include refid="NEWS_CATEGORY.ibatorgenerated_Example_Where_Clause"/>
+            <isNotNull property="orderByClause">
+                order by $orderByClause$
+            </isNotNull>
+        </isParameterPresent>
+    </select>
+    <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap"
+            parameterClass="newsCategory">
+        select NEWS_CATEGORY_ID, SUPPLIER_ID, NEWS_CATEGORY_NAME, PARENT_ID, SORT_NO, REMARK,
+        CREATE_USER, CREATE_TIME
+        from NEWS_CATEGORY
+        where NEWS_CATEGORY_ID = #newsCategoryId:DECIMAL#
+    </select>
+    <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="newsCategory">
+        delete from NEWS_CATEGORY
+        where NEWS_CATEGORY_ID = #newsCategoryId:DECIMAL#
+    </delete>
+    <delete id="ibatorgenerated_deleteByExample" parameterClass="newsCategoryExample">
+        delete from NEWS_CATEGORY
+        <include refid="NEWS_CATEGORY.ibatorgenerated_Example_Where_Clause"/>
+    </delete>
+    <insert id="ibatorgenerated_insert" parameterClass="newsCategory">
+        <selectKey resultClass="java.lang.Long" keyProperty="newsCategoryId">
+            select SEQ_NEWS_CATEGORY.nextval from dual
+        </selectKey>
+        insert into NEWS_CATEGORY (NEWS_CATEGORY_ID, SUPPLIER_ID, NEWS_CATEGORY_NAME, PARENT_ID,
+        SORT_NO, REMARK, CREATE_USER, CREATE_TIME)
+        values (#newsCategoryId:DECIMAL#, #supplierId:DECIMAL#, #newsCategoryName:VARCHAR#,
+        #parentId:DECIMAL#, #sortNo:VARCHAR#, #remark:VARCHAR#, #createUser:DECIMAL#,
+        #createTime#)
+    </insert>
+    <insert id="ibatorgenerated_insertSelective" parameterClass="newsCategory">
+        <selectKey resultClass="java.lang.Long" keyProperty="newsCategoryId">
+            select SEQ_NEWS_CATEGORY.nextval from dual
+        </selectKey>
+        insert into NEWS_CATEGORY
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="newsCategoryId">
+                NEWS_CATEGORY_ID
+            </isNotNull>
+            <isNotNull prepend="," property="supplierId">
+                SUPPLIER_ID
+            </isNotNull>
+            <isNotNull prepend="," property="newsCategoryName">
+                NEWS_CATEGORY_NAME
+            </isNotNull>
+            <isNotNull prepend="," property="parentId">
+                PARENT_ID
+            </isNotNull>
+            <isNotNull prepend="," property="sortNo">
+                SORT_NO
+            </isNotNull>
+            <isNotNull prepend="," property="remark">
+                REMARK
+            </isNotNull>
+            <isNotNull prepend="," property="createUser">
+                CREATE_USER
+            </isNotNull>
+            <isNotNull prepend="," property="createTime">
+                CREATE_TIME
+            </isNotNull>
+            )
+        </dynamic>
+        values
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="newsCategoryId">
+                #newsCategoryId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="supplierId">
+                #supplierId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="newsCategoryName">
+                #newsCategoryName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="parentId">
+                #parentId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="sortNo">
+                #sortNo:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="remark">
+                #remark:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="createUser">
+                #createUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="createTime">
+                #createTime:Date#
+            </isNotNull>
+            )
+        </dynamic>
+    </insert>
+    <select id="ibatorgenerated_countByExample" parameterClass="newsCategoryExample" resultClass="java.lang.Integer">
+        select count(1) from NEWS_CATEGORY
+        <include refid="NEWS_CATEGORY.ibatorgenerated_Example_Where_Clause"/>
+    </select>
+    <update id="ibatorgenerated_updateByExampleSelective">
+        update NEWS_CATEGORY
+        <dynamic prepend="set">
+            <isNotNull prepend="," property="record.newsCategoryId">
+                NEWS_CATEGORY_ID = #record.newsCategoryId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.supplierId">
+                SUPPLIER_ID = #record.supplierId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.newsCategoryName">
+                NEWS_CATEGORY_NAME = #record.newsCategoryName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.parentId">
+                PARENT_ID = #record.parentId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.sortNo">
+                SORT_NO = #record.sortNo:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.remark">
+                REMARK = #record.remark:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.createUser">
+                CREATE_USER = #record.createUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.createTime">
+                CREATE_TIME = #record.createTime:Date#
+            </isNotNull>
+        </dynamic>
+        <isParameterPresent>
+            <include refid="NEWS_CATEGORY.ibatorgenerated_Example_Where_Clause"/>
+        </isParameterPresent>
+    </update>
+    <update id="ibatorgenerated_updateByExample">
+        update NEWS_CATEGORY
+        set NEWS_CATEGORY_ID = #record.newsCategoryId:DECIMAL#,
+        SUPPLIER_ID = #record.supplierId:DECIMAL#,
+        NEWS_CATEGORY_NAME = #record.newsCategoryName:VARCHAR#,
+        PARENT_ID = #record.parentId:DECIMAL#,
+        SORT_NO = #record.sortNo:VARCHAR#,
+        REMARK = #record.remark:VARCHAR#,
+        CREATE_USER = #record.createUser:DECIMAL#,
+        CREATE_TIME = #record.createTime:Date#
+        <isParameterPresent>
+            <include refid="NEWS_CATEGORY.ibatorgenerated_Example_Where_Clause"/>
+        </isParameterPresent>
+    </update>
+    <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="newsCategory">
+        update NEWS_CATEGORY
+        <dynamic prepend="set">
+            <isNotNull prepend="," property="supplierId">
+                SUPPLIER_ID = #supplierId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="newsCategoryName">
+                NEWS_CATEGORY_NAME = #newsCategoryName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="parentId">
+                PARENT_ID = #parentId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="sortNo">
+                SORT_NO = #sortNo:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="remark">
+                REMARK = #remark:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="createUser">
+                CREATE_USER = #createUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="createTime">
+                CREATE_TIME = #createTime:Date#
+            </isNotNull>
+        </dynamic>
+        where NEWS_CATEGORY_ID = #newsCategoryId:DECIMAL#
+    </update>
+    <update id="ibatorgenerated_updateByPrimaryKey" parameterClass="newsCategory">
+        update NEWS_CATEGORY
+        set SUPPLIER_ID = #supplierId:DECIMAL#,
+        NEWS_CATEGORY_NAME = #newsCategoryName:VARCHAR#,
+        PARENT_ID = #parentId:DECIMAL#,
+        SORT_NO = #sortNo:VARCHAR#,
+        REMARK = #remark:VARCHAR#,
+        CREATE_USER = #createUser:DECIMAL#,
+        CREATE_TIME = #createTime:Date#
+        where NEWS_CATEGORY_ID = #newsCategoryId:DECIMAL#
+    </update>
+
+    <!-- 资讯类别列表 -->
+    <select id="selectNewCategoryListByMerchantId" resultMap="ibatorgenerated_BaseResultMap"
+            parameterClass="pagination">
+        <![CDATA[
+          SELECT * FROM (SELECT t.*, ROWNUM RN FROM (select * from NEWS_CATEGORY WHERE 1=1
+		]]>
+        <dynamic prepend="AND">
+            <![CDATA[
+					  SUPPLIER_ID = #objCondition.supplierId:DECIMAL#
+				]]>
+        </dynamic>
+        <dynamic prepend="AND">
+            <isNotEmpty property="objCondition.newsCategoryName">
+                <![CDATA[
+					NEWS_CATEGORY_NAME like '%'||#objCondition.newsCategoryName:VARCHAR#||'%'
+				]]>
+            </isNotEmpty>
+        </dynamic>
+        <dynamic prepend="AND">
+            <isNotEmpty property="objCondition.sortNo">
+                <![CDATA[
+					SORT_NO like '%'||#objCondition.sortNo:VARCHAR#||'%'
+				]]>
+            </isNotEmpty>
+        </dynamic>
+        <![CDATA[
+		ORDER BY CREATE_TIME DESC ) t 
+		WHERE  ROWNUM <= $endindex$ ) WHERE RN >= #startindex# 
+		]]>
+    </select>
+    <!-- 资讯类别列表 -->
+    <select id="selectNewCategoryListByMerchantIdAndShopId" resultMap="ibatorgenerated_BaseResultMap"
+            parameterClass="pagination">
+        <![CDATA[
+          SELECT * FROM (SELECT t.*, ROWNUM RN FROM (select * from NEWS_CATEGORY WHERE 1=1 and NEWS_CATEGORY_ID not in(select NEWS_CATEGORY_ID
+          from SHOP_NEWS_CATEGORY where SHOP_ID = #objCondition.shopId:DECIMAL#)
+		]]>
+        <dynamic prepend="AND">
+            <![CDATA[
+					  SUPPLIER_ID = #objCondition.supplierId:DECIMAL#
+				]]>
+        </dynamic>
+        <dynamic prepend="AND">
+            <isNotEmpty property="objCondition.newsCategoryName">
+                <![CDATA[
+					NEWS_CATEGORY_NAME like '%'||#objCondition.newsCategoryName:VARCHAR#||'%'
+				]]>
+            </isNotEmpty>
+        </dynamic>
+        <dynamic prepend="AND">
+            <isNotEmpty property="objCondition.sortNo">
+                <![CDATA[
+					SORT_NO like '%'||#objCondition.sortNo:VARCHAR#||'%'
+				]]>
+            </isNotEmpty>
+        </dynamic>
+        <![CDATA[
+		ORDER BY CREATE_TIME DESC ) t 
+		WHERE  ROWNUM <= $endindex$ ) WHERE RN >= #startindex# 
+		]]>
+    </select>
+    <select id="selectCountForNewCategoryByMerchantId" resultClass="java.lang.Integer" parameterClass="pagination">
+        <![CDATA[
+          SELECT COUNT(NEWS_CATEGORY_ID) FROM (SELECT t.*, ROWNUM RN FROM (select * from NEWS_CATEGORY   
+		]]>
+
+        <dynamic prepend="WHERE">
+            <![CDATA[
+					  SUPPLIER_ID = #objCondition.supplierId:DECIMAL#
+				]]>
+        </dynamic>
+
+        <dynamic prepend="AND">
+            <isNotEmpty property="objCondition.newsCategoryName">
+                <![CDATA[
+					NEWS_CATEGORY_NAME like '%'||#objCondition.newsCategoryName:VARCHAR#||'%'
+				]]>
+            </isNotEmpty>
+        </dynamic>
+        <dynamic prepend="AND">
+            <isNotEmpty property="objCondition.sortNo">
+                <![CDATA[
+					SORT_NO like '%'||#objCondition.sortNo:VARCHAR#||'%'
+				]]>
+            </isNotEmpty>
+        </dynamic>
+        <![CDATA[
+		) t )  
+		]]>
+    </select>
+    <select id="selectCountForNewCategoryByMerchantIdAndShopId" resultClass="java.lang.Integer"
+            parameterClass="pagination">
+        <![CDATA[
+          SELECT COUNT(NEWS_CATEGORY_ID) FROM (SELECT t.*, ROWNUM RN FROM (select * from NEWS_CATEGORY where 1=1
+		]]>
+
+        <dynamic prepend="AND">
+            <![CDATA[
+					  SUPPLIER_ID = #objCondition.supplierId:DECIMAL#
+				]]>
+        </dynamic>
+        <dynamic prepend="AND">
+            <![CDATA[
+					NEWS_CATEGORY_ID not in(select NEWS_CATEGORY_ID
+          from SHOP_NEWS_CATEGORY where SHOP_ID = #objCondition.shopId:DECIMAL#)
+				]]>
+        </dynamic>
+        <dynamic prepend="AND">
+            <isNotEmpty property="objCondition.newsCategoryName">
+                <![CDATA[
+					NEWS_CATEGORY_NAME like '%'||#objCondition.newsCategoryName:VARCHAR#||'%'
+				]]>
+            </isNotEmpty>
+        </dynamic>
+        <dynamic prepend="AND">
+            <isNotEmpty property="objCondition.sortNo">
+                <![CDATA[
+					SORT_NO like '%'||#objCondition.sortNo:VARCHAR#||'%'
+				]]>
+            </isNotEmpty>
+        </dynamic>
+
+        <![CDATA[
+		) t )  
+		]]>
+    </select>
+    <select id="selectNewCategorySupplierId" resultClass="java.lang.Integer" parameterClass="java.lang.Long">
+	select count(1) from NEWS_CATEGORY ca where ca.supplier_id=#supplierId:DECIMAL#
+	</select>
+</sqlMap>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <!--constant name="struts.enable.DynamicMethodInvocation" value="false" /-->
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.enable.SlashesInActionNames" value="true" /> <!-- action名可以有'/'字符 -->
+    <constant name="struts.action.extension" value="action,do"/> <!-- .action和.do 为访问扩展名 -->
+   	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.ui.theme" value="simple" /> 
+	<constant name="struts.ui.templateDir" value="template" /> 
+	<constant name="struts.ui.templateSuffix" value="ftl" />
+	<constant name="struts.locale" value="zh_CN" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	 <constant name="struts.multipart.maxSize" value="10000000"/> 
+    <include file="struts-sys.xml"/>
+    <include file="struts-app.xml"/>
+    <include file="struts-user-growing.xml"/>
+    <!-- 客户信息管理 -->
+    <include file="struts-user-info.xml"/>
+    <!-- 账户信息管理 -->
+     <include file="struts-accounts.xml"/>
+     
+     
+     <include file="struts-safe-question.xml" />
+      <!-- 客户业务 -->
+     
+      <include file="struts-customer.xml" />
+  	  <!-- 众包机构 -->  
+      <include file="struts-crowd.xml"/>
+    <package name="struts" extends="struts-default">
+        <interceptors>
+			<!-- token拦截器 -->
+			<interceptor name="token"
+				class="com.pltfm.app.util.TokenInterceptors" />
+			  <interceptor-stack name="myDefaultStack">
+				<interceptor-ref name="token" />
+				<interceptor-ref name="defaultStack" />
+			 </interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myDefaultStack" />
+		<global-results> 
+			<result name="error">/WEB-INF/jsp/public/error.jsp</result>
+		</global-results> 
+    </package>
+
+
+</struts>
+
+

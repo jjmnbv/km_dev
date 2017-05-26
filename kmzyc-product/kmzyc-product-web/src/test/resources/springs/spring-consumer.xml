@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+    <dubbo:application name="dubbo-client"/>
+    <!-- 使用multicast广播注册中心暴露发现服务地址 -->
+    <dubbo:protocol name="dubbo" port="20889"/>
+    <dubbo:registry address="zookeeper://10.1.6.67:2181" client="curator"/>
+    <dubbo:reference id="stockRemoteService" interface="com.kmzyc.product.remote.service.StockRemoteService"
+                     url="dubbo://localhost:20889"/>
+
+    <dubbo:reference id="productRelationRemoteService"
+                     interface="com.kmzyc.product.remote.service.ProductRelationRemoteService"/>
+    <dubbo:reference id="productAppraiseRemoteService" interface="com.kmzyc.product.remote.service.ProductAppraiseRemoteService"/>
+
+</beans>

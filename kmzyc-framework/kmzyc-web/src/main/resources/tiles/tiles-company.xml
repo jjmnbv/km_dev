@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<!--编辑
+	<definition name="companyEdit" template="/jsp/company/template/companyLayout.jsp">
+		<put-attribute name="top" value="/jsp/indextemplate/top.jsp" />
+		<put-attribute name="bodyConent" value="/jsp/company/template/editContent.jsp" />
+		<put-attribute name="end" value="/jsp/indextemplate/end.jsp" />
+	</definition>-->
+	
+	<!-- 列表
+	<definition name="companyList" extends="companyEdit">
+		<put-attribute name="bodyConent" value="/jsp/company/template/listContent.jsp" />
+	</definition> -->
+	
+	<!-- 公司列表 -->
+	<definition name="companyList" template="/WEB-INF/jsp/company/template/listContent.jsp"></definition>
+	
+	<!-- 编辑公司 -->
+	<definition name="companyEdit" template="/WEB-INF/jsp/company/template/editContent.jsp"></definition>
+	
+</tiles-definitions>
+

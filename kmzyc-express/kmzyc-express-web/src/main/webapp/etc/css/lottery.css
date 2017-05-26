@@ -1,0 +1,140 @@
+@charset "utf-8";
+
+
+/*
+@名字：区块(.ui-button)
+@HTML标签代码：
+<button type="button" class="ui-button ui-button-disabled ui-button-sm">disabled</button>
+<button type="button" class="ui-button ui-button-default ui-button-sm">Default</button>
+<button type="button" class="ui-button ui-button-primary">Primary</button>
+<button type="button" class="ui-button ui-button-success">Success</button>
+<button type="button" class="ui-button ui-button-info">Info</button>
+<button type="button" class="ui-button ui-button-warning">Warning</button>
+<button type="button" class="ui-button ui-button-danger">Danger</button>
+<button type="button" class="ui-button ui-button-link">Link</button>
+
+尺寸
+.ui-button-sm
+.ui-button-xs
+.ui-button-lg
+
+活动状态
+.active
+*/
+
+.ui-button{
+	display:inline-block;
+	font-size:14px;
+	font-weight: 700;
+	padding:5px 16px;
+	text-align: center;
+	vertical-align: middle;
+	white-space: nowrap;
+	cursor: pointer;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	border:1px solid #333;
+	line-height:1.2;
+  *line-height:1.5;
+  color:#666;
+	/*文字元素选择*/
+	-moz-user-select: none;  
+	-webkit-user-select: none; 
+	-ms-user-select: none;
+}
+.ui-button:hover,.ui-button:focus{color:#666;text-decoration:none;}
+/*按钮风格*/
+.ui-button-success{ 
+	background-color: #36a940;
+    border-color: #2f903d;
+    color: #fff;
+}
+.ui-button-success:hover,.ui-button-success:focus,.ui-button-success:active{
+	background-color: #2d9e37;
+    border-color: #2f903d;
+    color: #fff;
+}
+.ui-button-default{
+	background-color: #fff;
+    border-color:#ccc;
+}
+.ui-button-default:hover,.ui-button-default:focus,.ui-button-default:active{
+	background-color: #f1f1f1;
+    border-color:#adadad;
+}
+.ui-button-primary{
+ 	background-color: #428BCA;
+    border-color: #357EBD;
+    color: #FFFFFF;	
+}
+.ui-button-primary:hover,.ui-button-primary:focus,.ui-button-primary:active{background-color: #3276B1;border-color: #285E8E;color: #FFFFFF;}
+
+.ui-button-info{background-color: #5BC0DE;border-color: #46B8DA;color: #FFFFFF;}
+.ui-button-info:hover,.ui-button-info:focus,.ui-button-info:active{background-color: #39B3D7;border-color: #269ABC;color: #FFFFFF;}
+
+.ui-button-warning{background-color: #F0AD4E;
+    border-color: #EEA236;
+    color: #FFFFFF;}
+.ui-button-warning:hover,.ui-button-warning:focus,.ui-button-warning:active{background-color: #ED9C28;
+    border-color: #D58512;
+    color: #FFFFFF;}
+
+
+.ui-button-disabled,.ui-button-disabled:hover,.ui-button-disabled:focus,.ui-button-disabled:active{
+	background-color: #fff;
+    border-color:#ccc;
+    color: #bbb;
+    cursor:not-allowed
+}
+.ui-button-link{
+	border-radius:0;
+	color:#005EA7;
+	background-color: rgba(0, 0, 0, 0);
+	_background-color:transparent;
+	border:none;
+	 cursor: pointer;
+    font-weight: normal;
+    font-size:12px;
+}
+.ui-button-danger{
+	background-color: #E4393C;
+    border-color: #d93143;
+    color: #fff;
+}
+.ui-button-danger:hover,.ui-button-danger:focus,.ui-button-danger:active{
+	background-color: #dd3345;
+    border-color: #cd2b3c;
+    color: #fff;
+}
+.ui-button-sm,.ui-button-xs{
+	border-radius:2px;
+	font-size:12px;
+	padding:3px 10px;
+	font-weight: normal;
+}
+.ui-button-xs{
+	padding:1px 5px;
+}
+.ui-button.ui-button-lg{
+	border-radius:5px;
+	font-size:18px;
+	font-family:"microsoft yahei";
+	padding:8px 24px;
+}
+.ui-button-block{display: block;padding-left: 0 !important;padding-right: 0!important;width: 100%;}
+
+
+.lot-icon{display: inline-block;width:14px;height:14px;overflow:hidden;zoom:1;background: url("../images/lottery-white.png") no-repeat 0 0;vertical-align:-2px;margin-right:3px;}
+.lot-icon-pause{background-position:-288px -72px;}
+.lot-icon-start{background-position:-265px -72px;}
+.lot-icon-stop{background-position:-313px -72px;}
+.lot-icon-party{background-position:-168px 0;}
+.lot-icon-add{background-position:-409px -96px;}
+.lot-icon-minus{background-position:-433px -96px;}
+.lot-icon-close{background-position:-313px 0;}
+.lot-icon-del{background-position:-456px 0;}
+.lot-icon-search{background-position:-49px 0;}
+.lot-icon-save{background-position:-289px 0;}
+.lot-icon-edit{background-position:-96px -72px;}
+.lot-icon-submit{background-position:-145px -24px;}

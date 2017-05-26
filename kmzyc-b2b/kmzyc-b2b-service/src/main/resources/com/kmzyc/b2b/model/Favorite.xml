@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="Favorite">
+	
+	<typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+    <typeAlias alias="favorite" type="com.kmzyc.b2b.model.Favorite" />
+
+	<resultMap id="favoriteResultMap" class="favorite" groupBy="favoriteId">
+		<result column="FAVORITES_ID" property="favoriteId" jdbcType="DECIMAL" />
+		<result column="LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+		<result column="CONTENT_CODE" property="contentCode" jdbcType="VARCHAR" />
+		<result column="FAVORITES_TYPE" property="favoritesType" jdbcType="DECIMAL" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+		<result column="MODIFIE_ID" property="modifieId" jdbcType="DECIMAL" />
+		<result column="PROCUCT_NAME" property="productName" jdbcType="VARCHAR" />
+		<result column="PRICE_COPY" property="priceCopy" jdbcType="DECIMAL" />
+        <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+		<result column="IMG_PATH7" property="imgPath" jdbcType="VARCHAR" />
+        <result column="PRICE" property="price" jdbcType="VARCHAR" />
+		<result property="categoryAttrValueList" resultMap="Favorite.categoryAttrValueListMap"/>
+	</resultMap>
+	
+	<resultMap id="appfavoriteResultMap" class="favorite" groupBy="favoriteId">
+		<result column="FAVORITES_ID" property="favoriteId" jdbcType="DECIMAL" />
+		<result column="LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+		<result column="CONTENT_CODE" property="contentCode" jdbcType="VARCHAR" />
+		<result column="FAVORITES_TYPE" property="favoritesType" jdbcType="DECIMAL" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+		<result column="MODIFIE_ID" property="modifieId" jdbcType="DECIMAL" />
+		<result column="PROCUCT_NAME" property="productName" jdbcType="VARCHAR" />
+		<result column="PRICE_COPY" property="priceCopy" jdbcType="DECIMAL" />
+        <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+		<result column="IMG_PATH7" property="imgPath" jdbcType="VARCHAR" />
+        <result column="PRICE" property="price" jdbcType="VARCHAR" />
+        <result column="PV_VALUE" property="pValue" jdbcType="DECIMAL" />
+        <result column="PSTATUS" property="pStatus" jdbcType="VARCHAR" />
+		<result property="categoryAttrValueList" resultMap="Favorite.categoryAttrValueListMap"/>
+	</resultMap>
+	<resultMap id="wapfavoriteResultMap" class="favorite" groupBy="favoriteId">
+		<result column="FAVORITES_ID" property="favoriteId" jdbcType="DECIMAL" />
+		<result column="LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+		<result column="CONTENT_CODE" property="contentCode" jdbcType="VARCHAR" />
+		<result column="FAVORITES_TYPE" property="favoritesType" jdbcType="DECIMAL" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+		<result column="MODIFIE_ID" property="modifieId" jdbcType="DECIMAL" />
+		<result column="PROCUCT_NAME" property="productName" jdbcType="VARCHAR" />
+		<result column="PRICECOPY" property="priceCopy" jdbcType="DECIMAL" />
+        <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+		<result column="IMG_PATH7" property="imgPath" jdbcType="VARCHAR" />
+        <result column="PRICE" property="price" jdbcType="VARCHAR" />
+		<result property="categoryAttrValueList" resultMap="Favorite.categoryAttrValueListMap"/>
+	</resultMap>
+	
+	
+	<resultMap id="favoriteShopResultMap" class="favorite" >
+		<result column="FAVORITES_ID" property="favoriteId" jdbcType="DECIMAL" />
+		<result column="LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+		<result column="CONTENT_CODE" property="contentCode" jdbcType="VARCHAR" />
+		<result column="FAVORITES_TYPE" property="favoritesType" jdbcType="DECIMAL" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+		<result column="MODIFIE_ID" property="modifieId" jdbcType="DECIMAL" />
+		<result column="IMGPATH" property="imgPath" jdbcType="DECIMAL" />
+		<result column="SHOP_NAME" property="shopName" jdbcType="VARCHAR" />
+		<result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL" />
+	    <result column="DeFAULT_DOMAIN_URL" property="defaultDomainUrl" jdbcType="VARCHAR" />
+		<result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+		<result column="CITY" property="city" jdbcType="VARCHAR" />
+		<result column="AREA" property="area" jdbcType="VARCHAR" />
+	</resultMap>
+
+    <resultMap id="favoriteWithoutCategoryAttrResultMap" class="favorite">
+        <result column="FAVORITES_ID" property="favoriteId" jdbcType="DECIMAL" />
+        <result column="LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+        <result column="CONTENT_CODE" property="contentCode" jdbcType="VARCHAR" />
+        <result column="FAVORITES_TYPE" property="favoritesType" jdbcType="DECIMAL" />
+        <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+        <result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+        <result column="MODIFIE_ID" property="modifieId" jdbcType="DECIMAL" />
+        <result column="PROCUCT_NAME" property="productName" jdbcType="VARCHAR" />
+        <result column="PRICE_COPY" property="priceCopy" jdbcType="DECIMAL" />
+        <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+        <result column="PRICE" property="price" jdbcType="DECIMAL" />
+        <result column="IMG_PATH7" property="imgPath" jdbcType="VARCHAR" />
+    </resultMap>
+	
+	<resultMap id="categoryAttrValueListMap" class="java.util.HashMap">
+		<result column="CATEGORY_ATTR_VALUE" property="categoryAttrValue" jdbcType="VARCHAR" />
+	</resultMap>
+  
+  	<sql id="byUserIdCondition">
+		<![CDATA[
+		   LOGIN_ID = #objCondition.userId:NUMBER#
+	    ]]>
+	</sql>
+	
+	<sql id="byPageCondition">
+		<isNotEmpty property="objCondition.keyword" prepend="and">
+			<![CDATA[
+				product_title LIKE '%'||#objCondition.keyword#||'%'
+			]]>
+		</isNotEmpty>
+	</sql>
+	
+	<select id="findAllFavorite" parameterClass="pagination" resultMap="favoriteResultMap">
+		<![CDATA[
+		select g.*,d.category_attr_value from (
+			select f.*,b.product_title procuct_name,a.product_sku_id,a.price,e.img_path7,a.pv_value,b.status as pStatus 
+					   from bnes_favorites                f,
+					        product_sku         a,
+					        productmain         b,
+					        product_image       e
+					   where f.content_code = a.product_sku_code
+						 and f.favorites_type = 1
+						 and a.product_id = b.product_id
+						 and a.product_sku_id = e.sku_id
+						 and e.is_default = 0
+		]]>
+		<dynamic prepend="and">
+			<include refid="byUserIdCondition" />
+		</dynamic>
+		<dynamic prepend="and">
+			<include refid="byPageCondition" />
+		</dynamic>
+		<![CDATA[
+		) g left join product_sku_attr  c on g.product_sku_id = c.product_sku_id
+ 		left join  category_attr_value d on c.category_attr_value_id = d.category_attr_value_id
+ 		ORDER BY g.CREATE_DATE DESC
+		]]>
+	</select>
+	<!-- 查询所有收藏商品 -->
+	<select id="appFindFavoriteProductByPage" parameterClass="pagination" resultMap="appfavoriteResultMap">
+	<![CDATA[
+	select g.*,d.category_attr_value from (
+      select f.*,b.product_title procuct_name,a.product_sku_id,a.price,e.img_path7,a.pv_value,b.status as pStatus
+           from bnes_favorites                f,
+                product_sku         a,
+                productmain         b,
+                product_image       e
+           where f.content_code = a.product_sku_code
+           and f.favorites_type = 1
+           and a.product_id = b.product_id
+           and a.product_sku_id = e.sku_id
+           and e.is_default = 0
+	]]>
+	<dynamic prepend="and">
+        <include refid="byUserIdCondition" />
+    </dynamic>
+    <dynamic prepend="and">
+        <include refid="byPageCondition" />
+    </dynamic>
+	<![CDATA[
+    order by f.create_date desc
+	) g left join  product_sku_attr h on g.product_sku_id = h.product_sku_id
+ 	    left join   category_attr_value d on h.category_attr_value_id = d.category_attr_value_id
+ 	order by g.create_date desc,h.product_sku_attr_id asc
+	]]>
+	
+	</select>
+	
+	<select id="findFavoriteProductByPage" parameterClass="pagination" resultMap="wapfavoriteResultMap">
+	<![CDATA[
+	select g.*,d.category_attr_value from (
+      SELECT * FROM (SELECT C.*,ROWNUM RN FROM 
+        (select f.*,b.product_title procuct_name,a.product_sku_id,a.price,e.img_path7, a.mark_price   as priceCopy
+           from bnes_favorites                f,
+                product_sku         a,
+                productmain         b,
+                product_image       e
+           where f.content_code = a.product_sku_code
+           and f.favorites_type = 1
+           and a.product_id = b.product_id
+           and a.product_sku_id = e.sku_id
+           and e.is_default = 0
+	]]>
+	<dynamic prepend="and">
+        <include refid="byUserIdCondition" />
+    </dynamic>
+    <dynamic prepend="and">
+        <include refid="byPageCondition" />
+    </dynamic>
+	<![CDATA[
+    order by f.create_date desc) c WHERE ROWNUM <= #endindex#) WHERE RN >= #startindex#
+	) g left join  product_sku_attr h on g.product_sku_id = h.product_sku_id
+ 	    left join   category_attr_value d on h.category_attr_value_id = d.category_attr_value_id
+ 	order by g.create_date desc,h.product_sku_attr_id asc
+	]]>
+	
+	</select>
+	
+	<select id="countFavoriteProductByPage" parameterClass="pagination" resultClass="int">
+         <![CDATA[
+               select count(1)
+				  from bnes_favorites f, product_sku a, productmain b
+				 where f.content_code = a.product_sku_code
+				   and f.favorites_type = 1
+				   and a.product_id = b.product_id
+         ]]>
+		<isNotEmpty property="objCondition.keyword">
+			<![CDATA[
+				   and b.product_title LIKE '%$objCondition.keyword$%'
+			]]>
+		</isNotEmpty>
+		<dynamic prepend="AND">
+			<include refid="byUserIdCondition" />
+		</dynamic>
+	</select>
+
+    <select id="findFavoritesByUserAndCategory" parameterClass="java.util.HashMap" resultMap="favoriteWithoutCategoryAttrResultMap">
+        <![CDATA[
+        select * from
+			(select f.*,
+                     b.product_title procuct_name,
+                     a.product_sku_id,
+                     a.price,
+                     e.img_path7
+               from bnes_favorites                f,
+                    product_sku         a,
+                    productmain         b,
+                    product_image       e
+             where f.content_code = a.product_sku_code
+               and f.favorites_type = 1
+               and a.product_id = b.product_id
+               and a.product_sku_id = e.sku_id
+               and e.is_default = 0
+        ]]>
+        <isNotEmpty property="userId" prepend="and">
+            <![CDATA[
+				f.login_id=#userId:NUMBER#
+			]]>
+        </isNotEmpty>
+        <isNotEmpty property="categoryId" prepend="and">
+            <![CDATA[
+				b.category_id=#categoryId:NUMBER#
+			]]>
+        </isNotEmpty>
+        <![CDATA[
+		ORDER BY CREATE_DATE DESC) tt
+		]]>
+        <isNotEmpty property="number" prepend="where">
+            <![CDATA[
+				rownum <= #number:NUMBER#
+			]]>
+        </isNotEmpty>
+    </select>
+	
+	<delete id="deleteById" parameterClass="int">
+		<![CDATA[
+			delete bnes_favorites where favorites_id = #favoriteId:NUMBER#
+		]]>
+	</delete>
+	
+	<delete id="deleteFavoriteByCode" parameterClass="java.util.HashMap">
+		<![CDATA[
+		   delete    bnes_favorites  b 
+		   where   b.content_code =  #skuCode:VARCHAR# and b.login_id = #loginId:NUMBER# 
+		]]>
+	</delete>
+
+    <insert id="insertFavorite" parameterClass="favorite">
+        <selectKey resultClass="long" keyProperty="favoriteId">
+            select SEQ_APP_FAVORITE.nextVal from dual
+        </selectKey>
+        <![CDATA[
+			INSERT INTO bnes_favorites
+						(favorites_id,login_id,content_code,favorites_type,create_date,modify_date,modifie_id,price_copy)
+				 VALUES (#favoriteId#,#loginId#,#contentCode#,#favoritesType#,#createDate#,#modifyDate#,#modifieId#,#priceCopy#)
+		]]>
+    </insert>
+
+    <select id="countInStockSku" parameterClass="java.util.Map" resultClass="long">
+        <![CDATA[
+            select  nvl(count(1),0) from bnes_favorites a
+            where a.favorites_type = 1
+              and login_id=#userId:NUMBER#
+              and exists
+                (select 1 from product_stock b,productmain m
+                  where a.content_code = b.sku_att_value
+                    and b.product_id=m.product_id
+                    and m.status='3'
+                    and b.stock_quality > b.order_quality)
+		]]>
+    </select>
+
+    <select id="isSavedFavorite" parameterClass="java.util.HashMap" resultClass="int">
+        <![CDATA[
+			select nvl(count(1),0) from bnes_favorites
+			where login_id=#userId:NUMBER# and content_code=#productSkuCode:NUMBER# and favorites_type=1
+		]]>
+    </select>
+
+    
+    <select id="isSavedFavoriteShop" parameterClass="java.util.HashMap" resultClass="int">
+        <![CDATA[
+			select nvl(count(1),0) from bnes_favorites
+			where login_id=#userId# and content_code=#shopCode# and favorites_type=2
+		]]>
+    </select>
+    
+    
+    
+    <select id="findFavoriteShopByPage" parameterClass="pagination" resultMap="favoriteShopResultMap">
+select * from(select ROWNUM rn,tt.* from (
+ select sm.shop_name,
+        sm.supplier_id,
+        sm.logo_path imgPath,  
+        sm.default_domain_url,
+        cti.province,
+        cti.city,
+        cti.area,
+        bf.favorites_id,
+        bf.login_id,
+        bf.content_code,
+        bf.favorites_type,
+        bf.create_date,
+        bf.modify_date,
+        bf.modifie_id
+   from bnes_favorites               bf,
+        shop_main                 sm,
+        suppliers_info            si,
+        commercial_tenant_basic_info cti
+  where bf.favorites_type = 2
+    and sm.shop_id = bf.content_code
+    and sm.supplier_id = si.supplier_id
+    and si.merchant_id = cti.n_commercial_tenant_id
+   <dynamic prepend="and">
+    <![CDATA[
+		bf.login_id= #objCondition.userId:NUMBER#
+	    ]]>
+  </dynamic>
+  <dynamic prepend="and">
+		 <![CDATA[   ROWNUM <= #endindex#]]>
+  </dynamic>) tt )
+  <![CDATA[   where rn >=#startindex# ]]>
+ 
+    </select>
+    
+    
+     <select id="countFavoriteShopByPage" parameterClass="pagination" resultClass="int">
+     select 
+      nvl(count(1),0)
+   from bnes_favorites               bf,
+        shop_main                 sm,
+        suppliers_info            si,
+        commercial_tenant_basic_info cti
+  where bf.favorites_type = 2
+    and sm.shop_id = bf.content_code
+    and sm.supplier_id = si.supplier_id
+    and si.merchant_id = cti.n_commercial_tenant_id
+    <dynamic prepend="and">
+    <![CDATA[
+		bf.login_id= #objCondition.userId:NUMBER#
+	    ]]>
+  </dynamic>
+     </select> 
+     
+     
+       <select id="findFavoriteShopcount" parameterClass="pagination" resultClass="int">
+     select *  from bnes_favorites  bf where bf.favorites_type=2 
+    <dynamic prepend="and">
+    <![CDATA[
+	bf.content_code='shopCode'
+	    ]]>
+  </dynamic>
+     </select>   
+           
+    <select id="findFavoriteShopUserCount" parameterClass="java.util.HashMap" resultClass="int">
+        <![CDATA[
+			 select Count(*)  from bnes_favorites  bf where   bf.content_code=#shopCode# and  bf.favorites_type=2
+		]]>
+    </select>
+        
+</sqlMap>

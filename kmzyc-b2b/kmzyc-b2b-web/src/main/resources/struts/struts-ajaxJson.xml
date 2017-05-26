@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="ajaxJson" extends="BasePackage,json-default">
+        <action name="loginInfoAction" class="cmsGetLoginInfoAction" method="getLoginInfo">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+
+        </action>
+        <action name="PVRrmarkAction" class="cmsGetLoginInfoAction" method="PVRrmarkToCMS">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <action name="validveCodeRegist" class="cmsGetLoginInfoAction" method="veCode">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <action name="CMSvalidemailRegist" class="cmsGetLoginInfoAction" method="validemailRegist">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <action name="CMSvalidvloginAccountRegist" class="cmsGetLoginInfoAction"
+                method="validvloginAccountRegist">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <action name="CMSRegistAction" class="cmsGetLoginInfoAction" method="CMSregist">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <action name="checkEmailExist" class="settlementAjaxAction" method="checkEmailExist">
+            <result name="success" type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="noCache">true</param>
+                <param name="root">checkedFlag</param>
+            </result>
+        </action>
+
+        <action name="checkMobileExist" class="settlementAjaxAction" method="checkMobileExist">
+            <result name="success" type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">checkedFlag</param>
+            </result>
+        </action>
+
+        <action name="queryPayMoney" class="settlementAjaxAction" method="queryPayMoney">
+            <result name="success" type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="noCache">true</param>
+                <param name="root">payMoney</param>
+            </result>
+        </action>
+
+        <action name="updateAndQueryPayMoney" class="settlementAjaxAction"
+                method="updateAndQueryPayMoney">
+            <result name="success" type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="noCache">true</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+        <action name="deleteCoupon" class="settlementAjaxAction" method="deleteCoupon">
+            <result name="success" type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="noCache">true</param>
+                <param name="root">payMoney</param>
+            </result>
+        </action>
+
+        <action name="checkPayMethodUsed" class="settlementAjaxAction" method="checkPayMethodUsed">
+            <result type="json" name="success">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="noCache">true</param>
+                <param name="root">checkedFlag</param>
+            </result>
+        </action>
+        <action name="getPayMoneyInfo" class="settlementAjaxAction" method="getPayMoneyInfo">
+            <result type="json" name="success">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="noCache">true</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+
+        <action name="checkOrderOnpay" class="settlementAjaxAction" method="checkOrderOnpay">
+            <result type="json" name="success">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="noCache">true</param>
+                <param name="root">result</param>
+            </result>
+        </action>
+        <action name="checkOrderOnpayDeposit" class="settlementAjaxAction"
+                method="checkOrderOnpayDeposit">
+            <result type="json" name="success">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="noCache">true</param>
+                <param name="root">result</param>
+            </result>
+        </action>
+        <action name="checkOrderOnpayRetainage" class="settlementAjaxAction"
+                method="checkOrderOnpayRetainage">
+            <result type="json" name="success">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="noCache">true</param>
+                <param name="root">result</param>
+            </result>
+        </action>
+        <action name="checkFareChange" class="settlementAjaxAction" method="checkFareChange">
+            <result type="json" name="success">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="noCache">true</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+        <action name="isNumberOfAddressOk" class="settlementAjaxAction"
+                method="isNumberOfAddressOk">
+            <result type="json" name="success">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="noCache">true</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+        <action name="getFare" class="settlementAjaxAction" method="getFare">
+            <result type="json" name="success">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="noCache">true</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 用根据用户校验用户是否存在 -->
+        <action name="checkUserExists" class="cmsGetLoginInfoAction" method="checkUserExists">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 获取SKU所属运营类目 -->
+        <action name="getSKUCategory" class="searchInterfaceAction" method="getSKUCategory">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 个人信息修改 -->
+        <action name="updateUserInfo" class="userInfoAction" method="updateUserInfo">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <action name="checkUserIsLogin" class="settlementAjaxAction" method="checkUserIsLogin">
+            <result type="json" name="success">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="noCache">true</param>
+                <param name="root">checkedFlag</param>
+            </result>
+        </action>
+
+        <!-- 会员建议投诉添加-->
+        <action name="addComplaint" class="complaintAction" method="addComplaint">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 根据supplierId获取资讯信息 -->
+        <action name="getSupplyNews" class="supplierNewsInterFaceAction" method="getSupplyNews">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- cps中转跳转 -->
+        <action name="promotionTrack" class="promotionTrackAction">
+            <result type="redirect" name="success">${target}</result>
+        </action>
+        <!-- 按下单时间查询  -->
+        <action name="queryOrderInfoByCreateTime" class="promotionTrackAction"
+                method="queryOrderInfoByCreateTime">
+            <result type="json" name="success">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">resultMap</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+        <!-- 成果网数据查询接口  -->
+        <action name="queryOrderInfoCgw" class="promotionTrackAction" method="queryOrderInfoCgw">
+            <result type="json" name="success">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">resultStr</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+        <action name="queryOrderInfoLK" class="promotionTrackAction"
+                method="queryOrderInfoLK"></action>
+        <action name="queryOrderInfoDuoMai" class="promotionTrackAction"
+                method="queryOrderInfoDuoMai"></action>
+        <!-- 按更新时间查询 -->
+        <action name="queryOrderInfoByUpdateTime" class="promotionTrackAction"
+                method="queryOrderInfoByUpdateTime">
+            <result type="json" name="success">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">resultMap</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+
+        <action name="wabQueryCoupon" class="myCouponAction" method="wabQueryCoupon">
+            <result type="json" name="success">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">resultMap</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!--删除收货人信息 -->
+        <action name="deleteConsigneeInfo" class="settlementAction" method="deleteConsigneeInfo">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 浮动框手机号验证 -->
+        <action name="mobileNumberIsTrues" class="cmsGetLoginInfoAction"
+                method="mobileNumberIsTrues">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- pc端浮动框手机注册成功 -->
+        <action name="CMSPhoneRegist" class="cmsGetLoginInfoAction" method="CMSPhoneRegist">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- pc端浮动框手机验证码验证 -->
+        <action name="getSessionVars" class="cmsGetLoginInfoAction" method="getSessionVars">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- pc端浮动框手机验证码发送 -->
+        <action name="CMSsendMobile" class="cmsGetLoginInfoAction" method="CMSsendMobile">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 统一登录 -->
+        <action name="unionLogin" class="loginAction" method="unionLogin">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- KM登录 -->
+        <!--<action name="mobileCodeSubmit" class="loginAction" method="mobileCodeSubmit">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>-->
+        <!-- KM登录 手机验证-->
+        <!--<action name="kmCardNoLogin" class="loginAction" method="kmCardNoLogin">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>-->
+        <!-- KM注册-->
+        <!--<action name="kmLoginRegister" class="loginAction" method="kmLoginRegister">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>-->
+        <!-- 修改密码，总部会员 -->
+        <!--<action name="kmUpdatePassword" class="loginAction" method="kmUpdatePassword">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>-->
+
+        <!-- 退出 -->
+        <action name="loginout" class="loginAction" method="loginout">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 获取错误登录次数 -->
+        <action name="getLoginTime" class="loginAction" method="getLoginTime">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 康美通，校验登录信息 -->
+        <action name="checkLoginInfoForKMT" class="loginAction" method="checkLoginInfoForKMT">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!--修改时代用户信息 对外接口-->
+        <action name="updateEraInfoRemote" class="eraInfoRemote" method="updateEraInfo">
+        </action>
+        <!--时代用户登录 易创网使用  对外接口-->
+        <action name="ssoAuth" class="eraInfoRemote" method="timesLogin">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+    </package>
+</struts>

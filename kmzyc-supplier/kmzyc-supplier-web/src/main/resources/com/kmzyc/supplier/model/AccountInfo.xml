@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AccountInfo">
+	<!-- <typeAlias alias="accountInfo" type="com.pltfm.app.vobject.AccountInfo"/> -->
+
+	<resultMap id="accountInfo" class="com.kmzyc.supplier.model.AccountInfo">
+		<result column="N_ACCOUNT_ID" property="naccountId" jdbcType="DECIMAL" />
+		<result column="N_CUSTOMER_TYPE_ID" property="customerTypeId" jdbcType="DECIMAL" />
+		<result column="N_LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+		<result column="ACCOUNT_LOGIN" property="accountLogin" jdbcType="VARCHAR" />
+		<result column="PAYMENTPWD" property="paymentpwd" jdbcType="VARCHAR" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="ACCONUT_ID" property="acconutId" jdbcType="VARCHAR" />
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+		<result column="D_CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="N_ACCOUNT_AMOUNT" property="accountAmount" jdbcType="DECIMAL" />
+		<result column="AMOUNT_FROZEN" property="amountFrozen" jdbcType="DECIMAL" />
+		<result column="AMOUNT_AVLIBAL" property="amountAvlibal" jdbcType="DECIMAL" />
+		<result column="N_STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="D_MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+		<result column="N_MODIFIED" property="modified" jdbcType="DECIMAL" />
+		<result column="PAY_RANGE" property="payRange" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 供应商账户信息 Map-->
+	<resultMap id="supplierAccountInfoMap" class="com.kmzyc.supplier.model.SupplierAccountInfo">
+		<result column="N_ACCOUNT_ID" property="nAccountId" jdbcType="DECIMAL" />
+		<result column="N_CUSTOMER_TYPE_ID" property="customerTypeId" jdbcType="DECIMAL" />
+		<result column="N_LOGIN_ID" property="nLoginId" jdbcType="DECIMAL" />
+		<result column="ACCOUNT_LOGIN" property="accountLogin" jdbcType="VARCHAR" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+		<result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="N_ACCOUNT_AMOUNT" property="nAccountAmount" jdbcType="DECIMAL" />
+		<result column="AMOUNT_FROZEN" property="amountFrozen" jdbcType="DECIMAL" />
+		<result column="AMOUNT_AVLIBAL" property="amountAvlibal" jdbcType="DECIMAL" />
+		<result column="N_STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="N_LEVEL_ID" property="nLevelId" jdbcType="DECIMAL" />
+		<result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 供应商基本信息 Map-->
+	<resultMap id="commercialTenantBasicInfoMap" class="com.kmzyc.supplier.model.MerchantInfo">
+		<result column="N_COMMERCIAL_TENANT_ID" property="merchantId" jdbcType="DECIMAL" />
+		<result column="N_LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+		<result column="CONTACTS_NAME" property="contactsName" jdbcType="VARCHAR" />
+		<result column="CONTACTS_DEPARTMENT" property="contactsDepartment" jdbcType="VARCHAR" />
+		<result column="FIXED_PHONE" property="fixedPhone" jdbcType="VARCHAR" />
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+		<result column="CONTACTS_EMAIL" property="contactsEmail" jdbcType="VARCHAR" />
+		<result column="CORPORATE_NAME" property="corporateName" jdbcType="VARCHAR" />
+		<result column="CORPORATE_LOCATION" property="corporateLocation" jdbcType="VARCHAR" />
+		<result column="CORPORATE_PROPERTY" property="corporateProperty" jdbcType="VARCHAR" />
+		<result column="CORPORATE_TRADE" property="corporateTrade" jdbcType="VARCHAR" />
+		<result column="N_ENTERPRISE_NUMBER_OF_PEOPLE" property="enterpriseNumberOfPeople" jdbcType="DECIMAL" />
+		<result column="D_FOUND_Date" property="foundDate" jdbcType="Date" />
+		<result column="N_ENTERPRISE_STATUS" property="enterpriseStatus" jdbcType="DECIMAL" />
+		<result column="POSTALCODE" property="postalcode" jdbcType="VARCHAR" />
+		<result column="UPLOAD_BUSINESS_LICENCE_PICTUR" property="uploadBusinessLicencePictur" jdbcType="VARCHAR" />
+		<result column="ORGANIZATION_CODE" property="organizationCode" jdbcType="VARCHAR" />
+		<result column="ENTERPRISE_LEGAL_REPRESENTATIV" property="enterpriseLegalRepresentativ" jdbcType="VARCHAR" />
+		<result column="ENTERPRISE_REALM_NAME" property="enterpriseRealmName" jdbcType="VARCHAR" />
+		<result column="D_CREATE_Date" property="createDate" jdbcType="Date" />
+		<result column="N_CREATED" property="createUser" jdbcType="DECIMAL" />
+		<result column="D_MODIFY_Date" property="modifyDate" jdbcType="Date" />
+		<result column="N_MODIFIED" property="modifyUser" jdbcType="DECIMAL" />
+		<result column="AUTHENTICATION_STATUS" property="authenticationStatus" jdbcType="DECIMAL" />
+		<result column="BUSINESS_LICENCE_REGISTER" property="businessLicenceRegister" jdbcType="VARCHAR" />
+		<result column="BUSINESS_TIME_LIMIT" property="businessTimeLimit" jdbcType="VARCHAR" />
+		<result column="REGISTER_BANKROLL" property="registerBankroll" jdbcType="DECIMAL" />
+		<result column="BUSINESS_SCOPE" property="businessScope" jdbcType="VARCHAR" />
+		<result column="BANK_ACCOUNT_NAME" property="bankAccountName" jdbcType="VARCHAR" />
+		<result column="BANK_OF_DEPOSIT" property="bankOfDeposit" jdbcType="VARCHAR" />
+		<result column="BANK_OF_DEPOSIT_BRANCH_NAME" property="bankOfDepositBranchName" jdbcType="VARCHAR" />
+		<result column="COMPANY_ACCOUNT" property="companyAccount" jdbcType="VARCHAR" />
+		<result column="N_CERTIFICATE_TYPE" property="certificateType" jdbcType="DECIMAL" />
+		<result column="CERTIFICATE_NUMBER" property="certificateNumber" jdbcType="VARCHAR" />
+		<result column="LOCATION" property="location" jdbcType="VARCHAR" />
+		<result column="CERTIFICATE_PICTURE" property="certificatePicture" jdbcType="VARCHAR" />
+		<result column="BUSINESS_LICENCE_LOCATION" property="businessLicenceLocation" jdbcType="VARCHAR" />
+		<result column="BLINCE_STARTDATE" property="blinceStartdate" jdbcType="DATE" />
+		<result column="BLINCE_ENDDATE" property="blinceEnddate" jdbcType="DATE" />
+		<result column="TAX_REGISTRATION_CNO" property="taxRegistrationCno" jdbcType="VARCHAR" />
+		<result column="PHONE" property="phone" jdbcType="VARCHAR" />
+		<result column="TAXPAYER_IDNUMBER" property="taxpayerIdnumber" jdbcType="VARCHAR" />
+		<result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+		<result column="CITY" property="city" jdbcType="VARCHAR" />
+		<result column="AREA" property="area" jdbcType="VARCHAR" />
+		<result column="ORGANIZATION_URL" property="organizationUrl" jdbcType="VARCHAR" />
+		<result column="TAX_REG_CERTIFICATE_COPY" property="taxRegCertificateCopy" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<parameterMap class="java.util.Map" id="couponMoneymap">
+		<parameter property="moneyCount" />
+		<parameter property="customId" />
+	</parameterMap>
+	<sql id="byNaccountIDCondition">
+		<![CDATA[
+		   n_login_id = #loginId:NUMBER#
+	    ]]>
+	</sql>
+
+	<sql id="byUserIdCondition">
+		<![CDATA[
+		   N_LOGIN_ID = #userId:NUMBER#
+	    ]]>
+	</sql>
+
+	<select id="findById" parameterClass="Long" resultMap="accountInfo">
+		<![CDATA[
+			SELECT * FROM ACCOUNT_INFO
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byNaccountIDCondition" />
+		</dynamic>
+	</select>
+	<update id="updateEmail" parameterClass="java.util.HashMap">
+		UPDATE ACCOUNT_INFO A SET A.EMAIL=#email:VARCHAR# WHERE A.N_LOGIN_ID=#userId:NUMBER#
+	</update>
+	<update id="updateMobile" parameterClass="java.util.HashMap">
+		UPDATE ACCOUNT_INFO A SET A.MOBILE=#mobile:VARCHAR# WHERE A.N_LOGIN_ID=#userId:NUMBER#
+	</update>
+
+	<select id="findByUserId" parameterClass="long" resultMap="accountInfo">
+		<![CDATA[
+			SELECT * FROM ACCOUNT_INFO
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byUserIdCondition" />
+		</dynamic>
+	</select>
+
+	<select id="findDefaultAddressByLoginId" parameterClass="long" resultClass="int">
+		select count(1) from address a, account_info ai
+		where a.N_account_id = ai.N_ACCOUNT_ID and ai.N_LOGIN_ID=#loginId:NUMBER# and status=0
+	</select>
+
+	<!-- 查询供应商账户信息 -->
+	<select id="findSupplierInfoByUserId" parameterClass="java.lang.Long" resultMap="supplierAccountInfoMap">
+		SELECT a.n_account_id,a.n_customer_type_id,a.n_login_id,a.account_login,a.name,
+		b.mobile,b.email,a.address,a.amount_frozen,a.n_account_amount,a.amount_avlibal,
+		a.n_status,b.n_level_id,b.login_account,b.login_password
+		FROM ACCOUNT_INFO a,login_info b,personality_info d
+		WHERE a.N_LOGIN_ID = b.n_login_id AND a.N_LOGIN_ID = d.n_login_id AND A.N_LOGIN_ID=#userId:NUMBER#
+	 </select>
+	 
+
+	 <!-- 查询供应商基本信息 -->
+	<select id="findSupplierBaseInfoByUserId" parameterClass="java.lang.Long" resultMap="commercialTenantBasicInfoMap">
+	  	select c.* from login_info l, login_rose_rel t, commercial_tenant_basic_info c
+		where l.n_login_id = t.n_login_id and t.n_customer_type_id = 5
+		and c.n_commercial_tenant_id = t.n_commercial_id and t.n_login_id = #userId:NUMBER#
+	</select>
+	 
+</sqlMap>

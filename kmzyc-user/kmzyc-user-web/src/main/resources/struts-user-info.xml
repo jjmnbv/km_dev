@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <!-- 客户信息管理 -->
+    <package name="userInfo" namespace="/userInfo" extends="struts">
+        <action name="userInfo_*" class="personalityInfoAction" method="{1}">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/sysUserList.jsp</result>
+        </action>
+
+        <!-- 康美中药城会员管理 -->
+        <action name="eraInfo_*" class="eraInfoAction" method="{1}">
+            <result name="pageSuccess">/WEB-INF/jsp/app/eraInfo/eraInfoList.jsp</result>
+            <result name="detailSuccess">/WEB-INF/jsp/app/eraInfo/eraInfoDetail.jsp</result>
+        </action>
+
+        <!-- 专家客户信息管理 -->
+        <action name="commercialTenantBasicInfo_*" class="commercialTenantBasicInfoAction"
+                method="{1}">
+            <result name="pageSuccess">
+                /WEB-INF/jsp/app/commercialTenantBasicInfo/commercialTenantBasicInfoList.jsp
+            </result>
+            <!-- 采购商审核 -->
+            <result name="procurementPageList">
+                /WEB-INF/jsp/app/ProcurementBasicInfo/ProcurementBasicInfoList.jsp
+            </result>
+            <result name="procurementUpdate">
+                /WEB-INF/jsp/app/ProcurementBasicInfo/ProcurementBasicInfoUpdate.jsp
+            </result>
+            <result name="procurementVerify">
+                /WEB-INF/jsp/app/ProcurementBasicInfo/ProcurementBasicInfoVerify.jsp
+            </result>
+            <result name="procurementDetail">
+                /WEB-INF/jsp/app/ProcurementBasicInfo/ProcurementBasicInfoDetail.jsp
+            </result>
+            <result name="procurementVerifyNoPass">
+                /WEB-INF/jsp/app/ProcurementBasicInfo/ProcurementBasicInfoVerfyNoPass.jsp
+            </result>
+
+            <result name="preAddSuccess">
+                /WEB-INF/jsp/app/commercialTenantBasicInfo/commercialTenantBasicInfoAdd.jsp
+            </result>
+
+            <result name="preUpdateSuccess">
+                /WEB-INF/jsp/app/commercialTenantBasicInfo/commercialTenantBasicInfoUpdate.jsp
+            </result>
+
+            <result name="preDetailSuccess">
+                /WEB-INF/jsp/app/commercialTenantBasicInfo/commercialTenantBasicInfoDetail.jsp
+            </result>
+            <result name="invalid.token" type="redirectAction">
+                commercialTenantBasicInfo_pageList
+            </result>
+
+            <result name="invalid.token" type="redirectAction">
+                commercialTenantBasicInfo_procurementPageList
+            </result>
+        </action>
+
+        <!-- 个人客户信息管理 -->
+        <action name="personalBasicInfo_*" class="personalBasicInfosAction" method="{1}">
+            <result name="pageSuccess">
+                /WEB-INF/jsp/app/personalBasicInfo/personalBasicInfoList.jsp
+            </result>
+            <result name="success">
+                /WEB-INF/jsp/app/personalBasicInfo/personalBasicInfoExport.jsp
+            </result>
+
+            <result name="preAddSuccess">
+                /WEB-INF/jsp/app/personalBasicInfo/personalBasicInfoAdd.jsp
+            </result>
+
+            <result name="preUpdateSuccess">
+                /WEB-INF/jsp/app/personalBasicInfo/personalBasicInfoUpdate.jsp
+            </result>
+
+            <result name="preBatchSyncSuccess">
+                /WEB-INF/jsp/app/personalBasicInfo/personalBasicBatchSyncEdit.jsp
+            </result>
+            <result name="preDetailSuccess">
+                /WEB-INF/jsp/app/personalBasicInfo/personalBasicInfoDetail.jsp
+            </result>
+            <result name="invalid.token" type="redirectAction">
+                personalBasicInfo_pageList
+            </result>
+        </action>
+        <action name="queryRebateUserInfo" class="personalBasicInfosAction"
+                method="queryRebateUserInfo">
+            <result name="pageSuccess">
+                /WEB-INF/jsp/app/personalBasicInfo/rebateUserInfoList.jsp
+            </result>
+        </action>
+        <!-- 按方抓药 -->
+        <action name="prescripinfo_*" class="prescripinfoAction" method="{1}">
+            <result name="veriPageList">
+                /WEB-INF/jsp/app/prescripinfo/prescripinfoPageList.jsp
+            </result>
+            <result name="updatePurchaseInfo">
+                /WEB-INF/jsp/app/prescripinfo/prescripinfoUpdate.jsp
+            </result>
+            <result name="noPassPurchaseInfo">
+                /WEB-INF/jsp/app/prescripinfo/prescripinfoNoPass.jsp
+            </result>
+        </action>
+
+        <!-- 显示产品信息-->
+        <action name="productinfo_*" class="productInfoAction" method="{1}">
+            <result name="addProducts">
+                /WEB-INF/jsp/app/products/addOtherRelationTypeProduct.jsp
+            </result>
+            <result name="addLuckProducts">
+                /WEB-INF/jsp/app/products/addLuckProducts.jsp
+            </result>
+
+        </action>
+        <!-- 采购商信息变更审核 -->
+
+        <action name="commercialTenantBasicCopy_*" class="commercialTenantBasicCopyAction"
+                method="{1}">
+            <result name="veriPageList">
+                /WEB-INF/jsp/app/ProcurementBasicInfo/ProcurementInfoVeriPageList.jsp
+            </result>
+            <result name="CommercialTenantBasicCopyDetail">
+                /WEB-INF/jsp/app/ProcurementBasicInfo/ProcurementBasicCopyDetail.jsp
+            </result>
+
+            <result name="commercialTenantBasicCopyVerify">
+                /WEB-INF/jsp/app/ProcurementBasicInfo/ProcurementBasicCopyVerify.jsp
+            </result>
+
+            <result name="CommercialTenantBasicUpdate">
+
+                /WEB-INF/jsp/app/ProcurementBasicInfo/ProcurementBasicCopyUpdate.jsp
+            </result>
+
+            <result name="procurementVerifyNoPassSupplier">
+                /WEB-INF/jsp/app/ProcurementBasicInfo/ProcurementBasicCopyVerfyNoPass.jsp
+            </result>
+
+        </action>
+
+
+        <!-- 最近登录信息管理 -->
+        <action name="latestLogin_*" class="latestLoginAction" method="{1}">
+            <result name="pageSuccess">
+                /WEB-INF/jsp/app/latestLogin/latestLoginList.jsp
+            </result>
+        </action>
+
+        <!-- 关注信息管理 -->
+        <action name="follow_*" class="followAction" method="{1}">
+            <result name="pageSuccess">
+                /WEB-INF/jsp/app/follow/followList.jsp
+            </result>
+        </action>
+
+
+        <!-- 浏览信息管理 -->
+        <action name="browse_*" class="browseAction" method="{1}">
+            <result name="pageSuccess">
+                /WEB-INF/jsp/app/browse/browseList.jsp
+            </result>
+        </action>
+
+        <!-- 浏览信息管理 -->
+        <action name="collect_*" class="collectAction" method="{1}">
+            <result name="pageSuccess">
+                /WEB-INF/jsp/app/collect/collectList.jsp
+            </result>
+        </action>
+        <!-- 关键词过滤 -->
+        <action name="keyWords_*" class="keyWordsAction" method="{1}">
+            <result name="lists">/WEB-INF/jsp/app/keyWords/keyWordsList.jsp</result>
+            <result name="addKeyWords">/WEB-INF/jsp/app/keyWords/keyWordsAdd.jsp</result>
+            <result name="updateKeyWords">/WEB-INF/jsp/app/keyWords/keyWordsUpdate.jsp</result>
+            <result name="invalid.token" type="redirectAction">
+                keyWords_pageList
+            </result>
+        </action>
+
+
+        <!-- 商户信息查询 -->
+        <action name="supplier_*" class="supplierInfoAction" method="{1}">
+            <result name="pageList">/WEB-INF/jsp/app/supplier/supplierInfoList.jsp</result>
+
+        </action>
+
+
+
+        <!-- 预备金审核   -->
+        <!-- 删除预备金相关 	 <action name="reserverApplyInfo_*" class="reserverApplyInfoAction" method="{1}">
+                 <result name="pageSuccess">/WEB-INF/jsp/app/reserver/reserverApplyList.jsp</result>
+                 <result name="queryServerApplyDetail">/WEB-INF/jsp/app/reserver/reserverApplyDetail.jsp</result>
+             </action>
+             -->
+        <!-- 预备金管理 -->
+        <!--删除预备金相关   <action name="reserverInfo_*" class="reserverInfoAction" method="{1}">
+             <result name="pageSuccess">/WEB-INF/jsp/app/reserver/reserverInfoList.jsp</result>
+             <result name="edit">/WEB-INF/jsp/app/reserver/reserverOpen.jsp</result>
+         </action> -->
+        <!-- 预备金管理 -->
+        <!--删除预备金相关  <action name="reserverBill_*" class="reserverBillAction" method="{1}">
+             <result name="pageSuccess">/WEB-INF/jsp/app/reserver/reserverBillList.jsp</result>
+             <result name="clickAddBill">/WEB-INF/jsp/app/reserver/clickAddBill.jsp</result>
+             <result name="chooseReserver">/WEB-INF/jsp/app/reserver/reserverInfoChooseList.jsp</result>
+              重复提交
+               <result name="invalid.token" type="redirectAction">
+                        reserverBill_PageList
+               </result>
+         </action> -->
+        <!-- 预备金交易记录 -->
+        <!--删除预备金相关  <action name="reserverTransaction_*" class="reserverTransaction" method="{1}">
+           <result name="pageSuccess">/WEB-INF/jsp/app/reserver/reserverTransactionList.jsp</result>
+       </action> -->
+    </package>
+</struts>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

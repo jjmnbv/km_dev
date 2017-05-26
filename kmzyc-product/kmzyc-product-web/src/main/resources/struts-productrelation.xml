@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package namespace="/productRelation" name="productRelation" extends="struts-default">
+        <!--跳转到产品搭售主页面 -->
+        <action name="skuProductQuery" class="productRelationAction" method="skuProductQuery">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/productRelation/ProductList.jsp</result>
+        </action>
+        <action name="packageManage" class="productRelationAction" method="queryPackageDetail">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/productRelation/productPackage.jsp</result>
+        </action>
+        <!-- 查询要关联的产品 -->
+        <action name="relationQueryProduct" class="productRelationAction" method="relationQueryProduct">
+            <result name="success">/WEB-INF/jsp/app/productRelation/relationProduct.jsp</result>
+        </action>
+        <!-- 跳转添加套餐页面-->
+        <action name="addRelation" class="productRelationAction" method="packageAddProductTaoCan">
+            <result name="success">/WEB-INF/jsp/app/productRelation/addPackage.jsp</result>
+        </action>
+        <!-- 保存套餐 -->
+        <action name="saveProductRelationTaoCan" class="productRelationAction" method="saveProductRelationTaoCan">
+            <result name="success" type="redirect">/productRelation/packageManage.action?rtnMessage=${rtnMessage}</result>
+            <result name="package" type="redirect">/productRelation/queryPackageDetail.action?rtnMessage=${rtnMessage}&amp;productRelation.mainSkuId=${productRelation.mainSkuId}
+            </result>
+        </action>
+        <!-- 修改套餐 -->
+        <action name="updateProductRelation" class="productRelationAction" method="updateProductRelation">
+            <result name="success" type="redirect">/productRelation/packageManage.action?rtnMessage=${rtnMessage}</result>
+        </action>
+        <!-- 新增状态修改套餐 -->
+        <action name="updateProductRelationTaoCan" class="productRelationAction" method="updateProductRelation">
+            <result name="success" type="redirect">/productRelation/packageManage.action?rtnMessage=${rtnMessage}</result>
+        </action>
+        <!-- 保存关联 -->
+        <action name="saveProductRelation" class="productRelationAction" method="saveProductRelation">
+            <result name="success" type="redirect">
+                /productRelation/queryPackage.action?rtnMessage=${rtnMessage}&amp;productRelation.mainSkuId=${productRelation.mainSkuId}
+            </result>
+            <result name="package" type="redirect">
+                /productRelation/queryPackageDetail.action?rtnMessage=${rtnMessage}&amp;productRelation.mainSkuId=${productRelation.mainSkuId}
+            </result>
+        </action>
+        <!-- 在一个产品中查询其产品关联-->
+
+        <action name="queryPackage" class="productRelationAction" method="queryPackage">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/productRelation/productRelationPackage.jsp</result>
+        </action>
+        <!-- 在一个产品中查询其套餐-->
+
+        <action name="queryPackageDetail" class="productRelationAction" method="queryPackageDetail">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/productRelation/productPackage.jsp</result>
+        </action>
+        <!--删除套餐 -->
+        <action name="delRelationInfo" class="productRelationAction" method="delRelationInfoTaoCan">
+        </action>
+        <!--删除套餐字表信息 -->
+        <action name="deleteRelationDeit" class="productRelationAction" method="delRelationDetail">
+        </action>
+        <!--删除关联 -->
+        <action name="delPackage" class="productRelationAction" method="delPackage">
+        </action>
+        <!-- 更新有效状态 -->
+        <action name="updateStatus" class="productRelationAction" method="updateStatus"></action>
+
+        <!--上下架套餐 -->
+        <action name="upOrDownShelf" class="productRelationAction" method="upOrDownShelf">
+        </action>
+        <!-- 查看产品关联中关联信息 -->
+        <action name="viewProductDeatil" class="productRelationAction" method="viewProductDeatil">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/productRelation/productRelationDeatilView.jsp</result>
+        </action>
+        <!-- 下架和上架查看产品套餐中关联信息 -->
+        <action name="viewRelationDeatil" class="productRelationAction" method="viewProductPackageDeatilTaoCan">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/productRelation/productRelationUpdate.jsp</result>
+        </action>
+        <!-- 新增状态下查看产品套餐中关联信息 -->
+        <action name="viewRelationDeatilAddstr" class="productRelationAction" method="viewProductPackageDeatilTaoCan">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/productRelation/productRelationAddstatusUpdate.jsp</result>
+        </action>
+
+        <!--删除某套餐中关联的产品 -->
+        <action name="delPackageDetail" class="productRelationAction" method="delPackageDetail"></action>
+
+        <!-- 跳转到添加其他产品的页面中去 -->
+        <action name="addOtherProductRelation" class="productRelationAction" method="addOtherProductRelation">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/productRelation/addOtherRelationProduct.jsp</result>
+            <result name="otherSuccess" type="dispatcher">/WEB-INF/jsp/app/productRelation/addOtherRelationTypeProduct.jsp</result>
+        </action>
+
+        <action name="saveOtherProductRelation" class="productRelationAction" method="saveOtherProductRelation">
+            <result name="success" type="redirect">
+                /productRelation/viewProductDeatil.action?productRelationDetail.relationId=${relationId}&amp;mainSkuId=${productTied.productSkuId}&amp;rtnMessage=${rtnMessage}&amp;pageNum=${pageNum}
+            </result>
+        </action>
+
+
+        <action name="addOtherTypeProductRelation" class="productRelationAction" method="addOtherTypeProductRelation">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/productRelation/addOtherRelationTypeProduct.jsp</result>
+        </action>
+        <!-- 添加套餐选择产品页面 -->
+        <action name="addOtherTypeProductRelationTaoCan" class="productRelationAction"
+                method="addOtherTypeProductRelationTaoCan">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/productRelation/addTaoCanProduct.jsp</result>
+        </action>
+
+        <action name="updatePrice" class="productRelationAction" method="updatePrice"></action>
+        <action name="showSupplierInfo" class="productRelationAction" method="showSupplierInfo">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/productRelation/supplierAuditList.jsp</result>
+        </action>
+
+        <!-- 跳转至新增组方页面关联的组方产品-->
+        <action name="relationQueryZFProduct" class="productRelationAction" method="relationQueryZFProduct">
+            <result name="success">/WEB-INF/jsp/app/productRelation/zfRelationProduct.jsp</result>
+        </action>
+        <!-- 保存组方关联 -->
+        <action name="saveProductZFRelation" class="productRelationAction" method="saveProductZFRelation">
+            <result name="success" type="redirect">/productRelation/queryZFProductRelation.action?rtnMessage=addsuccess</result>
+        </action>
+        <!-- 组方列表查询 -->
+        <action name="queryZFProductRelation" class="productRelationAction" method="queryZFProductRelation">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/productRelation/zfRelationList.jsp</result>
+        </action>
+        <!-- 查看组方关联中关联信息 -->
+        <action name="viewZFProductDeatil" class="productRelationAction" method="viewZFProductDeatil">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/productRelation/zfViewZFProductDeatil.jsp</result>
+        </action>
+        <!-- 查询组方关联中关联信息 -->
+        <action name="updateZFProductDeatil" class="productRelationAction" method="updateZFProductDeatil">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/productRelation/updateZFProductDeatil.jsp</result>
+        </action>
+        <!-- 修改组方关联 -->
+        <action name="updateProductZFRelation" class="productRelationAction" method="updateProductZFRelation">
+            <result name="success" type="redirect">/productRelation/queryZFProductRelation.action?rtnMessage=successUpdate</result>
+        </action>
+        <!-- 20160111注释
+              原因：未用到
+              功能描述：跳转添加套餐页面
+          <action name="packageQueryProduct" class="productRelationAction" method="packageAddProduct">
+            <result name="success">
+                 /WEB-INF/jsp/app/productRelation/addPackage.jsp
+            </result>
+          </action>
+
+                原因：未用到
+                功能描述：可编辑状态下的 在一个套餐中查询其关联产品的信息（产品套餐）
+         <action name="viewProductPackageDeatil" class="productRelationAction" method="viewProductPackageDeatil" >
+         <result name="success" type="dispatcher">
+        /WEB-INF/jsp/app/productRelation/productPackageDeatilView.jsp
+         </result> </action>
+
+               原因：未用到
+                功能描述：保存添加信息
+         <action name="saveOtherProductPackage" class="productRelationAction" method="saveOtherProductPackage"	>
+         <result name="success" type="redirect" >
+         /productRelation/viewProductPackageDeatil.action?productRelationDetail.relationId=${relationId}&amp;mainSkuId=${productTied.productSkuId}&amp;rtnMessage=${rtnMessage}&amp;pageNum=${pageNum}
+         </result>
+         </action>
+
+               原因：未用到
+                功能描述：非编辑状态下的查看套餐中的关联信息
+        <action name="viewDetailUnderOnNotEdible" class="productRelationAction" method="viewDetailUnderOnNotEdible">
+         <result name="success" type="dispatcher">
+         /WEB-INF/jsp/app/productRelation/productRelationUnedibaleDeatilView.jsp
+         </result>
+        </action>
+
+              原因：未用到
+                功能描述：更新可编辑状态
+         <action name="updateEditable" class="productRelationAction" method="updateEditable"></action>
+         -->
+    </package>
+</struts>

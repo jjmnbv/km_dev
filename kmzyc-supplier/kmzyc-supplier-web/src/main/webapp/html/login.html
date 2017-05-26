@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<!--#include file="common/common.html" -->
+		<title>登录 - 康美中药城</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="Keywords" content="康美中药城，康美商家平台"/>
+        <meta name="Description" content="康美中药城，康美商家平台"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta http-equiv="pragma" content="no-cache"/>
+		<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"/>
+		<meta http-equiv= "Expires" content= "0" /> 
+		<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT"/>
+        <link rel="shortcut icon" href="<!--#echo var='cssAndJsPath' -->/resgys/images/kmzl.ico" type="image/x-icon"/>
+		<link type="text/css" rel="stylesheet" href="<!--#echo var='cssAndJsPath' -->/resgys/style/default/base.css" />
+		<link type="text/css" rel="stylesheet" href="<!--#echo var='cssAndJsPath' -->/resgys/style/default/tpl.css" />
+		<link type="text/css" rel="stylesheet" href="<!--#echo var='cssAndJsPath' -->/resgys/style/default/global.css" />
+		<script src="<!--#echo var='cssAndJsPath' -->/resgys/script/seajs/2.0.2/sea.js"></script>
+        <script src="<!--#echo var='cssAndJsPath' -->/resgys/script/config.js"></script>
+    	<script>
+            var KMSUPPLIER = {
+                DEBUG: 0, //
+                VERSION: '201312121520', //版本号
+                BASEURI: '',
+                PAGEACTION: '',
+                USERINFO: {
+                    id: '',
+                    name: '',
+                    avatar: ''
+                }
+            };
+            try{
+    			if(self != top||self.frameElement.tagName=='IFRAME'){
+    				top.location.href='/html/login.html';
+    			}
+    		}catch(e){}
+            seajs.use('<!--#echo var="cssAndJsPath" -->/resgys/script/view/html/login.js');
+        </script>
+    
+    </head>
+    
+<body>
+	<div class="i-head">
+		<div class="l-w">
+			<h1 class="logo"><a title="康美中药城商家平台" target="_blank" href="<!--#echo var='b2b_url_path' -->"></a></h1>
+			<ul class="apply fn-inline-block">
+				<li class="service-tel"><i></i>客服电话：<strong>0558-5195678</strong></li>
+				<li><a title="申请成为商家" class="apply-img" href="/supplier/goFirstApplyPag.action"></a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="i-show">
+		<div class="login-box">
+			<div class="login-form">
+				<h3 class="login-form-tit">登录商家平台</h3>
+				<div class="login-form-cont">
+					<div class="login-form-tiptext">
+						<p class="ui-tiptext ui-tiptext-error j_ui-tiptext-error" style="display: none;">
+							<i class="ui-icon ui-icon-error xg-con-con"></i><span id="login_error_msg"></span>
+						</p>
+					</div>
+					<div class="login-form-item">
+						<input type="text" tabindex="1" id="loginAccount" name="loginAccount" autocomplete="off" placeholder="手机号"/>
+						<i class="form-icon-user"></i>
+					</div>
+					<div class="login-form-item">
+						<input type="password" tabindex="2" id="loginPassWord" name="loginPassWord" autocomplete="off" placeholder="登录密码"/>
+						<i class="form-icon-pas"></i>
+					</div>
+					<div class="login-form-item form-verify">
+						<input type="text" id="loginVeCode" name="loginVeCode" tabindex="3"  maxlength="4" placeholder="验证码"/>
+						<img id="imageCode" class="form-verify-img" src="/supplier/imageAuthCode.action?imgKey=loginImg" alt="验证码" />
+						<span class="form-check-img"><a id="imageCodeLink" href="javascript:void(0);">看不清？<br />换一张</a></span>
+						<i class="form-icon-code"></i>
+					</div>
+					<div class="login-form-btn">
+						<a tabindex="4" class="ui-button ui-button-danger ui-button-lg ui-button-block" href="javascript:void(0);" id="btnSubLogin">登 录</a>
+						<p class="fn-text-rt j_to_unpwd" data-path='<!--#echo var="b2b_url_path" -->'><a href="javascript:void(0)">忘记密码</a></p>
+					</div>
+					<form action="" method="post" id="form">
+						<input type="hidden" value="" id="loginId" name="showUserinfo.loginId"/>
+					</form>
+					<form action="" method="post" id="recheckForm">
+						<input type="hidden" name="loginId" id="recheckLoginId"/>
+						<input type="hidden" name="supplierId" id="recheckSupplierId"/>
+					</form>
+				</div>
+			</div>
+		</div>
+		<ul class="slide-pic">
+			<li style="display:block;background-image: url(<!--#echo var='cssAndJsPath' -->/resgys/images/background.jpg);" class="slide-pic-item"></li>
+			<li class="slide-pic-item"></li>
+			<li class="slide-pic-item"></li>
+		</ul>
+		<div class="slide-number l-w">		
+			<a hidefocus="true" class="slide-number-active" href="javascript:void(0);">1</a>
+			<a hidefocus="true" href="javascript:void(0);">2</a>
+			<a hidefocus="true" href="javascript:void(0);">3</a>
+			<a hidefocus="true" href="javascript:void(0);">4</a>	
+		</div>
+	</div>
+	<div class="l-w">
+		<div class="ui-box">
+			<div class="ui-box-head">
+				<h3 class="ui-box-head-title">申请成为康美中药城商家流程</h3>
+				<span class="ui-box-head-text"><a href="/supplier/goFirstApplyPag.action" class="step-apply-icon"></a></span>
+				<a href="/supplier/goFirstApplyPag.action" class="ui-box-head-more">申请成为商家</a>
+			</div>
+			<div class="ui-box-container">
+				<div class="ui-box-content">
+					<ul class="supplier-step fn-inline-block">
+						<li>
+							<span class="step-member"></span>
+							<dl>
+								<dt>成为会员</dt>
+								<dd>注册成为普通会员</dd>
+								<dd>验证手机号码</dd>
+								<dd>启用支付密码</dd>
+							</dl>
+						</li>
+						<li>
+							<span class="step-arrows"></span>
+						</li>
+						<li>
+							<span class="step-form"></span>
+							<dl>
+								<dt>提交申请</dt>
+								<dd>填写商家基本信息</dd>
+								<dd>描述可供商品</dd>
+								<dd>提供相关资质</dd>
+							</dl>
+						</li>
+						<li>
+							<span class="step-arrows"></span>
+						</li>
+						<li>
+							<span class="step-deal"></span>
+							<dl>
+								<dt>达成协议</dt>
+								<dd>商户专员联系洽谈</dd>
+								<dd>商定合作细则</dd>
+								<dd>签订供货协议</dd>
+							</dl>
+						</li>						
+						<li>
+							<span class="step-arrows"></span>
+						</li>
+						<li>
+							
+							<span class="step-upgrade"></span>
+							<dl>
+							<dt>升级为商家</dt>
+							<dd>审核录入商家数据</dd>
+							<dd>升级为商户会员</dd>
+							<dd>激活商家平台资格</dd>
+							</dl>
+						</li>
+						<li>
+							<span class="step-arrows"></span>
+						</li>
+						<li>
+							<span class="step-finish"></span>
+							<dl>
+								<dt>完成入驻</dt>
+								<dd>入驻完成</dd>
+								<dd>现在可以进入商家平</dd>
+								<dd>台进行发布和管理商品</dd>
+							</dl>
+						</li>						
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="i-footer fn-clear">
+		<div class="l-w">
+			<div class="links">
+                <a href="http://www.kmb2b.com/helps/help-about.shtml" target="_blank" rel="nofollow">关于康美</a>|
+				<a href="http://www.kmb2b.com/helps/help-contact.shtml" target="_blank" rel="nofollow">联系我们</a>|
+				<a href="http://www.kmb2b.com/helps/help-promises.shtml" target="_blank" rel="nofollow">服务承诺</a>
+			</div>
+			<div class="copyright">
+                <a href="http://www.kmb2b.com/helps/help-qualification.shtml" target="_blank" rel="nofollow">食品流通许可证</a>
+                &nbsp;
+                经营性备案/许可证号：<a href="http://www.miibeian.gov.cn/publish/query/indexFirst.action" target="_blank">粤ICP备15063229号-4</a>
+                &nbsp;
+                ICP经营许可证：<a href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action" target="_blank">粤B2-20170037</a>
+                <br/>
+                Copyrights  2013-2016 康美中药城发展有限公司 版权所有
+			</div>
+		</div>
+	</div>
+</body>
+</html>

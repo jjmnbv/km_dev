@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ACTIVITY_INFO">
+    <typeAlias alias="activityInfoExample" type="com.pltfm.app.vobject.ActivityInfoExample" />
+    <typeAlias alias="ActivityInfo"   type="com.pltfm.app.vobject.ActivityInfo" />
+    <typeAlias alias="ActivityInfoVo" type="com.kmzyc.supplier.vo.ActivityInfoVo" />
+    <typeAlias alias="pagination"     type="com.km.framework.page.Pagination" />
+
+    <resultMap id="BaseResultMap" class="ActivityInfo">
+        <result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_ID" property="activitySupplierScore" select="ACTIVITY_SUPPLIER_SCORE.selectByActivityId"/>
+        <result column="ACTIVITY_ID" property="activityCharge" select="ACTIVITY_CHARGE.selectByActivityId"/>
+        <result column="ACTIVITY_ID" property="activityBrandList" select="ACTIVITY_BRAND.selectByActivityId"/>
+        <result column="ACTIVITY_ID" property="activityCategorysList" select="ACTIVITY_CATEGORYS.selectByActivityId"/>
+        <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_TYPE" property="activityType" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_CHANNEL" property="activityChannel" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_STATUS" property="activityStatus" jdbcType="DECIMAL"/>
+        <result column="AUDIT_STATUS" property="auditStatus" jdbcType="DECIMAL"/>
+        <result column="BRAND_CHOICE_TYPE" property="brandChoiceType" jdbcType="DECIMAL"/>
+        <result column="SUPPLIER_CHOICE_TYPE" property="supplierChoiceType" jdbcType="DECIMAL"/>
+        <result column="CHARGE_TYPE" property="chargeType" jdbcType="DECIMAL"/>
+        <result column="SUPPLIER_MAXIMUM" property="supplierMaximum" jdbcType="DECIMAL"/>
+        <result column="SKU_MAXIMUM" property="skuMaximum" jdbcType="DECIMAL"/>
+        <result column="ENTRY_START_TIME" property="entryStartTime" jdbcType="TIMESTAMP"/>
+        <result column="ENTRY_END_TIME" property="entryEndTime" jdbcType="TIMESTAMP"/>
+        <result column="ACTIVITY_START_TIME" property="activityStartTime" jdbcType="TIMESTAMP"/>
+        <result column="ACTIVITY_END_TIME" property="activityEndTime" jdbcType="TIMESTAMP"/>
+        <result column="LOGO_PATH" property="logoPath" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_DESC" property="activityDesc" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="MODIFY_TIME" property="modifyTime" jdbcType="TIMESTAMP"/>
+        <result column="AUDIT_TIME" property="auditTime" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_USER" property="createUser" jdbcType="DECIMAL"/>
+        <result column="MODIF_USER" property="modifUser" jdbcType="DECIMAL"/>
+        <result column="AUDIT_USER" property="auditUser" jdbcType="DECIMAL"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_INTRODUCE" property="activityIntroduce" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_INTRODUCE_LAZY" property="activityIntroduceLazy" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_QUESTIONS" property="activityQuestions" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_QUESTIONS_LAZY" property="activityQuestionsLazy" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_LEVEL" property="activityLevel" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_LABEL" property="activityLabel" jdbcType="VARCHAR"/>
+        <result column="INDUSTRY" property="industry" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_SEO" property="activitySeo" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="base_activityInfoVo" class="ActivityInfoVo">
+        <result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_TYPE" property="activityType" jdbcType="DECIMAL"/>
+        <result column="CHARGE_TYPE" property="chargeType" jdbcType="DECIMAL"/>
+        <result column="FIXED_CHARGE" property="fixedCharge" jdbcType="DECIMAL"/>
+        <result column="SINGLE_CHARGE" property="singleCharge" jdbcType="DECIMAL"/>
+        <result column="COMMISSION_RATE" property="commissionRate" jdbcType="DECIMAL"/>
+        <result column="ENTRY_START_TIME" property="entryStartTime" jdbcType="TIMESTAMP"/>
+        <result column="ENTRY_END_TIME" property="entryEndTime" jdbcType="TIMESTAMP"/>
+        <result column="ACTIVITY_START_TIME" property="activityStartTime" jdbcType="TIMESTAMP"/>
+        <result column="ACTIVITY_END_TIME" property="activityEndTime" jdbcType="TIMESTAMP"/>
+        <result column="ACTIVITY_STATUS" property="activityStatus" jdbcType="DECIMAL"/>
+    </resultMap>
+    <resultMap id="listActivityInfoVo" extends="base_activityInfoVo" class="ActivityInfoVo">
+        <result column="SUPPLIER_TYPE" property="supplierType" jdbcType="DECIMAL"/>
+    </resultMap>
+    <resultMap id="myActivityInfoVo" extends="base_activityInfoVo" class="ActivityInfoVo">
+        <result column="ENTRY_STATUS" property="entryStatus" jdbcType="DECIMAL"/>
+        <result column="AUDIT_STATUS" property="auditStatus" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_PAYMENT_TYPE" property="activityPaymentType" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_PAYMENT_STATUS" property="activityPaymentStatus" jdbcType="DECIMAL"/>
+        <result column="ENTRY_TIME" property="entryTime" jdbcType="TIMESTAMP"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="example_Where_Clause">
+        <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate">
+            <isEqual property="oredCriteria[].valid" compareValue="true">
+                (
+                <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and">
+                    $oredCriteria[].criteriaWithoutValue[]$
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and">
+                    $oredCriteria[].criteriaWithSingleValue[].condition$
+                    #oredCriteria[].criteriaWithSingleValue[].value#
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and">
+                    $oredCriteria[].criteriaWithListValue[].condition$
+                    <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")"
+                             conjunction=",">
+                        #oredCriteria[].criteriaWithListValue[].values[]#
+                    </iterate>
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and">
+                    $oredCriteria[].criteriaWithBetweenValue[].condition$
+                    #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+                    #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+                </iterate>
+                )
+            </isEqual>
+        </iterate>
+    </sql>
+
+    <!--活动必须已审核，且非撤销及终止-->
+    <sql id="sql_where_list">
+        <isNotEmpty property="objCondition.invited">
+            <![CDATA[
+              INNER JOIN ACTIVITY_SUPPLIER_ENTRY ASE ON ASE.ACTIVITY_ID = AI.ACTIVITY_ID
+              AND ASE.SUPPLIER_ID=#objCondition.supplierId#
+              AND ASE.ENTRY_STATUS = 1 AND ASE.ACTIVITY_SUPPLIER_TYPE in (4,5)
+            ]]>
+        </isNotEmpty>
+        <dynamic>
+            <![CDATA[
+              WHERE AI.AUDIT_STATUS=1
+            ]]>
+            <isNotEmpty property="objCondition.activityId">
+                <![CDATA[
+					AND AI.ACTIVITY_ID like #objCondition.activityId#
+				]]>
+            </isNotEmpty>
+            <isNotEmpty property="objCondition.activityName">
+                <![CDATA[
+					AND AI.ACTIVITY_NAME like #objCondition.activityName#
+				]]>
+            </isNotEmpty>
+            <isNotEmpty property="objCondition.activityType">
+                <![CDATA[
+					AND AI.ACTIVITY_TYPE = #objCondition.activityType#
+				]]>
+            </isNotEmpty>
+            <isNotEmpty property="objCondition.activityStatus">
+                <![CDATA[
+					AND AI.ACTIVITY_STATUS = #objCondition.activityStatus#
+				]]>
+            </isNotEmpty>
+            <isNotEmpty property="objCondition.activityNotEntry">
+                <![CDATA[
+					AND AI.ENTRY_START_TIME > sysdate AND AI.ACTIVITY_STATUS != 8
+				]]>
+            </isNotEmpty>
+            <isNotEmpty property="objCondition.activityEntryIn">
+                <![CDATA[
+					AND AI.ENTRY_END_TIME > sysdate AND AI.ENTRY_START_TIME < sysdate AND AI.ACTIVITY_STATUS != 8
+				]]>
+            </isNotEmpty>
+            <isNotEmpty property="objCondition.activityNotStart">
+                <![CDATA[
+					AND AI.ACTIVITY_START_TIME > sysdate AND AI.ENTRY_END_TIME < sysdate AND AI.ACTIVITY_STATUS != 8
+				]]>
+            </isNotEmpty>
+            <isNotEmpty property="objCondition.activityIn">
+                <![CDATA[
+					AND AI.ACTIVITY_END_TIME > sysdate AND AI.ACTIVITY_START_TIME < sysdate AND AI.ACTIVITY_STATUS != 8
+				]]>
+            </isNotEmpty>
+            <isNotEmpty property="objCondition.activityEnd">
+                <![CDATA[
+					AND AI.ACTIVITY_END_TIME < sysdate AND AI.ACTIVITY_STATUS != 8
+				]]>
+            </isNotEmpty>
+            <isNotEmpty property="objCondition.entryStatus">
+                <![CDATA[
+					AND ASE.ENTRY_STATUS = #objCondition.entryStatus#
+				]]>
+            </isNotEmpty>
+            <isNotEmpty property="objCondition.supplierPass">
+                <![CDATA[
+					AND ASE.ENTRY_STATUS=2 AND ASE.AUDIT_STATUS=1 AND AP.ACTIVITY_PAYMENT_STATUS=2
+				]]>
+            </isNotEmpty>
+            <isNotEmpty property="objCondition.supplierEntryRevoke">
+                <![CDATA[
+                    AND ASE.ENTRY_STATUS = 3 AND AI.ACTIVITY_START_TIME>sysdate
+				]]>
+            </isNotEmpty>
+            <isNotEmpty property="objCondition.supplierNotPass">
+                <![CDATA[
+					AND ASE.ENTRY_STATUS=2 AND ASE.AUDIT_STATUS=2
+					AND AI.ACTIVITY_START_TIME>sysdate
+				]]>
+            </isNotEmpty>
+            <isNotEmpty property="objCondition.supplierNotPay">
+                <![CDATA[
+					AND ASE.ENTRY_STATUS=2 AND ASE.AUDIT_STATUS=0 AND AP.ACTIVITY_PAYMENT_STATUS=1
+                    AND AI.ACTIVITY_START_TIME>sysdate
+				]]>
+            </isNotEmpty>
+            <isNotEmpty property="objCondition.supplierNotAudit">
+                <![CDATA[
+					AND ASE.ENTRY_STATUS=2 AND ASE.AUDIT_STATUS=0 AND AP.ACTIVITY_PAYMENT_STATUS=2
+					AND AI.ACTIVITY_START_TIME>sysdate
+				]]>
+            </isNotEmpty>
+            <isNotEmpty property="objCondition.supplierEntryFail">
+                <![CDATA[
+                    AND ASE.AUDIT_STATUS<>1 AND AI.ACTIVITY_START_TIME<sysdate
+				]]>
+            </isNotEmpty>
+            <isNotEmpty property="objCondition.my">
+                <![CDATA[
+					AND ASE.ENTRY_STATUS <> 1
+				]]>
+            </isNotEmpty>
+            <isNotEmpty property="objCondition.all">
+                <![CDATA[
+					AND AI.SUPPLIER_CHOICE_TYPE <> 4
+					AND NOT EXISTS (select 1 from ACTIVITY_SUPPLIER_ENTRY ASE
+					WHERE ASE.ACTIVITY_ID = AI.ACTIVITY_ID
+					AND ASE.SUPPLIER_ID=#objCondition.supplierId#)
+				]]>
+            </isNotEmpty>
+        </dynamic>
+    </sql>
+    <!--<sql id="all_invited_list">
+        <isNotEmpty property="objCondition.invited">
+            <![CDATA[
+					AND EXISTS (select 1 from ACTIVITY_SUPPLIER_ENTRY ASE
+					WHERE ASE.ACTIVITY_ID = AI.ACTIVITY_ID
+					AND ASE.SUPPLIER_ID=#objCondition.supplierId#
+					AND ASE.ENTRY_STATUS = 1 AND ASE.ACTIVITY_SUPPLIER_TYPE in (4,5)
+					)
+				]]>
+        </isNotEmpty>
+    </sql>-->
+    <select id="selectByExample" parameterClass="activityInfoExample" resultMap="BaseResultMap">
+        select ACTIVITY_ID, ACTIVITY_NAME, ACTIVITY_TYPE, ACTIVITY_CHANNEL, ACTIVITY_STATUS,
+        AUDIT_STATUS, BRAND_CHOICE_TYPE, SUPPLIER_CHOICE_TYPE, CHARGE_TYPE, SUPPLIER_MAXIMUM,
+        SKU_MAXIMUM, ENTRY_START_TIME, ENTRY_END_TIME, ACTIVITY_START_TIME, ACTIVITY_END_TIME,
+        LOGO_PATH, ACTIVITY_DESC, CREATE_TIME, MODIFY_TIME, AUDIT_TIME, CREATE_USER, MODIF_USER,
+        AUDIT_USER, REMARK,
+        ACTIVITY_INTRODUCE,ACTIVITY_INTRODUCE_LAZY,ACTIVITY_QUESTIONS_LAZY,ACTIVITY_QUESTIONS,
+        ACTIVITY_LABEL,ACTIVITY_LEVEL,INDUSTRY,ACTIVITY_SEO
+        from ACTIVITY_INFO
+        <isParameterPresent>
+            <include refid="ACTIVITY_INFO.example_Where_Clause"/>
+            <isNotNull property="orderByClause">
+                order by $orderByClause$
+            </isNotNull>
+        </isParameterPresent>
+    </select>
+    <select id="countByExample" parameterClass="activityInfoExample" resultClass="java.lang.Integer">
+        select count(*) from ACTIVITY_INFO
+        <include refid="ACTIVITY_INFO.example_Where_Clause"/>
+    </select>
+    <!--平台活动-->
+    <select id="getAllActivityList" parameterClass="pagination" resultMap="listActivityInfoVo">
+        <![CDATA[
+            SELECT * FROM (SELECT t.*, ROWNUM RN FROM (
+            SELECT AI.ACTIVITY_ID,AI.ACTIVITY_NAME,AI.ACTIVITY_TYPE,
+            AI.CHARGE_TYPE,AC.SINGLE_CHARGE,AC.FIXED_CHARGE,AC.COMMISSION_RATE*100 COMMISSION_RATE,
+            AI.ENTRY_START_TIME,AI.ENTRY_END_TIME,AI.ACTIVITY_START_TIME,AI.ACTIVITY_END_TIME,
+            AI.ACTIVITY_STATUS,
+        ]]>
+        <isNotEmpty property="objCondition.invited">
+            ASE.ACTIVITY_SUPPLIER_TYPE SUPPLIER_TYPE
+        </isNotEmpty>
+        <isNotEmpty property="objCondition.all">
+            0 SUPPLIER_TYPE
+        </isNotEmpty>
+        <![CDATA[
+            FROM ACTIVITY_INFO AI
+            LEFT JOIN ACTIVITY_CHARGE AC ON AI.ACTIVITY_ID=AC.ACTIVITY_ID
+		]]>
+        <include refid="sql_where_list"/>
+        <![CDATA[
+		ORDER BY AI.ACTIVITY_ID DESC ) T
+		WHERE  ROWNUM <= $endindex$ ) WHERE RN >= #startindex#
+		]]>
+    </select>
+    <select id="countAllActivityList" parameterClass="pagination" resultClass="java.lang.Integer">
+        SELECT COUNT(AI.ACTIVITY_ID) FROM ACTIVITY_INFO AI
+        <include refid="sql_where_list"/>
+        <!--<include refid="all_invited_list"/>-->
+    </select>
+
+    <!--邀请我的活动，已参加的活动-->
+    <select id="getMyActivityList" parameterClass="pagination" resultMap="myActivityInfoVo">
+        <![CDATA[
+            SELECT * FROM (SELECT T.*, ROWNUM RN FROM (
+            SELECT AI.ACTIVITY_ID,AI.ACTIVITY_NAME,AI.ACTIVITY_TYPE,
+            AI.CHARGE_TYPE,AC.SINGLE_CHARGE,AC.FIXED_CHARGE,AC.COMMISSION_RATE*100 COMMISSION_RATE,
+            AI.ENTRY_START_TIME,AI.ENTRY_END_TIME,AI.ACTIVITY_START_TIME,AI.ACTIVITY_END_TIME,
+            AI.ACTIVITY_STATUS,ASE.ENTRY_TIME,
+            ASE.ENTRY_STATUS,ASE.AUDIT_STATUS,AP.ACTIVITY_PAYMENT_TYPE,AP.ACTIVITY_PAYMENT_STATUS
+            ,ASE.REMARK
+            FROM ACTIVITY_INFO AI
+            INNER JOIN ACTIVITY_SUPPLIER_ENTRY ASE ON ASE.ACTIVITY_ID = AI.ACTIVITY_ID
+            AND ASE.SUPPLIER_ID=#objCondition.supplierId#
+            LEFT JOIN ACTIVITY_CHARGE AC ON AI.ACTIVITY_ID=AC.ACTIVITY_ID
+            LEFT JOIN ACTIVITY_PAYMENT AP ON AI.ACTIVITY_ID=AP.ACTIVITY_ID
+            AND AP.SUPPLIER_ENTRY_ID=ASE.SUPPLIER_ENTRY_ID
+            AND AP.ACTIVITY_PAYMENT_TYPE=1 AND ONE_PAY_STATUS=1
+		]]>
+        <include refid="sql_where_list"/>
+        <![CDATA[
+		ORDER BY ai.ACTIVITY_ID DESC ) t
+		WHERE  ROWNUM <= $endindex$ ) WHERE RN >= #startindex#
+		]]>
+    </select>
+    <select id="countMyActivityList" parameterClass="pagination" resultClass="java.lang.Integer">
+        select count(ai.ACTIVITY_ID)
+        from ACTIVITY_INFO ai
+        INNER JOIN ACTIVITY_SUPPLIER_ENTRY ase ON ase.ACTIVITY_ID = ai.ACTIVITY_ID
+        AND ase.SUPPLIER_ID=#objCondition.supplierId#
+        LEFT JOIN ACTIVITY_PAYMENT AP ON AI.ACTIVITY_ID=AP.ACTIVITY_ID
+        AND AP.SUPPLIER_ENTRY_ID=ASE.SUPPLIER_ENTRY_ID
+        AND AP.ACTIVITY_PAYMENT_TYPE=1 AND ONE_PAY_STATUS=1
+        <include refid="sql_where_list"/>
+    </select>
+    <select id="isStop" parameterClass="java.lang.Long" resultClass="java.lang.Integer">
+        SELECT COUNT(0) FROM ACTIVITY_INFO WHERE ACTIVITY_ID=#activityId# AND ACTIVITY_STATUS=8
+    </select>
+    <select id="bnesAcctTransactionById" resultClass="java.lang.String" parameterClass="java.lang.Integer" >
+        SELECT ACCOUNT_NUMBER FROM bnes_acct_transaction
+    		where ACCOUNT_TRANSACTION_ID=#accountTransactionId#
+    </select>
+</sqlMap>

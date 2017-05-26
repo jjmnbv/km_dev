@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <!--constant name="struts.enable.DynamicMethodInvocation" value="false" /-->
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.enable.SlashesInActionNames" value="true" /> <!-- action名可以有'/'字符 -->
+    <constant name="struts.action.extension" value="action,do"/> <!-- .action和.do 为访问扩展名 -->
+   	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.ui.theme" value="simple" /> 
+	<constant name="struts.ui.templateDir" value="template" /> 
+	<constant name="struts.ui.templateSuffix" value="ftl" />
+	<constant name="struts.locale" value="zh_CN" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.multipart.maxSize" value="10485760" />  
+    <include file="struts-sys.xml"/>
+   <!-- 广告位和广告 -->
+    <include file="struts-cms-adv.xml"/>
+   <!-- 资讯类别和资讯 -->
+    <include file="struts-cms-Informaction.xml"/>
+    <include file="struts-cms-promotion.xml"/>
+   <include file="struts-cms-temp.xml"/>
+  <!-- 操作记录 -->
+     <include file="struts-cms-log.xml"/>
+        <!-- 站点-->
+    <include file="struts_cms_site.xml"/>
+    <include file="struts_cms_lottery.xml"/>
+    <include file="struts-cms.xml"/>
+  <include file="struts_cms_dulitaocan.xml"/>  
+    
+    
+    <!-- 窗口数据 -->
+    <include file="struts-cms-window-data.xml"/>
+    <include file="struts-shop-data.xml"/>
+    <!-- 文件数据 -->
+    <include file="struts-cms-file.xml"/>
+     <include file="struts-cms-shop.xml"/>
+     
+     <!-- 店内分类相关 -->
+      <include file="struts_cms_shopCategory.xml"/>
+  
+    
+    <package name="struts" extends="struts-default">
+        <interceptors>
+			<!-- token拦截器 -->
+			<interceptor name="token"
+				class="com.pltfm.app.util.TokenInterceptor" />
+			  <interceptor-stack name="myDefaultStack">
+				<interceptor-ref name="token" />
+				<interceptor-ref name="defaultStack" />
+			 </interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myDefaultStack" />
+		<global-results> 
+			<result name="invalid.token">/WEB-INF/jsp/public/error.jsp</result>
+			<result name="error">/WEB-INF/jsp/public/error.jsp</result>
+		</global-results> 
+    </package>
+
+
+</struts>
+
+

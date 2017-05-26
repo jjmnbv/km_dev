@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://code.alibabatech.com/schema/dubbo classpath:dubbo.xsd">
+
+	<!-- 优惠券接口 promotionIbport-->
+	<dubbo:reference id="couponRemoteService" async="true"
+		retries="0" interface="com.kmzyc.promotion.remote.service.CouponRemoteService"
+		check="false" />
+		
+	<!-- smsb2bzycIbport -->
+	<!--删除邮件业务   <dubbo:reference id="emailSubscriptionRemoteService"
+		interface="com.kmzyc.mailmobile.service.EmailSubscriptionRemoteService"
+		check="false" /> -->
+	<!-- 发送短信 -->
+	<!--<dubbo:reference id="messageRemoteService"
+		interface="com.kmzyc.mailmobile.service.MessageRemoteService" check="false" />-->
+		
+	<!-- productIbport -->
+	<dubbo:reference id="consultRemoteService"
+		interface="com.kmzyc.product.remote.service.ConsultRemoteService"  check="false " />
+		
+	<!-- orderIbport -->	
+	<dubbo:reference id="orderCreateService"
+		interface="com.kmzyc.order.remote.OrderCreateRemoteService"  check="false " />
+	<dubbo:reference id="orderQryRemoteService"
+		interface="com.kmzyc.order.remote.OrderQryRemoteService"  check="false " />	
+				
+</beans>

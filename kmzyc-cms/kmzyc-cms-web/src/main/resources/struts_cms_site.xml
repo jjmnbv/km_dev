@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="cms_sit" namespace="/cms" extends="struts">
+		<!-- 站点管理 -->
+		<action name="cmsSite_*" class="cmsSiteAction" method="{1}">
+			<result name="gotoAddCmsSite">/WEB-INF/jsp/cms/cmsSite/CmsSiteAdd.jsp</result>
+			<result name="gotoEditCmsSite">/WEB-INF/jsp/cms/cmsSite/CmsSiteEdit.jsp</result>
+			<result name="siteList">/WEB-INF/jsp/cms/cmsSite/CmsSiteList.jsp</result>
+			<result name="popUPquery">/WEB-INF/jsp/cms/cmsSite/popUpCmsSite.jsp
+			</result>
+			<!--
+				<result
+				name="gotoDetail">/WEB-INF/jsp/cms/cmsSite/CmsSiteDetail.jsp</result>
+				<result
+				name="siteUserList">/WEB-INF/jsp/cms/cmsUserSite/CmsUserSiteList.jsp</result>
+			-->
+			<result name="gotoDetail">/WEB-INF/jsp/cms/cmsSite/CmsUserDetail.jsp</result>
+			<result name="siteUserList">/WEB-INF/jsp/cms/cmsUserSite/CmsUserList.jsp
+			</result>
+		</action>
+		<action name="cmsUserSite_*" class="cmsUserSiteAction" method="{1}">
+			<result name="siteList">/WEB-INF/jsp/cms/cmsUserSite/CmsUserSiteList.jsp
+			</result>
+		</action>
+
+		<action name="cmsUserSite_*" class="cmsUserSiteAction" method="{1}">
+			<result name="queryForPage">/WEB-INF/jsp/cms/site/settingSiteList.jsp
+			</result>
+
+
+		</action>
+
+		<action name="cmsSiteData_*" class="cmsSiteDataAction" method="{1}">
+			<result name="warrant">/WEB-INF/jsp/cms/site/userSiteDataList.jsp
+			</result>
+			<result name="detailData">/WEB-INF/jsp/cms/site/userSiteDetail.jsp</result>
+			<result name="detail">/WEB-INF/jsp/cms/site/userSiteDetail.jsp</result>
+		</action>
+
+
+
+	</package>
+</struts>
+
+

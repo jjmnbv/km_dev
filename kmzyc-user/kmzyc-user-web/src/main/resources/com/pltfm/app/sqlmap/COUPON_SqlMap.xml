@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="COUPON" >
+    <resultMap id="ibatorgenerated_CouponResult" class="com.pltfm.sys.model.SysModelUtil">
+    <result column="the_count" property="theCount" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.Coupon" >
+    <result column="COUPON_ID" property="couponId" jdbcType="DECIMAL" />
+    <result column="COUPON_GIVETYPE_ID" property="couponGivetypeId" jdbcType="DECIMAL" />
+    <result column="COUPON_NAME" property="couponName" jdbcType="VARCHAR" />
+    <result column="COUPON_DESCRIBE" property="couponDescribe" jdbcType="VARCHAR" />
+    <result column="COUPON_MONEY" property="couponMoney" jdbcType="DECIMAL" />
+    <result column="STARTTIME" property="starttime" jdbcType="date"  />
+    <result column="ENDTIME" property="endtime" jdbcType="date"  />
+    <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="CUSTOM_LEVEID" property="customLeveid" jdbcType="VARCHAR" />
+    <result column="CUSTOM_REG_START" property="customRegStart" jdbcType="VARCHAR" />
+    <result column="CUSTOM_REG_END" property="customRegEnd" jdbcType="VARCHAR" />
+    <result column="PAY_LEAST_MONEY" property="payLeastMoney" jdbcType="DECIMAL" />
+    <result column="SHOP_CODE" property="shopCode"  jdbcType="VARCHAR" />
+    <result column="CUSTOM_ID" property="customId" jdbcType="VARCHAR" />
+    <result column="IS_GRANT" property="isGrant" jdbcType="VARCHAR" />
+    <result column="COUPON_VALID_DAY" property="couponValidDay" jdbcType="DECIMAL" />
+    <result column="IS_VALIDE" property="isValide"  jdbcType="VARCHAR" />
+    <result column="CHANNEL" property="channel" jdbcType="VARCHAR" />
+    <result column="SUPPLIER_TYPE" property="supplierType" jdbcType="DECIMAL" />
+    <result column="IS_STATUS" property="isStatus" jdbcType="DECIMAL" />
+    <result column="TIME_TYPE" property="timeType" jdbcType="DECIMAL" />
+    <result column="RANG_TYPE" property="rangType" jdbcType="DECIMAL" />
+  </resultMap>
+  
+   <resultMap id="couponGrantResult" class="com.pltfm.app.vobject.CouponGrant">
+   		<result column="coupon_grant_id" property="couponGrantId" jdbcType="DECIMAL" />
+	  	<result column="COUPON_NAME" property="couponName" jdbcType="VARCHAR" />
+	  	<result column="COUPON_GIVETYPE_ID" property="couponGivetypeId" jdbcType="DECIMAL" />
+	    <result column="COUPON_ID" property="couponId" jdbcType="DECIMAL"  />
+	    <result column="CUSTOM_ID" property="customId" jdbcType="DECIMAL"   />
+	    <result column="COUPON_STATUS" property="couponStatus" jdbcType="DECIMAL"   />
+	    <result column="grant_creattime" property="grantCreattime" jdbcType="VARCHAR"    />
+	    <result column="GRANT_CRATEMAN" property="grantCreateman" jdbcType="DECIMAL"   />
+	    <result column="grant_updatetime" property="grantUpdatetime" jdbcType="VARCHAR"  />
+	    <result column="grant_updateman" property="grantUpdateman" jdbcType="DECIMAL"  />
+	    <result column="GRANT_TYPE" property="grantType"  jdbcType="DECIMAL" />
+	    <result column="GRANT_RELATED_CODE" property="grantRelatedCode"  jdbcType="VARCHAR" />
+	    <result column="GRANT_REMARK" property="grantRemark"  jdbcType="VARCHAR" />
+	    <result column="GRANT_ENDTIME" property="grantEndtime"  jdbcType="DATE" />
+	    <result column="active_code" property="activeCode"  jdbcType="VARCHAR" />
+	    <result column="starttime" property="startTime"  jdbcType="DATE" />
+	    <result column="endtime" property="endTime"  jdbcType="DATE" />
+	    <result column="grant_usetime" property="grantUsetime"  jdbcType="DATE" />
+	    <result column="COUPON_MONEY" property="couponMoney" jdbcType="DECIMAL"  />
+	    <result column="coupon_info_no" property="couponInfoNo"  jdbcType="VARCHAR" />
+	</resultMap>
+   
+   
+   
+   
+   
+   <!-- 查询优惠券规则 -->
+   <select id="ibatorgenerated_selectByCoupon" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.pltfm.app.vobject.Coupon" >
+    select COUPON_ID, 
+    COUPON_GIVETYPE_ID,
+        COUPON_NAME,
+        COUPON_DESCRIBE,
+        COUPON_MONEY,
+        STARTTIME,
+        ENDTIME,
+        CREATETIME,
+        STATUS,
+        CUSTOM_LEVEID,
+        CUSTOM_REG_START,
+        CUSTOM_REG_END,
+        PAY_LEAST_MONEY,
+        CUSTOM_ID,
+        IS_GRANT,
+        COUPON_VALID_DAY,
+        IS_VALIDE,
+        SHOP_CODE,
+        CHANNEL,
+        SUPPLIER_TYPE,
+        IS_STATUS,
+        TIME_TYPE,
+        RANG_TYPE
+   from (select ROW_NUMBER() OVER(order by COUPON_ID desc) as view_row_number,
+                COUPON_ID,
+                COUPON_GIVETYPE_ID,
+                COUPON_NAME,
+                COUPON_DESCRIBE,
+                COUPON_MONEY,
+                STARTTIME,
+                ENDTIME,
+                CREATETIME,
+                STATUS,
+                CUSTOM_LEVEID,
+                CUSTOM_REG_START,
+                CUSTOM_REG_END,
+                PAY_LEAST_MONEY,
+                CUSTOM_ID,
+                IS_GRANT,
+                COUPON_VALID_DAY,
+                IS_VALIDE,
+                SHOP_CODE,
+                CHANNEL,
+                SUPPLIER_TYPE,
+                IS_STATUS,
+                TIME_TYPE,
+                RANG_TYPE
+           from  COUPON 
+    <dynamic prepend="where">
+     <isNotNull prepend="AND" property="couponId" >
+   		<isNotEmpty property="couponId">
+   		 COUPON_ID   = #couponId:DECIMAL#
+   		</isNotEmpty>
+   </isNotNull>
+   <isNotNull prepend="AND" property="couponName" >
+   		<isNotEmpty property="couponName">
+   		 COUPON_NAME   like '%$couponName$%'
+   		</isNotEmpty>
+   </isNotNull>
+   <isNotNull prepend="AND" property="channel" >
+   		<isNotEmpty property="channel">
+   		 CHANNEL   = #channel#
+   		</isNotEmpty>
+   </isNotNull>
+    <isNotNull prepend="AND" property="supplierType" >
+   		<isNotEmpty property="supplierType">
+   		 SUPPLIER_TYPE  = #supplierType#
+   		</isNotEmpty>
+   </isNotNull>
+   <isNotNull prepend="AND" property="status" >
+   		<isNotEmpty property="status">
+   		 STATUS   = #status#
+   		</isNotEmpty>
+   </isNotNull>
+    <isNotNull prepend="AND" property="notStatus" >
+   		<isNotEmpty property="notStatus">
+   		 STATUS   != #notStatus#
+   		</isNotEmpty>
+   </isNotNull>
+    <isNotNull prepend="AND" property="timeType" >
+   		<isNotEmpty property="timeType">
+   		 TIME_TYPE   = #timeType#
+   		</isNotEmpty>
+   </isNotNull>
+    <isNotNull prepend="AND" property="endtime" >
+   		<isNotEmpty property="endtime">
+   		<![CDATA[
+   		 ENDTIME  <= #endtime#
+   		 	]]>
+   		</isNotEmpty>
+   </isNotNull>
+   </dynamic>
+   <![CDATA[ ) where view_row_number <= #max# and view_row_number > #skip# ]]>
+  </select>
+  
+   
+     <select id="ibatorgenerated_selectCount" resultClass="java.lang.Integer" parameterClass="com.pltfm.app.vobject.Coupon" >
+ select count(1)  from  COUPON 
+    <dynamic prepend="where">
+     <isNotNull prepend="AND" property="couponId" >
+   		<isNotEmpty property="couponId">
+   		 COUPON_ID   = #couponId:DECIMAL#
+   		</isNotEmpty>
+   </isNotNull>
+   <isNotNull prepend="AND" property="couponName" >
+   		<isNotEmpty property="couponName">
+   		 COUPON_NAME   like '%$couponName$%'
+   		</isNotEmpty>
+   </isNotNull>
+   <isNotNull prepend="AND" property="channel" >
+   		<isNotEmpty property="channel">
+   		 CHANNEL   = #channel#
+   		</isNotEmpty>
+   </isNotNull>
+    <isNotNull prepend="AND" property="supplierType" >
+   		<isNotEmpty property="supplierType">
+   		 SUPPLIER_TYPE  = #supplierType#
+   		</isNotEmpty>
+   </isNotNull>
+   <isNotNull prepend="AND" property="status" >
+   		<isNotEmpty property="status">
+   		 STATUS   = #status#
+   		</isNotEmpty>
+   </isNotNull>
+    <isNotNull prepend="AND" property="notStatus" >
+   		<isNotEmpty property="notStatus">
+   		 STATUS   != #notStatus#
+   		</isNotEmpty>
+   </isNotNull>
+    <isNotNull prepend="AND" property="timeType" >
+   		<isNotEmpty property="timeType">
+   		 TIME_TYPE   = #timeType#
+   		</isNotEmpty>
+   </isNotNull>
+    <isNotNull prepend="AND" property="endtime" >
+   		<isNotEmpty property="endtime">
+   		<![CDATA[
+   		 ENDTIME  <= #endtime#
+   		 	]]>
+   		</isNotEmpty>
+   </isNotNull>
+   </dynamic>
+  </select>
+  
+     <select id="searchPageByCoupons" resultMap="couponGrantResult" parameterClass="com.pltfm.app.vobject.Coupons">
+  SELECT 
+  		 coupon_grant_id,
+  		 COUPON_NAME, 
+  		 COUPON_GIVETYPE_ID,
+  		 COUPON_MONEY, 
+         coupon_id,
+         custom_id,
+         coupon_status,
+         grant_crateman,
+         grant_updatetime,
+         grant_updateman,
+         grant_creattime,
+         grant_type,
+         grant_related_code,
+         grant_remark,
+         grant_endtime,
+         coupon_info_no,
+         active_code,
+         starttime,
+         endtime,
+         grant_usetime
+    FROM ( select ROWNUM R ,cp.* from (select 
+    					  cg.coupon_grant_id,
+                 		  c.COUPON_NAME,
+                          c.COUPON_GIVETYPE_ID,
+                          c.COUPON_MONEY,
+                          cg.coupon_id,
+                          cg.custom_id,
+                          cg.coupon_status,
+                          cg.grant_crateman,
+                          cg.grant_updatetime,
+                          cg.grant_updateman,
+                          cg.grant_creattime,
+                          cg.grant_type,
+                          cg.grant_related_code,
+                          cg.grant_remark,
+                          cg.grant_endtime,
+                          g.coupon_info_no,
+                          g.active_code,
+                          cg.starttime,
+                          cg.endtime,
+                          cg.coupon_issuing_id,
+                          cg.act_status,
+                          cg.grant_usetime,
+                          cg.grant_acttime
+            from  coupon_grant cg , coupon c, coupon_grant_info g
+           WHERE g.coupon_grant_id(+)= cg.coupon_grant_id  and cg.coupon_id=c.coupon_id 
+           <isNotNull prepend="AND" property="custmoId" > 
+	           	<isNotEmpty  property="custmoId">
+	   		 		 cg.custom_id=#custmoId#
+	   			</isNotEmpty>
+   			</isNotNull>
+   			<isNotNull prepend="AND" property="couponId" >   
+	   			<isNotEmpty   property="couponId">
+	   		 		cg.COUPON_ID   like  '%'||#couponId:DECIMAL#||'%'
+	   			</isNotEmpty>
+   			</isNotNull>
+   			<isNotNull prepend="AND" property="grantType" >  
+	   			<isNotEmpty   property="grantType">
+	   		 		cg.grant_type   = #grantType:DECIMAL#
+	   			</isNotEmpty>
+   			</isNotNull>
+   			<isNotNull prepend="AND" property="couponName" > 
+	   			<isNotEmpty   property="couponName">
+	   		 		c.COUPON_NAME   like  '%'||#couponName:VARCHAR#||'%'  
+	   			</isNotEmpty>
+   			</isNotNull>
+   			<isNotNull prepend="AND" property="couponStatus" > 
+	   			<isNotEmpty   property="couponStatus">
+	   		 		cg.coupon_status   = #couponStatus:DECIMAL#
+	   			</isNotEmpty>
+   			</isNotNull>
+     <![CDATA[ 
+     	ORDER BY c.coupon_id DESC ) cp  
+          where  ROWNUM <=  #max#) CGG
+   			WHERE CGG.R >  #skip#
+   ]]>
+  </select>
+     
+  
+    <select id="getCouponsCount" parameterClass="com.pltfm.app.vobject.Coupons" resultClass="int">
+      select count(1)  from  coupon_grant cg  , coupon c  , coupon_grant_info g
+           WHERE g.coupon_grant_id(+)= cg.coupon_grant_id  and cg.coupon_id=c.coupon_id 
+	   		<isNotNull prepend="AND" property="custmoId" >  
+	   			<isNotEmpty   property="custmoId">
+	   		 		 cg.custom_id=#custmoId#
+	   			</isNotEmpty>
+	   		</isNotNull>
+	   		<isNotNull prepend="AND" property="couponId" > 
+	   			<isNotEmpty   property="couponId">
+	   		 		cg.COUPON_ID   like  '%'||#couponId:DECIMAL#||'%'   
+	   			</isNotEmpty>
+	   		</isNotNull>
+	   		<isNotNull prepend="AND" property="grantType" > 
+	   			<isNotEmpty   property="grantType">
+	   		 		cg.grant_type   = #grantType:DECIMAL#
+	   			</isNotEmpty>
+	   		</isNotNull>
+	   		<isNotNull prepend="AND" property="couponName" >    		
+	   			<isNotEmpty   property="couponName">
+	   		 		c.COUPON_NAME   like  '%'||#couponName:VARCHAR#||'%'  
+	   			</isNotEmpty>
+	   		</isNotNull>
+	   		<isNotNull prepend="AND" property="couponStatus" > 
+	   			<isNotEmpty    property="couponStatus">
+	   		 		cg.coupon_status   = #couponStatus:DECIMAL#
+	   			</isNotEmpty>
+	   		</isNotNull>
+  </select>
+
+</sqlMap>

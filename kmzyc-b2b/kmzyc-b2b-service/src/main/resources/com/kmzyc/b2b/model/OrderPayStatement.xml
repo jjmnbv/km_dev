@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="OrderPayStatement" >
+
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.kmzyc.b2b.model.OrderPayStatement" >
+    <result column="PAY_STATEMENT_NO" property="payStatementNo" jdbcType="DECIMAL" />
+    <result column="PAYMENT_WAY" property="paymentWay" jdbcType="DECIMAL" />
+    <result column="STATE" property="state" jdbcType="DECIMAL" />
+    <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+    <result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+    <result column="ORDER_MONEY" property="orderMoney" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="OUTSIDE_PAY_STATEMENT_NO" property="outsidePayStatementNo" jdbcType="VARCHAR" />
+    <result column="FLAG" property="flag" jdbcType="DECIMAL" />
+    <result column="PREFERENTIAL_NO" property="preferentialNo" jdbcType="DECIMAL" />
+    <result column="PREFERENTIAL_NAME" property="preferentialName" jdbcType="VARCHAR" />
+    <result column="BANK_CODE" property="bankCode" jdbcType="VARCHAR" />
+    <result column="BANK_NAME" property="bankName" jdbcType="VARCHAR" />
+    <result column="PLATFORM_CODE" property="platformCode" jdbcType="VARCHAR" />
+    <result column="PLATFORM_NAME" property="platformName" jdbcType="VARCHAR" />
+    <result column="PREFERENTIAL_GRANT_ID" property="preferentialGrantId" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap class="com.kmzyc.b2b.model.OrderPayStatement" id="ibatorgenerated_BaseResultMap2"
+  		  extends="ibatorgenerated_BaseResultMap">
+  	<!-- 预售附加 -->
+    <result column="YSFLAGE" jdbcType="VARCHAR" property="ysFlage" />
+    <result column="PAY_INFO" jdbcType="VARCHAR" property="payInfo" />
+  </resultMap>
+  
+  <select id="findByOrderCode" parameterClass="java.util.Map" resultMap="ibatorgenerated_BaseResultMap">
+  	select * from order_pay_statement
+  	<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="orderCode">
+				ORDER_CODE=#orderCode# 
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="state">
+				state=#state# 
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="paymentWay">
+				PAYMENT_WAY=#paymentWay# 
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bankCode">
+				BANK_CODE=#bankCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="platformCode">
+				PLATFORM_CODE=#platformCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="outsidePayStatementNo">
+				OUTSIDE_PAY_STATEMENT_NO=#outsidePayStatementNo#
+			</isNotEmpty>
+		</dynamic>
+  </select>
+  <select id="findPaySuccessOrderPaystatement" parameterClass="java.util.Map" resultMap="ibatorgenerated_BaseResultMap">
+	  	select s.*
+	  from order_pay_statement s, order_main m
+	 where s.ORDER_CODE = m.ORDER_CODE
+	 	and s.PAYMENT_WAY not in(1,2)
+	   and m.ORDER_STATUS = #orderStatus#
+	   and m.order_code =#orderCode# 
+  </select>
+  
+  <select id="findrefundOrderPayStatement" parameterClass="string" resultMap="ibatorgenerated_BaseResultMap">
+  			<!-- 
+  			select * from ORDER_PAY_STATEMENT o where o.OUTSIDE_PAY_STATEMENT_NO is not null and o.STATE=1 and o.ORDER_CODE=#orderCode:VARCHAR#
+  			 -->
+  			select * from ORDER_PAY_STATEMENT o
+			   where o.OUTSIDE_PAY_STATEMENT_NO is not null
+			   and o.FLAG = 1
+			   and o.STATE = 1
+			   and o.ORDER_CODE=#orderCode:VARCHAR#
+			   AND NOT EXISTS (SELECT *
+			          FROM ORDER_PAY_STATEMENT
+			         WHERE ORDER_CODE = o.ORDER_CODE
+			           AND PAYMENT_WAY = o.PAYMENT_WAY
+			           AND FLAG = 2
+			           AND STATE = 1)
+  </select>
+  
+  <!-- 查询预售订单支付流水 -->
+  <select id="findrefundOrderPayStatementForYs" parameterClass="java.util.Map" resultMap="ibatorgenerated_BaseResultMap2">
+  			select * from ORDER_PAY_STATEMENT o
+			   where o.OUTSIDE_PAY_STATEMENT_NO is not null
+			   and o.FLAG = 1
+			   and o.STATE = 1
+			   and o.ORDER_CODE=#orderCode:VARCHAR#
+			   and o.YSFLAGE = #ysFlage:VARCHAR#
+			   AND NOT EXISTS (SELECT *
+			          FROM ORDER_PAY_STATEMENT
+			         WHERE ORDER_CODE = o.ORDER_CODE
+			           AND PAYMENT_WAY = o.PAYMENT_WAY
+			           AND YSFLAGE = o.YSFLAGE
+			           AND FLAG = 2
+			           AND STATE = 1)
+  </select>
+  	
+	<!-- 根据第三方流水号查询订单信息和失败的退款流水记录条数 -->
+	<select id="findOrderInfoByOuterStatementNo" parameterClass="string" resultClass="java.util.HashMap">
+	<![CDATA[
+		select om.customer_account customerAccount,
+	       om.order_code orderCode,
+	       (select count(1)
+	          from order_pay_statement ops
+	         where ops.flag = 2
+	           and ops.state = 2
+	           and ops.outside_pay_statement_no = #batchNo#) recordNum
+	  from order_main om
+	 where exists
+	 (select 1
+	          from order_pay_statement ops
+	         where ops.order_code = om.order_code
+	           and ops.outside_pay_statement_no = #batchNo#)
+	]]>
+	</select>
+	
+	<!-- 查询订单的预支付平台编码 -->
+	<select id="QUERY_READY_PAY_PLAT_CODE" parameterClass="string" resultClass="string">
+	<![CDATA[
+		select ops.platform_code
+		  from order_pay_statement ops
+		 where ops.state = 4
+		   and ops.order_code = #orderCode :VARCHAR#
+		 order by ops.create_date desc
+	]]>
+	</select>
+	
+	<!-- 新增支付流水 -->
+	<insert id="ibatorgenerated_insert" parameterClass="com.kmzyc.b2b.model.OrderPayStatement" >
+    	<selectKey resultClass="java.lang.Long" keyProperty="payStatementNo" >
+      		select SEQ_ORDER_PAY_STATEMENT.NEXTVAL from dual
+    	</selectKey>
+    	merge into order_pay_statement ops
+		using (select #outsidePayStatementNo:VARCHAR# outside_pay_statement_no,
+		              #flag:DECIMAL# flag,#state:DECIMAL# state
+		         from dual) cond
+		on (ops.outside_pay_statement_no = cond.outside_pay_statement_no and ops.state=cond.state and cond.outside_pay_statement_no is not null and ops.flag = cond.flag)
+		when not matched then
+		  insert
+		    (pay_statement_no,
+		     payment_way,
+		     state,
+		     account,
+		     order_code,
+		     order_money,
+		     create_date,
+		     end_date,
+		     outside_pay_statement_no,
+		     flag,
+		     preferential_no,
+		     preferential_name,
+		     bank_code,
+		     bank_name,
+		     platform_code,
+		     platform_name,
+		     preferential_grant_id)
+		  values
+		    (#payStatementNo:DECIMAL#,
+		     #paymentWay:DECIMAL#,
+		     #state:DECIMAL#,
+		     #account:VARCHAR#,
+		     #orderCode:VARCHAR#,
+		     #orderMoney:DECIMAL#,
+		     #createDate#,
+		     #endDate#,
+		     #outsidePayStatementNo:VARCHAR#,
+		     #flag:DECIMAL#,
+		     #preferentialNo:DECIMAL#,
+		     #preferentialName:VARCHAR#,
+		     #bankCode:VARCHAR#,
+		     #bankName:VARCHAR#,
+		     #platformCode:VARCHAR#,
+		     #platformName:VARCHAR#,
+		     #preferentialGrantId:DECIMAL#)
+  </insert>
+  
+  <!-- 修改支付流水 -->
+   <update id="ibatorgenerated_updateByPrimaryKey" parameterClass="com.kmzyc.b2b.model.OrderPayStatement" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Mon Jul 29 11:23:58 CST 2013.
+    -->
+    update ORDER_PAY_STATEMENT
+    set PAYMENT_WAY = #paymentWay:DECIMAL#,
+      STATE = #state:DECIMAL#,
+      ACCOUNT = #account:VARCHAR#,
+      ORDER_CODE = #orderCode:VARCHAR#,
+      ORDER_MONEY = #orderMoney:DECIMAL#,
+      CREATE_DATE = #createDate#,
+      END_DATE = #endDate#,
+      OUTSIDE_PAY_STATEMENT_NO = #outsidePayStatementNo:VARCHAR#,
+      FLAG = #flag:DECIMAL#,
+      PREFERENTIAL_NO = #preferentialNo:DECIMAL#,
+      PREFERENTIAL_NAME = #preferentialName:VARCHAR#,
+      BANK_NAME = #bankName:VARCHAR#,
+      BANK_CODE = #bankCode:VARCHAR#,
+       PLATFORM_NAME = #platformName:VARCHAR#,
+       PLATFORM_CODE = #platformCode:VARCHAR#,
+       PREFERENTIAL_GRANT_ID = #preferentialGrantId:DECIMAL#
+    where PAY_STATEMENT_NO = #payStatementNo:DECIMAL#
+  </update>
+</sqlMap>

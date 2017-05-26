@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="AccountTransaction" >
+
+  <typeAlias alias="accountTransactionDO" type="com.pltfm.app.dataobject.AccountTransaction" />
+  <typeAlias alias="accountTransactionQuery" type="com.pltfm.app.vobject.AccountTransactionQuery" />
+
+  <resultMap id="accountTransactionDOResultMap" class="accountTransactionDO" >
+    <result property="n_AccountTransactionId" column="N_ACCOUNT_TRANSACTION_ID" />
+    <result property="i_AccountId" column="I_ACCOUNT_ID" />
+    <result property="accountNumber" column="ACCOUNT_NUMBER" />
+    <result property="n_Type" column="N_TYPE" />
+    <result property="content" column="CONTENT" />
+    <result property="n_Amount" column="N_AMOUNT" />
+    <result property="status" column="STATUS" />
+    <result property="d_CreateDate" column="D_CREATE_DATE" />
+    <result property="n_Created" column="N_CREATED" />
+    <result property="d_ModifyDate" column="D_MODIFY_DATE" />
+    <result property="n_Modified" column="N_MODIFIED" />
+  </resultMap>
+
+  <resultMap id="accountTransactionQueryResultMap" class="accountTransactionQuery" >
+    <result property="n_AccountTransactionId" column="N_ACCOUNT_TRANSACTION_ID" />
+    <result property="i_AccountId" column="I_ACCOUNT_ID" />
+    <result property="accountNumber" column="ACCOUNT_NUMBER" />
+    <result property="n_Type" column="N_TYPE" />
+    <result property="content" column="CONTENT" />
+    <result property="n_Amount" column="N_AMOUNT" />
+    <result property="status" column="STATUS" />
+    <result property="d_CreateDate" column="D_CREATE_DATE" />
+    <result property="n_Created" column="N_CREATED" />
+    <result property="d_ModifyDate" column="D_MODIFY_DATE" />
+    <result property="n_Modified" column="N_MODIFIED" />
+  </resultMap>
+  <!-- 查询记录數量-->
+  <select id="countByQueryExample" parameterClass="accountTransactionQuery" resultClass="java.lang.Integer" >
+    SELECT COUNT(*) AS num FROM ACCOUNT_TRANSACTION 
+    <!--<include refid="queryQueryParams" />
+  --></select>
+  <!-- 分页查询记录數量-->
+   <select id="findPageListByQuery" resultMap="accountTransactionQueryResultMap" parameterClass="accountTransactionQuery" >
+     SELECT 
+    <include refid="accountTransaction_query_columns" />
+     FROM ACCOUNT_TRANSACTION a1 
+    <include refid="queryQueryParams" />
+  </select>
+  
+  <sql id="queryQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="n_AccountTransactionId" prepend="AND" >
+        <![CDATA[  
+        N_ACCOUNT_TRANSACTION_ID = #n_AccountTransactionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="i_AccountId" prepend="AND" >
+        <![CDATA[  
+        I_ACCOUNT_ID = #i_AccountId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="accountNumber" prepend="AND" >
+        <![CDATA[  
+        ACCOUNT_NUMBER = #accountNumber#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="n_Type" prepend="AND" >
+        <![CDATA[  
+        N_TYPE = #n_Type#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="content" prepend="AND" >
+        <![CDATA[  
+        CONTENT = #content#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="n_Amount" prepend="AND" >
+        <![CDATA[  
+        N_AMOUNT = #n_Amount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="status" prepend="AND" >
+        <![CDATA[  
+        STATUS = #status#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="d_CreateDate" prepend="AND" >
+        <![CDATA[  
+        D_CREATE_DATE = #d_CreateDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="n_Created" prepend="AND" >
+        <![CDATA[  
+        N_CREATED = #n_Created#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="d_ModifyDate" prepend="AND" >
+        <![CDATA[  
+        D_MODIFY_DATE = #d_ModifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="n_Modified" prepend="AND" >
+        <![CDATA[  
+        N_MODIFIED = #n_Modified#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+  <!--
+
+
+詢-->
+   <select id="findListByQuery" resultMap="accountTransactionQueryResultMap" parameterClass="accountTransactionQuery" >
+     SELECT 
+    <include refid="accountTransaction_query_columns" />
+     FROM ACCOUNT_TRANSACTION a1 
+    <include refid="queryQueryParams" />
+  </select>
+   <sql id="accountTransaction_query_columns" >
+    a1.N_ACCOUNT_TRANSACTION_ID, a1.I_ACCOUNT_ID, a1.ACCOUNT_NUMBER, a1.N_TYPE, a1.CONTENT, 
+      a1.N_AMOUNT, a1.STATUS, a1.D_CREATE_DATE, a1.N_CREATED, a1.D_MODIFY_DATE, a1.N_MODIFIED
+      
+  </sql>
+  
+  </sqlMap>

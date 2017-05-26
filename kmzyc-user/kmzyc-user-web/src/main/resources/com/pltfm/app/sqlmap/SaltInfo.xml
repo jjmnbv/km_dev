@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="SaltInfo">
+	<typeAlias alias="saltInfo" type="com.pltfm.app.vobject.SaltInfo" />
+	
+	<resultMap class="saltInfo" id="saltInfoMap">
+		<result jdbcType="DECIMAL" property="loginId" column="N_LOGIN_ID" />
+		<result jdbcType="VARCHAR" property="loginSalt" column="LOGIN_SALT" />
+		<result jdbcType="VARCHAR" property="paySalt" column="PAY_SALT" />
+	</resultMap>
+
+	<insert id="insertSaltInfo" parameterClass="saltInfo">
+		insert into salt_info (N_LOGIN_ID, LOGIN_SALT, PAY_SALT) values (#loginId:DECIMAL#,#loginSalt:VARCHAR#,#paySalt:VARCHAR#)
+	</insert>
+
+	<select id="querySaltInfo" parameterClass="com.kmzyc.b2b.vo.UserBaseInfo" resultMap="saltInfoMap">
+		SELECT SI.N_LOGIN_ID,SI.LOGIN_SALT,SI.PAY_SALT FROM SALT_INFO SI INNER JOIN LOGIN_INFO LI ON SI.N_LOGIN_ID=LI.N_LOGIN_ID WHERE 1=1
+		<isNotEmpty property="loginId">AND LI.N_LOGIN_ID= #loginId:DECIMAL#</isNotEmpty>
+		<isNotEmpty property="loginAccount">AND LI.LOGIN_ACCOUNT= #loginAccount:VARCHAR#</isNotEmpty>
+		<isNotEmpty property="mobile">AND LI.MOBILE= #mobile:VARCHAR#</isNotEmpty>
+	</select>
+
+
+</sqlMap>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="APP_USERLEVEL">
+     <resultMap id="ibatorgenerated_BaseResultMap"  class="com.pltfm.app.vobject.UserLevel" >
+           <result property="n_level_id"  column="N_LEVEL_ID"  jdbcType="INTEGER" />
+           <result property="code"  column="CODE"  jdbcType="VARCHAR" />
+           <result property="level_name"  column="LEVEL_NAME"  jdbcType="VARCHAR"/>
+           <result property="customerName"  column="NAME"  jdbcType="VARCHAR"/>
+           <result property="n_customer_type_id"  column="N_CUSTOMER_TYPE_ID"  jdbcType="INTEGER"/>
+           <result property="expend_min"  column="EXPEND_MIN"  jdbcType="DOUBLE"/>
+           <result property="expend_max"  column="EXPEND_MAX"  jdbcType="DOUBLE"/>
+           <result property="score_min"  column="SCORE_MIN"  jdbcType="DOUBLE"/>
+           <result property="score_max"  column="SCORE_MAX"  jdbcType="DOUBLE"/>
+           <result property="valid"  column="VALID"  jdbcType="INTEGER"/>
+           <result property="n_created"  column="N_CREATED"  jdbcType="INTEGER"/>
+           <result property="d_create_date"  column="D_CREATE_DATE" />
+           <result property="n_modified"  column="N_MODIFIED"  jdbcType="INTEGER"/>
+           <result property="d_modify_date"  column="D_MODIFY_DATE" />
+           <result property="yearMin"  column="YEAR_MIN"   />
+           <result property="remark"  column="REMARK"  />
+           <result property="status"  column="status"  jdbcType="INTEGER" />
+           
+     </resultMap>
+     <!-- 添加客户等级信息 -->
+    <insert id="ibatorgenerated_insert" parameterClass="com.pltfm.app.vobject.UserLevel">
+       <selectKey resultClass="java.lang.Integer" keyProperty="n_level_id" >
+           select seq_app_level.nextval from dual
+      </selectKey>
+      insert into USER_LEVEL (N_LEVEL_ID,CODE,LEVEL_NAME,N_CUSTOMER_TYPE_ID,EXPEND_MIN,EXPEND_MAX,
+                                          SCORE_MIN,SCORE_MAX,VALID,N_CREATED,D_CREATE_DATE,N_MODIFIED,D_MODIFY_DATE,REMARK,YEAR_MIN ,STATUS) 
+                                values(#n_level_id:INTEGER#,#code:VARCHAR#,#level_name:VARCHAR#,#n_customer_type_id:INTEGER#,
+                                          #expend_min:DOUBLE#,#expend_max:DOUBLE#,#score_min:DOUBLE#,#score_max:DOUBLE#,
+                                          #valid:INTEGER#,#n_created:INTEGER#,#d_create_date#,#n_modified:INTEGER#,#d_modify_date#,#remark#,#yearMin#,#status#)
+    </insert>
+    <!-- 查询客户等级列表 -->
+    <select id="ibatorgenerated_getUserLevelList"  resultMap="ibatorgenerated_BaseResultMap"  parameterClass="com.pltfm.app.vobject.UserLevel">
+           select  N_LEVEL_ID,CODE,LEVEL_NAME,com.NAME,N_CUSTOMER_TYPE_ID,EXPEND_MIN,EXPEND_MAX,
+                      SCORE_MIN,SCORE_MAX,VALID,N_CREATED,D_CREATE_DATE,N_MODIFIED,D_MODIFY_DATE,REMARK,YEAR_MIN,STATUS  
+                      from  USER_LEVEL tt,BNES_CUSTOMER_TYPE com
+				       where tt.status = 0 and tt.N_CUSTOMER_TYPE_ID = com.CUSTOMER_TYPE_ID
+				            <isNotNull property="n_customer_type_id">
+							  <isNotEmpty prepend="and" property="n_customer_type_id">
+								N_CUSTOMER_TYPE_ID =#n_customer_type_id:INTEGER#
+							  </isNotEmpty>
+						  </isNotNull>
+						  <isNotNull property="code">
+							  <isNotEmpty prepend="and" property="code">
+								CODE =#code:VARCHAR#
+							  </isNotEmpty>
+						  </isNotNull>
+    </select>
+    
+        <!-- 查询客户等级列表 -->
+    <select id="ibatorgenerated_getYearUserLevelList"  resultMap="ibatorgenerated_BaseResultMap"  parameterClass="com.pltfm.app.vobject.UserLevel">
+           select  N_LEVEL_ID,CODE,LEVEL_NAME,com.NAME,N_CUSTOMER_TYPE_ID,EXPEND_MIN,EXPEND_MAX,
+                      SCORE_MIN,SCORE_MAX,VALID,N_CREATED,D_CREATE_DATE,N_MODIFIED,D_MODIFY_DATE,REMARK,YEAR_MIN,STATUS  
+                      from  USER_LEVEL tt,BNES_CUSTOMER_TYPE com
+				       where tt.status=0 and tt.N_CUSTOMER_TYPE_ID = com.CUSTOMER_TYPE_ID
+				            <isNotNull property="n_customer_type_id">
+							  <isNotEmpty prepend="and" property="n_customer_type_id">
+								N_CUSTOMER_TYPE_ID =#n_customer_type_id:INTEGER#
+							  </isNotEmpty>
+						  </isNotNull>
+						  <isNotNull property="code">
+							  <isNotEmpty prepend="and" property="code">
+								CODE =#code:VARCHAR#
+							  </isNotEmpty>
+						  </isNotNull>
+						   <isNotNull property="yearMin">
+							  <isNotEmpty prepend="and" property="yearMin">
+								<![CDATA[ tt.YEAR_MIN <=#yearMin# ]]>
+							  </isNotEmpty>
+						  </isNotNull>
+						order by tt.code DESC
+    </select>
+    <!-- 删除客户等级信息 -->
+    <delete id="ibatorgenerated_delete" parameterClass="com.pltfm.app.vobject.UserLevel">
+           delete from USER_LEVEL where N_LEVEL_ID = #n_level_id:INTEGER#
+    </delete>
+    <!-- 通过主键查询客户等级信息 -->
+    <select id="abatorgenerated_selectByPrimaryKey"  resultMap="ibatorgenerated_BaseResultMap"   parameterClass="com.pltfm.app.vobject.UserLevel">
+            select  N_LEVEL_ID,CODE,LEVEL_NAME,com.NAME,N_CUSTOMER_TYPE_ID,EXPEND_MIN,EXPEND_MAX,
+                      SCORE_MIN,SCORE_MAX,VALID,N_CREATED,D_CREATE_DATE,N_MODIFIED,D_MODIFY_DATE,tt.REMARK,tt.YEAR_MIN,STATUS
+                      FROM  USER_LEVEL tt,BNES_CUSTOMER_TYPE com
+				       where tt.status = 0  and tt.N_CUSTOMER_TYPE_ID = com.CUSTOMER_TYPE_ID and N_LEVEL_ID = #n_level_id:INTEGER#
+    </select>
+    <!-- 通过主键修改客户等级信息 -->
+  <update id="abatorgenerated_updateByPrimaryKey" parameterClass="com.pltfm.app.vobject.UserLevel" >
+    update USER_LEVEL
+    set   CODE = #code:VARCHAR#,
+      LEVEL_NAME = #level_name:VARCHAR#,
+      N_CUSTOMER_TYPE_ID = #n_customer_type_id:INTEGER#,
+      EXPEND_MIN = #expend_min:DOUBLE#,
+      EXPEND_MAX = #expend_max:DOUBLE#,
+      SCORE_MIN = #score_min:DOUBLE#,
+      SCORE_MAX = #score_max:DOUBLE#,
+      VALID = #valid:INTEGER#,
+      N_CREATED = #n_created:INTEGER#,
+      D_CREATE_DATE=#d_create_date#,
+      N_MODIFIED=#n_modified:INTEGER#,
+      D_MODIFY_DATE=#d_modify_date#,
+      REMARK=#remark#,
+      YEAR_MIN=#yearMin#,
+      STATUS=#status#
+    where N_LEVEL_ID = #n_level_id:INTEGER#
+  </update>
+    <!-- 分页查询客户等级列表信息 -->
+    <select id="abatorgenerated_pageByRule"  resultMap="ibatorgenerated_BaseResultMap"  parameterClass="com.pltfm.app.vobject.UserLevel">
+           select  N_LEVEL_ID,CODE,LEVEL_NAME,NAME,N_CUSTOMER_TYPE_ID,EXPEND_MIN,EXPEND_MAX,REMARK,YEAR_MIN, 
+                      SCORE_MIN,SCORE_MAX,VALID,N_CREATED,D_CREATE_DATE,N_MODIFIED,D_MODIFY_DATE,STATUS FROM  (
+                       select  ROW_NUMBER() OVER(order by tt.code ASC) as view_row_number, tt.*,com.NAME  FROM  USER_LEVEL tt,BNES_CUSTOMER_TYPE com
+				       where tt.status =0 and tt.N_CUSTOMER_TYPE_ID = com.CUSTOMER_TYPE_ID
+				            <isNotNull property="level_name">
+							  <isNotEmpty prepend="and" property="level_name">
+								LEVEL_NAME like '%$level_name$%'
+							  </isNotEmpty>
+						  </isNotNull>
+						  <isNotNull property="n_customer_type_id">
+							<isNotEmpty prepend="and" property="n_customer_type_id">
+								N_CUSTOMER_TYPE_ID = #n_customer_type_id:INTEGER#
+							</isNotEmpty>
+						</isNotNull>
+              ) 
+         <![CDATA[ where view_row_number <= #endIndex# and view_row_number > #startIndex# ]]>
+    </select>
+    <!-- 通过多条件查询统计客户等级总条数 -->
+  <select id="abatorgenerated_countByRule" parameterClass="com.pltfm.app.vobject.UserLevel" resultClass="java.lang.Integer" >
+	select count(*) from  USER_LEVEL tt,BNES_CUSTOMER_TYPE com
+		 where tt.status = 0 and  tt.N_CUSTOMER_TYPE_ID = com.CUSTOMER_TYPE_ID
+		<isNotNull property="level_name">
+			<isNotEmpty prepend="and" property="level_name">
+				LEVEL_NAME like  '%$level_name$%'
+			</isNotEmpty>
+		</isNotNull>
+		<isNotNull property="n_customer_type_id">
+			<isNotEmpty prepend="and" property="n_customer_type_id">
+				N_CUSTOMER_TYPE_ID = #n_customer_type_id:INTEGER#
+			</isNotEmpty>
+		</isNotNull>
+  </select>
+  <!-- 通过数据访问来查询客户等级信息 -->
+  <select id="abatorgenerated_selectByUserLevelDO"  resultMap="ibatorgenerated_BaseResultMap"  parameterClass="com.pltfm.app.dataobject.UserLevelDO">
+       select  N_LEVEL_ID,CODE,LEVEL_NAME,NAME,N_CUSTOMER_TYPE_ID,EXPEND_MIN,EXPEND_MAX,
+           SCORE_MIN,SCORE_MAX,VALID,N_CREATED,D_CREATE_DATE,N_MODIFIED,D_MODIFY_DATE,tt.REMARK,tt.YEAR_MIN ,STATUS
+          FROM  USER_LEVEL tt,BNES_CUSTOMER_TYPE com
+	      where tt.status = 0 and tt.N_CUSTOMER_TYPE_ID = com.CUSTOMER_TYPE_ID
+	        
+	      <![CDATA[ and add_months(tt.d_create_date,tt.valid)>sysdate]]>
+	    <!--    <![CDATA[ and tt.d_create_date+tt.valid/24/60>sysdate]]> -->
+	           <isNotNull property="customerTypeId">
+				  <isNotEmpty prepend="and" property="customerTypeId">
+					N_CUSTOMER_TYPE_ID =#customerTypeId#
+				  </isNotEmpty>
+		       </isNotNull>
+		       <isNotNull property="yearMin">
+							  <isNotEmpty prepend="and" property="yearMin">
+								<![CDATA[ tt.YEAR_MIN <=#yearMin# ]]>
+							  </isNotEmpty>
+						  </isNotNull>		
+			  <isNotNull property="expend">
+				  <isNotEmpty prepend="and" property="expend">
+				    #expend:DOUBLE# between EXPEND_MIN  and  EXPEND_MAX
+				  </isNotEmpty>
+			  </isNotNull>
+			  order by tt.code DESC
+   </select>
+   <!-- 通过客户类型获取消费金额最大范围值 -->
+   <select id="abatorgenerated_getMaxExpend" resultClass="java.lang.Integer"  parameterClass="com.pltfm.app.vobject.UserLevel">
+        select max(expend_max) from user_level l where l.n_customer_type_id =#n_customer_type_id:INTEGER#
+   </select>
+      <!-- 查询客户等级 -->
+       <select id="itge_getUserLevelMaxList"  resultMap="ibatorgenerated_BaseResultMap"  parameterClass="java.math.BigDecimal">
+            select N_LEVEL_ID,
+       CODE,
+       LEVEL_NAME,
+       com.NAME,
+       N_CUSTOMER_TYPE_ID,
+       EXPEND_MIN,
+       EXPEND_MAX,
+       SCORE_MIN,
+       SCORE_MAX,
+       VALID,
+       N_CREATED,
+       D_CREATE_DATE,
+       N_MODIFIED,
+       D_MODIFY_DATE,
+       REMARK,
+       YEAR_MIN,
+       STATUS
+  from USER_LEVEL tt, BNES_CUSTOMER_TYPE com
+ where tt.status = 0 and tt.N_CUSTOMER_TYPE_ID = com.CUSTOMER_TYPE_ID
+   and com.CUSTOMER_TYPE_ID = 1
+   <![CDATA[ and tt.expend_min  >= #userLevel#]]>
+   
+    </select>
+   
+</sqlMap>

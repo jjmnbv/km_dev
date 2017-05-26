@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ThirdAccountInfo">
+
+	<typeAlias alias="thirdAccountInfo" type="com.kmzyc.b2b.third.model.ThirdAccountInfo"/>
+	
+	<resultMap  id="accountInfoResult" class="thirdAccountInfo">
+		<result column="open_id" property="openId" jdbcType="VARCHAR"/>
+		<result column="third_account_type" property="thirdAccountType" jdbcType="VARCHAR"/>
+		<result column="nick_name" property="nickName" jdbcType="VARCHAR"/>
+		<result column="gender" property="gender" jdbcType="VARCHAR"/>
+		<result column="heading_url" property="headingUrl" jdbcType="VARCHAR"/>
+		<result column="province" property="province" jdbcType="VARCHAR"/>
+		<result column="city" property="city" jdbcType="VARCHAR"/>
+		<result column="now_address" property="nowAddress" jdbcType="VARCHAR"/>
+		<result column="language" property="language" jdbcType="VARCHAR"/>
+		<result column="status" property="status" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="VARCHAR"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+		<result column="extend2" property="extend2" jdbcType="VARCHAR"/>
+		<result column="extend3" property="extend3" jdbcType="VARCHAR"/>
+		<result column="UNION_ID" property="unionid" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<insert id="ibatorgenerated_saveInfo" parameterClass="thirdAccountInfo" >
+    insert into THIRD_ACCOUNT_INFO
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="openId" >
+        OPEN_ID
+      </isNotNull>
+      <isNotNull prepend="," property="thirdAccountType" >
+        THIRD_ACCOUNT_TYPE
+      </isNotNull>
+      <isNotNull prepend="," property="nickName" >
+        NICK_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="gender" >
+        GENDER
+      </isNotNull>
+      <isNotNull prepend="," property="headingUrl" >
+        HEADING_URL
+      </isNotNull>
+      <isNotNull prepend="," property="province" >
+        PROVINCE
+      </isNotNull>
+      <isNotNull prepend="," property="city" >
+        CITY
+      </isNotNull>
+      <isNotNull prepend="," property="nowAddress" >
+        NOW_ADDRESS
+      </isNotNull>
+      <isNotNull prepend="," property="language" >
+        LANGUAGE
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        STATUS
+      </isNotNull>
+      <isNotNull prepend="," property="createTime" >
+        CREATE_TIME
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        REMARK
+      </isNotNull>
+      <isNotNull prepend="," property="extend1" >
+        EXTEND1
+      </isNotNull>
+      <isNotNull prepend="," property="extend2" >
+        EXTEND2
+      </isNotNull>
+      <isNotNull prepend="," property="extend3" >
+        EXTEND3
+      </isNotNull>
+      <isNotNull prepend="," property="extend4" >
+        EXTEND4
+      </isNotNull>
+      <isNotNull prepend="," property="unionid">
+      	UNION_ID
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="openId" >
+        #openId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="thirdAccountType" >
+        #thirdAccountType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="nickName" >
+        #nickName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="gender" >
+        #gender:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="headingUrl" >
+        #headingUrl:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="province" >
+        #province:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="city" >
+        #city:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="nowAddress" >
+        #nowAddress:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="language" >
+        #language:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        #status:CHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createTime" >
+        #createTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        #remark:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="extend1" >
+        #extend1:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="extend2" >
+        #extend2:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="extend3" >
+        #extend3:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="extend4" >
+        #extend4:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="unionid" >
+        #unionid:VARCHAR#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+	
+	<!-- 根据主键查询信息 -->
+	<select id="queryByPrimaryKey" resultMap="accountInfoResult" parameterClass="thirdAccountInfo">
+		select tai.open_id,
+		       tai.third_account_type,
+		       tai.nick_name,
+		       tai.gender,
+		       tai.heading_url,
+		       tai.province,
+		       tai.city,
+		       tai.now_address,
+		       tai.language,
+		       tai.status,
+		       tai.create_time,
+		       tai.remark,
+		       tai.extend2,
+		       (SELECT tbi.N_LOGIN_ID || ',' ||
+		               (select ai.n_account_id
+		                  from account_info ai
+		                 where ai.n_login_id = tbi.n_login_id)
+		          FROM third_bind_info tbi
+		         where tbi.open_id = #openId:VARCHAR#
+		           and tbi.third_account_type = #thirdAccountType:VARCHAR# ) extend3,
+		       tai.union_id
+		  from third_account_info tai
+		 where tai.status = 'Y'
+		   and tai.third_account_type = #thirdAccountType:VARCHAR# 
+		   and tai.open_id = #openId:VARCHAR#
+	</select>
+	
+	<!-- 更新第三方账号信息 -->
+	<update id="updateAcctInfo" parameterClass="thirdAccountInfo">
+		update 
+			third_account_info 
+		set 
+			nick_name=#nickName:VARCHAR#,gender=#gender:VARCHAR#,
+			heading_url=#headingUrl:VARCHAR#,province=#province:VARCHAR#,
+			city=#city:VARCHAR#,now_address=#nowAddress:VARCHAR#,
+			language=#language:VARCHAR#,remark=#remark:VARCHAR#
+			<isNotNull prepend="," property="unionid">
+				UNION_ID=#unionid:VARCHAR#
+			</isNotNull>
+		where 
+			open_id=#openId:VARCHAR# and third_account_type=#thirdAccountType:VARCHAR#
+	</update>
+	
+	<!-- 禁用账号 -->
+	<update id="updateStatus" parameterClass="thirdAccountInfo">
+		<![CDATA[
+			update third_account_info set status='N' where open_id=#openId:VARCHAR# and third_account_type=#thirdAccountType:VARCHAR#
+		]]>
+	</update>
+	
+	<!-- 删除第三方账号的信息 -->
+	<delete id="delAccountInfo" parameterClass="thirdAccountInfo">
+		delete from third_account_info where open_id=#openId:VARCHAR# and third_account_type=#thirdAccountType:VARCHAR#
+	</delete>
+	
+	<select id="queryOpenIdByLoginId" parameterClass="java.lang.String" resultClass="java.lang.String">
+		select open_id from third_account_info where third_account_type='02' and open_id in(select open_id from third_bind_info where n_login_id=#loginId:VARCHAR#)		
+	</select>
+	
+	<!-- 查询第三方帐号信息 -->
+	<select id="SQL_QUERY_THIRD_ACCOUNT_INFO" parameterClass="java.util.Map" resultMap="accountInfoResult">
+		select tai.open_id,
+		       tai.third_account_type,
+		       tai.nick_name,
+		       tai.gender,
+		       tai.heading_url,
+		       tai.province,
+		       tai.city,
+		       tai.now_address,
+		       tai.language,
+		       tai.status,
+		       tai.create_time,
+		       tai.remark,
+		       tai.extend1,
+		       tai.extend2,
+		       tai.extend3,
+		       tai.extend4,
+		       tai.union_id
+		  from third_account_info tai
+		 where exists (select 1
+		          from third_bind_info tbi
+		         where tbi.open_id = tai.open_id
+		           and tbi.third_account_type = #type:VARCHAR#
+		           and tbi.n_login_id =  #loginId:DECIMAL#)
+	</select>		
+</sqlMap>

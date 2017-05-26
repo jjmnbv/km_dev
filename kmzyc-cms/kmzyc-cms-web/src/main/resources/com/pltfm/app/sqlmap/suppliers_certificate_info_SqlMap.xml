@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SUPPLIERS_CERTIFICATE_INFO">
+	<resultMap id="suppliersCertificateInfoResult" class="com.pltfm.cms.vobject.SuppliersCertificateInfo" >
+		<result column="INFO_ID" property="infoId" jdbcType="DECIMAL" />
+		<result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL" />
+		<result column="FILE_CODE" property="fileCode" jdbcType="VARCHAR" />
+		<result column="BUSINESS_SCOPE" property="businessScope" jdbcType="DECIMAL" />
+		<result column="ENTERPRISE_LEGAL_REPRESENTATIV" property="enterpriseLegalRepresentativ" jdbcType="Date" />
+		<result column="CERTIFICATE_NUMBER" property="certificateNumber" jdbcType="DECIMAL" />
+		<result column="CERTIFICATE_TYPE" property="certificateType" jdbcType="Date" />
+		<result column="LONG_TERM" property="longTerm" jdbcType="DECIMAL" />
+		<result column="VALID_BEGIN_TIME" property="validBeginTime" jdbcType="DECIMAL" />
+		<result column="VALID_END_TIME" property="validEndTime" jdbcType="DECIMAL" />
+		<result column="VALID_TIME" property="validTime" jdbcType="DECIMAL" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="CREATE_USER" property="createUser" jdbcType="DECIMAL" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="Date" />
+		<result column="MODIF_USER" property="modifUser" jdbcType="DECIMAL" />
+		<result column="MODIF_TIME" property="modifTime" jdbcType="Date" />
+	</resultMap>
+	
+	<select id="findListBySupplierId" resultMap="suppliersCertificateInfoResult" parameterClass="java.lang.Long" >
+    	SELECT t.INFO_ID,
+	           t.SUPPLIER_ID,
+	           t.FILE_CODE,
+	           t.BUSINESS_SCOPE,
+	           t.ENTERPRISE_LEGAL_REPRESENTATIV,
+	           t.CERTIFICATE_NUMBER,
+	           t.CERTIFICATE_TYPE,
+	           t.LONG_TERM,
+	           t.VALID_BEGIN_TIME,
+	           t.VALID_END_TIME,
+	           t.VALID_TIME,
+	           t.STATUS,
+	           t.CREATE_USER,
+	           t.CREATE_TIME,
+	           t.MODIF_USER,
+	           t.MODIF_TIME
+	      FROM SUPPLIERS_CERTIFICATE_INFO t
+	     WHERE t.SUPPLIER_ID = #supplierId:DECIMAL#
+    </select>
+    
+</sqlMap>

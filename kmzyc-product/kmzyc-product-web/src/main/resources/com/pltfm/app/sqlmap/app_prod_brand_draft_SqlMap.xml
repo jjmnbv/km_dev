@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="prod_brand_draft">
+    <typeAlias alias="ProdBrandDraft" type="com.pltfm.app.vobject.ProdBrandDraft"/>
+    <typeAlias alias="ProdBrandDraftExample" type="com.pltfm.app.vobject.ProdBrandDraftExample"/>
+
+    <resultMap id="baseMap" class="ProdBrandDraft">
+        <result column="BRAND_ID" property="brandId" jdbcType="DECIMAL"/>
+        <result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR"/>
+        <result column="NATION" property="nation" jdbcType="VARCHAR"/>
+        <result column="LOGO_PATH" property="logoPath" jdbcType="VARCHAR"/>
+        <result column="ENG_NAME" property="engName" jdbcType="VARCHAR"/>
+        <result column="CHN_SPELL" property="chnSpell" jdbcType="VARCHAR"/>
+        <result column="STATUS" property="status" jdbcType="CHAR"/>
+        <result column="APPLY_TIME" property="applyTime" jdbcType="Date"/>
+        <result column="CREATE_USER" property="createUser" jdbcType="DECIMAL"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="Date"/>
+        <result column="CHECK_USER" property="checkUser" jdbcType="DECIMAL"/>
+        <result column="CHECK_TIME" property="checkTime" jdbcType="Date"/>
+        <result column="MODIF_USER" property="modifUser" jdbcType="DECIMAL"/>
+        <result column="MODIF_TIME" property="modifTime" jdbcType="Date"/>
+        <result column="REASONS" property="reasons" jdbcType="VARCHAR"/>
+        <result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR"/>
+        <result column="SHOP_CODE" property="merchantName" select="PRODUCT_DRAFT.getMerchantNameForDraft"/>
+    </resultMap>
+
+    <sql id="example_where_clause">
+        <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate">
+            <isEqual property="oredCriteria[].valid" compareValue="true">
+                (
+                <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and">
+                    $oredCriteria[].criteriaWithoutValue[]$
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and">
+                    $oredCriteria[].criteriaWithSingleValue[].condition$
+                    #oredCriteria[].criteriaWithSingleValue[].value#
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithSingleDateValue" conjunction="and">
+                    $oredCriteria[].criteriaWithSingleDateValue[].condition$
+                    #oredCriteria[].criteriaWithSingleDateValue[].value:DATE #
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and">
+                    $oredCriteria[].criteriaWithListValue[].condition$
+                    <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")"
+                             conjunction=",">
+                        #oredCriteria[].criteriaWithListValue[].values[]#
+                    </iterate>
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and">
+                    $oredCriteria[].criteriaWithBetweenValue[].condition$
+                    #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+                    #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenDateValue" conjunction="and">
+                    $oredCriteria[].criteriaWithBetweenDateValue[].condition$
+                    #oredCriteria[].criteriaWithBetweenDateValue[].values[0]:DATE # and
+                    #oredCriteria[].criteriaWithBetweenDateValue[].values[1]:DATE #
+                </iterate>
+                <isNotEmpty prepend="and" property="oredCriteria[].shopCodeSuppliersInfoValue">
+                    $oredCriteria[].shopCodeSuppliersInfoValue[0]$
+                    '%'||#oredCriteria[].shopCodeSuppliersInfoValue[2]#||'%'
+                    $oredCriteria[].shopCodeSuppliersInfoValue[1]$
+                </isNotEmpty>
+                )
+            </isEqual>
+        </iterate>
+    </sql>
+
+    <insert id="insert" parameterClass="ProdBrandDraft">
+        <selectKey keyProperty="brandId" resultClass="java.lang.Long">
+            select SEQ_APP_PRODUCT_BRAND.nextval from dual
+        </selectKey>
+        insert into PROD_BRAND_DRAFT (BRAND_ID, BRAND_NAME, NATION, LOGO_PATH, ENG_NAME, CHN_SPELL, STATUS,
+        APPLY_TIME,CREATE_USER,CREATE_TIME,MODIF_USER,MODIF_TIME,SHOP_CODE)
+        values (#brandId:DECIMAL#, #brandName:VARCHAR#, #nation:VARCHAR#, #logoPath:VARCHAR#,
+        #engName:VARCHAR#, #chnSpell:VARCHAR#, #status:CHAR#,sysdate,
+        #createUser:DECIMAL#,sysdate,#modifUser:DECIMAL#,sysdate,#shopCode:VARCHAR#)
+    </insert>
+
+    <insert id="insertIntoProdBrand" parameterClass="ProdBrandDraft">
+        insert into PROD_BRAND (BRAND_ID, BRAND_NAME, NATION, LOGO_PATH, ENG_NAME, CHN_SPELL, IS_VALID,BRAND_FROM)
+        values (#brandId:DECIMAL#, #brandName:VARCHAR#, #nation:VARCHAR#, #logoPath:VARCHAR#,
+        #engName:VARCHAR#, #chnSpell:VARCHAR#,1,1)
+    </insert>
+
+    <insert id="insertSelective" parameterClass="ProdBrandDraft">
+        <selectKey keyProperty="brandId" resultClass="java.lang.Long">
+            select SEQ_APP_PRODUCT_BRAND.nextval from dual
+        </selectKey>
+        insert into PROD_BRAND_DRAFT
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="brandId">
+                BRAND_ID
+            </isNotNull>
+            <isNotNull prepend="," property="brandName">
+                BRAND_NAME
+            </isNotNull>
+            <isNotNull prepend="," property="nation">
+                NATION
+            </isNotNull>
+            <isNotNull prepend="," property="logoPath">
+                LOGO_PATH
+            </isNotNull>
+            <isNotNull prepend="," property="engName">
+                ENG_NAME
+            </isNotNull>
+            <isNotNull prepend="," property="chnSpell">
+                CHN_SPELL
+            </isNotNull>
+            <isNotNull prepend="," property="status">
+                STATUS
+            </isNotNull>
+            <isNotNull prepend="," property="applyTime">
+                APPLY_TIME
+            </isNotNull>
+            <isNotNull prepend="," property="createUser">
+                CREATE_USER
+            </isNotNull>
+            <isNotNull prepend="," property="createTime">
+                CREATE_TIME
+            </isNotNull>
+            <isNotNull prepend="," property="checkUser">
+                CHECK_USER
+            </isNotNull>
+            <isNotNull prepend="," property="checkTime">
+                CHECK_TIME
+            </isNotNull>
+            <isNotNull prepend="," property="modifUser">
+                MODIF_USER
+            </isNotNull>
+            <isNotNull prepend="," property="modifTime">
+                MODIF_TIME
+            </isNotNull>
+            <isNotNull prepend="," property="shopCode">
+                SHOP_CODE
+            </isNotNull>
+            )
+        </dynamic>
+        values
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="brandId">
+                #brandId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="brandName">
+                #brandName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="nation">
+                #nation:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="logoPath">
+                #logoPath:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="engName">
+                #engName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="chnSpell">
+                #chnSpell:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="status">
+                #status:CHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="applyTime">
+                #applyTime#
+            </isNotNull>
+            <isNotNull prepend="," property="createUser">
+                #createUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="createTime">
+                #createTime#
+            </isNotNull>
+            <isNotNull prepend="," property="checkUser">
+                #checkUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="checkTime">
+                #checkTime#
+            </isNotNull>
+            <isNotNull prepend="," property="modifUser">
+                #modifUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="modifTime">
+                #modifTime#
+            </isNotNull>
+            <isNotNull prepend="," property="shopCode">
+                #shopCode:VARCHAR#
+            </isNotNull>
+            )
+        </dynamic>
+    </insert>
+
+    <select id="selectByExample" parameterClass="ProdBrandDraftExample" resultMap="baseMap">
+        select BRAND_ID, BRAND_NAME, NATION, LOGO_PATH, ENG_NAME, CHN_SPELL, STATUS,
+        APPLY_TIME,CREATE_USER,CREATE_TIME,CHECK_USER,CHECK_TIME,MODIF_USER,MODIF_TIME,SHOP_CODE,REASONS
+        from PROD_BRAND_DRAFT
+
+        <isParameterPresent>
+            <include refid="prod_brand_draft.example_where_clause"/>
+            <isNotNull property="orderByClause">
+                order by $orderByClause$
+            </isNotNull>
+        </isParameterPresent>
+    </select>
+
+    <select id="countByExample" parameterClass="ProdBrandDraftExample" resultClass="java.lang.Integer">
+        select count(0) from PROD_BRAND_DRAFT
+        <include refid="prod_brand_draft.example_where_clause"/>
+    </select>
+
+    <select id="getProdBrandDraftById" parameterClass="java.lang.Long" resultMap="baseMap">
+        select BRAND_ID, BRAND_NAME, NATION, LOGO_PATH, ENG_NAME, CHN_SPELL, STATUS,
+        APPLY_TIME,CREATE_USER,CREATE_TIME,CHECK_USER,CHECK_TIME,MODIF_USER,MODIF_TIME,SHOP_CODE,REASONS
+        from PROD_BRAND_DRAFT
+        where BRAND_ID = #brandId:DECIMAL#
+    </select>
+
+    <update id="refuseProdBrandDraft" parameterClass="ProdBrandDraft">
+        update PROD_BRAND_DRAFT
+        set
+        REASONS = #reasons:VARCHAR#,
+        STATUS = '2',
+        CHECK_USER = #checkUser:DECIMAL#,
+        CHECK_TIME = sysdate,
+        MODIF_USER = #modifUser:DECIMAL#,
+        MODIF_TIME = sysdate
+        where BRAND_ID = #brandId:DECIMAL# AND STATUS = '1'
+    </update>
+
+    <update id="passProdBrandDraft" parameterClass="ProdBrandDraft">
+        update PROD_BRAND_DRAFT
+        set
+        REASONS = '',
+        STATUS = '3',
+        CHECK_USER = #checkUser:DECIMAL#,
+        CHECK_TIME = sysdate,
+        MODIF_USER = #modifUser:DECIMAL#,
+        MODIF_TIME = sysdate
+        where BRAND_ID = #brandId:DECIMAL# AND STATUS = '1'
+    </update>
+
+
+
+    <delete id="deleteByPrimaryKey" parameterClass="ProdBrandDraft">
+        delete from PROD_BRAND_DRAFT where BRAND_ID = #brandId:DECIMAL#
+    </delete>
+</sqlMap>

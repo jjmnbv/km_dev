@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+    <!-- settlement start -->
+    <!-- 结算头部 -->
+    <definition name="settlementTop"
+                template="/WEB-INF/jsp/settlement/template/settlementTop.jsp"></definition>
+    <definition name="consigneeInfoContent"
+                template="/WEB-INF/jsp/settlement/template/consigneeInfoContent.jsp"></definition>
+    <definition name="addConsigneeInfoContent"
+                template="/WEB-INF/jsp/settlement/template/addConsigneeInfoContent.jsp"></definition>
+    <!-- wap结算内容 -->
+    <definition name="wapSettlement"
+                template="/WEB-INF/jsp/settlement/template/wapSettlementContent.jsp"></definition>
+    <!-- settlement end -->
+
+    <!-- pay start -->
+    <!-- 支付头部 -->
+    <definition name="payTop" template="/WEB-INF/jsp/payresult/template/paytop.jsp"></definition>
+    <!-- 支付结果头部 -->
+    <definition name="payResultTop"
+                template="/WEB-INF/jsp/payresult/template/payresultTop.jsp"></definition>
+    <!-- pay end -->
+</tiles-definitions>
+

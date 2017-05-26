@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="securitycentre" extends="BasePackage">
+        <action name="showSecurityCentre" class="securityCentreAction"
+                method="showSecurityCentre">
+            <result name="success">/WEB-INF/jsp/securitycentre/securityCentre.jsp
+            </result>
+            <result name="zxError" type="redirect">/member/setUserNameForSd.action</result>
+            <result name="thirdError">/WEB-INF/jsp/third/thirdLogin/template/setUserInfoContent.jsp
+            </result>
+        </action>
+        <!-- 账户管理 -->
+        <action name="accountManage" class="securityCentreAction" method="accountManage">
+            <result name="success">/WEB-INF/jsp/securitycentre/accountManage.jsp
+            </result>
+        </action>
+
+        <action name="goChangePassword" class="securityCentreAction" method="goChangePassword">
+            <result name="success">/WEB-INF/jsp/securitycentre/changePassword.jsp
+            </result>
+            <result name="zxError" type="redirect">/member/setUserNameForSd.action</result>
+            <result name="thirdError">/WEB-INF/jsp/third/thirdLogin/template/setUserInfoContent.jsp
+            </result>
+
+        </action>
+        <!-- Wap版 修改密码 -->
+        <action name="goWapChangePassword" class="securityCentreAction"
+                method="goWapChangePassword">
+            <result name="success">/WEB-INF/jsp/securitycentre/wapChangePassword.jsp
+            </result>
+        </action>
+        <!-- Wap版 手机验证 -->
+        <action name="goWapVerifyMobile" class="securityCentreAction" method="goWapVerifyMobile">
+            <result name="success">/WEB-INF/jsp/securitycentre/goWapVerifyMobile.jsp
+            </result>
+        </action>
+
+        <!-- Wap版 身份验证 -->
+        <action name="goWapMobileVerifyPassword" class="securityCentreAction"
+                method="goWapMobileVerifyPassword">
+            <result name="success">/WEB-INF/jsp/securitycentre/goWapMobileVerifyPassword.jsp
+            </result>
+        </action>
+        <action name="postChangePassword" class="securityCentreAction" method="postChangePassword">
+            <result name="input">/WEB-INF/jsp/securitycentre/changePassword.jsp
+            </result>
+            <result name="success">/WEB-INF/jsp/securitycentre/postChangePassword.jsp
+            </result>
+        </action>
+        <!-- wap完成密码修改 -->
+        <action name="wapChangePasswordDone" class="securityCentreAction"
+                method="wapChangePasswordDone">
+            <result name="success">
+                /WEB-INF/jsp/securitycentre/wapChangePasswordDone.jsp
+            </result>
+        </action>
+
+
+        <action name="goMobileVerifyPassword" class="securityCentreAction"
+                method="goMobileVerifyPassword">
+            <result name="success">/WEB-INF/jsp/securitycentre/goMobileVerifyPassword.jsp
+            </result>
+            <result name="zxError" type="redirect">/member/setUserNameForSd.action</result>
+            <result name="thirdError">/WEB-INF/jsp/third/thirdLogin/template/setUserInfoContent.jsp
+            </result>
+        </action>
+        <action name="postMobileVerifyPassword" class="securityCentreAction"
+                method="postMobileVerifyPassword">
+            <result name="success">/WEB-INF/jsp/securitycentre/goVerifyMobile.jsp
+            </result>
+            <result name="input">/WEB-INF/jsp/securitycentre/goMobileVerifyPassword.jsp
+            </result>
+            <result name="mobInput">/WEB-INF/jsp/securitycentre/securityCentre.jsp
+            </result>
+        </action>
+        <action name="postVerifyMobile" class="securityCentreAction"
+                method="postVerifyMobile">
+            <result name="success">
+                /WEB-INF/jsp/securitycentre/postVerifyMobile.jsp
+            </result>
+            <result name="input">/WEB-INF/jsp/securitycentre/goVerifyMobile.jsp
+            </result>
+        </action>
+        <action name="postWapVerifyMobile" class="securityCentreAction"
+                method="postWapVerifyMobile">
+            <result name="success">
+                /WEB-INF/jsp/securitycentre/wapVerifyMobileDone.jsp
+            </result>
+            <result name="input">/WEB-INF/jsp/securitycentre/goVerifyMobile.jsp
+            </result>
+            <result name="mobInput">
+                /WEB-INF/jsp/securitycentre/accountManage.jsp
+            </result>
+        </action>
+        <!-- 判断输入的手机号码是否已被使用 -->
+        <action name="numberIsUsed" class="securityCentreAction" method="numberIsUsed"/>
+        <!-- 判断用户是否已经绑定了手机 -->
+        <action name="reVerifyMobile" class="securityCentreAction" method="reVerifyMobile"/>
+        <!-- 判断用户是否已经绑定了手机 -->
+        <action name="validateMobilePayPw" class="securityCentreAction"
+                method="validateMobilePayPw"/>
+        <!-- 判断用户是否已启用了了支付密码 -->
+        <action name="reVerifyPay" class="securityCentreAction" method="reVerifyPay"/>
+        <!-- 判断输入的支付密码是否与登录密码相同 add by songmiao -->
+        <action name="ifSameWithLoginPW" class="securityCentreAction" method="ifSameWithLoginPW"/>
+        <!-- 判断输入的登陆密码是否与支付密码相同 add by songmiao -->
+        <action name="ifSameWithPayPW" class="securityCentreAction" method="ifSameWithPayPW"/>
+
+        <!-- 邮箱验证身份 -->
+        <action name="verifyUserPassword" class="securityCentreAction"
+                method="verifyUserPassword">
+        </action>
+
+        <action name="goEmailVerifyPassword" class="securityCentreAction"
+                method="goEmailVerifyPassword">
+            <result name="success">/WEB-INF/jsp/securitycentre/goEmailVerifyPassword.jsp
+            </result>
+            <result name="zxError" type="redirect">/member/setUserNameForSd.action</result>
+            <result name="thirdError">/WEB-INF/jsp/third/thirdLogin/template/setUserInfoContent.jsp
+            </result>
+        </action>
+
+        <!--<action name="postEmailVerifyPassword" class="securityCentreAction" method="postEmailVerifyPassword">
+            <result name="success">
+                /WEB-INF/jsp/securitycentre/goVerifyEmail.jsp
+            </result>
+            <result name="zxError">/member/setUserNameForSd.action</result>
+            <result name="thirdError">/WEB-INF/jsp/third/thirdLogin/template/setUserInfoContent.jsp
+            </result>
+            <result name="input">
+                /WEB-INF/jsp/securitycentre/goEmailVerifyPassword.jsp
+            </result>
+        </action>-->
+        <!-- 判断输入的邮箱是否占用 -->
+        <!--<action name="postEmail" class="securityCentreAction" method="email">
+        </action>-->
+        <!-- 判断输入的邮箱是否验证了 -->
+        <!--<action name="reVerifyEmail" class="securityCentreAction" method="reVerifyEmail">
+        </action>-->
+        <!--<action name="postVerifyEmail" class="securityCentreAction"
+            method="postVerifyEmail">
+            <result name="success">
+                /WEB-INF/jsp/securitycentre/postVerifyEmail.jsp
+            </result>
+        </action>-->
+        <!--<action name="doVerifyEmail" class="securityCentreAction"
+            method="doVerifyEmail">
+            <result name="success">
+                /WEB-INF/jsp/securitycentre/doVerifyEmail.jsp
+            </result>
+            <result name="FAIL">&lt;!&ndash; 验证失败 &ndash;&gt;
+                /WEB-INF/jsp/securitycentre/doVerifyEmail.jsp
+            </result>
+            <result name="updateSuccEmail">
+                /WEB-INF/jsp/securitycentre/doVerifyEmail.jsp
+            </result>
+            <result name="outtime">&lt;!&ndash; 验证超时 &ndash;&gt;
+                /WEB-INF/jsp/securitycentre/doVerifyEmail.jsp
+            </result>
+        </action>-->
+        <!-- 邮箱重发 -->
+        <!--<action name="reEmail" class="securityCentreAction" method="reEmail">
+            <result name="success">
+                /WEB-INF/jsp/securitycentre/postVerifyEmail.jsp
+            </result>
+        </action>-->
+        <action name="sendMobileVerifyCode" class="securityCentreAction"
+                method="sendMobileVerifyCode">
+        </action>
+        <action name="getSessionVar" class="securityCentreAction"
+                method="getSessionVar">
+        </action>
+        <action name="verifyLoginPassword" class="securityCentreAction"
+                method="verifyLoginPassword">
+        </action>
+
+
+        <action name="goPayVerifyPassword" class="securityCentreAction"
+                method="goPayVerifyPassword">
+            <result name="success">/WEB-INF/jsp/securitycentre/goPayVerifyPassword.jsp
+            </result>
+            <result name="zxError" type="redirect">/member/setUserNameForSd.action</result>
+            <result name="thirdError">/WEB-INF/jsp/third/thirdLogin/template/setUserInfoContent.jsp
+            </result>
+            <result name="valid" type="redirect">/member/showSecurityCentre.action</result>
+        </action>
+        <!-- wap版本 -->
+        <action name="goWapPayVerifyPassword" class="securityCentreAction"
+                method="goWapPayVerifyPassword">
+            <result name="success">
+                /WEB-INF/jsp/securitycentre/goWapPayVerifyPassword.jsp
+            </result>
+            <result name="valid" type="redirect">/member/accountManage.action</result>
+        </action>
+        <action name="postWapPayVerifyPassword" class="securityCentreAction"
+                method="postWapPayVerifyPassword">
+            <result name="success">
+                /WEB-INF/jsp/securitycentre/postWapPayVerifyPassword.jsp
+            </result>
+            <result name="valid" type="redirect">/member/accountManage.action</result>
+        </action>
+        <!-- wap版本 支付密码启用 -->
+        <action name="postPayVerifyPassword" class="securityCentreAction"
+                method="postPayVerifyPassword">
+            <result name="success">
+                /WEB-INF/jsp/securitycentre/goModifyPayPassword.jsp
+            </result>
+            <result name="input">
+                /WEB-INF/jsp/securitycentre/goPayVerifyPassword.jsp
+            </result>
+            <result name="valid" type="redirect">/member/showSecurityCentre.action</result>
+        </action>
+        <!-- wap版提交修改支付密码 -->
+        <action name="postWapModifyPayPassword" class="securityCentreAction"
+                method="postWapModifyPayPassword">
+            <result name="success">
+                /WEB-INF/jsp/securitycentre/wapModifyPayPasswordDone.jsp
+            </result>
+            <result name="valid" type="redirect">/member/accountManage.action</result>
+        </action>
+        <action name="postModifyPayPassword" class="securityCentreAction"
+                method="postModifyPayPassword">
+            <result name="success">
+                /WEB-INF/jsp/securitycentre/postModifyPayPassword.jsp
+            </result>
+            <result name="valid" type="redirect">/member/showSecurityCentre.action</result>
+        </action>
+
+
+        <action name="goPaySetting" class="securityCentreAction"
+                method="goPaySetting">
+            <result name="success">/WEB-INF/jsp/securitycentre/goPaySetting.jsp
+            </result>
+            <result name="zxError" type="redirect">/member/setUserNameForSd.action</result>
+            <result name="thirdError">/WEB-INF/jsp/third/thirdLogin/template/setUserInfoContent.jsp
+            </result>
+        </action>
+
+        <!-- wap 支付管理 -->
+        <action name="goWapPaySetting" class="securityCentreAction"
+                method="goWapPaySetting">
+            <result name="success">
+                /WEB-INF/jsp/securitycentre/goWapPaySetting.jsp
+            </result>
+        </action>
+        <action name="postWapPaySetting" class="securityCentreAction"
+                method="postWapPaySetting">
+            <result name="input">
+                /WEB-INF/jsp/securitycentre/goWapPaySetting.jsp
+            </result>
+            <result name="success">
+                /WEB-INF/jsp/securitycentre/postWapPaySetting.jsp
+            </result>
+        </action>
+
+        <action name="postPaySetting" class="securityCentreAction"
+                method="postPaySetting">
+            <result name="input">
+                /WEB-INF/jsp/securitycentre/goPaySetting.jsp
+            </result>
+            <result name="success">
+                /WEB-INF/jsp/securitycentre/postPaySetting.jsp
+            </result>
+        </action>
+    </package>
+</struts>

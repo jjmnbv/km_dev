@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="OrderItem">
+
+    <resultMap id="orderItemResultMap" class="com.kmzyc.b2b.model.OrderItem">
+        <result column="ORDER_ITEM_ID" property="orderItemId" jdbcType="DECIMAL"/>
+        <result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR"/>
+        <result column="COMMODITY_TITLE" property="commodityName" jdbcType="VARCHAR"/>
+        <result column="COMMODITY_CODE" property="commodityCode" jdbcType="VARCHAR"/>
+        <result column="COMMODITY_SKU" property="commoditySku" jdbcType="VARCHAR"/>
+        <result column="COMMODITY_BATCH_NUMBER" property="commodityBatchNumber" jdbcType="VARCHAR"/>
+        <result column="COMMODITY_CALLED_PRICE" property="commodityCalledPrice" jdbcType="DECIMAL"/>
+        <result column="COMMODITY_UNIT_PRICE" property="commodityUnitPrice" jdbcType="DECIMAL"/>
+        <result column="COMMODITY_NUMBER" property="commodityNumber" jdbcType="DECIMAL"/>
+        <result column="COMMODITY_SUM" property="commoditySum" jdbcType="DECIMAL"/>
+        <result column="COMMODITY_CALLED_SUM" property="commodityCalledSum" jdbcType="DECIMAL"/>
+        <result column="COMMODITY_DESCRIPTION" property="commodityDescription" jdbcType="VARCHAR"/>
+        <result column="WAREHOUSE_ID" property="warehouseId" jdbcType="DECIMAL"/>
+        <result column="CREDITS" property="credits" jdbcType="DECIMAL"/>
+        <result column="IMAGE_URL" property="imageUrl" jdbcType="VARCHAR"/>
+        <result column="COMMODITY_TYPE" property="commodityType" jdbcType="DECIMAL"/>
+        
+    </resultMap>
+    <resultMap id="orderItemResultMapAll" class="com.kmzyc.b2b.model.OrderItem">
+        <result column="ORDER_ITEM_ID" property="orderItemId" jdbcType="DECIMAL"/>
+        <result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR"/>
+        <result column="COMMODITY_TITLE" property="commodityName" jdbcType="VARCHAR"/>
+        <result column="COMMODITY_CODE" property="commodityCode" jdbcType="VARCHAR"/>
+        <result column="COMMODITY_SKU" property="commoditySku" jdbcType="VARCHAR"/>
+        <result column="COMMODITY_BATCH_NUMBER" property="commodityBatchNumber" jdbcType="VARCHAR"/>
+        <result column="COMMODITY_CALLED_PRICE" property="commodityCalledPrice" jdbcType="DECIMAL"/>
+        <result column="COMMODITY_UNIT_PRICE" property="commodityUnitPrice" jdbcType="DECIMAL"/>
+        <result column="COMMODITY_NUMBER" property="commodityNumber" jdbcType="DECIMAL"/>
+        <result column="COMMODITY_SUM" property="commoditySum" jdbcType="DECIMAL"/>
+        <result column="COMMODITY_CALLED_SUM" property="commodityCalledSum" jdbcType="DECIMAL"/>
+        <result column="COMMODITY_DESCRIPTION" property="commodityDescription" jdbcType="VARCHAR"/>
+        <result column="WAREHOUSE_ID" property="warehouseId" jdbcType="DECIMAL"/>
+        <result column="CREDITS" property="credits" jdbcType="DECIMAL"/>
+        <result column="IMAGE_URL" property="imageUrl" jdbcType="VARCHAR"/>
+        <result column="COMMODITY_TYPE" property="commodityType" jdbcType="DECIMAL"/>
+        <result column="COMMODITY_UNIT_INCOMING" property="commodityUnitIncoming" jdbcType="DECIMAL"/>
+        <result column="PRESELL_ID" property="presellId" jdbcType="NUMBER"/>
+    </resultMap>
+    
+  	
+    <resultMap id="orderItemResultMap_second" class="com.kmzyc.b2b.model.OrderItem">
+        <result column="ORDER_ITEM_ID" property="orderItemId" jdbcType="DECIMAL"/>
+        <result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR"/>
+        <result column="COMMODITY_TITLE" property="commodityName" jdbcType="VARCHAR"/>
+        <result column="COMMODITY_CODE" property="commodityCode" jdbcType="VARCHAR"/>
+        <result column="COMMODITY_SKU" property="commoditySku" jdbcType="VARCHAR"/>
+        <result column="COMMODITY_BATCH_NUMBER" property="commodityBatchNumber" jdbcType="DECIMAL"/>
+        <result column="COMMODITY_CALLED_PRICE" property="commodityCalledPrice" jdbcType="DECIMAL"/>
+        <result column="COMMODITY_UNIT_PRICE" property="commodityUnitPrice" jdbcType="DECIMAL"/>
+        <result column="COMMODITY_UNIT_INCOMING" property="commodityUnitIncoming" jdbcType="DECIMAL"/>
+        <result column="COMMODITY_NUMBER" property="commodityNumber" jdbcType="DECIMAL"/>
+        <result column="COMMODITY_SUM_ITEM" property="commoditySum" jdbcType="DECIMAL"/>
+        <result column="COMMODITY_CALLED_SUM" property="commodityCalledSum" jdbcType="DECIMAL"/>
+        <result column="COMMODITY_DESCRIPTION" property="commodityDescription" jdbcType="VARCHAR"/>
+        <result column="WAREHOUSE_ID" property="warehouseId" jdbcType="DECIMAL"/>
+        <result column="CREDITS" property="credits" jdbcType="DECIMAL"/>
+        <result column="IMAGE_URL" property="imageUrl" jdbcType="VARCHAR"/>
+        <result column="COMMODITY_TYPE" property="commodityType" jdbcType="DECIMAL"/>
+       	<result property="defaultProductImage" resultMap="OrderItem.orderMainResultMap_image"/>
+    </resultMap>
+    
+    <resultMap class="com.kmzyc.b2b.model.OrderItem" id="orderItemResultMap_third" extends="orderItemResultMap_second">
+    	<result column="APPRAISE_ID" property="appraiseId" jdbcType="DECIMAL"/>
+    </resultMap>
+    <!-- 时代对账 -->
+    <resultMap id="orderItemResultMap_Reconciliation" class="com.kmzyc.b2b.model.OrderItem">
+	<result column="COMMODITY_SKU" property="commoditySku" jdbcType="VARCHAR" />
+	<result column="COMMODITY_TITLE" property="commodityName"	jdbcType="VARCHAR" />
+	<result column="commodity_sku_description" property="commodityDescription"	jdbcType="VARCHAR" />
+	<result column="COMMODITY_PV" property="commodityPv" jdbcType="DECIMAL" />
+	<result column="COMMODITY_UNIT_PRICE" property="commodityUnitPrice"	jdbcType="DECIMAL" />
+	<result column="COMMODITY_NUMBER" property="commodityNumber"   	    jdbcType="DECIMAL" />
+	<result column="COMMODITY_SUM" property="commoditySum" jdbcType="DECIMAL" />
+	<result column="alter_num" property="alterNum" jdbcType="DECIMAL" />
+    </resultMap>
+    <!-- 时代对账 -->
+    <!-- 产品图片 -->
+  	<resultMap id="orderMainResultMap_image" class="com.kmzyc.b2b.model.ProductImage" >
+	    <result column="IMAGE_ID" property="imageId" jdbcType="DECIMAL" />
+		<result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+		<result column="SKU_ID" property="skuId" jdbcType="DECIMAL" />
+		<result column="IS_DEFAULT" property="isDefault" jdbcType="CHAR" />
+		<result column="IMG_PATH" property="imgPath" jdbcType="VARCHAR" />
+		<result column="IMG_PATH1" property="imgPath1" jdbcType="VARCHAR" />
+		<result column="IMG_PATH2" property="imgPath2" jdbcType="VARCHAR" />
+		<result column="IMG_PATH3" property="imgPath3" jdbcType="VARCHAR" />
+		<result column="IMG_PATH4" property="imgPath4" jdbcType="VARCHAR" />
+		<result column="SPC1" property="spc1" jdbcType="VARCHAR" />
+		<result column="SPC2" property="spc2" jdbcType="VARCHAR" />
+		<result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+		<result column="IMG_PATH5" property="imgPath5" jdbcType="VARCHAR" />
+		<result column="IMG_PATH6" property="imgPath6" jdbcType="VARCHAR" />
+		<result column="IMG_PATH7" property="imgPath7" jdbcType="VARCHAR" />
+		<result column="SORTNO" property="sortno" jdbcType="DECIMAL" />
+  	</resultMap>
+
+    <resultMap id="orderItemWithProductSkuIdResultMap" extends="orderItemResultMap" class="com.kmzyc.b2b.model.OrderItem">
+        <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <resultMap id="orderItemWithDefaultImageResultMap" extends="orderItemWithProductSkuIdResultMap" class="com.kmzyc.b2b.model.OrderItem">
+        <result property="defaultProductImage" resultMap="ProductImage.productImageResultMap"/>
+    </resultMap>
+    
+   <resultMap id="orderItemWithDefaultImageResultMapNEW" extends="orderItemResultMap" class="com.kmzyc.b2b.model.OrderItem">
+        <result property="defaultProductImage" resultMap="ProductImage.productImageResultMap"/>
+    </resultMap>
+    
+    <resultMap id="orderItemWithISRETURNING" extends="orderItemWithProductSkuIdResultMap" class="com.kmzyc.b2b.model.OrderItem">
+        <result column="ISRETURNING" property="isReturning" jdbcType="DECIMAL"/>   
+          <result column="COMMODITY_PV" property="commodityPv" jdbcType="DECIMAL"/>
+          <result column="PRESELL_ID" property="presellId" jdbcType="BIGINT"/>
+    </resultMap>
+    
+    <resultMap id="orderItemWithImgRETURNING" extends="orderItemWithDefaultImageResultMapNEW" class="com.kmzyc.b2b.model.OrderItem">
+        <result column="ISRETURNING" property="isReturning" jdbcType="DECIMAL"/> 
+       <result column="COMMODITY_PV" property="commodityPv" jdbcType="DECIMAL"/> 
+    </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="orderItemResultMap" parameterClass="java.lang.Long" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Mon Jul 29 11:23:58 CST 2013.
+    -->
+    select ORDER_ITEM_ID, ORDER_CODE, COMMODITY_TITLE, COMMODITY_CODE, COMMODITY_SKU,
+      COMMODITY_BATCH_NUMBER, COMMODITY_CALLED_PRICE, COMMODITY_UNIT_PRICE, COMMODITY_NUMBER,
+      COMMODITY_SUM, COMMODITY_CALLED_SUM, COMMODITY_DESCRIPTION, WAREHOUSE_ID, CREDITS,IMAGE_URL, 
+      COMMODITY_UNIT_WEIGHT,SUIT_ID,COMMODITY_TYPE
+    from ORDER_ITEM T
+    where ORDER_ITEM_ID = #orderItemId:DECIMAL#
+  </select>
+  
+  <select id="selectByPrimaryKeyForReturnShop" resultMap="orderItemWithISRETURNING" parameterClass="java.lang.Long" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Mon Jul 29 11:23:58 CST 2013.
+    -->
+    select ORDER_ITEM_ID, ORDER_CODE, COMMODITY_TITLE, COMMODITY_CODE, COMMODITY_SKU,
+      COMMODITY_BATCH_NUMBER, COMMODITY_CALLED_PRICE, COMMODITY_UNIT_PRICE, COMMODITY_NUMBER,
+      COMMODITY_SUM, COMMODITY_CALLED_SUM, COMMODITY_DESCRIPTION, WAREHOUSE_ID, CREDITS,IMAGE_URL, 
+      COMMODITY_UNIT_WEIGHT,SUIT_ID,COMMODITY_TYPE,COMMODITY_PV,PRESELL_ID
+		,(CASE
+	         WHEN EXISTS (SELECT *
+	                 FROM ORDER_ALTER
+	                WHERE ORDER_ITEM_ID = T.ORDER_ITEM_ID
+	                  AND PROPOSE_STATUS NOT IN (-2, -1, 7)
+	                  AND ROWNUM = 1) THEN
+	          1
+	         ELSE
+	          (CASE
+	            WHEN (SELECT T.COMMODITY_NUMBER - SUM(ALTER_NUM)
+	                    FROM ORDER_ALTER
+	                   WHERE ALTER_TYPE = 1
+	                     AND PROPOSE_STATUS = 7
+	                     AND ORDER_ITEM_ID = T.ORDER_ITEM_ID) = 0 THEN
+	             1
+	            ELSE
+	             0
+	          END)
+	     END) ISRETURNING
+	   ,(SELECT SKU.PRODUCT_SKU_ID FROM PRODUCT_SKU SKU WHERE SKU.PRODUCT_SKU_CODE = T.COMMODITY_SKU) PRODUCT_SKU_ID
+    from ORDER_ITEM T
+    where ORDER_ITEM_ID = #orderItemId:DECIMAL#
+  </select>
+  
+  <select id="getTotalCredits" parameterClass="string"  resultClass="double">
+  	select sum(credits) from order_item where order_code=#orderCode:VARCHAR#
+  </select>
+  
+  <select id="findByOrderCode" parameterClass="java.lang.String"  resultMap="orderItemResultMapAll">
+  	select * from order_item where order_code=#orderCode:VARCHAR#
+  </select>
+  <select id="findByOrderCodeWithoutGiftProduct" parameterClass="java.lang.String"  resultMap="orderItemResultMap">
+  	select * from order_item where order_code=#orderCode# and COMMODITY_TYPE not in(4,5)
+  </select>
+  
+  <!-- 商品已退数量 -->
+  <select id="selectOverplusNum" parameterClass="java.lang.Long"  resultClass="java.lang.Long">
+  	SELECT SUM(ALTER_NUM) FROM ORDER_ALTER WHERE ALTER_TYPE = 1 AND PROPOSE_STATUS = 7 AND ORDER_ITEM_ID = #value#
+  	<!--  
+  	SELECT SUM(ALTER_NUM) 
+  	FROM ORDER_ALTER 
+  	WHERE (
+             (ALTER_TYPE = 1 AND PROPOSE_STATUS = 7)
+              OR
+             (PROPOSE_STATUS NOT IN (-1, -2, 7))
+          ) AND ORDER_ITEM_ID = #value#
+  	-->
+  </select>
+  
+  <select id="querySuitIdByOrderCode" parameterClass="java.lang.String" resultClass="java.lang.Long">
+  	select SUIT_ID from ORDER_ITEM t where order_code=#orderCode:VARCHAR# and suit_id is not null
+  </select>
+  
+<!--    查询订单中商品数量大于库存的商品 -->
+  <select id="checkProductStockNumber" parameterClass="java.lang.String" resultClass="java.lang.String">
+  	select C.COMMODITY_NAME from (
+	  select max(a.productStockSum)as productStockSum ,a.sku_att_value from (
+	    select sum(st.stock_quality-st.order_quality) productStockSum ,st.sku_att_value from product_stock st  
+	    where st.sku_att_value in (select COMMODITY_SKU from ORDER_ITEM where order_code=#orderCode:VARCHAR#) 
+	    and st.stock_quality > 0 and st.order_quality >=0 group by st.warehouse_id,st.sku_att_value
+	    )a
+	    group by a.sku_att_value
+	 )b,  (select COMMODITY_SKU,COMMODITY_NUMBER,COMMODITY_NAME from ORDER_ITEM where order_code=#orderCode:VARCHAR#)c
+	 <![CDATA[
+	 where b.sku_att_value=c.COMMODITY_SKU and b.productStockSum<c.COMMODITY_NUMBER
+	 ]]>
+  </select>
+<!--   查询订单中参加促销的商品的购买数量大于活动库存的商品 -->
+  <select id="queryErrProductAmountInPromotion"  parameterClass="java.lang.String"  resultClass="java.lang.String">
+		  	select  m.procuct_name
+		  from order_item i, order_preferential p,product_sku ps,promotion_product pp,productmain m
+		 where i.order_code = p.order_code
+		   and i.order_item_id = p.order_item_id 
+		   and i.commodity_sku=ps.product_sku_code
+		   and ps.product_sku_id=pp.product_sku_id
+		   and p.order_preferential_code=pp.promotion_id
+		   and ps.product_id=m.product_id
+		   and i.commodity_number>pp.promotion_stock
+		   and i.order_code=#orderCode:VARCHAR#
+  </select>
+  
+   
+  <select id="findSupplierOrderItem" parameterClass="java.lang.Long" resultClass="com.kmzyc.b2b.model.SupplierOrderItem">
+   select bi.corporate_name supplierName,si.supplier_type supplierType, sm.service_qq serviceQQ,si.supplier_id  supplier,sm.service_type  serviceType
+   from order_item oi
+left join suppliers_info si on to_char(si.supplier_id) = oi.supplier                   
+left join commercial_tenant_basic_info bi on bi.n_commercial_tenant_id = si.merchant_id
+left join shop_main sm on oi.supplier=sm.supplier_id
+where oi.ORDER_ITEM_ID = #orderItemId:DECIMAL#           
+  </select>
+  
+  	<!-- 我的订单明细 -->
+  	<resultMap id="MyOrderItemResultMap" class="com.kmzyc.b2b.model.OrderItem">
+  	    <result column="COMMODITY_UNIT_PRICE" property="commodityUnitPrice" jdbcType="DECIMAL"/>
+  	    <result column="COMMODITY_NUMBER" property="commodityNumber" jdbcType="DECIMAL"/>
+        <result column="COMMODITY_TITLE" property="commodityName" jdbcType="VARCHAR"/>
+        	<result column="order_Item_Id" property="orderItemId" jdbcType="DECIMAL" />
+        <result property="defaultProductImage" resultMap="OrderItem.MyOrderItemImageResultMap"/>
+    </resultMap>
+    <!-- 产品图片 -->
+  	<resultMap id="MyOrderItemImageResultMap" class="com.kmzyc.b2b.model.ProductImage" >
+		<result column="SKU_ID" property="skuId" jdbcType="DECIMAL" />
+		<result column="IMG_PATH5" property="imgPath5" jdbcType="VARCHAR" />
+		<result column="IMG_PATH6" property="imgPath6" jdbcType="VARCHAR" />
+		<result column="IMG_PATH7" property="imgPath7" jdbcType="VARCHAR" />
+  	</resultMap>
+  	<!-- 我的订单明细 -->
+  	
+	<!-- 查询产品明细库存 -->
+	<select id="SQL_QUERY_ORDER_ITEM_STOCK" parameterClass="java.lang.String" resultClass="java.lang.Long">
+	<!--  select nvl(max(ps.stock_quality - ps.order_quality),0) - sum(oi.commodity_number) stock
+			  from product_stock ps, order_item oi
+			 where ps.sku_attribute_id = oi.skuid(+)
+			   and ps.stock_quality > 0
+			   and oi.order_code = #orderCode:VARCHAR#
+			 group by ps.sku_attribute_id  -->
+			 
+	   select nvl(max(t.stock),0) from
+   ( select (ps.stock_quality - abs(ps.order_quality) - 
+       (select sum(oi.commodity_number) from order_item oi2 where oi2.order_item_id = oi.order_item_id)
+       ) stock ,ps.stock_quality,ps.order_quality
+      from product_stock ps, order_item oi
+     where ps.sku_attribute_id = oi.skuid(+)
+       and oi.order_code = #orderCode:VARCHAR#) t
+       		 
+	</select>
+	
+	<!-- 查询订单是否存在不符合结算状态的产品 -->
+	<select id="SQL_QUERY_ORDER_ITEM_EXCEPTION_STATUS_PRODUCT"  parameterClass="java.lang.String" resultClass="java.lang.String" >
+	<![CDATA[
+		select pm.product_title
+		  from productmain pm, product_sku ps
+		 where pm.product_id = ps.product_id
+		   and (pm.status <> 3 or ps.status <> 1)
+		   and exists (select 1
+		          from order_item oi
+		         where ps.product_sku_code = oi.commodity_sku
+		           and oi.commodity_type in (1, 2)
+		           and oi.order_code = #orderCode:VARCHAR#)
+	]]>	
+	</select>  	
+	<!-- 查询订单是否存在不符合结算状态的产品 -->
+	<select id="SQL_QUERY_ORDER_ITEM_EXCEPTION_STATUS_SUITS"  parameterClass="java.lang.String" resultClass="java.lang.String" >
+	<![CDATA[
+		select pr.relation_name
+		  from product_relation pr
+		 where pr.status <> 3
+		   and exists (select 1
+		          from order_item oi
+		         where oi.suit_id = pr.relation_id
+		           and oi.suit_id is not null
+		           and oi.order_code = #orderCode:VARCHAR#)
+	]]>	
+	</select>
+	
+	<resultMap class="java.util.HashMap" id="oppMap">
+		<result column="DKEY" property="DKEY" javaType="java.lang.Long"/>
+		<result column="DVALUE" property="DVALUE"/>
+	</resultMap>
+	<!-- 查询订单的产品活动 -->
+	<select id="SQL_QUERY_ORDER_PRODUCT_PROMOTION" parameterClass="java.lang.String" resultMap="oppMap">
+		select op.order_preferential_id dkey,
+		       oi.skuid || ',' || op.order_preferential_code || ',' ||
+		       oi.commodity_number || ',' || oi.commodity_title dvalue
+		  from order_item oi, order_preferential op
+		 where op.order_item_id is not null
+		   and oi.order_item_id = op.order_item_id
+		   and oi.order_code = #orderCode:VARCHAR#
+	</select>
+	
+	<!-- 查询活动期间用户购买量 -->
+	<select id="SQL_QUERY_USER_BUY_PROMOTION_NUM" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select sum(oi.commodity_number)
+		  from order_item oi
+		 where oi.commodity_type = 1
+		   and exists (select 1
+		          from order_main om, order_preferential op
+		         where op.order_code = om.order_code
+		           and oi.order_code = om.order_code
+		           and om.order_status > 1
+		           and op.order_preferential_code = #promotionId:VARCHAR#
+		           and om.customer_id = #userId:DECIMAL#)
+		   and oi.skuid = #skuId:DECIMAL#
+	</select>
+	<!-- 查询活动期间用户购买量(预售活动) -->
+	<select id="SQL_QUERY_USER_BUY_PROMOTION_NUM_FORPRESSELL" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		SELECT SUM(OI.COMMODITY_NUMBER)
+		  FROM ORDER_MAIN OM
+		 INNER JOIN ORDER_ITEM OI
+		    ON OM.ORDER_CODE = OI.ORDER_CODE
+		 WHERE OI.COMMODITY_TYPE = 1
+		   AND OM.ORDER_STATUS > 0
+		   AND OM.CUSTOMER_ID =#userId:DECIMAL#
+		   AND OI.SKUID =#skuId:DECIMAL#
+		   AND OI.PRESELL_ID = #pressellId:VARCHAR#
+	</select>	
+	
+</sqlMap>

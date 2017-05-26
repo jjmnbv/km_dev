@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="QualificationsApply" >
+
+  <typeAlias alias="qualificationsApplyDO" type="com.pltfm.app.vobject.QualificationsApplyDO" />
+
+  <resultMap id="qualificationsApplyDOResultMap" class="qualificationsApplyDO" >
+    <result property="id" column="ID" />
+    <result property="userId" column="USER_ID" />
+     <result property="userName" column="LOGIN_ACCOUNT" />
+       <result property="loginName" column="USER_NAME" />
+        <result property="userReal" column="USER_REAL" />
+    <result property="applyType" column="APPLY_TYPE" />
+    <result property="tel" column="TEL" />
+    <result property="applyDate" column="APPLY_DATE" />
+    <result property="applyReasons" column="APPLY_REASONS" />
+    <result property="status" column="STATUS" />
+    <result property="auditingDate" column="AUDITING_DATE" />
+    <result property="auditingId" column="AUDITING_ID" />
+    <result property="remarks" column="REMARKS" />
+  </resultMap>
+
+ 
+
+ 
+ 
+
+  <insert id="insert" parameterClass="qualificationsApplyDO" >
+  
+     <selectKey resultClass="java.lang.Integer" keyProperty="id" >
+           select  SEQ_APP_QUALIFICAITONS_APPLY.nextval from dual
+   </selectKey>
+    INSERT INTO QUALIFICATIONS_APPLY( ID, USER_ID, APPLY_TYPE, TEL, APPLY_DATE, APPLY_REASONS, STATUS, 
+      AUDITING_DATE, AUDITING_ID, REMARKS)
+     VALUES ( #id#, #userId#, #applyType#, #tel#, #applyDate#, #applyReasons#, #status#, 
+      #auditingDate#, #auditingId#, #remarks#)
+ 
+  </insert>
+
+  <update id="update" parameterClass="qualificationsApplyDO" >
+    UPDATE QUALIFICATIONS_APPLY   
+    <dynamic prepend="SET" >
+  
+      <isNotNull property="userId" prepend="," >
+        <![CDATA[  
+        USER_ID = #userId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="applyType" prepend="," >
+        <![CDATA[  
+        APPLY_TYPE = #applyType#  
+        ]]>  
+      </isNotNull>
+      
+      <isEmpty property="applyType" prepend=",">
+      
+        APPLY_TYPE = #applyType#  
+      </isEmpty>
+      <isNotNull property="tel" prepend="," >
+        <![CDATA[  
+        TEL = #tel#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="applyDate" prepend="," >
+        <![CDATA[  
+        APPLY_DATE = #applyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="applyReasons" prepend="," >
+        <![CDATA[  
+        APPLY_REASONS = #applyReasons#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="status" prepend="," >
+        <![CDATA[  
+        STATUS = #status#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="auditingDate" prepend="," >
+        <![CDATA[  
+        AUDITING_DATE = #auditingDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="auditingId" prepend="," >
+        <![CDATA[  
+        AUDITING_ID = #auditingId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="remarks" prepend="," >
+        <![CDATA[  
+        REMARKS = #remarks#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+     WHERE ID = #id#  
+  </update>
+
+  <select id="findByPrimaryKey" parameterClass="java.lang.Integer" resultMap="qualificationsApplyDOResultMap" >
+      select  
+      A.*,
+         b.login_account,
+         c.user_name,
+         c.user_real
+         from QUALIFICATIONS_APPLY A , login_info B ,sys_user  c
+         where a.user_id=b.n_login_id 
+          and  a.auditing_id=c.user_id(+)
+         and  a.id=#id#
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterClass="java.lang.Integer" >
+    <![CDATA[  
+     DELETE FROM QUALIFICATIONS_APPLY WHERE ID = #id#
+    ]]>  
+  </delete>
+
+  <select id="countByDOExample" parameterClass="qualificationsApplyDO" resultClass="java.lang.Integer" >
+       select  count(*) from  QUALIFICATIONS_APPLY A , login_info B  ,sys_user  c
+         where a.user_id=b.n_login_id 
+           and  a.auditing_id=c.user_id(+)
+                <isNotNull property="userName">
+		<isNotEmpty prepend="and" property="userName">
+			   b.LOGIN_ACCOUNT  like '%$userName$%'
+		 </isNotEmpty>
+		 </isNotNull>
+         <isNotNull>
+			   <isNotEmpty prepend="and" property="tel">
+					      A.TEL   like '%$tel$%'
+			        </isNotEmpty>
+		             </isNotNull>
+		             	<isNotNull property="applyType">
+			   <isNotEmpty prepend="and" property="applyType">
+					    	 A.APPLY_TYPE like '%$applyType$%'
+			        </isNotEmpty>
+		             </isNotNull>
+		                 	<isNotNull property="status">
+			   <isNotEmpty prepend="and" property="status">
+					    	 A.STATUS =#status#
+			        </isNotEmpty>
+		             </isNotNull>
+		             
+		              <isNotNull property="userReal">
+         	   <isNotEmpty prepend="and" property="userReal">
+            c.USER_REAL like '%$userReal$%'
+      	   </isNotEmpty>
+      </isNotNull>
+  	              <isNotNull property="applyStartDate">
+        <![CDATA[
+          and A.APPLY_DATE >= #applyStartDate:DATE#
+      	]]>
+      </isNotNull>
+       <isNotNull property="applyEndDate" >
+         <![CDATA[
+          and A.APPLY_DATE <= #applyEndDate:DATE#
+      	]]>
+      	</isNotNull>
+  </select>
+
+  <select id="findListByDO" resultMap="qualificationsApplyDOResultMap" parameterClass="qualificationsApplyDO" >
+  
+ 
+      select *  from (select ROW_NUMBER() OVER(order by A.ID desc) as view_row_number,
+         A.*,
+         b.login_account,
+         c.user_name,
+         c.user_real
+         from QUALIFICATIONS_APPLY A , login_info B  ,sys_user  c
+         where a.user_id=b.n_login_id 
+           and  a.auditing_id=c.user_id(+)
+         <isNotNull property="userName">
+		<isNotEmpty prepend="and" property="userName">
+			   b.LOGIN_ACCOUNT  like '%$userName$%'
+		 </isNotEmpty>
+		 </isNotNull>
+         <isNotNull>
+			   <isNotEmpty prepend="and" property="tel">
+					      A.TEL   like '%$tel$%'
+			        </isNotEmpty>
+		             </isNotNull>
+		          	<isNotNull property="applyType">
+			   <isNotEmpty prepend="and" property="applyType">
+					    		 A.APPLY_TYPE like '%$applyType$%'
+			        </isNotEmpty>
+		             </isNotNull>
+		                 	<isNotNull property="status">
+			   <isNotEmpty prepend="and" property="status">
+					    	 A.STATUS =#status#
+			        </isNotEmpty>
+		             </isNotNull>
+		             
+		           <isNotNull property="userReal">
+         	   <isNotEmpty prepend="and" property="userReal">
+            c.USER_REAL like '%$userReal$%'
+      	   </isNotEmpty>
+      </isNotNull>
+                  <isNotNull property="applyStartDate">
+        <![CDATA[
+          and A.APPLY_DATE >= #applyStartDate:DATE#
+      	]]>
+      </isNotNull>
+       <isNotNull property="applyEndDate" >
+         <![CDATA[
+          and A.APPLY_DATE <= #applyEndDate:DATE#
+      	]]>
+      	</isNotNull>
+          )
+     
+       <![CDATA[ where view_row_number <= #max# and view_row_number > #skip# ]]>
+  </select>
+</sqlMap>

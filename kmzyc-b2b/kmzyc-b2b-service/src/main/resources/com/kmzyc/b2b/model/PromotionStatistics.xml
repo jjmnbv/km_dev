@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="PromotionStatistics">
+	<resultMap class="java.util.HashMap" id="QUERY_ORDERINFO_BY_CREATEDATE_MAP">
+		<result property="campaignId" column="CAMPAIGNID" />
+		<result property="fare" column="FARE" />
+		<result property="favorableCode" column="FAVORABLECODE" />
+		<result property="favorable" column="FAVORABLE" />
+		<result property="feedback" column="FEEDBACK" />
+		<result property="orderNo" column="ORDERNO" />
+		<result property="orderTime" column="ORDERTIME" />
+		<result property="orderstatus" column="ORDERSTATUS" />
+		<result property="paymentStatus" column="PAYMENTSTATUS" />
+		<result property="paymentType" column="PAYMENTTYPE" />
+		<result property="amount" column="AMOUNT" />
+		<result property="category" column="CATEGORY" />
+		<result property="commissionType" column="COMMISSIONTYPE" />
+		<result property="name" column="NAME" />
+		<result property="price" column="PRICE" />
+		<result property="productNo" column="PRODUCTNO" />
+	</resultMap>
+	<resultMap class="java.util.HashMap" id="QUERY_ORDERINFO_BY_UPDATEDATE_MAP">
+		<result property="feedback" column="FEEDBACK" />
+		<result property="orderNo" column="ORDERNO" />
+		<result property="orderstatus" column="ORDERSTATUS" />
+		<result property="paymentStatus" column="PAYMENTSTATUS" />
+		<result property="paymentType" column="PAYMENTTYPE" />
+		<result property="updateTime" column="UPDATETIME" />
+		<result property="encoding" column="ENCODING" />
+	</resultMap>
+	<resultMap class="java.util.HashMap" id="QUERY_ORDERD_ETAILINFO_BY_ORDERCODE_MAP">
+		<result property="orderNo" column="ORDERNO" />
+		<result property="orderTime" column="ORDERTIME" />
+		<result property="amount" column="AMOUNT" />
+		<result property="price" column="PRICE" />
+		<result property="name" column="NAME" />
+		<result property="updateTime" column="UPDATETIME" />
+		<result property="productNo" column="PRODUCTNO" />
+		<result property="category" column="CATEGORY" />
+		<result property="commissionType" column="COMMISSIONTYPE" />
+		<result property="fare" column="FARE" />
+		<result property="favorable" column="FAVORABLE" />
+		<result property="favorableCode" column="FAVORABLECODE" />
+		<result property="orderStatus" column="ORDERSTATUS" />
+		<result property="paymentStatus" column="PAYMENTSTATUS" />
+		<result property="paymentType" column="PAYMENTTYPE" />
+		<result property="clickTime" column="clickTime" />
+		<result property="orderSum" column="orderSum" />
+	</resultMap>
+	
+	<!-- 查询 指定请求标识当天查询次数-->
+	<select id="QUERY_REQUEST_COUNT" parameterClass="com.kmzyc.b2b.vo.RequestInfo" resultClass="java.lang.Integer">
+	<![CDATA[
+		select count(1)
+		  from request_info ri
+		 where ri.system_code = #systemCode:VARCHAR#
+		   and ri.service_name = #serviceName:VARCHAR#
+		   and ri.request_source = #requestSource:VARCHAR#
+		   and to_char(ri.request_start_date, 'yyyy-mm-dd') =to_char(sysdate, 'yyyy-mm-dd')
+		   and ri.cuid = #uid:DECIMAL#
+	]]>
+	</select>
+	
+	<!-- 根据下单时间查询某时间段内创建的订单数据 -->
+	<select id="QUERY_ORDERINFO_BY_CREATEDATE" parameterClass="java.util.Map" resultMap="QUERY_ORDERINFO_BY_CREATEDATE_MAP">
+	<![CDATA[
+		select ocio.campaignId campaignId,
+		       nvl(om.fare, 0) fare,
+		       nvl(ops.favorable, 0) favorable,
+		       nvl(to_char(ops.favorableCode), ' ') favorableCode,
+		       ocio.feedback feedback,
+		       om.order_code orderNo,
+		       to_char(om.create_date, 'yyyy-mm-dd hh24:mi:ss') orderTime,
+		       (select od1.order_dictionary_value
+		          from order_dictionary od1
+		         where od1.order_dictionary_type = 'Order_Status'
+		           and od1.order_dictionary_key = om.order_status) orderstatus,
+		       decode(sign(om.order_status - 1), 1, '已支付', '未支付') paymentStatus,
+		       ' ' paymentType,
+		       oi.commodity_number amount,
+		       ' ' category,
+		       nvl(ocio.commission_Type, '') commissionType,
+		       oi.commodity_name name,
+		       oi.commodity_unit_incoming price,
+		       oi.commodity_sku productNo
+		  from order_main om
+		 inner join order_item oi
+		    on (oi.order_code = om.order_code)
+		 inner join order_out_side_ext_info ocio
+		    on (ocio.order_code = om.order_code)
+		  left join (select opsi.order_code,
+		                    opsi.preferential_no favorableCode,
+		                    opsi.order_money     favorable
+		               from order_pay_statement opsi
+		              where opsi.payment_way = 2
+		                and opsi.state = 1) ops
+		    on (ops.order_code = om.order_code)
+		 where om.parent_order_code is null
+	]]>
+	<isNotEmpty property="source" prepend="and">
+		ocio.source = #source:VARCHAR#
+	</isNotEmpty>
+	<isNotEmpty property="cid" prepend="and">
+		ocio.campaignid = #cid:VARCHAR#
+	</isNotEmpty>
+	<![CDATA[		 
+		   and om.create_date between
+		        to_date(#startDate#, 'yyyy-mm-dd hh24:mi:ss') and
+				to_date(#endDate#, 'yyyy-mm-dd hh24:mi:ss')
+		   and ocio.promotion_type = #type:DECIMAL#
+		 order by om.create_date, om.order_code
+	]]>
+	</select>
+	
+	<!-- 根据更新时间查询某时间段内更新过的订单信息 -->
+	<select id="QUERY_ORDERINFO_BY_UPDATEDATE" parameterClass="java.util.Map" resultMap="QUERY_ORDERINFO_BY_UPDATEDATE_MAP">
+	<![CDATA[
+		select ocio.feedback feedback,
+		       om.order_code orderNo,
+		       (select od1.order_dictionary_value
+		          from order_dictionary od1
+		         where od1.order_dictionary_type = 'Order_Status'
+		           and od1.order_dictionary_key = om.order_status) orderstatus,
+		       decode(sign(om.order_status - 1), 1, '已支付', '未支付') paymentStatus,
+		       ' ' paymentType,
+		       (select to_char(max(oos.now_operate_date), 'yyyy-mm-dd hh24:mi:ss')
+		          from order_operate_statement oos
+		         where oos.order_code = ocio.order_code) updateTime,
+		       'utf-8' encoding
+		  from order_main om
+		 inner join order_out_side_ext_info ocio
+		    on (ocio.order_code = om.order_code)
+		 where om.parent_order_code is null
+		   and ocio.promotion_type = #type:DECIMAL#
+		   and exists
+		 (select 1
+		          from order_operate_statement ops
+		         where ops.order_code = ocio.order_code
+		           and ops.now_operate_date between
+		               to_date(#startDate#, 'yyyy-mm-dd hh24:mi:ss') and
+					   to_date(#endDate#, 'yyyy-mm-dd hh24:mi:ss'))
+	]]>
+	<isNotEmpty property="source" prepend="and">
+		ocio.source = #source:VARCHAR#
+	</isNotEmpty>
+	<isNotEmpty property="cid" prepend="and">
+		ocio.campaignid = #cid:VARCHAR#
+	</isNotEmpty>
+	<![CDATA[
+		 order by updateTime, om.order_code
+	]]>
+	</select>
+	
+	<!-- 根据订单号查询订单明细 -->
+	<select id="QUERY_ORDERD_ETAILINFO_BY_ORDERCODE" parameterClass="string" resultMap="QUERY_ORDERD_ETAILINFO_BY_ORDERCODE_MAP">
+	<![CDATA[
+		select om.order_code orderNo,
+		       om.COMMODITY_SUM orderSum,
+		       to_char(om.create_date, 'yyyy-mm-dd hh24:mi:ss') orderTime,
+		       oi.commodity_number amount,
+		       oi.commodity_unit_incoming price,
+		       oi.commodity_name name,
+		       ' ' updateTime,
+		       oi.commodity_sku productNo,
+		       ' ' category,
+		       nvl(oosi.commission_type, ' ') commissionType,
+		       to_char(oosi.createdate, 'yyyy-mm-dd hh24:mi:ss') clickTime,
+		       nvl(om.fare, 0) fare,
+		       nvl(ops.favorable, 0) favorable,
+		       nvl(to_char(ops.favorableCode), ' ') favorableCode,
+		       om.ORDER_STATUS orderStatus,
+		       ' ' paymentStatus,
+		       ' ' paymentType
+		  from order_main om
+		 inner join order_item oi
+		    on (oi.order_code = om.order_code)
+		  left join (select iops.preferential_no favorableCode,
+		                    iops.order_money     favorable,
+		                    iops.order_code      order_code
+		               from order_pay_statement iops
+		              where iops.payment_way = 2
+		                and iops.state = 1) ops
+		    on (ops.order_code = om.order_code)
+		 inner join order_out_side_ext_info oosi
+		    on (oosi.order_code = om.order_code)
+		 where om.order_code = #orderCode:VARCHAR#
+	]]>
+	</select>
+	<!-- 根据订单号查询订单明细,并根据商品编码合并数量和价格 -->
+	<select id="QUERY_ORDERD_ETAILINFO_BY_ORDERCODE_PRODUCTNO" parameterClass="string" resultMap="QUERY_ORDERD_ETAILINFO_BY_ORDERCODE_MAP">
+	<![CDATA[
+		select max(orderNo) orderNo,
+       max(orderTime) orderTime,
+       sum(amount) amount,
+       sum(price) price,
+       max(name) name,
+       max(updateTime) updateTime,
+       productNo,
+       max(category) category,
+       max(commissionType) commissionType,
+       max(fare) fare,
+       max(favorable) favorable,
+       max(favorableCode) favorableCode,
+       max(orderStatus) orderStatus,
+       max(paymentStatus) paymentStatus,
+       max(paymentType) paymentType
+  from (select om.order_code orderNo,
+               to_char(om.create_date, 'yyyy-mm-dd hh24:mi:ss') orderTime,
+               oi.commodity_number amount,
+               oi.commodity_unit_incoming price,
+               oi.commodity_name name,
+               ' ' updateTime,
+               oi.commodity_sku productNo,
+               ' ' category,
+               nvl(oosi.commission_type, ' ') commissionType,
+               nvl(om.fare, 0) fare,
+               nvl(ops.favorable, 0) favorable,
+               nvl(to_char(ops.favorableCode), ' ') favorableCode,
+               ' ' orderStatus,
+               ' ' paymentStatus,
+               ' ' paymentType
+          from order_main om
+         inner join order_item oi
+            on (oi.order_code = om.order_code)
+          left join (select iops.preferential_no favorableCode,
+                           iops.order_money     favorable,
+                           iops.order_code      order_code
+                      from order_pay_statement iops
+                     where iops.payment_way = 2
+                       and iops.state = 1) ops
+            on (ops.order_code = om.order_code)
+         inner join order_out_side_ext_info oosi
+            on (oosi.order_code = om.order_code)
+         where om.order_code = #orderCode:VARCHAR#) group by productNo
+
+	]]>
+	</select>
+	<!-- 新增cps跳转数据 -->
+	<insert id="INSERT_CPS_TRACK_INFO" parameterClass="com.kmzyc.b2b.vo.CpsTrackInfo" >
+		<selectKey resultClass="java.lang.Long" keyProperty="tid" >
+      		select SEQ_CPS_TRACK_INFO.NEXTVAL from dual
+    	</selectKey>
+	    <![CDATA[
+	    	insert into cps_track_info
+			  (tid, source, channel, campaignid, feedback, target, trackdate)
+			values
+			  (#tid:DECIMAL#,
+			   #source:VARCHAR#,
+			   #channel:VARCHAR#,
+			   #campaignId:VARCHAR#,
+			   #feedback:VARCHAR#,
+			   #target:VARCHAR#,
+			   sysdate)
+	    ]]>
+    </insert>
+    
+    <!-- 新增订单标识信息 -->
+	<insert id="INSERT_ORDER_OUT_SIDE_EXT_INFO" parameterClass="com.pltfm.app.entities.OrderOutSideExtInfo" >
+		<selectKey resultClass="java.lang.Long" keyProperty="oid" >
+      		select SEQ_ORDER_OUT_SIDE_EXT_INFO.NEXTVAL from dual
+    	</selectKey>
+	    merge into order_out_side_ext_info inst
+		using (select #orderCode:VARCHAR# order_code from dual) cond
+		on (inst.order_code = cond.order_code)
+		when not matched then
+		  insert
+		    (oid,
+		     order_code,
+		     campaignid,
+		     feedback,
+		     source,
+		     channel,
+		     commission_Type,
+		     promotion_type,
+		<isNotEmpty property="uname">
+			UNAME,
+		</isNotEmpty>
+		<isNotEmpty property="userid">
+			USERID,
+		</isNotEmpty>
+		<isNotEmpty property="trackingCode">
+			TRACKING_CODE,
+		</isNotEmpty>
+		     createdate)
+		  values
+		    (#oid:DECIMAL#,
+		     #orderCode:VARCHAR#,
+		     #campaignid:VARCHAR#,
+		     #feedback:VARCHAR#,
+		     #source:VARCHAR#,
+		     #channel:VARCHAR#,
+		     #commissionType:VARCHAR#,
+		     #promotionType:DECIMAL#,
+		<isNotEmpty property="uname">
+			#uname:VARCHAR#,
+		</isNotEmpty>
+		<isNotEmpty property="userid">
+			#userid:VARCHAR#,
+		</isNotEmpty>
+		<isNotEmpty property="trackingCode">
+			#trackingCode:VARCHAR#,
+		</isNotEmpty>					     
+		     sysdate)
+    </insert>
+	
+	<!-- 新增请求信息-->
+	<insert id="INSERT_REQUEST_INFO" parameterClass="com.kmzyc.b2b.vo.RequestInfo">
+	<selectKey resultClass="java.lang.Long" keyProperty="rid" >
+      		select SEQ_REQUEST_INFO.NEXTVAL from dual
+    	</selectKey>
+	<![CDATA[
+		  insert into request_info
+		   (rid,
+		    system_code,
+		    service_name,
+		    request_source,
+		    request_ip,
+		    cuid,
+		    request_params,
+		    request_start_date,
+		    request_end_date,
+		    request_status)
+		 values
+		   (#rid:DECIMAL#,
+		    #systemCode:VARCHAR#,
+		    #serviceName:VARCHAR#,
+		    #requestSource:VARCHAR#,
+		    #requestIP:VARCHAR#,
+		    #uid:DECIMAL#,
+		    #requestParams:VARCHAR#,
+		    sysdate,
+		    #requestEndDate#,
+		    #requestStatus:VARCHAR#)
+	]]>
+	</insert>
+</sqlMap>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PROM_REWARD_RULE" >
+    <!-- 奖励规则信息 -->
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.PromRewardRule" >
+    <result column="REWARD_RULE_ID" property="rewardRuleId" jdbcType="DECIMAL" />
+    <result column="RULE_CODE" property="ruleCode" jdbcType="VARCHAR" />
+    <result column="RULE_DESCRIPTION" property="ruleDescription" jdbcType="VARCHAR" />
+    <result column="REWARD_AMOUNT" property="rewardAmount" jdbcType="DECIMAL" />
+  </resultMap>
+   
+</sqlMap>

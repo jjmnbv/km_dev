@@ -1,0 +1,1670 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="PERSONAL_BASIC_INFO">
+
+<resultMap class="com.pltfm.app.vobject.PersonalBasicInfo" id="abatorgenerated_PersonalBasicInfoResultOther">
+    <result column="N_PERSONAL_ID" jdbcType="Integer" property="n_PersonalId" />
+    
+    <result column="N_LEVEL_ID" property="n_LevelId" jdbcType="DECIMAL" />
+     <result column="LEVEL_NAME"  property="levelName" jdbcType="VARCHAR"/>
+     
+    <result column="N_CUSTOMER_TYPE_ID" property="n_CustomerTypeId" jdbcType="DECIMAL" />
+    <result column="CUSTOMER_NAME"  property="customerName" jdbcType="VARCHAR"/>
+    
+    <result column="N_LOGIN_ID" jdbcType="Integer" property="n_LoginId" />
+    <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+    
+    <result column="RANK_NAME" property="rankName" jdbcType="VARCHAR" />
+    <result column="N_RANK_ID" property="n_RankId" jdbcType="DECIMAL" />
+   
+    
+    <result column="N_TOTAL_INTEGRAL" property="n_TotalIntegral" jdbcType="DECIMAL" />
+    <result column="N_AVAILABLE_INTEGRAL" property="n_AvailableIntegral" jdbcType="DECIMAL" />
+    <result column="N_INDIVIDUAL_CREDIT_VALUE" property="n_IndividualCreditValue" jdbcType="DECIMAL" />
+    <result column="N_EMPIRICAL_VALUE" property="n_EmpiricalValue" jdbcType="DECIMAL" />
+    
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="SEX" jdbcType="VARCHAR" property="sex" />
+    <result column="N_AGE" jdbcType="Integer" property="n_Age" />
+    <result column="D_BIRTHDAY"  property="d_Birthday" />
+    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="N_CERTIFICATE_TYPE" jdbcType="Integer" property="n_CertificateType" />
+    <result column="CERTIFICATE_NUMBER" jdbcType="VARCHAR" property="certificateNumber" />
+    <result column="LOCATION" jdbcType="VARCHAR" property="location" />
+    <result column="HOMETOWN_LOCATION" jdbcType="VARCHAR" property="hometownLocation" />
+    <result column="EDUCATIONAL_STATUS" jdbcType="VARCHAR" property="educationalStatus" />
+    <result column="WORK_UNIT" jdbcType="VARCHAR" property="workUnit" />
+    <result column="PROFESSION_TYPE" jdbcType="VARCHAR" property="professionType" />
+    <result column="PROFESSION" jdbcType="VARCHAR" property="profession" />
+    <result column="N_ANNUAL_INCOME" jdbcType="Integer" property="n_AnnualIncome" />
+    <result column="N_STATUS" jdbcType="Integer" property="n_Status" />
+    <result column="D_CREATE_DATE"  property="d_CreateDate" />
+    <result column="N_CREATED" jdbcType="Integer" property="n_Created" />
+    <result column="D_MODIFY_DATE" property="d_ModifyDate" />
+    <result column="N_MODIFIED" jdbcType="Integer" property="n_Modified" />
+    <result column="LOGIN_STATUS" jdbcType="Integer" property="login_Status" />
+    <result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+    <result column="CITY" property="city" jdbcType="VARCHAR" />
+    <result column="AREA" property="area" jdbcType="VARCHAR" />
+    <result column="DETAILEDADDRESS" property="detailedAddress" jdbcType="VARCHAR" />
+    <result column="LIVE_STATUS" property="liveStatus"  />
+    <result column="IS_MOBILE" property="isMobile" />
+    <result column="IS_EMAIL" property="isEmail"  />
+     
+  </resultMap>
+  
+  
+<resultMap class="com.pltfm.app.vobject.Customer" id="abatorgenerated_CustomerResult">
+    <result column="N_PERSONAL_ID" jdbcType="Integer" property="n_PersonalId" />
+    
+    <result column="LEVEL_NAME"  property="levelName" jdbcType="VARCHAR"/>
+    <result column="CUSTOMER_NAME"  property="customerName" jdbcType="VARCHAR"/>
+    <result column="HEAD_SCULPTURE" property="headSculpture" jdbcType="VARCHAR" />
+    
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="SEX" jdbcType="VARCHAR" property="sex" />
+    <result column="N_AGE" jdbcType="Integer" property="n_Age" />
+    <result column="D_BIRTHDAY" property="d_Birthday" />
+    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="N_CERTIFICATE_TYPE" jdbcType="Integer" property="n_CertificateType" />
+    <result column="CERTIFICATE_NUMBER" jdbcType="VARCHAR" property="certificateNumber" />
+    <result column="LOCATION" jdbcType="VARCHAR" property="location" />
+    <result column="HOMETOWN_LOCATION" jdbcType="VARCHAR" property="hometownLocation" />
+    <result column="EDUCATIONAL_STATUS" jdbcType="VARCHAR" property="educationalStatus" />
+    <result column="WORK_UNIT" jdbcType="VARCHAR" property="workUnit" />
+    <result column="PROFESSION" jdbcType="VARCHAR" property="profession" />
+    <result column="N_ANNUAL_INCOME" jdbcType="Integer" property="n_AnnualIncome" />
+    <result column="N_STATUS" jdbcType="Integer" property="n_Status" />
+    
+  </resultMap>
+  
+  <resultMap class="com.pltfm.app.vobject.Specialist" id="abatorgenerated_SpecialistResult">
+    <result column="N_PERSONAL_ID" jdbcType="Integer" property="n_PersonalId" />
+    
+    <result column="LEVEL_NAME"  property="levelName" jdbcType="VARCHAR"/>
+    <result column="CUSTOMER_NAME"  property="customerName" jdbcType="VARCHAR"/>
+    <result column="HEAD_SCULPTURE" property="headSculpture" jdbcType="VARCHAR" />
+    
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="SEX" jdbcType="VARCHAR" property="sex" />
+    <result column="N_AGE" jdbcType="Integer" property="n_Age" />
+    <result column="D_BIRTHDAY"  property="d_Birthday" />
+    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="N_CERTIFICATE_TYPE" jdbcType="Integer" property="n_CertificateType" />
+    <result column="CERTIFICATE_NUMBER" jdbcType="VARCHAR" property="certificateNumber" />
+    <result column="LOCATION" jdbcType="VARCHAR" property="location" />
+    <result column="HOMETOWN_LOCATION" jdbcType="VARCHAR" property="hometownLocation" />
+    <result column="EDUCATIONAL_STATUS" jdbcType="VARCHAR" property="educationalStatus" />
+    <result column="WORK_UNIT" jdbcType="VARCHAR" property="workUnit" />
+    <result column="PROFESSION" jdbcType="VARCHAR" property="profession" />
+    <result column="N_ANNUAL_INCOME" jdbcType="Integer" property="n_AnnualIncome" />
+    <result column="N_STATUS" jdbcType="Integer" property="n_Status" />
+    
+  </resultMap>
+  
+<resultMap class="com.pltfm.app.vobject.PersonalBasicInfo" id="abatorgenerated_PersonalBasicInfoResultExpert">
+    <result column="N_PERSONAL_ID" jdbcType="Integer" property="n_PersonalId" />
+    
+    <result column="N_LEVEL_ID" property="n_LevelId" jdbcType="DECIMAL" />
+     <result column="LEVEL_NAME"  property="levelName" jdbcType="VARCHAR"/>
+     
+    <result column="N_CUSTOMER_TYPE_ID" property="n_CustomerTypeId" jdbcType="DECIMAL" />
+    <result column="CUSTOMER_NAME"  property="customerName" jdbcType="VARCHAR"/>
+    
+    <result column="N_LOGIN_ID" jdbcType="Integer" property="n_LoginId" />
+    <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+    
+    <result column="RANK_NAME" property="rankName" jdbcType="VARCHAR" />
+    <result column="N_RANK_ID" property="n_RankId" jdbcType="DECIMAL" />
+   
+    
+    <result column="N_TOTAL_INTEGRAL" property="n_TotalIntegral" jdbcType="DECIMAL" />
+    <result column="N_AVAILABLE_INTEGRAL" property="n_AvailableIntegral" jdbcType="DECIMAL" />
+    <result column="N_INDIVIDUAL_CREDIT_VALUE" property="n_IndividualCreditValue" jdbcType="DECIMAL" />
+    <result column="N_EMPIRICAL_VALUE" property="n_EmpiricalValue" jdbcType="DECIMAL" />
+    
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="SEX" jdbcType="VARCHAR" property="sex" />
+    <result column="N_AGE" jdbcType="Integer" property="n_Age" />
+    <result column="D_BIRTHDAY"  property="d_Birthday" />
+    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="N_CERTIFICATE_TYPE" jdbcType="Integer" property="n_CertificateType" />
+    <result column="CERTIFICATE_NUMBER" jdbcType="VARCHAR" property="certificateNumber" />
+    <result column="LOCATION" jdbcType="VARCHAR" property="location" />
+    <result column="HOMETOWN_LOCATION" jdbcType="VARCHAR" property="hometownLocation" />
+    <result column="EDUCATIONAL_STATUS" jdbcType="VARCHAR" property="educationalStatus" />
+    <result column="WORK_UNIT" jdbcType="VARCHAR" property="workUnit" />
+    <result column="PROFESSION_TYPE" jdbcType="VARCHAR" property="professionType" />
+    <result column="PROFESSION" jdbcType="VARCHAR" property="profession" />
+    <result column="N_ANNUAL_INCOME" jdbcType="Integer" property="n_AnnualIncome" />
+    <result column="N_STATUS" jdbcType="Integer" property="n_Status" />
+    <result column="D_CREATE_DATE" property="d_CreateDate" />
+    <result column="N_CREATED" jdbcType="Integer" property="n_Created" />
+    <result column="D_MODIFY_DATE"  property="d_ModifyDate" />
+    <result column="N_MODIFIED" jdbcType="Integer" property="n_Modified" />
+     <result column="LOGIN_STATUS" jdbcType="Integer" property="login_Status" />
+  </resultMap>
+
+  <resultMap class="com.pltfm.app.vobject.PersonalBasicInfo" id="abatorgenerated_PersonalBasicInfoResult">
+    <result column="N_PERSONAL_ID" jdbcType="Integer" property="n_PersonalId" />
+    <result column="N_LOGIN_ID" jdbcType="Integer" property="n_LoginId" />
+    <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="SEX" jdbcType="VARCHAR" property="sex" />
+    <result column="N_AGE" jdbcType="Integer" property="n_Age" />
+    <result column="D_BIRTHDAY"  property="d_Birthday" />
+    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="N_CERTIFICATE_TYPE" jdbcType="Integer" property="n_CertificateType" />
+    <result column="CERTIFICATE_NUMBER" jdbcType="VARCHAR" property="certificateNumber" />
+    <result column="LOCATION" jdbcType="VARCHAR" property="location" />
+    <result column="HOMETOWN_LOCATION" jdbcType="VARCHAR" property="hometownLocation" />
+    <result column="EDUCATIONAL_STATUS" jdbcType="VARCHAR" property="educationalStatus" />
+    <result column="WORK_UNIT" jdbcType="VARCHAR" property="workUnit" />
+    <result column="PROFESSION_TYPE" jdbcType="VARCHAR" property="professionType" />
+    <result column="PROFESSION" jdbcType="VARCHAR" property="profession" />
+    <result column="N_ANNUAL_INCOME" jdbcType="Integer" property="n_AnnualIncome" />
+    <result column="N_STATUS" jdbcType="Integer" property="n_Status" />
+    <result column="D_CREATE_DATE"  property="d_CreateDate" />
+    <result column="N_CREATED" jdbcType="Integer" property="n_Created" />
+    <result column="D_MODIFY_DATE"  property="d_ModifyDate" />
+    <result column="N_MODIFIED" jdbcType="Integer" property="n_Modified" />
+  </resultMap>
+  
+  <resultMap class="com.pltfm.app.vobject.PersonalBasicInfo" id="abatorgenerated_PersonalBasicInfo">
+    <result column="N_PERSONAL_ID" jdbcType="Integer" property="n_PersonalId" />
+    <result column="N_LOGIN_ID" jdbcType="Integer" property="n_LoginId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="SEX" jdbcType="VARCHAR" property="sex" />
+    <result column="N_AGE" jdbcType="Integer" property="n_Age" />
+    <result column="D_BIRTHDAY"  property="d_Birthday" />
+    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="N_CERTIFICATE_TYPE" jdbcType="Integer" property="n_CertificateType" />
+    <result column="CERTIFICATE_NUMBER" jdbcType="VARCHAR" property="certificateNumber" />
+    <result column="LOCATION" jdbcType="VARCHAR" property="location" />
+    <result column="HOMETOWN_LOCATION" jdbcType="VARCHAR" property="hometownLocation" />
+    <result column="EDUCATIONAL_STATUS" jdbcType="VARCHAR" property="educationalStatus" />
+    <result column="WORK_UNIT" jdbcType="VARCHAR" property="workUnit" />
+    <result column="PROFESSION_TYPE" jdbcType="VARCHAR" property="professionType" />
+    <result column="PROFESSION" jdbcType="VARCHAR" property="profession" />
+    <result column="N_ANNUAL_INCOME" jdbcType="Integer" property="n_AnnualIncome" />
+    <result column="N_STATUS" jdbcType="Integer" property="n_Status" />
+    <result column="D_CREATE_DATE"  property="d_CreateDate" />
+    <result column="N_CREATED" jdbcType="Integer" property="n_Created" />
+    <result column="D_MODIFY_DATE"  property="d_ModifyDate" />
+    <result column="N_MODIFIED" jdbcType="Integer" property="n_Modified" />
+  </resultMap>
+ 
+  <resultMap class="com.pltfm.app.vobject.PersonalBasicInfo" id="abatorgenerated_PersonalBasicInfoAuditing">
+    <result column="N_PERSONAL_ID" jdbcType="Integer" property="n_PersonalId" />
+    <result column="N_LOGIN_ID" jdbcType="Integer" property="n_LoginId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="SEX" jdbcType="VARCHAR" property="sex" />
+    <result column="N_AGE" jdbcType="Integer" property="n_Age" />
+    <result column="D_BIRTHDAY"  property="d_Birthday" />
+    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="N_CERTIFICATE_TYPE" jdbcType="Integer" property="n_CertificateType" />
+    <result column="CERTIFICATE_NUMBER" jdbcType="VARCHAR" property="certificateNumber" />
+    <result column="LOCATION" jdbcType="VARCHAR" property="location" />
+    <result column="HOMETOWN_LOCATION" jdbcType="VARCHAR" property="hometownLocation" />
+    <result column="EDUCATIONAL_STATUS" jdbcType="VARCHAR" property="educationalStatus" />
+    <result column="WORK_UNIT" jdbcType="VARCHAR" property="workUnit" />
+    <result column="PROFESSION_TYPE" jdbcType="VARCHAR" property="professionType" />
+    <result column="PROFESSION" jdbcType="VARCHAR" property="profession" />
+    <result column="N_ANNUAL_INCOME" jdbcType="Integer" property="n_AnnualIncome" />
+    <result column="N_STATUS" jdbcType="Integer" property="n_Status" />
+    <result column="D_CREATE_DATE"  property="d_CreateDate" />
+    <result column="N_CREATED" jdbcType="Integer" property="n_Created" />
+    <result column="D_MODIFY_DATE"  property="d_ModifyDate" />
+    <result column="N_MODIFIED" jdbcType="Integer" property="n_Modified" />
+    
+     <result column="CERTIFICATE_PICTURE" jdbcType="VARCHAR" property="certificatePicture" />
+    <result column="CERTIFICATE_ACTIVE_TIME" jdbcType="VARCHAR" property="certificateActiveTime" />
+  </resultMap>
+  
+   <resultMap id="ibatorgenerated_CountResult" class="com.pltfm.sys.model.SysModelUtil">
+    <result column="the_count" property="theCount" jdbcType="DECIMAL" />
+  </resultMap>
+  <!-- 支持导出个人客户excel表 -->
+   <resultMap id="abatorgenerated_Personal" class="com.pltfm.app.vobject.PersonalBasicInfo">
+    <result property="town" column="Town" jdbcType="VARCHAR"/>
+     <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+   	<result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+   	 <result column="LEVEL_NAME"  property="levelName" jdbcType="VARCHAR"/>
+   	 <result column="N_AVAILABLE_INTEGRAL" property="n_AvailableIntegral" jdbcType="DECIMAL" />
+  	 <result column="D_CREATE_DATE"  property="d_CreateDate" />
+  	 <result column="NAME"  property="name" jdbcType="VARCHAR"/>
+  	 <result column="PROVINCE"  property="province" jdbcType="VARCHAR"/>
+  	 <result column="CITY"  property="city" jdbcType="VARCHAR"/>
+  	 <result column="AREA"  property="area" jdbcType="VARCHAR"/>
+  	 <result column="TOWN"  property="town" jdbcType="VARCHAR"/>
+     <result column="DETAILEDADDRESS"  property="detailedAddress" jdbcType="VARCHAR"/>
+   </resultMap>
+   
+   <resultMap id="syncPeronalInfoResultMap" class="com.pltfm.app.vobject.SyncPeronalInfoVO">
+   	<result property="accountLogin" column="login_account" jdbcType="VARCHAR"/>
+   	<result property="cardNum" column="card_num" jdbcType="VARCHAR"/>
+   	<result property="name" column="name" jdbcType="VARCHAR"/>
+   	<result property="sex" column="sex" jdbcType="VARCHAR"/>
+   	<result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+   	<result property="n_MaritalStatus" column="n_marital_status" jdbcType="VARCHAR"/>
+   	<result property="address" column="address" jdbcType="VARCHAR"/>
+   	<result property="email" column="email" jdbcType="VARCHAR"/>
+   	<result property="d_Birthday" column="d_birthday" jdbcType="date" />
+   	<result property="d_CreateDate" column="d_create_date" jdbcType="date" />
+    <result property="d_ModifyDate" column="d_modify_date" jdbcType="date" />
+   </resultMap>
+   
+   <resultMap class="com.pltfm.app.vobject.PersonalBasicInfo" id="RS_PERSONAL_INFO_PAGE">
+   	<result column="N_LOGIN_ID"  property="n_LoginId" jdbcType="Integer" />
+    <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR"  />
+    <result column="EMAIL"  property="email"  jdbcType="VARCHAR"  />
+    <result column="CARD_NUM"  property="cardNum" jdbcType="VARCHAR"/>
+    <result column="N_LEVEL_ID" property="n_LevelId" jdbcType="DECIMAL" />
+    <result column="IS_MOBILE" property="isMobile" jdbcType="Integer" />
+    <result column="IS_EMAIL" property="isEmail"   jdbcType="Integer" />
+    <result column="REGISTER_PLATFORM" property="registerPlatform" jdbcType="Integer" />
+	<result column="REGISTER_DEVICE" property="registerDevice"     jdbcType="Integer" />
+	<result column="ISCOMMONUSER" property="isCommonUser"   jdbcType="Integer" />
+	<result column="ISSUPPLIER" property="isSupplier"  	jdbcType="Integer" />
+	<result column="ISPURCHASER" property="isPurchaser" 	jdbcType="Integer" />
+	<result column="ISTOURIST" property="isTourist"   	jdbcType="Integer" />
+	<result column="ISERA" property="isEra"   		jdbcType="Integer" />
+	<result column="ISSPREADER" property="isSpreader"  	jdbcType="Integer" />
+	<result column="ISCROWDER" property="isCrowder"   	jdbcType="Integer" />
+	<result column="ISTHIRD" property="isThird"   	jdbcType="Integer" />
+	<result column="N_STATUS" property="n_Status" 		jdbcType="Integer" />
+	<result column="D_CREATE_DATE"  property="d_CreateDate" />
+	<result column="ERA_NO"  property="eraNo" 	jdbcType="VARCHAR" />
+	<result column="RECOMMENDED_NO"  property="recommendedNo"  jdbcType="VARCHAR"  />
+	<result column="FANLI_USER_NAME"  property="fanliUserName" jdbcType="VARCHAR"  />
+  </resultMap>
+  
+  <resultMap class="com.pltfm.app.vobject.PersonalBasicInfo" id="RS_PERSONAL_INFO_PAGE_EXTEND"  extends="RS_PERSONAL_INFO_PAGE">
+  	<result column="N_PERSONAL_ID"  property="n_PersonalId" jdbcType="Integer" />
+  	<result property="name"      column="name" 				jdbcType="VARCHAR"/>
+   	<result property="sex" 		 column="sex" 				jdbcType="Integer"/>
+   	<result column="LEVEL_NAME"  property="levelName" 		jdbcType="VARCHAR"/>
+   	<result column="D_BIRTHDAY"  property="d_Birthday" />
+   	<result column="N_CERTIFICATE_TYPE"  property="n_CertificateType" jdbcType="Integer" />
+   	<result column="CERTIFICATE_NUMBER"  property="certificateNumber" jdbcType="VARCHAR" />
+  </resultMap>
+   
+       
+ <insert id="ibatorgenerated_insertSelective" parameterClass="com.pltfm.app.vobject.PersonalBasicInfo" >
+   <selectKey resultClass="java.lang.Integer" keyProperty="n_PersonalId" >
+           select seq_app_login.nextval from dual
+      </selectKey>
+    insert into PERSONAL_BASIC_INFO
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="n_PersonalId" >
+        N_PERSONAL_ID
+      </isNotNull>
+      <isNotNull prepend="," property="n_LoginId" >
+        N_LOGIN_ID
+      </isNotNull>
+      <isNotNull prepend="," property="name" >
+        NAME
+      </isNotNull>
+      <isNotNull prepend="," property="sex" >
+        SEX
+      </isNotNull>
+      <isNotNull prepend="," property="n_Age" >
+        N_AGE
+      </isNotNull>
+      <isNotNull prepend="," property="d_Birthday" >
+        D_BIRTHDAY
+      </isNotNull>
+      <isNotNull prepend="," property="mobile" >
+        MOBILE
+      </isNotNull>
+      <isNotNull prepend="," property="email" >
+        EMAIL
+      </isNotNull>
+      <isNotNull prepend="," property="n_CertificateType" >
+        N_CERTIFICATE_TYPE
+      </isNotNull>
+      <isNotNull prepend="," property="certificateNumber" >
+        CERTIFICATE_NUMBER
+      </isNotNull>
+      <isNotNull prepend="," property="location" >
+        LOCATION
+      </isNotNull>
+      <isNotNull prepend="," property="hometownLocation" >
+        HOMETOWN_LOCATION
+      </isNotNull>
+      <isNotNull prepend="," property="educationalStatus" >
+        EDUCATIONAL_STATUS
+      </isNotNull>
+      <isNotNull prepend="," property="workUnit" >
+        WORK_UNIT
+      </isNotNull>
+      <isNotNull prepend="," property="professionType" >
+        PROFESSION_TYPE
+      </isNotNull>
+      <isNotNull prepend="," property="profession" >
+        PROFESSION
+      </isNotNull>
+      <isNotNull prepend="," property="n_AnnualIncome" >
+        N_ANNUAL_INCOME
+      </isNotNull>
+      <isNotNull prepend="," property="n_Status" >
+        N_STATUS
+      </isNotNull>
+      <isNotNull prepend="," property="d_CreateDate" >
+        D_CREATE_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="n_Created" >
+        N_CREATED
+      </isNotNull>
+      <isNotNull prepend="," property="d_ModifyDate" >
+        D_MODIFY_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="n_Modified" >
+        N_MODIFIED
+      </isNotNull>
+      <isNotNull prepend="," property="province" >
+        PROVINCE
+      </isNotNull>
+       <isNotNull prepend="," property="city" >
+        CITY
+      </isNotNull>
+      <isNotNull prepend="," property="area" >
+        AREA
+      </isNotNull>
+       <isNotNull prepend="," property="detailedAddress" >
+        DETAILEDADDRESS
+      </isNotNull>
+     
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="n_PersonalId" >
+        #n_PersonalId:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="n_LoginId" >
+        #n_LoginId:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="name" >
+        #name:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="sex" >
+        #sex:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="n_Age" >
+        #n_Age:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="d_Birthday" >
+        #d_Birthday#
+      </isNotNull>
+      <isNotNull prepend="," property="mobile" >
+        #mobile:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="email" >
+        #email:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="n_CertificateType" >
+        #n_CertificateType:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="certificateNumber" >
+        #certificateNumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="location" >
+        #location:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="hometownLocation" >
+        #hometownLocation:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="educationalStatus" >
+        #educationalStatus:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="workUnit" >
+        #workUnit:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="professionType" >
+        #professionType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="profession" >
+        #profession:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="n_AnnualIncome" >
+        #n_AnnualIncome:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="n_Status" >
+        #n_Status:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="d_CreateDate" >
+        #d_CreateDate#
+      </isNotNull>
+      <isNotNull prepend="," property="n_Created" >
+        #n_Created:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="d_ModifyDate" >
+        #d_ModifyDate#
+      </isNotNull>
+      <isNotNull prepend="," property="n_Modified" >
+        #n_Modified:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="province" >
+        #province#
+      </isNotNull>
+       <isNotNull prepend="," property="city" >
+        #city#
+      </isNotNull>
+      <isNotNull prepend="," property="area" >
+        #area#
+      </isNotNull>
+      <isNotNull prepend="," property="detailedAddress" >
+        #detailedAddress#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>      
+       
+  <update id="abatorgenerated_updateByPrimaryKeySelective" parameterClass="com.pltfm.app.vobject.PersonalBasicInfo">
+    update PERSONAL_BASIC_INFO
+    <dynamic prepend="set">
+      <isNotNull prepend="," property="n_LoginId">
+        N_LOGIN_ID = #n_LoginId:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="name">
+        NAME = #name:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="sex">
+        SEX = #sex:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="n_Age">
+        N_AGE = #n_Age:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="d_Birthday">
+        D_BIRTHDAY = #d_Birthday#
+      </isNotNull>
+      <isNotNull prepend="," property="mobile">
+        MOBILE = #mobile:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="email">
+        EMAIL = #email:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="n_CertificateType">
+        N_CERTIFICATE_TYPE = #n_CertificateType:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="certificateNumber">
+        CERTIFICATE_NUMBER = #certificateNumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="location">
+        LOCATION = #location:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="hometownLocation">
+        HOMETOWN_LOCATION = #hometownLocation:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="educationalStatus">
+        EDUCATIONAL_STATUS = #educationalStatus:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="workUnit">
+        WORK_UNIT = #workUnit:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="professionType">
+        PROFESSION_TYPE = #professionType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="profession">
+        PROFESSION = #profession:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="n_AnnualIncome">
+        N_ANNUAL_INCOME = #n_AnnualIncome:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="n_Status">
+        N_STATUS = #n_Status:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="d_CreateDate">
+        D_CREATE_DATE = #d_CreateDate#
+      </isNotNull>
+      <isNotNull prepend="," property="n_Created">
+        N_CREATED = #n_Created:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="d_ModifyDate">
+        D_MODIFY_DATE = #d_ModifyDate#
+      </isNotNull>
+      <isNotNull prepend="," property="n_Modified">
+        N_MODIFIED = #n_Modified:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="authenticationStatus">
+        AUTHENTICATION_STATUS = #authenticationStatus:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="province">
+        PROVINCE = #province#
+      </isNotNull>
+      <isNotNull prepend="," property="city">
+        CITY = #city#
+      </isNotNull>
+       <isNotNull prepend="," property="area">
+        AREA = #area#
+      </isNotNull>
+      <isNotNull prepend="," property="detailedAddress">
+        DETAILEDADDRESS = #detailedAddress#
+      </isNotNull>
+      <isNotNull prepend="," property="liveStatus">
+        LIVE_STATUS = #liveStatus#
+      </isNotNull>
+    </dynamic>
+    where N_PERSONAL_ID = #n_PersonalId:Integer#
+  </update>     
+  
+  <!-- 根据登录id修改个人信息 -->
+  <update id="abatorgenerated_updateByPrimaryKeySelectiveByLoginId" parameterClass="com.pltfm.app.vobject.PersonalBasicInfo">
+    update PERSONAL_BASIC_INFO
+    <dynamic prepend="set">
+      <isNotNull prepend="," property="name">
+        NAME = #name:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="sex">
+        SEX = #sex:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="n_Age">
+        N_AGE = #n_Age:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="d_Birthday">
+        D_BIRTHDAY = #d_Birthday#
+      </isNotNull>
+      <isNotNull prepend="," property="mobile">
+        MOBILE = #mobile:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="email">
+        EMAIL = #email:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="n_CertificateType">
+        N_CERTIFICATE_TYPE = #n_CertificateType:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="certificateNumber">
+        CERTIFICATE_NUMBER = #certificateNumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="location">
+        LOCATION = #location:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="hometownLocation">
+        HOMETOWN_LOCATION = #hometownLocation:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="educationalStatus">
+        EDUCATIONAL_STATUS = #educationalStatus:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="workUnit">
+        WORK_UNIT = #workUnit:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="professionType">
+        PROFESSION_TYPE = #professionType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="profession">
+        PROFESSION = #profession:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="n_AnnualIncome">
+        N_ANNUAL_INCOME = #n_AnnualIncome:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="n_Status">
+        N_STATUS = #n_Status:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="d_CreateDate">
+        D_CREATE_DATE = #d_CreateDate#
+      </isNotNull>
+      <isNotNull prepend="," property="n_Created">
+        N_CREATED = #n_Created:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="d_ModifyDate">
+        D_MODIFY_DATE = #d_ModifyDate#
+      </isNotNull>
+      <isNotNull prepend="," property="n_Modified">
+        N_MODIFIED = #n_Modified:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="authenticationStatus">
+        AUTHENTICATION_STATUS = #authenticationStatus:Integer#
+      </isNotNull>
+      <isNotNull prepend="," property="province">
+        PROVINCE = #province#
+      </isNotNull>
+      <isNotNull prepend="," property="city">
+        CITY = #city#
+      </isNotNull>
+       <isNotNull prepend="," property="area">
+        AREA = #area#
+      </isNotNull>
+      <isNotNull prepend="," property="detailedAddress">
+        DETAILEDADDRESS = #detailedAddress#
+      </isNotNull>
+      <isNotNull prepend="," property="liveStatus">
+        LIVE_STATUS = #liveStatus#
+      </isNotNull>
+    </dynamic>
+    where   N_LOGIN_ID = #n_LoginId:Integer#
+  </update>     
+ <!-- 专家类别 详细信息 -->
+    <select id="abatorgenerated_selectparentidKey" parameterClass="com.pltfm.app.vobject.PersonalBasicInfo" resultMap="abatorgenerated_PersonalBasicInfoResultExpert">
+   select N_EMPIRICAL_VALUE,N_INDIVIDUAL_CREDIT_VALUE,N_AVAILABLE_INTEGRAL,N_PERSONAL_ID, tt.N_LOGIN_ID, tt.NAME, SEX, N_AGE, D_BIRTHDAY, tt.MOBILE, tt.EMAIL,N_TOTAL_INTEGRAL,
+      N_CERTIFICATE_TYPE, CERTIFICATE_NUMBER, LOCATION, HOMETOWN_LOCATION, EDUCATIONAL_STATUS,
+      WORK_UNIT, PROFESSION_TYPE, PROFESSION, N_ANNUAL_INCOME, tt.N_STATUS, tt.D_CREATE_DATE, tt.N_CREATED,
+      tt.D_MODIFY_DATE, tt.N_MODIFIED ,rr.rank_name,rr.n_Rank_Id,uu.level_name,uu.n_level_id,ll.N_STATUS as LOGIN_STATUS,ll.n_customer_type_id,cc.name CUSTOMER_NAME,ll.login_account,pp.N_TOTAL_INTEGRAL
+    from LOGIN_INFO ll,PERSONAL_BASIC_INFO tt,PERSONALITY_INFO pp,BNES_CUSTOMER_TYPE cc,USER_LEVEL uu,RANK rr 
+     where   ll.N_LOGIN_ID = pp.N_LOGIN_ID(+)
+               and ll.n_level_id = uu.n_level_id(+)
+               and pp.n_rank_id = rr.n_rank_id(+)
+               and ll.N_LOGIN_ID = tt.N_LOGIN_ID 
+               and ll.n_customer_type_id=cc.customer_type_id
+               and ll.n_customer_type_id = 2
+               and tt.N_PERSONAL_ID = #n_PersonalId:Integer#
+  </select>
+<!--  ****************  search page by vo  ****************  -->
+  <select id="searchPageByVo" resultMap="abatorgenerated_PersonalBasicInfoResultExpert" parameterClass="com.pltfm.app.vobject.PersonalBasicInfo">
+			select N_PERSONAL_ID, N_LOGIN_ID, NAME, SEX, N_AGE, D_BIRTHDAY, MOBILE, EMAIL,
+      N_CERTIFICATE_TYPE, CERTIFICATE_NUMBER, LOCATION, HOMETOWN_LOCATION, EDUCATIONAL_STATUS,
+      WORK_UNIT, PROFESSION_TYPE, PROFESSION, N_ANNUAL_INCOME, N_STATUS, D_CREATE_DATE, N_CREATED,LOGIN_STATUS,
+      D_MODIFY_DATE,N_MODIFIED,N_LEVEL_ID,N_CUSTOMER_TYPE_ID,LOGIN_ACCOUNT,N_RANK_ID,N_AVAILABLE_INTEGRAL,N_INDIVIDUAL_CREDIT_VALUE,N_EMPIRICAL_VALUE,level_name,rank_name,CUSTOMER_NAME,N_TOTAL_INTEGRAL
+    FROM (
+    select  ROW_NUMBER() OVER(order by N_PERSONAL_ID desc) as view_row_number, tt.*,ll.N_LEVEL_ID,ll.N_STATUS as LOGIN_STATUS,ll.N_CUSTOMER_TYPE_ID,ll.LOGIN_ACCOUNT,
+    pp.N_RANK_ID,pp.N_AVAILABLE_INTEGRAL,pp.N_INDIVIDUAL_CREDIT_VALUE,pp.N_EMPIRICAL_VALUE,uu.level_name,rr.rank_name,cc.NAME CUSTOMER_NAME,pp.N_TOTAL_INTEGRAL
+    from LOGIN_INFO ll,PERSONAL_BASIC_INFO tt,PERSONALITY_INFO pp,BNES_CUSTOMER_TYPE cc,USER_LEVEL uu,RANK rr
+     where  ll.N_LOGIN_ID = pp.N_LOGIN_ID(+)
+               and ll.n_level_id = uu.n_level_id(+)
+               and pp.n_rank_id = rr.n_rank_id(+)
+               and ll.N_LOGIN_ID = tt.N_LOGIN_ID 
+               and ll.n_customer_type_id=cc.customer_type_id
+               and ll.n_customer_type_id = 2     
+     	<isNotNull property="loginAccount">
+			  <isNotEmpty prepend="and" property="loginAccount">
+				ll.LOGIN_ACCOUNT like '%$loginAccount$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="name">
+			  <isNotEmpty prepend="and" property="name">
+				tt.NAME like '%$name$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="mobile">
+			  <isNotEmpty prepend="and" property="mobile">
+				tt.MOBILE like '%$mobile$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="certificateNumber">
+			  <isNotEmpty prepend="and" property="certificateNumber">
+				tt.CERTIFICATE_NUMBER like '%$certificateNumber$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="n_RankId">
+			  <isNotEmpty prepend="and" property="n_RankId">
+				rr.n_rank_id = #n_RankId:Integer#
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="n_LevelId">
+			  <isNotEmpty prepend="and" property="n_LevelId">
+				uu.n_level_id = #n_LevelId:Integer#
+			  </isNotEmpty>
+		  </isNotNull>
+    )
+    <![CDATA[ where view_row_number <= #max# and view_row_number > #skip# ]]>
+	</select>
+ <!-- **************** search user's roleList by vo  ****************  -->
+  <select id="selectCountByVo" parameterClass="com.pltfm.app.vobject.PersonalBasicInfo" resultMap="ibatorgenerated_CountResult">
+      select count(1) the_count from LOGIN_INFO ll,PERSONAL_BASIC_INFO tt,PERSONALITY_INFO pp,BNES_CUSTOMER_TYPE cc,USER_LEVEL uu,RANK rr 
+     where   ll.N_LOGIN_ID = pp.N_LOGIN_ID(+)
+               and ll.n_level_id = uu.n_level_id(+)
+               and pp.n_rank_id = rr.n_rank_id(+)
+               and ll.N_LOGIN_ID = tt.N_LOGIN_ID 
+               and ll.n_customer_type_id=cc.customer_type_id
+               and ll.n_customer_type_id = 2
+     	<isNotNull property="loginAccount">
+			  <isNotEmpty prepend="and" property="loginAccount">
+				ll.LOGIN_ACCOUNT like '%$loginAccount$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="name">
+			  <isNotEmpty prepend="and" property="name">
+				tt.NAME like '%$name$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="mobile">
+			  <isNotEmpty prepend="and" property="mobile">
+				ll.MOBILE like '%$mobile$%'
+			  </isNotEmpty>
+		  </isNotNull>
+
+		  <isNotNull property="certificateNumber">
+			  <isNotEmpty prepend="and" property="certificateNumber">
+				tt.CERTIFICATE_NUMBER like '%$certificateNumber$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		   <isNotNull property="n_RankId">
+			  <isNotEmpty prepend="and" property="n_RankId">
+				rr.n_rank_id = #n_RankId:Integer#
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="n_LevelId">
+			  <isNotEmpty prepend="and" property="n_LevelId">
+				uu.n_level_id = #n_LevelId:Integer#
+			  </isNotEmpty>
+		  </isNotNull>
+  </select>
+    <delete id="abatorgenerated_deleteByPrimaryKey" parameterClass="com.pltfm.app.vobject.PersonalBasicInfo">
+    delete from PERSONAL_BASIC_INFO
+    where N_PERSONAL_ID = #n_PersonalId:Integer#
+  </delete>
+  
+  <select id="abatorgenerated_selectByPrimaryKey" parameterClass="com.pltfm.app.vobject.PersonalBasicInfo" resultMap="abatorgenerated_PersonalBasicInfoResultOther">
+   select N_EMPIRICAL_VALUE,N_INDIVIDUAL_CREDIT_VALUE,N_AVAILABLE_INTEGRAL,N_PERSONAL_ID, tt.N_LOGIN_ID, tt.NAME, SEX, N_AGE, D_BIRTHDAY, tt.MOBILE, tt.EMAIL,TT.PROVINCE,TT.CITY,TT.AREA,TT.DETAILEDADDRESS,
+      N_CERTIFICATE_TYPE, CERTIFICATE_NUMBER, LOCATION, HOMETOWN_LOCATION, EDUCATIONAL_STATUS,
+      WORK_UNIT, PROFESSION_TYPE, PROFESSION, N_ANNUAL_INCOME, tt.N_STATUS, tt.D_CREATE_DATE, tt.N_CREATED,tt.LIVE_STATUS,decode(LL.Mobile,null,0,1) IS_MOBILE, decode(LL.Email,null,0,1) IS_EMAIL,
+      tt.D_MODIFY_DATE, tt.N_MODIFIED ,rr.rank_name,rr.n_Rank_Id,uu.level_name,uu.n_level_id,ll.n_customer_type_id,ll.N_STATUS as LOGIN_STATUS,cc.name CUSTOMER_NAME,ll.login_account,pp.N_TOTAL_INTEGRAL,tt.n_certificate_type n_certificate_type
+    from LOGIN_INFO ll,PERSONAL_BASIC_INFO tt,PERSONALITY_INFO pp,BNES_CUSTOMER_TYPE cc,USER_LEVEL uu,RANK rr
+     where     ll.N_LOGIN_ID = pp.N_LOGIN_ID(+)
+               and ll.n_level_id = uu.n_level_id(+)
+               and pp.n_rank_id = rr.n_rank_id(+)
+               and ll.N_LOGIN_ID = tt.N_LOGIN_ID 
+               and ll.n_customer_type_id=cc.customer_type_id
+               and ll.n_customer_type_id in(1,6)
+               and tt.N_PERSONAL_ID = #n_PersonalId:Integer#
+  </select>  
+    <select id="abatorgenerated_getLogin" parameterClass="com.pltfm.app.vobject.PersonalBasicInfo" resultMap="abatorgenerated_PersonalBasicInfoAuditing">
+    select N_PERSONAL_ID, N_LOGIN_ID, NAME, SEX, N_AGE, D_BIRTHDAY, MOBILE, EMAIL,
+      N_CERTIFICATE_TYPE, CERTIFICATE_NUMBER, LOCATION, HOMETOWN_LOCATION, EDUCATIONAL_STATUS,
+      WORK_UNIT, PROFESSION_TYPE, PROFESSION, N_ANNUAL_INCOME, N_STATUS, D_CREATE_DATE, N_CREATED,
+      D_MODIFY_DATE, N_MODIFIED,CERTIFICATE_PICTURE,CERTIFICATE_ACTIVE_TIME
+    from PERSONAL_BASIC_INFO
+    where N_LOGIN_ID = #n_LoginId:Integer#
+  </select>
+  
+  
+  <select id="abatorgenerated_selectBySpecialist" parameterClass="com.pltfm.app.vobject.Specialist" resultMap="abatorgenerated_SpecialistResult">
+     select N_PERSONAL_ID, tt.NAME, SEX, N_AGE, D_BIRTHDAY, tt.MOBILE, tt.EMAIL,
+      N_CERTIFICATE_TYPE, CERTIFICATE_NUMBER, LOCATION, HOMETOWN_LOCATION, EDUCATIONAL_STATUS,
+      WORK_UNIT, PROFESSION, N_ANNUAL_INCOME, tt.N_STATUS,uu.level_name,cc.name CUSTOMER_NAME,pp.head_sculpture
+    from PERSONAL_BASIC_INFO tt,LOGIN_INFO ll,PERSONALITY_INFO pp,BNES_CUSTOMER_TYPE cc,USER_LEVEL uu
+     where ll.N_LOGIN_ID=tt.N_LOGIN_ID and ll.N_LOGIN_ID=pp.N_LOGIN_ID and cc.customer_type_id=ll.n_customer_type_id
+      and ll.n_level_id=uu.n_level_id 
+    and N_PERSONAL_ID = #n_PersonalId:Integer#
+  </select> 
+  
+  <select id="abatorgenerated_selectByCustomer" parameterClass="com.pltfm.app.vobject.Customer" resultMap="abatorgenerated_CustomerResult">
+     select N_PERSONAL_ID, tt.NAME, SEX, N_AGE, D_BIRTHDAY, tt.MOBILE, tt.EMAIL,
+      N_CERTIFICATE_TYPE, CERTIFICATE_NUMBER, LOCATION, HOMETOWN_LOCATION, EDUCATIONAL_STATUS,
+      WORK_UNIT, PROFESSION, N_ANNUAL_INCOME, tt.N_STATUS,uu.level_name,cc.name CUSTOMER_NAME,pp.head_sculpture
+    from PERSONAL_BASIC_INFO tt,LOGIN_INFO ll,PERSONALITY_INFO pp,BNES_CUSTOMER_TYPE cc,USER_LEVEL uu
+     where ll.N_LOGIN_ID=tt.N_LOGIN_ID and ll.N_LOGIN_ID=pp.N_LOGIN_ID and cc.customer_type_id=ll.n_customer_type_id
+      and ll.n_level_id=uu.n_level_id 
+    and N_PERSONAL_ID = #n_PersonalId:Integer#
+  </select>  
+       
+       <!-- 条件查询个人信息 -->
+       <select id="queryPersonalInfoList" resultMap="abatorgenerated_Personal" parameterClass="com.pltfm.app.vobject.PersonalBasicInfo">
+       	SELECT LI.LOGIN_ACCOUNT,
+		       LI.MOBILE,
+		       LI.EMAIL,
+		       (SELECT UU.LEVEL_NAME
+		          FROM USER_LEVEL UU
+		         WHERE LI.N_LEVEL_ID = UU.N_LEVEL_ID) LEVEL_NAME,
+		       PI.N_AVAILABLE_INTEGRAL,
+		       LI.D_CREATE_DATE,
+		       ADDR.NAME,
+		       ADDR.PROVINCE,
+		       ADDR.CITY,
+		       ADDR.AREA,
+		       ADDR.TOWN,
+		       ADDR.DETAILEDADDRESS
+		  FROM LOGIN_INFO LI,
+		       PERSONALITY_INFO PI,
+		       ACCOUNT_INFO AI,
+		       (SELECT AD.N_ACCOUNT_ID,
+		               AD.NAME,
+		               AD.PROVINCE,
+		               AD.CITY,
+		               AD.AREA,
+		               AD.TOWN,
+		               AD.DETAILEDADDRESS
+		          FROM ADDRESS AD
+		         WHERE AD.STATUS = 0) ADDR
+		 WHERE LI.N_CUSTOMER_TYPE_ID IN (1, 6)
+		   AND AI.N_ACCOUNT_ID=ADDR.N_ACCOUNT_ID(+)
+		   AND LI.N_LOGIN_ID = PI.N_LOGIN_ID
+		   AND LI.N_LOGIN_ID = AI.N_LOGIN_ID
+		<isEqual property="isMobile" compareValue="1">
+			AND LI.MOBILE IS NOT NULL
+		</isEqual>
+		<isEqual property="isMobile" compareValue="0">
+			AND LI.MOBILE IS NULL
+		</isEqual>
+		<isEqual property="isEmail" compareValue="1">
+			AND LI.EMAIL IS NOT NULL
+		</isEqual>
+		<isEqual property="isEmail" compareValue="0">
+			AND LI.EMAIL IS NULL
+		</isEqual>	   
+		<isNotEmpty property="loginAccount">
+			AND LI.LOGIN_ACCOUNT like '%'||#loginAccount#||'%'
+		</isNotEmpty>
+		<isNotEmpty property="name">
+			AND EXISTS (SELECT 1  FROM PERSONAL_BASIC_INFO PBI WHERE PBI.N_LOGIN_ID = LI.N_LOGIN_ID AND PBI.NAME LIKE '%'||#name#||'%')
+		</isNotEmpty>
+		<isNotEmpty property="mobile">
+			AND LI.MOBILE like '%'||#mobile#||'%'
+		</isNotEmpty>
+		<isNotEmpty property="email">
+			AND LI.EMAIL like '%'||#email#||'%'
+		</isNotEmpty>
+		<isNotEmpty property="n_LevelId">
+			AND LI.N_LEVEL_ID = #n_LevelId:Integer#
+		</isNotEmpty>
+		<isNotEmpty property="d_CreateDate">
+			<![CDATA[  AND LI.D_CREATE_DATE  >=#d_CreateDate#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endDate">
+			<![CDATA[  AND LI.D_CREATE_DATE  <=#endDate#]]>
+		</isNotEmpty>
+		ORDER BY LI.N_LOGIN_ID DESC
+	</select>
+        <!-- 个人基本信息查询 -->
+       <!--  ****************  search page by vo  ****************  -->
+	<resultMap class="com.pltfm.app.vobject.PersonalBasicInfo" id="RS_QUERY_PAGE">
+	    <result column="N_PERSONAL_ID" jdbcType="Integer" property="n_PersonalId" />
+	  	<result column="LEVEL_NAME"  property="levelName" jdbcType="VARCHAR"/>
+	    <result column="N_LOGIN_ID" jdbcType="Integer" property="n_LoginId" />
+	    <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+	    <result column="N_TOTAL_INTEGRAL" property="n_TotalIntegral" jdbcType="DECIMAL" />
+	    <result column="N_AVAILABLE_INTEGRAL" property="n_AvailableIntegral" jdbcType="DECIMAL" />
+	    <result column="NAME" jdbcType="VARCHAR" property="name" />
+	    <result column="SEX" jdbcType="VARCHAR" property="sex" />
+	    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+	    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+	    <result column="CERTIFICATE_NUMBER" jdbcType="VARCHAR" property="certificateNumber" />
+	    <result column="D_CREATE_DATE"  property="d_CreateDate" />
+	    <result column="LOGIN_STATUS" jdbcType="Integer" property="login_Status" />
+	    <result column="IS_MOBILE" property="isMobile" />
+	    <result column="IS_EMAIL" property="isEmail"  />
+	    <result column="REGISTER_PLATFORM" property="registerPlatform"  />
+	    <result column="REGISTER_DEVICE" property="registerDevice"  />
+	    <result column="CARD_NUM"  property="cardNum" jdbcType="VARCHAR"/>
+  	</resultMap>
+  	<select id="searchPageByPersonalBasicInfo" resultMap="RS_QUERY_PAGE" parameterClass="com.pltfm.app.vobject.PersonalBasicInfo">
+		SELECT RS.N_PERSONAL_ID,
+		       RS.LOGIN_ACCOUNT,
+		       RS.N_LOGIN_ID,
+		       RS.NAME,
+		       RS.SEX,
+		       RS.MOBILE,
+		       RS.EMAIL,
+		       RS.CERTIFICATE_NUMBER,
+		       RS.LEVEL_NAME,
+		       RS.IS_MOBILE,
+		       RS.IS_EMAIL,
+		       RS.N_AVAILABLE_INTEGRAL,
+		       RS.N_TOTAL_INTEGRAL,
+		       RS.LOGIN_STATUS,
+		       RS.D_CREATE_DATE,RS.REGISTER_PLATFORM,RS.REGISTER_DEVICE , RS.CARD_NUM
+		  FROM (SELECT RSI.N_PERSONAL_ID,
+		               RSI.LOGIN_ACCOUNT,
+		               RSI.N_LOGIN_ID,
+		               RSI.NAME,
+		               RSI.SEX,
+		               RSI.MOBILE,
+		               RSI.EMAIL,
+		               RSI.CERTIFICATE_NUMBER,
+		               RSI.LEVEL_NAME,
+		               RSI.IS_MOBILE,
+		               RSI.IS_EMAIL,
+		               RSI.N_AVAILABLE_INTEGRAL,
+		               RSI.N_TOTAL_INTEGRAL,
+		               RSI.LOGIN_STATUS,
+		               RSI.D_CREATE_DATE,RSI.REGISTER_PLATFORM,RSI.REGISTER_DEVICE, RSI.CARD_NUM,
+		               ROWNUM RN
+		          FROM (SELECT PBI.N_PERSONAL_ID,
+		                       LI.LOGIN_ACCOUNT,
+		                       LI.N_LOGIN_ID,
+		                       PBI.NAME,
+		                       PBI.SEX,
+		                       LI.MOBILE,
+		                       LI.EMAIL,
+		                       PBI.CERTIFICATE_NUMBER,
+		                       (SELECT UU.LEVEL_NAME
+		                          FROM USER_LEVEL UU
+		                         WHERE LI.N_LEVEL_ID = UU.N_LEVEL_ID) LEVEL_NAME,
+		                       DECODE(LI.MOBILE, NULL, 0, 1) IS_MOBILE,
+		                       DECODE(LI.EMAIL, NULL, 0, 1) IS_EMAIL,
+		                       PI.N_AVAILABLE_INTEGRAL,
+		                       PI.N_TOTAL_INTEGRAL,
+		                       LI.N_STATUS LOGIN_STATUS,
+		                       LI.D_CREATE_DATE,AI.REGISTER_PLATFORM,AI.REGISTER_DEVICE,
+		                        LI.CARD_NUM
+		                  FROM LOGIN_INFO          LI,
+		                       PERSONALITY_INFO    PI,
+		                       ACCOUNT_INFO        AI,
+		                       PERSONAL_BASIC_INFO PBI
+		                 WHERE LI.N_CUSTOMER_TYPE_ID IN (1, 6)
+		                   AND PBI.N_LOGIN_ID = LI.N_LOGIN_ID
+		                   AND LI.N_LOGIN_ID = PI.N_LOGIN_ID
+		                   AND LI.N_LOGIN_ID = AI.N_LOGIN_ID
+        <isNotEmpty property="registerPlatform">
+            AND AI.REGISTER_PLATFORM = #registerPlatform#
+        </isNotEmpty>
+		<isNotEmpty property="registerDevice">
+            AND AI.REGISTER_DEVICE = #registerDevice#
+        </isNotEmpty>
+		<isEqual property="isMobile" compareValue="1">
+			AND LI.MOBILE IS NOT NULL
+		</isEqual>
+		<isEqual property="isMobile" compareValue="0">
+			AND LI.MOBILE IS NULL
+		</isEqual>
+		<isEqual property="isEmail" compareValue="1">
+			AND LI.EMAIL IS NOT NULL
+		</isEqual>
+		<isEqual property="isEmail" compareValue="0">
+			AND LI.EMAIL IS NULL
+		</isEqual>
+		<isNotEmpty property="loginAccount">
+			AND LI.LOGIN_ACCOUNT like '%'||#loginAccount#||'%'
+		</isNotEmpty>
+		<isNotEmpty property="name">
+			AND PBI.NAME LIKE '%'||#name#||'%'
+		</isNotEmpty>
+		<isNotEmpty property="mobile">
+			AND LI.MOBILE like '%'||#mobile#||'%'
+		</isNotEmpty>
+		<isNotEmpty property="email">
+			AND LI.EMAIL like '%'||#email#||'%'
+		</isNotEmpty>
+		<isNotEmpty property="n_LevelId">
+			AND LI.N_LEVEL_ID = #n_LevelId:Integer#
+		</isNotEmpty>
+		<isNotEmpty property="d_CreateDate">
+			<![CDATA[  AND LI.D_CREATE_DATE  >=#d_CreateDate#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endDate">
+			<![CDATA[  AND LI.D_CREATE_DATE  <=#endDate#]]>
+		</isNotEmpty>
+		<![CDATA[		                   
+		                 ORDER BY PBI.N_PERSONAL_ID DESC) RSI
+		         WHERE ROWNUM <= #max#) rs
+		 where rs.rn > #skip#
+		]]>		 
+	</select>
+	 <select id="searchPageByPersonalBasicInfoForRebate" resultMap="abatorgenerated_PersonalBasicInfoResultOther" parameterClass="com.pltfm.app.vobject.PersonalBasicInfo">
+	SELECT N_PERSONAL_ID,
+       N_LOGIN_ID,
+       extend1 as NAME,
+       SEX,
+       N_AGE,
+       D_BIRTHDAY,
+       extend3 as MOBILE,
+       extend4 as EMAIL,
+       N_CERTIFICATE_TYPE,
+       CERTIFICATE_NUMBER,
+       LOCATION,
+       HOMETOWN_LOCATION,
+       EDUCATIONAL_STATUS,
+       PROVINCE,
+       CITY,
+       AREA,
+       DETAILEDADDRESS,
+       LIVE_STATUS,
+       WORK_UNIT,
+       PROFESSION_TYPE,
+       PROFESSION,
+       N_ANNUAL_INCOME,
+       N_STATUS,
+       D_CREATE_DATE,
+       N_CREATED,
+       LOGIN_STATUS,
+       D_MODIFY_DATE,
+       N_MODIFIED,
+       N_LEVEL_ID,
+       N_CUSTOMER_TYPE_ID,
+       LOGIN_ACCOUNT,
+       N_RANK_ID,
+       N_AVAILABLE_INTEGRAL,
+       N_INDIVIDUAL_CREDIT_VALUE,
+       N_EMPIRICAL_VALUE,
+       LEVEL_NAME,
+       RANK_NAME,
+       CUSTOMER_NAME,
+       commission as N_TOTAL_INTEGRAL,
+       IS_MOBILE,
+       IS_EMAIL
+FROM   (SELECT Row_number() OVER(ORDER BY N_PERSONAL_ID DESC) AS VIEW_ROW_NUMBER,
+               TT.N_PERSONAL_ID,
+               TT.N_LOGIN_ID,
+               tai.extend1,
+               TT.SEX,
+               TT.N_AGE,
+               TT.D_BIRTHDAY,
+               tai.extend3,
+               tai.extend4,
+               TT.N_CERTIFICATE_TYPE,
+               TT.CERTIFICATE_NUMBER,
+               TT.LOCATION,
+               TT.HOMETOWN_LOCATION,
+               TT.EDUCATIONAL_STATUS,
+               TT.WORK_UNIT,
+               TT.PROFESSION_TYPE,
+               TT.PROFESSION,
+               TT.N_ANNUAL_INCOME,
+               TT.N_STATUS,
+               LL.D_CREATE_DATE,
+               TT.N_CREATED,
+               TT.D_MODIFY_DATE,
+               TT.N_MODIFIED,
+               TT.CERTIFICATE_PICTURE,
+               TT.CERTIFICATE_ACTIVE_TIME,
+               TT.AUTHENTICATION_STATUS,
+               TT.LIVE_STATUS,
+               TT.PROVINCE,
+               TT.CITY,
+               TT.AREA,
+               TT.DETAILEDADDRESS,
+               LL.N_LEVEL_ID,
+               LL.N_CUSTOMER_TYPE_ID,
+               LL.LOGIN_ACCOUNT,
+               LL.N_STATUS AS LOGIN_STATUS,
+               PP.N_RANK_ID,
+               PP.N_AVAILABLE_INTEGRAL,
+               PP.N_INDIVIDUAL_CREDIT_VALUE,
+               PP.N_EMPIRICAL_VALUE,
+               UU.LEVEL_NAME,
+               RR.RANK_NAME,
+               CC.NAME CUSTOMER_NAME,
+               PP.N_TOTAL_INTEGRAL,
+               decode(LL.Mobile,null,0,1) IS_MOBILE,
+               decode(LL.Email,null,0,1) IS_EMAIL,
+               (select sum(om.ORDER_COMMISSION) from
+                order_main_ext om ,  order_main o
+               where o.CUSTOMER_ID = ll.N_LOGIN_ID and om.order_code = o.order_code and o.ORDER_STATUS=2
+                ) commission 
+        FROM   PERSONAL_BASIC_INFO TT,
+               LOGIN_INFO LL,
+               PERSONALITY_INFO PP,
+               BNES_CUSTOMER_TYPE CC,
+               USER_LEVEL UU,
+               RANK RR,
+               third_account_info tai,
+               third_bind_info tbi 
+               
+        WHERE  LL.N_LOGIN_ID = PP.N_LOGIN_ID (+) 
+               AND LL.N_LEVEL_ID = UU.N_LEVEL_ID (+) 
+               AND PP.N_RANK_ID = RR.N_RANK_ID (+) 
+               AND LL.N_LOGIN_ID = TT.N_LOGIN_ID
+               AND LL.N_CUSTOMER_TYPE_ID = CC.CUSTOMER_TYPE_ID
+               AND LL.N_CUSTOMER_TYPE_ID in(1,6) 
+               AND TT.N_STATUS = 1
+               AND tbi.N_LOGIN_ID= LL.N_LOGIN_ID
+               AND tai.OPEN_ID= tbi.OPEN_ID
+               AND tai.THIRD_ACCOUNT_TYPE= '06'
+     	<isNotNull property="loginAccount">
+			  <isNotEmpty prepend="and" property="loginAccount">
+				LL.LOGIN_ACCOUNT like '%$loginAccount$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="name">
+			  <isNotEmpty prepend="and" property="name">
+				tai.extend1 like '%$name$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="mobile">
+			  <isNotEmpty prepend="and" property="mobile">
+				tai.extend3 like '%$mobile$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="email">
+			  <isNotEmpty prepend="and" property="email">
+				tai.extend4 like '%$email$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="certificateNumber">
+			  <isNotEmpty prepend="and" property="certificateNumber">
+				TT.CERTIFICATE_NUMBER like '%$certificateNumber$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="n_RankId">
+			  <isNotEmpty prepend="and" property="n_RankId">
+				RR.N_RANK_ID = #n_RankId:Integer#
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="isMobile">
+			  <isNotEmpty prepend="and" property="isMobile">
+				decode(LL.Mobile,null,0,1) = #isMobile#
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="isEmail">
+			  <isNotEmpty prepend="and" property="isEmail">
+				decode(LL.Email,null,0,1) = #isEmail#
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="n_LevelId">
+			  <isNotEmpty prepend="and" property="n_LevelId">
+				UU.N_LEVEL_ID = #n_LevelId:Integer#
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="d_CreateDate">
+			  <isNotEmpty prepend="and" property="d_CreateDate">
+				<![CDATA[  LL.D_CREATE_DATE  >=#d_CreateDate#]]>
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="endDate">
+			  <isNotEmpty prepend="and" property="endDate">
+				<![CDATA[  LL.D_CREATE_DATE  <=#endDate#]]>
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+    )
+    <![CDATA[ WHERE VIEW_ROW_NUMBER <= #max# AND VIEW_ROW_NUMBER > #skip# ]]>
+	</select>
+ <!-- **************** search user's roleList by vo  ****************  -->
+  <select id="selectCountByPersonalBasicInfo" parameterClass="com.pltfm.app.vobject.PersonalBasicInfo" resultMap="ibatorgenerated_CountResult">
+     SELECT count(1) the_count
+		                  FROM LOGIN_INFO          LI,
+		                       PERSONALITY_INFO    PI,
+		                       ACCOUNT_INFO        AI,
+		                       PERSONAL_BASIC_INFO PBI
+		                 WHERE LI.N_CUSTOMER_TYPE_ID IN (1, 6)
+		                   AND PBI.N_LOGIN_ID = LI.N_LOGIN_ID
+		                   AND LI.N_LOGIN_ID = PI.N_LOGIN_ID
+		                   AND LI.N_LOGIN_ID = AI.N_LOGIN_ID
+      <isNotEmpty property="registerPlatform">
+          AND AI.REGISTER_PLATFORM = #registerPlatform#
+      </isNotEmpty>
+      <isNotEmpty property="registerDevice">
+          AND AI.REGISTER_DEVICE = #registerDevice#
+      </isNotEmpty>
+		<isEqual property="isMobile" compareValue="1">
+			AND LI.MOBILE IS NOT NULL
+		</isEqual>
+		<isEqual property="isMobile" compareValue="0">
+			AND LI.MOBILE IS NULL
+		</isEqual>
+		<isEqual property="isEmail" compareValue="1">
+			AND LI.EMAIL IS NOT NULL
+		</isEqual>
+		<isEqual property="isEmail" compareValue="0">
+			AND LI.EMAIL IS NULL
+		</isEqual>
+		<isNotEmpty property="loginAccount">
+			AND LI.LOGIN_ACCOUNT like '%'||#loginAccount#||'%'
+		</isNotEmpty>
+		<isNotEmpty property="name">
+			AND PBI.NAME LIKE '%'||#name#||'%'
+		</isNotEmpty>
+		<isNotEmpty property="mobile">
+			AND LI.MOBILE like '%'||#mobile#||'%'
+		</isNotEmpty>
+		<isNotEmpty property="email">
+			AND LI.EMAIL like '%'||#email#||'%'
+		</isNotEmpty>
+		<isNotEmpty property="n_LevelId">
+			AND LI.N_LEVEL_ID = #n_LevelId:Integer#
+		</isNotEmpty>
+		<isNotEmpty property="d_CreateDate">
+			<![CDATA[  AND LI.D_CREATE_DATE  >=#d_CreateDate#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endDate">
+			<![CDATA[  AND LI.D_CREATE_DATE  <=#endDate#]]>
+		</isNotEmpty>
+  </select>
+  <!-- **************** search user's roleList by vo  返利网使用 ****************  -->
+  <select id="selectCountByPersonalBasicInfoForRebate" parameterClass="com.pltfm.app.vobject.PersonalBasicInfo" resultMap="ibatorgenerated_CountResult">
+     select count(1) the_count from PERSONAL_BASIC_INFO tt,LOGIN_INFO ll,PERSONALITY_INFO pp,BNES_CUSTOMER_TYPE cc,USER_LEVEL uu,RANK rr , third_account_info tai,
+               third_bind_info tbi
+     where   ll.N_LOGIN_ID = pp.N_LOGIN_ID(+)
+               and ll.n_level_id = uu.n_level_id(+)
+               and pp.n_rank_id = rr.n_rank_id(+)
+               and ll.N_LOGIN_ID = tt.N_LOGIN_ID 
+               and ll.n_customer_type_id=cc.customer_type_id
+               and ll.n_customer_type_id in (1,6)
+               and tt.N_STATUS=1
+               AND tbi.N_LOGIN_ID= LL.N_LOGIN_ID
+               AND tai.OPEN_ID= tbi.OPEN_ID
+               AND tai.THIRD_ACCOUNT_TYPE= '06'
+     	<isNotNull property="loginAccount">
+			  <isNotEmpty prepend="and" property="loginAccount">
+				ll.LOGIN_ACCOUNT like '%$loginAccount$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		   <isNotNull property="name">
+			  <isNotEmpty prepend="and" property="name">
+				tai.extend1 like '%$name$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="email">
+			  <isNotEmpty prepend="and" property="email">
+				tai.extend4 like '%$email$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="mobile">
+			  <isNotEmpty prepend="and" property="mobile">
+				tai.extend3 like '%$mobile$%'
+			  </isNotEmpty>
+		  </isNotNull>
+
+		  <isNotNull property="certificateNumber">
+			  <isNotEmpty prepend="and" property="certificateNumber">
+				tt.CERTIFICATE_NUMBER like '%$certificateNumber$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		   <isNotNull property="n_RankId">
+			  <isNotEmpty prepend="and" property="n_RankId">
+				rr.n_rank_id = #n_RankId:Integer#
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="isMobile">
+			  <isNotEmpty prepend="and" property="isMobile">
+				decode(LL.Mobile,null,0,1) = #isMobile#
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="isEmail">
+			  <isNotEmpty prepend="and" property="isEmail">
+				decode(LL.Email,null,0,1) = #isEmail#
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  
+		  <isNotNull property="n_LevelId">
+			  <isNotEmpty prepend="and" property="n_LevelId">
+				uu.n_level_id = #n_LevelId:Integer#
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="d_CreateDate">
+			  <isNotEmpty prepend="and" property="d_CreateDate">
+			  <![CDATA[  LL.D_CREATE_DATE  >=#d_CreateDate#]]>
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="endDate">
+			  <isNotEmpty prepend="and" property="endDate">
+				<![CDATA[  LL.D_CREATE_DATE  <=#endDate#]]>
+			  </isNotEmpty>
+		  </isNotNull>
+
+  </select>
+  
+  <!-- nvl(c.address, p.province || p.city || p.area|| p.detailedaddress) address,  -->
+  <select id="queryPersonalInfoInfoSync2Base" parameterClass="java.util.List" resultMap="syncPeronalInfoResultMap" >
+		select 
+		       p.name,
+		       p.sex,
+		       l.card_num,
+		       l.login_account,
+		       l.mobile,
+		       p.d_birthday,
+		       h.n_marital_status,
+		       nvl(p.detailedaddress, c.address) address,
+		       c.email,
+		       c.d_create_date,
+		       c.d_modify_date
+		  from login_info l,  personal_basic_info p, account_info c, health_ygeneric_info h
+		 where l.n_login_id =p.n_login_id and p.n_login_id = c.n_login_id
+		   and c.n_login_id = h.n_login_id
+		   and l.login_account in
+		<iterate conjunction="," open="(" close=")">
+	  		#accounts[]#
+		</iterate>
+  </select>
+  
+	 <select id="selectLoginIdPageInfoCount" parameterClass="com.pltfm.app.vobject.PersonalBasicInfo" resultMap="ibatorgenerated_CountResult">
+     SELECT count(1) the_count FROM LOGIN_INFO   LI  WHERE LI.N_CUSTOMER_TYPE_ID IN (1, 6)
+		<isNotEmpty property="loginAccount">
+			AND LI.LOGIN_ACCOUNT like '%'||#loginAccount#||'%'
+		</isNotEmpty>
+		<isNotEmpty property="mobile">
+			AND LI.MOBILE like '%'||#mobile#||'%'
+		</isNotEmpty>		
+		<isNotEmpty property="d_CreateDate">
+			<![CDATA[  AND LI.D_CREATE_DATE  >=#d_CreateDate#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endDate">
+			<![CDATA[  AND LI.D_CREATE_DATE  <=#endDate#]]>
+		</isNotEmpty>
+  </select>
+  
+  <select id="searchLoginIdPageInfoList"  resultClass="java.lang.Integer"  parameterClass="com.pltfm.app.vobject.PersonalBasicInfo">
+		SELECT  RS.N_LOGIN_ID
+		  FROM (SELECT RSI.N_LOGIN_ID,ROWNUM RN
+		          FROM (SELECT  LI.N_LOGIN_ID FROM LOGIN_INFO LI WHERE LI.N_CUSTOMER_TYPE_ID IN (1, 6)
+		<isNotEmpty property="loginAccount">
+			AND LI.LOGIN_ACCOUNT like '%'||#loginAccount#||'%'
+		</isNotEmpty>
+		<isNotEmpty property="mobile">
+			AND LI.MOBILE like '%'||#mobile#||'%'
+		</isNotEmpty>
+		<isNotEmpty property="d_CreateDate">
+			<![CDATA[  AND LI.D_CREATE_DATE  >=#d_CreateDate#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endDate">
+			<![CDATA[  AND LI.D_CREATE_DATE  <=#endDate#]]>
+		</isNotEmpty>
+		<![CDATA[		                   
+		                 ORDER BY LI.N_LOGIN_ID DESC) RSI
+		         WHERE ROWNUM <= #max#) rs
+		 where rs.rn > #skip#
+		]]>		 
+	</select>
+	
+<!--  个人客户列表 -->
+  <select id="selectPersonalInfoCount" parameterClass="com.pltfm.app.vobject.PersonalBasicInfo" resultClass="java.lang.Integer">
+     select count(1)
+		from  login_info l,
+			  account_info a,
+			  era_info e,
+			  (select distinct loginid from CROWD_INSTITUTION_USER) w,
+              (select distinct login_id from SPREADER_INFO) p,
+              (select distinct r.n_customer_type_id,r.n_login_id  from login_rose_rel r where r.n_customer_type_id =4) b,
+              (select distinct r.n_customer_type_id,r.n_login_id from login_rose_rel r where r.n_customer_type_id =5) s,
+			 (select tai.extend1, tbi.n_login_id,tai.third_account_type
+			 	from  third_account_info tai,
+			    	  third_bind_info    tbi
+			         	where tai.OPEN_ID = tbi.OPEN_ID and tai.third_account_type!='07') t 
+			 where l.n_login_id = a.n_login_id(+)
+			 	and l.n_login_id = e.n_login_id(+)
+			    and l.n_login_id = w.loginid(+)
+			    and l.n_login_id = p.login_id(+)
+			    and l.n_login_id = t.n_login_id(+)
+			    and l.n_login_id = b.n_login_id(+)
+                and l.n_login_id = s.n_login_id(+)
+        <isNotEmpty property="loginAccount">
+			and upper(l.login_account) like upper('%'||#loginAccount#||'%')
+		</isNotEmpty>
+		<isNotEmpty property="n_LevelId">
+			and l.n_level_id = #n_LevelId:Integer#
+		</isNotEmpty>
+		<isNotEmpty property="mobile">
+			and nvl(l.mobile, a.mobile) like '%'||#mobile#||'%'
+		</isNotEmpty>
+		<isNotEmpty property="email">
+			and nvl(l.email, a.email) like '%'||#email#||'%'
+		</isNotEmpty>
+		<isNotEmpty property="registerPlatform">
+            <isEqual property="registerPlatform" compareValue="99">
+				and  t.third_account_type in('01','02','03','04','05')
+			</isEqual>
+			<isNotEqual property="registerPlatform" compareValue = "99">
+			 	and a.register_platform = #registerPlatform# and (t.third_account_type is null or t.third_account_type='06')
+			</isNotEqual>
+        </isNotEmpty>
+		 <dynamic prepend=" and" open="(" close=")">
+ 			<isNotEmpty prepend=" or" property="isSupplier">
+ 				s.n_customer_type_id = 5
+ 			</isNotEmpty>
+ 			<isNotEmpty prepend=" or" property="isPurchaser">
+ 				b.n_customer_type_id = 4
+ 			</isNotEmpty>
+ 			<isNotEmpty prepend=" or" property="isTourist">
+ 				a.n_customer_type_id = 6
+ 			</isNotEmpty>
+ 			<isNotEmpty prepend=" or" property="isEra">
+ 				e.era_no is not null
+ 			</isNotEmpty>
+ 			<isNotEmpty prepend=" or" property="isSpreader">
+ 				p.login_id is not null
+ 			</isNotEmpty>
+ 			<isNotEmpty prepend=" or" property="isCrowder">
+ 				w.loginid is not null
+ 			</isNotEmpty>
+  		</dynamic>
+		<isEqual property="isMobile" compareValue="1">
+			and l.mobile is not null
+		</isEqual>
+		<isEqual property="isMobile" compareValue="0">
+			and l.mobile is null
+		</isEqual>
+		<isEqual property="isEmail" compareValue="1">
+			and l.email is not null
+		</isEqual>
+		<isEqual property="isEmail" compareValue="0">
+			and l.email is null
+		</isEqual>
+		<isNotEmpty property="registerDevice">
+            and a.register_device = #registerDevice#
+        </isNotEmpty>
+        <isNotEmpty property="n_Status">
+            and l.n_status = #n_Status#
+        </isNotEmpty>
+        <isNotEmpty property="cardNum">
+            AND l.card_num like '%'||#cardNum#||'%'
+        </isNotEmpty>
+        <isNotEmpty property="fanliUserName">
+            AND t.extend1 like '%'||#fanliUserName#||'%'
+        </isNotEmpty>
+		<isNotEmpty property="eraNo">
+            AND upper(e.era_no) like upper('%'||#eraNo#||'%') 
+        </isNotEmpty>
+		<isNotEmpty property="recommendedNo">
+            AND e.recommended_no like '%'||#recommendedNo#||'%'
+        </isNotEmpty>
+		<isNotEmpty property="d_CreateDate">
+			<![CDATA[  AND l.D_CREATE_DATE  >=#d_CreateDate#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endDate">
+			<![CDATA[  AND l.D_CREATE_DATE  <=#endDate#]]>
+		</isNotEmpty>
+  </select>   	
+	
+  <select id="selectPersonalInfoByPage" resultMap="RS_PERSONAL_INFO_PAGE" parameterClass="com.pltfm.app.vobject.PersonalBasicInfo">
+		SELECT n_login_id,
+		       login_account,
+		       mobile,
+		       email,
+		       card_num,
+		       n_level_id,
+		       is_mobile,
+		       is_email,
+		       register_platform,
+		       register_device,
+		       isCommonUser,
+		       isSupplier,
+		       isPurchaser,
+		       isTourist,
+		       isEra,
+		       isSpreader,
+		       isCrowder,
+		       isThird,
+		       n_status,
+		       d_create_date,
+		       era_no,
+		       recommended_no,
+		       fanli_user_name
+		  FROM (SELECT RSI.*,
+		               ROWNUM RN
+		          FROM (select 
+			               l.n_login_id,
+			               l.login_account,
+			               nvl(l.mobile, a.mobile) mobile,
+			               nvl(l.email, a.email) email,
+			               l.card_num,
+			               l.n_level_id,
+			               decode(l.mobile, null, 0, 1) is_mobile,
+			               decode(l.email, null, 0, 1) is_email,
+			               a.register_platform,
+			               a.register_device,
+			               1 isCommonUser, 
+			               decode(s.n_customer_type_id, 5, 1, 0) isSupplier, 
+			               decode(b.n_customer_type_id, 4, 1, 0) isPurchaser,
+			               decode(a.n_customer_type_id, 6, 1, 0) isTourist, 
+			               decode(e.era_no, null, 0, 1) isEra, 
+			               decode(p.login_id, null, 0, 1) isSpreader,
+			               decode(w.loginid, null, 0, 1) isCrowder,
+			               decode(t.third_account_type,'06',0,null,0,1) isThird, 
+			               l.n_status,
+			               l.d_create_date,
+			               e.era_no,
+			               e.recommended_no,
+			               t.extend1 fanli_user_name
+			          from  login_info l,
+			                account_info a,
+			                era_info e,
+			                (select distinct loginid from CROWD_INSTITUTION_USER) w,
+                       		(select distinct login_id from SPREADER_INFO) p,
+                       		(select distinct r.n_customer_type_id,r.n_login_id  from login_rose_rel r where r.n_customer_type_id =4) b,
+                       		(select distinct r.n_customer_type_id,r.n_login_id from login_rose_rel r where r.n_customer_type_id =5) s,
+			                (select tai.extend1, tbi.n_login_id,tai.third_account_type
+			                  from  third_account_info tai,
+			                        third_bind_info    tbi
+			                 where tai.OPEN_ID = tbi.OPEN_ID and tai.third_account_type!='07') t 
+			         where l.n_login_id = a.n_login_id(+)
+			           and l.n_login_id = e.n_login_id(+)
+			           and l.n_login_id = w.loginid(+)
+			           and l.n_login_id = p.login_id(+)
+			           and l.n_login_id = t.n_login_id(+)
+			           and l.n_login_id = b.n_login_id(+)
+                       and l.n_login_id = s.n_login_id(+)
+        <isNotEmpty property="loginAccount">
+			and upper(l.login_account) like upper('%'||#loginAccount#||'%')
+		</isNotEmpty>
+		<isNotEmpty property="n_LevelId">
+			and l.n_level_id = #n_LevelId:Integer#
+		</isNotEmpty>
+		<isNotEmpty property="mobile">
+			and l.mobile = #mobile#
+		</isNotEmpty>
+		<isNotEmpty property="email">
+			and nvl(l.email, a.email) like '%'||#email#||'%'
+		</isNotEmpty>
+		<isNotEmpty property="registerPlatform">
+			<isEqual property="registerPlatform" compareValue="99">
+				and  t.third_account_type in('01','02','03','04','05')
+			</isEqual>
+			<isNotEqual property="registerPlatform" compareValue = "99">
+			 	and a.register_platform = #registerPlatform# and (t.third_account_type is null or t.third_account_type='06')
+			</isNotEqual>
+        </isNotEmpty>
+		 <dynamic prepend=" and" open="(" close=")">
+ 			<isNotEmpty prepend=" or" property="isSupplier">
+ 				s.n_customer_type_id = 5
+ 			</isNotEmpty>
+ 			<isNotEmpty prepend=" or" property="isPurchaser">
+ 				b.n_customer_type_id = 4
+ 			</isNotEmpty>
+ 			<isNotEmpty prepend=" or" property="isTourist">
+ 				a.n_customer_type_id = 6
+ 			</isNotEmpty>
+ 			<isNotEmpty prepend=" or" property="isEra">
+ 				e.era_no is not null
+ 			</isNotEmpty>
+ 			<isNotEmpty prepend=" or" property="isSpreader">
+ 				p.login_id is not null
+ 			</isNotEmpty>
+ 			<isNotEmpty prepend=" or" property="isCrowder">
+ 				w.loginid is not null
+ 			</isNotEmpty>
+  		</dynamic>
+		<isEqual property="isMobile" compareValue="1">
+			and l.mobile is not null
+		</isEqual>
+		<isEqual property="isMobile" compareValue="0">
+			and l.mobile is null
+		</isEqual>
+		<isEqual property="isEmail" compareValue="1">
+			and l.email is not null
+		</isEqual>
+		<isEqual property="isEmail" compareValue="0">
+			and l.email is null
+		</isEqual>
+		<isNotEmpty property="registerDevice">
+            and a.register_device = #registerDevice#
+        </isNotEmpty>
+        <isNotEmpty property="n_Status">
+            and l.n_status = #n_Status#
+        </isNotEmpty>
+        <isNotEmpty property="cardNum">
+            AND l.card_num like '%'||#cardNum#||'%'
+        </isNotEmpty>
+        <isNotEmpty property="fanliUserName">
+            AND t.extend1 like '%'||#fanliUserName#||'%'
+        </isNotEmpty>
+		<isNotEmpty property="eraNo">
+            AND upper(e.era_no) like upper('%'||#eraNo#||'%') 
+        </isNotEmpty>
+		<isNotEmpty property="recommendedNo">
+            AND e.recommended_no like '%'||#recommendedNo#||'%'
+        </isNotEmpty>
+		<isNotEmpty property="d_CreateDate">
+			<![CDATA[  AND L.D_CREATE_DATE  >=#d_CreateDate#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endDate">
+			<![CDATA[  AND L.D_CREATE_DATE  <=#endDate#]]>
+		</isNotEmpty>
+		<![CDATA[		                   
+		                 ORDER BY l.n_login_id DESC) RSI
+		         WHERE ROWNUM <= #max#) rs
+		 where rs.rn > #skip#
+		]]>		 
+	</select>	
+	
+	
+		
+  <select id="getPersonalInfoByLogId" resultMap="RS_PERSONAL_INFO_PAGE_EXTEND" parameterClass="com.pltfm.app.vobject.PersonalBasicInfo">
+		
+		select l.n_login_id,
+		       l.login_account,
+		       nvl(l.mobile, a.mobile) mobile,
+		       nvl(l.email, a.email) email,
+		       b.name,
+		       b.sex,
+		       b.d_birthday,
+       		   b.n_Certificate_Type,
+       		   b.certificate_number,
+       		   b.n_personal_id,
+		       l.card_num,
+		       l.n_level_id,
+		       (SELECT UU.LEVEL_NAME FROM USER_LEVEL UU
+						WHERE L.N_LEVEL_ID = UU.N_LEVEL_ID) LEVEL_NAME,
+		       decode(l.mobile, null, 0, 1) is_mobile,
+		       decode(l.email, null, 0, 1) is_email,
+		       a.register_platform,
+		       a.register_device,
+		       1 isCommonUser,
+		       decode(s.n_customer_type_id, 5, 1, 0) isSupplier,
+		       decode(c.n_customer_type_id, 4, 1, 0) isPurchaser,
+		       decode(a.n_customer_type_id, 6, 1, 0) isTourist,
+		       decode(e.era_no, null, 0, 1) isEra,
+		       decode(p.login_id, null, 0, 1) isSpreader,
+		       decode(w.loginid, null, 0, 1) isCrowder,
+			   decode(t.third_account_type,'06',0,null,0,1) isThird, 
+		       l.n_status,
+		       l.d_create_date,
+		       e.era_no,
+		       e.recommended_no,
+		       t.extend1 fanli_user_name
+		  from  login_info l,
+		        account_info a,
+		        era_info e,
+		        personal_basic_info b,
+		        (select distinct loginid from CROWD_INSTITUTION_USER) w,
+                (select distinct login_id from SPREADER_INFO) p,
+                (select distinct r.n_customer_type_id,r.n_login_id  from login_rose_rel r where r.n_customer_type_id =4) c,
+                (select distinct r.n_customer_type_id,r.n_login_id from login_rose_rel r where r.n_customer_type_id =5) s,
+		       (select tai.extend1, tbi.n_login_id,tai.third_account_type
+		          from  third_account_info tai,  third_bind_info tbi
+		         where tai.OPEN_ID = tbi.OPEN_ID and tai.third_account_type!='07') t
+		 where l.n_login_id = a.n_login_id(+)
+		   and l.n_login_id = e.n_login_id(+)
+		   and l.n_login_id = w.loginid(+)
+		   and l.n_login_id = p.login_id(+)
+		   and l.n_login_id = t.n_login_id(+)
+		   and l.n_login_id = b.n_login_id(+)
+		   and l.n_login_id = c.n_login_id(+)
+           and l.n_login_id = s.n_login_id(+)
+		   and l.n_login_id = #n_LoginId#
+	</select>	
+</sqlMap>

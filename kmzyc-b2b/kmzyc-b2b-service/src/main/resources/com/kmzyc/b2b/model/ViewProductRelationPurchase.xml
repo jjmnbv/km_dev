@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ViewProductRelationPurchase">
+
+	<resultMap id="viewProductRelationPurchaseResultMap" class="com.kmzyc.b2b.model.ViewProductRelationPurchase">
+		<result column="MAIN_SKU_ID" property="mainSkuId" jdbcType="DECIMAL" />
+		<result column="RELATION_SKU_ID" property="relationSkuId"
+			jdbcType="DECIMAL" />
+		<result column="RELATION_TYPE" property="relationType"
+			jdbcType="DECIMAL" />
+		<result column="PRICE" property="price" jdbcType="DECIMAL" />
+		<result column="PROCUCT_NAME" property="procuctName" jdbcType="VARCHAR" />
+		<result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+		<result column="MARK_PRICE" property="markPrice" jdbcType="DECIMAL" />
+		<result column="IMG_PATH" property="imgPath" jdbcType="VARCHAR" />
+		<result column="IMG_PATH1" property="imgPath1" jdbcType="VARCHAR" />
+		<result column="IMG_PATH2" property="imgPath2" jdbcType="VARCHAR" />
+		<result column="IMG_PATH3" property="imgPath3" jdbcType="VARCHAR" />
+		<result column="IMG_PATH4" property="imgPath4" jdbcType="VARCHAR" />
+		<result column="IMG_PATH5" property="imgPath5" jdbcType="VARCHAR" />
+		<result column="IMG_PATH6" property="imgPath6" jdbcType="VARCHAR" />
+		<result column="IMG_PATH7" property="imgPath7" jdbcType="VARCHAR" />
+		<result column="IMG_PATH8" property="imgPath8" jdbcType="VARCHAR" />
+		<result column="IMG_PATH9" property="imgPath9" jdbcType="VARCHAR" />
+		<result column="IMG_PATH10" property="imgPath10" jdbcType="VARCHAR" />
+	</resultMap>
+
+    	<resultMap id="productRank" class="com.kmzyc.b2b.model.ProductsOrderBySale">
+		<result column="CONTENT_CODE" property="productSkuCode"
+			jdbcType="DECIMAL" />
+		<result column="PRODUCTFAVORCOUNT" property="productFavorCount"
+			jdbcType="DECIMAL" />
+		<result column="PRODUCTSALECOUNT" property="productSaleCount"
+			jdbcType="DECIMAL" />
+		<result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+		<result column="PRICE" property="price" jdbcType="VARCHAR" />
+		<result column="IMG_PATH6" property="defaultProductSkuImgPath"
+			jdbcType="VARCHAR" />
+		<result column="UP_TIME" property="upTime"
+			jdbcType="VARCHAR" />
+		<result column="PRODUCT_SKU_ID" property="productSkuId"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<select id="findByRelationId" parameterClass="java.util.HashMap"
+		resultMap="viewProductRelationPurchaseResultMap">
+			    <![CDATA[
+		SELECT * FROM VIEW_RELATION_PURCHASE_VIEW WHERE
+		MAIN_SKU_ID=
+		#id:NUMBER# and ROWNUM<=#size#
+			    ]]>
+	</select>
+	<!--购买行为-->
+	<select id="findBuyByRelationIdArray" resultMap="viewProductRelationPurchaseResultMap">
+			    <![CDATA[
+		SELECT * FROM VIEW_RELATION_PURCHASE_VIEW WHERE
+		MAIN_SKU_ID in 
+			    ]]>
+
+		<iterate open="(" close=")" conjunction=",">  
+ 			<![CDATA[
+               #[]#  
+ 			]]>
+		</iterate>  
+               <![CDATA[
+             and ROWNUM<=5 and relation_type = 3
+              ]]>
+              		
+	</select>
+	<!-- 设置产品关联的用户行为 -->
+	<select id="findRelationPage" resultMap="viewProductRelationPurchaseResultMap" parameterClass="com.km.framework.page.Pagination">
+	<![CDATA[
+	  select * from(
+		SELECT  ROW_NUMBER() OVER(order by v.relation_sku_id desc) as view_row_number,v.* FROM VIEW_RELATION_PURCHASE_VIEW v 
+		WHERE
+		MAIN_SKU_ID in ($objCondition.skuIds$)
+        and relation_type = $objCondition.relationType$
+    	) vt
+    where view_row_number between #startindex#  and #endindex#
+    ]]>  		
+	</select>
+	
+	<select id="findRelationPageCount"  resultClass="int" parameterClass="com.km.framework.page.Pagination">
+	<![CDATA[
+	  select count(*) from(
+		SELECT  ROW_NUMBER() OVER(order by v.relation_sku_id desc) as view_row_number,v.* FROM VIEW_RELATION_PURCHASE_VIEW v 
+		WHERE MAIN_SKU_ID in ($objCondition.skuIds$)
+        and relation_type = $objCondition.relationType$
+    )
+    where view_row_number between #startindex#  and #endindex#
+    ]]>  		
+	</select>
+
+	
+	<!-- 查询关联商品-->
+	<select id="queryRelationPage" resultMap="viewProductRelationPurchaseResultMap" parameterClass="java.util.HashMap">
+	<![CDATA[
+		select rs.main_sku_id,
+		       rs.product_sku_id relation_sku_id,
+		       rs.relation_type,
+		       rs.price,
+		       rs.mark_price,
+		       rs.procuct_name,
+		       rs.product_title,
+		       i.img_path,
+		       i.img_path1,
+		       i.img_path2,
+		       i.img_path3,
+		       i.img_path4,
+		       i.img_path5,
+		       i.img_path6,
+		       i.img_path7,
+		       i.img_path8,
+		       i.img_path9,
+		       i.img_path10
+		  from (select null main_sku_id,
+		               s.product_sku_id,
+		               #relationType# relation_type,
+		               s.price,
+		               s.mark_price,
+		               m.procuct_name,
+		               m.product_title,
+		               (select i1.image_id
+		                     from product_image i1
+		                    where i1.is_default = '0'
+		                      and i1.sku_id = s.product_sku_id
+		                      and rownum = 1) image_id
+		          from (select prd.relation_sku_id
+		                  from product_relation pr
+		                 inner join product_relation_detail prd
+		                    on pr.relation_id = prd.relation_id
+		                   where pr.del_status = 0
+		                   and pr.status = 1
+		                   and pr.editable = 1
+	]]>		
+		<isNotEmpty property="skuIds" prepend="and">
+	<![CDATA[pr.main_sku_id in ]]>
+			<iterate property="skuIds" open="(" close=")" conjunction=",">  
+	<![CDATA[#skuIds[]#]]>
+			</iterate>
+		</isNotEmpty>
+		<isEmpty property="skuIds">
+		    <isNotEmpty property="skuId" prepend="and">
+	<![CDATA[ pr.main_sku_id = #skuId#]]>
+		    </isNotEmpty>				
+		</isEmpty>	                   
+	<![CDATA[	                   
+		                   and pr.relation_type = #relationType#) ids,
+		               productmain m,
+		               product_sku s
+		         where m.product_id = s.product_id
+		           and s.product_sku_id = ids.relation_sku_id
+		           and m.status = 3) rs,
+		       product_image i
+		 where i.image_id = rs.image_id and rownum <= #endindex# 
+	]]>
+	</select>
+	
+	<!-- 获取前*商品 -->
+	<select id="queryTopProduct" resultMap="viewProductRelationPurchaseResultMap" parameterClass="java.util.HashMap">
+	<![CDATA[
+	select null                main_sku_id,
+	       0                   relation_type,
+	       rsi.relation_sku_id relation_sku_id,
+	       rsi.price,
+	       rsi.mark_price,
+	       rsi.procuct_name,
+	       rsi.product_title,
+	       i.img_path,
+	       i.img_path1,
+	       i.img_path2,
+	       i.img_path3,
+	       i.img_path4,
+	       i.img_path5,
+	       i.img_path6,
+	       i.img_path7,
+	       i.img_path8,
+	       i.img_path9,
+	       i.img_path10
+	  from (select ps.product_sku_id relation_sku_id,
+	               ps.price,
+	               ps.mark_price,
+	               m.procuct_name,
+	               m.product_title,
+	               (select i1.image_id
+	                     from product_image i1
+	                    where i1.is_default = '0'
+	                      and i1.sku_id = ps.product_sku_id
+	                      and rownum = 1) image_id,
+	               nvl(psq.browse_quantity, 0) browse_quantity,
+	               nvl(psq.sale_quantity, 0) sale_quantity,
+	               rownum rn
+	          from productmain m, product_sku ps, product_sku_quantity psq
+	         where psq.product_sku_id(+) = ps.product_sku_id
+	           and m.product_id = ps.product_id
+	           and m.status = 3
+	]]>           
+		<isNotEmpty property="queryedSkuIds">
+	<![CDATA[  
+				and not exists
+	         (select 1
+	                  from product_sku psi1
+	                 where ps.product_sku_id = psi1.product_sku_id and psi1.product_sku_id in ]]>
+		    <iterate property="queryedSkuIds" open="(" close=")" conjunction=",">  
+	<![CDATA[#queryedSkuIds[]#]]>
+			</iterate>
+	<![CDATA[) ]]>
+		</isNotEmpty>
+		<isEmpty  property="queryedSkuIds">
+		    <isNotEmpty property="queryedSkuId">
+	<![CDATA[ 
+				and psq.product_sku_id <> #queryedSkuId# 
+	]]>
+		    </isNotEmpty>
+		</isEmpty>          
+	<![CDATA[
+			and exists (select 1
+			  from categorys c
+			 where m.category_id=c.category_id 
+			 		and exists (select 1
+			          from categorys ci
+			         inner join productmain mi
+			            on (ci.category_id = mi.category_id)
+			         where substr(c.category_code, 0, 2) =
+			               substr(ci.category_code, 0, 2)
+			           and exists
+			         (select 1
+			                  from product_sku psi
+			                 where mi.product_id = psi.product_id
+	]]>
+		<isNotEmpty property="skuIds" prepend="and">
+	<![CDATA[ psi.product_sku_id in ]]>
+		    <iterate property="skuIds" open="(" close=")" conjunction=",">  
+	<![CDATA[#skuIds[]#]]>
+			</iterate>
+		</isNotEmpty>
+		<isEmpty property="skuIds">
+		    <isNotEmpty property="skuId" prepend="and">
+	<![CDATA[ psi.product_sku_id = #skuId#]]>
+		    </isNotEmpty>				
+		</isEmpty>	                         
+	<![CDATA[ )))]]>                           
+		<isEqual property="relationType" compareValue="2">
+	<![CDATA[ order by psq.browse_quantity desc  ]]> 
+		</isEqual>
+		<isEqual property="relationType" compareValue="3">
+	<![CDATA[ order by psq.sale_quantity desc  ]]> 
+		</isEqual>	                           
+	<![CDATA[
+	         ) rsi,
+	       product_image i
+	 where i.image_id(+) = rsi.image_id
+	   and rownum <= #endindex#
+	]]>  		
+	</select>
+	
+<!-- 真实用户行为 -->
+	<select id="findRealRelationPage" resultMap="viewProductRelationPurchaseResultMap" parameterClass="com.km.framework.page.Pagination">
+	<![CDATA[
+	  select * from(
+		SELECT  ROW_NUMBER() OVER(order by v.relation_sku_id desc) as view_row_number,.* FROM 
+		WHERE
+		MAIN_SKU_ID in ($objCondition.skuIds$)
+        and relation_type = $objCondition.relationType$
+    	) vt
+    where view_row_number between #startindex#  and #endindex#
+    ]]>  		
+	</select>
+	
+	<select id="findRealRelationPageCount"  resultClass="int" parameterClass="com.km.framework.page.Pagination">
+	<![CDATA[
+	  select count(*) from(
+		SELECT  ROW_NUMBER() OVER(order by v.relation_sku_id desc) as view_row_number,v.* FROM VIEW_RELATION_PURCHASE_VIEW v 
+		WHERE MAIN_SKU_ID in ($objCondition.skuIds$)
+        and relation_type = $objCondition.relationType$
+    )
+    where view_row_number between #startindex#  and #endindex#
+    ]]>  		
+	</select>
+	
+	<select id="queryCategoryParentId" resultClass="java.lang.String" parameterClass="java.lang.String">
+		select c.parent_id
+				  from categorys c
+				   where exists (select 1
+				    from productmain pm
+				         where pm.category_id = c.category_id and c.is_phy = 1
+				           and exists (select 1
+				                  from product_sku ps
+				                 where ps.product_id = pm.product_id
+				                   and ps.product_sku_id = #skuid#
+				                   )
+				                 )
+	</select>
+
+
+<select id="findProductOrderBySalequantity" resultMap="productRank" parameterClass="java.util.HashMap">
+
+		select * from ( select
+		FAV.productFavorCount ,
+		OMM.productSaleCount,
+		KPP.PRODUCT_TITLE,
+		KPP.PRICE,
+		KPP.IMG_PATH6,
+		KPP.PRODUCT_SKU_ID,
+		KPP.UP_TIME,
+		FAV.CONTENT_CODE
+		from (
+		select bb.*
+		, rownum from
+		( select ps.product_sku_code as content_code, 0 as
+		productFavorCount,
+		ps.product_sku_id
+		from PRODUCTMAIN PM,
+		PRODUCT_SKU PS
+		WHERE pm.product_id = ps.product_id
+		and pm.status = 3
+		and ps.status = 1
+		    and ps.product_sku_id in (
+    
+        select * from(
+		  select qu.product_sku_id from product_sku_quantity qu
+		  where qu.product_sku_id in (
+		        select ps.product_sku_id from product_sku ps where ps.product_id in(
+		           select pm.product_id from productmain pm where pm.category_id in 
+		            (
+		                select c.category_id from categorys c where c.parent_id = #parentCatagoryid#
+		            )
+		            and pm.status = 3
+		          )
+		          and ps.status = 1
+		   )
+		   order by qu.sale_quantity desc
+		 ) 
+		<![CDATA[ where ROWNUM <= 5 ]]>
+		    
+		    )
+		    
+		) bb
+		
+		) FAV,
+		(select Q.SALE_QUANTITY AS productSaleCount,
+		ps.product_sku_code
+		from PRODUCT_SKU_QUANTITY Q ,
+		PRODUCT_SKU PS
+		WHERE
+		Q.PRODUCT_SKU_ID = PS.PRODUCT_SKU_ID
+		
+		) OMM ,
+		(SELECT PN.PRODUCT_TITLE,
+		PU.PRICE,
+		PIE.Img_Path6 as Img_Path6,
+		PU.PRODUCT_SKU_CODE,
+		PU.PRODUCT_SKU_ID,
+		pn.up_time
+		FROM PRODUCTMAIN PN,
+		PRODUCT_SKU PU,
+		PRODUCT_IMAGE PIE
+		WHERE PN.PRODUCT_ID = PU.PRODUCT_ID
+		AND
+		PU.PRODUCT_SKU_ID = PIE.SKU_ID
+		AND PIE.IS_DEFAULT = 0) KPP
+		WHERE 1=1
+		AND FAV.content_code = OMM.product_sku_code
+		AND
+		FAV.content_code = KPP.PRODUCT_SKU_CODE(+)
+		ORDER BY productSaleCount DESC
+		) a  
+		<![CDATA[ where rownum <=#endindex# ORDER BY productSaleCount desc,up_time desc ]]>
+		
+	</select>
+
+</sqlMap>

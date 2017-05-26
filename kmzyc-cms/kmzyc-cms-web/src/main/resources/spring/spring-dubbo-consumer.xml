@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://code.alibabatech.com/schema/dubbo classpath:dubbo.xsd">
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<!--<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" client="curator"/>-->
+	
+
+	<dubbo:consumer timeout="10000" retries="0" check="false"/>
+   <!-- 产品排行信息-->
+	<dubbo:reference id="saleRankService"  interface="com.kmzyc.product.remote.service.SaleRankRemoteService"/>
+	 <!-- 产品sku信息-->
+	<dubbo:reference id="productSkuService"  interface="com.kmzyc.product.remote.service.ProductSkuRemoteService"/>
+    <!-- 产品套餐-->
+	<dubbo:reference  id="productRelationService"  interface="com.kmzyc.product.remote.service.ProductRelationRemoteService"/>
+	<!-- 促销接口-->	
+	<dubbo:reference id="promotionRemoteService"  interface="com.kmzyc.promotion.remote.service.PromotionRemoteService" />
+	
+	<!-- 促销预售接口类-->                                           
+	<dubbo:reference id="presellInfoRemoteService"  interface="com.kmzyc.promotion.remote.service.PresellInfoRemoteService"/>
+	
+	
+	<!-- 产品评价接口类-->                                           
+	<dubbo:reference id="productAppraiseRemoteService" interface="com.kmzyc.product.remote.service.ProductAppraiseRemoteService"/>
+	
+</beans>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="cart/interface" extends="json-default" namespace="/cart/interface">
+        <global-results>
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <!-- 指定是否序列化空的属性 -->
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </global-results>
+        <!-- 添加商品通用 <action name="add" class="ajaxShopCartAction" method="addProduct" />-->
+        <!-- 添加单品 -->
+        <action name="addProduct" class="ajaxShopCartAction" method="addProductToShopCart"/>
+        <!-- 添加套餐 -->
+        <action name="addSuit" class="ajaxShopCartAction" method="addSuitToShopCart"/>
+        <!-- 删除单品 -->
+        <action name="deleteProduct" class="ajaxShopCartAction" method="deleteProductFromShopCart"/>
+        <action name="deleteGift" class="ajaxShopCartAction" method="deleteGift"/>
+        <!-- 修改购物车商品数量 -->
+        <action name="updateProductNum" class="ajaxShopCartAction" method="updateProductNum"/>
+        <!-- 商品选中 -->
+        <action name="updateProductIsCheckedInShopCart" class="ajaxShopCartAction"
+                method="updateProductIsCheckedInShopCart"/>
+        <!-- 全选 -->
+        <action name="checkAll" class="ajaxShopCartAction" method="checkAll"/>
+        <!-- 选择活动 -->
+        <action name="selectPromotionInfo" class="ajaxShopCartAction" method="selectPromotionInfo"/>
+        <!-- 选择加价购商品 -->
+        <action name="chooseGift" class="ajaxShopCartAction" method="chooseGift"/>
+        <!-- 全选商家 -->
+        <action name="checkShopAllProduct" class="ajaxShopCartAction" method="checkShopAllProduct"/>
+        <!-- 添加单品(批量) -->
+        <action name="addProductBatch" class="ajaxShopCartAction"
+                method="addProductToShopCartToBatch"/>
+        <!-- 选择赠品 -->
+        <action name="choosePresents" class="ajaxShopCartAction" method="choosePresents"/>
+        <!-- 删除选中-->
+        <action name="removeChecked" class="ajaxShopCartAction" method="removeChecked"/>
+        <action name="getIsLogin" class="ajaxShopCartAction" method="getIsLogin"></action>
+        <!-- 统计购物车商品数量 -->
+        <action name="countShopCartProductNum" class="ajaxShopCartAction"
+                method="countShopCartProductNum"/>
+    </package>
+</struts>

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!--#include file="common/common.html" -->
+<title>登录 - 康美中药城,中国保健养生健康方面最专业的电子商务平台,康美药业股份有限公司旗下</title>
+<meta charset=UTF-8 "/>
+<meta name="Keywords"
+	content="康美中药城,康美中药城商城,康美,康美官方旗舰店,康美药业,康美中药城,商城,康美人生,国参传奇,菊皇茶,西洋参,花旗参,红参,冬虫夏草,虫草瘦身食品,人参,三七,田七,丹参,新开河,新开河红参,红参,高丽参,花旗参,白参,人参切片,参茸贵细" />
+<meta name="Description"
+	content="康美中药城是康美药业股份有限公司旗下运营的网上医药商城，通过康美药业的医药行业优势和强大的医药配送体系，致力于发展中国最大的医药零售电子商务市场。便捷、诚信的服务，为您提供愉悦的网上购物体验!" />
+<link type="text/css" rel="stylesheet" href="<!--#echo var="sslCssAndJsPath" -->/res/<!--#echo var="cssUrl" -->/default/common.css?version=<!--#echo var="version" -->"/>
+<link rel="shortcut icon" href="<!--#echo var="sslCssAndJsPath" -->/res/images/kmzl.ico"
+type="image/x-icon"/>
+<link type="text/css" rel="stylesheet" href="<!--#echo var="sslCssAndJsPath" -->/res/<!--#echo var="cssUrl" -->/default/html/popLogin.css?version=<!--#echo var="version" -->"/>
+<script type="text/javascript">
+	try {
+		if ('<!--#echo var="enable_ssl" -->' == '1'
+				&& 'https:' != document.location.protocol) {
+			window.location.href = '<!--#echo var="sslLoginPath" -->/html/popLogin.htm';
+		}
+	} catch (e) {
+	}
+	var KM = KM || {};
+	KM.VERSION = '<!--#echo var="version" -->';//项目版本号
+</script> <script type="text/javascript" src="<!--#echo var="sslCssAndJsPath" -->/res/<!--#echo var="jsUrl" -->/seajs/2.0.2/sea.js?version=<!--#echo var="version" -->"></script>
+        <script type="text/javascript" src="<!--#echo var="sslCssAndJsPath" -->/res/<!--#echo var="jsUrl" -->/config.js?version=<!--#echo var="version" -->"></script>
+        <script>
+	seajs
+			.use('<!--#echo var="sslCssAndJsPath" -->/res/<!--#echo var="jsUrl" -->/view/html/popLogin.js');
+</script>
+    </head>
+	<body>
+		<div class="ui-dialog" style="box-shadow: none; padding: 0; top:0; left: 0; background-color: #fff;">
+			<div class="ui-dialog-content" data-role="content" style="height: 100%; zoom: 1;">
+					<div class="ui-dialog-message" data-role="message">
+						<div id="loginIn" class="modal-dialog-bd login-interface">
+							<div id="divLogin" class="interface-con">
+								<div class="con-title">
+									<ul class="fn-clear">
+										<li class="current">登录</li>
+										<li><a id="registLi" href="javascript:void(0);" class="j_registLi">注册</a></li>
+									</ul>
+								</div>
+								<div class="login-from">
+									<div>
+										<div class="wz"><span>账号</span></div>
+										<div class="item item-fore1">
+											<label for="loginname" class="login-label name-label"></label>
+											<input id="loginname" type="text" class="itxt" name="loginname" tabindex="1" autocomplete="off" placeholder="手机号" />
+											<div id="loginNameMsg" style="display:none;" class="cw"></div>
+										</div>
+										<div class="wz"><span>密码</span></div>
+										<div id="entry" class="item item-fore2">
+											<input type="password" name="password11111" style="display:none;"/>
+											<label class="login-label pwd-label" for="loginpwd"></label>
+											<input type="password" id="loginpwd" name="loginpwd" class="itxt itxt-error" tabindex="2" autocomplete="off" placeholder="密码"/>
+											<div id="loginpwdMsg" style="display:none;" class="cw"></div>
+										</div>
+										<div style="display: none;" id="loginVCodeBox">
+											<div class="verify">
+												<input type="text" class="fn-text" id="loginVCode" name="loginVCode" style="height:32px" />
+												<img width="80" class="codeImg" height="30" alt="" src="" id="imageCode"><a class="codeImg" href="javascript:void(0);">看不清？换一张</a>
+											</div>
+											<div id="loginVCodeMsg" style="display: none;" class="cw"></div>
+										</div>
+										<div class="item">
+											<!--<div class="fn-left">
+												<label><input name="loginCheckbox" type="checkbox" value="" class="checkbox" id="loginCheckbox" />自动登录</label>
+											</div>-->
+											<div class="fn-right fn-r10"><a href="javascript:void(0);" id="link_forget_pass">忘记密码</a></div>
+										</div>
+										<div class="item login-btn">
+											<a class="btn-img btn-entry" href="javascript:void(0);" id="btnSubLogin">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</a>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</body>
+</html>

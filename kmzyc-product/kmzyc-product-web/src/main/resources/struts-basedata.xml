@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="basedata" namespace="/basedata" extends="struts-default">
+
+        <!-- 品牌 -->
+        <action name="prodBrandShow" class="prodBrandAction" method="show">
+            <result>/WEB-INF/jsp/app/prodBrandList.jsp</result>
+        </action>
+        <action name="deleteProdBrand" class="prodBrandAction" method="deleteProdBrand">
+            <result type="dispatcher">/WEB-INF/jsp/app/prodBrandList.jsp</result>
+        </action>
+        <action name="saveProdBrand" class="prodBrandAction" method="saveProdBrand">
+            <interceptor-ref name="token"/>
+            <interceptor-ref name="defaultStack"/>
+            <result type="dispatcher" name="invalid.token">/WEB-INF/jsp/public/reSubmit.jsp</result>
+            <result type="dispatcher">/WEB-INF/jsp/app/prodBrandList.jsp</result>
+            <result type="dispatcher" name="toAddProdBrands">/WEB-INF/jsp/app/prodBrandAdd.jsp</result>
+        </action>
+        <action name="toAddProdBrand" class="prodBrandAction" method="toAddProdBrand">
+            <result type="dispatcher">/WEB-INF/jsp/app/prodBrandAdd.jsp</result>
+        </action>
+        <action name="gotoProdBrandView" class="prodBrandAction"
+                method="gotoView">
+            <result type="dispatcher">/WEB-INF/jsp/app/prodBrandView.jsp</result>
+        </action>
+        <action name="gotoProdBrandUpdate" class="prodBrandAction"
+                method="gotoUpdate">
+            <result type="dispatcher">/WEB-INF/jsp/app/prodBrandUpdate.jsp</result>
+        </action>
+        <action name="updateProdBrand" class="prodBrandAction" method="updateProdBrand">
+            <result type="dispatcher">/WEB-INF/jsp/app/prodBrandList.jsp</result>
+            <result type="dispatcher" name="updateProdBrands">/WEB-INF/jsp/app/prodBrandUpdate.jsp</result>
+        </action>
+        <action name="findRepeatName" class="prodBrandAction" method="findRepeatName"></action>
+        <action name="findAllBrandForJson" class="prodBrandAction" method="findAllBrandForJson"></action>
+        <action name="findUpdateRepeatName" class="prodBrandAction" method="findUpdateRepeatName"></action>
+        <action name="findAllSuppliersForJson" class="supplierAuditAction" method="findAllSuppliersForJson"></action>
+        <!-- 品类Start -->
+        <!--<action name="drugCategoryShow" class="drugCategoryAction" method="showList">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/drugCategory/drugCategoryList.jsp
+            </result>
+            <result type="dispatcher" name="audit">/WEB-INF/jsp/app/drugCategory/drugCategoryAudit.jsp
+            </result>
+        </action>
+        <action name="drugCategoryToAdd" class="drugCategoryAction"
+            method="toAdd">
+            <result type="dispatcher">/WEB-INF/jsp/app/drugCategory/drugCategoryAdd.jsp
+            </result>
+        </action>
+        <action name="drugCategoryAdd" class="drugCategoryAction"
+            method="add">
+            <interceptor-ref name="token"/>
+             <interceptor-ref name="defaultStack"/>
+             <result type="dispatcher" name="invalid.token">/WEB-INF/jsp/public/reSubmit.jsp</result>
+            <result type="dispatcher">/WEB-INF/jsp/app/drugCategory/drugCategoryList.jsp
+            </result>
+        </action>
+        <action name="drugCategoryUpdate" class="drugCategoryAction"
+            method="update">
+            <result type="dispatcher">/WEB-INF/jsp/app/drugCategory/drugCategoryList.jsp
+            </result>
+        </action>
+        <action name="drugCategoryToUpdate" class="drugCategoryAction"
+            method="toUpdateOrView">
+            <result name="update" type="dispatcher">/WEB-INF/jsp/app/drugCategory/drugCategoryUpdate.jsp
+            </result>
+            <result name="view" type="dispatcher">/WEB-INF/jsp/app/drugCategory/drugCategoryView.jsp
+            </result>
+        </action>
+        <action name="drugCategoryToAudit" class="drugCategoryAction"
+            method="toAudit">
+            <result type="dispatcher" name="audit">/WEB-INF/jsp/app/drugCategory/drugCategoryAudit.jsp
+            </result>
+        </action>
+        <action name="drugCategoryToDelete" class="drugCategoryAction"
+            method="toModifyStatus">
+            <result type="dispatcher">/WEB-INF/jsp/app/drugCategory/drugCategoryList.jsp
+            </result>
+        </action>
+        <action name="drugCategoryCheckRepeatName" class="drugCategoryAction" method="checkRepeatName">
+        </action>-->
+        <!-- 品类End -->
+
+        <!-- 图片预览 -->
+        <!--<action name="previewImage" class="imageShowAction" method="pictureShow"></action> -->
+
+        <!-- 供应商
+        <action name="checkSupplierName" class="supplierAction" method="checkSupplierName">
+        </action>
+
+        <action name="prodSupplierShow" class="supplierAction" method="showList">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/supplier/supplierList.jsp
+            </result>
+        </action>
+        <action name="delSupplier" class="supplierAction" method="delSupplier">
+        </action>
+        <action name="addSupplier" class="supplierAction" method="addSupplierShow">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/supplier/supplierAdd.jsp
+            </result>
+        </action>
+        <action name="saveSupplier" class="supplierAction" method="saveSupplier">
+            <result name="success" type="redirect">/basedata/prodSupplierShow.action?rtnMessage=${rtnMessage}
+            </result>
+        </action>
+        <action name="gotoSupplierView" class="supplierAction" method="goToSupplierView">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/supplier/supplierView.jsp
+            </result>
+        </action>
+        <action name="gotoSupplierUpdate" class="supplierAction" method="goToSupplierUpdate">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/supplier/supplierUpdate.jsp
+            </result>
+        </action>
+        <action name="saveSupplierUpdate" class="supplierAction" method="saveSupplierUpdate">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/supplier/supplierList.jsp</result>
+        </action>-->
+
+        <!-- 产品图片 -->
+        <!-- <action name="toUploadProdImage" class="productImageAction" method="toUploadImage">
+            <result>/WEB-INF/jsp/app/prodImage/productToAddPicture.jsp</result> </action> -->
+        <action name="uploadProductImage" class="productImageAction" method="uploadFile">
+        </action>
+        <action name="deleteProductImage" class="productImageAction" method="deleteImage">
+        </action>
+        <action name="modifyProductImageDefault" class="productImageAction" method="modifyImageDefault">
+        </action>
+        <action name="toUpdateProdImage" class="productImageAction" method="toUpdateImage">
+            <result>/WEB-INF/jsp/app/prodImage/productUpdatePicture.jsp</result>
+        </action>
+        <action name="toUploadMoreProdImage" class="productImageAction" method="toUploadMoreProdImage">
+            <result>/WEB-INF/jsp/app/prodImage/productMoreAddPicture.jsp</result>
+        </action>
+        <action name="findSomeImageBySkuId" class="productImageAction" method="findSomeImageBySkuId">
+            <result>/WEB-INF/jsp/app/prodImage/productSkuImageView.jsp</result>
+        </action>
+        <action name="updateImageSortNo" class="productImageAction" method="updateImageSortNo"></action>
+        <action name="findAllSkuProduct" class="productImageAction" method="findAllSkuProduct">
+            <result name="success">/WEB-INF/jsp/app/prodImage/skuProductList.jsp</result>
+        </action>
+
+        <!-- 运营属性 -->
+        <action name="busiAttributeList" class="operationAttrAction" method="showList">
+            <result name="success">/WEB-INF/jsp/app/operationAttr/operationAttrList.jsp</result>
+        </action>
+        <action name="deleteOprationAttr" class="operationAttrAction" method="delete">
+            <result name="success">/WEB-INF/jsp/app/operationAttr/operationAttrList.jsp</result>
+        </action>
+        <action name="gotoOprationAttrUpdate" class="operationAttrAction" method="gotoUpdate">
+            <result name="success">/WEB-INF/jsp/app/operationAttr/operationAttrUpdate.jsp</result>
+        </action>
+        <action name="gotoOprationAttrAdd" class="operationAttrAction" method="gotoAdd">
+            <result name="success">/WEB-INF/jsp/app/operationAttr/operationAttrAdd.jsp</result>
+        </action>
+        <action name="updateOprationAttr" class="operationAttrAction" method="update">
+            <result name="success">/WEB-INF/jsp/app/operationAttr/operationAttrList.jsp</result>
+        </action>
+        <action name="addOprationAttr" class="operationAttrAction" method="add">
+            <result name="success">/WEB-INF/jsp/app/operationAttr/operationAttrList.jsp</result>
+        </action>
+        <action name="operationAttrCheckRepeatName" class="operationAttrAction" method="checkRepeatName"></action>
+
+    </package>
+</struts>

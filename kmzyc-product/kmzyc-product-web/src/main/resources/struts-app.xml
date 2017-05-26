@@ -1,0 +1,1119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="app" namespace="/app" extends="struts">
+        <!-- 获取BAT商品同步列表 -->
+        <!--<action name="queryBATCategoryList" class="categoryAction" method="queryCategoryBATRebateList">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/categoryBATRebateList.jsp</result>
+        </action>-->
+        <!-- BAT商品同步设置 -->
+        <!--<action name="saveCategoryBATList" class="categoryAction" method="saveCategoryBATRebateList">
+        </action>-->
+        <action name="findAllSkuForFreight" class="productSkuAction" method="findAllSkuForFreight">
+            <result name="success">/WEB-INF/jsp/app/product/productSkuList.jsp</result>
+        </action>
+        <action name="toEditSkuFreight" class="productSkuAction" method="toEditSkuFreight">
+            <result name="success">/WEB-INF/jsp/app/product/modifySkuFreight.jsp</result>
+        </action>
+        <action name="saveSkuFreight" class="productSkuAction" method="saveSkuFreight"></action>
+        <!--品牌草稿-->
+        <action name="showProdBrandDraftList" class="prodBrandDraftAction" method="showProdBrandDraftList">
+            <result>/WEB-INF/jsp/app/prodBrandDraft/prodBrandDraftList.jsp</result>
+        </action>
+        <action name="gotoProdBrandDraftView" class="prodBrandDraftAction" method="gotoProdBrandDraftView">
+            <result>/WEB-INF/jsp/app/prodBrandDraft/prodBrandDraftView.jsp</result>
+        </action>
+        <action name="refuseProdBrandDraft" class="prodBrandDraftAction" method="refuseProdBrandDraft">
+        </action>
+        <action name="passProdBrandDraft" class="prodBrandDraftAction" method="passProdBrandDraft">
+        </action>
+
+
+        <!-- 产品草稿系列 Begin -->
+        <!-- 草稿列表显示 -->
+        <action name="toModifyProductImage">
+            <result>/WEB-INF/jsp/app/productImageModify.jsp</result>
+        </action>
+        <action name="modifyProductImage" class="productImageDraftAction" method="modifyProductImage">
+
+        </action>
+        <action name="productDraftShow" class="productDraftAction" method="showList">
+            <result type="dispatcher" name="product">/WEB-INF/jsp/app/productDraft/productList.jsp</result>
+            <result type="dispatcher" name="price">/WEB-INF/jsp/app/productPriceDraft/productList.jsp</result>
+            <result type="dispatcher" name="weight">/WEB-INF/jsp/app/productWeightDraft/productList.jsp</result>
+            <result type="dispatcher" name="audit">/WEB-INF/jsp/app/productDraft/productAuditList.jsp</result>
+            <result type="dispatcher" name="priDraft">/WEB-INF/jsp/app/productPriceDraft/productPriceAuditList.jsp
+            </result>
+        </action>
+        <action name="productDraftAuditShow" class="productDraftAction" method="showAuditList">
+            <result type="dispatcher" name="priDraft">/WEB-INF/jsp/app/productPriceDraft/productPriceAuditList.jsp</result>
+            <result type="dispatcher" name="price">/WEB-INF/jsp/app/productPriceDraft/productList.jsp</result>
+        </action>
+        <!-- 查询单个产品的SKU列表 -->
+        <action name="findProductSkusAndAttrValues" class="productDraftAction" method="findProductSkusAndAttrValues">
+            <result type="dispatcher" name="price">/WEB-INF/jsp/app/productPriceDraft/productPriceUpdate.jsp</result>
+            <result type="dispatcher" name="priceView">/WEB-INF/jsp/app/productPriceDraft/productPriceView.jsp</result>
+            <result type="dispatcher" name="priDraft">/WEB-INF/jsp/app/productPriceDraft/productPriceAudit.jsp</result>
+            <result type="dispatcher" name="weight">/WEB-INF/jsp/app/productWeightDraft/productWeightUpdate.jsp</result>
+            <result type="dispatcher" name="image">/WEB-INF/jsp/app/productDraft/productSkuDraftToUpdateImage.jsp
+            </result>
+        </action>
+        <!-- 产品提交审核 -->
+        <action name="submitDraftTheAudit" class="productDraftAction" method="submitDraftTheAudit">
+            <result type="dispatcher" name="product">/WEB-INF/jsp/app/productDraft/productList.jsp</result>
+        </action>
+        <!-- 产品批量提交审核 -->
+        <action name="batchSubmitDraftTheAudit" class="productDraftAction" method="batchSubmitDraftTheAudit">
+            <result type="dispatcher" name="product">/WEB-INF/jsp/app/productDraft/productList.jsp</result>
+        </action>
+        <!-- 草稿上架 -->
+        <action name="upshelfProductDraft" class="productDraftAction" method="upshelfProductDraft">
+            <result type="dispatcher" name="product">/WEB-INF/jsp/app/productDraft/productList.jsp</result>
+        </action>
+        <!-- 产品取消提交审核 -->
+        <action name="submitDraftTheUnAudit" class="productDraftAction" method="submitDraftTheUnAudit">
+            <result type="dispatcher" name="product">/WEB-INF/jsp/app/productDraft/productList.jsp</result>
+        </action>
+        <!-- 查询产品详情，进入审核页面 -->
+        <action name="viewProductForAuditDraft" class="productDraftAction" method="viewProductForAuditDraft">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/productDraft/productAuditView.jsp</result>
+        </action>
+        <!-- 查找草稿库中是否有相同的记录 -->
+        <action name="findSameProductFromDraft" class="productDraftAction" method="findSameProductFromDraft">
+
+        </action>
+        <!-- 产品正式表的更新，向草稿表插入数据 -->
+        <action name="productUpdateToAddDraft" class="productDraftAction" method="productUpdateToAddDraft">
+            <result type="dispatcher" name="product">/WEB-INF/jsp/app/productDraft/productList.jsp</result>
+            <result type="redirect" name="productDraftError">/app/productShow.action?type=productDraftError</result>
+        </action>
+        <!-- 修改产品草稿信息 -->
+        <action name="productDraftUpdate" class="productDraftAction" method="productDraftUpdate">
+            <result type="dispatcher" name="product">/WEB-INF/jsp/app/productDraft/productList.jsp</result>
+            <result type="dispatcher" name="skuList">/WEB-INF/jsp/app/productDraft/productSkuUpdate.jsp</result>
+            <result type="dispatcher" name="productCertificate">
+                /WEB-INF/jsp/app/productDraft/productCertificateUpdate.jsp
+            </result>
+            <result type="dispatcher" name="productPrescription">
+                /WEB-INF/jsp/app/productDraft/productPrescriptionUpdate.jsp
+            </result>
+        </action>
+        <!-- 批量删除草稿商品 -->
+        <action name="batchDeleteProductDraft" class="productDraftAction" method="batchDeleteProductDraft">
+        </action>
+        <!-- 删除产品SKU草稿 -->
+        <action name="deleteProductSkuDraft" class="productSkuDraftAction" method="deleteProductSkuDraft"></action>
+        <!-- 查看产品详情页 -->
+        <action name="viewProductDraft" class="productDraftAction" method="viewProductDraft">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/productDraft/productView.jsp</result>
+        </action>
+        <!-- 获取产品详情并进入更新页面 -->
+        <action name="toProductDraftUpdate" class="productDraftAction" method="toProductDraftUpdate">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/productDraft/productDraftUpdate.jsp</result>
+        </action>
+        <!-- 删除产品 -->
+        <action name="deleteProductDraft" class="productDraftAction" method="deleteProductDraft">
+            <result type="dispatcher" name="product">/WEB-INF/jsp/app/productDraft/productList.jsp</result>
+            <result type="dispatcher" name="price">/WEB-INF/jsp/app/productPriceDraft/productList.jsp</result>
+        </action>
+        <!-- 审核产品是否通过 -->
+        <action name="auditProductDraft" class="productDraftAction" method="auditProductDraft">
+            <interceptor-ref name="token"/>
+            <interceptor-ref name="defaultStack"/>
+            <result type="dispatcher" name="invalid.token">/WEB-INF/jsp/public/reSubmit.jsp</result>
+            <result type="dispatcher" name="audit">/WEB-INF/jsp/app/productDraft/productAuditList.jsp</result>
+        </action>
+        <!-- 批量审核产品 -->
+        <action name="batchAuditProductDraft" class="productDraftAction" method="batchAuditProductDraft">
+            <result type="dispatcher" name="audit">/WEB-INF/jsp/app/productDraft/productAuditList.jsp</result>
+        </action>
+        <!-- 产品预览 -->
+        <action name="previewProductDraftInfoPage" class="productDraftAction"
+                method="previewProductDraftInfoPage"></action>
+        <!--更新正式sku价格前检查pv值-->
+        <action name="checkSkuPv" class="productSkuDraftAction" method="checkSkuPv"></action>
+        <!-- 更新正式表SKU的价格 -->
+        <action name="updateProductSKUPrice" class="productSkuDraftAction" method="updateProductSKUPrice">
+            <interceptor-ref name="token"/>
+            <interceptor-ref name="defaultStack"/>
+            <result type="dispatcher" name="invalid.token">/WEB-INF/jsp/public/reSubmit.jsp</result>
+            <result type="redirect" name="error">/app/productShow.action?type=priceFailFromOfficial</result>
+            <result type="chain" name="success">
+                <param name="actionName">productDraftAuditShow</param>
+                <param name="type">${type}</param>
+                <param name="productNo">${productNo}</param>
+            </result>
+        </action>
+        <!-- 更新草稿SKU的价格 -->
+        <action name="updateProductDraftSKUPrice" class="productSkuDraftAction" method="updateSkuDraftPrice">
+            <interceptor-ref name="token"/>
+            <interceptor-ref name="defaultStack"/>
+            <result type="dispatcher" name="invalid.token">/WEB-INF/jsp/public/reSubmit.jsp</result>
+            <result type="redirect" name="success">/app/productDraftAuditShow.action?type=priceSuccess</result>
+            <result type="redirect" name="fail">/app/productDraftAuditShow.action?type=priceFail</result>
+        </action>
+        <action name="findSameSkuBarCodeProductSku" class="productSkuDraftAction" method="findSameSkuBarCodeProductSku"/>
+        <action name="getDefaultPvValue" class="productSkuDraftAction" method="getDefaultPvValue"/>
+        <!-- 发布产品价格 -->
+        <action name="releaseProductPrice" class="productDraftAction" method="releaseProductPrice">
+        </action>
+        <!-- 批量发布产品价格 -->
+        <action name="batchReleaseProductPrice" class="productDraftAction" method="batchReleaseProductPrice">
+            <result type="dispatcher" name="price">/WEB-INF/jsp/app/productPriceDraft/productList.jsp</result>
+        </action>
+        <action name="batchAuditProductPrice" class="productDraftAction" method="batchAuditProductPrice">
+            <result type="dispatcher" name="price">/WEB-INF/jsp/app/productPriceDraft/productList.jsp</result>
+        </action>
+        <!-- 更新草稿SKU的重量 -->
+        <action name="updateProductDraftSKUWeight" class="productSkuDraftAction" method="updateSkuDraftWeight">
+            <interceptor-ref name="token"/>
+            <interceptor-ref name="defaultStack"/>
+            <result type="dispatcher" name="invalid.token">/WEB-INF/jsp/public/reSubmit.jsp</result>
+            <result type="redirect" name="success">/app/productDraftShow.action?type=weightSuccess</result>
+            <result type="redirect" name="fail">/app/productDraftShow.action?type=weightFail</result>
+        </action>
+        <!-- 所有的SKU列表 -->
+        <action name="findAllProductSkuDraft" class="productSkuDraftAction" method="findAllProductSkuDraft">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/productImageDraft/productSkuList.jsp</result>
+        </action>
+
+        <action name="gotoCheckSkuPriceAndWeight" class="productSkuDraftAction" method="gotoCheckSkuPriceAndWeight"></action>
+        <!-- 上传SKU图片 -->
+        <action name="toUpdateProdImageDraft" class="productImageDraftAction" method="toUpdateProdImageDraft">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/productImageDraft/productUpdatePicture.jsp
+            </result>
+        </action>
+        <!-- 添加SKU介绍 -->
+        <action name="toUpdateIntroduceDraft" class="productImageDraftAction" method="toUpdateIntroduceDraft">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/productImageDraft/productUpdateIntroduce.jsp
+            </result>
+        </action>
+        <!-- 查找某个Sku_Draft商品介绍 -->
+        <action name="findDraftIntroduceBySkuId" class="productImageDraftAction" method="findDraftIntroduceBySkuId">
+            <result>/WEB-INF/jsp/app/prodImage/productSkuDraftIntroduceView.jsp</result>
+        </action>
+        <!-- 查找某个Sku商品介绍 -->
+        <action name="findIntroduceBySkuId" class="productImageAction" method="findIntroduceBySkuId">
+            <result>/WEB-INF/jsp/app/prodImage/productSkuIntroduceView.jsp</result>
+        </action>
+        <!-- 查找某个Sku下的图片 -->
+        <action name="findImagesBySkuId" class="productImageDraftAction" method="findImagesBySkuId">
+            <result>/WEB-INF/jsp/app/prodImage/productSkuImageView.jsp</result>
+        </action>
+
+        <!-- 图片的上传，设置默认以及删除图片 -->
+        <action name="uploadProductImageDraft" class="productImageDraftAction" method="uploadFile"></action>
+        <action name="modifyProductImageDraftDefault" class="productImageDraftAction"
+                method="modifyImageDefault"></action>
+        <action name="deleteProductImageDraft" class="productImageDraftAction" method="deleteImage"></action>
+        <action name="updateImageSortNoDraft" class="productImageDraftAction" method="updateImageSortNo"></action>
+        <action name="updateSkuIntroduce" class="productImageDraftAction" method="updateSkuIntroduce">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/productImageDraft/productUpdateIntroduce.jsp
+            </result>
+        </action>
+        <!-- 提交价格审核 -->
+        <action name="gotoSubmitAuditProductPrice" class="productDraftAction" method="gotoSubmitAuditProductPrice">
+            <result type="dispatcher" name="price">/WEB-INF/jsp/app/productPriceDraft/productList.jsp</result>
+        </action>
+        <!-- 审核价格 -->
+        <action name="auditProductPriceDraft" class="productSkuDraftAction" method="auditProductPriceDraft">
+            <result type="redirect" name="success">/app/productDraftAuditShow.action?type=priDraftSuccess</result>
+            <result type="redirect" name="error">/app/productDraftAuditShow.action?type=priDraftError</result>
+        </action>
+        <!--
+        <action name="toUpdateProductCertificateSingle" class="productDraftAction" method="toUpdateProductCertificateSingle" >
+            <result type="dispatcher" name="productCertificate" >/WEB-INF/jsp/app/productDraft/productCertificateUpdate.jsp</result>
+        </action>
+        -->
+        <!-- 产品草稿系列 End -->
+
+        <!-- 与供应链系统对接 Begin -->
+        <!--<action name="findAllSkuForRelation" class="productErpRelationAction" method="findAllSkuForRelation">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/productErpRelation/skuForRelationList.jsp</result>
+        </action>
+        <action name="toModifyErpCode" class="productErpRelationAction" method="toModifyErpCode">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/productErpRelation/modifyErpCode.jsp</result>
+        </action>
+        <action name="saveModifyErpCode" class="productErpRelationAction" method="saveModifyErpCode">
+            <interceptor-ref name="token"/>
+            <interceptor-ref name="defaultStack"/>
+            <result type="dispatcher" name="invalid.token">/WEB-INF/jsp/public/reSubmit.jsp</result>
+        </action>
+        <action name="toManualSynErpProductStock" class="productErpRelationAction" method="toManualSynErpProductStock">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/productErpRelation/synErpProductStock.jsp</result>
+        </action>
+        <action name="synErpProductStock" class="productErpRelationAction" method="manualSynErpProductStock"></action>
+
+        <action name="erpOrderLogList" class="erpOrderLogAction" method="showList">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/erpSynLog/erpOrderLogList.jsp</result>
+        </action>
+        <action name="manualSynOrder" class="erpOrderLogAction" method="manualSynOrder"></action>
+        <action name="erpSynLogList" class="erpSynLogAction" method="showList">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/erpSynLog/erpSynLogList.jsp</result>
+        </action>
+        <action name="erpSynLogDetailList" class="erpSynLogDetailAction" method="showList">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/erpSynLog/erpSynLogDetailList.jsp</result>
+        </action>-->
+        <!-- 与供应链系统对接 End -->
+
+        <action name="findCertificateFilesProduct" class="productAction" method="findCertificateFilesProduct">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/certificateProduct/productCertificateList.jsp
+            </result>
+        </action>
+
+        <!-- 更新产品正式表中的批注信息 -->
+        <action name="updateProductPostil" class="productAction" method="updateProductPostil"></action>
+
+        <!-- 用户渠道管理 Begin -->
+        <!--<action name="findProductUsers" class="com.pltfm.sys.action.SysUserAction" method="findProductUsers">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/channelManager/productUserList.jsp</result>
+        </action>
+        <action name="gotoPopSelectChannel" class="userChannelAction" method="toSelectChannel">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/sys/popSelectChannel.jsp</result>
+        </action>
+        <action name="saveSelectChannel" class="userChannelAction" method="saveSelectChannel">
+        </action>-->
+        <!-- 用户渠道管理 End -->
+
+        <!-- 栏目管理 -->
+        <action name="querySectionsList" class="sectionsAction" method="querySectionsList">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/sectionsList.jsp</result>
+        </action>
+        <action name="checkSectionsName" class="sectionsAction" method="checkSectionsName">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/sectionsList.jsp</result>
+        </action>
+        <action name="checkIdentification" class="sectionsAction" method="checkIdentification">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/sectionsList.jsp</result>
+        </action>
+        <action name="checkSectionsNameByModify" class="sectionsAction" method="checkSectionsNameByModify">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/sectionsList.jsp</result>
+        </action>
+        <action name="checkIdentificationByModify" class="sectionsAction" method="checkIdentificationByModify">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/sectionsList.jsp</result>
+        </action>
+        <action name="gotoSectionsAdd" method="gotoSectionsAdd" class="sectionsAction">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/sectionsAdd.jsp</result>
+        </action>
+        <action name="gotoSectionsDel" method="delSections" class="sectionsAction">
+            <result>/WEB-INF/jsp/app/sectionsList.jsp</result>
+        </action>
+        <action name="accountInfo_preUpdate" method="accountInfo_preUpdate" class="sectionsAction">
+            <result>/WEB-INF/jsp/app/sectionsAdd.jsp</result>
+        </action>
+        <action name="gotoSectionsDetailAdd" method="gotoSectionsDetailAdd" class="sectionsAction">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/sectionsDetailAdd.jsp</result>
+        </action>
+        <action name="saveSections" class="sectionsAction" method="saveSections">
+            <interceptor-ref name="token"/>
+            <interceptor-ref name="defaultStack"/>
+            <result type="dispatcher" name="invalid.token">/WEB-INF/jsp/public/reSubmit.jsp</result>
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/sectionsList.jsp</result>
+        </action>
+        <action name="updateSections" class="sectionsAction" method="updateSections">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/sectionsList.jsp</result>
+        </action>
+        <action name="querySectionsDetailList" class="sectionsAction" method="querySectionsDetailList">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/sectionsDetailList.jsp</result>
+        </action>
+        <action name="saveSectionsDetail" class="sectionsAction" method="saveSectionsDetail">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/sectionsDetailList.jsp</result>
+        </action>
+        <action name="delSectionsDetail" class="sectionsAction" method="delSectionsDetail">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/sectionsDetailList.jsp</result>
+        </action>
+        <action name="saveSectionsDetailSortno" class="sectionsAction" method="saveSectionsDetailSortno">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/sectionsDetailList.jsp</result>
+        </action>
+
+        <action name="checkSectionsRpeat" class="sectionsAction" method="checkSectionsRpeat">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/sectionsDetailList.jsp</result>
+        </action>
+        <action name="findProductForSections" class="sectionsAction" method="findProductSkuForSections">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/sectionsProductList.jsp</result>
+        </action>
+        <!-- 产品类目管理 -->
+        <action name="queryCategoryList" class="categoryAction" method="queryCategoryList">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/categoryList.jsp</result>
+        </action>
+        <!-- 类目佣金设置pb -->
+        <action name="queryCategoryRebateList" class="categoryAction" method="queryCategoryRebateList">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/categoryRebateList.jsp</result>
+        </action>
+        <!-- 保存佣金设置pb -->
+        <action name="saveCategoryRebateList" class="categoryAction" method="saveCategoryRebateList">
+        </action>
+        <!-- 查询PV比例 -->
+        <action name="queryPVCategoryList" class="categoryAction"  method="queryPVCategoryList">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/category/categoryPvRebateList.jsp</result>
+        </action>
+        <!-- 保存PV比例设置 -->
+        <action name="savePVCategory" class="categoryAction" method="savePVCategory">
+        </action>
+        <action name="showCategory" class="categoryAction" method="showCategory">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/categoryInfo.jsp</result>
+        </action>
+        <action name="gotoAddFirstLevelCategory" class="categoryAction" method="gotoAddFirstLevelCategory">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/addFirstLevelCategory.jsp</result>
+        </action>
+        <action name="saveFirstLevelCategory" class="categoryAction" method="saveCategory">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/success.jsp</result>
+        </action>
+        <action name="saveCategory" class="categoryAction" method="saveCategory">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/categoryList.jsp</result>
+        </action>
+        <action name="deleteCategory" class="categoryAction" method="deleteCategory">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/categoryList.jsp</result>
+        </action>
+        <action name="checkRepeatNameCategory" class="categoryAction" method="checkRepeatName"></action>
+        <action name="gotoEditCategoryCondition" class="categoryAction" method="gotoEditCondition">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/categoryGramConfig.jsp</result>
+        </action>
+        <action name="editCategoryCondition" class="categoryAction" method="editCondition">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/categoryGramConfig.jsp</result>
+        </action>
+        <action name="gotoCopyCategorys" class="categoryAction" method="gotoCopyCategorys">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/categoryCopyPhyList.jsp</result>
+        </action>
+        <action name="saveCopyCategorys" class="categoryAction" method="saveCopyCategorys"></action>
+
+        <!-- 类目属性管理 -->
+        <action name="gotoQueryCategoryAttrList" class="categoryAction" method="queryCategoryList">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/categoryAttrHome.jsp</result>
+        </action>
+        <action name="queryCategoryAttrList" class="categoryAttrAction" method="queryCategoryAttrList">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/categoryAttrList.jsp</result>
+        </action>
+        <action name="showCategoryAttr" class="categoryAttrAction" method="showCategoryAttr">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/categoryAttrInfo.jsp</result>
+        </action>
+        <action name="saveCategoryAttr" class="categoryAttrAction" method="saveCategoryAttr">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/success.jsp</result>
+        </action>
+        <action name="deleteCategoryAttr" class="categoryAttrAction" method="deleteCategoryAttr">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/success.jsp</result>
+        </action>
+        <action name="findAttrRepeatName" class="categoryAttrAction" method="findAttrRepeatName"></action>
+        <action name="findIsUsedSkuValue" class="categoryAttrAction" method="findIsUsedSkuValue"></action>
+
+        <action name="illegalDown" class="productAction" method="illegalDown">
+        </action>
+        <action name="illegalUp" class="productAction" method="illegalUp">
+        </action>
+
+        <action name="showOperation" class="productAction" method="showOperation">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/product/productOperation.jsp</result>
+        </action>
+        <!-- 产品资料 -->
+        <action name="productShow" class="productAction" method="showList">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/product/productList.jsp</result>
+            <result type="dispatcher" name="price">/WEB-INF/jsp/app/productPriceRelease/productList.jsp</result>
+            <result type="dispatcher" name="weight">/WEB-INF/jsp/app/warehouse/productList.jsp</result>
+            <!--<result type="dispatcher" name="zycPrice">/WEB-INF/jsp/app/productPriceRelease/productZycPriceList.jsp</result>-->
+        </action>
+        <action name="productPriceShow" class="productAction" method="showPriceList">
+            <result type="dispatcher" name="price">/WEB-INF/jsp/app/productPriceRelease/productList.jsp</result>
+        </action>
+
+        <action name="productPVShow" class="productAction" method="showPVList">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/product/productPVList.jsp</result>
+        </action>
+
+        <action name="exportProductInfo" class="productAction" method="exportProductInfo"></action>
+
+        <action name="checkIntroduce" class="productAction" method="checkIntroduce">
+        </action>
+        <action name="toProductCategory" class="productAction" method="toProductCategory">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/product/productCategory.jsp</result>
+        </action>
+        <action name="toProductAdd" class="productAction" method="toProductAdd">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/productAdd.jsp</result>
+        </action>
+        <action name="productAdd" class="productDraftAction" method="addProduct">
+            <!-- 		<interceptor-ref name="token"/> -->
+            <!--  		<interceptor-ref name="defaultStack"/> -->
+            <!--  		<result type="dispatcher" name="invalid.token">/WEB-INF/jsp/public/reSubmit.jsp</result> -->
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/productImageDraft/productMoreAddPicture.jsp
+            </result>
+        </action>
+        <!-- 产品图片 -->
+        <action name="toUploadDraftSkuProductImage" class="productDraftAction" method="toUploadSkuProductImage">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/productImageDraft/productMoreAddPicture.jsp
+            </result>
+        </action>
+        <action name="toProductUpdate" class="productAction" method="toProductUpdate">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/productUpdate.jsp</result>
+        </action>
+        <action name="productUpdate" class="productAction" method="updateProduct">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/product/productList.jsp</result>
+            <result type="dispatcher" name="skuList">/WEB-INF/jsp/app/product/productSkuUpdate.jsp</result>
+        </action>
+        <action name="productuUpShelf" class="productAction" method="upShelf">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/product/productList.jsp</result>
+        </action>
+        <action name="productuDownShelf" class="productAction" method="downShelf">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/product/productList.jsp</result>
+        </action>
+        <action name="selectCategory" class="productAction" method="selectCategory">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/product/productList.jsp</result>
+        </action>
+        <action name="viewProduct" class="productAction" method="viewProduct">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/productView.jsp</result>
+        </action>
+        <action name="deleteProduct" class="productAction" method="deleteProduct">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/product/productList.jsp</result>
+        </action>
+        <action name="submitTheAudit" class="productAction" method="submitTheAudit">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/product/productList.jsp</result>
+        </action>
+        <action name="auditProductShow" class="productAction" method="auditProductShow">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/product/productAuditList.jsp</result>
+        </action>
+        <action name="batchAuditProduct" class="productAction" method="batchAuditProduct">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/product/productAuditList.jsp</result>
+        </action>
+        <action name="auditProduct" class="productAction" method="auditProduct">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/product/productAuditList.jsp</result>
+        </action>
+        <action name="viewProductForAudit" class="productAction" method="viewProductForAudit">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/product/productAuditView.jsp</result>
+        </action>
+        <action name="checkProductName" class="productAction" method="checkProductName"></action>
+        <action name="previewProductInfoPage" class="productAction" method="previewProductInfoPage"></action>
+        <action name="findProductSkuByProductId" class="productAction" method="findProductSkuByProductId">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/product/productSkuToUpdateImage.jsp</result>
+        </action>
+        <action name="deleteProductSku" class="productSkuAction" method="deleteProductSku"></action>
+
+        <!-- 产品图片 -->
+        <action name="toUploadSkuProductImage" class="productAction" method="toUploadSkuProductImage">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/prodImage/productMoreAddPicture.jsp</result>
+        </action>
+
+        <!-- 产品重量 Begin -->
+        <action name="updateProductSKUWeight" class="productSkuAction" method="updateProductSKUWeight">
+            <result type="redirect" name="success">/app/productShow.action?type=weightSuccess</result>
+        </action>
+        <!-- 产品重量 End -->
+
+        <!-- 商品介绍  -->
+        <action name="productIntorShow" class="prodShowAction" method="showIntor">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/attribute/prod_introduct.jsp</result>
+        </action>
+        <action name="saveproduct" class="prodShowAction" method="saveIntor">
+            <result>/WEB-INF/jsp/app/attribute/prod_introduct.jsp</result>
+        </action>
+
+        <!-- 仓库管理 -->
+        <action name="warehouseShow" class="warehouseAction" method="showList">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/warehouseInfoList.jsp</result>
+        </action>
+        <action name="toWarehouseAdd" class="warehouseAction" method="toWarehouseAdd">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/warehouseInfoAdd.jsp</result>
+        </action>
+        <action name="warehouseAdd" class="warehouseAction" method="addWarehouse">
+            <interceptor-ref name="token"/>
+            <interceptor-ref name="defaultStack"/>
+            <result type="dispatcher" name="invalid.token">/WEB-INF/jsp/public/reSubmit.jsp</result>
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/warehouseInfoList.jsp</result>
+        </action>
+        <action name="toWarehouseUpdate" class="warehouseAction" method="toWarehouseUpdate">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/warehouseInfoUpdate.jsp</result>
+        </action>
+        <action name="toWarehouseView" class="warehouseAction" method="toWarehouseView">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/warehouseInfoView.jsp</result>
+        </action>
+        <action name="warehouseUpdate" class="warehouseAction" method="updateWarehouse">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/warehouseInfoList.jsp</result>
+        </action>
+        <action name="warehouseStart" class="warehouseAction" method="startWarehouse">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/warehouseInfoList.jsp</result>
+        </action>
+        <action name="warehouseStop" class="warehouseAction" method="stopWarehouse">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/warehouseInfoList.jsp</result>
+        </action>
+        <action name="choiceArea" class="warehouseAction" method="choiceArea">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/warehouseInfoList.jsp</result>
+        </action>
+        <action name="checkWarehouseInfoName" class="warehouseAction" method="checkWarehouseInfoName">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/warehouseInfoAdd.jsp</result>
+        </action>
+        <action name="checkWarehouseNameByModify" class="warehouseAction" method="checkWarehouseNameByModify">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/warehouseInfoUpdate.jsp</result>
+        </action>
+
+        <!--仓库入库单管理开始 -->
+        <!--<action name="quertyInList" class="com.pltfm.app.action.StockInAction" method="queryAllStockIn">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/warehouse/stockInList.jsp</result>
+        </action>-->
+        <!-- 删除入库单 -->
+        <!--<action name="del" class="com.pltfm.app.action.StockInAction" method="delStockIn">
+        </action>-->
+        <!-- 查询主菜单详情 -->
+        <!--<action name="queryAllPurchaseInDetail" class="com.pltfm.app.action.StockInDetailAction"
+                method="queryAllStockInDetail">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/warehouse/stockInDetaiList.jsp</result>
+        </action>-->
+        <!-- 跳转到入库单添加页面中去 -->
+        <!--<action name="goToPurchaseInDetail" class="com.pltfm.app.action.StockInDetailAction" method="goToStockInDetail">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/warehouse/stockInAdd.jsp</result>
+        </action>-->
+        <!-- 保存入库单详情信息 -->
+        <!--<action name="addStockInDetails" class="com.pltfm.app.action.StockInDetailAction" method="addStockInDetails">
+            <interceptor-ref name="token"/>
+            <interceptor-ref name="defaultStack"/>
+            <result type="dispatcher" name="invalid.token">/WEB-INF/jsp/public/reSubmit.jsp</result>
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/warehouse/stockInDetaiList.jsp</result>
+            <result name="error" type="dispatcher">/WEB-INF/jsp/app/warehouse/stockInDetaiList.jsp</result>
+        </action>-->
+        <!-- 跳转到修改页面 -->
+        <!--<action name="toEditPInDetail" class="com.pltfm.app.action.StockInDetailAction"
+                method="toEditInDetail">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/warehouse/stockInEdit.jsp</result>
+            <result name="purchaseStockIn" type="dispatcher">/WEB-INF/jsp/app/warehouse/stockInForPurchaseEdit.jsp
+            </result>
+        </action>
+        <action name="saveStockInEdit" class="com.pltfm.app.action.StockInDetailAction"
+                method="saveStockInEdit">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/warehouse/stockInDetaiList.jsp</result>
+            <result name="error" type="dispatcher">/WEB-INF/jsp/app/warehouse/stockInDetaiList.jsp</result>
+        </action>-->
+        <!-- 跳转到入库单审核页面 -->
+        <!--<action name="toInCheck" class="com.pltfm.app.action.StockInAction" method="queryAllCheck">
+            <result name="success" type="dispatcher">
+                /WEB-INF/jsp/app/warehouse/stockInCheckList.jsp
+            </result>
+        </action>
+        <action name="inCheck" class="com.pltfm.app.action.StockInAction" method="checkStockIn">
+        </action>
+        <action name="queryDetailIncheck" class="com.pltfm.app.action.StockInDetailAction" method="queryAllInCheck">
+            <result name="success" type="dispatcher">
+                /WEB-INF/jsp/app/warehouse/stockInDetaiCkList.jsp
+            </result>
+        </action>-->
+        <!--ajax 查询数量  -->
+        <!--<action name="queryPurchaseInQuantity" class="com.pltfm.app.action.StockInDetailAction"
+                method="queryPurchaseInQuantity">
+        </action>-->
+        <!-- 采购单和采购单详情单 -->
+        <!--<action name="queryAllPurchaseInfo" class="purchaseInfoAction" method="queryAllPurchaseInfo">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/purchaseInfoList.jsp</result>
+            <result type="dispatcher" name="error">/WEB-INF/jsp/app/warehouse/soremessage.jsp</result>
+        </action>
+        <action name="toEditPurchaseInfo" class="purchaseInfoAction" method="toEditPurchaseInfo">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/purchaseCheckList.jsp</result>
+        </action>
+        <action name="checkedPurchaseInfo" class="purchaseInfoAction" method="checkedPurchaseInfo">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/purchaseCheckList.jsp</result>
+        </action>
+        <action name="deletePurchaseInfoById" class="purchaseInfoAction" method="deletePurchaseInfo">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/purchaseCheckList.jsp</result>
+        </action>
+        <action name="toPruchaseAdd" class="purchaseInfoAction" method="toPruchaseAdd">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/purchaseAdd.jsp</result>
+        </action>-->
+        <!--<action name="addPurchaseDetail" class="purchaseDetailAction" method="addPurchaseDetail">
+            <interceptor-ref name="token"/>
+            <interceptor-ref name="defaultStack"/>
+            <result type="dispatcher" name="invalid.token">/WEB-INF/jsp/app/warehouse/soremessage.jsp</result>
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/purchaseDetaiList.jsp</result>
+            <result type="dispatcher" name="error">/WEB-INF/jsp/app/warehouse/soremessage.jsp</result>
+        </action>
+        <action name="queryAllPurchaseDetail" class="purchaseDetailAction" method="queryAllPurchaseDetail">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/purchaseDetaiList.jsp</result>
+            <result type="dispatcher" name="error">/WEB-INF/jsp/app/warehouse/soremessage.jsp</result>
+        </action>
+        <action name="queryPurchaseDetailEdit" class="purchaseDetailAction" method="queryPurchaseDetailEdit">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/purchaseDetaiCheckList.jsp</result>
+            <result type="dispatcher" name="error">/WEB-INF/jsp/app/warehouse/soremessage.jsp</result>
+        </action>
+        <action name="toEditPDetail" class="purchaseDetailAction" method="toEditPDetail">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/purchaseEdit.jsp</result>
+            <result type="dispatcher" name="error">/WEB-INF/jsp/app/warehouse/soremessage.jsp</result>
+        </action>
+        <action name="editPurchaseDetail" class="purchaseDetailAction" method="editPurchaseDetail">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/purchaseDetaiList.jsp</result>
+            <result type="dispatcher" name="error">/WEB-INF/jsp/app/warehouse/soremessage.jsp</result>
+        </action>
+        <action name="findProductInfoBySku" class="purchaseDetailAction" method="findProductInfoBySku">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/purchaseAdd.jsp</result>
+            <result type="dispatcher" name="error">/WEB-INF/jsp/app/warehouse/soremessage.jsp</result>
+        </action>
+        <action name="findProductInfoBySku2" class="purchaseDetailAction" method="findProductInfoBySku2">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/purchaseAdd.jsp</result>
+            <result type="dispatcher" name="error">/WEB-INF/jsp/app/warehouse/soremessage.jsp</result>
+        </action>
+        <action name="findAllSkuProductForPurchase" class="purchaseDetailAction" method="findAllSkuProductForPurchase">
+            <result name="success">/WEB-INF/jsp/app/warehouse/skuForPurchaseList.jsp</result>
+            <result name="stock">/WEB-INF/jsp/app/warehouse/skuForPurchaseList.jsp</result>
+        </action>
+        <action name="checkProductStockByWarehouse" class="purchaseDetailAction" method="checkProductStockByWarehouse">
+            <result type="dispatcher" name="error">/WEB-INF/jsp/app/warehouse/soremessage.jsp</result>
+        </action>-->
+        <!-- 查询未入库的采购单 -->
+        <!--<action name="findAllPurchaseOrders" class="purchaseDetailAction" method="findAllPurchaseOrders">
+            <result name="success">/WEB-INF/jsp/app/warehouse/StockInByPurchaseOrderList.jsp</result>
+        </action>
+        <action name="queryPurchaseDetailForStockIn" class="purchaseDetailAction"
+                method="queryPurchaseDetailForStockIn">
+            <result name="success">/WEB-INF/jsp/app/warehouse/stockInByPurchaseAdd.jsp</result>
+        </action>
+        <action name="queryPurchaseDeatailQuantityByPurchaseNoSku" class="purchaseDetailAction"
+                method="queryPurchaseDeatailQuantityByPurchaseNoSku">
+        </action>-->
+        <!--在弹出框中根据条件查询产品信息 -->
+        <!--<action name="findAllByCondition" class="purchaseDetailAction" method="findAllByCondition">
+            <result name="success">/WEB-INF/jsp/app/warehouse/skuStockInList.jsp
+            </result>
+        </action>-->
+        <!--  根据产品的sku码查询产品信息 -->
+        <!--<action name="findAllBySkuCode" class="purchaseDetailAction" method="findAllBySkuCode">
+        </action>-->
+        <!-- end采购单和采购单详情单-->
+        <action name="findAllSkuProductByPurchase" class="stockOutAction" method="findAllSkuProductByPurchase">
+            <result name="success">/WEB-INF/jsp/app/warehouse/skuPurchaseList.jsp</result>
+            <result name="stock">/WEB-INF/jsp/app/warehouse/skuPurchaseList.jsp</result>
+        </action>
+        <!-- 出库单 -->
+        <action name="findStockOutList" class="stockOutAction" method="findStockOutList">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/stockOutList.jsp</result>
+        </action>
+        <action name="deleteStockOutById" class="stockOutAction" method="deleteStockOutById">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/stockOutAdd.jsp</result>
+        </action>
+        <action name="toStockOutCheck" class="stockOutAction" method="toStockOutCheck">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/stockOutCheckList.jsp</result>
+        </action>
+
+        <action name="checkedStockOut" class="stockOutAction" method="checkedStockOut"/>
+
+        <action name="toStockOutDetail" class="stockOutDetailAction" method="findStockOutDetais">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/stockOutDetailList.jsp</result>
+        </action>
+        <action name="toCheckStockOutDetail" class="stockOutDetailAction" method="toCheckStockOutDetail">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/stockOutCheckDetailList.jsp</result>
+        </action>
+        <action name="toAddStockOutDetail" class="stockOutDetailAction" method="toAddStockOutDetail">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/stockOutAdd.jsp</result>
+        </action>
+        <action name="addstockOutDetail" class="stockOutDetailAction" method="addStockOutDetail">
+            <!-- 阻止重复提交 -->
+            <interceptor-ref name="token"/>
+            <interceptor-ref name="defaultStack"/>
+            <result type="dispatcher" name="invalid.token">/WEB-INF/jsp/app/warehouse/soremessage.jsp</result>
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/stockOutDetailList.jsp</result>
+            <result type="dispatcher" name="error">/WEB-INF/jsp/app/warehouse/soremessage.jsp</result>
+        </action>
+
+        <action name="toEditStockOutDetail" class="stockOutDetailAction" method="toEditStockOutDetail">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/stockOutEdit.jsp</result>
+        </action>
+        <action name="editStockOutDetail" class="stockOutDetailAction" method="editStockOutDetail">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/stockOutDetailList.jsp</result>
+        </action>
+
+        <!-- 配送单 -->
+        <action name="toDistributionInfoList" class="distributionInfoAction" method="toDistributionInfoList">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/distributionInfoList.jsp</result>
+        </action>
+
+		<!-- 配送信息导入页面 -->
+        <action name="toAddDistributionInfo" class="distributionInfoAction" method="toAddDistributionInfo">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/distributionInfoAdd.jsp</result>
+        </action>
+        
+        <!-- 配送信息导入 -->
+        <action name="doImportDisInfo" class="distributionInfoAction" method="doImportDisInfo"></action>
+        
+        <!-- 配送信息导入模板下载 -->
+        <action name="downloadDistributionTemplate" class="distributionInfoAction" method="downloadDistributionTemplate">
+            <result name="excel" type="stream">
+               <param name="contentType">application/vnd.ms-excel</param>
+               <param name="inputName">excelStream</param>
+               <param name="contentDisposition">filename="distributionTemplate.xls"</param>
+               <param name="bufferSize">1024</param>
+           </result>
+        </action>
+        
+        <action name="gotoImportDisInfoPage" class="distributionInfoAction" method="gotoImportDisInfoPage">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/importDisInfoPage.jsp</result>
+        </action>
+
+        <action name="deleteDistributionInfo" class="distributionInfoAction" method="deleteDistributionInfo">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/soremessage.jsp</result>
+        </action>
+
+        <action name="distriListForCheck" class="distributionInfoAction" method="distriListForCheck">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/distributionInfoCheckList.jsp</result>
+        </action>
+
+        <action name="checkedDistributionInfo" class="distributionInfoAction" method="checkedDistributionInfo"/>
+
+        <action name="toEditDistributionInfo" class="distributionInfoAction" method="toEditDistributionInfo">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/distributionInfoEdit.jsp</result>
+        </action>
+
+        <action name="addDistributionInfo" class="distributionDetailInfoAction" method="addDistributionInfo">
+            <interceptor-ref name="token"/>
+            <interceptor-ref name="defaultStack"/>
+            <result type="dispatcher" name="invalid.token">/WEB-INF/jsp/app/warehouse/distributionDetailInfoList.jsp
+            </result>
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/distributionDetailInfoList.jsp</result>
+            <result type="dispatcher" name="error">/WEB-INF/jsp/app/warehouse/soremessage.jsp</result>
+        </action>
+
+        <action name="toDistributionDetails" class="distributionDetailInfoAction" method="findDistributionDetails">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/distributionDetailInfoList.jsp</result>
+            <result type="dispatcher" name="checkList">/WEB-INF/jsp/app/warehouse/distributionCheckDetailList.jsp
+            </result>
+        </action>
+
+        <action name="editDistributionInfo" class="distributionDetailInfoAction" method="editDistributionInfo">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/distributionDetailInfoList.jsp</result>
+        </action>
+
+        <!-- end 仓库管理 -->
+
+        <!-- 库存管理 -->
+        <action name="stockShow" class="stockAction" method="showList">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/productStockList.jsp</result>
+        </action>
+        <action name="stockShowAlarm" class="stockAction" method="showAlarmList">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/productStockAlarmList.jsp</result>
+        </action>
+        <action name="toStockAdd" class="stockAction" method="toStockAdd">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/productStockAdd.jsp</result>
+        </action>
+        <action name="toStockView" class="stockAction" method="toStockView">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/productStockView.jsp</result>
+        </action>
+        <action name="stockAdd" class="stockAction" method="addStock">
+            <interceptor-ref name="token"/>
+            <interceptor-ref name="defaultStack"/>
+            <result type="dispatcher" name="invalid.token">/WEB-INF/jsp/public/reSubmit.jsp</result>
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/productStockList.jsp</result>
+        </action>
+        <action name="toStockUpdate" class="stockAction" method="toStockUpdate">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/productStockUpdate.jsp</result>
+        </action>
+        <action name="stockUpdate" class="stockAction" method="updateStock">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/productStockList.jsp</result>
+            <result type="dispatcher" name="alarmlist">/WEB-INF/jsp/app/warehouse/productStockAlarmList.jsp</result>
+        </action>
+        <action name="checkSku" class="stockAction" method="checkSku">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/productStockList.jsp</result>
+        </action>
+        <action name="findAllSkuProduct" class="stockAction" method="findAllSkuProduct">
+            <result name="success">/WEB-INF/jsp/app/prodImage/skuProductList.jsp</result>
+            <result name="stock">/WEB-INF/jsp/app/warehouse/skuProductList.jsp</result>
+        </action>
+        <!--end 库存管理 -->
+
+        <!-- start 咨询管理 -->
+        <action name="gotoQueryConsultList" class="consultAction" method="gotoQueryConsultList">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/consult/consultList.jsp</result>
+        </action>
+        <action name="gotoConsultReply" class="consultAction" method="gotoConsultReply">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/consult/consultReply.jsp</result>
+        </action>
+        <action name="gotoConsultReplyUpdate" class="consultAction" method="gotoConsultReply">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/consult/consultReplyUpdate.jsp</result>
+        </action>
+        <action name="replyConsultUpdate" class="consultAction" method="replyConsultUpdate">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/consult/consultList.jsp</result>
+        </action>
+        <action name="consultCheckPass" class="consultAction" method="consultCheckPass">
+        </action>
+        <action name="replyConsult" class="consultAction" method="replyConsult">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/consult/consultList.jsp</result>
+        </action>
+        <action name="gotoConsultCheck" class="consultAction" method="gotoConsultCheck">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/consult/consultCheck.jsp</result>
+        </action>
+        <action name="checkConsult" class="consultAction" method="checkConsult">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/consult/consultCheck.jsp</result>
+        </action>
+        <action name="autoCheck" class="consultAction" method="autoCheck">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/consult/consultList.jsp</result>
+        </action>
+        <action name="gotoViewConsult" class="consultAction" method="gotoViewConsult">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/consult/consultView.jsp</result>
+        </action>
+        <!-- end 咨询管理 -->
+        <!-- start 产品评价 -->
+        <action name="toUploadExcelForAppraise">
+            <result>/WEB-INF/jsp/app/appraise/uploadExcelForAppraise.jsp</result>
+        </action>
+        <action name="prodAppraiseShow" class="prodAppraiseAction" method="showList">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/appraise/prodAppraiseList.jsp</result>
+        </action>
+        <action name="gotoProdAppraiseView" class="prodAppraiseAction" method="toView">
+            <result type="dispatcher" name="audit">/WEB-INF/jsp/app/appraise/prodAppraiseAudit.jsp</result>
+            <result type="dispatcher" name="reply">/WEB-INF/jsp/app/appraise/prodAppraiseReply.jsp</result>
+            <result type="dispatcher" name="view">/WEB-INF/jsp/app/appraise/prodAppraiseAudit.jsp</result>
+            <result type="dispatcher" name="replyView">/WEB-INF/jsp/app/appraise/prodAppraiseReplyAudit.jsp</result>
+        </action>
+        <action name="gotoAuditProdAppraise" class="prodAppraiseAction" method="toAudit">
+            <result type="dispatcher" name="replyView">/WEB-INF/jsp/app/appraise/prodAppraiseReplyAudit.jsp</result>
+        </action>
+        <action name="deleteProdAppraise" class="prodAppraiseAction" method="deleteProdApp">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/appraise/prodAppraiseList.jsp</result>
+        </action>
+        <action name="prodAppraisePropShow" class="appraisePropAction" method="showList">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/appraise/prodAppraisePropList.jsp</result>
+        </action>
+        <action name="prodAppraisePropSelectList" class="appraisePropAction" method="propSelectList">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/appraise/propSelectList.jsp</result>
+        </action>
+        <action name="gotoProdAppraisePropUpdate" class="appraisePropAction" method="toUpdate">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/appraise/prodAppraisePropView.jsp</result>
+        </action>
+        <action name="prodAppraisePropUpdate" class="appraisePropAction" method="update">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/appraise/prodAppraisePropList.jsp</result>
+        </action>
+        <action name="gotoProdAppraisePropAdd" class="appraisePropAction" method="toAdd">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/appraise/prodAppraisePropAdd.jsp</result>
+        </action>
+        <action name="prodAppraisePropAdd" class="appraisePropAction" method="add">
+            <interceptor-ref name="token"/>
+            <interceptor-ref name="defaultStack"/>
+            <result type="dispatcher" name="invalid.token">/WEB-INF/jsp/public/reSubmit.jsp</result>
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/appraise/prodAppraisePropList.jsp</result>
+        </action>
+        <action name="deleteProdAppraiseProp" class="appraisePropAction" method="delete">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/appraise/prodAppraisePropList.jsp</result>
+        </action>
+        <action name="findAllCategory" class="appraisePropAction" method="findAllCategory">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/appraise/categoryList.jsp</result>
+        </action>
+        <action name="categoryAndPropSave" class="appraisePropAction" method="saveCategoryPropRela">
+        </action>
+        <action name="findAppPropByCageId" class="appraisePropAction" method="findAppPropByCageId">
+        </action>
+        <action name="prodAppraisePropUnbind" class="appraisePropAction" method="unBindProp">
+        </action>
+        <action name="findNeedReplyAppr" class="prodAppraiseAction" method="findNeedReplyAppr">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/appraise/prodAppraiseReplyList.jsp</result>
+        </action>
+        <action name="saveAppraiseReply" class="prodAppraiseAction" method="replyAppr">
+            <interceptor-ref name="token"/>
+            <interceptor-ref name="defaultStack"/>
+            <result type="dispatcher" name="invalid.token">/WEB-INF/jsp/public/reSubmit.jsp</result>
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/appraise/prodAppraiseReplyList.jsp</result>
+        </action>
+        <action name="appReplyShowList" class="prodAppraiseAction" method="showReplyList">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/appraise/appraiseReplyList.jsp</result>
+        </action>
+        <action name="deleteAppReply" class="prodAppraiseAction" method="deleteAppReply">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/appraise/appraiseReplyList.jsp</result>
+        </action>
+        <action name="appReplyToAudit" class="prodAppraiseAction" method="appReplyToAudit">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/appraise/appraiseReplyList.jsp</result>
+        </action>
+        <!-- 评价列表的回复审核 -->
+        <action name="appReplyToAuditApp" class="prodAppraiseAction" method="appraiseReplyToAudit">
+            <result type="dispatcher" name="replyView">/WEB-INF/jsp/app/appraise/prodAppraiseReplyAudit.jsp</result>
+        </action>
+        <action name="showAddtoContentList" class="prodAppraiseAction" method="showAddtoContentList">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/appraise/appraiseAddContentList.jsp</result>
+        </action>
+        <action name="deleteAddtoContent" class="prodAppraiseAction" method="deleteAddtoContent">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/appraise/appraiseAddContentList.jsp</result>
+        </action>
+        <action name="addToContentToAudit" class="prodAppraiseAction" method="addToContentToAudit">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/appraise/appraiseAddContentList.jsp</result>
+        </action>
+        <!--评价列表的追加评论审核   -->
+        <action name="addToContentToAuditApp" class="prodAppraiseAction" method="addToContentToAuditAppraise">
+            <result type="dispatcher" name="replyView">/WEB-INF/jsp/app/appraise/prodAppraiseReplyAudit.jsp</result>
+        </action>
+        <!-- 设置取消精华帖 -->
+        <action name="updateAppraiseElite" class="prodAppraiseAction" method="updateAppraiseElite">
+        </action>
+        <action name="uploadExcelFileForAppraise" class="prodAppraiseAction" method="uploadExcelFileForAppraise">
+        </action>
+        <!-- end 产品评价 -->
+
+        <!-- start 退货单 -->
+        <action name="findAllReturnNotes" class="aftersaleReturnOrderAction" method="showList">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/returnNote/returnNoteList.jsp</result>
+        </action>
+        <action name="gotoReturnNotesEdit" class="aftersaleReturnOrderAction" method="gotoEdit">
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/returnNote/returnNoteAudit.jsp</result>
+        </action>
+        <action name="editReturnNotesResult" class="aftersaleReturnOrderAction" method="edit">
+        </action>
+        <action name="editReturnNotesStatus" class="aftersaleReturnOrderAction" method="editStatus">
+        </action>
+        <!-- end 退货单 -->
+
+        <!-- start 产品库存操作日志 -->
+        <action name="queryProductStockLog" class="productStockLogAction" method="queryProductStockLog">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/OperateLog/StockOperateLog.jsp</result>
+        </action>
+        <!-- 根据产品编号查询 产品详情 -->
+        <action name="queryProductInfoByProductNo" class="productStockLogAction" method="queryProductInfoByProductNo">
+            <result name="success" type="redirect">
+                /app/viewProductByProductNo.action?product.id=${product.productId}
+            </result>
+        </action>
+        <!-- 根据仓库id中查询对应的仓库记录中的信息 -->
+        <action name="queryProductStockByStockId" class="productStockLogAction"
+                method="queryProductStockByStockId">
+            <result name="success" type="dispatcher">
+                /WEB-INF/jsp/app/viewProductStock.jsp
+            </result>
+        </action>
+
+        <action name="queryStockOutDetailByStockOutId" class="productStockLogAction"
+                method="queryStockOutDetailByStockOutId">
+            <result name="success" type="dispatcher">
+                /WEB-INF/jsp/app/viewStockOutDetail.jsp
+            </result>
+            <result name="stockIndetailSuccess" type="dispatcher">
+                /WEB-INF/jsp/app/ViewstockInDetaiList.jsp
+            </result>
+        </action>
+
+
+        <!-- 查看产品的详情信息 -->
+        <action name="viewProductByProductNo" class="com.pltfm.app.action.ProductAction" method="viewProductByProductNo">
+            <result name="success" type="dispatcher">
+                /WEB-INF/jsp/app/viewProducctByProductNo.jsp
+            </result>
+        </action>
+
+
+        <action name="findSkuInfoBySkuCode" class="productStockLogAction" method="findSkuInfoBySkuCode">
+            <result name="success" type="dispatcher">
+                /WEB-INF/jsp/app/ViewSkuInfoBySkuCode.jsp
+            </result>
+        </action>
+        <!--仓库管理结束 -->
+
+        <!-- 供应商审核 -->
+        <action name="supplierAuditList" class="supplierAuditAction" method="showSupplierAuditList">
+            <result name="success">/WEB-INF/jsp/app/supplier/supplierAuditList.jsp</result>
+        </action>
+        <action name="gotoMerchantSupplierView" class="supplierAuditAction" method="goToSupplierOrmerView">
+             <result name="success">/WEB-INF/jsp/app/supplier/supplierAuditView.jsp</result>
+        </action>
+        <action name="updateSupplierStatus" class="supplierAuditAction" method="updateSupplierStatus">
+        </action>
+        <action name="supplierForCause" class="supplierAuditAction" method="supplierForCause">
+            <result name="success">/WEB-INF/jsp/app/supplier/supplierForCause.jsp</result>
+        </action>
+        <action name="gotoSupplierUpdate" class="supplierAuditAction" method="gotoSupplierUpdate">
+             <result name="success">/WEB-INF/jsp/app/supplier/supplierAuditUpdate.jsp</result>
+        </action>
+        <action name="gotoSupplierUpdateNopass" class="supplierAuditAction" method="gotoSupplierUpdate">
+            <result name="success">/WEB-INF/jsp/app/supplier/supplierAuditUpdateNoPass.jsp</result>
+        </action>
+        <action name="supplierUpdateNoPass" class="supplierAuditAction" method="supplierUpdateNoPass">
+            <result name="success">/WEB-INF/jsp/app/supplier/supplierAuditList.jsp</result>
+        </action>
+        <action name="supplierUpdate" class="supplierAuditAction" method="supplierUpdate">
+            <result name="success">/WEB-INF/jsp/app/supplier/supplierAuditList.jsp</result>
+        </action>
+        <action name="notPass" class="supplierAuditAction" method="notPass">
+        </action>
+        <action name="deleteFile" class="supplierAuditAction" method="deleteFile">
+        </action>
+        <!-- 供应商资质文件上传 -->
+        <action name="uploadCeriticate" class="supplierAuditAction" method="uploadCeriticate">
+        </action>
+        <!-- 到添加供应商页面 -->
+        <action name="addSupplierShow" class="supplierAuditAction" method="addSupplierShow">
+            <result name="success">/WEB-INF/jsp/app/supplier/supplierAuditAddOne.jsp</result>
+        </action>
+
+        <action name="toSupplierAdd" class="supplierAuditAction" method="goSupplierAdd">
+            <result name="success">/WEB-INF/jsp/app/supplier/supplierAuditAddTwo.jsp</result>
+        </action>
+
+        <action name="supplierAdd" class="supplierAuditAction" method="supplierAdd">
+            <result name="success">/WEB-INF/jsp/app/supplier/supplierAuditAddThree.jsp</result>
+        </action>
+        <action name="verifyUser" class="supplierAuditAction" method="verifyUser">
+        </action>
+        <action name="updateMerchanStatus" class="supplierAuditAction" method="updateMerchanStatus">
+        </action>
+
+        <!-- 关闭开启业务 -->
+        <action name="updateBusinessStatus" class="supplierAuditAction"
+                method="updateBusinessStatus">
+        </action>
+        <!-- 关闭开启 -->
+        <action name="updateCloseStatus" class="supplierAuditAction" method="updateCloseStatus">
+        </action>
+        <!-- 查询是否存在一样的公司名称 -->
+        <action name="ckCorporateName" class="supplierAuditAction" method="ckCorporateName">
+        </action>
+        <!-- 导出供应商审核信息 -->
+        <action name="exportSupplierAuditList" class="supplierAuditAction"
+                method="exportSupplierAuditList">
+        </action>
+        <!-- 供应商审核结束 -->
+        <!-- 供应商店铺开始 -->
+        <action name="supplierShopList" class="supplierShopAction" method="supplierShopList">
+            <result name="success">/WEB-INF/jsp/app/supplier/supplierShopList.jsp</result>
+        </action>
+        <action name="exportSupplierShopList" class="supplierShopAction" method="exportSupplierShopList">
+        </action>
+        <action name="gotoSupplierShopView" class="supplierShopAction" method="gotoSupplierShopView">
+            <result name="success">/WEB-INF/jsp/app/supplier/supplierShopAuditView.jsp</result>
+        </action>
+        <action name="supplierShopStatus" class="supplierShopAction" method="updateSupplierShopStatus">
+        </action>
+        <action name="gotoSupplierShopUpdate" class="supplierShopAction" method="gotoSupplierShopUpdate">
+            <result name="success">/WEB-INF/jsp/app/supplier/supplierShopUpdate.jsp</result>
+        </action>
+        <action name="updateSupplierShop" class="supplierShopAction" method="updateSupplierShop">
+            <result name="success">/WEB-INF/jsp/app/supplier/supplierShopUpdate.jsp</result>
+        </action>
+        <action name="showShopMainDraftList" class="shopMainDraftAction" method="showShopMainDraftList">
+            <result name="success">/WEB-INF/jsp/app/supplier/showShopMainDraftList.jsp</result>
+        </action>
+        <action name="updateShoMainDraftAudit" class="shopMainDraftAction" method="updateShoMainDraftAudit"></action>
+        <action name="toViewShopMainDraft" class="shopMainDraftAction" method="toViewShopMainDraft">
+            <result name="view">/WEB-INF/jsp/app/supplier/supplierShopDraftView.jsp</result>
+            <result name="audit">/WEB-INF/jsp/app/supplier/supplierShopDraftAuditView.jsp</result>
+        </action>
+        <!-- 供应商店铺审核 -->
+        <action name="auditSupplierShop" class="supplierShopAction" method="auditSupplierShop">
+        </action>
+        <action name="supplierShopForCause" class="supplierShopAction" method="supplierShopForCause">
+            <result name="success">/WEB-INF/jsp/app/supplier/supplierShopForCause.jsp</result>
+        </action>
+        <action name="ckSupplierShopStatus" class="supplierShopAction" method="ckSupplierShopStatus">
+        </action>
+        <!-- 供应商店铺浏览量 maliqun -->
+        <action name="queryShopBrowseList" class="com.pltfm.app.action.ShopBrowseAction" method="queryShopBrowseList">
+            <result name="success">/WEB-INF/jsp/app/supplier/shopBrowseList.jsp</result>
+        </action>
+        <action name="findAllSupplierB2BShop" class="com.pltfm.app.action.ShopBrowseAction" method="findAllSupplierShop"></action>
+        <!-- 供应商店铺结束-->
+    </package>
+
+    <package name="common" extends="struts" namespace="/common">
+        <action name="queryCategoryListByPromotion" class="categoryAction" method="queryCategoryList">
+            <result name="success">/WEB-INF/jsp/common/selectProductCategory.jsp</result>
+        </action>
+        <action name="selectProductBrand" class="prodBrandAction" method="show">
+            <result name="success">/WEB-INF/jsp/common/selectProductBrand.jsp</result>
+        </action>
+        <action name="selectNewProductShop" class="prodShopAction" method="newshow">
+            <result name="success">/WEB-INF/jsp/common/selectNewProductShop.jsp</result>
+        </action>
+    </package>
+
+    <package name="saleRank" extends="struts" namespace="/saleRank">
+        <action name="querySaleRank" class="com.pltfm.app.action.SaleRankAction" method="querySaleRank">
+            <result name="success" type="dispatcher">/WEB-INF/jsp/app/saleRank.jsp</result>
+            <result name="saleRank" type="dispatcher">/WEB-INF/jsp/app/saleRank.jsp</result>
+        </action>
+    </package>
+
+</struts>

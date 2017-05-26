@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+		"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<!-- 分页组件 -->
+	<definition name="pagination" template="/WEB-INF/jsp/common/pagination.jsp"></definition>
+	<definition name="paginationBottom" template="/WEB-INF/jsp/common/paginationBottom.jsp"></definition>
+
+	<!-- 申请供应商 -->
+	<definition name="applySupplierContent" template="/WEB-INF/jsp/apply/template/applySupplierContent.jsp"></definition>
+	<!-- 申请供应商协议页面 -->
+	<definition name="applyAgreementContent" template="/WEB-INF/jsp/apply/template/applyAgreementContent.jsp"></definition>
+	<!-- 申请供应商协议页面 -->
+	<definition name="applyAgreementVerifyContent" template="/WEB-INF/jsp/apply/template/applyAgreementVerifyContent.jsp"></definition>
+	<!-- 申请供应商第二页面 -->
+	<definition name="applySupplierTwoContent" template="/WEB-INF/jsp/apply/template/applySupplierTwoContent.jsp"></definition>
+	<!-- 申请供应商第三页面 -->
+	<definition name="applySupplierThreeContent" template="/WEB-INF/jsp/apply/template/applySupplierThreeContent.jsp"></definition>
+	<!-- 申请供应商添加店铺页面 -->
+	<definition name="applySupplierShopContent" template="/WEB-INF/jsp/apply/template/applySupplierShopContent.jsp"></definition>
+	<!-- 申请供应商提示页面 -->
+	<definition name="applySupplierDialogContent" template="/WEB-INF/jsp/apply/template/applySupplierDialogContent.jsp"></definition>
+	<!-- 供应商申请店铺修改页面 -->
+	<definition name="applySupplierShopUpdateContent" template="/WEB-INF/jsp/apply/template/applySupplierShopUpdateContent.jsp"></definition>
+
+    <!-- 订单管理 -->
+    <definition name="allOrderListContent" template="/WEB-INF/jsp/order/template/allOrderListContent.jsp"></definition>
+    <definition name="effectiveOrderListContent" template="/WEB-INF/jsp/order/template/effectiveOrderListContent.jsp"></definition>
+    <definition name="orderCarryOverContent" template="/WEB-INF/jsp/order/template/orderCarryOverContent.jsp"></definition>
+	<definition name="orderCarryOverListContent" template="/WEB-INF/jsp/order/template/orderCarryOverListContent.jsp"></definition>
+	<definition name="allOrderListForKMB2BContent" template="/WEB-INF/jsp/order/template/allOrderListForKMB2BContent.jsp"></definition>
+	<definition name="orderAssessViewContent" template="/WEB-INF/jsp/order/template/orderAssessViewContent.jsp"></definition>
+
+	<!--退换货-->
+	<definition name="returnOderAuditContent" template="/WEB-INF/jsp/supplier/template/returnOderAuditContent.jsp"></definition>
+	<definition name="returnOrderItemDetailContent" template="/WEB-INF/jsp/supplier/template/returnOrderItemDetailContent.jsp"></definition>
+</tiles-definitions>

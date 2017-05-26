@@ -1,0 +1,746 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PROMOTION_PRODUCT" >
+	<typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+   
+   <resultMap id="promotionProductResult" class="com.kmzyc.promotion.app.vobject.ProductSku" >
+  	<result property="productSkuId" column="PRODUCT_SKU_ID" jdbcType="DECIMAL"/>
+  	<result property="productId" column="PRODUCT_ID" jdbcType="DECIMAL"/>
+  	<result property="price" column="PRICE" jdbcType="DECIMAL"/>
+  	<result property="shopCode" column="shop_code" jdbcType="DECIMAL"/>
+  </resultMap>
+	<resultMap id="promotionProductForProductResult" class="com.kmzyc.promotion.app.vobject.PromotionProduct" >
+		<result column="procuct_name" property="productName" jdbcType="VARCHAR" />
+		<result column="PRODUCT_SKU_CODE" property="productSkuCode" jdbcType="VARCHAR" />
+		<result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+		<result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+		<result column="mark_price" property="marketPrice" jdbcType="DECIMAL" />
+		<result column="PRICE" property="price" jdbcType="DECIMAL" />
+	</resultMap>
+	
+  	<resultMap id="ibatorgenerated_CountResult" class="com.kmzyc.promotion.sys.model.SysModelUtil">
+    	<result column="the_count" property="theCount" jdbcType="DECIMAL" />
+  	</resultMap>
+  	
+  	<resultMap id="ibatorgenerated_BaseResultMap" class="com.kmzyc.promotion.app.vobject.PromotionProduct" >
+	    <result column="PROMOTION_PRODUCT_ID" property="promotionProductId" jdbcType="DECIMAL" />
+	    <result column="PROMOTION_ID" property="promotionId" jdbcType="DECIMAL" />
+	    <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+	    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="java.util.DATE" />
+	    <result column="MIN_BUY" property="minBuy" jdbcType="DECIMAL" />
+	    <result column="MAX_BUY" property="maxBuy" jdbcType="DECIMAL" />
+	    <result column="PROMOTION_STOCK" property="promotionStock" jdbcType="DECIMAL" />
+		<result column="PROMOTION_SELL" property="promotionSell" jdbcType="DECIMAL" />
+  	</resultMap>
+  	
+  	<resultMap  id="ibatorgenerated_BaseResultMap1" extends="ibatorgenerated_BaseResultMap" class="com.kmzyc.promotion.app.vobject.PromotionProduct" >
+  	<result column="STATUS" property="status" jdbcType="DECIMAL" />
+  	<result column="MODIFY_TIME" property="modifyTime" jdbcType="java.util.DATE" />
+  	</resultMap>
+  	
+  	<resultMap id="ibatorgenerated_BaseResultMap_skuPrice" extends="ibatorgenerated_BaseResultMap" class="com.kmzyc.promotion.app.vobject.PromotionProduct">
+  		<result column="originalPrice" property="originalPrice" jdbcType="DECIMAL" nullValue="0" />
+  		<result column="status" property="status" jdbcType="DECIMAL"  />
+  		<result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR"  />
+  		<result column="MODIFY_TIME" property="modifyTime" jdbcType="java.util.DATE" />
+  		<result column="productStatus" property="productStatus" jdbcType="DECIMAL"  />
+  		<result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR"  />
+  		<result column="SHOP_NAME" property="shopName" jdbcType="VARCHAR"  />
+  	</resultMap>
+  	
+  	<sql id="ibatorgenerated_Example_Where_Clause" >
+    	<iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      		<isEqual property="oredCriteria[].valid" compareValue="true" >
+        	(
+        	<iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          	$oredCriteria[].criteriaWithoutValue[]$
+        	</iterate>
+        	<iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          	$oredCriteria[].criteriaWithSingleValue[].condition$
+            	#oredCriteria[].criteriaWithSingleValue[].value#
+        	</iterate>
+        	<iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          	$oredCriteria[].criteriaWithListValue[].condition$
+	          	<iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+	            #oredCriteria[].criteriaWithListValue[].values[]#
+	         	</iterate>
+        	</iterate>
+	        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+	          $oredCriteria[].criteriaWithBetweenValue[].condition$
+	          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+	          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+	        </iterate>
+        	)
+      		</isEqual>
+    	</iterate>
+  	</sql>
+  	
+  	<select id="ibatorgenerated_selectByExample" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.kmzyc.promotion.app.vobject.PromotionProductExample" >
+	    select PROMOTION_PRODUCT_ID,
+	       PROMOTION_ID,
+	       PRODUCT_SKU_ID,
+	       PRICE,
+	       CREATE_TIME,
+	       MIN_BUY,
+	       MAX_BUY,
+	       PROMOTION_STOCK,
+	       PROMOTION_SELL
+	  from PROMOTION_PRODUCT
+    	<isParameterPresent >
+      	<include refid="PROMOTION_PRODUCT.ibatorgenerated_Example_Where_Clause" />
+      	<isNotNull property="orderByClause" >
+        	order by $orderByClause$
+      	</isNotNull>
+    	</isParameterPresent>
+  	</select>
+  	<select id="selectByPromotionId" resultMap="ibatorgenerated_BaseResultMap" parameterClass="java.lang.Long" >
+	    select PROMOTION_PRODUCT_ID,
+	       PROMOTION_ID,
+	       PRODUCT_SKU_ID,
+	       PRICE,
+	       CREATE_TIME,
+	       MIN_BUY,
+	       MAX_BUY,
+	       PROMOTION_STOCK,
+	       PROMOTION_SELL
+	  from PROMOTION_PRODUCT where  promotion_id =  #newId:DECIMAL# 
+    	
+  	</select>
+  	
+  	<select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap1" parameterClass="com.kmzyc.promotion.app.vobject.PromotionProduct" >
+    	select PROMOTION_PRODUCT_ID,
+		       PROMOTION_ID,
+		       PRODUCT_SKU_ID,
+		       PRICE,
+		       CREATE_TIME,
+		       MIN_BUY,
+		       MAX_BUY,
+		       PROMOTION_STOCK,
+		       PROMOTION_SELL,
+		       STATUS,
+		       MODIFY_TIME
+		  from PROMOTION_PRODUCT
+		    where PROMOTION_PRODUCT_ID = #promotionProductId:DECIMAL#
+  	</select>
+  	
+  	<delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="com.kmzyc.promotion.app.vobject.PromotionProduct" >
+    	delete from PROMOTION_PRODUCT where PROMOTION_PRODUCT_ID = #promotionProductId:DECIMAL#
+  	</delete>
+  	
+  	<delete id="ibatorgenerated_deleteByExample" parameterClass="com.kmzyc.promotion.app.vobject.PromotionProductExample" >
+    	delete from PROMOTION_PRODUCT
+    	<include refid="PROMOTION_PRODUCT.ibatorgenerated_Example_Where_Clause" />
+  	</delete>
+  	
+  	<insert id="ibatorgenerated_insert" parameterClass="com.kmzyc.promotion.app.vobject.PromotionProduct" >
+    	<selectKey resultClass="java.lang.Long" keyProperty="promotionProductId" >
+    	select SEQ_APP_PROMOTION_PRODUCT.nextval from dual
+   		</selectKey>
+	    insert into PROMOTION_PRODUCT (PROMOTION_PRODUCT_ID, PROMOTION_ID, PRODUCT_SKU_ID, PRICE,
+	      CREATE_TIME)
+	    values (#promotionProductId:DECIMAL#, #promotionId:DECIMAL#, #productSkuId:DECIMAL#,
+	      #price:DECIMAL#, sysdate)
+  	</insert>
+  	
+  	<insert id="ibatorgenerated_insertSelective" parameterClass="com.kmzyc.promotion.app.vobject.PromotionProduct" >
+	    <selectKey resultClass="java.lang.Long" keyProperty="promotionProductId" >
+	    	select SEQ_APP_PROMOTION_PRODUCT.nextval from dual
+	   	</selectKey>
+	    insert into PROMOTION_PRODUCT
+	    <dynamic prepend="(" >
+	      <isNotNull prepend="," property="promotionProductId" >
+	        PROMOTION_PRODUCT_ID
+	      </isNotNull>
+	      <isNotNull prepend="," property="promotionId" >
+	        PROMOTION_ID
+	      </isNotNull>
+	      <isNotNull prepend="," property="productSkuId" >
+	        PRODUCT_SKU_ID
+	      </isNotNull>
+	      <isNotNull prepend="," property="price" >
+	        PRICE
+	      </isNotNull>
+	      <isNotNull prepend="," property="createTime" >
+	        CREATE_TIME
+	      </isNotNull>
+	      <isNotNull prepend="," property="modifyTime" >
+	       MODIFY_TIME
+	      </isNotNull>
+	      <isNotNull prepend="," property="status" >
+	       STATUS
+	      </isNotNull>
+	      <isNotNull prepend="," property="category" >
+	       CATEGORY
+	      </isNotNull>
+	      )
+	    </dynamic>
+	    values
+	    <dynamic prepend="(" >
+	      <isNotNull prepend="," property="promotionProductId" >
+	        #promotionProductId:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="promotionId" >
+	        #promotionId:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="productSkuId" >
+	        #productSkuId:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="price" >
+	        #price:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="createTime" >
+	        #createTime:java.util.DATE#
+	      </isNotNull>
+	      <isNotNull prepend="," property="modifyTime" >
+	        #modifyTime:java.util.DATE#
+	      </isNotNull>
+	        <isNotNull prepend="," property="status" >
+	        #status:DECIMAL#
+	      </isNotNull>
+	        <isNotNull prepend="," property="category" >
+	        #category:DECIMAL#
+	      </isNotNull>
+	      )
+	    </dynamic>
+  	</insert>
+  	
+  	<select id="ibatorgenerated_countByExample" parameterClass="com.kmzyc.promotion.app.vobject.PromotionProductExample" resultClass="java.lang.Integer" >
+    	select count(*) from PROMOTION_PRODUCT
+    	<include refid="PROMOTION_PRODUCT.ibatorgenerated_Example_Where_Clause" />
+  	</select>
+  	
+	<update id="ibatorgenerated_updateByExampleSelective" >
+	    update PROMOTION_PRODUCT
+	    <dynamic prepend="set" >
+	      <isNotNull prepend="," property="record.promotionProductId" >
+	        PROMOTION_PRODUCT_ID = #record.promotionProductId:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="record.promotionId" >
+	        PROMOTION_ID = #record.promotionId:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="record.productSkuId" >
+	        PRODUCT_SKU_ID = #record.productSkuId:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="record.price" >
+	        PRICE = #record.price:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="record.createTime" >
+	        CREATE_TIME = #record.createTime:java.util.DATE#
+	      </isNotNull>
+	    </dynamic>
+	    <isParameterPresent >
+	      <include refid="PROMOTION_PRODUCT.ibatorgenerated_Example_Where_Clause" />
+	    </isParameterPresent>
+  	</update>
+  
+  	<update id="ibatorgenerated_updateByExample" >
+	    update PROMOTION_PRODUCT
+	    set PROMOTION_PRODUCT_ID = #record.promotionProductId:DECIMAL#,
+	      PROMOTION_ID = #record.promotionId:DECIMAL#,
+	      PRODUCT_SKU_ID = #record.productSkuId:DECIMAL#,
+	      PRICE = #record.price:DECIMAL#,
+	      CREATE_TIME = #record.createTime:java.util.DATE#
+	    <isParameterPresent >
+	      <include refid="PROMOTION_PRODUCT.ibatorgenerated_Example_Where_Clause" />
+	    </isParameterPresent>
+  	</update>
+  	
+  	<update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="com.kmzyc.promotion.app.vobject.PromotionProduct" >
+	    update PROMOTION_PRODUCT
+	    <dynamic prepend="set" >
+	      <isNotNull prepend="," property="promotionId" >
+	        PROMOTION_ID = #promotionId:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="productSkuId" >
+	        PRODUCT_SKU_ID = #productSkuId:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="price" >
+	        PRICE = #price:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="createTime" >
+	        CREATE_TIME = #createTime:java.util.DATE#
+	      </isNotNull>
+	      <isNotNull prepend="," property="minBuy" >
+	        MIN_BUY = #minBuy:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="maxBuy" >
+	        MAX_BUY = #maxBuy:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="promotionStock" >
+	        PROMOTION_STOCK = #promotionStock:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="promotionSell" >
+	        PROMOTION_SELL = #promotionSell:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="status" >
+	        status = #status:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="modifyTime" >
+	       MODIFY_TIME = #modifyTime:java.util.DATE#
+	      </isNotNull>
+	    </dynamic>
+	    where PROMOTION_PRODUCT_ID = #promotionProductId:DECIMAL#
+	</update>
+  
+  	<update id="ibatorgenerated_updateByPrimaryKey" parameterClass="com.kmzyc.promotion.app.vobject.PromotionProduct" >
+	    update PROMOTION_PRODUCT
+	    set PROMOTION_ID = #promotionId:DECIMAL#,
+	      PRODUCT_SKU_ID = #productSkuId:DECIMAL#,
+	      PRICE = #price:DECIMAL#,
+	      CREATE_TIME = #createTime:java.util.DATE#
+	    where PROMOTION_PRODUCT_ID = #promotionProductId:DECIMAL#
+  	</update>
+  
+  	<select id="searchPageByVo" resultMap="ibatorgenerated_BaseResultMap_skuPrice" parameterClass="com.kmzyc.promotion.app.vobject.PromotionProduct">
+	    select PROMOTION_PRODUCT_ID, PROMOTION_ID, PRODUCT_SKU_ID,SHOP_CODE,productStatus,BRAND_NAME, PRICE
+	    , CREATE_TIME,MIN_BUY,MAX_BUY,PROMOTION_STOCK,originalPrice,PROMOTION_SELL,MODIFY_TIME,STATUS,
+	   (select ctbi.corporate_name
+		              from commercial_tenant_basic_info ctbi
+		             where ctbi.n_commercial_tenant_id = MERCHANT_ID) as SHOP_NAME
+	    FROM (
+	    select  ROW_NUMBER() OVER(order by PROMOTION_PRODUCT_ID desc) as view_row_number, PROMOTION_PRODUCT_ID, PROMOTION_ID, pp.PRODUCT_SKU_ID,
+	    pm.SHOP_CODE,sf.MERCHANT_ID,pm.status as productStatus ,pb.BRAND_NAME,pp.PRICE, pp.CREATE_TIME,MIN_BUY,MAX_BUY,pp.MODIFY_TIME,pp.STATUS,PROMOTION_STOCK  ,ps.price as originalPrice,PROMOTION_SELL
+	    from PROMOTION_PRODUCT pp , product_sku ps,productmain pm,suppliers_info sf, PROD_BRAND pb where 
+	    pp.product_sku_id = ps.product_sku_id
+	    and ps.product_id = pm.product_id and sf.SUPPLIER_ID = pm.shop_code
+	    and pb.brand_id = pm.brand_id 
+	    <dynamic prepend="" >
+	      <isNotNull prepend="and" property="promotionProductId" >
+	        pp.promotion_product_id = #promotionProductId:DECIMAL#
+	      </isNotNull>
+	      <isNotEmpty prepend="and" property="productSkuCode" >
+	         ps.PRODUCT_SKU_CODE like '%$productSkuCode$%'
+	      </isNotEmpty>
+	      <isNotNull prepend="and" property="promotionId" >
+	        pp.PROMOTION_ID = #promotionId:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="and" property="category" >
+	        pp.CATEGORY = #category:VARCHAR#
+	      </isNotNull>
+	      <isNull prepend="and" property="category" >
+	      pp.CATEGORY is null
+	      </isNull>
+	      <isNotEmpty prepend="and" property="productTitle" >
+	         pm.PRODUCT_TITLE like '%$productTitle$%'
+	      </isNotEmpty>
+	    </dynamic>
+	    ) si
+	    WHERE view_row_number between #skip# and #max#
+	</select>
+
+    
+  	<select id="getPromotionProductCount" parameterClass="com.kmzyc.promotion.app.vobject.PromotionProduct" resultClass="java.lang.Integer">
+     	select count(pp.promotion_product_id) the_count from Promotion_Product pp ,product_sku ps,productmain pm where  pp.product_sku_id = ps.product_sku_id 
+     	and ps.product_id = pm.product_id
+        <dynamic prepend="and" >
+	      <isNotEmpty prepend="and" property="promotionProductId" >
+	        promotion_product_id = #promotionProductId:DECIMAL#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="productSkuCode" >
+	        product_sku_code like '%$productSkuCode$%'
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="promotionId" >
+	        PROMOTION_ID = #promotionId:DECIMAL#
+	      </isNotEmpty>
+	      <isNotNull prepend="and" property="category" >
+	        pp.CATEGORY = #category:VARCHAR#
+	      </isNotNull>
+	      <isNull prepend="and" property="category" >
+	      pp.CATEGORY is null
+	      </isNull>
+	       <isNotEmpty prepend="and" property="productTitle" >
+	         pm.PRODUCT_TITLE like '%$productTitle$%'
+	      </isNotEmpty>
+	    </dynamic>
+	</select>
+  
+  	<select id="selectPriceIsIllegalityCount" parameterClass="java.lang.Long" resultClass="java.lang.Integer">
+     <![CDATA[
+	     select count(1) the_count from Promotion_Product pp 
+	     where  promotion_id = #promotionId:DECIMAL#   and (pp.price is null or pp.price <=0)
+	    ]]>
+  	</select>
+    <select id="getPromotionProduct" parameterClass="java.lang.Long" resultClass="com.kmzyc.promotion.app.vobject.PromotionProduct">
+     <![CDATA[
+	     select pp.status as status
+	     
+	     from Promotion_Product pp 
+	     where  promotion_product_id = #promotionProductId:DECIMAL#
+	    ]]>
+  	</select>
+   	<select id="getProductSkuIdByCategory" resultMap="promotionProductResult">
+		select sku.PRODUCT_SKU_ID,
+		       sku.PRODUCT_ID,
+		       sku.PRICE,
+		       pm.shop_code
+		  from PRODUCT_SKU sku
+		 inner join PRODUCTMAIN pm
+		    on pm.PRODUCT_ID = sku.PRODUCT_ID
+ 	 		where  pm.CATEGORY_ID in 
+	 		<iterate close=")" open="(" conjunction="," >
+   			#[]#
+    		</iterate>
+  	</select>
+  
+  	<select id="getProductSkuIdByBland" resultMap="promotionProductResult">
+ 	 	select sku.PRODUCT_SKU_ID,
+		       sku.PRODUCT_ID,
+		       sku.PRICE,
+		       pm.shop_code
+		  from PRODUCT_SKU sku
+		 inner join PRODUCTMAIN pm
+		    on pm.PRODUCT_ID = sku.PRODUCT_ID
+		 where pm.BRAND_ID in
+	      <iterate open="(" close=")" conjunction="," >
+	          #[]#
+	      </iterate>
+	</select>
+	
+  	<select id="getProductSkuIdByShopCode" resultMap="promotionProductResult">
+ 	 	select sku.PRODUCT_SKU_ID,
+		       sku.PRODUCT_ID,
+		       sku.PRICE,
+		       pm.shop_code
+		  from PRODUCT_SKU sku
+		 inner join PRODUCTMAIN pm
+		    on pm.PRODUCT_ID = sku.PRODUCT_ID
+		 where pm.SHOP_CODE in  
+		<iterate open="(" close=")" conjunction="," >
+          #[]#
+    	</iterate>
+  	</select>
+  	
+  	<select id="getProductInfoA" parameterClass="pagination" resultMap="promotionProductResult">
+		  select * from (
+		  select ROW_NUMBER() OVER(order by sku.PRODUCT_SKU_ID desc) as view_row_number
+		  ,sku.PRODUCT_SKU_ID
+		  ,sku.PRODUCT_ID
+		  ,sku.PRICE
+		  ,pm.shop_code  
+		  from PRODUCT_SKU sku 
+			inner join PRODUCTMAIN pm on pm.PRODUCT_ID = sku.PRODUCT_ID
+			inner join suppliers_info s on to_char(s.supplier_id) = pm.SHOP_CODE
+	 	 where pm.STATUS = 3 and sku.STATUS=1 
+		 	 <dynamic>
+		 	 	<isNotEmpty  prepend="and"  property="objCondition.categoryIds">
+		 	 		pm.CATEGORY_ID  in ($objCondition.categoryIds$)
+		 	 	</isNotEmpty>
+		 	 	<isNotEmpty  prepend="and"  property="objCondition.brandIds">
+		 	 		pm.BRAND_ID in  ($objCondition.brandIds$)
+		 	 	</isNotEmpty>
+		 	 	
+		 	 	<isNotEmpty  prepend="and"  property="objCondition.shopCodes">
+		 	 	 (pm.SHOP_CODE = '1' or s.SUPPLIER_TYPE = 1 or s.SUPPLIER_TYPE = 3)
+		 	 	</isNotEmpty>
+		 	 </dynamic>
+		 	 )
+	   	where view_row_number between $startindex$  and $endindex$
+	</select>
+  
+ 	<select id="getProductInfoANoPage" parameterClass="pagination" resultMap="promotionProductResult">
+		select sku.PRODUCT_SKU_ID,
+		       sku.PRODUCT_ID,
+		       sku.PRICE,
+		       pm.shop_code
+		  from PRODUCT_SKU sku, PRODUCTMAIN pm
+		 where pm.PRODUCT_ID = sku.PRODUCT_ID
+		  and not exists
+				 (select 1
+				          from promotion_presell         presell,
+				               promotion_presell_product presellpdt
+				         where presell.presell_id = presellpdt.presell_id
+				           and presellpdt.product_sku_id = sku.product_sku_id
+				           and presell.audit_status = 1
+				           and presell.presell_status != 3
+				           and sysdate between presell.deposit_start_time and
+				               presell.finalpay_end_time)
+		   and pm.STATUS = 3
+		   and sku.STATUS = 1
+ 	 	<isNotEmpty  property="objCondition.categoryIds">
+ 	 		and pm.category_id  in ($objCondition.categoryIds$)
+ 	 	</isNotEmpty>
+ 	 	<isNotEmpty property="objCondition.brandIds">
+ 	 		and pm.brand_id in  ($objCondition.brandIds$)
+ 	 	</isNotEmpty>
+ 	 	<isNotEmpty property="objCondition.shopCodes">
+ 	 	 and (pm.shop_code = '1' or exists
+        (select 1
+           from suppliers_info s
+          where to_char(s.supplier_id) = pm.shop_code
+            and (s.supplier_type = 1 or s.supplier_type = 3)))
+ 	 	</isNotEmpty>
+  	</select>
+  
+  	<select id="getProductInfo" parameterClass="pagination" resultMap="promotionProductResult">
+		  select * from (
+		  select ROW_NUMBER() OVER(order by sku.PRODUCT_SKU_ID desc) as view_row_number
+		  ,sku.PRODUCT_SKU_ID
+		  ,sku.PRODUCT_ID
+		  ,sku.PRICE
+		  ,pm.shop_code 
+		  from PRODUCT_SKU sku 
+			inner join PRODUCTMAIN pm on pm.PRODUCT_ID = sku.PRODUCT_ID
+		 	 where pm.STATUS = 3 and sku.STATUS=1 
+	 	 <dynamic>
+	 	 	<isNotEmpty  prepend="and"  property="objCondition.categoryIds">
+	 	 		pm.CATEGORY_ID  in ($objCondition.categoryIds$)
+	 	 	</isNotEmpty>
+	 	 	<isNotEmpty  prepend="and"  property="objCondition.brandIds">
+	 	 		pm.BRAND_ID in  ($objCondition.brandIds$)
+	 	 	</isNotEmpty>
+	 	 	
+	 	 	<isNotEmpty  prepend="and"  property="objCondition.shopCodes">
+	 	 	 pm.SHOP_CODE = '$objCondition.shopCodes$'
+	 	 	</isNotEmpty>
+	 	 </dynamic>
+	 	 )
+	   where view_row_number between $startindex$  and $endindex$
+	</select>
+  
+  	<select id="getProductInfoNoPage" parameterClass="pagination" resultMap="promotionProductResult">
+  		select sku.PRODUCT_SKU_ID,
+		       sku.PRODUCT_ID,
+		       sku.PRICE,
+		       pm.shop_code
+		  from PRODUCT_SKU sku, PRODUCTMAIN pm
+		 where pm.PRODUCT_ID = sku.PRODUCT_ID
+		  and not exists
+				 (select 1
+				          from promotion_presell         presell,
+				               promotion_presell_product presellpdt
+				         where presell.presell_id = presellpdt.presell_id
+				           and presellpdt.product_sku_id = sku.product_sku_id
+				           and presell.audit_status = 1
+				           and presell.presell_status != 3
+				           and sysdate between presell.deposit_start_time and
+				               presell.finalpay_end_time)
+		   and pm.STATUS = 3
+		   and sku.STATUS = 1
+ 	 	<isNotEmpty property="objCondition.categoryIds">
+ 	 	and pm.CATEGORY_ID  in ($objCondition.categoryIds$)
+ 	 	</isNotEmpty>
+ 	 	<isNotEmpty property="objCondition.brandIds">
+ 	 	and pm.BRAND_ID in  ($objCondition.brandIds$)
+ 	 	</isNotEmpty>
+ 	 	<isNotEmpty property="objCondition.shopCodes">
+ 	 	 and pm.SHOP_CODE = '$objCondition.shopCodes$'
+ 	 	</isNotEmpty>
+  	</select>
+  
+  	<select id="getProductInfoCountA" resultClass="java.lang.Integer" parameterClass="pagination">
+	  	select count(sku.PRODUCT_SKU_ID)
+		 from PRODUCT_SKU sku 
+	 	 inner join PRODUCTMAIN pm on pm.PRODUCT_ID = sku.PRODUCT_ID
+	 	 inner join suppliers_info s on to_char(s.supplier_id) = pm.SHOP_CODE
+	 	 where pm.STATUS = 3 and sku.STATUS=1 
+	 	 <dynamic>
+	 	 	<isNotEmpty  prepend="and"  property="objCondition.categoryIds">
+	 	 		pm.CATEGORY_ID  in ($objCondition.categoryIds$)
+	 	 	</isNotEmpty>
+	 	 	<isNotEmpty  prepend="and"  property="objCondition.brandIds">
+	 	 		pm.BRAND_ID in  ($objCondition.brandIds$)
+	 	 	</isNotEmpty>
+	 	 	
+	 	 	<isNotEmpty  prepend="and"  property="objCondition.shopCodes">
+	 	 	 (pm.SHOP_CODE = '1' or s.SUPPLIER_TYPE = 1 or s.SUPPLIER_TYPE = 3)
+	 	 	</isNotEmpty>
+	 	 </dynamic>
+  	</select>
+  	
+  	<select id="getProductInfoCount" resultClass="java.lang.Integer" parameterClass="pagination">
+  		select count(sku.PRODUCT_SKU_ID)
+		 from PRODUCT_SKU sku 
+	 	 inner join PRODUCTMAIN pm on pm.PRODUCT_ID = sku.PRODUCT_ID
+	 	 where pm.STATUS = 3 and sku.STATUS=1 
+	 	 <dynamic>
+	 	 	<isNotEmpty  prepend="and"  property="objCondition.categoryIds">
+	 	 		pm.CATEGORY_ID  in ($objCondition.categoryIds$)
+	 	 	</isNotEmpty>
+	 	 	<isNotEmpty  prepend="and"  property="objCondition.brandIds">
+	 	 		pm.BRAND_ID in  ($objCondition.brandIds$)
+	 	 	</isNotEmpty>
+	 	 	<isNotEmpty  prepend="and"  property="objCondition.shopCodes">
+	 	 	 pm.SHOP_CODE = '$objCondition.shopCodes$'
+	  		</isNotEmpty>
+	 	 </dynamic>
+  	</select>
+  	
+	<insert id="copyPromotionProduct" parameterClass="java.util.HashMap" >
+	  	Insert into promotion_product (promotion_product_id,PROMOTION_ID, PRODUCT_SKU_ID, PRICE,CREATE_TIME,CATEGORY,MIN_BUY,MAX_BUY,PROMOTION_STOCK,STATUS,MODIFY_TIME) 
+		select SEQ_APP_PROMOTION_PRODUCT.nextval,#newPromotionId:DECIMAL#, pp.PRODUCT_SKU_ID, pp.PRICE, sysdate, pp.CATEGORY  ,MIN_BUY,MAX_BUY,PROMOTION_STOCK,2,sysdate
+		 from promotion_product pp,dual d where pp.promotion_id = #oldPromotionId:DECIMAL# and pp.STATUS in (2)
+	</insert>
+  
+    <!-- 获取特价产品价格和限购信息 -->
+  	<select id="findPromotionProduct" parameterClass="java.util.HashMap" resultClass="com.kmzyc.promotion.app.vobject.PromotionProduct">
+		<![CDATA[
+			select pp.promotion_id promotionId,
+			       pp.product_sku_id productSkuId,
+			       nvl(pp.promotion_product_id, 0) promotionProductId,
+			       nvl(price, 0) price,
+			       nvl(pp.min_buy, 0) minBuy,
+			       nvl(pp.max_buy, 0) maxBuy,
+			       nvl(pp.promotion_stock, 0) promotionStock,
+			       nvl(pp.promotion_sell, 0) promotionSell
+			  from promotion_product pp
+			 where pp.product_sku_id = #productSkuId:DECIMAL#
+			   and pp.promotion_id = #promotionId:DECIMAL#
+		]]>
+	</select>
+	
+  	<!-- 查询活动商品  start-->
+	<select id="getProductSkuIdBySku" parameterClass="pagination" resultMap="promotionProductResult">
+	 	<![CDATA[
+		 select * from (select ROW_NUMBER() OVER(order by sku.PRODUCT_SKU_ID desc) as view_row_number,sku.PRODUCT_SKU_ID,sku.PRODUCT_ID,sku.PRICE 
+		 ,sku.mark_price,pm.product_title procuct_name
+		 ,i.img_path,sku.product_sku_code
+		  ,pm.shop_code 
+		        from Promotion_Product pp
+		 	 inner join PRODUCT_SKU sku on sku.PRODUCT_SKU_ID = pp.PRODUCT_SKU_ID
+		 	 inner join PRODUCTMAIN pm on pm.PRODUCT_ID = sku.PRODUCT_ID
+		   left join product_image i on i.sku_id = sku.product_sku_id
+		 	 where pm.STATUS = 3 and sku.STATUS=1  and i.is_default = 0
+		 	  ]]>
+		 	 <isNotEmpty prepend="and" property="objCondition.promotionId">  
+		 	 pp.PROMOTION_ID = $objCondition.promotionId$
+		 	 </isNotEmpty>
+		   )
+		   where view_row_number between #startindex:DECIMAL#  and #endindex:DECIMAL#
+	</select>
+	  	
+	 <select id="getProductSkuIdBySkuNoPage" parameterClass="pagination" resultMap="promotionProductResult">
+	 	<![CDATA[
+		 select
+		 sku.PRODUCT_SKU_ID
+		 ,sku.PRODUCT_ID
+		 ,sku.PRICE 
+		 ,pm.shop_code 
+		        from Promotion_Product pp
+		 	 inner join PRODUCT_SKU sku on sku.PRODUCT_SKU_ID = pp.PRODUCT_SKU_ID
+		 	 inner join PRODUCTMAIN pm on pm.PRODUCT_ID = sku.PRODUCT_ID
+		 	 where pm.STATUS = 3 and sku.STATUS=1  
+		 	  and not exists
+				 (select 1
+				          from promotion_presell         presell,
+				               promotion_presell_product presellpdt
+				         where presell.presell_id = presellpdt.presell_id
+				           and presellpdt.product_sku_id = sku.product_sku_id
+				           and presell.audit_status = 1
+				           and presell.presell_status != 3
+				           and sysdate between presell.deposit_start_time and
+				               presell.finalpay_end_time)
+		 	  ]]>
+		 	 <isNotEmpty prepend="and" property="objCondition.promotionId">  
+		 	 pp.PROMOTION_ID = $objCondition.promotionId$
+		 	 </isNotEmpty>           
+  	</select>
+  
+  	<select id="getProductSkuIdBySkuCount" parameterClass="pagination" resultClass="java.lang.Integer">
+		<![CDATA[
+		 select count(sku.PRODUCT_SKU_ID) 
+	        from Promotion_Product pp
+	 	 inner join PRODUCT_SKU sku on sku.PRODUCT_SKU_ID = pp.PRODUCT_SKU_ID
+	 	 inner join PRODUCTMAIN pm on pm.PRODUCT_ID = sku.PRODUCT_ID
+	   left join product_image i on i.sku_id = sku.product_sku_id
+	 	 where pm.STATUS = 3 and sku.STATUS=1  and i.is_default = 0
+	    ]]>
+	 	 <isNotEmpty property="objCondition.promotionId">  
+	 	 	and pp.PROMOTION_ID = #objCondition.promotionId#
+	 	 </isNotEmpty>
+  	</select>
+  	<!-- 获取当前 未过期活动的指定商品id，用逗号隔开返回 -->
+    <select id="selectInPruductSkuIds" parameterClass="java.lang.Integer" resultClass="java.lang.String">
+		<![CDATA[
+		select wm_concat(pp.product_sku_id) s
+           from promotion p, promotion_product pp
+           where  p.promotion_id = pp.promotion_id and p.PRODUCT_FILTER_TYPE =2  and pp.STATUS in (1,2) and pp.PROMOTION_ID= #promotionId#
+        ]]>
+	</select>
+	<!-- 获取当前 未过期活动的例外商品id，用逗号隔开返回 -->
+    <select id="selectExceptionPruductSkuIds" parameterClass="java.lang.Integer" resultClass="java.lang.String">
+		<![CDATA[
+		select wm_concat(pp.product_sku_id) s
+           from promotion p, promotion_product pp
+           where  p.promotion_id = pp.promotion_id and pp.category=-1  and pp.STATUS in (1,2) and pp.PROMOTION_ID= #promotionId#
+        ]]>
+	</select>
+	<!-- 批量查询赠品、加价购价格 -->
+  	<select id="SQL_QUERY_BATCH_GIFT_PRODUCT_PRICE" parameterClass="java.util.Map" resultClass="com.kmzyc.promotion.app.vobject.PromotionProduct">
+  	<![CDATA[
+  		select prd.promotion_id promotionId,
+		       prd.entity_id productSkuId,
+		       prd.promotion_rule_data_id ruleDataId,
+		       prd.meet_data marketPrice, 
+		       pm.shop_code sellerId ,
+		       pm.product_title productTile,
+		       pm.procuct_name productName,
+		       pm.product_id productId,
+		       pm.product_no productNo,
+		       ps.price price, 
+		       ps.pv_value pvalue,
+		       erp.erp_pro_code  erpProCode ,
+               erp.sys_code      erpSysCode,  
+               (select erpi.erp_pro_code
+		          from product_erp_relation erpi
+		         where erpi.product_sku_id = ps.product_sku_id
+		           and erpi.sys_code = 'JXC') jxcCode, 
+		       ps.cost_income_ratio costIncomeRatio,
+		       0 amount,
+		       ps.cost_price costPrice,
+		       ps.product_sku_code productSkuCode,
+		       prd.prize_data finalPrice,
+		       (select wmsys.wm_concat(vsa.category_attr_value)
+		          from view_sku_attr vsa
+		         where vsa.product_sku_id = ps.product_sku_id) categoryAttrValue,
+		      (select  p.promotion_type from   promotion  p where p.promotion_id=prd.promotion_id) promotionType,
+		       decode(pm.status, 3, decode(ps.status, 1, 1, 0), 0) isOutStock,
+		       nvl((select max(st.stock_quality - st.order_quality)
+		             from product_stock st
+		            where st.sku_attribute_id = ps.product_sku_id),
+		           0) stockCount,
+		       prd.meet_data marketPrice,
+		       ps.unit_weight unitWeight,
+		       (select pi.img_path
+		          from product_image pi
+		         where pi.sku_id = ps.product_sku_id
+		           and pi.is_default = 0) defaultProductSkuImgPath,
+		           si.supplier_type supplierType
+		  from productmain pm
+		  inner join suppliers_info si
+		   on (si.supplier_id = to_number(pm.shop_code))
+		 inner join product_sku ps
+		    on (pm.product_id = ps.product_id)
+		 inner join promotion_rule_data prd
+		    on (ps.product_sku_id = prd.entity_id)
+		    	 left join  product_erp_relation erp
+     on (ps.product_sku_id = erp.product_sku_id and erp.sys_code <> 'JXC')  
+		 where exists
+		 (select 1
+		          from promotion p
+		         where p.promotion_id = prd.promotion_id
+		]]>		         
+		<isNotEmpty property="type">
+			and p.promotion_type = #type:DECIMAL#
+		</isNotEmpty>
+			and p.promotion_id in 
+		<iterate open="(" close=")" conjunction="," property="pids">
+		   		#pids[]#
+		</iterate>
+		)
+  	</select>	
+  	
+  	<!--{promotionId=25976, skuId=10556}-->
+  	<select id="queryRestrictionProduct" parameterClass="java.util.Map" resultClass="com.kmzyc.promotion.optimization.model.RestrictionProduct">
+  	select pp.min_buy         minBuy,
+       pp.max_buy         maxBuy,
+       pp.price           salePrice,
+       pp.promotion_stock promotionStock,
+       pp.promotion_sell  promotionSell
+  from promotion_product pp
+ where pp.promotion_id = #promotionId:DECIMAL#
+   and pp.PRODUCT_SKU_ID = #skuId:DECIMAL#
+   and (STATUS = 2 or STATUS is null)
+  	</select>
+
+</sqlMap>

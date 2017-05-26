@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ProductRelationDetailAll">
+	
+	
+	<resultMap class="com.kmzyc.b2b.vo.CarProduct" id="carProductMap">
+		<result property="productSkuId" column="relation_sku_id" jdbcType="DECIMAL" />
+		<result property="costPrice" column="cost_price" jdbcType="DECIMAL"/>
+		<result property="finalPrice" column="relation_sku_price" jdbcType="DECIMAL"/>
+		<result property="price" column="price" jdbcType="DECIMAL"/>
+		<result property="productID" column="product_id" jdbcType="DECIMAL"/>
+		<result property="name" column="procuct_name" jdbcType="VARCHAR"/>
+		<result property="title" column="title" jdbcType="VARCHAR"/>
+		<result property="unitWeight" column="unit_weight" jdbcType="DECIMAL" nullValue="0"/>
+		<result property="imagePath" column="img_path" jdbcType="VARCHAR"/>
+		<result property="productSkuCode" column="product_sku_code" jdbcType="VARCHAR"/>
+		<result property="productNo" column="product_no" jdbcType="VARCHAR"/>
+		<result property="stockCount" column="stock" jdbcType="VARCHAR" nullValue="0"/>
+		<result property="supplierCode" column="SHOP_CODE"/>
+		<result property="amount" column="amount"/>
+	</resultMap>
+	 <resultMap class="com.kmzyc.b2b.model.ProductRelationDetailAll" id="ProductRelationDetail">
+	    <result property="relationSkuId" column="relation_sku_id" jdbcType="DECIMAL"/>
+	    <result property="productCount" column="product_count" jdbcType="DECIMAL"/>
+	</resultMap>
+	
+	<select id="findCarProductByRelationId" parameterClass="java.lang.Long" resultMap="carProductMap">
+		select d.relation_sku_id,
+		       d.relation_sku_price,
+		       d.relation_sku_price as finalPrice,
+		       s.cost_price,
+		       m.product_id,
+		       m.product_title      as title,
+		       m.procuct_name       as procuct_name,
+		       s.price,
+		       stock,
+		       s.product_sku_code,
+		       m.product_no,
+		       s.unit_weight,
+		       i.img_path,
+		       m.SHOP_CODE,
+		       d.product_count      amount
+		  from product_relation_detail d
+		  left join product_sku s
+		    on s.product_sku_id = d.relation_sku_id
+		  left join productmain m
+		    on m.product_id = s.product_id
+		  left join product_image i
+		    on i.sku_id = s.product_sku_id
+		  left join (select max(productStockSum) as stock, skuId
+		               from (select sum(st.stock_quality - st.order_quality) productStockSum,
+		                            st.sku_attribute_id as skuId
+		                       from product_stock st
+		                      group by st.warehouse_id, sku_attribute_id)
+		              group by skuId) t
+		    on t.skuId = s.product_sku_id
+		 where RELATION_ID = #Id:NUMBER#
+		   and i.is_default = 0
+	</select>
+	
+	<resultMap class="com.kmzyc.b2b.model.ProductRelationDetailAll" id="RESULT_MAP_PRODUCTRELATIONDETAIL">
+		<result property="relationSkuId" column="RELATIONSKUID" jdbcType="DECIMAL" />
+		<result property="relationSkuPrice" column="RELATIONSKUPRICE" jdbcType="DECIMAL" />
+		<result property="marketPrice" column="MARKETPRICE" jdbcType="DECIMAL" />
+		<result property="productTile" column="PRODUCTTILE" jdbcType="VARCHAR"/>
+		<result property="productName" column="PRODUCTNAME" jdbcType="VARCHAR"/>
+		<result property="imagePath" column="IMAGEPATH" jdbcType="VARCHAR"/>
+		<result property="imagePath6" column="IMAGEPATH6" jdbcType="VARCHAR"/>
+		<result property="imagePath7" column="IMAGEPATH7" jdbcType="VARCHAR"/>
+		<result property="productCount" column="PRODUCTCOUNT" jdbcType="DECIMAL" />
+		<result property="stock" column="STOCK" jdbcType="DECIMAL" />
+		<result property="status" column="STATUS" jdbcType="DECIMAL" />
+	</resultMap>
+</sqlMap>

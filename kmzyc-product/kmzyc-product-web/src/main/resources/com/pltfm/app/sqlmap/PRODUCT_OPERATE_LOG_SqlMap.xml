@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PRODUCT_OPERATE_LOG">
+    <typeAlias alias="productOperateLog" type="com.pltfm.app.vobject.ProductOperateLog" />
+
+    <resultMap id="baseResultMap" class="productOperateLog">
+        <result column="OPERATE_ID" property="operateId" jdbcType="DECIMAL"/>
+        <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL"/>
+        <result column="OPERATE_USER_NAME" property="operateUserName" jdbcType="DECIMAL"/>
+        <result column="OPERATE_TIME" property="operateTime" jdbcType="TIMESTAMP"/>
+        <result column="OPERATE_TYPE" property="operateType" jdbcType="DECIMAL"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="saveProductOperateLog" parameterClass="productOperateLog">
+        <selectKey resultClass="java.lang.Long" keyProperty="operateId">
+            select SEQ_PRODUCT_OPERATE.nextval from dual
+        </selectKey>
+        INSERT INTO PRODUCT_OPERATE_LOG (OPERATE_ID,PRODUCT_ID,OPERATE_USER,OPERATE_TIME,OPERATE_TYPE,REMARK)
+        VALUES (#operateId:DECIMAL#,#productId:DECIMAL#,#operateUser:DECIMAL#,sysdate,#operateType:DECIMAL#,#remark:VARCHAR#)
+    </insert>
+
+    <select id="getProductOperateLogList" resultMap="baseResultMap" parameterClass="java.lang.Long">
+        SELECT L.OPERATE_ID,L.PRODUCT_ID,U.USER_NAME OPERATE_USER_NAME,L.OPERATE_TIME,L.OPERATE_TYPE,L.REMARK
+        FROM PRODUCT_OPERATE_LOG L, SYS_USER U
+        WHERE L.PRODUCT_ID=#productId:DECIMAL# AND U.USER_ID=L.OPERATE_USER
+        ORDER BY L.OPERATE_TIME DESC
+    </select>
+</sqlMap>

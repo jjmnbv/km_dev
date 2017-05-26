@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="BnesVouchers" >
+
+  <typeAlias alias="bnesVouchersDO" type="com.pltfm.app.dataobject.BnesVouchersDO" />
+  <typeAlias alias="bnesVouchersQuery" type="com.pltfm.app.vobject.BnesVouchersQuery" />
+
+  <resultMap id="bnesVouchersDOResultMap" class="bnesVouchersDO" >
+    <result property="vouchersId" column="VOUCHERS_ID" />
+    <result property="accountId" column="ACCOUNT_ID" />
+    <result property="name" column="NAME" />
+    <result property="valid" column="VALID" />
+    <result property="nNumber" column="N_NUMBER" />
+    <result property="createDate" column="CREATE_DATE" />
+    <result property="createdId" column="CREATED_ID" />
+    <result property="modifyDate" column="MODIFY_DATE" />
+    <result property="modifieId" column="MODIFIE_ID" />
+  </resultMap>
+
+  <resultMap id="bnesVouchersQueryResultMap" class="bnesVouchersQuery" >
+    <result property="vouchersId" column="VOUCHERS_ID" />
+    <result property="accountId" column="ACCOUNT_ID" />
+    <result property="name" column="NAME" />
+    <result property="valid" column="VALID" />
+    <result property="nNumber" column="N_NUMBER" />
+    <result property="createDate" column="CREATE_DATE" />
+    <result property="createdId" column="CREATED_ID" />
+    <result property="modifyDate" column="MODIFY_DATE" />
+    <result property="modifieId" column="MODIFIE_ID" />
+  </resultMap>
+
+  <sql id="bnesVouchers_columns" >
+    a1.VOUCHERS_ID, a1.ACCOUNT_ID, a1.NAME, a1.VALID, a1.N_NUMBER, a1.CREATE_DATE, a1.CREATED_ID, 
+      a1.MODIFY_DATE, a1.MODIFIE_ID
+  </sql>
+
+  <sql id="bnesVouchers_do_columns" >
+    a1.VOUCHERS_ID, a1.ACCOUNT_ID, a1.NAME, a1.VALID, a1.N_NUMBER, a1.CREATE_DATE, a1.CREATED_ID, 
+      a1.MODIFY_DATE, a1.MODIFIE_ID
+  </sql>
+
+  <sql id="bnesVouchers_query_columns" >
+    a1.VOUCHERS_ID, a1.ACCOUNT_ID, a1.NAME, a1.VALID, a1.N_NUMBER, a1.CREATE_DATE, a1.CREATED_ID, 
+      a1.MODIFY_DATE, a1.MODIFIE_ID
+  </sql>
+
+  <sql id="queryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="vouchersId" prepend="AND" >
+        <![CDATA[  
+        VOUCHERS_ID = #vouchersId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="accountId" prepend="AND" >
+        <![CDATA[  
+        ACCOUNT_ID = #accountId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="name" prepend="AND" >
+        <![CDATA[  
+        NAME = #name#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="valid" prepend="AND" >
+        <![CDATA[  
+        VALID = #valid#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nNumber" prepend="AND" >
+        <![CDATA[  
+        N_NUMBER = #nNumber#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="doQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="vouchersId" prepend="AND" >
+        <![CDATA[  
+        VOUCHERS_ID = #vouchersId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="accountId" prepend="AND" >
+        <![CDATA[  
+        ACCOUNT_ID = #accountId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="name" prepend="AND" >
+        <![CDATA[  
+        NAME = #name#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="valid" prepend="AND" >
+        <![CDATA[  
+        VALID = #valid#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nNumber" prepend="AND" >
+        <![CDATA[  
+        N_NUMBER = #nNumber#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="queryQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="vouchersId" prepend="AND" >
+        <![CDATA[  
+        VOUCHERS_ID = #vouchersId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="accountId" prepend="AND" >
+        <![CDATA[  
+        ACCOUNT_ID = #accountId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="name" prepend="AND" >
+        <![CDATA[  
+        NAME = #name#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="valid" prepend="AND" >
+        <![CDATA[  
+        VALID = #valid#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nNumber" prepend="AND" >
+        <![CDATA[  
+        N_NUMBER = #nNumber#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <insert id="insert" parameterClass="bnesVouchersDO" >
+    INSERT INTO BNES_VOUCHERS( VOUCHERS_ID, ACCOUNT_ID, NAME, VALID, N_NUMBER, CREATE_DATE, CREATED_ID, 
+      MODIFY_DATE, MODIFIE_ID)
+     VALUES ( #vouchersId#, #accountId#, #name#, #valid#, #nNumber#, #createDate#, #createdId#, 
+      #modifyDate#, #modifieId#)
+  </insert>
+
+  <select id="countByDOExample" parameterClass="bnesVouchersDO" resultClass="java.lang.Integer" >
+    SELECT COUNT(*) AS num FROM BNES_VOUCHERS 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="findListByDO" resultMap="bnesVouchersDOResultMap" parameterClass="bnesVouchersDO" >
+     SELECT 
+    <include refid="bnesVouchers_do_columns" />
+     FROM BNES_VOUCHERS a1 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="countByQueryExample" parameterClass="bnesVouchersQuery" resultClass="java.lang.Integer" >
+    SELECT COUNT(*) AS num FROM BNES_VOUCHERS 
+    <include refid="queryQueryParams" />
+  </select>
+
+  <select id="findListByQuery" resultMap="bnesVouchersQueryResultMap" parameterClass="bnesVouchersQuery" >
+     SELECT 
+    <include refid="bnesVouchers_query_columns" />
+     FROM BNES_VOUCHERS a1 
+    <include refid="queryQueryParams" />
+  </select>
+</sqlMap>

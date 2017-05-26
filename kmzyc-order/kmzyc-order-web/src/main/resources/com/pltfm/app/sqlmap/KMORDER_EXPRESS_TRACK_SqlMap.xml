@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="KMORDER_EXPRESS_TRACK" >
+  <resultMap id="baseResultMap" class="com.kmzyc.express.entities.ExpressTrack" >
+    <result column="track_id" property="trackId" jdbcType="DECIMAL" />
+    <result column="sub_id" property="subId" jdbcType="DECIMAL" />
+    <result column="track_date" property="trackDate" jdbcType="date" />
+    <result column="track_msg" property="trackMsg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="mapWhereClause">
+  	<dynamic prepend="WHERE">
+  	<!--订单号 -->
+  	<isNotEmpty prepend="AND" property="orderCode">
+			ORDER_CODE like '%'||#orderCode#||'%'
+	</isNotEmpty>
+  	<!-- 物流单号 -->
+  	<isNotEmpty prepend="AND" property="logisticsNo">
+			LOGISTICS_NO like '%'||#logisticsNo#||'%' 
+	</isNotEmpty>	
+	<!-- 日志生成时间 -->
+	<isNotEmpty prepend="AND" property="createDateStart">
+		<![CDATA[
+	    	CREATE_DATE >= to_date(#createDateStart#,'yyyy-MM-dd HH24:mi:ss')     
+	    ]]>
+     </isNotEmpty>
+     <isNotEmpty prepend="AND" property="createDateEnd">
+	 	<![CDATA[
+	    	CREATE_DATE <=  to_date(#createDateEnd#,'yyyy-MM-dd HH24:mi:ss')       
+	    ]]>
+     </isNotEmpty>
+    <!-- 节点-->
+  	<isNotEmpty prepend="AND" property="node">
+			NODE = #node#
+	</isNotEmpty>
+    <!-- 日志状态 -->
+  	<isNotEmpty prepend="AND" property="status">
+			STATUS = #status#
+	</isNotEmpty>
+	</dynamic>
+  </sql>
+  
+  <select id="queryExpressTrackList" resultMap="baseResultMap" parameterClass="java.util.Map" >
+   SELECT  TRACK_ID,SUB_ID,TRACK_DATE,TRACK_MSG
+	FROM (SELECT INNER_TABLE.*, ROWNUM RN
+               FROM (SELECT *
+                       FROM  EXPRESS_TRACK 
+                        <isParameterPresent >
+                        	<include refid="KMORDER_EXPRESS_TRACK.mapWhereClause" />
+                        </isParameterPresent>   
+                       ORDER BY TRACK_DATE ) INNER_TABLE
+              WHERE ROWNUM &lt;= #endRow#) OUT_TABLE
+ 	WHERE RN &gt;= #startRow#
+  </select>
+  
+  <select id="queryExpressTrackCount" resultClass="java.lang.Integer"  parameterClass="java.util.Map" >
+   SELECT COUNT(1) FROM  EXPRESS_TRACK 
+    <isParameterPresent >
+      <include refid="KMORDER_EXPRESS_TRACK.mapWhereClause" />
+    </isParameterPresent>
+  </select>
+  
+  <insert id="insertExpressTrack" parameterClass="com.kmzyc.express.entities.ExpressTrack" >
+   <selectKey keyProperty="trackId" resultClass="java.math.BigDecimal" >
+    	SELECT SEQ_EXPRESS_TRACK.NEXTVAL FROM DUAL
+ 	</selectKey>
+    insert into  EXPRESS_TRACK
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="trackId" >
+        TRACK_ID
+      </isNotNull>
+      <isNotNull prepend="," property="subId" >
+        SUB_ID
+      </isNotNull>
+      <isNotNull prepend="," property="trackDate" >
+        TRACK_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="trackMsg" >
+        TRACK_MSG
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="trackId" >
+        #trackId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="subId" >
+        #subId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="trackDate" >
+        #trackDate#
+      </isNotNull>
+      <isNotNull prepend="," property="trackMsg" >
+        #trackMsg:VARCHAR#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+
+  <delete id="deleteExpressTrackBySubId" parameterClass="java.math.BigDecimal" >
+    delete from  EXPRESS_TRACK
+    where SUB_ID = #subId:DECIMAL#
+  </delete>
+  
+</sqlMap>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    <definition name="shopCarContent"
+                template="/WEB-INF/jsp/shopcart/template/shopCarContent.jsp"></definition>
+    <definition name="shopCartEmpty"
+                template="/WEB-INF/jsp/shopcart/template/shopCartEmpty.jsp"></definition>
+
+
+    <definition name="shoppingcart"
+                template="/WEB-INF/jsp/wap/template/shoppingcart.jsp"></definition>
+    <definition name="shoppingcartEmpty"
+                template="/WEB-INF/jsp/wap/template/shoppingcartEmpty.jsp"></definition>
+
+    <!-- mkw 20150908 add  s-->
+    <definition name="wapShopCartContent"
+                template="/WEB-INF/jsp/shopcart/template/wapShopCarContent.jsp"></definition>
+    <definition name="wapShopCartEmpty"
+                template="/WEB-INF/jsp/shopcart/template/wapShopCartEmpty.jsp"></definition>
+    <!-- mkw 20150908 add  e-->
+
+
+    <definition name="shopcartTop" template="/WEB-INF/jsp/shopcart/new/shacartTop.jsp"></definition>
+    <definition name="shopcartContent"
+                template="/WEB-INF/jsp/shopcart/new/shopcartContent.jsp"></definition>
+    <definition name="shopcartEmpty"
+                template="/WEB-INF/jsp/shopcart/new/shacartEmpty.jsp"></definition>
+    <definition name="normalProduct"
+                template="/WEB-INF/jsp/shopcart/new/normalProduct.jsp"></definition>
+    <definition name="compositionCarProduct"
+                template="/WEB-INF/jsp/shopcart/new/compositionCarProduct.jsp"></definition>
+</tiles-definitions>
+

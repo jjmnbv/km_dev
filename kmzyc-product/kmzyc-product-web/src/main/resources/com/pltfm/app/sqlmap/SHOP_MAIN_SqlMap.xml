@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SHOP_MAIN">
+    <typeAlias alias="shopMain" type="com.kmzyc.supplier.model.ShopMain"/>
+    <typeAlias alias="shopMainExample" type="com.kmzyc.supplier.model.example.ShopMainExample"/>
+    <typeAlias alias="shopForExport" type="com.pltfm.app.vobject.ShopForExport"/>
+
+    <resultMap id="baseResultMap" class="shopMain">
+        <result column="SHOP_ID" property="shopId" jdbcType="DECIMAL"/>
+        <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL"/>
+        <result column="SHOP_TYPE" property="shopType" jdbcType="DECIMAL"/>
+        <result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR"/>
+        <result column="SHOP_NAME" property="shopName" jdbcType="VARCHAR"/>
+        <result column="SHOP_TITLE" property="shopTitle" jdbcType="VARCHAR"/>
+        <result column="LOGO_PATH" property="logoPath" jdbcType="VARCHAR"/>
+        <result column="PHYSHOP_IMAGE_PATH" property="physhopImagePath" jdbcType="VARCHAR"/>
+        <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR"/>
+        <!--   <result column="IMAGE_PATH" property="imagePath" jdbcType="VARCHAR" /> -->
+        <result column="CONTACT_INFO" property="contactInfo" jdbcType="VARCHAR"/>
+        <result column="INTRODUCE" property="introduce" jdbcType="VARCHAR"/>
+        <result column="SHOP_LEVEL" property="shopLevel" jdbcType="DECIMAL"/>
+        <result column="STATUS" property="status" jdbcType="CHAR"/>
+        <result column="AUDIT_STATUS" property="auditStatus" jdbcType="CHAR"/>
+        <!--    <result column="PROVINCE_ID" property="provinceId" jdbcType="DECIMAL" />-->
+        <!--   <result column="CITY_ID" property="cityId" jdbcType="DECIMAL" />-->
+        <!--  <result column="COUNTY_ID" property="countyId" jdbcType="DECIMAL" />-->
+        <!--   <result column="SHOP_MANAGER" property="shopManager" jdbcType="DECIMAL" />-->
+        <!--   <result column="CORP_NAME" property="corpName" jdbcType="VARCHAR" />-->
+        <!--   <result column="CORP_IDCODE" property="corpIdcode" jdbcType="VARCHAR" />-->
+        <!--   <result column="REG_NUMBER" property="regNumber" jdbcType="VARCHAR" />-->
+        <!--  <result column="ADDRESS" property="address" jdbcType="VARCHAR" /> -->
+        <result column="DEFAULT_DOMAIN_URL" property="defaultDomainUrl" jdbcType="VARCHAR"/>
+        <result column="SHOP_SITE" property="shopSite" jdbcType="VARCHAR"/>
+        <result column="SHOP_SEO_KEY" property="shopSeoKey" jdbcType="VARCHAR"/>
+        <result column="APPLY_USER" property="applyUser" jdbcType="DECIMAL"/>
+        <result column="APPLY_TIME" property="applyTime" jdbcType="DATE"/>
+        <result column="AUDIT_TIME" property="auditTime" jdbcType="DATE"/>
+        <result column="AUDIT_USER" property="auditUser" jdbcType="DECIMAL"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+
+        <result column="MANAGE_BRAND" property="manageBrand" jdbcType="VARCHAR"/>
+        <result column="LINKMAN_MOBILE" property="linkmanMobile" jdbcType="VARCHAR"/>
+        <result column="PRINCIPAL_NAME" jdbcType="VARCHAR" property="principalName"/>
+        <result column="CORPORATE_NAME" property="corporateName" jdbcType="VARCHAR"/>
+        <result column="SERVICE_QQ" jdbcType="VARCHAR" property="serviceQq"/>
+    </resultMap>
+    <resultMap id="baseResultMap1" class="shopMain">
+        <result column="SHOP_ID" property="shopId" jdbcType="DECIMAL"/>
+        <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL"/>
+        <result column="SHOP_TYPE" property="shopType" jdbcType="DECIMAL"/>
+        <result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR"/>
+        <result column="SHOP_NAME" property="shopName" jdbcType="VARCHAR"/>
+        <result column="SHOP_TITLE" property="shopTitle" jdbcType="VARCHAR"/>
+        <result column="LOGO_PATH" property="logoPath" jdbcType="VARCHAR"/>
+        <result column="PHYSHOP_IMAGE_PATH" property="physhopImagePath" jdbcType="VARCHAR"/>
+        <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR"/>
+        <result column="CONTACT_INFO" property="contactInfo" jdbcType="VARCHAR"/>
+        <result column="INTRODUCE" property="introduce" jdbcType="VARCHAR"/>
+        <result column="SHOP_LEVEL" property="shopLevel" jdbcType="DECIMAL"/>
+        <result column="STATUS" property="status" jdbcType="CHAR"/>
+        <result column="AUDIT_STATUS" property="auditStatus" jdbcType="CHAR"/>
+        <result column="DEFAULT_DOMAIN_URL" property="defaultDomainUrl" jdbcType="VARCHAR"/>
+        <result column="SHOP_SITE" property="shopSite" jdbcType="VARCHAR"/>
+        <result column="SHOP_SEO_KEY" property="shopSeoKey" jdbcType="VARCHAR"/>
+        <result column="APPLY_USER" property="applyUser" jdbcType="DECIMAL"/>
+        <result column="APPLY_TIME" property="applyTime" jdbcType="DATE"/>
+        <result column="AUDIT_TIME" property="auditTime" jdbcType="DATE"/>
+        <result column="AUDIT_USER" property="auditUser" jdbcType="DECIMAL"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+        <result column="MANAGE_BRAND" property="manageBrand" jdbcType="VARCHAR"/>
+        <result column="LINKMAN_MOBILE" property="linkmanMobile" jdbcType="VARCHAR"/>
+        <result column="PRINCIPAL_NAME" property="principalName" jdbcType="VARCHAR"/>
+        <result column="SERVICE_QQ" property="serviceQq" jdbcType="VARCHAR"/>
+        <result column="SERVICE_TYPE" property="serviceType" jdbcType="DECIMAL"/>
+        <result column="TEMPLATE_TYPE" property="templateType" jdbcType="DECIMAL"/>
+    </resultMap>
+    <resultMap id="resultMapWithBLOBs" class="shopMain"
+               extends="SHOP_MAIN.baseResultMap">
+        <result column="DESCRIBE" property="describe" jdbcType="CLOB"/>
+    </resultMap>
+
+    <resultMap id="supplierShopMap" class="shopMain">
+        <result column="SHOP_ID" property="shopId" jdbcType="DECIMAL"/>
+        <result column="SHOP_NAME" property="shopName" jdbcType="VARCHAR"/>
+        <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL"/>
+        <result column="corporate_name" property="shopTitle" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="example_Where_Clause">
+        <iterate property="oredCriteria" conjunction="or" prepend="and" removeFirstPrepend="iterate">
+            <isEqual property="oredCriteria[].valid" compareValue="true">
+                (
+                <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and">
+                    $oredCriteria[].criteriaWithoutValue[]$
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and">
+                    $oredCriteria[].criteriaWithSingleValue[].condition$
+                    #oredCriteria[].criteriaWithSingleValue[].value#
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and">
+                    $oredCriteria[].criteriaWithListValue[].condition$
+                    <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")"
+                             conjunction=",">
+                        #oredCriteria[].criteriaWithListValue[].values[]#
+                    </iterate>
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and">
+                    $oredCriteria[].criteriaWithBetweenValue[].condition$
+                    #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+                    #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+                </iterate>
+                )
+            </isEqual>
+        </iterate>
+    </sql>
+    <select id="ibatorgenerated_selectByExampleWithBLOBs" resultMap="resultMapWithBLOBs"
+            parameterClass="shopMainExample">
+        select SHOP_ID, SUPPLIER_ID, SHOP_TYPE, SHOP_CODE, SHOP_NAME, SHOP_TITLE, LOGO_PATH,
+        PHYSHOP_IMAGE_PATH, FILE_PATH, CONTACT_INFO, INTRODUCE, SHOP_LEVEL, STATUS,
+        AUDIT_STATUS,
+        DEFAULT_DOMAIN_URL, SHOP_SITE, SHOP_SEO_KEY, APPLY_USER, APPLY_TIME,
+        AUDIT_TIME, AUDIT_USER, REMARK, DESCRIBE,MANAGE_BRAND,LINKMAN_MOBILE,PRINCIPAL_NAME
+        from SHOP_MAIN
+        <isParameterPresent>
+            <include refid="SHOP_MAIN.example_Where_Clause"/>
+            <isNotNull property="orderByClause">
+                order by $orderByClause$
+            </isNotNull>
+        </isParameterPresent>
+    </select>
+    <select id="ibatorgenerated_selectByExample" resultMap="baseResultMap"
+            parameterClass="shopMainExample">
+        select SHOP_ID, p.SUPPLIER_ID, SHOP_TYPE, SHOP_CODE, SHOP_NAME, SHOP_TITLE, LOGO_PATH,
+        PHYSHOP_IMAGE_PATH, FILE_PATH, CONTACT_INFO, INTRODUCE, SHOP_LEVEL, p.STATUS,
+        AUDIT_STATUS,
+        DEFAULT_DOMAIN_URL, SHOP_SITE, SHOP_SEO_KEY, APPLY_USER, APPLY_TIME,
+        AUDIT_TIME, AUDIT_USER, REMARK,
+        p.DESCRIBE,MANAGE_BRAND,LINKMAN_MOBILE,PRINCIPAL_NAME,c1.corporate_name,p.SERVICE_QQ
+        from SHOP_MAIN p ,suppliers_info s,commercial_tenant_basic_info c1 where p.supplier_id=s.supplier_id and
+        s.merchant_id=c1.n_commercial_tenant_id and p.audit_status !=0 and s.status!=1
+        <isNotEmpty property="corporateName" prepend="and">
+            c1.corporate_name like '%'||#corporateName#||'%'
+        </isNotEmpty>
+        <isNotEmpty property="status" prepend="and">
+            p.STATUS = #status#
+        </isNotEmpty>
+        <isParameterPresent>
+            <include refid="SHOP_MAIN.example_Where_Clause"/>
+            <isNotNull property="orderByClause">
+                order by $orderByClause$
+            </isNotNull>
+        </isParameterPresent>
+    </select>
+    <select id="ibatorgenerated_selectByPrimaryKey" resultMap="resultMapWithBLOBs"
+            parameterClass="shopMain">
+        select SHOP_ID, p.SUPPLIER_ID, SHOP_TYPE, SHOP_CODE, SHOP_NAME, SHOP_TITLE, LOGO_PATH,
+        PHYSHOP_IMAGE_PATH, FILE_PATH, CONTACT_INFO, INTRODUCE, SHOP_LEVEL, p.STATUS,
+        AUDIT_STATUS,
+        DEFAULT_DOMAIN_URL, SHOP_SITE, SHOP_SEO_KEY, APPLY_USER, APPLY_TIME,
+        AUDIT_TIME, AUDIT_USER, REMARK,
+        p.DESCRIBE,MANAGE_BRAND,LINKMAN_MOBILE,PRINCIPAL_NAME,c1.corporate_name,p.SERVICE_QQ
+        from SHOP_MAIN p,suppliers_info s,commercial_tenant_basic_info c1
+        where SHOP_ID = #shopId:DECIMAL# and p.supplier_id=s.supplier_id and s.merchant_id=c1.n_commercial_tenant_id
+    </select>
+    <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="shopMain">
+        delete from SHOP_MAIN
+        where SHOP_ID = #shopId:DECIMAL#
+    </delete>
+    <delete id="ibatorgenerated_deleteByExample" parameterClass="shopMainExample">
+        delete from SHOP_MAIN
+        <include refid="SHOP_MAIN.example_Where_Clause"/>
+    </delete>
+    <insert id="ibatorgenerated_insert" parameterClass="shopMain">
+        insert into SHOP_MAIN (SHOP_ID, SUPPLIER_ID, SHOP_TYPE, SHOP_CODE, SHOP_NAME, SHOP_TITLE,
+        LOGO_PATH, PHYSHOP_IMAGE_PATH, FILE_PATH, CONTACT_INFO, INTRODUCE, SHOP_LEVEL,
+        STATUS, AUDIT_STATUS,
+        DEFAULT_DOMAIN_URL, SHOP_SITE, SHOP_SEO_KEY, APPLY_USER, APPLY_TIME,
+        AUDIT_TIME, AUDIT_USER, REMARK, DESCRIBE)
+        values (#shopId:DECIMAL#, #supplierId:DECIMAL#, #shopType:DECIMAL#, #shopCode:VARCHAR#,
+        #shopName:VARCHAR#, #shopTitle:VARCHAR#, #logoPath:VARCHAR#, #physhopImagePath:VARCHAR#,
+        #filePath:VARCHAR#, #contactInfo:VARCHAR#, #introduce:VARCHAR#,
+        #shopLevel:DECIMAL#, #status:CHAR#, #auditStatus:CHAR#,
+        #defaultDomainUrl:VARCHAR#,
+        #shopSite:VARCHAR#, #shopSeoKey:VARCHAR#, #applyUser:DECIMAL#, #applyTime:DATE#,
+        #auditTime:DATE#, #auditUser:DECIMAL#, #remark:VARCHAR#, #describe:CLOB#)
+    </insert>
+    <insert id="ibatorgenerated_insertSelective" parameterClass="shopMain">
+        insert into SHOP_MAIN
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="shopId">
+                SHOP_ID
+            </isNotNull>
+            <isNotNull prepend="," property="supplierId">
+                SUPPLIER_ID
+            </isNotNull>
+            <isNotNull prepend="," property="shopType">
+                SHOP_TYPE
+            </isNotNull>
+            <isNotNull prepend="," property="shopCode">
+                SHOP_CODE
+            </isNotNull>
+            <isNotNull prepend="," property="shopName">
+                SHOP_NAME
+            </isNotNull>
+            <isNotNull prepend="," property="shopTitle">
+                SHOP_TITLE
+            </isNotNull>
+            <isNotNull prepend="," property="logoPath">
+                LOGO_PATH
+            </isNotNull>
+            <isNotNull prepend="," property="physhopImagePath">
+                PHYSHOP_IMAGE_PATH
+            </isNotNull>
+            <isNotNull prepend="," property="filePath">
+                FILE_PATH
+            </isNotNull>
+            <isNotNull prepend="," property="contactInfo">
+                CONTACT_INFO
+            </isNotNull>
+            <isNotNull prepend="," property="introduce">
+                INTRODUCE
+            </isNotNull>
+            <isNotNull prepend="," property="shopLevel">
+                SHOP_LEVEL
+            </isNotNull>
+            <isNotNull prepend="," property="status">
+                STATUS
+            </isNotNull>
+            <isNotNull prepend="," property="auditStatus">
+                AUDIT_STATUS
+            </isNotNull>
+            <isNotNull prepend="," property="defaultDomainUrl">
+                DEFAULT_DOMAIN_URL
+            </isNotNull>
+            <isNotNull prepend="," property="shopSite">
+                SHOP_SITE
+            </isNotNull>
+            <isNotNull prepend="," property="shopSeoKey">
+                SHOP_SEO_KEY
+            </isNotNull>
+            <isNotNull prepend="," property="applyUser">
+                APPLY_USER
+            </isNotNull>
+            <isNotNull prepend="," property="applyTime">
+                APPLY_TIME
+            </isNotNull>
+            <isNotNull prepend="," property="auditTime">
+                AUDIT_TIME
+            </isNotNull>
+            <isNotNull prepend="," property="auditUser">
+                AUDIT_USER
+            </isNotNull>
+            <isNotNull prepend="," property="remark">
+                REMARK
+            </isNotNull>
+            <isNotNull prepend="," property="describe">
+                DESCRIBE
+            </isNotNull>
+            )
+        </dynamic>
+        values
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="shopId">
+                #shopId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="supplierId">
+                #supplierId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="shopType">
+                #shopType:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="shopCode">
+                #shopCode:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopName">
+                #shopName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopTitle">
+                #shopTitle:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="logoPath">
+                #logoPath:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="physhopImagePath">
+                #physhopImagePath:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="filePath">
+                #filePath:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="contactInfo">
+                #contactInfo:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="introduce">
+                #introduce:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopLevel">
+                #shopLevel:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="status">
+                #status:CHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="auditStatus">
+                #auditStatus:CHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="defaultDomainUrl">
+                #defaultDomainUrl:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopSite">
+                #shopSite:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopSeoKey">
+                #shopSeoKey:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="applyUser">
+                #applyUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="applyTime">
+                #applyTime:DATE#
+            </isNotNull>
+            <isNotNull prepend="," property="auditTime">
+                #auditTime:DATE#
+            </isNotNull>
+            <isNotNull prepend="," property="auditUser">
+                #auditUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="remark">
+                #remark:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="describe">
+                #describe:CLOB#
+            </isNotNull>
+            )
+        </dynamic>
+    </insert>
+    <select id="ibatorgenerated_countByExample" parameterClass="shopMainExample"
+            resultClass="java.lang.Integer">
+        select count(1) from SHOP_MAIN p ,suppliers_info s,commercial_tenant_basic_info c1 where
+        p.supplier_id=s.supplier_id and s.merchant_id=c1.n_commercial_tenant_id and p.audit_status !=0 and s.status!=1
+        <isNotEmpty property="corporateName" prepend="and">
+            c1.corporate_name like '%'||#corporateName#||'%'
+        </isNotEmpty>
+        <isNotEmpty property="status" prepend="and">
+            p.STATUS = #status#
+        </isNotEmpty>
+        <isParameterPresent>
+            <include refid="SHOP_MAIN.example_Where_Clause"/>
+            <isNotNull property="orderByClause">
+                order by $orderByClause$
+            </isNotNull>
+        </isParameterPresent>
+    </select>
+    <update id="ibatorgenerated_updateByExampleSelective">
+        update SHOP_MAIN
+        <dynamic prepend="set">
+            <isNotNull prepend="," property="record.shopId">
+                SHOP_ID = #record.shopId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.supplierId">
+                SUPPLIER_ID = #record.supplierId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.shopType">
+                SHOP_TYPE = #record.shopType:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.shopCode">
+                SHOP_CODE = #record.shopCode:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.shopName">
+                SHOP_NAME = #record.shopName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.shopTitle">
+                SHOP_TITLE = #record.shopTitle:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.logoPath">
+                LOGO_PATH = #record.logoPath:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.physhopImagePath">
+                PHYSHOP_IMAGE_PATH = #record.physhopImagePath:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.filePath">
+                FILE_PATH = #record.filePath:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.contactInfo">
+                CONTACT_INFO = #record.contactInfo:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.introduce">
+                INTRODUCE = #record.introduce:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.shopLevel">
+                SHOP_LEVEL = #record.shopLevel:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.status">
+                STATUS = #record.status:CHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.auditStatus">
+                AUDIT_STATUS = #record.auditStatus:CHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.defaultDomainUrl">
+                DEFAULT_DOMAIN_URL = #record.defaultDomainUrl:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.shopSite">
+                SHOP_SITE = #record.shopSite:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.shopSeoKey">
+                SHOP_SEO_KEY = #record.shopSeoKey:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.applyUser">
+                APPLY_USER = #record.applyUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.applyTime">
+                APPLY_TIME = #record.applyTime:DATE#
+            </isNotNull>
+            <isNotNull prepend="," property="record.auditTime">
+                AUDIT_TIME = #record.auditTime:DATE#
+            </isNotNull>
+            <isNotNull prepend="," property="record.auditUser">
+                AUDIT_USER = #record.auditUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.remark">
+                REMARK = #record.remark:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.describe">
+                DESCRIBE = #record.describe:CLOB#
+            </isNotNull>
+        </dynamic>
+        <isParameterPresent>
+            <include refid="SHOP_MAIN.example_Where_Clause"/>
+        </isParameterPresent>
+    </update>
+    <update id="ibatorgenerated_updateByExampleWithBLOBs">
+        update SHOP_MAIN
+        set SHOP_ID = #record.shopId:DECIMAL#,
+        SUPPLIER_ID = #record.supplierId:DECIMAL#,
+        SHOP_TYPE = #record.shopType:DECIMAL#,
+        SHOP_CODE = #record.shopCode:VARCHAR#,
+        SHOP_NAME = #record.shopName:VARCHAR#,
+        SHOP_TITLE = #record.shopTitle:VARCHAR#,
+        LOGO_PATH = #record.logoPath:VARCHAR#,
+        PHYSHOP_IMAGE_PATH = #record.physhopImagePath:VARCHAR#,
+        FILE_PATH = #record.filePath:VARCHAR#,
+        CONTACT_INFO = #record.contactInfo:VARCHAR#,
+        INTRODUCE = #record.introduce:VARCHAR#,
+        SHOP_LEVEL = #record.shopLevel:DECIMAL#,
+        STATUS = #record.status:CHAR#,
+        AUDIT_STATUS = #record.auditStatus:CHAR#,
+        DEFAULT_DOMAIN_URL = #record.defaultDomainUrl:VARCHAR#,
+        SHOP_SITE = #record.shopSite:VARCHAR#,
+        SHOP_SEO_KEY = #record.shopSeoKey:VARCHAR#,
+        APPLY_USER = #record.applyUser:DECIMAL#,
+        APPLY_TIME = #record.applyTime:DATE#,
+        AUDIT_TIME = #record.auditTime:DATE#,
+        AUDIT_USER = #record.auditUser:DECIMAL#,
+        REMARK = #record.remark:VARCHAR#,
+        DESCRIBE = #record.describe:CLOB#
+        <isParameterPresent>
+            <include refid="SHOP_MAIN.example_Where_Clause"/>
+        </isParameterPresent>
+    </update>
+    <update id="ibatorgenerated_updateByExample">
+        update SHOP_MAIN
+        set SHOP_ID = #record.shopId:DECIMAL#,
+        SUPPLIER_ID = #record.supplierId:DECIMAL#,
+        SHOP_TYPE = #record.shopType:DECIMAL#,
+        SHOP_CODE = #record.shopCode:VARCHAR#,
+        SHOP_NAME = #record.shopName:VARCHAR#,
+        SHOP_TITLE = #record.shopTitle:VARCHAR#,
+        LOGO_PATH = #record.logoPath:VARCHAR#,
+        PHYSHOP_IMAGE_PATH = #record.physhopImagePath:VARCHAR#,
+        FILE_PATH = #record.filePath:VARCHAR#,
+        CONTACT_INFO = #record.contactInfo:VARCHAR#,
+        INTRODUCE = #record.introduce:VARCHAR#,
+        SHOP_LEVEL = #record.shopLevel:DECIMAL#,
+        STATUS = #record.status:CHAR#,
+        AUDIT_STATUS = #record.auditStatus:CHAR#,
+        DEFAULT_DOMAIN_URL = #record.defaultDomainUrl:VARCHAR#,
+        SHOP_SITE = #record.shopSite:VARCHAR#,
+        SHOP_SEO_KEY = #record.shopSeoKey:VARCHAR#,
+        APPLY_USER = #record.applyUser:DECIMAL#,
+        APPLY_TIME = #record.applyTime:DATE#,
+        AUDIT_TIME = #record.auditTime:DATE#,
+        AUDIT_USER = #record.auditUser:DECIMAL#,
+        REMARK = #record.remark:VARCHAR#
+        <isParameterPresent>
+            <include refid="SHOP_MAIN.example_Where_Clause"/>
+        </isParameterPresent>
+    </update>
+    <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="shopMain">
+        update SHOP_MAIN
+        <dynamic prepend="set">
+            <isNotNull prepend="," property="supplierId">
+                SUPPLIER_ID = #supplierId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="shopType">
+                SHOP_TYPE = #shopType:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="shopCode">
+                SHOP_CODE = #shopCode:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopName">
+                SHOP_NAME = #shopName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopTitle">
+                SHOP_TITLE = #shopTitle:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="logoPath">
+                LOGO_PATH = #logoPath:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="physhopImagePath">
+                PHYSHOP_IMAGE_PATH = #physhopImagePath:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="filePath">
+                FILE_PATH = #filePath:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="contactInfo">
+                CONTACT_INFO = #contactInfo:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="introduce">
+                INTRODUCE = #introduce:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopLevel">
+                SHOP_LEVEL = #shopLevel:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="status">
+                STATUS = #status:CHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="auditStatus">
+                AUDIT_STATUS = #auditStatus:CHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="defaultDomainUrl">
+                DEFAULT_DOMAIN_URL = #defaultDomainUrl:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopSite">
+                SHOP_SITE = #shopSite:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="shopSeoKey">
+                SHOP_SEO_KEY = #shopSeoKey:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="applyUser">
+                APPLY_USER = #applyUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="applyTime">
+                APPLY_TIME = #applyTime:DATE#
+            </isNotNull>
+            <isNotNull prepend="," property="auditTime">
+                AUDIT_TIME = #auditTime:DATE#
+            </isNotNull>
+            <isNotNull prepend="," property="auditUser">
+                AUDIT_USER = #auditUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="remark">
+                REMARK = #remark:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="describe">
+                DESCRIBE = #describe:CLOB#
+            </isNotNull>
+        </dynamic>
+        where SHOP_ID = #shopId:DECIMAL#
+    </update>
+    <update id="ibatorgenerated_updateByPrimaryKeyWithBLOBs" parameterClass="shopMain">
+        update SHOP_MAIN
+        set SUPPLIER_ID = #supplierId:DECIMAL#,
+        SHOP_TYPE = #shopType:DECIMAL#,
+        SHOP_CODE = #shopCode:VARCHAR#,
+        SHOP_NAME = #shopName:VARCHAR#,
+        SHOP_TITLE = #shopTitle:VARCHAR#,
+        LOGO_PATH = #logoPath:VARCHAR#,
+        PHYSHOP_IMAGE_PATH = #physhopImagePath:VARCHAR#,
+        FILE_PATH = #filePath:VARCHAR#,
+        CONTACT_INFO = #contactInfo:VARCHAR#,
+        INTRODUCE = #introduce:VARCHAR#,
+        SHOP_LEVEL = #shopLevel:DECIMAL#,
+        STATUS = #status:CHAR#,
+        AUDIT_STATUS = #auditStatus:CHAR#,
+        DEFAULT_DOMAIN_URL = #defaultDomainUrl:VARCHAR#,
+        SHOP_SITE = #shopSite:VARCHAR#,
+        SHOP_SEO_KEY = #shopSeoKey:VARCHAR#,
+        APPLY_USER = #applyUser:DECIMAL#,
+        APPLY_TIME = #applyTime:DATE#,
+        AUDIT_TIME = #auditTime:DATE#,
+        AUDIT_USER = #auditUser:DECIMAL#,
+        REMARK = #remark:VARCHAR#,
+        DESCRIBE = #describe:CLOB#
+        where SHOP_ID = #shopId:DECIMAL#
+    </update>
+    <update id="ibatorgenerated_updateByPrimaryKey" parameterClass="shopMain">
+        update SHOP_MAIN
+        set SUPPLIER_ID = #supplierId:DECIMAL#,
+        SHOP_TYPE = #shopType:DECIMAL#,
+        SHOP_CODE = #shopCode:VARCHAR#,
+        SHOP_NAME = #shopName:VARCHAR#,
+        SHOP_TITLE = #shopTitle:VARCHAR#,
+        LOGO_PATH = #logoPath:VARCHAR#,
+        PHYSHOP_IMAGE_PATH = #physhopImagePath:VARCHAR#,
+        FILE_PATH = #filePath:VARCHAR#,
+        CONTACT_INFO = #contactInfo:VARCHAR#,
+        INTRODUCE = #introduce:VARCHAR#,
+        SHOP_LEVEL = #shopLevel:DECIMAL#,
+        STATUS = #status:CHAR#,
+        AUDIT_STATUS = #auditStatus:CHAR#,
+        DEFAULT_DOMAIN_URL = #defaultDomainUrl:VARCHAR#,
+        SHOP_SITE = #shopSite:VARCHAR#,
+        SHOP_SEO_KEY = #shopSeoKey:VARCHAR#,
+        APPLY_USER = #applyUser:DECIMAL#,
+        APPLY_TIME = #applyTime:DATE#,
+        AUDIT_TIME = #auditTime:DATE#,
+        AUDIT_USER = #auditUser:DECIMAL#,
+        REMARK = #remark:VARCHAR#
+        where SHOP_ID = #shopId:DECIMAL#
+    </update>
+    <select id="ibatorgenerated_selectBySupperliId" resultMap="baseResultMap1"
+            parameterClass="shopMain">
+        select SHOP_ID, SUPPLIER_ID, SHOP_TYPE, SHOP_CODE, SHOP_NAME, SHOP_TITLE, LOGO_PATH,
+        PHYSHOP_IMAGE_PATH, FILE_PATH, CONTACT_INFO, INTRODUCE, SHOP_LEVEL, STATUS, AUDIT_STATUS,
+        DEFAULT_DOMAIN_URL, SHOP_SITE, SHOP_SEO_KEY, APPLY_USER, APPLY_TIME, AUDIT_TIME, AUDIT_USER,
+        REMARK, MANAGE_BRAND, LINKMAN_MOBILE, PRINCIPAL_NAME, SERVICE_QQ, SERVICE_TYPE, TEMPLATE_TYPE
+        from SHOP_MAIN where SUPPLIER_ID=#supplierId:DECIMAL#
+    </select>
+
+    <!-- 查询所有启用的供应商店铺 corporate_name 为商户名称,使用shopTitle属性暂为封装-->
+    <select id="querySupplierShop" resultMap="supplierShopMap">
+     <![CDATA[
+         select a.shop_id,a.shop_name,b.supplier_id,c.corporate_name from shop_main a,suppliers_info b,commercial_tenant_basic_info c where a.supplier_id=b.supplier_id and b.merchant_id=c.n_commercial_tenant_id and a.status=1 and b.status=3
+
+        ]]>
+  </select>
+
+    <select id="selectSupplierShopInfoForExcel" resultClass="shopForExport" parameterClass="shopMainExample">
+        SELECT SM.SHOP_TITLE shopTitle,
+        SM.SHOP_NAME shopName,
+        SM.STATUS status,
+        SM.AUDIT_STATUS auditStatus,
+        SM.APPLY_TIME applyTime,
+        CT.CORPORATE_NAME corporateName,
+        SM.MANAGE_BRAND manageBrand,
+        SM.PRINCIPAL_NAME principalName,
+        SM.LINKMAN_MOBILE linkmanMobile,
+        SM.SERVICE_TYPE serviceType,
+        SM.SERVICE_QQ serviceQq,
+        SM.SHOP_TYPE shopType
+        FROM SHOP_MAIN SM, SUPPLIERS_INFO S, COMMERCIAL_TENANT_BASIC_INFO CT
+        WHERE SM.SUPPLIER_ID=S.SUPPLIER_ID AND S.MERCHANT_ID=CT.N_COMMERCIAL_TENANT_ID
+        AND SM.AUDIT_STATUS !=0 AND S.STATUS!=1
+        <isNotEmpty property="corporateName" prepend="and">
+            ct.corporate_name like '%'||#corporateName#||'%'
+        </isNotEmpty>
+        <isNotEmpty property="status" prepend="and">
+            p.STATUS = #status#
+        </isNotEmpty>
+        <isParameterPresent>
+            <include refid="SHOP_MAIN.example_Where_Clause"/>
+            <isNotNull property="orderByClause">
+                order by $orderByClause$
+            </isNotNull>
+        </isParameterPresent>
+    </select>
+</sqlMap>

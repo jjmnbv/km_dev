@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- 优惠券管理 -->
+	<package name="coupon" namespace="/coupon" extends="struts">
+		<!-- 规则管理 -->
+		<action name="couponRule_*" class="couponRuleAction" method="{1}">
+			<result name="success">/WEB-INF/jsp/app/coupon/couponRuleList.jsp
+			</result>
+			<result name="checkSupplier">/WEB-INF/jsp/app/coupon/supplierInfoList.jsp
+			</result>
+			<result name="pageShow">/WEB-INF/jsp/app/coupon/couponRuleAdd.jsp
+			</result>
+			<result name="invalid.token" type="dispatcher">/WEB-INF/jsp/public/reSubmit.jsp
+			</result>
+		</action>
+
+		<!-- 规则删除判断能不能删 -->
+		<action name="canDelCoupon" class="couponAction" method="canDelCoupon"></action>
+		
+		<!-- 优惠券选择商品 -->
+		<action name="chooseCouponProduct" class="couponAction" method="chooseCouponProduct">
+			<result type="dispatcher" name="success">/WEB-INF/jsp/app/coupon/chooseCouponProduct.jsp
+			</result>
+		</action>
+		
+		<!-- 获取产品信息 ajax -->
+		<action name="getIdreturnTable" class="couponAction" method="getIdreturnTable">
+		</action>
+		
+		<!-- 发放信息查询 -->
+		<action name="gotoGrantCouponList" class="com.kmzyc.promotion.app.action.GrantCouponAction"
+			method="gotoGrantCouponList">
+			<result type="dispatcher" name="success">/WEB-INF/jsp/app/grantCoupon/grantCouponList.jsp
+			</result>
+		</action>
+		<action name="updateGrantCoupon" class="grantCouponAction"
+			method="updateCouponGrantSeting">
+			<result name="success">/WEB-INF/jsp/app/grantCoupon/couponGrantDetail.jsp
+			</result>
+		</action>
+
+		<action name="editGrant" class="grantCouponAction" method="eidtGrant">
+			<result name="success">/WEB-INF/jsp/app/grantCoupon/grantCouponAdd.jsp
+			</result>
+		</action>
+
+		<!-- 查看具体的发放信息 -->
+		<action name="detailCoupon" class="grantCouponAction" method="checkCouponGrant">
+			<result name="success">/WEB-INF/jsp/app/grantCoupon/couponGrantDetail.jsp
+			</result>
+		</action>
+		
+		<!-- 查询不记名发放优惠券的条件查询 -->
+		<action name="selectCouponGrant" class="grantCouponAction"
+			method="selectCouponGrant">
+			<result name="success">/WEB-INF/jsp/app/grantCoupon/couponGrantDetail.jsp
+			</result>
+		</action>
+		
+		<!-- 不记名优惠券导出功能 -->
+		<action name="exportCouponGrant" class="grantCouponAction"
+			method="exportCouponGrant"></action>
+		<action name="checkCouponTime" class="grantCouponAction"
+			method="checkCouponTime">
+		</action>
+		
+		<!-- 删除注册类型优惠券 -->
+		<action name="deleteCouponGrant" class="grantCouponAction"
+			method="deleteCouponGrant">
+			<result name="success">/WEB-INF/jsp/app/grantCoupon/grantCouponList.jsp
+			</result>
+		</action>
+		
+		<!-- 注册类型优惠券暂停 -->
+		<action name="pauseGrantCoupon" class="grantCouponAction"
+			method="pauseGrantCoupon">
+			<result name="success">/WEB-INF/jsp/app/grantCoupon/grantCouponList.jsp
+			</result>
+		</action>
+		
+		<!-- 注册类型优惠券截止 -->
+		<action name="closeGrantCoupon" class="grantCouponAction"
+			method="closeGrantCoupon">
+			<result name="success">/WEB-INF/jsp/app/grantCoupon/grantCouponList.jsp
+			</result>
+		</action>
+		
+		<!-- 注册类型优惠券重新启动的判断 -->
+		<action name="chechtimeOutCoupon" class="grantCouponAction"
+			method="checktimeOutCoupon">
+		</action>
+		
+		<!-- 重启启动注册类型 -->
+		<action name="startGrantCoupon" class="grantCouponAction"
+			method="startGrantCoupon">
+			<result name="success">/WEB-INF/jsp/app/grantCoupon/grantCouponList.jsp
+			</result>
+		</action>
+		
+		<!-- 新建优惠券发放信息 -->
+		<action name="grantCouponAdd" class="grantCouponAction" method="grantCouponAdd">
+			<result name="success">/WEB-INF/jsp/app/grantCoupon/grantCouponAdd.jsp
+			</result>
+		</action>
+		
+		<!-- 编辑 -->
+		<action name="editCouponGrant" class="grantCouponAction"
+			method="editCouponGrant">
+			<result name="success">/WEB-INF/jsp/app/grantCoupon/grantCouponEdit.jsp
+			</result>
+		</action>
+		<action name="grantCouponAdd" class="grantCouponAction" method="grantCouponAdd">
+			<result name="success">/WEB-INF/jsp/app/grantCoupon/grantCouponAdd.jsp
+			</result>
+		</action>
+		
+		<!-- 选择优惠券规则 -->
+		<action name="chooseCouponRule" class="grantCouponAction"
+			method="chooseCouponRule">
+			<result name="success">/WEB-INF/jsp/app/grantCoupon/chooseCouponList.jsp
+			</result>
+		</action>
+		
+		<!-- 选择优惠券的群体：全部会员 -->
+		<action name="chooseCouponcustom" class="couponAction" method="chooseCouponcustom">
+			<result type="dispatcher" name="success">/WEB-INF/jsp/app/coupon/chooseCouponcustom.jsp
+			</result>
+		</action>
+		
+		<action name="getReturnRule" class="grantCouponAction" method="getReturnRule"></action>
+		
+		<action name="getRetruncustom" class="couponAction" method="getRetruncustom"></action>
+		
+		<!-- 查询grantinfo表激活码 -->
+		<action name="selectCouponGrant" class="grantCouponAction"
+			method="selectCouponGrant">
+			<result name="success">/WEB-INF/jsp/app/grantCoupon/couponGrantDetail.jsp
+			</result>
+		</action>
+
+		<!-- 保存发放 -->
+		<action name="saveGrantCoupon" class="grantCouponAction"
+			method="saveGrantCoupon">
+			<result name="success">/WEB-INF/jsp/app/grantCoupon/couponGrantDetail.jsp
+			</result>
+		</action>
+
+
+
+		<!--优惠券流水列表 -->
+		<action name="queryCouponGrantFlow" class="com.kmzyc.promotion.app.action.CouponAction"
+			method="queryCouponGrantFlow">
+			<result type="dispatcher" name="success">/WEB-INF/jsp/app/coupon/couponGrantFlow.jsp
+			</result>
+		</action>
+
+		<!--已发放优惠劵列表 -->
+		<action name="showAlreadyGrantCouponList" class="com.kmzyc.promotion.app.action.GrantCouponAction"
+			method="showAlreadyGrantCouponList">
+			<result type="dispatcher" name="success">/WEB-INF/jsp/app/grantCoupon/alreadyGrantCouponList.jsp
+			</result>
+		</action>
+	</package>
+
+	<!-- 促销活动管理 start -->
+	<package name="promotion" namespace="/promotion" extends="struts">
+		<action name="queryExceptionProductList" class="com.kmzyc.promotion.app.action.PromotionProductAction"
+			method="queryExceptionProductList">
+			<result name="success">/WEB-INF/jsp/app/promotion/promotionUpdate.jsp
+			</result>
+			<!-- <result name="promotionList" type="redirect">queryPromotionList.action</result> -->
+		</action>
+
+		<action name="deleteExceptionProduct" class="com.kmzyc.promotion.app.action.PromotionProductAction"
+			method="deleteExceptionProduct"></action>
+		<action name="queryPromotionList" class="com.kmzyc.promotion.app.action.PromotionAction"
+			method="queryPromotionList">
+			<result name="success">/WEB-INF/jsp/app/promotion/promotionList.jsp
+			</result>
+			<result name="increaseList">/WEB-INF/jsp/app/promotion/increasePromotionList.jsp
+			</result>
+		</action>
+		<action name="checkPromotionList" class="com.kmzyc.promotion.app.action.PromotionAction"
+			method="queryCheckPromotionList">
+			<result name="success">/WEB-INF/jsp/app/promotion/checkPromotionList.jsp
+			</result>
+		</action>
+		<action name="updatePromotion" class="com.kmzyc.promotion.app.action.PromotionAction"
+			method="updatePromotion">
+			<result name="success">/WEB-INF/jsp/app/success.jsp</result>
+		</action>
+		<action name="updateIssuePromotion" class="com.kmzyc.promotion.app.action.PromotionAction"
+			method="updateIssuePromotion" />
+		<action name="updatePromotionEndTime" class="com.kmzyc.promotion.app.action.PromotionAction"
+			method="updatePromotionEndTime" />
+		<action name="creatCache" class="com.kmzyc.promotion.app.action.PromotionAction"
+			method="creatCache" />
+		<action name="updatePromotionCache" class="com.kmzyc.promotion.app.action.PromotionAction"
+			method="updatePromotionCache" />
+		<action name="selectConflictPromotion" class="com.kmzyc.promotion.app.action.PromotionAction"
+			method="selectConflictPromotion">
+			<result name="success">/WEB-INF/jsp/app/promotion/conflictPromotionList.jsp
+			</result>
+		</action>
+		<action name="updatePromotionPriority" class="com.kmzyc.promotion.app.action.PromotionAction"
+			method="updatePromotionPriority" />
+		<action name="checkPromoitonTimeInCoupon" class="com.kmzyc.promotion.app.action.PromotionAction"
+			method="checkPromoitonTimeInCoupon" />
+		<action name="updatePromotionRulePriority" class="com.kmzyc.promotion.app.action.PromotionRuleAction"
+			method="updatePromotionRulePriority" />
+		<action name="copyPromotion" class="com.kmzyc.promotion.app.action.PromotionAction"
+			method="copyPromotion" />
+		<action name="queryPromotionProductList" class="com.kmzyc.promotion.app.action.PromotionProductAction"
+			method="queryPromotionProductList">
+			<result name="success">/WEB-INF/jsp/app/promotion/promotionProductList.jsp
+			</result>
+			<!-- <result name="promotionList" type="redirect">queryPromotionList.action</result> -->
+		</action>
+		<action name="queryPromotionExceptionProductList" class="com.kmzyc.promotion.app.action.PromotionProductAction"
+			method="queryPromotionExceptionProductList">
+			<result name="success">/WEB-INF/jsp/app/promotion/promotionExceptionProductList.jsp
+			</result>
+			<!-- <result name="promotionList" type="redirect">queryPromotionList.action</result> -->
+		</action>
+		<action name="selectCategory" class="com.kmzyc.promotion.app.action.PromotionProductAction"
+			method="selectCategory">
+			<result type="dispatcher" name="success">/WEB-INF/jsp/app/product/productList.jsp
+			</result>
+		</action>
+		<action name="findAllProductSku" class="com.kmzyc.promotion.app.action.PromotionProductAction"
+			method="findAllProductSku">
+			<result name="success">/WEB-INF/jsp/app/promotion/skuProductList.jsp
+			</result>
+		</action>
+
+
+		<action name="findAllProductSkuForException" class="com.kmzyc.promotion.app.action.PromotionProductAction"
+			method="findAllProductSkuForException">
+			<result name="success">/WEB-INF/jsp/app/promotion/skuProductListForException.jsp
+			</result>
+		</action>
+		<action name="findAllProductSkuForGrant" class="com.kmzyc.promotion.app.action.PromotionProductAction"
+			method="findAllProductSkuForGrant">
+			<result name="success">/WEB-INF/jsp/app/promotion/skuProductListForGrant.jsp
+			</result>
+		</action>
+
+		<action name="updatePromotionProductDataNum"
+			class="com.kmzyc.promotion.app.action.PromotionProductDataAction" method="updatePromotionProductDataNum" />
+		<action name="addPromotionProductData"
+			class="com.kmzyc.promotion.app.action.PromotionProductDataAction" method="addPromotionProductData">
+
+		</action>
+		<action name="deletePromotionProductData"
+			class="com.kmzyc.promotion.app.action.PromotionProductDataAction" method="deletePromotionProductData">
+
+		</action>
+		<action name="addPromotionProduct" class="com.kmzyc.promotion.app.action.PromotionProductAction"
+			method="addPromotionProduct">
+			<result name="promotionList" type="redirect">queryPromotionList.action
+			</result>
+			<result name="success">/WEB-INF/jsp/app/success.jsp</result>
+		</action>
+		<action name="updateIssuePromotionProduct" class="com.kmzyc.promotion.app.action.PromotionProductAction"
+			method="updateIssuePromotionProduct" />
+		<action name="deletePromotionProduct" class="com.kmzyc.promotion.app.action.PromotionProductAction"
+			method="deletePromotionProduct">
+			<result name="success">/WEB-INF/jsp/app/success.jsp</result>
+		</action>
+		<action name="updatePromotionProductPrice" class="com.kmzyc.promotion.app.action.PromotionProductAction"
+			method="updatePromotionProductPrice" />
+		<action name="updatePromotionProductForXianGou" class="com.kmzyc.promotion.app.action.PromotionProductAction"
+			method="updatePromotionProductForXianGou" />
+		<action name="deletePromotion" class="com.kmzyc.promotion.app.action.PromotionAction"
+			method="deletePromotion" />
+		<action name="promotionIsLock" class="com.kmzyc.promotion.app.action.PromotionAction"
+			method="promotionIsLock" />
+		<!-- new promtion 20140627 -->
+		<action name="toAddPromotionNew" class="com.kmzyc.promotion.app.action.PromotionAction"
+			method="toAddPromotionNew">
+			<result name="success">/WEB-INF/jsp/app/promotion/promotionAdd.jsp
+			</result>
+		</action>
+		<action name="addPromotionNew" class="com.kmzyc.promotion.app.action.PromotionAction"
+			method="addPromotionNew">
+		</action>
+		<action name="creatAllCacheForB2B" class="com.kmzyc.promotion.app.action.PromotionAction"
+			method="creatAllCacheForB2B">
+			<result name="success">/WEB-INF/jsp/app/success.jsp</result>
+		</action>
+		<action name="toUpdataPromotionNew" class="com.kmzyc.promotion.app.action.PromotionAction"
+			method="toUpdataPromotionNew">
+			<result name="success">/WEB-INF/jsp/app/promotion/promotionUpdate.jsp
+			</result>
+			<result name="promotionList" type="redirect">queryPromotionList.action
+			</result>
+		</action>
+		<action name="toPromotionInfo" class="com.kmzyc.promotion.app.action.PromotionAction"
+			method="toUpdataPromotionNew">
+			<result name="success">/WEB-INF/jsp/app/promotion/promotionDetail.jsp
+			</result>
+		</action>
+		<action name="synPromotionCom" class="com.kmzyc.promotion.app.action.PromotionAction"
+			method="synPromotionCom" />
+	</package>
+	<!-- 促销活动管理 end -->
+
+	<package name="common" extends="struts" namespace="/common">
+		<action name="queryCategoryListByPromotion" class="com.kmzyc.promotion.app.action.CategoryAction"
+			method="queryCategoryList">
+			<result name="success">/WEB-INF/jsp/common/selectProductCategory.jsp
+			</result>
+		</action>
+		<action name="selectProductBrand" class="com.kmzyc.promotion.app.action.ProdBrandAction"
+			method="show">
+			<result name="success">/WEB-INF/jsp/common/selectProductBrand.jsp
+			</result>
+		</action>
+		<action name="selectCouponList" class="couponAction" method="gotoQueryCouponList">
+			<result name="success">/WEB-INF/jsp/common/selectCouponList.jsp</result>
+		</action>
+
+		<action name="gotoQueryCouponListByShopCode" class="couponAction"
+			method="gotoQueryCouponListByShopCode">
+			<result name="success">/WEB-INF/jsp/common/selectCouponList.jsp</result>
+		</action>
+		<action name="selectNewProductShop" class="prodShopAction"
+			method="newshow">
+			<result name="success">/WEB-INF/jsp/common/selectNewProductShop.jsp
+			</result>
+
+
+		</action>
+	</package>
+
+	<package name="app" extends="struts" namespace="/app">
+		<action name="findAllSuppliersForJson" class="prodBrandAction"
+			method="findAllSuppliersForJson"></action>
+		<action name="findAllBrandForJson" class="prodBrandAction"
+			method="findAllBrandForJson"></action>
+		<action name="queryCouponDetail" class="couponAction" method="queryCouponDetail">
+			<result type="dispatcher" name="success">/WEB-INF/jsp/common/couponAdd.jsp
+			</result>
+		</action>
+	</package>
+
+</struts>
+

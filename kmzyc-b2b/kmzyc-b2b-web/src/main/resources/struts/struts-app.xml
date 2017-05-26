@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="app" extends="json-default" namespace="/app">
+        <!-- 生成token -->
+        <action name="genToken" class="registAndLoginAction" method="genToken"/>
+        <!-- 手机登录 -->
+        <action name="mobileLogin" class="registAndLoginAction" method="mobileLogin"/>
+        <!-- 手机注册 -->
+        <action name="mobileRegist" class="registAndLoginAction" method="mobileRegist"></action>
+        <!-- 手机校验码 -->
+        <action name="sendMobileMsg" class="registAndLoginAction" method="sendMobile"></action>
+        <!-- 手机修改密码 -->
+        <action name="modifyPassword" class="registAndLoginAction" method="modifyPassword"></action>
+        <!-- 手机验证 -->
+        <action name="bindMobile" class="registAndLoginAction" method="bindMobile"></action>
+
+        <!-- 退出 -->
+        <action name="mobileExit" class="registAndLoginAction" method="mobileExit"/>
+        <!--获取用户手机、邮箱 -->
+        <action name="getUserContact" class="registAndLoginAction" method="getUserContact">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 发送邮件 -->
+        <!--<action name="sendMobileMail" class="registAndLoginAction" method="sendMobileMail" ></action>-->
+        <!-- 重置密码数据校验 -->
+        <action name="resetPwdInfoValid" class="registAndLoginAction"
+                method="resetPwdInfoValid"></action>
+        <!-- 忘记密码-->
+        <action name="resetPwd" class="registAndLoginAction" method="resetPwd"></action>
+
+        <!-- 购物车 start -->
+
+        <!-- 获取购物车信息 -->
+        <action name="getShopCarInfo" class="appShopCarAction" method="getShopCarInfo">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 添加普通商品至购物车 -->
+        <action name="addProductToShopCar" class="appShopCarAction" method="addProductToShopCar">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 添加套装商品至购物车 -->
+        <action name="addSuitProductToShopCar" class="appShopCarAction"
+                method="addSuitProductToShopCar">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 从购物车删除普通商品 -->
+        <action name="deleteProductFromShopCar" class="appShopCarAction"
+                method="deleteProductFromShopCar">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 从购物车删除套装商品 -->
+        <action name="deleteSuitProductFromShopCar" class="appShopCarAction"
+                method="deleteSuitProductFromShopCar">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 清空购物车 -->
+        <action name="clearShopCar" class="appShopCarAction" method="clearShopCar">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 合并购物车 -->
+        <action name="mergeShopCar" class="appShopCarAction" method="mergeShopCar">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 获取购物车总数量 -->
+        <action name="getShopCarProductCount" class="appShopCarAction"
+                method="getShopCarProductCount">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 批量修改 -->
+        <action name="changeProductInShopCarBatch" class="appShopCarAction"
+                method="changeProductInShopCarBatch">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 批量删除-->
+        <action name="deleteProductToShopCarBatch" class="appShopCarAction"
+                method="deleteProductToShopCarBatch">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 获取购物车信息 -->
+        <action name="updateShopCartProductCount" class="appShopCarAction"
+                method="updateShopCartProductCount">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 2014-4-9 new复选框选择商品 -->
+        <action name="updateProductIsChecked" class="appShopCarAction"
+                method="updateProductIsChecked">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 2014-4-9 new添加或者删除加价购赠品 -->
+        <action name="setGiftProduct" class="appShopCarAction" method="setGiftProduct">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 2014-4-9 new获取指定活动的加价购赠品 -->
+        <action name="getshopCarGiftProductList" class="appShopCarAction"
+                method="getshopCarGiftProductList">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 获取购物车汇总信息 <action name="getShopCarTotal" class="appShopCarAction" method="getShopCarTotal" >
+            <result type="json">
+                 <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>-->
+        <!-- 购物车 end -->
+
+
+        <!-- 添加商品进收藏夹 -->
+        <action name="insertFavorite" class="favoriteGoodsAction" method="insertFavorite">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 获取收藏列表 -->
+        <action name="getMyFavoriteProductList" class="favoriteGoodsAction"
+                method="getMyFavoriteProductList"/>
+        <!-- 删除收藏列表 -->
+        <action name="deleteFavorite" class="favoriteGoodsAction" method="deleteFavorite">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 获取账户信息-->
+        <action name="queryAccountInfo" class="appAccountAction" method="queryAccountInfo"/>
+
+
+        <!-- 手机端发放优惠券 -->
+        <action name="grantTouser" class="appCouponAction" method="grantTouser">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 手机端查询自己的优惠券-->
+        <action name="getMyCoupon" class="appCouponAction" method="getMyCoupon"></action>
+
+        <!-- 手机端查询激活礼品券-->
+        <action name="activationCoupon" class="appCouponAction" method="activationCoupon"></action>
+
+        <!-- 手机端查询自己的等级积分信息-->
+        <action name="getMyPointAndLevel" class="appPointAction" method="getMyPointAndLevel">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 手机端查询自己的积分记录-->
+        <action name="getMyPointRecords" class="appPointAction" method="getMyPointRecords">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 用户浏览商品 -->
+        <action name="getUserBrowseGoods" class="appUserBrowseGoodsAction"
+                method="getUserBrowseGoods">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 添加浏览记录 -->
+        <action name="saveUserBrowseGoods" class="appUserBrowseGoodsAction"
+                method="saveUserBrowseGoods"/>
+        <!-- 删除浏览记录 -->
+        <action name="delUserBrowseGoods" class="appUserBrowseGoodsAction"
+                method="delUserBrowseGoods"/>
+
+
+        <!-- 所有类目 -->
+        <action name="getCategoryList" class="appCategorysAction" method="getCategoryList"/>
+
+
+        <!-- 添加收货人信息APP -->
+        <action name="saveReceiverInfo" class="appReceiverInfoAction"
+                method="saveReceiverInfo"></action>
+        <!-- 获取用户收货人信息APP -->
+        <action name="getReceiverInfoList" class="appReceiverInfoAction"
+                method="getReceiverInfoList"></action>
+
+
+        <!-- 手机订单进度  废的-->
+        <action name="getOrderProgres" class="appMyOrderAction" method="getOrderProgres">
+        </action>
+
+
+        <!-- 手机订单评价 ok -->
+        <action name="getAssess" class="appMyOrderAction" method="getAssess"></action>
+        <!-- 手机订单进度详情 ok -->
+        <action name="getOrderProgresInfo" class="appMyOrderAction" method="getOrderProgresInfo">
+        </action>
+        <!-- 手机订单退换货申请列表  ok-->
+        <action name="getorderApplyList" class="appMyOrderAction" method="getorderApplyList">
+        </action>
+        <!-- 手机订单退换货记录列表  ok-->
+        <action name="getReturnShopList" class="appMyOrderAction" method="getReturnShopList">
+        </action>
+        <!-- 手机订单退换货记录详情  ok-->
+        <action name="getOrderApplyDetail" class="appMyOrderAction" method="getOrderApplyDetail">
+        </action>
+        <!--订单退换货跟踪 ok -->
+        <action name="getReturnTracing" class="appMyOrderAction" method="getReturnTracing">
+        </action>
+        <!--uid  orderCode 取消订单 ok -->
+        <action name="cancelOrder" class="appMyOrderAction" method="cancelOrder">
+        </action>
+        <!--根据orderCode 和uid 订单详情 ok-->
+        <action name="getOrderDetail" class="appMyOrderAction" method="getMyOrderDetail">
+        </action>
+        <!--根据orderCode  订单是否有效-->
+        <action name="getOrderStatus" class="appMyOrderAction" method="getOrderStatus">
+        </action>
+
+        <!-- uid 订单列表 productName -->
+        <action name="getOrders" class="appMyOrderAction" method="getMyOrderList">
+        </action>
+        <!-- uid  orderCode 确认收货 -->
+        <action name="sureHaveProduct" class="appMyOrderAction" method="sureHaveProduct">
+        </action>
+        <!--  确认保存评价 -->
+        <action name="saveAssessContent" class="appMyOrderAction" method="saveAssessContent">
+        </action>
+        <!-- orderCode uid删除订单  -->
+        <action name="deleteOrder" class="appMyOrderAction" method="deleteOrder">
+        </action>
+
+
+        <!--app子类目获取  -->
+        <action name="getSubClassGoods" class="appCategorysAction" method="getSubClassGoods">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 获取首页热销商品 -->
+        <!--<action name="getHighRankGoods" class="appGoodsAction" method="getHighRankGoods">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>	-->
+
+        <!-- 获取热销商品列表 -->
+        <!--<action name="getRankedGoodsList" class="appGoodsAction" method="getRankedGoodsList">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>	-->
+
+        <!-- 获取猜你喜欢商品列表 -->
+        <!--<action name="getYouLikeGoods" class="appGoodsAction" method="getYouLikeGoods">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>-->
+
+        <!-- 获取新品上架商品列表 -->
+        <!--<action name="getNewGoods" class="appGoodsAction" method="getNewGoods">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>	-->
+
+        <!-- 获取首页特价商品 -->
+        <!--	<action name="getBargainedGoods" class="appGoodsAction" method="getBargainedGoods">
+                <result type="json">
+                    <param name="defaultEncoding">UTF-8</param>
+                    <param name="root">returnResult</param>
+                    <param name="callbackParameter">callback</param>
+                </result>
+            </action>	-->
+
+        <!-- 获取特价商品列表 -->
+        <!--		<action name="getBargainedGoodsList" class="appGoodsAction" method="getBargainedGoodsList">
+                    <result type="json">
+                        <param name="defaultEncoding">UTF-8</param>
+                        <param name="root">returnResult</param>
+                        <param name="callbackParameter">callback</param>
+                    </result>
+                </action>	-->
+
+        <!-- 手机获取活动商品列表详情 -->
+        <action name="getPromotionDetail" class="appPromotionInfoAction"
+                method="getPromotionDetail">
+
+        </action>
+
+        <!-- 手机获取活动规则信息 -->
+        <action name="getPromotionRule" class="appPromotionInfoAction" method="getPromotionRule">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- app获取秒杀活动 商品 -->
+
+        <action name="getSeckillProducts" class="appPromotionInfoAction"
+                method="getSeckillProducts">
+        </action>
+        <!-- app获取获取商品促销信息 -->
+
+        <action name="getProductPromotionInfo" class="appPromotionInfoAction"
+                method="getProductPromotionInfo">
+        </action>
+        <!-- 获取首页信息 -->
+
+        <action name="getIndexInfo" class="appPromotionInfoAction" method="getIndexInfo">
+        </action>
+        <!-- 获取推荐商品列表 -->
+
+        <action name="getRecommendProducts" class="appPromotionInfoAction"
+                method="getRecommendProducts">
+        </action>
+        <!-- 手机获取首页促销活动信息 -->
+        <action name="getPromotionImgs" class="appPromotionInfoAction" method="getPromotionImgs">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 手机获取商品促销活动和价格信息 -->
+        <action name="getGoodsPromotionInfoAndPrice" class="appPromotionInfoAction"
+                method="getGoodsPromotionInfoAndPrice">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 手机获取指定商品促销活动信息 -->
+        <action name="getGoodsPromotionInfo" class="appPromotionInfoAction"
+                method="getGoodsPromotionInfo">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 手机获取指定商品最终价格 -->
+        <action name="getGoodsPrice" class="appPromotionInfoAction" method="getGoodsPrice">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!--上传用户头像  -->
+        <action name="appUploadUserImg" class="appUploadUserImgAction"
+                method="appUploadUserImg"></action>
+        <!--获取站内信息  -->
+        <action name="getSiteNoticetList" class="appSiteNoticeAction" method="getSiteNoticetList">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!--获取最新未读站内消息-->
+        <action name="getLatestNotReadSiteNotice" class="appSiteNoticeAction"
+                method="getLatestNotReadSiteNotice">
+
+        </action>
+        <!-- 更新站内消息状态 -->
+        <action name="updateNoticeStatus" class="appSiteNoticeAction" method="updateNoticeStatus">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!--获取商品组图-->
+        <action name="getProdImag" class="appProductDetailAction" method="getProdImag">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!--根据商品SKUID查询商品的评价-->
+        <action name="getProdAppraiseById" class="appProductDetailAction"
+                method="getProdAppraiseById"/>
+        <!--根据商品SKUID查询商品的咨询-->
+        <action name="getProdConsultId" class="appProductDetailAction" method="getProdConsultId">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 手机客户投诉接口 -->
+        <action name="submitIdeas" class="appComplaintAction" method="submitIdeas"></action>
+        <action name="getReplyType" class="appComplaintAction" method="getReplyType"></action>
+        <!--根据商品skuid查询商品套餐-->
+        <action name="getGoodsSeriesInfo" class="appProductDetailAction"
+                method="getGoodsSeriesInfo">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!--根据商品skuid查询商品属性-->
+        <action name="getGoodsSpec" class="appProductDetailAction" method="getGoodsSpec"/>
+
+        <!--版本接口 -->
+        <action name="queryVersion" class="appVersionAction" method="queryVersion">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 修改或设置支付密码 -->
+        <action name="postModifyPayPassword" class="appSecurityCentreAction"
+                method="postModifyPayPassword"></action>
+        <!-- 获取支付范围 -->
+        <action name="queryPayRange" class="appSecurityCentreAction"
+                method="queryPayRange"></action>
+        <!-- 支付管理 -->
+        <action name="postPaySetting" class="appSecurityCentreAction"
+                method="postPaySetting"></action>
+        <!-- 短信验证发送 -->
+        <action name="appSendMobile" class="appSecurityCentreAction" method="sendMobile">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 验证手机校验码 -->
+        <action name="appValidMobileCode" class="appSecurityCentreAction" method="validMobileCode">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 验证手机之登录密码-->
+        <action name="appVerifyUserPassword" class="appSecurityCentreAction"
+                method="verifyUserPassword"/>
+
+        <!-- 退换货申请 -->
+        <action name="applyAppSubmit" class="appAfterserviceAction" method="applyAppSubmit"/>
+        <!-- 取消退/换货 -->
+        <action name="cancelAppOrderAlter" class="appAfterserviceAction"
+                method="cancelAppOrderAlter"/>
+
+        <!-- 退回商品 -->
+        <action name="returnAppGoods" class="appAfterserviceAction" method="returnAppGoods"/>
+
+
+        <!-- 确认退货/换货 -->
+        <action name="checkAppApply" class="appAfterserviceAction" method="checkAppApply"/>
+
+        <!-- 上传图片 -->
+        <action name="saveWapPhoto" class="appAfterserviceAction" method="saveWapPhoto"/>
+
+        <!-- app检查登录名是否存在 -->
+        <action name="checkLoginName" class="registAndLoginAction" method="checkLoginName"></action>
+        <!-- app获取账户流水明细-->
+        <action name="queryRechargeDetail" class="appBnesAcctTransAtion"
+                method="queryRechargeDetail"></action>
+        <!-- app获取积分明细-->
+        <action name="queryPointsRecordList" class="appMyPointsRecordAction"
+                method="queryPointsRecordList"></action>
+        <!-- app获取个人信息 -->
+        <action name="queryUserInfo" class="appUserInfoAction" method="queryUserInfo"></action>
+        <!-- app修改个人信息 -->
+        <action name="updateUserInfo" class="appUserInfoAction" method="updateUserInfo"></action>
+        <!-- app修改登陆信息 -->
+        <action name="updateLoginInfo" class="appUserInfoAction" method="updateLoginInfo"></action>
+        <!-- app更新时代信息 -->
+        <action name="updateEraInfo" class="appUserInfoAction" method="updateEraInfo"></action>
+
+        <!-- 图形验证码验证 -->
+        <action name="authValid" class="appCommonAction" method="authValid"/>
+        <!-- 非法链接 -->
+        <action name="illegalUrl" class="appCommonAction" method="illegalUrl"/>
+        <!--app端请求服务器时间-->
+        <action name="getSystemTime" class="appCommonAction" method="getSystemTime"/>
+        <!-- 店铺信息查询 -->
+        <action name="getShopInfo" class="appShopInfoAction" method="getShopInfo"/>
+
+        <!-- 手机获取最新版本号 -->
+        <action name="getNewestVersion" class="appCommonAction" method="getAppVersion"/>
+
+        <!-- 结算 -->
+        <!-- 获取配送费用  -->
+        <action name="getDistriCharge" class="appSettAndPayAction" method="getDistriCharge"/>
+        <!-- 获取可用优惠券  -->
+        <action name="getAvaCoupon" class="appSettAndPayAction" method="getAvaCoupon"/>
+        <!-- 获取订单结算信息  -->
+        <action name="getSettInfo" class="appSettAndPayAction" method="getSettInfo"/>
+        <!-- 提交订单 -->
+        <action name="saveOrder" class="appSettAndPayAction" method="saveOrder"/>
+        <!-- 校验支付密码  -->
+        <action name="checkPayPWD" class="appSettAndPayAction" method="checkPayPWD"/>
+        <!-- 记录/更新支付准备流水  -->
+        <action name="mergeReadyPayStat" class="appSettAndPayAction" method="mergeReadyPayStat"/>
+        <!-- app支付签名 -->
+        <action name="getAppPaySign" class="appSettAndPayAction" method="getAppPaySign"/>
+        <!-- 结算 -->
+
+        <!-- 收藏、取消收藏 店铺和 商品 -->
+        <action name="changeOrCancelFavorite" class="favoriteGoodsAction"
+                method="changeOrCancelFavorite"/>
+        <!-- 查询我的收藏店铺列表 -->
+        <action name="myShopFavorite" class="favoriteGoodsAction" method="myShopFavorite"/>
+        <!-- 查询我的店铺、产品是否收藏 -->
+        <action name="isFavorited" class="favoriteGoodsAction" method="isFavorited"/>
+
+
+        <!-- 获取应用推荐列表  -->
+        <action name="querySuggesApps" class="appMessageAction" method="querySuggesApps"/>
+
+        <!-- 获取站内信 -->
+        <action name="queryMessage4AppByPage" class="appMessageAction"
+                method="queryMessage4AppByPage"/>
+
+        <!-- 修改站内信状态 -->
+        <action name="markReadMessage4App" class="appMessageAction" method="markReadMessage"/>
+
+
+        <!-- app：第三方登录绑定会员用户信息、创造及绑定临时用户信息 -->
+        <action name="thirdRegistAndBind" class="appNewThirdAction" method="thirdRegistAndBind"/>
+        <!-- app：第三方接口绑定用户状态列表 -->
+        <action name="listThirdAppsBindStatus" class="appNewThirdAction"
+                method="listThirdAppsBindStatus"/>
+        <!-- 解绑 -->
+        <action name="unBinding" class="loginInfoBindingAction" method="getOutOfBind"/>
+
+        <!--版本接口 -->
+        <action name="getLoginInfo" class="appVersionAction" method="queryUpdateVersion"/>
+
+        <!-- 抽奖获取抽奖记录 -->
+        <action name="getLotteryList" class="appLotteryAction" method="getLotteryList"/>
+        <!-- 抽奖获取抽奖详情 -->
+        <action name="getLotteryDetail" class="appLotteryAction" method="getLotteryDetail"/>
+        <!-- 抽奖 领奖 -->
+        <action name="acceptPrize" class="appLotteryAction" method="acceptPrize"/>
+
+    </package>
+</struts>

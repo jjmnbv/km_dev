@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="EMAIL_RRS_INFO" >
+  <resultMap id="BaseResultMap" class="com.kmzyc.b2b.model.EmailRrsInfo" >
+    <result column="EMAIL_RRS_ID" property="emailRrsId" jdbcType="DECIMAL" />
+    <result column="EMAIL_RRS_NAME" property="emailRrsName" jdbcType="VARCHAR" />
+    <result column="EMAIL_RRS_PARENT_ID" property="emailRrsParentId" jdbcType="DECIMAL" />
+    <result column="IS_PARENT" property="isParent" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="CREATED_ID" property="createdId" jdbcType="DECIMAL" />
+    <result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+    <result column="MODIFIE_ID" property="modifieId" jdbcType="DECIMAL" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="WEEKLY" property="weekly" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$ #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  <sql id="Base_Column_List" >
+    EMAIL_RRS_ID, EMAIL_RRS_NAME, EMAIL_RRS_PARENT_ID, IS_PARENT, CREATE_DATE, CREATED_ID, 
+    MODIFY_DATE, MODIFIE_ID, DESCRIPTION, WEEKLY
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterClass="com.kmzyc.b2b.model.EmailRrsInfoExample" >
+    select
+    <isParameterPresent >
+      <isEqual property="distinct" compareValue="true" >
+        distinct
+      </isEqual>
+    </isParameterPresent>
+    <include refid="EMAIL_RRS_INFO.Base_Column_List" />
+    from EMAIL_RRS_INFO
+    <isParameterPresent >
+      <include refid="EMAIL_RRS_INFO.Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterClass="com.kmzyc.b2b.model.EmailRrsInfo" >
+    select 
+    <include refid="EMAIL_RRS_INFO.Base_Column_List" />
+    from EMAIL_RRS_INFO
+    where EMAIL_RRS_ID = #emailRrsId:DECIMAL#
+  </select>
+  <delete id="deleteByPrimaryKey" parameterClass="com.kmzyc.b2b.model.EmailRrsInfo" >
+    delete from EMAIL_RRS_INFO
+    where EMAIL_RRS_ID = #emailRrsId:DECIMAL#
+  </delete>
+  <delete id="deleteByExample" parameterClass="com.kmzyc.b2b.model.EmailRrsInfoExample" >
+    delete from EMAIL_RRS_INFO
+    <include refid="EMAIL_RRS_INFO.Example_Where_Clause" />
+  </delete>
+  <insert id="insert" parameterClass="com.kmzyc.b2b.model.EmailRrsInfo" >
+    insert into EMAIL_RRS_INFO (EMAIL_RRS_ID, EMAIL_RRS_NAME, EMAIL_RRS_PARENT_ID, 
+      IS_PARENT, CREATE_DATE, CREATED_ID, MODIFY_DATE, 
+      MODIFIE_ID, DESCRIPTION, WEEKLY)
+    values (#emailRrsId:DECIMAL#, #emailRrsName:VARCHAR#, #emailRrsParentId:DECIMAL#, 
+      #isParent:DECIMAL#, #createDate:DATE#, #createdId:DECIMAL#, #modifyDate:DATE#, 
+      #modifieId:DECIMAL#, #description:VARCHAR#, #weekly:VARCHAR#)
+  </insert>
+  <insert id="insertSelective" parameterClass="com.kmzyc.b2b.model.EmailRrsInfo" >
+    insert into EMAIL_RRS_INFO
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="emailRrsId" >
+        EMAIL_RRS_ID
+      </isNotNull>
+      <isNotNull prepend="," property="emailRrsName" >
+        EMAIL_RRS_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="emailRrsParentId" >
+        EMAIL_RRS_PARENT_ID
+      </isNotNull>
+      <isNotNull prepend="," property="isParent" >
+        IS_PARENT
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="createdId" >
+        CREATED_ID
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        MODIFY_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="modifieId" >
+        MODIFIE_ID
+      </isNotNull>
+      <isNotNull prepend="," property="description" >
+        DESCRIPTION
+      </isNotNull>
+      <isNotNull prepend="," property="weekly" >
+        WEEKLY
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="emailRrsId" >
+        #emailRrsId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="emailRrsName" >
+        #emailRrsName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="emailRrsParentId" >
+        #emailRrsParentId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="isParent" >
+        #isParent:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        #createDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="createdId" >
+        #createdId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        #modifyDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="modifieId" >
+        #modifieId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="description" >
+        #description:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="weekly" >
+        #weekly:VARCHAR#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  <select id="countByExample" parameterClass="com.kmzyc.b2b.model.EmailRrsInfoExample" resultClass="java.lang.Integer" >
+    select count(*) from EMAIL_RRS_INFO
+    <include refid="EMAIL_RRS_INFO.Example_Where_Clause" />
+  </select>
+  <update id="updateByExampleSelective" >
+    update EMAIL_RRS_INFO
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.emailRrsId" >
+        EMAIL_RRS_ID = #record.emailRrsId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.emailRrsName" >
+        EMAIL_RRS_NAME = #record.emailRrsName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.emailRrsParentId" >
+        EMAIL_RRS_PARENT_ID = #record.emailRrsParentId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.isParent" >
+        IS_PARENT = #record.isParent:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createDate" >
+        CREATE_DATE = #record.createDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createdId" >
+        CREATED_ID = #record.createdId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.modifyDate" >
+        MODIFY_DATE = #record.modifyDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="record.modifieId" >
+        MODIFIE_ID = #record.modifieId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.description" >
+        DESCRIPTION = #record.description:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.weekly" >
+        WEEKLY = #record.weekly:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="EMAIL_RRS_INFO.Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="updateByExample" >
+    update EMAIL_RRS_INFO
+    set EMAIL_RRS_ID = #record.emailRrsId:DECIMAL#,
+      EMAIL_RRS_NAME = #record.emailRrsName:VARCHAR#,
+      EMAIL_RRS_PARENT_ID = #record.emailRrsParentId:DECIMAL#,
+      IS_PARENT = #record.isParent:DECIMAL#,
+      CREATE_DATE = #record.createDate:DATE#,
+      CREATED_ID = #record.createdId:DECIMAL#,
+      MODIFY_DATE = #record.modifyDate:DATE#,
+      MODIFIE_ID = #record.modifieId:DECIMAL#,
+      DESCRIPTION = #record.description:VARCHAR#,
+      WEEKLY = #record.weekly:VARCHAR#
+    <isParameterPresent >
+      <include refid="EMAIL_RRS_INFO.Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterClass="com.kmzyc.b2b.model.EmailRrsInfo" >
+    update EMAIL_RRS_INFO
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="emailRrsName" >
+        EMAIL_RRS_NAME = #emailRrsName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="emailRrsParentId" >
+        EMAIL_RRS_PARENT_ID = #emailRrsParentId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="isParent" >
+        IS_PARENT = #isParent:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE = #createDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="createdId" >
+        CREATED_ID = #createdId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        MODIFY_DATE = #modifyDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="modifieId" >
+        MODIFIE_ID = #modifieId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="description" >
+        DESCRIPTION = #description:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="weekly" >
+        WEEKLY = #weekly:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    where EMAIL_RRS_ID = #emailRrsId:DECIMAL#
+  </update>
+  <update id="updateByPrimaryKey" parameterClass="com.kmzyc.b2b.model.EmailRrsInfo" >
+    update EMAIL_RRS_INFO
+    set EMAIL_RRS_NAME = #emailRrsName:VARCHAR#,
+      EMAIL_RRS_PARENT_ID = #emailRrsParentId:DECIMAL#,
+      IS_PARENT = #isParent:DECIMAL#,
+      CREATE_DATE = #createDate:DATE#,
+      CREATED_ID = #createdId:DECIMAL#,
+      MODIFY_DATE = #modifyDate:DATE#,
+      MODIFIE_ID = #modifieId:DECIMAL#,
+      DESCRIPTION = #description:VARCHAR#,
+      WEEKLY = #weekly:VARCHAR#
+    where EMAIL_RRS_ID = #emailRrsId:DECIMAL#
+  </update>
+</sqlMap>

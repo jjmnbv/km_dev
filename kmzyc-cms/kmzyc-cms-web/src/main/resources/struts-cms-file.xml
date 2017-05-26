@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<!--文件action-->
+    <package name="cms_file" namespace="/cms"  extends="struts">
+		<action name="applicationLogAction_*" class="applicationLogAction" method="{1}">
+			<result name="success">/WEB-INF/jsp/cms/file/fileList.jsp</result>
+		</action> 	
+    </package>
+   
+   <!--图片action-->
+    <package name="cms_image" namespace="/cms"  extends="struts">
+    	<action name="cmsImageAction_*" class="cmsImageAction" method="{1}">
+	    	<interceptor-ref name="checkbox"><param name="uncheckedValue">0</param></interceptor-ref>
+			<interceptor-ref name="defaultStack"/>
+    		<result name="imageList">/WEB-INF/jsp/cms/uploadimage/cmsImageList.jsp</result>
+    		<result name="toAdd">/WEB-INF/jsp/cms/uploadimage/cmsImageAdd.jsp</result>
+    		<result name="viewImage">/WEB-INF/jsp/cms/uploadimage/cmsImageView.jsp</result>
+    	</action>
+    </package>
+    
+</struts>
+
+

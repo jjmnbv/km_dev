@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+	
+	<!--<bean id="redisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg index="0" value="10.1.0.208" />
+        <constructor-arg index="1" value="6379" type="int" />
+	</bean>
+	<bean id="promotionRdisProcesser" class="com.km.zkmananger.mq.PromotionQueueProcess">
+		<property name="name" value="queue_promotion" />
+	</bean>
+	<bean id="redisQueueListener" class="com.km.commons.redismq.core.RedisQueueListener" init-method="init" destroy-method="destory">
+		<property name="redisPool" ref="redisPool"/>
+		<property name="redisHanlders">
+	    	<list>
+	    		<ref bean="promotionRdisProcesser"/>
+	    	</list>
+	    </property>
+	</bean>-->
+	
+</beans>

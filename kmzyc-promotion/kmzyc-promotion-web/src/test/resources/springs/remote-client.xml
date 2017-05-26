@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	
+	<!-- 商品管理hessian接口定义 -->
+	<bean id="consultService"
+		class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+		<!-- 请求代理 ServiceUrl -->
+		<property name="serviceUrl"
+			value="http://localhost:8080/hessian/consultService">
+		</property>
+		<!-- 接口定义 -->
+		<property name="serviceInterface"
+			value="com.pltfm.remote.service.ConsultRemoteService">
+		</property>
+	</bean>
+	
+	
+	
+
+	
+	
+
+	
+	
+	
+
+	
+</beans>

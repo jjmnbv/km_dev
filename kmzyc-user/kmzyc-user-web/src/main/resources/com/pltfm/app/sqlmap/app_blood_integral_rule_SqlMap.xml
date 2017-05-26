@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="BLOOD_INTEGRAL_RULE" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.BloodIntegralRule" >
+    <result column="INTEGRAL_RULE_ID" property="integralRuleId" jdbcType="DECIMAL" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="DISCRIBE" property="discribe" jdbcType="VARCHAR" />
+    <result column="INTEGRALSCALE" property="integralscale" jdbcType="DECIMAL" />
+    <result column="INTEGRALNUMBER" property="integralnumber" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="CREATED" property="created" jdbcType="DECIMAL" />
+    <result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+    <result column="MODIFIED" property="modified" jdbcType="DECIMAL" />
+    <result column="CLIENT_TYPE" property="clientType" jdbcType="DECIMAL" />
+  </resultMap>
+  
+   <resultMap id="ibatorgenerated_BaseResultMapResult" class="com.pltfm.app.vobject.BloodIntegralRule" >
+    <result column="INTEGRAL_RULE_ID" property="integralRuleId" jdbcType="DECIMAL" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="DISCRIBE" property="discribe" jdbcType="VARCHAR" />
+    <result column="INTEGRALSCALE" property="integralscale" jdbcType="DECIMAL" />
+    <result column="INTEGRALNUMBER" property="integralnumber" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="CREATED" property="created" jdbcType="DECIMAL" />
+    <result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+    <result column="MODIFIED" property="modified" jdbcType="DECIMAL" />
+    <result column="CLIENT_TYPE" property="clientType" jdbcType="DECIMAL" />
+    <result column="CUSTOMERNAME" property="customerName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ibatorgenerated_CountResult" class="com.pltfm.sys.model.SysModelUtil">
+    <result column="the_count" property="theCount" jdbcType="DECIMAL" />
+  </resultMap>
+  <!--查询当前最新的id  -->
+  <select id="ibatorgenerated_maxIntegralRuleId" resultMap="ibatorgenerated_BaseResultMap" >
+       select INTEGRAL_RULE_ID, CODE, DISCRIBE, INTEGRALSCALE, INTEGRALNUMBER, CREATE_DATE, CREATED,
+      MODIFY_DATE, MODIFIED, CLIENT_TYPE from BLOOD_INTEGRAL_RULE where rownum=1 order by INTEGRAL_RULE_ID desc
+  </select> 
+   <!--查询编号-->
+  <select id="selectIntegralRule" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.pltfm.app.vobject.BloodIntegralRule" >
+    select INTEGRAL_RULE_ID, CODE, DISCRIBE, INTEGRALSCALE, INTEGRALNUMBER, CREATE_DATE, CREATED,
+      MODIFY_DATE, MODIFIED, CLIENT_TYPE
+    from BLOOD_INTEGRAL_RULE
+    where CODE = #code:VARCHAR#
+  </select> 
+  
+    <!--id查询经验规  -->
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap" parameterClass="java.lang.Integer" >
+    select INTEGRAL_RULE_ID, CODE, DISCRIBE, INTEGRALSCALE, INTEGRALNUMBER, CREATE_DATE, CREATED,
+      MODIFY_DATE, MODIFIED, CLIENT_TYPE
+    from BLOOD_INTEGRAL_RULE
+    where INTEGRAL_RULE_ID = #integralRuleId:DECIMAL#
+  </select> 
+  
+   <!-- 分页 -->
+	<!--  ****************  search page by vo  ****************  -->
+	<select id="searchPageByVo" resultMap="ibatorgenerated_BaseResultMap"
+		parameterClass="com.pltfm.app.vobject.BloodIntegralRule">
+		 select INTEGRAL_RULE_ID, CODE, DISCRIBE, INTEGRALSCALE, INTEGRALNUMBER, CREATE_DATE, CREATED,
+      MODIFY_DATE, MODIFIED, CLIENT_TYPE  FROM (
+       select  ROW_NUMBER() OVER(order by INTEGRAL_RULE_ID desc) as view_row_number, 
+       tt.*  from BLOOD_INTEGRAL_RULE tt
+         <dynamic prepend="where">
+		  <isNotNull property="code">
+			  <isNotEmpty prepend="and" property="code">
+				  CODE like '%$code$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="discribe">
+			  <isNotEmpty prepend="and" property="discribe">
+				  DISCRIBE like '%$discribe$%'
+			  </isNotEmpty>
+		  </isNotNull>	
+		  </dynamic>
+		)
+    <![CDATA[ where view_row_number <= #max# and view_row_number > #skip# ]]>
+	</select>
+
+	<!--
+		**************** search user's roleList by vo ****************
+	-->
+	<select id="selectCountByVo" parameterClass="com.pltfm.app.vobject.BloodIntegralRule"
+		resultMap="ibatorgenerated_CountResult">
+		select count(1) the_count from BLOOD_INTEGRAL_RULE tt
+		  <dynamic prepend="where">
+		<isNotNull property="code">
+			  <isNotEmpty prepend="and" property="code">
+				  CODE like '%$code$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="discribe">
+			  <isNotEmpty prepend="and" property="discribe">
+				  DISCRIBE like '%$discribe$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  </dynamic>
+	</select>
+  <!--id删除经验规  -->
+  <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="java.lang.Integer" >
+    delete from BLOOD_INTEGRAL_RULE
+    where INTEGRAL_RULE_ID = #integralRuleId:DECIMAL#
+  </delete>  
+  <!--添加经验规  -->
+  <insert id="ibatorgenerated_insert" parameterClass="com.pltfm.app.vobject.BloodIntegralRule" >
+    <selectKey resultClass="java.lang.Integer" keyProperty="integralRuleId" >
+           select seq_app_login.nextval from dual
+      </selectKey>
+    insert into BLOOD_INTEGRAL_RULE
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="integralRuleId" >
+        INTEGRAL_RULE_ID
+      </isNotNull>
+      <isNotNull prepend="," property="code" >
+        CODE
+      </isNotNull>
+      <isNotNull prepend="," property="discribe" >
+        DISCRIBE
+      </isNotNull>
+      <isNotNull prepend="," property="integralscale" >
+        INTEGRALSCALE
+      </isNotNull>
+      <isNotNull prepend="," property="integralnumber" >
+        INTEGRALNUMBER
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="created" >
+        CREATED
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        MODIFY_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="modified" >
+        MODIFIED
+      </isNotNull>
+      <isNotNull prepend="," property="clientType" >
+        CLIENT_TYPE
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="integralRuleId" >
+        #integralRuleId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="code" >
+        #code:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="discribe" >
+        #discribe:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="integralscale" >
+        #integralscale:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="integralnumber" >
+        #integralnumber:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        #createDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="created" >
+        #created:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        #modifyDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="modified" >
+        #modified:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="clientType" >
+        #clientType:DECIMAL#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  <!--修改经验规  -->
+  <update id="ibatorgenerated_update" parameterClass="com.pltfm.app.vobject.BloodIntegralRule" >
+    update BLOOD_INTEGRAL_RULE
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="code" >
+        CODE = #code:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="discribe" >
+        DISCRIBE = #discribe:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="integralscale" >
+        INTEGRALSCALE = #integralscale:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="integralnumber" >
+        INTEGRALNUMBER = #integralnumber:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE = #createDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="created" >
+        CREATED = #created:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        MODIFY_DATE = #modifyDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="modified" >
+        MODIFIED = #modified:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="clientType" >
+        CLIENT_TYPE = #clientType:DECIMAL#
+      </isNotNull>
+    </dynamic>
+    where INTEGRAL_RULE_ID = #integralRuleId:DECIMAL#
+  </update>
+ 
+</sqlMap>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="APP_MdicalExcusieInfo">
+	<resultMap id="ibatorgenerated_MdicalExcusieInfoMap" class="com.pltfm.app.vobject.MdicalExcusieInfo">
+		<result property="n_medicalMattersExclusive_id" column="N_MEDICAL_MATTERS_EXCLUSIVE_ID"
+			jdbcType="INTEGER" />
+		<result property="n_personal_id" column="N_PERSONAL_ID"
+			jdbcType="INTEGER" />
+		<result property="name" column="NAME" jdbcType="VARCHAR" />
+		<result property="theCity" column="THE_CITY" jdbcType="VARCHAR" />
+		<result property="theHospital" column="THE_HOSPITAL" jdbcType="VARCHAR" />
+		<result property="hospitalLevel" column="HOSPITAL_LEVEL"
+			jdbcType="VARCHAR" />
+		<result property="theDepartment" column="THE_DEPARTMENT"
+			jdbcType="VARCHAR" />
+		<result property="professionName" column="PROFESSION_NAME"
+			jdbcType="VARCHAR" />
+		<result property="professionalExprtise" column="PROFESSIONAL_EXPERTISE"
+			jdbcType="VARCHAR" />
+		<result property="n_certificateType" column="N_CERTIFICATE_TYPE"
+			jdbcType="INTEGER" />
+		<result property="certificateNumber" column="CERTIFICATE_NUMBER"
+			jdbcType="VARCHAR" />
+		<result property="auditingPhone" column="AUDITING_PHONE"
+			jdbcType="VARCHAR" />
+		<result property="d_createDate" column="D_CREATE_DATE"
+			jdbcType="DATE" />
+		<result property="n_created" column="N_CREATED" jdbcType="INTEGER" />
+		<result property="d_modifyDate" column="D_MODIFY_DATE"
+			jdbcType="DATE" />
+		<result property="n_modified" column="N_MODIFIED" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="ibatorgenerated_CountResult" class="com.pltfm.sys.model.SysModelUtil">
+    <result column="the_count" property="theCount" jdbcType="DECIMAL" />
+  </resultMap>
+	<!-- 医务专属信息 -->                                                       
+	 <insert id="ibatorgenerated_insert" parameterClass="com.pltfm.app.vobject.MdicalExcusieInfo" >
+    <selectKey resultClass="java.lang.Integer" keyProperty="n_medicalMattersExclusive_id" >
+           select seq_app_account.nextval from dual
+      </selectKey>
+    insert into MEDICAL_EXCLUSIVE_INFO
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="n_medicalMattersExclusive_id" >
+        N_MEDICAL_MATTERS_EXCLUSIVE_ID
+      </isNotNull>
+      <isNotNull prepend="," property="n_personal_id" >
+        N_PERSONAL_ID
+      </isNotNull>
+      <isNotNull prepend="," property="name" >
+        NAME
+      </isNotNull>
+      <isNotNull prepend="," property="theCity" >
+        THE_CITY
+      </isNotNull>
+      <isNotNull prepend="," property="theHospital" >
+        THE_HOSPITAL
+      </isNotNull>
+      <isNotNull prepend="," property="hospitalLevel" >
+        HOSPITAL_LEVEL
+      </isNotNull>
+      <isNotNull prepend="," property="theDepartment" >
+        THE_DEPARTMENT
+      </isNotNull>
+      <isNotNull prepend="," property="professionName" >
+        PROFESSION_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="professionalExprtise" >
+        PROFESSIONAL_EXPERTISE
+      </isNotNull>
+      <isNotNull prepend="," property="n_certificateType" >
+        N_CERTIFICATE_TYPE
+      </isNotNull>
+      <isNotNull prepend="," property="certificateNumber" >
+        CERTIFICATE_NUMBER
+      </isNotNull>
+      <isNotNull prepend="," property="auditingPhone" >
+        AUDITING_PHONE
+      </isNotNull>
+      <isNotNull prepend="," property="d_createDate" >
+        D_CREATE_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="n_created" >
+        N_CREATED
+      </isNotNull>
+      <isNotNull prepend="," property="d_modifyDate" >
+        D_MODIFY_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="n_modified" >
+        N_MODIFIED
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="n_medicalMattersExclusive_id" >
+        #n_medicalMattersExclusive_id:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="n_personal_id" >
+        #n_personal_id:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="name" >
+        #name:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="theCity" >
+        #theCity:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="theHospital" >
+        #theHospital:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="hospitalLevel" >
+        #hospitalLevel:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="theDepartment" >
+        #theDepartment:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="professionName" >
+        #professionName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="professionalExprtise" >
+        #professionalExprtise:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="n_certificateType" >
+        #n_certificateType:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="certificateNumber" >
+        #certificateNumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="auditingPhone" >
+        #auditingPhone:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="d_createDate" >
+        #d_createDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="n_created" >
+        #n_created:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="d_modifyDate" >
+        #d_modifyDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="n_modified" >
+        #n_modified:INTEGER#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+	
+	<!-- 删除医务专属信息 -->
+	<delete id="ibatorgenerated_delete" parameterClass="com.pltfm.app.vobject.MdicalExcusieInfo">
+		delete from
+		MEDICAL_EXCLUSIVE_INFO where N_MEDICAL_MATTERS_EXCLUSIVE_ID =
+		#n_medicalMattersExclusive_id:INTEGER#
+    </delete>
+
+	<!-- 查询医务专属信息 -->
+	<select id="ibatorgenerated_getMedicalMattersExclusiveId" resultMap="ibatorgenerated_MdicalExcusieInfoMap"
+		parameterClass="java.lang.Integer">
+		select N_MEDICAL_MATTERS_EXCLUSIVE_ID, N_PERSONAL_ID, NAME, THE_CITY, THE_HOSPITAL,
+      HOSPITAL_LEVEL, THE_DEPARTMENT, PROFESSION_NAME, PROFESSIONAL_EXPERTISE, N_CERTIFICATE_TYPE,
+      CERTIFICATE_NUMBER, AUDITING_PHONE, D_CREATE_DATE, N_CREATED, D_MODIFY_DATE, N_MODIFIED from MEDICAL_EXCLUSIVE_INFO where
+		N_MEDICAL_MATTERS_EXCLUSIVE_ID = #value:INTEGER#
+	</select>
+	
+		<!-- 跟据个人ID查询医务专属信息 -->
+	<select id="ibatorgenerated_getpersonalid" resultMap="ibatorgenerated_MdicalExcusieInfoMap"
+		parameterClass="java.lang.Integer">
+		select N_MEDICAL_MATTERS_EXCLUSIVE_ID, N_PERSONAL_ID, NAME, THE_CITY, THE_HOSPITAL,
+      HOSPITAL_LEVEL, THE_DEPARTMENT, PROFESSION_NAME, PROFESSIONAL_EXPERTISE, N_CERTIFICATE_TYPE,
+      CERTIFICATE_NUMBER, AUDITING_PHONE, D_CREATE_DATE, N_CREATED, D_MODIFY_DATE, N_MODIFIED from MEDICAL_EXCLUSIVE_INFO where
+		N_PERSONAL_ID = #value:INTEGER#
+	</select>
+    
+	<!-- 修改医务专属信息 -->                             
+	<update id="ibatorgenerated_update" parameterClass="com.pltfm.app.vobject.MdicalExcusieInfo" >
+    update MEDICAL_EXCLUSIVE_INFO
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="n_personal_id" >
+        N_PERSONAL_ID = #n_personal_id:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="name" >
+        NAME = #name:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="theCity" >
+        THE_CITY = #theCity:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="theHospital" >
+        THE_HOSPITAL = #theHospital:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="hospitalLevel" >
+        HOSPITAL_LEVEL = #hospitalLevel:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="theDepartment" >
+        THE_DEPARTMENT = #theDepartment:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="professionName" >
+        PROFESSION_NAME = #professionName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="professionalExprtise" >
+        PROFESSIONAL_EXPERTISE = #professionalExprtise:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="n_certificateType" >
+        N_CERTIFICATE_TYPE = #n_certificateType:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="certificateNumber" >
+        CERTIFICATE_NUMBER = #certificateNumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="auditingPhone" >
+        AUDITING_PHONE = #auditingPhone:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="d_createDate" >
+        D_CREATE_DATE = #d_createDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="n_created" >
+        N_CREATED = #n_created:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="d_modifyDate" >
+        D_MODIFY_DATE = #d_modifyDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="n_modified" >
+        N_MODIFIED = #n_modified:INTEGER#
+      </isNotNull>
+    </dynamic>
+    where N_MEDICAL_MATTERS_EXCLUSIVE_ID = #n_medicalMattersExclusive_id:INTEGER#
+  </update>
+
+		<!-- 医务专属信息列表 -->
+  <select id="searchPageByVo" resultMap="ibatorgenerated_MdicalExcusieInfoMap" parameterClass="com.pltfm.app.vobject.MdicalExcusieInfo">
+		select N_MEDICAL_MATTERS_EXCLUSIVE_ID, N_PERSONAL_ID, NAME, THE_CITY, THE_HOSPITAL,
+      HOSPITAL_LEVEL, THE_DEPARTMENT, PROFESSION_NAME, PROFESSIONAL_EXPERTISE, N_CERTIFICATE_TYPE,
+      CERTIFICATE_NUMBER, AUDITING_PHONE, D_CREATE_DATE, N_CREATED, D_MODIFY_DATE, N_MODIFIED
+    FROM (
+    select  ROW_NUMBER() OVER(order by N_MEDICAL_MATTERS_EXCLUSIVE_ID desc) as view_row_number, tt.* from MEDICAL_EXCLUSIVE_INFO tt
+     <dynamic prepend="where">
+		   <isNotNull property="name">
+			  <isNotEmpty prepend="and" property="name">
+				   NAME like '%name%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="theCity">
+			  <isNotEmpty prepend="and" property="theCity">
+				  THE_CITY like '%$theCity$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="theHospital">
+			  <isNotEmpty prepend="and" property="theHospital">
+				  THE_HOSPITAL  like '%$theHospital$%'
+			  </isNotEmpty>
+		  </isNotNull>
+	  </dynamic>
+    )
+    <![CDATA[ where view_row_number <= #max# and view_row_number > #skip# ]]>
+	</select>
+	
+ <!-- **************** search user's roleList by vo  ****************  -->
+  <select id="selectCountByVo" parameterClass="com.pltfm.app.vobject.MdicalExcusieInfo" resultMap="ibatorgenerated_CountResult">
+     select count(1) the_count from MEDICAL_EXCLUSIVE_INFO 
+       <dynamic prepend="where">
+		   <isNotNull property="name">
+			  <isNotEmpty prepend="and" property="name">
+				   NAME like '%name%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="theCity">
+			  <isNotEmpty prepend="and" property="theCity">
+				  THE_CITY like '%$theCity$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="theHospital">
+			  <isNotEmpty prepend="and" property="theHospital">
+				  THE_HOSPITAL  like '%$theHospital$%'
+			  </isNotEmpty>
+		  </isNotNull>
+	  </dynamic>
+  </select>
+</sqlMap>

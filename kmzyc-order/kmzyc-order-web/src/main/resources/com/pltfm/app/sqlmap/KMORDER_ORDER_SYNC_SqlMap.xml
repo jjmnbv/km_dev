@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="KMORDER_ORDER_SYNC" >
+  	<resultMap  id="ORDER_SYNC_RESULT_MAP" class="com.pltfm.app.entities.OrderSyncDetail">
+	   	<result column="CUSTOMERACCOUNT" property="customerAccount" jdbcType="VARCHAR" />
+	   	<result column="ORDERTYPE" property="orderType" jdbcType="DECIMAL" />
+	   	<result column="COMMODITYSUM" property="commoditySum" jdbcType="DECIMAL" />
+	   	<result column="PAYDATE" property="payDate" jdbcType="TIMESTAMP" />
+	   	<result column="FINISHDATE" property="finishDate" jdbcType="TIMESTAMP" />
+	   	<result column="SYNCID" property="syncId" jdbcType="DECIMAL" />
+	   	<result column="ORDERCODE" property="orderCode" jdbcType="VARCHAR" />
+	   	<result column="OUTCODE" property="outCode" jdbcType="VARCHAR" />
+	   	<result column="SYNCFLAG" property="syncFlag" jdbcType="DECIMAL" />
+	   	<result column="SYNCDATE" property="syncDate" jdbcType="TIMESTAMP" />
+	   	<result column="SYNCPV" property="syncPv" jdbcType="DECIMAL" />
+	   	<result column="ORDERPV" property="orderPv" jdbcType="DECIMAL" />
+	   	<result column="SYNCPROFIT" property="syncProfit" jdbcType="DECIMAL" />
+	   	<result column="ORDERPROFIT" property="orderProfit" jdbcType="DECIMAL" />
+	   	<result column="ORDERSTATUS" property="orderStatus" jdbcType="DECIMAL" />
+	   	<result column="ORDERSTATUSSTR" property="orderStatusStr"  jdbcType="VARCHAR" />
+  	</resultMap>
+  
+  	<!-- 新增 -->
+  	<insert id="SQL_INSERT_ORDER_SYNC" parameterClass="com.pltfm.app.entities.OrderSync">
+    	<selectKey keyProperty="syncId" resultClass="java.lang.Long">
+      		select SEQ_ORDER_SYNC.NEXTVAL from dual
+    	</selectKey>
+     	insert into  ORDER_SYNC (
+        	SYNC_ID
+      	<isNotNull prepend="," property="orderCode" >
+        	ORDER_CODE
+     	</isNotNull>
+      	<isNotNull prepend="," property="outCode" >
+        	OUT_CODE
+      	</isNotNull>
+      	<isNotNull prepend="," property="syncFlag" >
+        	SYNC_FLAG
+      	</isNotNull>
+      	<isNotNull prepend="," property="syncDate" >
+        	SYNC_DATE
+      	</isNotNull>
+      	<isNotNull prepend="," property="orderPv" >
+        	ORDER_PV
+      	</isNotNull>
+      	<isNotNull prepend="," property="orderProfit" >
+        	order_profit
+      	</isNotNull>
+      	) values (
+        	#syncId:DECIMAL#
+     	<isNotNull prepend="," property="orderCode" >
+        	#orderCode:VARCHAR#
+      	</isNotNull>
+      	<isNotNull prepend="," property="outCode" >
+        	#outCode:VARCHAR#
+      	</isNotNull>
+        <isNotNull prepend="," property="syncFlag" >
+        	#syncFlag:DECIMAL#
+      	</isNotNull>
+      	<isNotNull prepend="," property="syncDate" >
+        	#syncDate#
+      	</isNotNull>
+      	<isNotNull prepend="," property="orderPv" >
+        	#orderPv#
+      	</isNotNull>
+      	<isNotNull prepend="," property="orderProfit" >
+        	#orderIncome#
+      	</isNotNull>
+      	)
+  	</insert>
+  	
+  	<!-- map方式查询订单列表 -->
+  	<sql id="SQL_ORDER_SYNC_MAP">
+		from order_main om ,order_sync os where om.order_code=os.order_code and om.order_pv > 0
+		<isEmpty property="orderCode">
+			and om.order_status != 16
+		</isEmpty>
+		<isNotEmpty property="syncFlag">
+			and os.sync_flag = #syncFlag#
+		</isNotEmpty>
+		<isNotEmpty property="orderCode">
+			and om.order_code = #orderCode# 
+		</isNotEmpty>
+		<isNotEmpty property="outCode">
+			and os.out_code = #outCode#
+		</isNotEmpty>
+		<isNotEmpty property="customerAccount">
+			and om.customer_account=#customerAccount#
+		</isNotEmpty>
+		<isNotEmpty property="commerceId">
+			and om.commerce_id = #commerceId# 
+		</isNotEmpty>
+		<isNotEmpty property="orderCodes">
+			and om.order_code in 
+			<iterate property="orderCodes" open="(" close=")" conjunction="," >
+            	#orderCodes[]#
+          	</iterate>
+		</isNotEmpty>
+		<!-- 同步时间  -->
+		<isNotEmpty prepend="AND" property="createDateStart">
+		<![CDATA[
+			os.sync_date>=to_date(#createDateStart#,'yyyy-MM-dd HH24:mi:ss')
+			and os.sync_date<=to_date(#createDateEnd#,'yyyy-MM-dd HH24:mi:ss')
+		]]>
+		</isNotEmpty>
+  	</sql>
+  
+  	<!-- 查询计数 -->
+  	<select id="SQL_COUNT_ORDER_SYNC"  parameterClass="java.util.Map"  resultClass="java.lang.Integer">
+  		select count(1) <include refid="SQL_ORDER_SYNC_MAP"/> 
+  	</select>
+  	
+  	<!-- 查询同步订单 -->
+  	<select id="SQL_QUERY_ORDER_SYNC"  parameterClass="java.util.Map"  resultMap="ORDER_SYNC_RESULT_MAP">
+	  select * from (
+	           select 
+	           rownum rd ,
+	           rs.customerAccount,
+		       rs.orderType,
+		       rs.commoditySum,
+		       rs.payDate,
+		       rs.finishDate,
+		       rs.syncId,
+		       rs.orderCode,
+		       rs.outCode,
+		       rs.syncFlag,
+		       rs.syncDate,
+		       nvl(rs.syncPv, rs.orderPv) syncPv,
+		       rs.orderPv,
+		       nvl(rs.syncProfit, rs.orderProfit) syncProfit,
+		       rs.orderProfit,
+		       rs.orderStatus,
+		       rs.orderStatusStr
+		  from (select om.customer_account customerAccount,
+		               om.order_type orderType,
+		               om.commodity_sum commoditySum,
+		               om.pay_date payDate,
+		               om.finish_date finishDate,
+		               om.order_status orderStatus,
+		               os.sync_id syncId,
+		               os.order_code orderCode,
+		               os.out_code outCode,
+		               os.sync_flag syncFlag,
+		               os.sync_date syncDate,
+		               os.order_pv syncPv,
+		               om.order_pv orderPv,
+		               os.order_profit syncProfit,
+		               (select sum(oi.cost_income_money * oi.commodity_number)
+		                  from order_item oi
+		                 where oi.order_code = os.order_code) orderProfit,
+		               (select d.order_dictionary_value
+		                  from order_dictionary d
+		                 where d.order_dictionary_type = 'Order_Status'
+		                   and d.order_dictionary_key = om.order_status) orderStatusStr
+		        <include refid="SQL_ORDER_SYNC_MAP"/> 
+		         order by om.create_date desc) rs ) rst
+		<isNotEmpty property="start">		         
+		 where rst.rd between #start# and #end#
+		 </isNotEmpty>
+  	</select>
+  	
+  	<!-- 更新订单同步 -->
+	<update id="SQL_UPDATE_ORDER_SYNC" parameterClass="com.pltfm.app.entities.OrderSync">
+    	update order_sync os set 
+      	<isNotNull property="outCode">
+         os.out_code = #outCode:VARCHAR#,
+      	</isNotNull>
+      	<isNotNull property="syncFlag">
+         os.sync_flag = #syncFlag:DECIMAL#,
+      	</isNotNull>
+      	<isNotNull property="orderPv">
+         os.order_Pv = #orderPv:DECIMAL#,
+      	</isNotNull>
+      	<isNotNull property="orderProfit">
+         os.order_profit = #orderProfit:DECIMAL#,
+      	</isNotNull>
+     	 os.sync_date = sysdate
+		<isNotEmpty property="syncId">
+			where os.sync_id = #syncId#
+		</isNotEmpty>
+		<isEmpty property="syncId">
+			where os.order_code= #orderCode#
+		</isEmpty>
+  	</update>
+  	
+  	<!-- 获取同步订单号 -->
+  	<select id="SQL_QUERY_SYNC_ORDER_CODE" resultClass="String" parameterClass="Integer">
+  		select os.order_code orderCode from order_sync os where 
+  		<dynamic>  
+  		<isEmpty property="value">
+  			os.sync_flag > 0
+  		</isEmpty>
+  		<isNotEmpty  property="value">
+  			os.sync_flag = #value#
+  		</isNotEmpty>
+  		</dynamic>  
+  	</select>
+  	
+  	<!-- 获取同步订单号 -->
+  	<select id="SQL_QUERY_SYNC_ORDER_CODE_FOR_JOB" resultClass="String">
+  	<![CDATA[
+		select os.order_code orderCode
+		  from order_sync os
+		 where os.sync_flag <> 1
+		   and exists (select 1
+		          from order_main om
+		         where om.order_code = os.order_code
+		           and om.finish_date < sysdate - 15)
+	]]>		   
+  	</select>
+  	
+  	<!-- 自动确认收货新增 -->
+  	<insert id="SQL_INSERT_ORDER_SYNC_FOR_AUTO" parameterClass="com.pltfm.app.entities.OrderSync">
+    	merge into order_sync os
+		using (select li.login_account login_account
+		         from   login_info li
+		        where  li.n_customer_type_id = 2 
+		        and exists (select 1
+		                 from order_main om
+		                where li.n_login_id = om.customer_id
+		                  and om.order_pv > 0
+		                  and om.order_code = #orderCode:VARCHAR#)) cond
+		on (cond.login_account is null)
+		when not matched then
+		  insert
+		    (SYNC_ID, ORDER_CODE, OUT_CODE, SYNC_FLAG, SYNC_DATE)
+        	values (SEQ_ORDER_SYNC.NEXTVAL,#orderCode:VARCHAR#,cond.login_account,#syncFlag:DECIMAL#,sysdate)
+  	</insert>
+</sqlMap>

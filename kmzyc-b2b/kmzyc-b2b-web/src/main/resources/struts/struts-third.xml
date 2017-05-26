@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="third" extends="BasePackage">
+
+        <!-- 第三方登录微信登录 -->
+        <!--<action name="wxLogin" class="wxLoginAction" method="wxLogin">
+            <result name="error">/error.jsp</result>
+            <result name="wxIndex" type="redirect">/wechatPay/wxindex.action?targetPageNo=${No}</result>
+            <result name="toFillInfo">/WEB-INF/jsp/third/thirdLogin/setUserInfo.jsp</result>
+            <result name="toBindManage" type="redirect">/third/toBindManage.action?bindTip=${bindTip}</result>
+        </action>-->
+
+        <!-- 接收微信推送 -->
+        <!--<action name="wxRequestProcess" class="wxProcessAction" method="processRequest">
+            <result name="error">/error.jsp</result>
+        </action>-->
+
+        <!-- 弟三方新浪登录 -->
+        <!--<action name="sinaIndex" class="sinaIndexAction" method="sinaIndex">
+        </action>-->
+
+        <!--<action name="sinaAfterLoginRedirect" class="sinaAfterLoginRedirectAction" method="sinaAfterLoginRedirect">
+            <result name="error">/error.jsp</result>
+            <result name="toFillInfo">/WEB-INF/jsp/third/thirdLogin/setUserInfo.jsp</result>
+            <result name="toBindManage" type="redirect">/third/toBindManage.action?bindTip=${bindTip}</result>
+        </action>-->
+
+
+        <!-- 第三方QQ登录 -->
+        <!--<action name="qqIndex" class="QQIndexAction" method="index">
+        </action>-->
+        <!--<action name="qqAfterLoginRedirect" class="QQAfterLoginRedirectAction" method="qqAfterLoginRedirect">
+            <result name="error">/error.jsp</result>
+            <result name="toFillInfo">/WEB-INF/jsp/third/thirdLogin/setUserInfo.jsp</result>
+            <result name="toBindManage" type="redirect">/third/toBindManage.action?bindTip=${bindTip}</result>
+        </action>
+        <action name="qqAfterLoginRedirectForWap" class="QQAfterLoginRedirectAction" method="qqAfterLoginRedirectForWap">
+            <result name="error">/error.jsp</result>
+            <result name="toWapFillInfo">/WEB-INF/jsp/third/thirdLogin/wapSetUserInfo.jsp</result>
+            <result name="toBindManage" type="redirect">/third/toBindManage.action?bindTip=${bindTip}</result>
+            <result name="toWapBindManage"  type="redirectAction">
+                <param name="actionName">toBindManage.action</param>
+                <param name="bindTip">${bindTip}</param>
+                <param name="isWap">Y</param>
+            </result>
+        </action>-->
+        <!--<action name="shuoShuo" class="QQShuoShuoAction" method="shuoShuo">
+
+        </action>-->
+
+        <!-- 第三方Alipay登录 -->
+        <!--<action name="alipayIndex" class="alipayIndexAction" method="alipayIndex">
+                <result name="skip">/WEB-INF/jsp/third/thirdLogin/skip.jsp</result>
+        </action>
+
+         <action name="alipayAfterLoginRedirect" class="alipayAfterLoginRedirectAction" method="alipayAfterLoginRedirect">
+            <result name="error">/error.jsp</result>
+            <result name="toFillInfo">/WEB-INF/jsp/third/thirdLogin/setUserInfo.jsp</result>
+            <result name="toBindManage" type="redirect">/third/toBindManage.action?bindTip=${bindTip}</result>
+        </action>-->
+
+        <!-- 第三方淘宝账号登录 -->
+        <!--<action name="taobaoIndex" class="taobaoIndexAction" method="goAuthorization">
+        </action>
+
+         <action name="taobaoAfterLoginRedirect" class="taobaoAfterLoginRedirectAction" method="taobaoAuthorization">
+            <result name="error">/error.jsp</result>
+            <result name="toFillInfo">/WEB-INF/jsp/third/thirdLogin/setUserInfo.jsp</result>
+            <result name="toWapFillInfo">/WEB-INF/jsp/third/thirdLogin/wapSetUserInfo.jsp</result>
+            <result name="toBindManage" type="redirect">/third/toBindManage.action?bindTip=${bindTip}</result>
+        </action>
+
+         <action name="taobaoAuthorizationForWap" class="taobaoAfterLoginRedirectAction" method="taobaoAuthorizationForWap">
+            <result name="error">/error.jsp</result>
+            <result name="toFillInfo">/WEB-INF/jsp/third/thirdLogin/setUserInfo.jsp</result>
+            <result name="toWapFillInfo">/WEB-INF/jsp/third/thirdLogin/wapSetUserInfo.jsp</result>
+            <result name="toBindManage" type="redirect">/third/toBindManage.action?bindTip=${bindTip}</result>
+            <result name="toWapBindManage"  type="redirectAction">
+                <param name="actionName">toBindManage.action</param>
+                <param name="bindTip">${bindTip}</param>
+                <param name="isWap">Y</param>
+            </result>
+        </action>-->
+
+        <!-- 天猫医药馆前台授权 -->
+        <!--<action name="tmallAuth" class="tmallAuthorization" method="tmallAuthorization">
+             <result name="error">/error.jsp</result>
+             <result name="toShopCart">/WEB-INF/jsp/shopcart/taobao/temp.jsp?r=true</result>
+        </action>-->
+
+        <!-- 立即设置会员信息做绑定 -->
+        <!--<action name="loginInfoBinding" class="loginInfoBindingAction" method="bindingLoginInfo">
+            <interceptor-ref name="defaultStack" />
+            <interceptor-ref name="token" />
+            <result name="error">/error.jsp</result>
+        </action>-->
+
+        <!-- 以第三方账号登录,绑定的是游客,需要完善信息(点击某些菜单时的限制) -->
+        <!--<action name="toFillInfo" class="loginInfoBindingAction" method="toFillInfo">
+            <result name="toFillInfo">/WEB-INF/jsp/third/thirdLogin/setUserInfo.jsp</result>
+            <result name="toWapFillInfo">/WEB-INF/jsp/third/thirdLogin/wapSetUserInfo.jsp</result>
+        </action>-->
+
+        <!-- 以后再说 -->
+        <!--<action name="returnIndex" class="loginInfoBindingAction" method="bindLater">
+        </action>-->
+
+        <!-- 会员中心 绑定管理 -->
+        <!--<action name="toBindManage" class="loginInfoBindingAction" method="queryBindInfoList">
+            <result name="success">/WEB-INF/jsp/member/bindManage/bindManage.jsp</result>
+            <result name="wapBindList">/WEB-INF/jsp/member/bindManage/wapBindManage.jsp</result>
+            <result name="error">/error.jsp</result>
+            <result name="zxError">/member/setUserNameForSd.action</result>
+            <result name="thirdError">/WEB-INF/jsp/third/thirdLogin/template/setUserInfoContent.jsp</result>
+
+        </action>	-->
+
+        <!-- 解绑  20151231 udpate 此处解绑请求适用于app接口-->
+        <!--<action name="unBinding" class="loginInfoBindingAction" method="getOutOfBind">
+            <result name="toBindManage" type="redirect">/third/toBindManage.action?alreadyBind=${bindTip}</result>
+            <result name="toWapBindManage"  type="redirectAction">
+                <param name="actionName">toBindManage.action</param>
+                <param name="bindTip">${bindTip}</param>
+                <param name="isWap">Y</param>
+            </result>
+        </action>-->
+
+        <!-- 20151231 add 此处解绑请求适用于康美中药城商城pc端和wap端 -->
+        <!--<action name="getOutOfBindForPcAndWap" class="loginInfoBindingAction" method="getOutOfBindForPcAndWap">
+            <result name="toBindManage" type="redirect">/third/toBindManage.action?alreadyBind=${bindTip}</result>
+            <result name="toWapBindManage"  type="redirectAction">
+                <param name="actionName">toBindManage.action</param>
+                <param name="bindTip">${bindTip}</param>
+                <param name="isWap">Y</param>
+            </result>
+        </action>-->
+
+        <!-- 微信卡券核销  maliqun add 20150126 begin -->
+        <!--<action name="toWxConsumeCode" class="WxCardCodeManageAction" method="toWxConsumeCode">
+            <result name="success">/WEB-INF/jsp/third/wxCard/wxCardConsumeCode.jsp</result>
+            <result name="error">/WEB-INF/jsp/third/wxCard/consumeError.jsp</result>
+            <result name="reservationSave">/WEB-INF/jsp/third/wxCard/reservationForGift.jsp</result>
+            <result name="reservationDetail">/WEB-INF/jsp/third/wxCard/reservationSuccess.jsp</result>
+        </action>
+
+        <action name="wxCardConsumeCode" class="WxCardCodeManageAction" method="wxCardConsumeCode">
+            <result name="success">/WEB-INF/jsp/third/wxCard/consumeSuccess.jsp</result>
+            <result name="error">/WEB-INF/jsp/third/wxCard/consumeError.jsp</result>
+        </action>
+        <action name="saveReservation" class="WxCardCodeManageAction" method="saveReservation">
+            <result name="success">/WEB-INF/jsp/third/wxCard/reservationSuccess.jsp</result>
+            <result name="reservationDetail">/WEB-INF/jsp/third/wxCard/reservationSuccess.jsp</result>
+            <result name="error">/WEB-INF/jsp/third/wxCard/consumeError.jsp</result>
+        </action>-->
+        <!-- 上传图片 -->
+        <!--<action name="toUploadImage" class="WxCardCodeManageAction" method="toUploadImage">
+            <result name="success">/WEB-INF/jsp/third/wxCard/uploadImage.jsp</result>
+        </action>-->
+
+
+        <!-- <action name="toImpotJsp" class="WxCodeImportManageAction" method="toImpotJsp">
+            <result name="success">/WEB-INF/jsp/third/wxCard/import.jsp</result>
+        </action>  -->
+        <!-- 屏蔽掉导入code入口  -->
+        <!--  <action name="importCode" class="WxCodeImportManageAction" method="importCode">
+            <result name="success">/WEB-INF/jsp/third/wxCard/importSuccess.jsp</result>
+        </action>  -->
+        <!--  <action name="toReservation" class="WxCardCodeManageAction" method="toReservation">
+            <result name="success">/WEB-INF/jsp/third/wxCard/reservationForGift.jsp</result>
+        </action> -->
+        <!-- 微信卡券核销  maliqun add 20150126 end -->
+
+        <!-- wap微信登录 maliqun add 20150210 begin -->
+        <!--<action name="wxIndexForWap" class="WeixinIndexAction" method="wxIndexForWap">
+
+        </action>-->
+        <!--<action name="wxAfterLoginForWap" class="wxLoginAction" method="wxAfterLoginForWap">
+
+        </action>-->
+        <!-- wap微信登录 maliqun add 20150210 end -->
+
+        <!-- 20150511 暂时仅供一试,配合km总部需要,只是传递用户信息给对方 begin  -->
+        <!--<action name="wxAfterLoginForOther" class="wxLoginAction" method="wxAfterLoginForOther">
+            <result name="authorizeTest">/WEB-INF/jsp/third/otherTest/skip.jsp</result>
+        </action>
+        <action name="wxAfterLoginForWxAddress" class="wxLoginAction" method="wxAfterLoginForWxAddress">
+            <result name="success">/WEB-INF/jsp/third/otherTest/skipForWxAuth.jsp</result>
+        </action>
+        <action name="test" class="wxLoginAction" method="test">
+        </action>-->
+        <!-- end -->
+
+        <!-- 20150626 maliqun add 微信收货地址共享 begin  <result name="success">/wxAddress.jsp?code=${code}&amp;state=${state}</result> -->
+        <!--<action name="getAccessTokenByCode" class="wxAddressAction" method="getAccessTokenByCode">
+            <result name="success">/wxAddressTruely.jsp</result>
+        </action>
+        <action name="toEditAdress" class="wxAddressAction" method="toEditAdress">
+            <result name="editAddrJsp">/wxAddressTruely.jsp</result>
+        </action>-->
+        <!-- 20150626 maliqun add 微信收货地址共享 end -->
+        <!-- 微信扫码记录推送事件接收  20150922 mlq add begin-->
+        <!--<action name="saveWxScanRecord" class="wxScanProductAction" method="saveWxScanRecord">
+        </action>
+        <action name="wxIndexForWxScanProduct" class="WeixinIndexAction" method="wxIndexForWxScanProduct">
+        </action>-->
+        <!--<action name="wxAfterLoginForWxScanProduct" class="wxLoginAction" method="wxAfterLoginForWxScanProduct">
+        </action>-->
+        <!-- 微信扫码以及授权end -->
+
+        <!-- 返利网联合登录对接
+        <action name="fanliJointLogin" class="fanliLoginAction" method="fanliJointLogin">
+        </action>
+        <action name="syncJointLoginToWap" class="fanliLoginAction" method="syncJointLoginToWap">
+        </action>-->
+
+
+        <!-- 年终红包对接以及wap端完善信息请求action 20160126 -->
+        <!--	<action name="wapFullInfo" class="loginInfoBindingAction" method="wapFullInfo">
+            </action>	-->
+
+        <!-- 康美云联合登录对接 -->
+        <!--<action name="kmCloudJointLogin" class="kmCloudLoginAction" method="kmCloudJointLogin">
+        </action>
+        <action name="syncCloudJointLoginToWap" class="kmCloudLoginAction" method="syncCloudJointLoginToWap">
+        </action>-->
+
+        <!-- 康美云自由商品SKU接口 -->
+        <!--<action name="querySelfProductSku" class="kmcloudOutApiAction" method="getSelfProductSkuList">
+        </action>-->
+
+        <!-- 康美云获取爆款商品接口 -->
+        <!--<action name="getExplosionProSku" class="kmcloudOutApiAction" method="getExplosionProSku">
+        </action>-->
+
+        <!-- 康美云获取今日特价商品SKU接口 -->
+        <!--<action name="getDailySpecialProSku" class="kmcloudOutApiAction" method="getDailySpecialProSku">
+        </action>-->
+    </package>
+</struts>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="wxPay" namespace="/wxpay" extends="BasePackage">
+        <action name="payorderForYs" class="payResultAction" method="payorderForYs">
+            <result name="input">/WEB-INF/jsp/payresult/shopCarPay.jsp</result>
+        </action>
+        <action name="payorder" class="payResultAction" method="payorder">
+            <result name="input">/WEB-INF/jsp/payresult/shopCarPay.jsp</result>
+        </action>
+        <action name="payCallBack" class="payResultAction" method="payCallBack">
+            <result name="success">/WEB-INF/jsp/payresult/shopCarPay.jsp</result>
+            <result name="wapPaySuccess">/WEB-INF/jsp/payresult/wapPaySuccess.jsp</result>
+        </action>
+        <action name="payCallBackForYs" class="payResultAction" method="payCallBackForYs">
+            <result name="success">/WEB-INF/jsp/payresult/shopCarPay.jsp</result>
+            <result name="wapPaySuccess">/WEB-INF/jsp/payresult/wapPaySuccess.jsp</result>
+        </action>
+
+
+        <action name="saveAndPayOrder" class="settlementAction" method="saveAndPayOrder">
+            <result type="redirectAction" name="success">
+                <param name="actionName">payOrderInit.action</param>
+                <param name="orderCode">${orderCode}</param>
+                <param name="payMethod">${payMethod}</param>
+                <param name="wapPay">${wapPay}</param>
+                <param name="rechargeOrOrderFlag">${rechargeOrOrderFlag}</param>
+                <param name="isCreate">1</param>
+            </result>
+            <result name="input" type="redirectAction">
+                <param name="namespace">/cart</param>
+                <param name="actionName">listShopCar.action</param>
+            </result>
+        </action>
+
+        <action name="payOrderInit" class="payResultAction" method="payOrderInit">
+            <result name="success">/WEB-INF/jsp/payresult/payresult.jsp</result>
+            <result name="paySuccess">/WEB-INF/jsp/payresult/shopCarPay.jsp</result>
+            <result name="wapPaySuccess">/WEB-INF/jsp/payresult/wapPaySuccess.jsp</result>
+            <result name="wapPay">/WEB-INF/jsp/payresult/wapPay.jsp</result>
+        </action>
+
+        <action name="payYSOrderInit" class="payResultAction" method="payYSOrderInit">
+            <result name="success">/WEB-INF/jsp/payresult/payresult.jsp</result>
+            <result name="paySuccess">/WEB-INF/jsp/payresult/shopCarPay.jsp</result>
+            <result name="wapPaySuccess">/WEB-INF/jsp/payresult/wapPaySuccess.jsp</result>
+            <result name="wapDepositPay">/WEB-INF/jsp/payresult/wapDepositPay.jsp</result>
+        </action>
+        <action name="payWKOrderInit" class="payResultAction" method="payWKOrderInit">
+            <result name="success">/WEB-INF/jsp/payresult/payresult.jsp</result>
+            <result name="paySuccess">/WEB-INF/jsp/payresult/shopCarPay.jsp</result>
+            <result name="wapPaySuccess">/WEB-INF/jsp/payresult/wapPaySuccess.jsp</result>
+            <result name="wapRetainagePay">/WEB-INF/jsp/payresult/wapRetainagePay.jsp</result>
+        </action>
+
+        <!-- 获取openid-->
+        <action name="getRedirectUriOpenId" class="payResultAction" method="getRedirectUriOpenId">
+            <result name="wapPay">/WEB-INF/jsp/payresult/wapPay.jsp</result>
+        </action>
+
+    </package>
+    <package name="payresult" extends="BasePackage,json-default">
+        <action name="checkOrder" class="payResultAction" method="checkOrder">
+            <result name="success" type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">pageMsg</param>
+            </result>
+        </action>
+        <action name="payorder" class="payResultAction" method="payorder">
+            <result name="input">/WEB-INF/jsp/payresult/shopCarPay.jsp</result>
+        </action>
+        <action name="payorderForYs" class="payResultAction" method="payorderForYs">
+            <result name="input">/WEB-INF/jsp/payresult/shopCarPay.jsp</result>
+        </action>
+        <action name="rechargeValue" class="payResultAction" method="rechargeValue">
+            <result name="success" type="redirectAction">
+                <param name="namespace"></param>
+                <param name="actionName">rechargeResult.action</param>
+                <param name="orderCode">${orderCode}</param>
+                <param name="rechargeOrOrderFlag">${rechargeOrOrderFlag}</param>
+            </result>
+        </action>
+        <action name="rechargeResult" class="payResultAction" method="rechargeResult">
+            <result name="success">/WEB-INF/jsp/payresult/payresult.jsp</result>
+        </action>
+        <action name="payCallBack" class="payResultAction" method="payCallBack">
+            <result name="success">/WEB-INF/jsp/payresult/shopCarPay.jsp</result>
+            <result name="wapPaySuccess">/WEB-INF/jsp/payresult/wapPaySuccess.jsp</result>
+        </action>
+        <action name="payCallBackForYs" class="payResultAction" method="payCallBackForYs">
+            <result name="success">/WEB-INF/jsp/payresult/shopCarPay.jsp</result>
+            <result name="wapPaySuccess">/WEB-INF/jsp/payresult/wapPaySuccess.jsp</result>
+        </action>
+        <!-- 退款回调 -->
+        <action name="refundCallBack" class="payResultAction" method="refundCallBack"/>
+        <action name="orderPayRedirect" class="payResultAction" method="orderPayRedirect"/>
+        <!-- 退款中转 -->
+        <action name="refundTrack" class="payResultAction" method="refundTrack"/>
+        <!-- 获取openid-->
+        <action name="getRedirectUriOpenId" class="payResultAction" method="getRedirectUriOpenId">
+            <result name="wapPay">/WEB-INF/jsp/payresult/wapPay.jsp</result>
+        </action>
+    </package>
+</struts>

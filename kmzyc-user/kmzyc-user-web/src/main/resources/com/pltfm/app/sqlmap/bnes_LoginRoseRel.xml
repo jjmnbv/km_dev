@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="LoginRoseRel" >
+
+  <typeAlias alias="loginRoseRelDO" type="com.pltfm.app.dataobject.LoginRoseRelDO" />
+  <typeAlias alias="loginRoseRelQuery" type="com.pltfm.app.vobject.LoginRoseRelQuery" />
+
+  <resultMap id="loginRoseRelDOResultMap" class="loginRoseRelDO" >
+    <result property="lrId" column="LR_ID" />
+    <result property="nLoginId" column="N_LOGIN_ID" />
+    <result property="nLevelId" column="N_LEVEL_ID" />
+    <result property="nCustomerTypeId" column="N_CUSTOMER_TYPE_ID" />
+    <result property="dCreateDate" column="D_CREATE_DATE" />
+    <result property="nCreated" column="N_CREATED" />
+    <result property="dModifyDate" column="D_MODIFY_DATE" />
+    <result property="nModified" column="N_MODIFIED" />
+    <result property="status" column="STATUS" />
+    <result property="description" column="DESCRIPTION" />
+  </resultMap>
+
+  <resultMap id="loginRoseRelQueryResultMap" class="loginRoseRelQuery" >
+    <result property="lrId" column="LR_ID" />
+    <result property="nLoginId" column="N_LOGIN_ID" />
+    <result property="nLevelId" column="N_LEVEL_ID" />
+    <result property="nCustomerTypeId" column="N_CUSTOMER_TYPE_ID" />
+    <result property="dCreateDate" column="D_CREATE_DATE" />
+    <result property="nCreated" column="N_CREATED" />
+    <result property="dModifyDate" column="D_MODIFY_DATE" />
+    <result property="nModified" column="N_MODIFIED" />
+  </resultMap>
+
+  <sql id="loginRoseRel_columns" >
+    a1.LR_ID, a1.N_LOGIN_ID, a1.N_LEVEL_ID, a1.N_CUSTOMER_TYPE_ID, a1.D_CREATE_DATE, 
+      a1.N_CREATED, a1.D_MODIFY_DATE, a1.N_MODIFIED
+  </sql>
+
+  <sql id="loginRoseRel_do_columns" >
+    a1.LR_ID, a1.N_LOGIN_ID, a1.N_LEVEL_ID, a1.N_CUSTOMER_TYPE_ID, a1.D_CREATE_DATE, 
+      a1.N_CREATED, a1.D_MODIFY_DATE, a1.N_MODIFIED
+  </sql>
+
+  <sql id="loginRoseRel_query_columns" >
+    a1.LR_ID, a1.N_LOGIN_ID, a1.N_LEVEL_ID, a1.N_CUSTOMER_TYPE_ID, a1.D_CREATE_DATE, 
+      a1.N_CREATED, a1.D_MODIFY_DATE, a1.N_MODIFIED
+  </sql>
+
+  <sql id="queryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="lrId" prepend="AND" >
+        <![CDATA[  
+        LR_ID = #lrId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nLoginId" prepend="AND" >
+        <![CDATA[  
+        N_LOGIN_ID = #nLoginId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nLevelId" prepend="AND" >
+        <![CDATA[  
+        N_LEVEL_ID = #nLevelId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nCustomerTypeId" prepend="AND" >
+        <![CDATA[  
+        N_CUSTOMER_TYPE_ID = #nCustomerTypeId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dCreateDate" prepend="AND" >
+        <![CDATA[  
+        D_CREATE_DATE = #dCreateDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nCreated" prepend="AND" >
+        <![CDATA[  
+        N_CREATED = #nCreated#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dModifyDate" prepend="AND" >
+        <![CDATA[  
+        D_MODIFY_DATE = #dModifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nModified" prepend="AND" >
+        <![CDATA[  
+        N_MODIFIED = #nModified#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="doQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="lrId" prepend="AND" >
+        <![CDATA[  
+        LR_ID = #lrId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nLoginId" prepend="AND" >
+        <![CDATA[  
+        N_LOGIN_ID = #nLoginId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nLevelId" prepend="AND" >
+        <![CDATA[  
+        N_LEVEL_ID = #nLevelId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nCustomerTypeId" prepend="AND" >
+        <![CDATA[  
+        N_CUSTOMER_TYPE_ID = #nCustomerTypeId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dCreateDate" prepend="AND" >
+        <![CDATA[  
+        D_CREATE_DATE = #dCreateDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nCreated" prepend="AND" >
+        <![CDATA[  
+        N_CREATED = #nCreated#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dModifyDate" prepend="AND" >
+        <![CDATA[  
+        D_MODIFY_DATE = #dModifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nModified" prepend="AND" >
+        <![CDATA[  
+        N_MODIFIED = #nModified#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="queryQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="lrId" prepend="AND" >
+        <![CDATA[  
+        LR_ID = #lrId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nLoginId" prepend="AND" >
+        <![CDATA[  
+        N_LOGIN_ID = #nLoginId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nLevelId" prepend="AND" >
+        <![CDATA[  
+        N_LEVEL_ID = #nLevelId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nCustomerTypeId" prepend="AND" >
+        <![CDATA[  
+        N_CUSTOMER_TYPE_ID = #nCustomerTypeId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dCreateDate" prepend="AND" >
+        <![CDATA[  
+        D_CREATE_DATE = #dCreateDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nCreated" prepend="AND" >
+        <![CDATA[  
+        N_CREATED = #nCreated#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dModifyDate" prepend="AND" >
+        <![CDATA[  
+        D_MODIFY_DATE = #dModifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nModified" prepend="AND" >
+        <![CDATA[  
+        N_MODIFIED = #nModified#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <insert id="insert" parameterClass="loginRoseRelDO" >
+   <selectKey keyProperty="lrId" resultClass="java.math.BigDecimal" >
+       select SEQ_LOGIN_ROSE_REL.NEXTVAL from dual
+    </selectKey>
+     INSERT INTO LOGIN_ROSE_REL( LR_ID, N_LOGIN_ID, N_LEVEL_ID, N_CUSTOMER_TYPE_ID, D_CREATE_DATE, N_CREATED, 
+      D_MODIFY_DATE, N_MODIFIED,STATUS,DESCRIPTION,N_COMMERCIAL_ID)
+     VALUES ( #lrId#, #nLoginId#, #nLevelId#, #nCustomerTypeId#, #dCreateDate#, #nCreated#, 
+      #dModifyDate#, #nModified#,#status#,#description#,#n_CommercialTenantId#)
+  </insert>
+
+  <update id="update" parameterClass="loginRoseRelDO" >
+    UPDATE LOGIN_ROSE_REL   
+    <dynamic prepend="SET" >
+      <!--
+      <isNotNull property="lrId" prepend="," >
+        <![CDATA[  
+        LR_ID = #lrId#  
+        ]]>  
+      </isNotNull>
+      -->
+      <isNotNull property="nLoginId" prepend="," >
+        <![CDATA[  
+        N_LOGIN_ID = #nLoginId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nLevelId" prepend="," >
+        <![CDATA[  
+        N_LEVEL_ID = #nLevelId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nCustomerTypeId" prepend="," >
+        <![CDATA[  
+        N_CUSTOMER_TYPE_ID = #nCustomerTypeId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dCreateDate" prepend="," >
+        <![CDATA[  
+        D_CREATE_DATE = #dCreateDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nCreated" prepend="," >
+        <![CDATA[  
+        N_CREATED = #nCreated#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dModifyDate" prepend="," >
+        <![CDATA[  
+        D_MODIFY_DATE = #dModifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nModified" prepend="," >
+        <![CDATA[  
+        N_MODIFIED = #nModified#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+     WHERE LR_ID = #lrId#  
+  </update>
+  
+  <update id="updateLoginRel" parameterClass="loginRoseRelDO" >
+    UPDATE LOGIN_ROSE_REL   
+    <dynamic prepend="SET" >
+      <!--
+      <isNotNull property="lrId" prepend="," >
+        <![CDATA[  
+        LR_ID = #lrId#  
+        ]]>  
+      </isNotNull>
+      -->
+      <isNotNull property="nLoginId" prepend="," >
+        <![CDATA[  
+        N_LOGIN_ID = #nLoginId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nLevelId" prepend="," >
+        <![CDATA[  
+        N_LEVEL_ID = #nLevelId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nCustomerTypeId" prepend="," >
+        <![CDATA[  
+        N_CUSTOMER_TYPE_ID = #nCustomerTypeId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dCreateDate" prepend="," >
+        <![CDATA[  
+        D_CREATE_DATE = #dCreateDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nCreated" prepend="," >
+        <![CDATA[  
+        N_CREATED = #nCreated#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dModifyDate" prepend="," >
+        <![CDATA[  
+        D_MODIFY_DATE = #dModifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nModified" prepend="," >
+        <![CDATA[  
+        N_MODIFIED = #nModified#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="isValid" prepend="," >
+        <![CDATA[  
+        IS_VALID = #isValid#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+     WHERE N_COMMERCIAL_ID = #n_CommercialTenantId#  
+  </update>
+  
+
+  <select id="findByPrimaryKey" parameterClass="java.math.BigDecimal" resultMap="loginRoseRelDOResultMap" >
+     SELECT 
+    <include refid="loginRoseRel_do_columns" />
+    <![CDATA[  
+     FROM LOGIN_ROSE_REL a1 WHERE LR_ID = #lrId#
+    ]]>  
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterClass="java.math.BigDecimal" >
+    <![CDATA[  
+     DELETE FROM LOGIN_ROSE_REL WHERE LR_ID = #lrId#
+    ]]>  
+  </delete>
+
+  <select id="countByDOExample" parameterClass="loginRoseRelDO" resultClass="java.lang.Integer" >
+    SELECT COUNT(LR_ID) AS num FROM LOGIN_ROSE_REL 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="findListByDO" resultMap="loginRoseRelDOResultMap" parameterClass="loginRoseRelDO" >
+     SELECT 
+    <include refid="loginRoseRel_do_columns" />
+     FROM LOGIN_ROSE_REL a1 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="countByQueryExample" parameterClass="loginRoseRelQuery" resultClass="java.lang.Integer" >
+    SELECT COUNT(LR_ID) AS num FROM LOGIN_ROSE_REL 
+    <include refid="queryQueryParams" />
+  </select>
+
+  <select id="findListByQuery" resultMap="loginRoseRelQueryResultMap" parameterClass="loginRoseRelQuery" >
+     SELECT 
+    <include refid="loginRoseRel_query_columns" />
+     FROM LOGIN_ROSE_REL a1 
+    <include refid="queryQueryParams" />
+  </select>
+</sqlMap>

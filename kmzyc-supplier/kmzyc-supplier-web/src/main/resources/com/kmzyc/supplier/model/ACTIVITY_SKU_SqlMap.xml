@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ACTIVITY_SKU">
+    <typeAlias alias="activitySku" type="com.pltfm.app.vobject.ActivitySku" />
+    <typeAlias alias="activitySkuVo" type="com.kmzyc.supplier.vo.ActivitySkuVo" />
+    <typeAlias alias="viewProductSku" type="com.pltfm.app.vobject.ViewProductSku" />
+    <typeAlias alias="activitySkuExample" type="com.pltfm.app.vobject.ActivitySkuExample" />
+
+    <resultMap id="BaseResultMap" class="activitySku">
+        <result column="ACTIVITY_SKU_ID" property="activitySkuId" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL"/>
+        <result column="SUPPLIER_ENTRY_ID" property="supplierEntryId" jdbcType="DECIMAL"/>
+        <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL"/>
+        <result column="AUDIT_STATUS" property="auditStatus" jdbcType="DECIMAL"/>
+        <result column="PRE_SALE_QUANTITY" property="preSaleQuantity" jdbcType="DECIMAL"/>
+        <result column="SALE_QUANTITY" property="saleQuantity" jdbcType="DECIMAL"/>
+        <result column="SKU_TOTAL_PRICE" property="skuTotalPrice" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_SKU_IMAGE" property="activitySkuImage" jdbcType="VARCHAR"/>
+        <result column="PROMOTION_ID" property="promotionId" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_PRICE" property="activityPrice" jdbcType="DECIMAL"/>
+        <result column="COMMISSION_RATE" property="commissionRate" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_SKU_TYPE" property="activitySkuType" jdbcType="DECIMAL"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="MODIFY_TIME" property="modifyTime" jdbcType="TIMESTAMP"/>
+        <result column="AUDIT_TIME" property="auditTime" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_USER" property="createUser" jdbcType="DECIMAL"/>
+        <result column="MODIF_USER" property="modifUser" jdbcType="DECIMAL"/>
+        <result column="AUDIT_USER" property="auditUser" jdbcType="DECIMAL"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="productSkuMap4Activity" class="viewProductSku">
+        <result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL"/>
+        <result column="SKU_DESC" property="categoryName"/><!--代替sku详情-->
+        <result column="STOCK_QUALITY" property="systemCode"/><!--代替库存-->
+        <result column="PRODUCT_SKU_CODE" property="productSkuCode" jdbcType="VARCHAR"/>
+        <result column="PRICE" property="price"/>
+        <result column="BRAND_NAME" property="searchBrandName"/>
+    </resultMap>
+    <resultMap id="productSkuMap4ActivitySku" class="activitySkuVo">
+        <result column="ACTIVITY_SKU_ID" property="activitySkuId" jdbcType="DECIMAL"/>
+        <result column="SUPPLIER_ENTRY_ID" property="supplierEntryId" jdbcType="DECIMAL"/>
+        <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL"/>
+        <result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_SKU_CODE" property="productSkuCode" jdbcType="VARCHAR"/>
+        <result column="BRAND_NAME" property="brandName"/>
+        <result column="PRICE" property="price"/>
+        <result column="STOCK_QUALITY" property="stock"/><!--代替库存-->
+        <result column="ACTIVITY_SKU_IMAGE" property="activitySkuImage" jdbcType="VARCHAR"/>
+        <result column="PROMOTION_ID" property="promotionId" jdbcType="DECIMAL"/>
+        <result column="PRE_SALE_QUANTITY" property="preSaleQuantity" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_PRICE" property="activityPrice" jdbcType="DECIMAL"/>
+        <result column="COMMISSION_RATE" property="commissionRate" jdbcType="DECIMAL"/>
+        <result column="SKU_TOTAL_PRICE" property="skuTotalPrice" jdbcType="DECIMAL"/>
+        <result column="AUDIT_STATUS" property="auditStatus" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Example_Where_Clause">
+        <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate">
+            <isEqual property="oredCriteria[].valid" compareValue="true">
+                (
+                <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and">
+                    $oredCriteria[].criteriaWithoutValue[]$
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and">
+                    $oredCriteria[].criteriaWithSingleValue[].condition$
+                    #oredCriteria[].criteriaWithSingleValue[].value#
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and">
+                    $oredCriteria[].criteriaWithListValue[].condition$
+                    <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")"
+                             conjunction=",">
+                        #oredCriteria[].criteriaWithListValue[].values[]#
+                    </iterate>
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and">
+                    $oredCriteria[].criteriaWithBetweenValue[].condition$
+                    #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+                    #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+                </iterate>
+                )
+            </isEqual>
+        </iterate>
+    </sql>
+    <sql id="query_condition_4_activity">
+        <isNotEmpty prepend="AND" property="objCondition.productTitle">
+            <![CDATA[
+                VPS.PRODUCT_TITLE like '%'||#objCondition.productTitle:VARCHAR#||'%'
+            ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="objCondition.productSkuCode">
+            <![CDATA[
+                VPS.PRODUCT_SKU_CODE like '%'||#objCondition.productSkuCode:VARCHAR#||'%'
+            ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="objCondition.skuStatus">
+            <![CDATA[
+                VPS.SKU_STATUS = #objCondition.skuStatus:VARCHAR#
+            ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="objCondition.brandIds">
+            VPS.BRAND_ID IN
+            <iterate open="(" close=")" conjunction="," property="objCondition.brandIds">
+                <![CDATA[
+                  #objCondition.brandIds[]#
+                ]]>
+            </iterate>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="objCondition.haveSkuId">
+            VPS.PRODUCT_SKU_ID NOT IN
+            <iterate open="(" close=")" conjunction="," property="objCondition.haveSkuId">
+                <![CDATA[
+                  #objCondition.haveSkuId[]#
+                ]]>
+            </iterate>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="objCondition.categoryId">
+            <![CDATA[
+                VPS.CATEGORY_ID = #objCondition.categoryId:DECIMAL#
+            ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="objCondition.mCategoryId">
+            <![CDATA[
+                VPS.CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where PARENT_ID = #objCondition.mCategoryId:DECIMAL# )
+            ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="objCondition.bCategoryId">
+            <![CDATA[
+         VPS.CATEGORY_ID in (select sc.CATEGORY_ID from categorys sc
+        inner join categorys mc on sc.parent_id=mc.category_id
+        inner join categorys bc on mc.parent_id=bc.category_id
+        where bc.category_id = #objCondition.bCategoryId:DECIMAL# )
+            ]]>
+        </isNotEmpty>
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterClass="activitySkuExample">
+        select ACTIVITY_SKU_ID, ACTIVITY_ID, SUPPLIER_ENTRY_ID, PRODUCT_SKU_ID, AUDIT_STATUS,
+        PRE_SALE_QUANTITY, SALE_QUANTITY, SKU_TOTAL_PRICE, ACTIVITY_SKU_IMAGE, PROMOTION_ID,
+        ACTIVITY_PRICE, COMMISSION_RATE, ACTIVITY_SKU_TYPE, CREATE_TIME, MODIFY_TIME, AUDIT_TIME,
+        CREATE_USER, MODIF_USER, AUDIT_USER, REMARK
+        from ACTIVITY_SKU
+        <isParameterPresent>
+            <include refid="ACTIVITY_SKU.Example_Where_Clause"/>
+            <isNotNull property="orderByClause">
+                order by $orderByClause$
+            </isNotNull>
+        </isParameterPresent>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterClass="activitySku">
+        select ACTIVITY_SKU_ID, ACTIVITY_ID, SUPPLIER_ENTRY_ID, PRODUCT_SKU_ID, AUDIT_STATUS,
+        PRE_SALE_QUANTITY, SALE_QUANTITY, SKU_TOTAL_PRICE, ACTIVITY_SKU_IMAGE, PROMOTION_ID,
+        ACTIVITY_PRICE, COMMISSION_RATE, ACTIVITY_SKU_TYPE, CREATE_TIME, MODIFY_TIME, AUDIT_TIME,
+        CREATE_USER, MODIF_USER, AUDIT_USER, REMARK
+        from ACTIVITY_SKU
+        where ACTIVITY_SKU_ID = #activitySkuId:DECIMAL#
+    </select>
+    <delete id="deleteByPrimaryKey" parameterClass="activitySku">
+        delete from ACTIVITY_SKU
+        where ACTIVITY_SKU_ID = #activitySkuId:DECIMAL#
+    </delete>
+    <delete id="deleteByExample" parameterClass="activitySkuExample">
+        delete from ACTIVITY_SKU
+        <include refid="ACTIVITY_SKU.Example_Where_Clause"/>
+    </delete>
+    <insert id="insert" parameterClass="activitySku">
+        insert into ACTIVITY_SKU (ACTIVITY_SKU_ID, ACTIVITY_ID, SUPPLIER_ENTRY_ID, PRODUCT_SKU_ID,
+        AUDIT_STATUS, PRE_SALE_QUANTITY, SALE_QUANTITY, SKU_TOTAL_PRICE, ACTIVITY_SKU_IMAGE,
+        PROMOTION_ID, ACTIVITY_PRICE, COMMISSION_RATE, ACTIVITY_SKU_TYPE, CREATE_TIME, MODIFY_TIME,
+        AUDIT_TIME, CREATE_USER, MODIF_USER, AUDIT_USER, REMARK)
+        values (#activitySkuId:DECIMAL#, #activityId:DECIMAL#, #supplierEntryId:DECIMAL#,
+        #productSkuId:DECIMAL#, #auditStatus:DECIMAL#, #preSaleQuantity:DECIMAL#,
+        #saleQuantity:DECIMAL#, #skuTotalPrice:DECIMAL#, #activitySkuImage:VARCHAR#,
+        #promotionId:DECIMAL#, #activityPrice:DECIMAL#, #commissionRate:DECIMAL#,
+        #activitySkuType:DECIMAL#, #createTime:TIMESTAMP#, #modifyTime:TIMESTAMP#,
+        #auditTime:TIMESTAMP#, #createUser:DECIMAL#, #modifUser:DECIMAL#, #auditUser:DECIMAL#,
+        #remark:VARCHAR#)
+    </insert>
+    <insert id="insertSelective" parameterClass="activitySku">
+        <selectKey keyProperty="activitySkuId" resultClass="java.lang.Long" >
+            select SEQ_ACTIVITY_PAYMENT.nextval from dual
+        </selectKey>
+        insert into ACTIVITY_SKU
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="activitySkuId">
+                ACTIVITY_SKU_ID
+            </isNotNull>
+            <isNotNull prepend="," property="activityId">
+                ACTIVITY_ID
+            </isNotNull>
+            <isNotNull prepend="," property="supplierEntryId">
+                SUPPLIER_ENTRY_ID
+            </isNotNull>
+            <isNotNull prepend="," property="productSkuId">
+                PRODUCT_SKU_ID
+            </isNotNull>
+            <isNotNull prepend="," property="auditStatus">
+                AUDIT_STATUS
+            </isNotNull>
+            <isNotNull prepend="," property="preSaleQuantity">
+                PRE_SALE_QUANTITY
+            </isNotNull>
+            <isNotNull prepend="," property="saleQuantity">
+                SALE_QUANTITY
+            </isNotNull>
+            <isNotNull prepend="," property="skuTotalPrice">
+                SKU_TOTAL_PRICE
+            </isNotNull>
+            <isNotNull prepend="," property="activitySkuImage">
+                ACTIVITY_SKU_IMAGE
+            </isNotNull>
+            <isNotNull prepend="," property="promotionId">
+                PROMOTION_ID
+            </isNotNull>
+            <isNotNull prepend="," property="activityPrice">
+                ACTIVITY_PRICE
+            </isNotNull>
+            <isNotNull prepend="," property="commissionRate">
+                COMMISSION_RATE
+            </isNotNull>
+            <isNotNull prepend="," property="activitySkuType">
+                ACTIVITY_SKU_TYPE
+            </isNotNull>
+            <isNotNull prepend="," property="createTime">
+                CREATE_TIME
+            </isNotNull>
+            <isNotNull prepend="," property="modifyTime">
+                MODIFY_TIME
+            </isNotNull>
+            <isNotNull prepend="," property="auditTime">
+                AUDIT_TIME
+            </isNotNull>
+            <isNotNull prepend="," property="createUser">
+                CREATE_USER
+            </isNotNull>
+            <isNotNull prepend="," property="modifUser">
+                MODIF_USER
+            </isNotNull>
+            <isNotNull prepend="," property="auditUser">
+                AUDIT_USER
+            </isNotNull>
+            <isNotNull prepend="," property="remark">
+                REMARK
+            </isNotNull>
+            )
+        </dynamic>
+        values
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="activitySkuId">
+                #activitySkuId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="activityId">
+                #activityId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="supplierEntryId">
+                #supplierEntryId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="productSkuId">
+                #productSkuId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="auditStatus">
+                #auditStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="preSaleQuantity">
+                #preSaleQuantity:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="saleQuantity">
+                #saleQuantity:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="skuTotalPrice">
+                #skuTotalPrice:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="activitySkuImage">
+                #activitySkuImage:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="promotionId">
+                #promotionId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="activityPrice">
+                #activityPrice:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="commissionRate">
+                #commissionRate:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="activitySkuType">
+                #activitySkuType:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="createTime">
+                #createTime:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="," property="modifyTime">
+                #modifyTime:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="," property="auditTime">
+                #auditTime:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="," property="createUser">
+                #createUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="modifUser">
+                #modifUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="auditUser">
+                #auditUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="remark">
+                #remark:VARCHAR#
+            </isNotNull>
+            )
+        </dynamic>
+    </insert>
+    <select id="countByExample" parameterClass="activitySkuExample"
+            resultClass="java.lang.Integer">
+        select count(*) from ACTIVITY_SKU
+        <include refid="ACTIVITY_SKU.Example_Where_Clause"/>
+    </select>
+    <update id="updateByExampleSelective">
+        update ACTIVITY_SKU
+        <dynamic prepend="set">
+            <isNotNull prepend="," property="record.activitySkuId">
+                ACTIVITY_SKU_ID = #record.activitySkuId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.activityId">
+                ACTIVITY_ID = #record.activityId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.supplierEntryId">
+                SUPPLIER_ENTRY_ID = #record.supplierEntryId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.productSkuId">
+                PRODUCT_SKU_ID = #record.productSkuId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.auditStatus">
+                AUDIT_STATUS = #record.auditStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.preSaleQuantity">
+                PRE_SALE_QUANTITY = #record.preSaleQuantity:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.saleQuantity">
+                SALE_QUANTITY = #record.saleQuantity:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.skuTotalPrice">
+                SKU_TOTAL_PRICE = #record.skuTotalPrice:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.activitySkuImage">
+                ACTIVITY_SKU_IMAGE = #record.activitySkuImage:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.promotionId">
+                PROMOTION_ID = #record.promotionId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.activityPrice">
+                ACTIVITY_PRICE = #record.activityPrice:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.commissionRate">
+                COMMISSION_RATE = #record.commissionRate:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.activitySkuType">
+                ACTIVITY_SKU_TYPE = #record.activitySkuType:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.createTime">
+                CREATE_TIME = #record.createTime:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="," property="record.modifyTime">
+                MODIFY_TIME = #record.modifyTime:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="," property="record.auditTime">
+                AUDIT_TIME = #record.auditTime:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="," property="record.createUser">
+                CREATE_USER = #record.createUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.modifUser">
+                MODIF_USER = #record.modifUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.auditUser">
+                AUDIT_USER = #record.auditUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.remark">
+                REMARK = #record.remark:VARCHAR#
+            </isNotNull>
+        </dynamic>
+        <isParameterPresent>
+            <include refid="ACTIVITY_SKU.Example_Where_Clause"/>
+        </isParameterPresent>
+    </update>
+    <update id="updateByExample">
+        update ACTIVITY_SKU
+        set ACTIVITY_SKU_ID = #record.activitySkuId:DECIMAL#,
+        ACTIVITY_ID = #record.activityId:DECIMAL#,
+        SUPPLIER_ENTRY_ID = #record.supplierEntryId:DECIMAL#,
+        PRODUCT_SKU_ID = #record.productSkuId:DECIMAL#,
+        AUDIT_STATUS = #record.auditStatus:DECIMAL#,
+        PRE_SALE_QUANTITY = #record.preSaleQuantity:DECIMAL#,
+        SALE_QUANTITY = #record.saleQuantity:DECIMAL#,
+        SKU_TOTAL_PRICE = #record.skuTotalPrice:DECIMAL#,
+        ACTIVITY_SKU_IMAGE = #record.activitySkuImage:VARCHAR#,
+        PROMOTION_ID = #record.promotionId:DECIMAL#,
+        ACTIVITY_PRICE = #record.activityPrice:DECIMAL#,
+        COMMISSION_RATE = #record.commissionRate:DECIMAL#,
+        ACTIVITY_SKU_TYPE = #record.activitySkuType:DECIMAL#,
+        CREATE_TIME = #record.createTime:TIMESTAMP#,
+        MODIFY_TIME = #record.modifyTime:TIMESTAMP#,
+        AUDIT_TIME = #record.auditTime:TIMESTAMP#,
+        CREATE_USER = #record.createUser:DECIMAL#,
+        MODIF_USER = #record.modifUser:DECIMAL#,
+        AUDIT_USER = #record.auditUser:DECIMAL#,
+        REMARK = #record.remark:VARCHAR#
+        <isParameterPresent>
+            <include refid="ACTIVITY_SKU.Example_Where_Clause"/>
+        </isParameterPresent>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterClass="activitySku">
+        update ACTIVITY_SKU
+        <dynamic prepend="set">
+            PROMOTION_ID = #promotionId:DECIMAL#,
+            <isNotNull prepend="," property="activityId">
+                ACTIVITY_ID = #activityId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="supplierEntryId">
+                SUPPLIER_ENTRY_ID = #supplierEntryId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="productSkuId">
+                PRODUCT_SKU_ID = #productSkuId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="auditStatus">
+                AUDIT_STATUS = #auditStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="preSaleQuantity">
+                PRE_SALE_QUANTITY = #preSaleQuantity:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="saleQuantity">
+                SALE_QUANTITY = #saleQuantity:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="skuTotalPrice">
+                SKU_TOTAL_PRICE = #skuTotalPrice:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="activitySkuImage">
+                ACTIVITY_SKU_IMAGE = #activitySkuImage:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="activityPrice">
+                ACTIVITY_PRICE = #activityPrice:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="commissionRate">
+                COMMISSION_RATE = #commissionRate:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="activitySkuType">
+                ACTIVITY_SKU_TYPE = #activitySkuType:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="createTime">
+                CREATE_TIME = #createTime:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="," property="modifyTime">
+                MODIFY_TIME = #modifyTime:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="," property="auditTime">
+                AUDIT_TIME = #auditTime:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="," property="createUser">
+                CREATE_USER = #createUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="modifUser">
+                MODIF_USER = #modifUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="auditUser">
+                AUDIT_USER = #auditUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="remark">
+                REMARK = #remark:VARCHAR#
+            </isNotNull>
+        </dynamic>
+        where ACTIVITY_SKU_ID = #activitySkuId:DECIMAL#
+    </update>
+    <update id="updateByPrimaryKey" parameterClass="activitySku">
+        update ACTIVITY_SKU
+        set ACTIVITY_ID = #activityId:DECIMAL#,
+        SUPPLIER_ENTRY_ID = #supplierEntryId:DECIMAL#,
+        PRODUCT_SKU_ID = #productSkuId:DECIMAL#,
+        AUDIT_STATUS = #auditStatus:DECIMAL#,
+        PRE_SALE_QUANTITY = #preSaleQuantity:DECIMAL#,
+        SALE_QUANTITY = #saleQuantity:DECIMAL#,
+        SKU_TOTAL_PRICE = #skuTotalPrice:DECIMAL#,
+        ACTIVITY_SKU_IMAGE = #activitySkuImage:VARCHAR#,
+        PROMOTION_ID = #promotionId:DECIMAL#,
+        ACTIVITY_PRICE = #activityPrice:DECIMAL#,
+        COMMISSION_RATE = #commissionRate:DECIMAL#,
+        ACTIVITY_SKU_TYPE = #activitySkuType:DECIMAL#,
+        CREATE_TIME = #createTime:TIMESTAMP#,
+        MODIFY_TIME = #modifyTime:TIMESTAMP#,
+        AUDIT_TIME = #auditTime:TIMESTAMP#,
+        CREATE_USER = #createUser:DECIMAL#,
+        MODIF_USER = #modifUser:DECIMAL#,
+        AUDIT_USER = #auditUser:DECIMAL#,
+        REMARK = #remark:VARCHAR#
+        where ACTIVITY_SKU_ID = #activitySkuId:DECIMAL#
+    </update>
+
+    <!-- 活动选择SKU,活动使用 -->
+    <select id="selectProductSkuList4Activity" resultMap="productSkuMap4Activity"
+            parameterClass="pagination">
+        <![CDATA[
+          SELECT * FROM (SELECT t.*, ROWNUM RN FROM (
+          SELECT VPS.PRODUCT_ID,VPS.PRODUCT_SKU_ID, VPS.PRODUCT_SKU_CODE, VPS.PRODUCT_TITLE, VPS.PRICE,
+          PB.BRAND_NAME,S.STOCK_QUALITY,
+          REPLACE (WM_CONCAT(DECODE(VSA.CATEGORY_ATTR_NAME,null,'',VSA.CATEGORY_ATTR_NAME||'：'|| VSA.CATEGORY_ATTR_VALUE)),',' , '&nbsp;&nbsp;') SKU_DESC
+          from VIEW_PRODUCT_SKU VPS
+          LEFT JOIN VIEW_SKU_ATTR VSA ON VPS.PRODUCT_SKU_ID = VSA.PRODUCT_SKU_ID
+          LEFT JOIN PROD_BRAND PB ON PB.BRAND_ID = VPS.BRAND_ID
+          LEFT JOIN (SELECT SKU_ATTRIBUTE_ID PRODUCT_SKU_ID,STOCK_QUALITY
+            FROM (SELECT PS.SKU_ATTRIBUTE_ID,PS.STOCK_QUALITY STOCK_QUALITY,
+                    ROW_NUMBER() OVER (PARTITION BY PS.SKU_ATTRIBUTE_ID ORDER BY (PS.STOCK_QUALITY-PS.ORDER_QUALITY) DESC) RN
+                    FROM PRODUCT_STOCK PS) WHERE RN=1) S
+          ON S.PRODUCT_SKU_ID = VPS.PRODUCT_SKU_ID
+          WHERE VPS.STATUS=3 AND VPS.SHOP_CODE = #objCondition.supplierId:VARCHAR#
+		]]>
+        <include refid="ACTIVITY_SKU.query_condition_4_activity"/>
+        <![CDATA[
+        GROUP BY VPS.PRODUCT_ID, VPS.PRODUCT_SKU_ID, VPS.PRODUCT_SKU_CODE, VPS.PRODUCT_TITLE,
+        VPS.PRICE, PB.BRAND_NAME,S.STOCK_QUALITY
+		ORDER BY VPS.PRODUCT_ID,VPS.PRODUCT_SKU_ID DESC ) t
+		WHERE ROWNUM <= $endindex$ ) WHERE RN >= #startindex#
+		]]>
+    </select>
+    <!-- 商品发布SKU列表记录数，活动选择商品 -->
+    <select id="countProductSkuList4Activity" resultClass="java.lang.Integer" parameterClass="pagination">
+        <![CDATA[
+          select COUNT(VPS.PRODUCT_SKU_ID) from VIEW_PRODUCT_SKU VPS WHERE VPS.STATUS =3
+            AND VPS.SHOP_CODE = #objCondition.supplierId:VARCHAR#
+		]]>
+        <include refid="ACTIVITY_SKU.query_condition_4_activity"/>
+    </select>
+    <!--查询是否还有商品在还未结束、未中止、非撤销报名、审核通过的促销推广活动中-->
+    <select id="getSkuInUnfinishedActivity" parameterClass="java.util.HashMap" resultClass="java.lang.String">
+        <![CDATA[
+            SELECT PS.PRODUCT_SKU_CODE FROM ACTIVITY_SKU S,ACTIVITY_INFO AI,PRODUCT_SKU PS,ACTIVITY_SUPPLIER_ENTRY ASE
+            WHERE S.ACTIVITY_ID=AI.ACTIVITY_ID AND PS.PRODUCT_SKU_ID = S.PRODUCT_SKU_ID
+            AND ASE.ACTIVITY_ID=AI.ACTIVITY_ID AND ASE.ENTRY_STATUS<>3 AND ASE.AUDIT_STATUS=1
+            AND ASE.SUPPLIER_ID=#supplierId#
+            AND S.ACTIVITY_ID <> #activityId#
+            AND S.PRODUCT_SKU_ID IN
+        ]]>
+        <iterate open="(" close=")" conjunction="," property="productSkuIdList">
+            <![CDATA[
+              #productSkuIdList[]#
+            ]]>
+        </iterate>
+        <![CDATA[
+          AND AI.ACTIVITY_TYPE=3 AND AI.ACTIVITY_END_TIME>sysdate AND ACTIVITY_STATUS<>8
+          AND S.ACTIVITY_SKU_TYPE=1
+        ]]>
+    </select>
+    <!-- 查看当前商家参加此次活动所报名的商品 -->
+    <select id="getActivitySku" resultMap="productSkuMap4ActivitySku" parameterClass="java.util.HashMap">
+        <![CDATA[
+          SELECT ASS.ACTIVITY_SKU_ID,ASS.SUPPLIER_ENTRY_ID, ASS.PRODUCT_SKU_ID,ASS.SKU_TOTAL_PRICE,
+          ASS.PRE_SALE_QUANTITY, ASS.ACTIVITY_PRICE, ASS.COMMISSION_RATE * 100 COMMISSION_RATE,
+          ASS.ACTIVITY_SKU_IMAGE,
+          ASS.PROMOTION_ID,
+          VPS.PRODUCT_TITLE,VPS.PRODUCT_SKU_CODE,PB.BRAND_NAME,VPS.PRICE,S.STOCK_QUALITY,
+          ASS.AUDIT_STATUS
+          FROM ACTIVITY_SKU ASS
+          INNER JOIN ACTIVITY_SUPPLIER_ENTRY ASE ON ASE.SUPPLIER_ENTRY_ID = ASS.SUPPLIER_ENTRY_ID
+                AND ASE.ACTIVITY_ID=#activityId# AND ASE.SUPPLIER_ID=#supplierId#
+          LEFT JOIN (SELECT SKU_ATTRIBUTE_ID PRODUCT_SKU_ID,STOCK_QUALITY
+            FROM (SELECT PS.SKU_ATTRIBUTE_ID,PS.STOCK_QUALITY STOCK_QUALITY,
+                    ROW_NUMBER() OVER (PARTITION BY PS.SKU_ATTRIBUTE_ID ORDER BY (PS.STOCK_QUALITY-PS.ORDER_QUALITY) DESC) RN
+                    FROM PRODUCT_STOCK PS) WHERE RN=1) S ON S.PRODUCT_SKU_ID=ASS.PRODUCT_SKU_ID
+          LEFT JOIN VIEW_PRODUCT_SKU VPS ON ASS.PRODUCT_SKU_ID = VPS.PRODUCT_SKU_ID
+          LEFT JOIN PROD_BRAND PB ON PB.BRAND_ID = VPS.BRAND_ID
+          WHERE ASS.ACTIVITY_SKU_TYPE = 1
+          ORDER BY ASS.PRODUCT_SKU_ID DESC
+		]]>
+    </select>
+</sqlMap>

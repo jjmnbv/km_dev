@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="KMORDER_REFUND_REQUEST" >
+	<!-- 新增退款请求 -->
+	<insert id="SQL_INSERT_REFUND_REQUEST" parameterClass="com.pltfm.app.vobject.RefundRequest" >
+	<selectKey resultClass="java.lang.Long" keyProperty="rrid" >
+		select SEQ_REFUND_REQUEST.NEXTVAL from dual
+    </selectKey>
+    	merge into refund_request rr
+		using (select #outBatchNo:VARCHAR# out_batch_no from dual) cond
+		on (rr.out_batch_no = cond.out_batch_no and rr.request_date is null)
+		when matched then
+		  update
+		     set rr.refurn_money = rr.refurn_money + #refurnMoney:DECIMAL#,
+		      rr.order_alter_code=rr.order_alter_code || ',' || #orderAlterCode#,
+		      rr.refund_detail = rr.refund_detail || ',' || #refurnMoney:DECIMAL#
+		   where rr.out_batch_no = cond.out_batch_no
+		     and rr.request_date is null
+		when not matched then
+		  insert
+		  (
+		   rrid,
+		   order_code,
+		   channel,
+		   seller_type,
+		<isNotEmpty property="sellerShop">		   
+		   seller_shop,
+		</isNotEmpty>		   
+		   platform_code,
+		   create_date,
+		<isNotEmpty property="finishDate">		   
+		   finish_date,
+		</isNotEmpty>		   
+		   menber_name,		   
+		   out_batch_no,		  
+		   refurn_money,
+		<isNotEmpty property="refundNo">
+		   refund_no,
+		</isNotEmpty>		   
+		   status,
+		<isNotEmpty property="requestDate">		   
+		   request_date,
+		</isNotEmpty>		   
+		<isNotEmpty property="operater">
+			operater,
+		</isNotEmpty>
+		<isNotEmpty property="orderAlterCode">
+			order_alter_code,
+		</isNotEmpty>
+		   refund_type,
+		   refund_detail
+		   )
+		values
+		  (
+		   #rrid:DECIMAL#,
+		   #orderCode:VARCHAR#,
+		   #channel:VARCHAR#,
+		   #sellerType:DECIMAL#,
+		<isNotEmpty property="sellerShop">		   
+		   #sellerShop:VARCHAR#,
+		</isNotEmpty>		   
+		   #platformCode:VARCHAR#,
+		   sysdate,
+		<isNotEmpty property="finishDate">		   
+		   #finishDate#,
+		</isNotEmpty>
+		   #menberName:VARCHAR#,	   
+		   #outBatchNo:VARCHAR#,	   
+		   #refurnMoney:DECIMAL#,
+		<isNotEmpty property="refundNo">
+		   #refundNo:VARCHAR#,
+		</isNotEmpty>
+		   #status:DECIMAL#,
+		<isNotEmpty property="requestDate">
+		   #requestDate#,
+		</isNotEmpty>
+		<isNotEmpty property="operater">
+			#operater:VARCHAR#,
+		</isNotEmpty>
+		<isNotEmpty property="orderAlterCode">
+			#orderAlterCode#,
+		</isNotEmpty>
+		   #refundType:DECIMAL#,
+		   #refurnMoney#
+		  )
+	</insert>
+	
+	<!-- 预售新增退款请求 -->
+	<insert id="SQL_INSERT_REFUND_REQUEST_YS" parameterClass="com.pltfm.app.vobject.RefundRequest" >
+	<selectKey resultClass="java.lang.Long" keyProperty="rrid" >
+		select SEQ_REFUND_REQUEST.NEXTVAL from dual
+    </selectKey>
+		  insert into refund_request
+		  (
+		   rrid,
+		   order_code,
+		   channel,
+		   seller_type,
+		<isNotEmpty property="sellerShop">		   
+		   seller_shop,
+		</isNotEmpty>		   
+		   platform_code,
+		   create_date,
+		<isNotEmpty property="finishDate">		   
+		   finish_date,
+		</isNotEmpty>		   
+		   menber_name,		   
+		   out_batch_no,	  
+		   refurn_money,
+		<isNotEmpty property="refundNo">
+		   refund_no,
+		</isNotEmpty>		   
+		   status,
+		<isNotEmpty property="requestDate">		   
+		   request_date,
+		</isNotEmpty>		   
+		<isNotEmpty property="operater">
+			operater,
+		</isNotEmpty>
+		<isNotEmpty property="orderAlterCode">
+			order_alter_code,
+		</isNotEmpty>
+		   refund_type,
+		 <isNotEmpty property="ysflag">
+		   ysflag,
+		 </isNotEmpty>
+		   refund_detail
+		   )
+		values
+		  (
+		   #rrid:DECIMAL#,
+		   #orderCode:VARCHAR#,
+		   #channel:VARCHAR#,
+		   #sellerType:DECIMAL#,
+		<isNotEmpty property="sellerShop">		   
+		   #sellerShop:VARCHAR#,
+		</isNotEmpty>		   
+		   #platformCode:VARCHAR#,
+		   sysdate,
+		<isNotEmpty property="finishDate">		   
+		   #finishDate#,
+		</isNotEmpty>
+		   #menberName:VARCHAR#,		   
+		   #outBatchNo:VARCHAR#,		   
+		   #refurnMoney:DECIMAL#,
+		<isNotEmpty property="refundNo">
+		   #refundNo:VARCHAR#,
+		</isNotEmpty>
+		   #status:DECIMAL#,
+		<isNotEmpty property="requestDate">
+		   #requestDate#,
+		</isNotEmpty>
+		<isNotEmpty property="operater">
+			#operater:VARCHAR#,
+		</isNotEmpty>
+		<isNotEmpty property="orderAlterCode">
+			#orderAlterCode#,
+		</isNotEmpty>
+		   #refundType:DECIMAL#,
+		<isNotEmpty property="ysflag">
+		   #ysflag:VARCHAR#,
+		</isNotEmpty>
+		   #refurnMoney#
+		  )
+	</insert>
+	
+	<!-- 更新退款请求 -->
+	<update id="SQL_UPDATE_FINISH_REFUND_REQUEST" parameterClass="com.pltfm.app.vobject.RefundRequest" >
+		update refund_request set 
+		    status = 1,
+		    refund_no = #refundNo:VARCHAR#,
+		    finish_date = sysdate
+		  where status= 0 and rrid =  #rrid:DECIMAL#
+	</update>
+	
+	<!-- 批量更新退款请求提交时间 -->
+	<update id="SQL_UPDATE_REQUEST_DATE_REFUND_REQUEST" parameterClass="java.util.Map" >
+		update refund_request set 
+		    operater = #uName:VARCHAR#,
+		    refund_no = #refundNo#,
+		   	request_date = sysdate
+		  where rrid in
+		  <iterate open="(" close=")" conjunction="," property="rrids">
+			#rrids[]#
+		</iterate>
+	</update>
+	
+	<!-- 查询条件 -->
+	<sql id="SQL_QUERY_REFUND_REQUEST_CONDITION">
+		<!--删除渠道  where rr.channel = #channel# -->
+		where 1=1
+		<isNotEmpty property="platformCode">
+			and rr.platform_code = #platformCode#
+		</isNotEmpty>
+		<isNotEmpty property="status">
+			and rr.status = #status#
+		</isNotEmpty>
+		<isNotEmpty property="sellerType">
+			and rr.seller_type = #sellerType#
+		</isNotEmpty>
+		<isNotEmpty property="sellerShop">
+			and rr.seller_shop = #sellerShop#
+		</isNotEmpty>
+		<isNotEmpty property="requestType">
+			and rr.refund_type = #requestType#
+		</isNotEmpty>
+		<isNotEmpty property="orderCode">
+			and rr.order_code = #orderCode#
+		</isNotEmpty>
+		<isNotEmpty property="createDateStart">
+			and trunc(rr.create_date,'mi')>=to_date(#createDateStart#,'yyyy-MM-dd HH24:mi:ss')
+		</isNotEmpty>
+		<isNotEmpty property="createDateEnd">
+	<![CDATA[and trunc(rr.create_date,'mi')<=to_date(#createDateEnd#,'yyyy-MM-dd HH24:mi:ss')]]>
+		</isNotEmpty>
+	</sql>
+	
+	<!-- 查询退款请求 -->
+	<select id="SQL_QUERY_REFUND_REQUEST" parameterClass="java.util.Map" resultClass="com.pltfm.app.vobject.RefundRequest">
+		select rs.rrid             rrid,
+		       rs.order_code       orderCode,
+		       rs.channel          channel,
+		       rs.seller_type      sellerType,
+		       rs.seller_shop      sellerShop,
+		       rs.platform_code    platformCode,
+		       rs.create_date      createDate,
+		       rs.finish_date      finishDate,
+		       rs.menber_name      menberName,
+		       rs.out_batch_no     outBatchNo,
+		       rs.refurn_money     refurnMoney,
+		       rs.refund_no        refundNo,
+		       rs.status           status,
+		       rs.request_date     requestDate,
+		       rs.refund_type      refundType,
+		       rs.operater         operater,
+		       rs.order_alter_code orderAlterCode,
+		       rs.refund_detail    refundDetail
+		  from (select rsi.rrid,
+		               rsi.order_code,
+		               rsi.channel,
+		               rsi.seller_type,
+		               rsi.seller_shop,
+		               rsi.platform_code,
+		               rsi.create_date,
+		               rsi.finish_date,
+		               rsi.menber_name,
+		               rsi.out_batch_no,
+		               rsi.refurn_money,
+		               rsi.refund_no,
+		               rsi.status,
+		               rsi.request_date,
+		               rsi.refund_type,
+		               rsi.operater,
+		               rsi.order_alter_code,
+		               rsi.refund_detail,
+		               rownum rn
+		          from (select rr.rrid,
+		                       rr.order_code,
+		                       rr.channel,
+		                       rr.seller_type,
+		                       rr.seller_shop,
+		                       decode(rr.platform_code,3,'支付宝') platform_code,
+		                       rr.create_date,
+		                       rr.finish_date,
+		                       rr.menber_name,
+		                       rr.out_batch_no,
+		                       rr.refurn_money,
+		                       rr.refund_no,
+		                       rr.status,
+		                       rr.request_date,
+		                       rr.refund_type,
+		                       rr.operater,
+		                       rr.order_alter_code,
+		                       rr.refund_detail
+						  from refund_request rr
+			<include refid="SQL_QUERY_REFUND_REQUEST_CONDITION"/>
+		                 order by rrid desc) rsi
+		  <![CDATA[where rownum <= #end#) rs]]>
+		 where rs.rn > = #start#
+	</select>
+	
+	<!-- 查询退款请求个数 -->
+	<select id="SQL_QUERY_REFUND_REQUEST_COUNT" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(1) from refund_request rr
+		<include refid="SQL_QUERY_REFUND_REQUEST_CONDITION"/>
+	</select>
+	
+	<!-- 预售查询退款请求个数 -->
+	<select id="SQL_QUERY_REFUND_REQUEST_COUNTYS" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(1) from refund_request t
+		where t.status = 0
+		<isNotEmpty property="refundType">
+			and t.refund_type = #refundType#
+		</isNotEmpty>
+		<isNotEmpty property="orderCode">
+			and t.order_code = #orderCode#
+		</isNotEmpty>
+		<isNotEmpty property="ysFlag">
+			and t.ysflag = #ysFlag#
+		</isNotEmpty>
+	</select>
+	
+	<!-- 根据退款批次号和支付流水号查询待处理退款请求 -->
+	<select id="SQL_QUERY_BATCH_READY_REFUND_REQUEST" parameterClass="java.util.Map" resultClass="com.pltfm.app.vobject.RefundRequest">
+		select rr.rrid          rrid,
+		       rr.order_code    orderCode,
+		       rr.channel       channel,
+		       rr.seller_type   sellerType,
+		       rr.seller_shop   sellerShop,
+		       rr.platform_code platformCode,
+		       rr.create_date   createDate,
+		       rr.finish_date   finishDate,
+		       rr.menber_name   menberName,
+		       rr.out_batch_no  outBatchNo,
+		       rr.refurn_money  refurnMoney,
+		       rr.refund_no     refundNo,
+		       rr.status        status,
+		       rr.request_date  requestDate,
+		       rr.refund_type   refundType,
+		       rr.operater      operater,
+		       rr.order_alter_code orderAlterCode,
+		       rr.refund_detail refundDetail
+		  from refund_request rr
+		 where rr.status = 0
+		   and rr.refund_no = #refundNo#
+		   and rr.out_batch_no in 
+		<iterate open="(" close=")" conjunction="," property="outBatchNos">
+			#outBatchNos[]#
+		</iterate>
+	</select>
+	
+	<!-- 根据请求ID查询退款请求 -->
+	<select id="SQL_QUERY_BATCH_READY_REFUND_REQUEST_BY_RID" parameterClass="java.util.List" resultClass="com.pltfm.app.vobject.RefundRequest">
+		select rr.rrid          rrid,
+		       rr.order_code    orderCode,
+		       rr.channel       channel,
+		       rr.seller_type   sellerType,
+		       rr.seller_shop   sellerShop,
+		       rr.platform_code platformCode,
+		       rr.create_date   createDate,
+		       rr.finish_date   finishDate,
+		       rr.menber_name   menberName,
+		       rr.out_batch_no  outBatchNo,
+		       rr.refurn_money  refurnMoney,
+		       rr.refund_no     refundNo,
+		       rr.status        status,
+		       rr.request_date  requestDate,
+		       rr.refund_type   refundType,
+		       rr.operater      operater,
+		       rr.order_alter_code orderAlterCode,
+		       rr.refund_detail refundDetail
+		  from refund_request rr
+		 where rr.status = 0
+		   and rr.rrid in 
+		<iterate open="(" close=")" conjunction=",">
+			#[]#
+		</iterate>
+	</select>
+	
+</sqlMap>

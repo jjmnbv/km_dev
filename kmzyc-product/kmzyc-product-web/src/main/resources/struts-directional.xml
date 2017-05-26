@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="dire" namespace="/dire" extends="struts-default">
+        <!-- 产品价格 -->
+        <action name="findSingleProduct" class="productPriceReleaseAction" method="findSingleProduct" >
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/productPriceRelease/productPriceUpdate.jsp</result>
+            <result type="dispatcher" name="weight">/WEB-INF/jsp/app/warehouse/productWeightUpdate.jsp</result>
+            <!--<result type="dispatcher" name="zycPrice">/WEB-INF/jsp/app/productPriceRelease/productZycPriceUpdate.jsp</result>-->
+        </action>
+		<!-- 地区 -->
+		<action name="findAllAreaDict" class="areaDictAction" method="findAll" >
+			<result type="dispatcher" name="success">/WEB-INF/jsp/app/directional/areaDictPopSelect.jsp</result>			
+		</action>
+		<action name="findAllProvince" class="areaDictAction" method="findAllProvince" >
+			<result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/choiceArea.jsp</result>			
+		</action>
+		
+		<action name="findAllProvinceByWarehouse" class="areaDictAction" method="findAllProvinceByWarehouse" >
+			<result type="dispatcher" name="success">/WEB-INF/jsp/app/warehouse/choiceArea.jsp</result>			
+		</action>
+        <!-- 弹出层选择地区 -->
+        <action name="findAllAreaDictForDraft" class="areaDictAction" method="findAll" >
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/directionalDraft/areaDictPopSelect.jsp</result>
+        </action>
+        <!-- 定向发布 -->
+        <!--<action name="showProductList" class="prodDirectionalAction" method="showList" >
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/directional/productList.jsp</result>
+        </action>
+        <action name="toAddProdDirectional" class="prodDirectionalAction" method="toAddProdDirectional" >
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/directional/directionalAdd.jsp</result>
+        </action>
+        <action name="addProdDirectional" class="prodDirectionalAction"  method="addProdDirectional" >
+            <interceptor-ref name="token"/>
+             <interceptor-ref name="defaultStack"/>
+             <result type="dispatcher" name="invalid.token">/WEB-INF/jsp/public/reSubmit.jsp</result>
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/directional/productList.jsp</result>
+        </action>
+        <action name="toViewProdDirectional" class="prodDirectionalAction" method="toViewProdDirectional" >
+            <result type="dispatcher" name="success">/WEB-INF/jsp/app/directional/directionalView.jsp</result>
+        </action>-->
+		<!-- 审核地区价格 -->
+		<!--<action name="findUnvalidUnaudit" class="prodDirectionalAction" method="findUnvalidUnaudit">
+			<result type="dispatcher" name="success">/WEB-INF/jsp/app/directional/priceAuditList.jsp</result>
+		</action>
+		<action name="updateDireAuditStatus" class="prodDirectionalAction" method="updateDireAuditStatus">
+			<result type="dispatcher" name="success">/WEB-INF/jsp/app/directional/priceAuditList.jsp</result>
+		</action>
+		<action name="findAllUnauditArea" class="prodDirectionalAction" method="findAllUnauditArea">
+			<result type="dispatcher" name="audit">/WEB-INF/jsp/app/directional/unAuditList.jsp</result>
+		</action>
+		<action name="findAllIsValidPrice" class="prodDirectionalAction" method="findAllIsvalidPrice">
+			<result type="dispatcher" name="success">/WEB-INF/jsp/app/directional/isValidPrice.jsp</result>
+		</action>
+		<action name="findAllUnIsValidPrice" class="prodDirectionalAction" method="findAllUnIsValidPrice" >
+			<result type="dispatcher" name="valid">/WEB-INF/jsp/app/directional/unIsValidPrice.jsp</result>
+		</action>
+		<action name="updateDireRelPriceValid" class="prodDirectionalAction" method="updateDireRelPriceValid" >
+			<result type="dispatcher" name="success">/WEB-INF/jsp/app/directional/isValidPrice.jsp</result>
+		</action>-->
+
+        <!--<action name="updateProductSKUPrice" class="productPriceReleaseAction" method="updateProductSKUPrice" >
+            <result type="redirect" name="success">/app/productShow.action?type=priceSuccess</result>
+        </action>
+        <action name="updateProductZycSKUPrice" class="productPriceReleaseAction" method="updateProductSKUPrice" >
+            <result type="redirect" name="success">/app/productShow.action?type=zycPrice</result>
+        </action>-->
+		<!-- 草稿 产品B2B价格发布 maliqun add begin -->
+		<!--<action name="showProductList" class="prodDirectionalDraftAction" method="showProductList" >
+			<result type="dispatcher" name="b2bPriceList">/WEB-INF/jsp/app/directionalDraft/productList.jsp</result>
+			<result type="dispatcher" name="b2bPriceAuditList">/WEB-INF/jsp/app/directionalDraft/productB2BPriceAuditList.jsp</result>
+		</action>-->
+		<!-- 审核前判断B2B价格是否符合审核要求 -->
+		<!--<action name="checkSkuB2BPriceForAudit" class="prodDirectionalDraftAction" method="checkSkuB2BPriceForAudit" >
+		</action>-->
+		<!-- 单独更新单条地区价 -->
+		<!--<action name="updateDireDraft" class="prodDirectionalDraftAction" method="updateDireDraft" >
+		</action>-->
+		<!-- 单独删除单条地区价 -->
+		<!--<action name="deleteDireDraft" class="prodDirectionalDraftAction" method="deleteDireDraft" >
+		</action>-->
+		<!-- B2B价格申请审核 -->
+		<!--<action name="applyAuditSingle" class="prodDirectionalDraftAction" method="applyAuditSingle" >
+			<result type="dispatcher" name="b2bPriceList">/WEB-INF/jsp/app/directionalDraft/productList.jsp</result>
+		</action>-->
+		<!-- B2B价格撤销审核 -->
+		<!--<action name="revokeApplyAudit" class="prodDirectionalDraftAction" method="revokeApplyAudit" >
+			<result type="dispatcher" name="b2bPriceList">/WEB-INF/jsp/app/directionalDraft/productList.jsp</result>
+		</action>-->
+		<!-- 批量审核B2B价格 -->
+		<!--<action name="batchAuditB2BPrice" class="prodDirectionalDraftAction" method="batchAuditB2BPrice" >
+			<result type="dispatcher" name="b2bPriceAuditList">/WEB-INF/jsp/app/directionalDraft/productB2BPriceAuditList.jsp</result>
+		</action>-->
+		<!-- 产品发布 - 显示产品列表 -->
+		<!--<action name="showB2BProductPriceList" class="prodDirectionalAction" method="showB2BProductPriceList" >
+			<result type="dispatcher" name="success">/WEB-INF/jsp/app/directional/productList.jsp</result>
+		</action>-->
+		<!-- 添加B2B价格前的数据准备 -->	
+		<!--<action name="toAddProdDirectionalDraft" class="prodDirectionalDraftAction" method="toAddProdDirectionalDraft" >
+			<result type="dispatcher" name="success">/WEB-INF/jsp/app/directionalDraft/skuB2BPriceUpdate.jsp</result>
+		</action>-->
+		<!-- 删除单独修改B2B价格的产品 -->	
+		<!--<action name="deleteProductForAloneB2BPrice" class="prodDirectionalDraftAction" method="deleteProductForAloneB2BPrice" >
+			<result type="dispatcher" name="b2bPriceList">/WEB-INF/jsp/app/directionalDraft/productList.jsp</result>
+		</action>-->
+		<!-- 产品发布 B2B价格发布,点击修改渠道的页面 -->
+		<!--<action name="toUpdateProdDirectional" class="prodDirectionalAction" method="toUpdateProdDirectional" >
+			<result type="dispatcher" name="success">/WEB-INF/jsp/app/directional/skuB2BPriceUpdate.jsp</result>
+		</action>-->
+
+		<!-- 新增地区价 -->
+		<!--<action name="addDirectionalPriceDraft" class="prodDirectionalDraftAction" method="addDirectionalPriceDraft" >
+			<result type="dispatcher" name="success">/WEB-INF/jsp/app/directionalDraft/skuB2BPriceUpdate.jsp</result>		
+		</action>-->
+		<!-- 详情查看 -->
+		<!--<action name="toViewDireDraftDetail" class="prodDirectionalDraftAction" method="toViewDireDraftDetail" >
+			<result type="dispatcher" name="success">/WEB-INF/jsp/app/directionalDraft/directionalView.jsp</result>		
+		</action>-->
+		<!-- 单独修改B2B价格 -->
+		<!--<action name="updateB2BPriceToDraftFromOffical" class="prodDirectionalDraftAction" method="updateB2BPriceToDraftFromOffical" >
+			<result type="dispatcher" name="b2bPriceList">/WEB-INF/jsp/app/directionalDraft/productList.jsp</result>			
+		</action>-->
+		<!-- 批量申请审核 -->
+		<!--<action name="batchApplyAuditForB2BPrice" class="prodDirectionalDraftAction" method="batchApplyAuditForB2BPrice" >
+			<result type="dispatcher" name="b2bPriceList">/WEB-INF/jsp/app/directionalDraft/productList.jsp</result>			
+		</action>-->
+		<!-- 批量进行发布B2B价格 -->
+		<!--<action name="batchReleaseForB2BPrice" class="prodDirectionalDraftAction" method="batchReleaseForB2BPrice" >
+			<result type="dispatcher" name="b2bPriceList">/WEB-INF/jsp/app/directionalDraft/productList.jsp</result>			
+		</action>			-->
+		<!-- 检查是否有相同的sku已经存在草稿表中 -->
+		<!--<action name="findSameSkuProduct" class="prodDirectionalDraftAction" method="findSameSkuProduct" >
+		</action>-->
+		<!--<action name="updateUnitWeight" class="prodDirectionalDraftAction" method="updateUnitWeight" >
+		</action>-->
+		<!-- 草稿 产品B2B价格发布 begin end-->
+	</package>
+</struts>

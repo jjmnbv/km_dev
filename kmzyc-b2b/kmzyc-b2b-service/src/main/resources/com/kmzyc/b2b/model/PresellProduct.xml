@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="PresellProduct">
+	<resultMap class="com.kmzyc.promotion.optimization.vo.PresellProductVO"
+		id="presellTimes">
+		<result column="FINAL_START_TIME" property="finalpayStartTime"
+			jdbcType="DATE" />
+		<result column="FINAL_END_TIME" property="finalpayEndTime"
+			jdbcType="DATE" />
+	</resultMap>
+	<select id="findByPresellId" parameterClass="long" resultMap="presellTimes">
+		SELECT
+		pp.FINALPAY_START_TIME,
+		pp.FINALPAY_END_TIME
+		FROM
+		PROMOTION_PRESELL pp
+	</select>
+</sqlMap>
+

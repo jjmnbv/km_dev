@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="KMORDER_ORDER_RISK_ROSTER">
+
+	<resultMap class="com.pltfm.app.entities.OrderRiskBackList"
+		id="ORDER_RISK_BACK_LIST_RESULT_MAP">
+		<result column="bid" property="bid" jdbcType="DECIMAL" />
+		<result column="type" property="type" jdbcType="DECIMAL" />
+		<result column="typeStr" property="typeStr" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="operator" property="operator" jdbcType="VARCHAR" />
+		<result column="operatDate" property="operatDate" />
+		<result column="valid" property="valid" jdbcType="DECIMAL" />
+	</resultMap>
+	<resultMap class="com.pltfm.app.entities.OrderRiskWhiteList"
+		id="ORDER_RISK_WHITE_LIST_RESULT_MAP">
+		<result column="wid" property="wid" jdbcType="DECIMAL" />
+		<result column="type" property="type" jdbcType="DECIMAL" />
+		<result column="typeStr" property="typeStr" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="operator" property="operator" jdbcType="VARCHAR" />
+		<result column="operatDate" property="operatDate" />
+		<result column="valid" property="valid" jdbcType="DECIMAL" />
+	</resultMap>
+	<!-- 黑名单 -->
+	<select id="SQL_QUERY_BLACK_LIST_BY_PAGE" parameterClass="java.util.Map"
+		resultMap="ORDER_RISK_BACK_LIST_RESULT_MAP">
+		select rs.bid bid,
+		rs.type type,
+		(SELECT D.ORDER_DICTIONARY_VALUE
+		FROM ORDER_DICTIONARY D
+		WHERE D.ORDER_DICTIONARY_TYPE = 'Roster_Type'
+		AND D.ORDER_DICTIONARY_KEY = rs.type) typeStr,
+		rs.content content,
+		rs.operator operator,
+		rs.operat_date operatDate,
+		rs.valid valid
+		from (select rsi.bid,
+		rsi.type,
+		rsi.content,
+		rsi.operator,
+		rsi.operat_date,
+		rsi.valid,
+		ROWNUM rn
+		from (select orbl.bid,
+		orbl.type,
+		orbl.content,
+		orbl.operator,
+		orbl.operat_date,
+		orbl.valid
+		from order_risk_back_list orbl
+		where orbl.valid = 1
+		<isNotEmpty property="type">
+			and orbl.type = #type:DECIMAL#
+		</isNotEmpty>
+		<isNotEmpty property="content">
+			and orbl.content like #content:VARCHAR#||'%'
+		</isNotEmpty>
+		order by orbl.bid desc) rsi
+	<![CDATA[				                   	
+		         where ROWNUM <= #end:DECIMAL#) rs
+		 where rs.rn >= #start:DECIMAL#
+	]]>
+	</select>
+
+	<select id="SQL_QUERY_BLACK_LIST_COUNT" parameterClass="java.util.Map"
+		resultClass="Long">
+		select count(1)
+		from order_risk_back_list orbl
+		where orbl.valid = 1
+		<isNotEmpty property="type">
+			and orbl.type = #type:DECIMAL#
+		</isNotEmpty>
+		<isNotEmpty property="content">
+			and orbl.content like #content:VARCHAR#||'%'
+		</isNotEmpty>
+	</select>
+	<insert id="SQL_INSERT_BLACK_LIST" parameterClass="com.pltfm.app.entities.OrderRiskBackList">
+		insert into
+		order_risk_back_list
+		(bid, type, content, operator, operat_date, valid)
+		values
+		(SEQ_ORDER_RISK_BACK_LIST.nextval, #type:DECIMAL#, #content:VARCHAR#,
+		#operator:VARCHAR#, sysdate, #valid:DECIMAL#)
+	</insert>
+	<update id="SQL_DELETE_BLACK_LIST_BY_ID" parameterClass="Long">
+		update
+		order_risk_back_list set valid= 0 where bid=#bid:DECIMAL# 
+	</update>
+	<select id="SQL_QUERY_ORDER_RISK_BACK_LIST_BY_ID" parameterClass="Long" resultMap="ORDER_RISK_BACK_LIST_RESULT_MAP">
+		select orbl.bid,
+		       orbl.type,
+		       (SELECT D.ORDER_DICTIONARY_VALUE
+		          FROM ORDER_DICTIONARY D
+		         WHERE D.ORDER_DICTIONARY_TYPE = 'Roster_Type'
+		           AND D.ORDER_DICTIONARY_KEY = orbl.type) typeStr,
+		       orbl.content,
+		       orbl.operator,
+		       orbl.operat_date operatDate,
+		       orbl.valid
+		  from order_risk_back_list orbl
+		 where orbl.valid = 1
+		   and orbl.bid = #bid:DECIMAL#
+	</select>
+
+	<!-- 白名单 -->
+	<select id="SQL_QUERY_WHITE_LIST_BY_PAGE" parameterClass="java.util.Map"
+		resultMap="ORDER_RISK_WHITE_LIST_RESULT_MAP">
+		select rs.wid wid,
+		rs.type type,
+		(SELECT D.ORDER_DICTIONARY_VALUE
+		FROM ORDER_DICTIONARY D
+		WHERE D.ORDER_DICTIONARY_TYPE = 'Roster_Type'
+		AND D.ORDER_DICTIONARY_KEY = rs.type) typeStr,
+		rs.content content,
+		rs.operator operator,
+		rs.operat_date operatDate,
+		rs.valid valid
+		from (select rsi.wid,
+		rsi.type,
+		rsi.content,
+		rsi.operator,
+		rsi.operat_date,
+		rsi.valid,
+		ROWNUM rn
+		from (select orwl.wid,
+		orwl.type,
+		orwl.content,
+		orwl.operator,
+		orwl.operat_date,
+		orwl.valid
+		from order_risk_white_list orwl
+		where orwl.valid = 1
+		<isNotEmpty property="type">
+			and orwl.type = #type:DECIMAL#
+		</isNotEmpty>
+		<isNotEmpty property="content">
+			and orwl.content like #content:VARCHAR#||'%'
+		</isNotEmpty>
+		order by orwl.wid desc) rsi
+	<![CDATA[				                   	
+		         where ROWNUM <= #end:DECIMAL#) rs
+		 where rs.rn >= #start:DECIMAL#
+	]]>
+	</select>
+	<select id="SQL_QUERY_WHITE_LIST_COUNT" parameterClass="java.util.Map"
+		resultClass="Long">
+		select count(1)
+		from order_risk_white_list orwl
+		where orwl.valid = 1
+		<isNotEmpty property="type">
+			and orwl.type = #type:DECIMAL#
+		</isNotEmpty>
+		<isNotEmpty property="content">
+			and orwl.content like #content:VARCHAR#||'%'
+		</isNotEmpty>
+	</select>
+	<insert id="SQL_INSERT_WHITE_LIST" parameterClass="com.pltfm.app.entities.OrderRiskWhiteList">
+		insert into
+		order_risk_white_list
+		(wid, type, content, operator, operat_date, valid)
+		values
+		(SEQ_ORDER_RISK_WHITE_LIST.nextval, #type:DECIMAL#, #content:VARCHAR#,
+		#operator:VARCHAR#, sysdate, #valid:DECIMAL#)
+	</insert>
+	<update id="SQL_DELETE_WHITE_LIST_BY_ID" parameterClass="Long">
+		update
+		order_risk_white_list set valid= 0 where wid=#wid:DECIMAL#
+	</update>
+	<select id="SQL_QUERY_ORDER_RISK_WHITE_LIST_BY_ID"  parameterClass="Long" resultMap="ORDER_RISK_WHITE_LIST_RESULT_MAP">
+		select orwl.wid,
+		       orwl.type,
+		       (SELECT D.ORDER_DICTIONARY_VALUE
+		          FROM ORDER_DICTIONARY D
+		         WHERE D.ORDER_DICTIONARY_TYPE = 'Roster_Type'
+		           AND D.ORDER_DICTIONARY_KEY = orwl.type) typeStr,
+		       orwl.content,
+		       orwl.operator,
+		       orwl.operat_date operatDate,
+		       orwl.valid
+		  from order_risk_white_list orwl
+		 where orwl.valid = 1
+		   and orwl.wid =  #bid:DECIMAL#
+	</select>
+	<!-- 查黑名单 -->
+	<select id="SQL_QUERY_ORDER_RISK_BACK_LIST" parameterClass="java.util.HashMap" resultMap="ORDER_RISK_BACK_LIST_RESULT_MAP">
+		select orbl.bid,
+		       orbl.type,
+		       (SELECT D.ORDER_DICTIONARY_VALUE
+		          FROM ORDER_DICTIONARY D
+		         WHERE D.ORDER_DICTIONARY_TYPE = 'Roster_Type'
+		           AND D.ORDER_DICTIONARY_KEY = orbl.type) typeStr,
+		       orbl.content,
+		       orbl.operator,
+		       orbl.operat_date operatDate,
+		       orbl.valid
+		  from order_risk_back_list orbl
+		 where orbl.valid = 1
+		   and orbl.type = #type:NUMBER#
+		   and orbl.content = #content:VARCHAR#
+	</select>
+	<!-- 查白名单 -->
+	<select id="SQL_QUERY_ORDER_RISK_WHITE_LIST"  parameterClass="java.util.HashMap" resultMap="ORDER_RISK_WHITE_LIST_RESULT_MAP">
+		select orwl.wid,
+		       orwl.type,
+		       (SELECT D.ORDER_DICTIONARY_VALUE
+		          FROM ORDER_DICTIONARY D
+		         WHERE D.ORDER_DICTIONARY_TYPE = 'Roster_Type'
+		           AND D.ORDER_DICTIONARY_KEY = orwl.type) typeStr,
+		       orwl.content,
+		       orwl.operator,
+		       orwl.operat_date operatDate,
+		       orwl.valid
+		  from order_risk_white_list orwl
+		 where orwl.valid = 1
+		   and orwl.type = #type:NUMBER#
+		   and orwl.content = #content:VARCHAR#
+	</select>
+	
+	<!-- 查用户是否存在 -->
+	<select id="SQL_QUERY_LOGIN_INFO_COUNT"  parameterClass="java.util.HashMap" resultClass="Long">
+		SELECT count(1) FROM   LOGIN_INFO WHERE LOGIN_ACCOUNT=#content:VARCHAR# and n_status=1
+	</select>
+	
+	<!-- 查询商家否存在 -->
+	<select id="SQL_QUERY_CORPORATE_COUNT"  parameterClass="java.util.HashMap" resultClass="Long">
+		select count(1) from   commercial_tenant_basic_info ctbi where ctbi.corporate_name=#content:VARCHAR# and n_enterprise_status=1
+	</select>
+	
+	
+	<!-- 查loginId是否在黑名单 -->
+	<select id="SQL_QUERY_BLACK_LIST_BY_LOGINID" parameterClass="java.util.HashMap" resultMap="ORDER_RISK_BACK_LIST_RESULT_MAP">
+		select orbl.bid,
+           orbl.type,
+           (SELECT D.ORDER_DICTIONARY_VALUE
+              FROM ORDER_DICTIONARY D
+             WHERE D.ORDER_DICTIONARY_TYPE = 'Roster_Type'
+               AND D.ORDER_DICTIONARY_KEY = orbl.type) typeStr,
+           orbl.content,
+           orbl.operator,
+           orbl.operat_date operatDate,
+           orbl.valid
+      from order_risk_back_list orbl
+     where orbl.valid = 1
+     and orbl.type =  1
+		   and orbl.content in 
+       ( select t.login_account from KMDATA.LOGIN_INFO t
+       where t.n_login_id = #loginId:NUMBER#
+       and t.n_status =  1 )
+
+	</select>
+	
+	
+</sqlMap>

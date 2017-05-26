@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="MailSendTask" >
+    
+    <typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+    <!-- 数据源 KMCMS 表为cms_information-->
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.MailSendTask" >
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="RECEIVER" property="receiver" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="TEMPLATE_TYPE" property="templateType" jdbcType="VARCHAR" />
+    <result column="SEND_TIME" property="sendTime"/>
+    <result column="PARAMS" property="params" jdbcType="VARCHAR" />
+    <result column="IS_SUCCESS" property="isSuccess" jdbcType="DECIMAL" />
+    <result column="SEND_COUNT" property="sendCount" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
+     <result column="SYSTEM_TYPE" property="systemType" jdbcType="DECIMAL" />
+    
+  </resultMap>
+  
+  <resultMap id="ibatorgenerated_CountResult" class="com.pltfm.sys.model.SysModelUtil">
+    <result column="the_count" property="theCount" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <!-- 获取邮件发送任务的总条数 -->
+  <select id="queryMailTaskList" parameterClass="com.pltfm.app.vobject.MailSendTask" resultMap="ibatorgenerated_BaseResultMap">
+  		select id,receiver,content,template_type,send_time,params,
+ 		 		   is_success,send_count,create_time,update_time,system_type
+   		from  (select row_number() over(order by id desc) as view_row_num,mail.id,mail.receiver,mail.content,mail.template_type,mail.send_time,
+ 		 		  mail.params,mail.is_success,mail.send_count,mail.create_time,mail.update_time,mail.system_type
+ 		 	  from EM_EMAIL_SEND_TASK mail
+ 		      where 1=1
+	 		 <isNotNull property="receiver">
+			   <isNotEmpty prepend="and" property="receiver">
+				mail.receiver like '%$receiver$%'
+			   </isNotEmpty>
+			 </isNotNull>
+			 <isNotNull property="templateType">
+			   <isNotEmpty prepend="and" property="templateType">
+				mail.template_type like '%$templateType$%'
+			   </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="sendTime">
+			   <isNotEmpty prepend="and" property="sendTime">
+				<![CDATA[  mail.send_time >= #sendTime#]]>
+			   </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="createTime">
+			   <isNotEmpty prepend="and" property="createTime">
+			   <![CDATA[ mail.send_time <= #createTime# ]]>
+			   </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="isSuccess">
+			   <isNotEmpty prepend="and" property="isSuccess">
+				mail.is_success = #isSuccess#
+			   </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="sendCount">
+			   <isNotEmpty prepend="and" property="sendCount">
+				mail.send_count = #sendCount#
+			   </isNotEmpty>
+			</isNotNull>
+			 )
+	   <![CDATA[ where view_row_num <= #max# and view_row_num > #skip# ]]>
+  </select>
+  
+  <select id="getMailTaskCount" parameterClass="com.pltfm.app.vobject.MailSendTask" resultMap="ibatorgenerated_CountResult">
+      select count(1) the_count from EM_EMAIL_SEND_TASK mail
+       		where 1=1
+     		<isNotNull property="receiver">
+			   <isNotEmpty prepend="and" property="receiver">
+				mail.receiver like '%$receiver$%'
+			   </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="templateType">
+			   <isNotEmpty prepend="and" property="templateType">
+				mail.template_type like '%$templateType$%'
+			   </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="sendTime">
+			   <isNotEmpty prepend="and" property="sendTime">
+				<![CDATA[  mail.send_time >= #sendTime#]]>
+			   </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="createTime">
+			   <isNotEmpty prepend="and" property="createTime">
+			   <![CDATA[ mail.send_time <= #createTime# ]]>
+			   </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="isSuccess">
+			   <isNotEmpty prepend="and" property="isSuccess">
+				mail.is_success = #isSuccess#
+			   </isNotEmpty>
+			</isNotNull>
+  </select>
+
+  
+</sqlMap>

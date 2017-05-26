@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- 账务管理 -->
+<struts>
+<!-- 充值-->
+	<package name="accounts" namespace="/accounts"  extends="struts">
+	  
+	  <!-- 余额提现 -->
+	  <action name="bnesAcctEnchashment_*" class="bnesAcctEnchashmentAction" method="{1}">
+	     <result name="PageList">/WEB-INF/jsp/app/bnesAcctEnchashment/bnesAcctEnchashmentList.jsp</result>
+	     <result name="confirmPageList">/WEB-INF/jsp/app/bnesAcctEnchashment/bnesAcctEnchashmentConfirmList.jsp</result>
+	     <result name="confirmPageListFromMenu">/WEB-INF/jsp/app/bnesAcctEnchashment/bnesAcctEnchashmentConfirmListFromMenu.jsp</result>
+	 	 <result name="gotoDetail">/WEB-INF/jsp/app/bnesAcctEnchashment/bnesAcctEnchashmentEdit.jsp</result>
+	 	 <result name="exportData">/WEB-INF/jsp/app/bnesAcctEnchashment/downExcel.jsp</result>
+	  	 <!-- 重复提交 -->
+		 <result name="invalid.token" type="redirectAction">
+		       bnesAcctEnchashment_PageList
+	      </result>
+	  </action>
+	
+		<action name="payment_*" class="paymentAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/app/accounts/paymentList.jsp</result>
+			<result name="addPayment">/WEB-INF/jsp/app/accounts/paymentAdd.jsp</result>
+			<result name="updatePayment">/WEB-INF/jsp/app/accounts/paymentUpdate.jsp</result>
+			<result name="invalid.token" type="redirectAction">
+				    payment_showPayment
+			 </result>
+		</action>	
+	<!--账户金额修改-->
+        <action name="modifyAcut_*" class="modifyAccountAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/app/modifyaccouts/modifyAccountInfoList.jsp</result>
+			<result name="editAcoutAmout">/WEB-INF/jsp/app/modifyaccouts/modifyAccountInfoEdit.jsp</result>
+			<result name="editAcoutAmoutList">/WEB-INF/jsp/app/modifyaccouts/modifyAccountAmoutList.jsp</result>
+			<result name="invalid.token" type="redirectAction">
+				    modifyAcut_showAcotAmout
+			 </result>
+		</action>	
+		<!--账户交易-->
+		<action name="tration_*" class="acctTrationListAction" method="{1}">
+			<result name="trationlist">/WEB-INF/jsp/app/accttranslist/trantionList.jsp</result>
+			
+			<result type="stream"></result>
+			
+		</action>
+		<!--账户消费电子券-->
+		<action name="vouchers_*" class="acctVouchersAction" method="{1}">
+			<result name="voucherslist">/WEB-INF/jsp/app/vouchers/vouchersList.jsp</result>
+			
+		</action>
+		<!--账户找回密码-->
+		<action name="pwd_*" class="acctPasswordAction" method="{1}">
+			<result name="passwordlist">/WEB-INF/jsp/app/accountpwd/pwdlist.jsp</result>
+			
+		</action>
+	
+		<!--电子对账单-->
+		<action name="bill_*" class="acctBillListAction" method="{1}">
+			<result name="billslist">/WEB-INF/jsp/app/bill/billsList.jsp</result>
+			
+		</action>
+	
+	
+		<!-- 账户信息管理 -->
+		<action name="accountInfo_*" class="accountInfoAction" method="{1}">
+			<result name="pageSuccess">
+			/WEB-INF/jsp/app/accountInfo/accountInfoList.jsp
+			</result>
+			
+			<result name="preAddSuccess">
+			/WEB-INF/jsp/app/accountInfo/accountInfoAdd.jsp
+			</result>
+			
+			<result name="preUpdateSuccess" >
+			/WEB-INF/jsp/app/accountInfo/accountInfoUpdate.jsp
+			</result>
+			
+			<result name="preDetailSuccess" >
+			/WEB-INF/jsp/app/accountInfo/accountInfoDetail.jsp
+			</result>
+			
+			<result name="popUpSuccess">
+			/WEB-INF/jsp/app/accountInfo/popUpAccount.jsp
+			</result>
+			
+		</action>
+		
+			<!-- 手机随机码信息管理 -->
+		<action name="mobileCodeInf_*" class="mobileCodeInfAction" method="{1}">
+			<result name="pageSuccess">
+			/WEB-INF/jsp/app/mobileCodeInf/mobileCodeInfList.jsp
+			</result>
+		</action>
+			
+				<!-- 邮箱随机码信息管理 -->
+		<!--删除邮箱业务 <action name="emailInfo_*" class="emailInfoAction" method="{1}">
+			<result name="pageSuccess">
+			/WEB-INF/jsp/app/emailInfo/emailInfoList.jsp
+			</result>
+		</action> -->
+		
+		<!-- 安全问题 -->
+
+		<action name="safeQuestion_*" class="safeQuestionAction" method="{1}">
+			<!-- 进入列表安全问题页面 -->
+			<result name="show" type="dispatcher">
+				/WEB-INF/jsp/app/safeQuestion/safeQuestionList.jsp
+			</result>
+			<!-- 进入添加安全问题页面 -->
+			<result name="toAddQuestionShow" type="dispatcher">
+				/WEB-INF/jsp/app/safeQuestion/safeQuestionAdd.jsp
+			</result>
+			
+			<!--进入更新安全问题页面 -->
+			<result name="editShow" type="dispatcher">
+				/WEB-INF/jsp/app/safeQuestion/safeQuestionUpdate.jsp
+			</result>
+			  <result name="invalid.token" type="redirectAction">
+			   safeQuestion_show
+		     </result>
+		</action>
+		
+		<action name="bnesAnswerInfo_*" class="bnesAnswerInfoAction" method="{1}">
+			<result name="pageSuccess">
+			/WEB-INF/jsp/app/bnesAnswerInfo/bnesAnswerInfoList.jsp
+			</result>
+			
+			<result name="preAddSuccess">
+			/WEB-INF/jsp/app/bnesAnswerInfo/bnesAnswerInfoAdd.jsp
+			</result>
+			
+			
+		</action>
+		
+		<!-- 实名认证 -->
+
+		<action name="bnesAuthenticationInfo_*" class="bnesAuthenticationInfoAction" method="{1}">
+		
+			<result name="pageSuccess">
+			/WEB-INF/jsp/app/bnesAuthenticationInfo/bnesAuthenticationInfoList.jsp
+			</result>
+			
+			<result name="preAuditing">
+			/WEB-INF/jsp/app/bnesAuthenticationInfo/bnesAuthenticationInfoAuditing.jsp
+			</result>
+		</action>
+		
+		
+		
+	<!-- 地址管理 -->
+      <action name="address_*"  class="addressAction"  method="{1}">
+            <result name="addSuccess">
+                /WEB-INF/jsp/app/address/addressAdd.jsp
+            </result>
+            <result name="editSuccess">
+                /WEB-INF/jsp/app/address/addressAdd.jsp
+            </result>
+             <result name="querySuccess">
+                /WEB-INF/jsp/app/address/addressList.jsp
+            </result>
+            <result name="clearPage">
+                /WEB-INF/jsp/app/address/clearPage.jsp
+            </result>
+              <result name="invalid.token" type="redirectAction">
+			    address_queryPageList
+		     </result>
+      </action>
+      <!-- 积分明细 -->
+     <action name="scoreInfo_*" class="scoreInfoAction"  method="{1}">
+               <result name="querySuccess">
+                /WEB-INF/jsp/app/scoreInfo/scoreInfoList.jsp
+            </result>
+             <result name="deleteSuccess"  type="redirectAction">
+                   scoreInfo_queryPageList
+            </result>
+     </action>
+	     <!-- 账户冻结解冻 -->
+		<action name="accountFrozen_*"  class="bnesFrozenRecordAction"  method="{1}">
+		      <result name="querySuccess">/WEB-INF/jsp/app/accountFrozenRecord/frozenRecordList.jsp</result>
+		      <result name="addSuccess">/WEB-INF/jsp/app/accountFrozenRecord/frozenRecordAdd.jsp</result>
+		      <result name="searchSuccess">/WEB-INF/jsp/app/accountFrozenRecord/thawRecordList.jsp</result>
+		      <result name="editSuccess">/WEB-INF/jsp/app/accountFrozenRecord/thawRecordAdd.jsp</result>
+		        <result name="invalid.token" type="redirectAction">
+			    accountFrozen_searchFrozenRecord
+		     </result>
+		</action>
+		
+		<action name="saveBlackList"  class="blackListAction"  method="saveBlackList">
+		      <result name="success" type="chain">findBlackList</result>
+		</action>
+	  <action name="findBlackList"  class="blackListAction"  method="findBlackList">
+		      <result name="success">/WEB-INF/jsp/app/blackList/blackListDetail.jsp</result>
+		</action>
+	</package>
+	
+	
+</struts>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

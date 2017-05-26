@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="CustomerType" >
+
+  <typeAlias alias="customerTypeDO" type="com.pltfm.app.dataobject.CustomerType" />
+  <typeAlias alias="customerTypeQuery" type="com.pltfm.app.vobject.CustomerTypeQuery" />
+
+  <resultMap id="customerTypeDOResultMap" class="customerTypeDO" >
+    <result property="nCustomerTypeId" column="N_CUSTOMER_TYPE_ID" />
+    <result property="name" column="NAME" />
+    <result property="description" column="DESCRIPTION" />
+    <result property="nParentId" column="N_PARENT_ID" />
+    <result property="dCreateDate" column="D_CREATE_DATE" />
+    <result property="nUserId" column="N_USER_ID" />
+  </resultMap>
+
+  <resultMap id="customerTypeQueryResultMap" class="customerTypeQuery" >
+    <result property="nCustomerTypeId" column="N_CUSTOMER_TYPE_ID" />
+    <result property="name" column="NAME" />
+    <result property="description" column="DESCRIPTION" />
+    <result property="nParentId" column="N_PARENT_ID" />
+    <result property="dCreateDate" column="D_CREATE_DATE" />
+    <result property="nUserId" column="N_USER_ID" />
+  </resultMap>
+
+  <sql id="customerType_columns" >
+    a1.N_CUSTOMER_TYPE_ID, a1.NAME, a1.DESCRIPTION, a1.N_PARENT_ID, a1.D_CREATE_DATE, 
+      a1.N_USER_ID
+  </sql>
+
+  <sql id="customerType_do_columns" >
+    a1.N_CUSTOMER_TYPE_ID, a1.NAME, a1.DESCRIPTION, a1.N_PARENT_ID, a1.D_CREATE_DATE, 
+      a1.N_USER_ID
+  </sql>
+
+  <sql id="customerType_query_columns" >
+    a1.N_CUSTOMER_TYPE_ID, a1.NAME, a1.DESCRIPTION, a1.N_PARENT_ID, a1.D_CREATE_DATE, 
+      a1.N_USER_ID
+  </sql>
+
+  <sql id="queryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="nCustomerTypeId" prepend="AND" >
+        <![CDATA[  
+        N_CUSTOMER_TYPE_ID = #nCustomerTypeId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="name" prepend="AND" >
+        <![CDATA[  
+        NAME = #name#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="description" prepend="AND" >
+        <![CDATA[  
+        DESCRIPTION = #description#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nParentId" prepend="AND" >
+        <![CDATA[  
+        N_PARENT_ID = #nParentId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dCreateDate" prepend="AND" >
+        <![CDATA[  
+        D_CREATE_DATE = #dCreateDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nUserId" prepend="AND" >
+        <![CDATA[  
+        N_USER_ID = #nUserId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="doQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="nCustomerTypeId" prepend="AND" >
+        <![CDATA[  
+        N_CUSTOMER_TYPE_ID = #nCustomerTypeId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="name" prepend="AND" >
+        <![CDATA[  
+        NAME = #name#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="description" prepend="AND" >
+        <![CDATA[  
+        DESCRIPTION = #description#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nParentId" prepend="AND" >
+        <![CDATA[  
+        N_PARENT_ID = #nParentId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dCreateDate" prepend="AND" >
+        <![CDATA[  
+        D_CREATE_DATE = #dCreateDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nUserId" prepend="AND" >
+        <![CDATA[  
+        N_USER_ID = #nUserId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="queryQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="nCustomerTypeId" prepend="AND" >
+        <![CDATA[  
+        N_CUSTOMER_TYPE_ID = #nCustomerTypeId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="name" prepend="AND" >
+        <![CDATA[  
+        NAME = #name#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="description" prepend="AND" >
+        <![CDATA[  
+        DESCRIPTION = #description#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nParentId" prepend="AND" >
+        <![CDATA[  
+        N_PARENT_ID = #nParentId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dCreateDate" prepend="AND" >
+        <![CDATA[  
+        D_CREATE_DATE = #dCreateDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nUserId" prepend="AND" >
+        <![CDATA[  
+        N_USER_ID = #nUserId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <insert id="insert" parameterClass="customerTypeDO" >
+    INSERT INTO CUSTOMER_TYPE( N_CUSTOMER_TYPE_ID, NAME, DESCRIPTION, N_PARENT_ID, D_CREATE_DATE, N_USER_ID
+      )
+     VALUES ( #nCustomerTypeId#, #name#, #description#, #nParentId#, #dCreateDate#, #nUserId#
+      )
+    <selectKey keyProperty="nCustomerTypeId" resultClass="java.math.BigDecimal" >
+      SELECT LAST_INSERT_ID() AS value
+    </selectKey>
+  </insert>
+
+  <update id="update" parameterClass="customerTypeDO" >
+    UPDATE CUSTOMER_TYPE   
+    <dynamic prepend="SET" >
+      <!--
+      <isNotNull property="nCustomerTypeId" prepend="," >
+        <![CDATA[  
+        N_CUSTOMER_TYPE_ID = #nCustomerTypeId#  
+        ]]>  
+      </isNotNull>
+      -->
+      <isNotNull property="name" prepend="," >
+        <![CDATA[  
+        NAME = #name#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="description" prepend="," >
+        <![CDATA[  
+        DESCRIPTION = #description#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nParentId" prepend="," >
+        <![CDATA[  
+        N_PARENT_ID = #nParentId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="dCreateDate" prepend="," >
+        <![CDATA[  
+        D_CREATE_DATE = #dCreateDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nUserId" prepend="," >
+        <![CDATA[  
+        N_USER_ID = #nUserId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+     WHERE N_CUSTOMER_TYPE_ID = #nCustomerTypeId#  
+  </update>
+
+  <select id="findByPrimaryKey" parameterClass="java.math.BigDecimal" resultMap="customerTypeDOResultMap" >
+     SELECT 
+    <include refid="customerType_do_columns" />
+    <![CDATA[  
+     FROM CUSTOMER_TYPE a1 WHERE N_CUSTOMER_TYPE_ID = #nCustomerTypeId#
+    ]]>  
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterClass="java.math.BigDecimal" >
+    <![CDATA[  
+     DELETE FROM CUSTOMER_TYPE WHERE N_CUSTOMER_TYPE_ID = #nCustomerTypeId#
+    ]]>  
+  </delete>
+
+  <select id="countByDOExample" parameterClass="customerTypeDO" resultClass="java.lang.Integer" >
+    SELECT COUNT(N_CUSTOMER_TYPE_ID) AS num FROM CUSTOMER_TYPE 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="findListByDO" resultMap="customerTypeDOResultMap" parameterClass="customerTypeDO" >
+     SELECT 
+    <include refid="customerType_do_columns" />
+     FROM CUSTOMER_TYPE a1 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="countByQueryExample" parameterClass="customerTypeQuery" resultClass="java.lang.Integer" >
+    SELECT COUNT(N_CUSTOMER_TYPE_ID) AS num FROM CUSTOMER_TYPE 
+    <include refid="queryQueryParams" />
+  </select>
+
+  <select id="findListByQuery" resultMap="customerTypeQueryResultMap" parameterClass="customerTypeQuery" >
+     SELECT 
+    <include refid="customerType_query_columns" />
+     FROM CUSTOMER_TYPE a1 
+    <include refid="queryQueryParams" />
+  </select>
+</sqlMap>

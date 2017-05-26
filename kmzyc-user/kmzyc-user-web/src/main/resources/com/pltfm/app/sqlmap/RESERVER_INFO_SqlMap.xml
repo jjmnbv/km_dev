@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="RESERVER_INFO" >
+  
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.ReserverInfo" >
+    <result column="RESERVE_ID" property="reserveId" jdbcType="DECIMAL" />
+    <result column="LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+    <result column="TOTAL_LIMIT" property="totalLimit" jdbcType="DECIMAL" />
+    <result column="REMAIN_LIMIT" property="remainLimit" jdbcType="DECIMAL" />
+    <result column="PAY_TYPE" property="payType" jdbcType="DECIMAL" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="CONTACT" property="contact" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="OPEN_DATE" property="openDate"  />
+    <result column="IS_AVAILABLE" property="isAvailable" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="ibatorgenerated_BaseResultObjectMap" class="com.pltfm.app.vobject.ReserverInfo" extends="ibatorgenerated_BaseResultMap">
+  	 <result column="account_login" property="accountLogin" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="n_LOGIN_ID" property="userLoginId" jdbcType="DECIMAL" />
+     <result column="n_account_id" property="accountId" jdbcType="DECIMAL" />
+  	<result column="corporate_name" property="corporateName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ibatorgenerated_BaseResultReserverMap" class="com.pltfm.app.vobject.ReserverInfo" extends="ibatorgenerated_BaseResultMap">
+  	 <result column="n_account_id" property="accountId" jdbcType="DECIMAL" />
+  	 <result column="account_login" property="accountLogin" jdbcType="VARCHAR" />
+  </resultMap>
+   <!-- 根据用户名查询预备金账户 -->
+  <select id="ibatorgenerated_selectReserverInfoByAccountLogion" resultMap="ibatorgenerated_BaseResultReserverMap" parameterClass="java.lang.String" >
+  	<![CDATA[
+  		select r.*,a.n_account_id,a.account_login from reserver_info r,account_info a where r.login_id =a.n_login_id and a.account_login=#accountLogin#
+  	]]>
+  </select>
+  <!-- 获取所有的预备金账户 -->
+  <select id="selectAllReserverInfo" resultMap="ibatorgenerated_BaseResultReserverMap">
+      select i.*,a.n_account_id,a.account_login from reserver_info i,account_info a where  i.login_id=a.n_login_id
+  </select>
+  <!-- 分页查询开通了预备金账户 -->
+  <select id="ibatorgenerated_selectReserverInfoAll" resultMap="ibatorgenerated_BaseResultObjectMap" parameterClass="com.pltfm.app.vobject.ReserverInfo" >
+     <![CDATA[
+     select * from (select ROW_NUMBER()over(order by reserve_Id desc) view_row_number,a.account_login,a.n_account_id,a.email,a.n_login_id,c.corporate_name,r.RESERVE_ID,r.LOGIN_ID,r.TOTAL_LIMIT,
+     r.REMAIN_LIMIT,r.PAY_TYPE,r.DESCRIPTION,r.CONTACT,r.PHONE,r.OPEN_DATE,r.IS_AVAILABLE 
+     from reserver_info r left join login_rose_rel l on l.n_login_id=r.login_id  
+       left join account_info a  on a.n_login_id=l.n_login_id  
+        left join COMMERCIAL_TENANT_BASIC_INFO c on c.n_commercial_tenant_id=l.n_commercial_id
+       where l.n_customer_type_id=4 and l.status=3
+     ]]>
+     <isNotNull property="accountLogin">
+       <isNotEmpty prepend="AND" property="accountLogin"> 
+  	    <![CDATA[
+           account_login like '%$accountLogin$%'
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="corporateName">
+       <isNotEmpty prepend="AND" property="corporateName"> 
+  	    <![CDATA[
+           corporate_name like '%$corporateName$%' 
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="payType">
+       <isNotEmpty prepend="AND" property="payType"> 
+  	    <![CDATA[
+           pay_type = #payType#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="startDate">
+       <isNotEmpty prepend="AND" property="startDate"> 
+  	    <![CDATA[
+           OPEN_DATE >= #startDate#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="endDate">
+       <isNotEmpty prepend="AND" property="endDate"> 
+  	    <![CDATA[
+           OPEN_DATE <= #endDate#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+     <isNotNull property="phone">
+      <isNotEmpty prepend="AND" property="phone">  
+  	    <![CDATA[
+           r.PHONE like '%$phone$%'
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="isAvailable">
+    <isNotEmpty prepend="AND" property="isAvailable"> 
+  	    <![CDATA[
+            IS_AVAILABLE = #isAvailable#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+  	order by r.reserve_id desc)
+  	<![CDATA[where view_row_number > #minNum# and view_row_number <= #maxNum#]]> 
+  </select>
+  <!-- 获取开通了预备金账户总条数 -->
+  <select id="ibatorgenerated_selectCountByInfoAll" parameterClass="com.pltfm.app.vobject.ReserverInfo" resultClass="java.lang.Integer">
+  	<![CDATA[
+    	select count(*)   from reserver_info r left join login_rose_rel l on l.n_login_id=r.login_id  
+       left join account_info a  on a.n_login_id=l.n_login_id  
+        left join COMMERCIAL_TENANT_BASIC_INFO c on c.n_commercial_tenant_id=l.n_commercial_id
+       where l.n_customer_type_id=4 and l.status=3
+     ]]>
+     <isNotNull property="accountLogin">
+       <isNotEmpty prepend="AND" property="accountLogin"> 
+  	    <![CDATA[
+           account_login like '%$accountLogin$%'
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="corporateName">
+       <isNotEmpty prepend="AND" property="corporateName"> 
+  	    <![CDATA[
+           corporate_name like '%$corporateName$%'
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="payType">
+       <isNotEmpty prepend="AND" property="payType"> 
+  	    <![CDATA[
+           pay_type = #payType#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="startDate">
+       <isNotEmpty prepend="AND" property="startDate"> 
+  	    <![CDATA[
+           OPEN_DATE >= #startDate#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="endDate">
+       <isNotEmpty prepend="AND" property="endDate"> 
+  	    <![CDATA[
+           OPEN_DATE <= #endDate#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+     <isNotNull property="phone">
+      <isNotEmpty prepend="AND" property="phone">  
+  	    <![CDATA[
+           r.PHONE like '%$phone$%'
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="isAvailable">
+    <isNotEmpty prepend="AND" property="isAvailable"> 
+  	    <![CDATA[
+            IS_AVAILABLE = #isAvailable#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+  </select>
+  <!-- 分页查询预备金账户 带尚未开通预备金的B2B用户-->
+  <select id="ibatorgenerated_selectReserverInfo" resultMap="ibatorgenerated_BaseResultObjectMap" parameterClass="com.pltfm.app.vobject.ReserverInfo" >
+     <![CDATA[
+     select * from (select ROW_NUMBER()over(order by reserve_Id desc nulls last) view_row_number,a.account_login,a.email,a.n_account_id,a.n_login_id,c.corporate_name,r.RESERVE_ID,r.LOGIN_ID,r.TOTAL_LIMIT,
+     r.REMAIN_LIMIT,r.PAY_TYPE,r.DESCRIPTION,r.CONTACT,r.PHONE,r.OPEN_DATE,r.IS_AVAILABLE 
+     from account_info a left join login_rose_rel l on a.n_login_id=l.n_login_id  
+       left join reserver_info r on a.n_login_id=r.login_id  
+        left join COMMERCIAL_TENANT_BASIC_INFO c on c.n_commercial_tenant_id=l.n_commercial_id
+       where l.n_customer_type_id=4 and l.status=3
+     ]]>
+     <isNotNull property="accountLogin">
+       <isNotEmpty prepend="AND" property="accountLogin"> 
+  	    <![CDATA[
+           account_login like '%$accountLogin$%'
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="corporateName">
+       <isNotEmpty prepend="AND" property="corporateName"> 
+  	    <![CDATA[
+           corporate_name like '%$corporateName$%'
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="payType">
+       <isNotEmpty prepend="AND" property="payType"> 
+  	    <![CDATA[
+           pay_type = #payType#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="startDate">
+       <isNotEmpty prepend="AND" property="startDate"> 
+  	    <![CDATA[
+           OPEN_DATE >= #startDate#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="endDate">
+       <isNotEmpty prepend="AND" property="endDate"> 
+  	    <![CDATA[
+           OPEN_DATE <= #endDate#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+     <isNotNull property="phone">
+      <isNotEmpty prepend="AND" property="phone">  
+  	    <![CDATA[
+           r.PHONE like '%$phone$%'
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="isAvailable">
+    <isNotEmpty prepend="AND" property="isAvailable"> 
+  	    <![CDATA[
+            IS_AVAILABLE = #isAvailable#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+  	order by r.reserve_id desc nulls last)
+  	<![CDATA[where view_row_number > #minNum# and view_row_number <= #maxNum#]]> 
+  </select>
+  <!-- 获取预备金账户总条数 -->
+  <select id="ibatorgenerated_selectCountByInfo" parameterClass="com.pltfm.app.vobject.ReserverInfo" resultClass="java.lang.Integer">
+  	<![CDATA[
+    	select count(*)  from account_info a left join login_rose_rel l on a.n_login_id=l.n_login_id  
+       left join reserver_info r on a.n_login_id=r.login_id  
+    	left join COMMERCIAL_TENANT_BASIC_INFO c on c.n_commercial_tenant_id=l.n_commercial_id
+       where l.n_customer_type_id=4 and l.status=3
+     ]]>
+     <isNotNull property="accountLogin">
+       <isNotEmpty prepend="AND" property="accountLogin"> 
+  	    <![CDATA[
+           account_login like '%$accountLogin$%'
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="corporateName">
+       <isNotEmpty prepend="AND" property="corporateName"> 
+  	    <![CDATA[
+           corporate_name like '%$corporateName$%'
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="payType">
+       <isNotEmpty prepend="AND" property="payType"> 
+  	    <![CDATA[
+           pay_type = #payType#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="startDate">
+       <isNotEmpty prepend="AND" property="startDate"> 
+  	    <![CDATA[
+           OPEN_DATE >= #startDate#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="endDate">
+       <isNotEmpty prepend="AND" property="endDate"> 
+  	    <![CDATA[
+           OPEN_DATE <= #endDate#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+     <isNotNull property="phone">
+      <isNotEmpty prepend="AND" property="phone">  
+  	    <![CDATA[
+           r.PHONE like '%$phone$%'
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="isAvailable">
+    <isNotEmpty prepend="AND" property="isAvailable"> 
+  	    <![CDATA[
+            IS_AVAILABLE = #isAvailable#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+  </select>
+  <!-- 根据预备金账户id查询预备金账户 -->
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultObjectMap" parameterClass="com.pltfm.app.vobject.ReserverInfo" >
+     select r.*,c.corporate_name,a.account_login,a.n_account_id,a.email,a.n_login_id
+    from RESERVER_INFO r,COMMERCIAL_TENANT_BASIC_INFO c,account_info a,login_rose_rel l
+    where c.n_commercial_tenant_id=l.n_commercial_id and l.n_customer_type_id=4 and 
+    r.login_id=c.n_login_id and r.login_id=a.n_login_id and l.status=3
+    <isNotNull property="reserveId">
+    <isNotEmpty prepend="AND" property="reserveId"> 
+  	    <![CDATA[
+            RESERVE_ID = #reserveId#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+     <isNotNull property="accountLogin">
+    <isNotEmpty prepend="AND" property="accountLogin"> 
+  	    <![CDATA[
+            account_login = #accountLogin#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="accountId">
+    <isNotEmpty prepend="AND" property="accountId"> 
+  	    <![CDATA[
+            n_account_id = #accountId#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+     <isNotNull property="loginId">
+    <isNotEmpty prepend="AND" property="loginId"> 
+  	    <![CDATA[
+            r.login_id = #loginId#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+  </select>
+  
+  <!-- 根据预备金账户id删除 -->
+  <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="com.pltfm.app.vobject.ReserverInfo" >
+    delete from RESERVER_INFO
+    where RESERVE_ID = #reserveId:DECIMAL#
+  </delete>
+  
+  <!-- 添加预备金账户 -->
+  <insert id="ibatorgenerated_insertSelective" parameterClass="com.pltfm.app.vobject.ReserverInfo" >
+    <selectKey resultClass="java.math.BigDecimal" keyProperty="reserveId" >
+           select SEQ_RESERVER_INFO.nextval from dual
+      </selectKey>
+    insert into RESERVER_INFO (RESERVE_ID,LOGIN_ID,TOTAL_LIMIT,REMAIN_LIMIT,PAY_TYPE,DESCRIPTION,
+        CONTACT,PHONE,OPEN_DATE,IS_AVAILABLE
+      )
+    values(#reserveId:DECIMAL#,#loginId:DECIMAL#,#totalLimit:DECIMAL#,#remainLimit:DECIMAL#,#payType:DECIMAL#,#description:VARCHAR#,#contact:VARCHAR#,
+        #phone:VARCHAR#,#openDate#,#isAvailable:DECIMAL#
+      )
+  </insert>
+  <!-- 根据预备金账户id修改 -->
+  <update id="ibatorgenerated_updateByPrimaryKey" parameterClass="com.pltfm.app.vobject.ReserverInfo" >
+   update RESERVER_INFO
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="loginId" >
+        LOGIN_ID = #loginId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="totalLimit" >
+        TOTAL_LIMIT = #totalLimit:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="remainLimit" >
+        REMAIN_LIMIT = #remainLimit:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="payType" >
+        PAY_TYPE = #payType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="description" >
+        DESCRIPTION = #description:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="contact" >
+        CONTACT = #contact:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="phone" >
+        PHONE = #phone:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="openDate" >
+        OPEN_DATE = #openDate#
+      </isNotNull>
+      <isNotNull prepend="," property="isAvailable" >
+        IS_AVAILABLE = #isAvailable:DECIMAL#
+      </isNotNull>
+    </dynamic>
+    where RESERVE_ID = #reserveId:DECIMAL#
+  </update>
+</sqlMap>

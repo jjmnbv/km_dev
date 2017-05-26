@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 开始Memcached配置 -->
+    <bean id="sockIOPool" class="com.whalin.MemCached.SockIOPool"
+          factory-method="getInstance" init-method="initialize" destroy-method="shutDown">
+        <constructor-arg>
+            <value>neeaMemcachedPool</value>
+        </constructor-arg>
+        <property name="servers">
+            <list>
+                <value>${serversone1}</value>
+                <!--  <value>${serversone2}</value>  -->
+            </list>
+        </property>
+        <property name="weights">
+            <list>
+                <value>${weightsone}</value>
+                <!--  <value>${weightsone}</value>  -->
+            </list>
+        </property>
+        <!-- 初始连接数  -->
+        <property name="initConn" value="${initConn}"/>
+        <!-- 最大连接数 -->
+        <property name="maxConn" value="${maxConn}"/>
+        <!-- 最小连接数  -->
+        <property name="minConn" value="${minConn}"/>
+        <!-- 最大处理时间,超时时间   -->
+        <property name="maxIdle" value="${maxIdle}"/>
+        <!-- 主线程的睡眠时间  -->
+        <property name="maintSleep" value="${maintSleep}"/>
+        <!-- Tcp的规则就是在发送一个包之前，本地机器会等待远程主机对上一次发送的包的确认信息到来；
+        	这个方法就可以关闭套接字的缓存,以至这个包准备好了就发； -->
+        <property name="nagle" value="${nagle}"/>
+        <!-- 连接建立后对超时的控制   -->
+        <property name="socketTO" value="${socketTO}"/>
+        <!-- 连接建立时对超时的控制   -->
+        <property name="socketConnectTO" value="${socketConnectTO}"/>
+
+        <!-- 是否开启压缩设置 
+        <property name="compressEnable" value="true"/>-->
+        <!-- 超过指定大小（单位为K）的数据都会被压缩
+        <property name="compressThreshold" value="65536"/> -->
+    </bean>
+    <bean id="memCachedClient" class="com.whalin.MemCached.MemCachedClient">
+        <constructor-arg>
+            <value>neeaMemcachedPool</value>
+        </constructor-arg>
+    </bean>
+    <!-- 结束Memcached配置 -->
+
+</beans>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CmsPromotionTask">
+
+    <typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+
+	<resultMap id="cmsPromotionTaskResultMap" class="com.kmzyc.b2b.model.CmsPromotionTask">
+		<result column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="IMAGE" property="image" jdbcType="DECIMAL" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="OUTPUT" property="output" jdbcType="VARCHAR" />
+		<result column="BEGIN_TIME" property="beginTime" jdbcType="DATE" />
+		<result column="END_TIME" property="endTime" jdbcType="DATE" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+		<result column="MODIFIED" property="modified" jdbcType="DECIMAL" />
+		<result column="P2" property="p2" jdbcType="VARCHAR" />
+		<result column="P3" property="p3" jdbcType="VARCHAR" />
+		<result column="IMAGES_FILE" property="imagesFile" jdbcType="VARCHAR" />
+		<result column="IMAGES_FILE2" property="imagesFile2" jdbcType="VARCHAR" />
+		<result column="IMAGES_FILE3" property="imagesFile3" jdbcType="VARCHAR" />
+		<result column="IMAGES_FILE4" property="imagesFile4" jdbcType="VARCHAR" />
+        <result column="PRODUCT_FILTER_TYPE" property="productFilterType" jdbcType="DECIMAL"/>
+        <result column="PROMOTION_TYPE_ID" property="promotionTypeId" jdbcType="DECIMAL" />
+        <result column="SLOGAN" property="slogan" jdbcType="VARCHAR" />
+        <result column="SITE_ID" property="siteId" jdbcType="DECIMAL"/>
+        <result column="OPERATE_TYPE" property="operateType" jdbcType="DECIMAL"/>
+	</resultMap>
+
+
+
+	<select id="findById" parameterClass="integer" resultMap="cmsPromotionTaskResultMap">
+		<![CDATA[
+			SELECT * FROM CMS_PROMOTION_TASK WHERE  ID = #id:NUMBER#
+		]]>
+	</select>
+
+	<select id="queryCmsPromotionTaskByID" parameterClass="java.util.List" resultMap="cmsPromotionTaskResultMap">
+			SELECT * FROM CMS_PROMOTION_TASK WHERE  ID in
+ 				<iterate open="(" close=")" conjunction=",">
+ 				 	#[]# 
+ 				</iterate>
+	</select>
+
+    <!-- 过期活动列表 -->
+    <select id="queryExpirePromotion"  resultMap="cmsPromotionTaskResultMap" >
+        <![CDATA[
+            select ID, IMAGE, STATUS, OUTPUT, BEGIN_TIME, END_TIME, NAME, MODIFY_DATE, MODIFIED, P2, P3 ,IMAGES_FILE,IMAGES_FILE2,
+            IMAGES_FILE3,IMAGES_FILE4,PRODUCT_FILTER_TYPE,PROMOTION_TYPE_ID,SLOGAN,SITE_ID,OPERATE_TYPE
+            from  CMS_PROMOTION_TASK
+             where  to_char(end_time,'yyyy-mm-dd HH24:mm:ss')<to_char(sysdate,'yyyy-mm-dd HH24:mm:ss') and  5 > rownum
+         ]]>
+    </select>
+
+    <select id="countByPage"  parameterClass="pagination" resultClass="java.lang.Integer" >
+        select count(*) from CMS_PROMOTION_TASK
+        <isNotEmpty prepend="where" property="objCondition.promotionTypeId">
+            PROMOTION_TYPE_ID = #objCondition.promotionTypeId:NUMBER#
+        </isNotEmpty>
+    </select>
+
+    <!-- 分页查询活动数据列表信息 -->
+    <select id="queryByPage"  resultMap="cmsPromotionTaskResultMap"  parameterClass="pagination">
+        select ID, IMAGE, STATUS, OUTPUT, BEGIN_TIME, END_TIME, NAME, MODIFY_DATE, MODIFIED, P2, P3 ,IMAGES_FILE,
+                IMAGES_FILE2,IMAGES_FILE3,IMAGES_FILE4,PRODUCT_FILTER_TYPE,PROMOTION_TYPE_ID,SLOGAN,SITE_ID,OPERATE_TYPE
+         from (select  ROW_NUMBER() OVER(order by ID desc) as view_row_number, t.* FROM  CMS_PROMOTION_TASK t
+            <isNotEmpty prepend="where" property="objCondition.promotionTypeId">
+                PROMOTION_TYPE_ID = #objCondition.promotionTypeId:NUMBER#
+            </isNotEmpty>
+         )
+        <![CDATA[ where view_row_number <= #endindex# and view_row_number > #startindex# ]]>
+    </select>
+
+</sqlMap>

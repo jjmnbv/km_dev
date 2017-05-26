@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ProductPrizes">
+	<resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.ProductPrizes" >
+		    <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+		    <result column="PROCUCT_NAME" property="productName" jdbcType="VARCHAR" />
+		    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+		    <result column="STATUS" property="status" jdbcType="Integer" />
+		    <result column="CHANNEL" property="channel" jdbcType="VARCHAR" />
+		    <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+		    <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+		    <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+		    <result column="PRODUCT_SKU_CODE" property="productSkuCode" jdbcType="VARCHAR" />
+	  </resultMap>
+	  <!-- 分页查询产品类奖品 -->
+	  <select id="selectByCondition" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.pltfm.app.vobject.ProductPrizes">
+	      select PRODUCT_ID,  product_title as PROCUCT_NAME, PRODUCT_NO, STATUS, CHANNEL, CATEGORY_ID, CATEGORY_NAME, 
+	      		 PRODUCT_SKU_ID, PRODUCT_SKU_CODE
+			     from (select rownum as view_row_number,vs.* from  VIEW_PRODUCT_SKU vs
+		 <dynamic prepend="WHERE" >
+		       
+		      <isNotNull property="productNo"  >
+		       <isNotEmpty prepend="and" property="productNo">
+			        <![CDATA[  
+			        PRODUCT_NO  like '%$productNo$%'  
+			        ]]>  
+		        </isNotEmpty>
+		      </isNotNull>
+		      <isNotNull property="categoryId" >
+		        <isNotEmpty prepend="and" property="categoryId">
+			        <![CDATA[  
+			        CATEGORY_ID = #categoryId#  
+			        ]]>  
+		        </isNotEmpty>
+		      </isNotNull>
+		      <isNotNull property="categoryL" >
+		        <isNotEmpty prepend="and" property="categoryL">
+			        <![CDATA[  
+			        CATEGORY_ID in ($categoryL$)  
+			        ]]>  
+		        </isNotEmpty>
+		      </isNotNull>
+		       <isNotNull property="productSkuCode" >
+		        <isNotEmpty prepend="and" property="productSkuCode">
+			        <![CDATA[  
+			        PRODUCT_SKU_CODE  like '%$productSkuCode$%'
+			        ]]>  
+			     </isNotEmpty>
+		      </isNotNull>
+		      <isNotNull property="productName"  >
+		      <isNotEmpty prepend="and" property="productName">
+			        <![CDATA[  
+			        product_title  like '%$productName$%' 
+			        ]]> 
+		       </isNotEmpty> 
+		      </isNotNull>
+		      <isNotNull property="channel" >
+		       <isNotEmpty prepend="and" property="channel">
+			        <![CDATA[  
+			        CHANNEL = #channel#  
+			        ]]>  
+		        </isNotEmpty>
+		      </isNotNull>
+		  </dynamic> 
+		  )  
+		  <![CDATA[ where view_row_number <= #maxNum# and view_row_number > #minNum# ]]>
+	  </select>
+	  <!-- 获取产品类奖品总数量 -->
+	  <select id="abatorgenerated_count" parameterClass="com.pltfm.app.vobject.ProductPrizes"  resultClass="java.lang.Integer" >
+	  		select count(*) from  VIEW_PRODUCT_SKU vs
+		 <dynamic prepend="WHERE" >
+		      <isNotNull property="productNo"  >
+		       <isNotEmpty prepend="and" property="productNo">
+			        <![CDATA[  
+			        PRODUCT_NO  like '%$productNo$%'  
+			        ]]>  
+		        </isNotEmpty>
+		      </isNotNull>
+		      <isNotNull property="categoryId" >
+		        <isNotEmpty prepend="and" property="categoryId">
+			        <![CDATA[  
+			        CATEGORY_ID = #categoryId#  
+			        ]]>  
+		        </isNotEmpty>
+		      </isNotNull>
+		       <isNotNull property="categoryL" >
+		        <isNotEmpty prepend="and" property="categoryL">
+			        <![CDATA[  
+			        CATEGORY_ID in ($categoryL$)  
+			        ]]>  
+		        </isNotEmpty>
+		      </isNotNull>
+		       <isNotNull property="productSkuCode" >
+		        <isNotEmpty prepend="and" property="productSkuCode">
+			        <![CDATA[  
+			        PRODUCT_SKU_CODE  like '%$productSkuCode$%'
+			        ]]>  
+			     </isNotEmpty>
+		      </isNotNull>
+		      <isNotNull property="productName"  >
+		      <isNotEmpty prepend="and" property="productName">
+			        <![CDATA[  
+			        product_title  like '%$productName$%' 
+			        ]]> 
+		       </isNotEmpty> 
+		      </isNotNull>
+		      <isNotNull property="channel" >
+		       <isNotEmpty prepend="and" property="channel">
+			        <![CDATA[  
+			        CHANNEL = #channel#  
+			        ]]>  
+		        </isNotEmpty>
+		      </isNotNull>
+		  </dynamic> 
+	  </select>
+	  
+
+
+</sqlMap>

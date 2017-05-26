@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="WX_SCAN_PRODUCT" >
+    <insert id="insertSelective" parameterClass="com.kmzyc.b2b.model.WxScanProduct" >
+	    <selectKey resultClass="long" keyProperty="scanId">
+	            select SEQ_WX_SCAN_PRODUCT.Nextval from dual
+	    </selectKey>
+	    insert into wx_scan_product
+	    <dynamic prepend="(" >
+	      <isNotNull prepend="," property="scanId" >
+	        scan_id
+	      </isNotNull>
+	      <isNotNull prepend="," property="openId" >
+	        open_id
+	      </isNotNull>
+	      <isNotNull prepend="," property="province" >
+	        province
+	      </isNotNull>
+	       <isNotNull prepend="," property="country" >
+	        country
+	      </isNotNull>
+	      <isNotNull prepend="," property="city" >
+	        city
+	      </isNotNull>
+	      <isNotNull prepend="," property="sex" >
+	        sex
+	      </isNotNull>
+	      <isNotNull prepend="," property="keyStandard" >
+	        key_standard
+	      </isNotNull>
+	      <isNotNull prepend="," property="keyStr" >
+	        key_str
+	      </isNotNull>
+	       <isNotNull prepend="," property="productSkuId" >
+	        product_sku_id
+	      </isNotNull>
+	       <isNotNull prepend="," property="scanDate" >
+	        scan_date
+	      </isNotNull>
+	       <isNotNull prepend="," property="scanScene" >
+	        scan_scene
+	      </isNotNull>
+	       <isNotNull prepend="," property="remark" >
+	        remark
+	      </isNotNull>
+	      )
+	    </dynamic>
+	    values
+	    <dynamic prepend="(" >
+	      <isNotNull prepend="," property="scanId" >
+	        #scanId:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="openId" >
+	        #openId:VARCHAR#
+	      </isNotNull>
+	      <isNotNull prepend="," property="province" >
+	        #province:VARCHAR#
+	      </isNotNull>
+	      <isNotNull prepend="," property="country" >
+	        #country:VARCHAR#
+	      </isNotNull>
+	      <isNotNull prepend="," property="city" >
+	        #city:VARCHAR#
+	      </isNotNull>
+	      <isNotNull prepend="," property="sex" >
+	        #sex:VARCHAR#
+	      </isNotNull>
+	      <isNotNull prepend="," property="keyStandard" >
+	        #keyStandard:VARCHAR#
+	      </isNotNull>
+	      <isNotNull prepend="," property="keyStr" >
+	        #keyStr:VARCHAR#
+	      </isNotNull>
+	      <isNotNull prepend="," property="productSkuId" >
+	        #productSkuId:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="scanDate" >
+	        sysdate
+	      </isNotNull>
+	      <isNotNull prepend="," property="scanScene" >
+	        #scanScene:VARCHAR#
+	      </isNotNull>
+	      <isNotNull prepend="," property="remark" >
+	        #remark:VARCHAR#
+	      </isNotNull>
+	      )
+	    </dynamic>
+  	</insert>
+  
+   	<!-- 根据openID获取扫码记录 -->
+   	<select id="SQL_QUERY_WX_SCAN_PRODUCT_SKU" parameterClass="String" resultClass="java.lang.Long">
+   		select wsp.product_sku_id
+		  from wx_scan_product wsp
+		 where wsp.open_id = #openId:VARCHAR#
+   	</select>
+</sqlMap>

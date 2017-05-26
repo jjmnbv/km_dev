@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <!--constant name="struts.enable.DynamicMethodInvocation" value="false" /-->
+    <constant name="struts.devMode" value="false"/>
+    <constant name="struts.enable.SlashesInActionNames" value="true"/>
+    <!-- action名可以有'/'字符 -->
+    <constant name="struts.action.extension" value="action,do"/>
+    <!-- .action和.do 为访问扩展名 -->
+    <constant name="struts.ui.theme" value="simple"/>
+    <constant name="struts.ui.templateDir" value="template"/>
+    <constant name="struts.ui.templateSuffix" value="ftl"/>
+    <constant name="struts.locale" value="zh_CN"/>
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <!-- 配置struts的Action有spring对象工厂（beans）负责创建维护 -->
+    <constant name="struts.objectFactory" value="spring"/>
+    <constant name="struts.multipart.maxSize" value="314572800"></constant>
+    <!-- 修改限制文件上传的大小 -->
+    <include file="struts-sys.xml"/>
+    <include file="struts-app.xml"/>
+    <!-- 基础数据 -->
+    <include file="struts-basedata.xml"/>
+    <!-- 产品发布 -->
+    <include file="struts-directional.xml"/>
+    <!-- 产品搭售 -->
+    <include file="struts-tiedsale.xml"/>
+    <include file="struts-productrelation.xml"/>
+    <include file="struts-oms.xml"/>
+    <!--<include file="struts-fanli.xml"></include>去除返利-->
+    <!-- 商家活动 -->
+    <include file="struts-activity.xml"></include>
+    <package name="struts" extends="struts-default">
+        <global-results>
+            <result name="error">/WEB-INF/jsp/public/error.jsp</result>
+        </global-results>
+    </package>
+</struts>
+
+

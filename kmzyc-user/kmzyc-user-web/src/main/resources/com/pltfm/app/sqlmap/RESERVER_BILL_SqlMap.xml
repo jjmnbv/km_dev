@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="RESERVER_BILL" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.ReserverBill" >
+    <result column="BILL_ID" property="billId" jdbcType="DECIMAL" />
+    <result column="RESERVE_ID" property="reserveId" jdbcType="DECIMAL" />
+    <result column="LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+    <result column="BILL_NAME" property="billName" jdbcType="VARCHAR" />
+    <result column="START_DATE" property="startDate" />
+    <result column="SETTLEMENT_DATE" property="settlementDate" />
+    <result column="REPAY_DATE" property="repayDate" />
+    <result column="BILL" property="bill" jdbcType="DECIMAL" />
+    <result column="REPAY" property="repay" jdbcType="DECIMAL" />
+    <result column="CURRENT_REPAYED" property="currentRepayed" jdbcType="DECIMAL" />
+    <result column="LAST_PRIOD_REPAY" property="lastPriodRepay" jdbcType="DECIMAL" />
+    <result column="LAST_PRIOD_HAVEPAY" property="lastPriodHavepay" jdbcType="DECIMAL" />
+    <result column="MISS_PAY" property="missPay" jdbcType="DECIMAL" />
+    <result column="PAY_OFF" property="payOff" jdbcType="DECIMAL" />
+    <result column="OVERDUE_PAY" property="overduePay" jdbcType="DECIMAL" />
+    <result column="ADVANCE_REPAYED" property="advanceRepayed" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ibatorgenerated_BaseResulVotMap" class="com.pltfm.app.vobject.ReserverBill"  extends="ibatorgenerated_BaseResultMap">
+  	<result column="corporate_name" property="corporateName" jdbcType="VARCHAR" />
+  	<result column="account_login" property="accountLogin" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 分页查询账单 -->
+  <select id="ibatorgenerated_selectReserverBill" resultMap="ibatorgenerated_BaseResulVotMap" parameterClass="com.pltfm.app.vobject.ReserverBill" >
+     <![CDATA[
+     select * from (select ROW_NUMBER() over(order by bill_id desc) as view_row_number,b.*,c.corporate_name,a.account_login from reserver_bill b,COMMERCIAL_TENANT_BASIC_INFO c ,account_info a,login_rose_rel l
+	where b.login_id=c.n_login_id and b.login_id=a.n_login_id and c.n_commercial_tenant_id=l.n_commercial_id and l.n_customer_type_id=4 
+     ]]>
+    <isNotNull property="corporateName">
+      <isNotEmpty prepend="AND" property="corporateName">  
+  	    <![CDATA[
+           corporate_name like '%$corporateName$%'
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="accountLogin">
+      <isNotEmpty prepend="AND" property="accountLogin">  
+  	    <![CDATA[
+           account_login like '%$accountLogin$%'
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="settlementDateStarttime">
+      <isNotEmpty prepend="AND" property="settlementDateStarttime">  
+  	    <![CDATA[
+           settlement_date >= #settlementDateStarttime#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+     <isNotNull property="settlementDateEndtime">
+      <isNotEmpty prepend="AND" property="settlementDateEndtime">  
+  	    <![CDATA[
+           settlement_date <= #settlementDateEndtime#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+     <isNotNull property="startDateStarttime">
+      <isNotEmpty prepend="AND" property="startDateStarttime">  
+  	    <![CDATA[
+           start_Date >= #startDateStarttime#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+     <isNotNull property="startDateEndtime">
+      <isNotEmpty prepend="AND" property="startDateEndtime">  
+  	    <![CDATA[
+           start_Date <= #startDateEndtime#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="overduePay">
+      <isNotEmpty prepend="AND" property="overduePay">  
+  	    <![CDATA[
+           OVERDUE_PAY = #overduePay#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="bill">
+      <isNotEmpty prepend="AND" property="bill">  
+  	    <![CDATA[
+           BILL = #bill#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    order by b.bill_id desc) 
+	<![CDATA[where view_row_number > #minNum# and view_row_number <= #maxNum#]]>
+   </select>
+   
+   <!-- 计算账单总数 -->
+   <select id="ibatorgenerated_selectReserverBillCount" resultClass="java.lang.Integer" parameterClass="com.pltfm.app.vobject.ReserverBill" >
+     <![CDATA[
+     select count(*) from reserver_bill b,COMMERCIAL_TENANT_BASIC_INFO c ,account_info a,login_rose_rel l
+	where b.login_id=c.n_login_id and b.login_id=a.n_login_id and c.n_commercial_tenant_id=l.n_commercial_id and l.n_customer_type_id=4
+     ]]>
+    <isNotNull property="corporateName">
+      <isNotEmpty prepend="AND" property="corporateName">  
+  	    <![CDATA[
+           corporate_name like '%$corporateName$%'
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="accountLogin">
+      <isNotEmpty prepend="AND" property="accountLogin">  
+  	    <![CDATA[
+           account_login like '%$accountLogin$%'
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="settlementDateStarttime">
+      <isNotEmpty prepend="AND" property="settlementDateStarttime">  
+  	    <![CDATA[
+           settlement_date >= #settlementDateStarttime#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+     <isNotNull property="settlementDateEndtime">
+      <isNotEmpty prepend="AND" property="settlementDateEndtime">  
+  	    <![CDATA[
+           settlement_date <= #settlementDateEndtime#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+      <isNotNull property="startDateStarttime">
+      <isNotEmpty prepend="AND" property="startDateStarttime">  
+  	    <![CDATA[
+           start_Date >= #startDateStarttime#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+     <isNotNull property="startDateEndtime">
+      <isNotEmpty prepend="AND" property="startDateEndtime">  
+  	    <![CDATA[
+           start_Date <= #startDateEndtime#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="overduePay">
+      <isNotEmpty prepend="AND" property="overduePay">  
+  	    <![CDATA[
+           OVERDUE_PAY = #overduePay#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="bill">
+      <isNotEmpty prepend="AND" property="bill">  
+  	    <![CDATA[
+           BILL = #bill#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+   </select>
+   
+  
+  <!-- 查询账单 -->
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.pltfm.app.vobject.ReserverBill" >
+    <![CDATA[
+	    select b.*
+	    from RESERVER_BILL b where 1=1
+    ]]>
+    <isNotNull property="billId">
+      <isNotEmpty prepend="AND" property="billId">  
+  	    <![CDATA[
+           BILL_ID = #billId#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="billName">
+      <isNotEmpty prepend="AND" property="billName">  
+  	    <![CDATA[
+           BILL_NAME = #billName#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="reserveId">
+      <isNotEmpty prepend="AND" property="reserveId">  
+  	    <![CDATA[
+           RESERVE_ID = #reserveId#
+        ]]>
+        </isNotEmpty>
+    </isNotNull>
+  </select>
+  <!-- 删除账单 -->
+  <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="com.pltfm.app.vobject.ReserverBill" >
+    delete from RESERVER_BILL
+    where BILL_ID = #billId:DECIMAL#
+  </delete>
+ <!-- 添加账单 -->
+  <insert id="ibatorgenerated_insert" parameterClass="com.pltfm.app.vobject.ReserverBill" >
+    <selectKey resultClass="java.math.BigDecimal" keyProperty="billId" >
+           select SEQ_RESERVER_BILL.nextval from dual
+      </selectKey>
+    insert into RESERVER_BILL (BILL_ID, RESERVE_ID, LOGIN_ID, BILL_NAME, START_DATE,
+      SETTLEMENT_DATE, REPAY_DATE, BILL, REPAY, CURRENT_REPAYED, LAST_PRIOD_REPAY,
+      LAST_PRIOD_HAVEPAY, MISS_PAY, PAY_OFF, OVERDUE_PAY,ADVANCE_REPAYED)
+    values (#billId:DECIMAL#, #reserveId:DECIMAL#, #loginId:DECIMAL#, #billName:VARCHAR#,
+      #startDate#, #settlementDate#, #repayDate#, #bill:DECIMAL#, #repay:DECIMAL#,
+      #currentRepayed:DECIMAL#, #lastPriodRepay:DECIMAL#, #lastPriodHavepay:DECIMAL#,
+      #missPay:DECIMAL#, #payOff:DECIMAL#, #overduePay:DECIMAL#, #advanceRepayed:DECIMAL#)
+  </insert>
+ <!-- 修改账单 -->
+  <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="com.pltfm.app.vobject.ReserverBill" >
+    update RESERVER_BILL
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="reserveId" >
+        RESERVE_ID = #reserveId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="loginId" >
+        LOGIN_ID = #loginId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="billName" >
+        BILL_NAME = #billName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="startDate" >
+        START_DATE = #startDate#
+      </isNotNull>
+      <isNotNull prepend="," property="settlementDate" >
+        SETTLEMENT_DATE = #settlementDate#
+      </isNotNull>
+      <isNotNull prepend="," property="repayDate" >
+        REPAY_DATE = #repayDate#
+      </isNotNull>
+      <isNotNull prepend="," property="bill" >
+        BILL = #bill:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="repay" >
+        REPAY = #repay:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="currentRepayed" >
+        CURRENT_REPAYED = #currentRepayed:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="lastPriodRepay" >
+        LAST_PRIOD_REPAY = #lastPriodRepay:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="lastPriodHavepay" >
+        LAST_PRIOD_HAVEPAY = #lastPriodHavepay:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="missPay" >
+        MISS_PAY = #missPay:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="payOff" >
+        PAY_OFF = #payOff:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="overduePay" >
+        OVERDUE_PAY = #overduePay:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="advanceRepayed" >
+        ADVANCE_REPAYED = #advanceRepayed:DECIMAL#
+      </isNotNull>
+    </dynamic>
+    where BILL_ID = #billId:DECIMAL#
+  </update>
+  
+</sqlMap>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="PromotionInfo">
+	<typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+	<resultMap id="newPromotionInfoMap" class="com.kmzyc.b2b.model.PromotionInfo" >
+		<result column="PROMOTION_ID" property="promotionId" jdbcType="DECIMAL" />
+		<result column="PROMOTION_NAME" property="promotionName" jdbcType="VARCHAR" />
+		<result column="SLOGAN" property="title" jdbcType="VARCHAR" />
+		<result column="START_TIME" property="startTime" jdbcType="java.util.DATE" />
+		<result column="END_TIME" property="endTime" jdbcType="java.util.DATE" />
+		<result column="MUTEX_PROMOTION_ID" property="mutualIds" jdbcType="VARCHAR" />
+		<result column="PROMOTION_PRIORITY" property="priority" jdbcType="DECIMAL" />
+		<result column="PRODUCT_FILTER_TYPE" property="productFilterType" jdbcType="DECIMAL" />
+		<result column="PRODUCT_FILTER_SQL" property="productFilterSql" jdbcType="VARCHAR" />
+		<result column="PROMOTION_TYPE" property="promotionType" jdbcType="DECIMAL" />
+		<result column="channel" property="channel" jdbcType="DECIMAL" />
+		<result column="supplier_id" property="sellerId" jdbcType="DECIMAL" />
+		<result column="PROMOTION_DATA" property="promotionData" jdbcType="DECIMAL" />
+		<result column="SHOP_SORT" property="shopSort" jdbcType="DECIMAL" />
+		
+	</resultMap>
+	
+<resultMap id="newPromotionInfoMapForApp" class="com.kmzyc.b2b.model.PromotionInfo" >
+		<result column="PROMOTION_ID" property="promotionId" jdbcType="DECIMAL" />
+		<result column="PROMOTION_NAME" property="promotionName" jdbcType="VARCHAR" />
+		<result column="SLOGAN" property="title" jdbcType="VARCHAR" />
+		<result column="START_TIME" property="startTime" jdbcType="java.util.DATE" />
+		<result column="END_TIME" property="endTime" jdbcType="java.util.DATE" />
+		<result column="MUTEX_PROMOTION_ID" property="mutualIds" jdbcType="VARCHAR" />
+		<result column="PROMOTION_PRIORITY" property="priority" jdbcType="DECIMAL" />
+		<result column="PRODUCT_FILTER_TYPE" property="productFilterType" jdbcType="DECIMAL" />
+		<result column="PRODUCT_FILTER_SQL" property="productFilterSql" jdbcType="VARCHAR" />
+		<result column="PROMOTION_TYPE" property="promotionType" jdbcType="DECIMAL" />
+		<result column="channel" property="channel" jdbcType="DECIMAL" />
+		<result column="supplier_id" property="sellerId" jdbcType="DECIMAL" />
+		<result column="PROMOTION_DATA" property="promotionData" jdbcType="DECIMAL" />
+		<result column="SHOP_SORT" property="shopSort" jdbcType="DECIMAL" />
+		<result column="SELL_UP_TYPE" property="sellUpType" jdbcType="DECIMAL" />
+	</resultMap>
+	<select id="findPromotionNew" parameterClass="java.util.HashMap" resultMap="newPromotionInfoMap">
+	<![CDATA[
+		select p.promotion_id,
+		       p.promotion_name,
+		       p.slogan,
+		       p.start_time,
+		       p.end_time,
+		       p.mutex_promotion_id,
+		       p.promotion_priority,
+		       p.product_filter_type,
+		       p.product_filter_sql,
+		       p.promotion_type,
+		       p.channel,
+		       p.supplier_id,
+		       p.promotion_data,
+		       p.shop_sort
+		  from promotion p
+		 where p.status = 2
+	]]>
+		<isNotEmpty property="queryDate">
+	<![CDATA[and #queryDate:java.util.DATE# between p.start_time and p.end_time ]]>
+		</isNotEmpty>
+	    <isNotEmpty property="promotionTypeIds">
+	        and p.promotion_type in (#promotionTypeIds:DECIMAL#)
+	    </isNotEmpty>
+	    <isNotEmpty property="isSycnIndex">
+	        and p.is_sync_index = #isSycnIndex:DECIMAL#
+	    </isNotEmpty>
+
+	</select>
+	
+	<select id="findPromotionById" parameterClass="java.lang.Long" resultMap="newPromotionInfoMapForApp">
+	<![CDATA[
+		select p.promotion_id,
+		       p.promotion_name,
+		       p.slogan,
+		       p.start_time,
+		       p.end_time,
+		       p.mutex_promotion_id,
+		       p.promotion_priority,
+		       p.product_filter_type,
+		       p.product_filter_sql,
+		       p.promotion_type,
+		       p.channel,
+		       p.supplier_id,
+		       p.promotion_data,
+		       p.shop_sort,
+		       nvl(p.SELL_UP_TYPE,0) as SELL_UP_TYPE
+		  from promotion p
+		 where p.promotion_id = #promotionInfoId:DECIMAL#
+	]]>
+	</select>
+	
+	<select id="findPromotionProduct" parameterClass="java.util.HashMap" resultClass="com.kmzyc.b2b.model.PromotionProduct">
+		<![CDATA[
+			select nvl(pp.promotion_product_id, 0) promotionProductId,
+			       nvl(price, 0) price,
+			       nvl(pp.min_buy, 0) minBuy,
+			       nvl(pp.max_buy, 0) maxBuy,
+			       nvl(pp.promotion_stock, 0) promotionStock,
+			       nvl(pp.promotion_sell, 0) promotionSell
+			  from promotion_product pp
+			 where pp.product_sku_id = #productSkuId:DECIMAL#
+			   and pp.promotion_id = #promotionId:DECIMAL#
+		]]>
+	</select>
+	
+	<resultMap id="cmsPromotionInfoMap" class="com.kmzyc.b2b.model.CmsPromotionTask" >
+		<result column="id" property="id" jdbcType="DECIMAL" />
+		<result column="images_file" property="imagesFile" jdbcType="VARCHAR" />
+		<result column="images_file2" property="imagesFile2" jdbcType="VARCHAR" />
+		<result column="images_file3" property="imagesFile3" jdbcType="VARCHAR" />
+		<result column="images_file4" property="imagesFile4" jdbcType="VARCHAR" />
+		<result column="BEGIN_TIME" property="beginTime" jdbcType="java.util.DATE" />
+		<result column="END_TIME" property="endTime" jdbcType="java.util.DATE" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="OUTPUT" property="output" jdbcType="VARCHAR" />
+		<result column="OPERATE_TYPE" property="operateType" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<select id="findCmsPromotion" parameterClass="java.util.HashMap" resultMap="cmsPromotionInfoMap">
+	<![CDATA[
+		select t.id,
+		       t.images_file,
+		       t.images_file2,
+		       t.IMAGES_FILE3,
+		       t.IMAGES_FILE4,
+		       t.name,
+		       t.begin_time,
+		       t.end_time,
+		       t.modify_date,
+		       t.OPERATE_TYPE,
+		       t.OUTPUT
+		  from CMS_PROMOTION_TASK t ,cms_site cs
+		 WHERE  cs.engname='WAP' and t.SITE_ID = cs.SITE_ID
+		   AND SYSDATE between t.begin_time and t.END_TIME
+		    order by t.id desc
+	]]>
+	</select>
+	
+	<!-- 根据SKUID查询限购活动 -->
+	<select id="queryPurchasePromotionBySku" parameterClass="java.lang.String" resultClass="com.kmzyc.b2b.model.PromotionInfo">
+	<![CDATA[
+		select pp.promotion_id promotionId,
+		       p.product_filter_type productFilterType,
+		       p.promotion_priority priority,
+		       p.promotion_type promotionType,
+		       p.start_time startTime,
+		       p.end_time endTime,
+		       nvl(pp.min_buy, 0) minBuy,
+		       nvl(pp.max_buy, 0) maxBuy,
+		       nvl(pp.promotion_stock, 0) promotionStock,
+		       nvl(pp.promotion_sell, 0) promotionSell,
+		       p.mutex_promotion_id mutexPromotionId,
+		       p.promotion_data
+		  from promotion_product pp, promotion p
+		 where pp.promotion_id = p.promotion_id
+		   and p.status = 2
+		   and p.nature = 1
+		   and p.product_filter_type = 2
+		   and (p.promotion_type = 8 or p.promotion_type = 10)
+		   and p.start_time <= sysdate
+		   and p.end_time >= sysdate
+		   and exists (select 1
+		          from product_sku ps
+		         where ps.product_sku_id = pp.product_sku_id
+		           and ps.product_sku_code = #skuCode#)
+	]]>	   
+	</select>
+	
+	<!-- 查询商家有效活动 -->
+	<select id="SQL_QUERY_ABLE_PROMOTION_BY_SELLER" parameterClass="java.util.HashMap" resultMap="newPromotionInfoMap">
+	<![CDATA[
+		select p.promotion_id,
+		       p.promotion_name,
+		       p.slogan,
+		       p.start_time,
+		       p.end_time,
+		       p.mutex_promotion_id,
+		       p.promotion_priority,
+		       p.product_filter_type,
+		       p.product_filter_sql,
+		       p.promotion_type,
+		       p.channel,
+		       p.supplier_id,
+		       p.promotion_data,
+		       p.shop_sort
+		  from promotion p
+		 where p.status = 2
+
+		   and p.start_time <= sysdate
+		   and p.end_time >= sysdate
+	]]>
+		<isNotEmpty property="sellerIds">
+		   and p.supplier_id in 
+			<iterate open="(" close=")" property="sellerIds" conjunction=",">
+		    	#sellerIds[]#
+			</iterate>
+		</isNotEmpty>
+		<isNotEmpty property="sellerId">
+		   and p.supplier_id = #sellerId:DECIMAL#
+		</isNotEmpty>
+		 order by p.supplier_id
+	</select>
+	<!-- 根据商家类型查询有效活动 -->
+	<select id="SQL_QUERY_ABLE_PROMOTION_BY_TYPE" parameterClass="java.util.HashMap" resultMap="newPromotionInfoMap">
+	<![CDATA[
+		select p.promotion_id,
+		       p.promotion_name,
+		       p.slogan,
+		       p.start_time,
+		       p.end_time,
+		       p.mutex_promotion_id,
+		       p.promotion_priority,
+		       p.product_filter_type,
+		       p.product_filter_sql,
+		       p.promotion_type,
+		       p.channel,
+		       p.supplier_id,
+		       p.promotion_data,
+		       p.shop_sort
+		  from promotion p
+		 where p.status = 2
+
+		   and p.shop_sort = #shopSort:DECIMAL#
+		   and p.start_time <= sysdate
+		   and p.end_time >= sysdate
+		 order by p.supplier_id
+	]]>
+	</select>
+	
+	<!-- 查询已改变类型的商家 -->
+	<select id="SQL_QUERY_RETYP_ESELLER" parameterClass="java.util.List" resultClass="java.util.HashMap">
+	<![CDATA[
+		select si.supplier_id sellerId, si.supplier_type supplierType
+		  from suppliers_info si
+		 where si.supplier_id in 
+	]]>
+		<iterate open="(" close=")" conjunction=",">
+	    	#sellerIds[]#
+		</iterate>
+	</select>
+</sqlMap>

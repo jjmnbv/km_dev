@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="CmsAppManager" >
+    
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.kmzyc.b2b.model.CmsAppManager" >
+    <result column="VERSION" property="version" jdbcType="VARCHAR" />
+    <result column="VERSIONCODE" property="versionCode" jdbcType="VARCHAR" />
+    <result column="IS_COERCE" property="isCoerce" jdbcType="DECIMAL" />
+    <result column="DOWNLOAD" property="downLoad" jdbcType="VARCHAR" />
+    <result column="REMARK" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="cmsAppManagerList" resultMap="ibatorgenerated_BaseResultMap" parameterClass="java.util.HashMap" >
+    <![CDATA[
+    select manage.is_coerce,manage.version,manage.download,manage.remark,manage.versioncode from cms_app_manage manage where 
+    manage.version <> #version:VARCHAR# and upper(manage.terrace) = #appType:VARCHAR#
+    ]]>
+  </select>
+  
+   <select id="cmsAppManagerListAndroid" resultMap="ibatorgenerated_BaseResultMap" parameterClass="java.util.HashMap" >
+    <![CDATA[
+    select manage.is_coerce,manage.version,manage.download,manage.remark,manage.versioncode from cms_app_manage manage where 
+    manage.versioncode <> #versionCode:NUMBER# and manage.terrace = 'android'
+    ]]>
+  </select>
+  <select id="getAndroidLatestVersion" resultMap="ibatorgenerated_BaseResultMap">
+    <![CDATA[
+    select manage.is_coerce,manage.version,manage.download,manage.remark,manage.versioncode from cms_app_manage manage where 
+      manage.terrace = 'android' and manage.versioncode = (select max(m.versioncode) from cms_app_manage m)
+    ]]>
+  </select>
+  	
+  	<!-- 查询最新版本 -->
+  	<select id="SQL_QUERY_LASTEST_VERSION_APP" parameterClass="String" resultMap="ibatorgenerated_BaseResultMap">
+		select manage.is_coerce,
+		       manage.version,
+		       manage.download,
+		       manage.remark,
+		       manage.versioncode
+		  from cms_app_manage manage
+		 where manage.terrace = #appType:VARCHAR#
+		   and manage.versioncode = (select max(m.versioncode)
+		                               from cms_app_manage m
+		                              where m.terrace = #appType:VARCHAR#)		       
+  	</select>
+  	<!-- 根据版本号取版本信息 -->
+  	<select id="getListByVersionAndType" resultMap="ibatorgenerated_BaseResultMap" parameterClass="java.util.HashMap" >
+    <![CDATA[
+    select manage.is_coerce,manage.version,manage.download,manage.remark,manage.versioncode from cms_app_manage manage where 
+    manage.version = #version:VARCHAR# and upper(manage.terrace) = #appType:VARCHAR#
+    ]]>
+  </select>
+  
+  <select id="getlasterVersion" resultMap="ibatorgenerated_BaseResultMap">
+    <![CDATA[
+    select manage.is_coerce,manage.version,manage.download,manage.remark,manage.versioncode from cms_app_manage manage where 
+      manage.versioncode > #versionCode:NUMBER# and upper(manage.terrace) = #appType:VARCHAR# order by manage.versioncode desc
+    ]]>
+  </select>
+</sqlMap>

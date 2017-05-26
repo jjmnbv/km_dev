@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PROD_APPRAISE" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.kmzyc.supplier.model.ProdAppraiseAddContent" >
+    <result column="APPRAISE_ID" property="appraiseId" jdbcType="DECIMAL" />
+    <result column="ORDER_DETAIL_ID" property="orderDetailId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+    <result column="APPRAISE_CONTENT" property="appraiseContent" jdbcType="VARCHAR" />
+    <result column="POINT" property="point" jdbcType="DECIMAL" />
+    <result column="SATISFICING" property="satisficing" jdbcType="VARCHAR" />
+    <result column="CHECK_STATUS" property="checkStatus" jdbcType="DECIMAL" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="ADD_CONTENT" property="addContent" jdbcType="VARCHAR" />
+    <result column="ADD_CHECK_STATUS" property="addCheckStatus" jdbcType="DECIMAL" />
+  </resultMap>
+  <select id="queryByOrderCode" resultMap="ibatorgenerated_BaseResultMap" parameterClass="java.lang.String" >
+    select pa.appraise_id,
+       pa.order_detail_id,
+       pa.product_sku_id,
+       pa.appraise_content,
+       pa.point,
+       pa.satisficing,
+       pa.check_status,
+       pa.product_name,
+       adc.add_content,
+       adc.check_status add_check_status
+  from prod_appraise pa, appraise_addto_content adc
+ where pa.appraise_id = adc.appraise_id(+)
+   and pa.order_detail_id in 
+   		(select oi.order_item_id
+         	from order_item oi
+         where oi.order_code = #orderCode:VARCHAR#)
+  </select>
+</sqlMap>

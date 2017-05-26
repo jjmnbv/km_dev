@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="CouponGrant">
+	<resultMap id="couponGrantResult" class="com.kmzyc.b2b.model.CouponGrant">
+		<result column="COUPON_GRANT_ID" property="couponGrantId" jdbcType="DECIMAL"  />
+	    <result column="COUPON_ID" property="couponId" jdbcType="DECIMAL"  />
+	    <result column="CUSTOM_ID" property="customId" jdbcType="DECIMAL"   />
+	    <result column="COUPON_STATUS" property="couponStatus" jdbcType="DECIMAL"   />
+	    <result column="grant_creattime" property="grantCreattime" jdbcType="VARCHAR"    />
+	    <result column="GRANT_CRATEMAN" property="grantCreateman" jdbcType="DECIMAL"   />
+	    <result column="grant_updatetime" property="grantUpdatetime" jdbcType="VARCHAR"  />
+	    <result column="grant_updateman" property="grantUpdateman" jdbcType="DECIMAL"  />
+	    <result column="GRANT_TYPE" property="grantType"  jdbcType="DECIMAL" />
+	    <result column="GRANT_RELATED_CODE" property="grantRelatedCode"  jdbcType="VARCHAR" />
+	    <result column="GRANT_REMARK" property="grantRemark"  jdbcType="VARCHAR" />
+	    <result column="GRANT_ENDTIME" property="grantEndtime"  jdbcType="DATE" />
+	</resultMap>
+
+		<resultMap id="couponGrantAndCoupon" class="com.kmzyc.b2b.model.CouponGrant"  groupBy="couponGrantId">
+		<result column="COUPON_GRANT_ID" property="couponGrantId" jdbcType="DECIMAL"  />
+	    <result column="COUPON_ID" property="couponId" jdbcType="DECIMAL"  />
+	    <result column="CUSTOM_ID" property="customId" jdbcType="DECIMAL"   />
+	    <result column="COUPON_STATUS" property="couponStatus" jdbcType="DECIMAL"   />
+	    <result column="grant_creattime" property="grantCreattime" jdbcType="VARCHAR"    />
+	    <result column="GRANT_CRATEMAN" property="grantCreateman" jdbcType="DECIMAL"   />
+	    <result column="grant_updatetime" property="grantUpdatetime" jdbcType="VARCHAR"  />
+	    <result column="grant_updateman" property="grantUpdateman" jdbcType="DECIMAL"  />
+	    <result column="GRANT_TYPE" property="grantType"  jdbcType="DECIMAL" />
+	    <result column="GRANT_RELATED_CODE" property="grantRelatedCode"  jdbcType="VARCHAR" />
+	    <result column="GRANT_REMARK" property="grantRemark"  jdbcType="VARCHAR" />
+	    <result column="GRANT_ENDTIME" property="grantEndtime"  jdbcType="DATE" />
+	    <result property="couponList" resultMap="COUPON.ibatorgenerated_BaseResultMap" />
+	</resultMap>
+	
+	<!-- maliqun 20150602 update 将 and c.status = 2 条件去掉,不用校验规则是否已发放 -->
+	<select id="findCouponGrants" parameterClass="java.util.HashMap" resultMap="couponGrantResult">
+		select g.*
+		  from coupon_grant g, coupon c
+		 where g.coupon_id = c.coupon_id
+		   and g.coupon_status = 3
+
+		   and sysdate BETWEEN g.starttime and g.endtime
+		   and g.custom_id = #customId#
+	</select>
+
+    <select id="getCouponGrantByUserIdAndCouponId" parameterClass="java.util.HashMap" resultMap="couponGrantResult">
+		select g.*
+		  from coupon_grant g
+		 where  g.custom_id = #userId#
+		   and g.coupon_id = #couponId#
+	</select>
+	
+    <!-- 根据优惠券发放Vo 查找当前发放记录 -->
+    <select id="getCouponGrantByVo" parameterClass="com.kmzyc.b2b.model.CouponGrant" resultMap="couponGrantAndCoupon">
+		  select g.*,c.*
+		  from coupon_grant g ,coupon c  ,coupon_grant_info f
+		  where    g.coupon_id = c.coupon_id (+) and g.coupon_grant_id= f.coupon_grant_id(+)
+      <isNotNull prepend="and" property="couponGrantId" >
+         g.coupon_grant_id = #couponGrantId:VARCHAR#
+      </isNotNull>	    
+      <isNotEmpty>
+	       <isNotNull prepend="and" property="activeCode" >
+	         f.active_code = #activeCode:VARCHAR#
+	      </isNotNull>	
+      </isNotEmpty>
+	</select> 
+	
+    
+     <!-- 根据优惠券发放的编码，查询当前规则实体和发放实体 -->
+    <select id="getCouponbyGrantcode" parameterClass="java.lang.String" resultMap="couponGrantAndCoupon">
+		    select  kcg.*, kc.*
+		 from coupon kc , coupon_grant kcg  ,coupon_grant_info kcgi
+		 where  kcgi.coupon_grant_id = kcg.coupon_grant_id 
+ 		and    kcg.coupon_id = kc.coupon_id(+)
+     
+        and    KCGI.ACTIVE_CODE = #grantCode#
+     
+	</select> 
+        
+	    <!-- 插入优惠券发放表 -->    
+	<insert id="insertCouponGrant" parameterClass="com.kmzyc.b2b.model.CouponGrant" >
+     <selectKey resultClass="java.lang.Long" keyProperty="couponGrantId" >
+           select SEQ_APP_COUPONPGRANT.nextval from dual
+    </selectKey>
+    insert into COUPON_GRANT
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="couponGrantId" >
+        COUPON_GRANT_ID
+      </isNotNull>
+      <isNotNull prepend="," property="couponId" >
+        COUPON_ID
+      </isNotNull>
+      <isNotNull prepend="," property="customId" >
+        CUSTOM_ID
+      </isNotNull>
+      <isNotNull prepend="," property="couponStatus" >
+        COUPON_STATUS
+      </isNotNull>
+       <isNotNull prepend="," property="grantCreattime" >
+       grant_creattime
+      </isNotNull>
+         <isNotNull prepend="," property="grantCreateman" >
+      GRANT_CRATEMAN
+      </isNotNull>
+        <isNotNull prepend="," property="grantUpdatetime" >
+      grant_updatetime
+      </isNotNull>
+      <isNotNull prepend="," property="grantUpdateman" >
+       grant_updateman
+      </isNotNull>
+      <isNotNull prepend="," property="grantType" >
+       GRANT_TYPE
+      </isNotNull>
+      <isNotNull prepend="," property="grantRelatedCode" >
+       GRANT_RELATED_CODE
+      </isNotNull>
+      <isNotNull prepend="," property="grantRemark" >
+       GRANT_REMARK
+      </isNotNull>
+      <isNotNull prepend="," property="grantEndtime" >
+       GRANT_ENDTIME
+      </isNotNull>
+      <isNotNull prepend="," property="startTime" >
+       STARTTIME
+      </isNotNull>
+      <isNotNull prepend="," property="endTime" >
+       ENDTIME
+      </isNotNull>
+      <isNotNull prepend="," property="couponIssuingId" >
+       COUPON_ISSUING_ID
+      </isNotNull>
+       <isNotNull prepend="," property="actTime" >
+       GRANT_ACTTIME
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="couponGrantId" >
+        #couponGrantId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="couponId" >
+        #couponId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="customId" >
+        #customId:DECIMAL#
+      </isNotNull>
+       <isNotNull prepend="," property="couponStatus" >
+        #couponStatus:DECIMAL#
+      </isNotNull>
+        <isNotNull prepend="," property="grantCreattime" >
+       #grantCreattime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="grantCreateman" >
+      #grantCreateman:DECIMAL#
+      </isNotNull>
+        <isNotNull prepend="," property="grantUpdatetime" >
+      #grantUpdatetime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="grantUpdateman" >
+       #grantUpdateman:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="grantType" >
+       #grantType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="grantRelatedCode" >
+       #grantRelatedCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="grantRemark" >
+       #grantRemark:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="grantEndtime" >
+       #grantEndtime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="startTime" >
+       #startTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="endTime" >
+       #endTime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="couponIssuingId" >
+       #couponIssuingId:DECIMAL#
+      </isNotNull>
+       <isNotNull prepend="," property="actTime" >
+        #actTime:VARCHAR#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+    
+
+</sqlMap>

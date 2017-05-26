@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="CMS_APP_VERSION" >
+  <resultMap id="resutlForCMS" class="com.kmzyc.b2b.model.AppVersion" >
+ 
+    <result column="APP_ID" property="appID" jdbcType="DECIMAL" />
+    <result column="VERSION" property="version" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="APP_URL" property="AppURL" jdbcType="VARCHAR" />
+  </resultMap>
+  
+    
+  
+  <!-- 
+   <select id="select" resultMap="resutlForCMS">
+		select v.app_id,v.version,v.remark,v.app_url  from cms_app_version v where v.version=(select max(version) from 
+		 cms_app_version )
+    </select> -->
+  
+   <select id="selectNew" resultMap="resutlForCMS" parameterClass="java.lang.String">
+		select cam.appmanage_id APP_ID,cam.version,cam.name remark, cam.download APP_URL
+        from cms_app_manage cam where cam.version=(select max(version) from 
+		 cms_app_manage ) and lower(cam.terrace) like '%'||lower(#osType#)||'%'
+    </select>
+    
+</sqlMap>

@@ -1,0 +1,1199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SUPPLIERAUDIT">
+    <typeAlias alias="merchantInfo" type="com.kmzyc.supplier.model.MerchantInfo"/>
+    <typeAlias alias="merchantInfoOrSuppliers" type="com.kmzyc.supplier.model.MerchantInfoOrSuppliers"/>
+    <typeAlias alias="supplierForExport" type="com.pltfm.app.vobject.SupplierForExport"/>
+
+    <resultMap id="baseResultMap" class="merchantInfoOrSuppliers">
+        <result column="N_COMMERCIAL_TENANT_ID" property="merchantId" jdbcType="DECIMAL"/>
+        <result column="N_LOGIN_ID" property="loginId" jdbcType="DECIMAL"/>
+        <result column="CONTACTS_NAME" property="contactsName" jdbcType="VARCHAR"/>
+        <result column="MOBILE" property="mobile" jdbcType="VARCHAR"/>
+        <result column="CORPORATE_NAME" property="corporateName" jdbcType="VARCHAR"/>
+        <result column="ORGANIZATION_CODE" property="organizationCode" jdbcType="VARCHAR"/>
+        <result column="D_CREATE_Date" property="createDate" jdbcType="Date"/>
+        <result column="BUSINESS_LICENCE_REGISTER" property="businessLicenceRegister" jdbcType="VARCHAR"/>
+        <result column="corporate_location" property="corporateLocation" jdbcType="VARCHAR"/>
+        <result column="N_ENTERPRISE_STATUS" property="enterpriseStatus" jdbcType="DECIMAL"/>
+        <result column="PROVINCE" property="province" jdbcType="VARCHAR"/>
+        <result column="CITY" property="city" jdbcType="VARCHAR"/>
+        <result column="AREA" property="area" jdbcType="VARCHAR"/>
+        <!-- 供应商属性 -->
+        <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL"/>
+        <result column="SALE_PRODUCT_DESCRIBE" property="saleProductDescribe" jdbcType="VARCHAR"/>
+        <result column="SUPPLIER_TYPE" property="supplierType" jdbcType="DECIMAL"/>
+        <result column="STATUS" property="status" jdbcType="DECIMAL"/>
+        <result column="LOGIN_STATUS" property="loginStatus" jdbcType="DECIMAL"/>
+        <result column="BUSINESS_STATUS" property="businessStatus" jdbcType="DECIMAL"/>
+        <result column="CLOSE_STATUS" property="closeStatus" jdbcType="DECIMAL"/>
+        <!--  <result column="MERCHANT_ID" property="suppliersMerchantId" jdbcType="DECIMAL" />-->
+        <!--  <result column="SETTLEMENT_CYCLE" property="settlementCycle" jdbcType="DECIMAL" />-->
+        <!--  <result column="SETTLEMENT_WAY" property="settlementWay" jdbcType="DECIMAL" />-->
+        <!--  <result column="DESCRIBE" property="describe" jdbcType="VARCHAR" />-->
+    </resultMap>
+
+    <resultMap id="supplierCertificateLsitMap" class="merchantInfoOrSuppliers">
+        <result column="N_COMMERCIAL_TENANT_ID" property="merchantId" jdbcType="DECIMAL"/>
+        <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL"/>
+        <result column="N_LOGIN_ID" property="loginId" jdbcType="DECIMAL"/>
+        <result column="CORPORATE_NAME" property="corporateName" jdbcType="VARCHAR"/>
+        <result column="CONTACTS_NAME" property="contactsName" jdbcType="VARCHAR"/>
+        <result column="MOBILE" property="mobile" jdbcType="VARCHAR"/>
+        <result column="APPLY_TIME" property="applyTime" jdbcType="Date"/>
+        <result column="CORPORATE_LOCATION" property="corporateLocation" jdbcType="VARCHAR"/>
+        <result column="STATUS" property="status" jdbcType="DECIMAL"/>
+        <result column="N_ENTERPRISE_STATUS" property="enterpriseStatus" jdbcType="DECIMAL"/>
+        <result column="USER_NAME" property="checkUser" jdbcType="VARCHAR"/>
+        <result column="PROVINCE" property="province" jdbcType="VARCHAR"/>
+        <result column="CITY" property="city" jdbcType="VARCHAR"/>
+        <result column="AREA" property="area" jdbcType="VARCHAR"/>
+        <result column="SALE_PRODUCT_DESCRIBE" property="saleProductDescribe" jdbcType="VARCHAR"/>
+        <result column="SUPPLIER_TYPE" property="supplierType" jdbcType="DECIMAL"/>
+        <result column="LOGIN_STATUS" property="loginStatus" jdbcType="DECIMAL"/>
+        <result column="BUSINESS_STATUS" property="businessStatus" jdbcType="DECIMAL"/>
+        <result column="CLOSE_STATUS" property="closeStatus" jdbcType="DECIMAL"/>
+
+    </resultMap>
+
+    <resultMap id="baseResultMap1" class="merchantInfo">
+        <result column="N_COMMERCIAL_TENANT_ID" property="merchantId" jdbcType="DECIMAL"/>
+        <result column="N_LOGIN_ID" property="loginId" jdbcType="DECIMAL"/>
+        <result column="CONTACTS_NAME" property="contactsName" jdbcType="VARCHAR"/>
+        <result column="CONTACTS_DEPARTMENT" property="contactsDepartment" jdbcType="VARCHAR"/>
+        <result column="FIXED_PHONE" property="fixedPhone" jdbcType="VARCHAR"/>
+        <result column="MOBILE" property="mobile" jdbcType="VARCHAR"/>
+        <result column="CONTACTS_EMAIL" property="contactsEmail" jdbcType="VARCHAR"/>
+        <result column="CORPORATE_NAME" property="corporateName" jdbcType="VARCHAR"/>
+        <result column="CORPORATE_LOCATION" property="corporateLocation" jdbcType="VARCHAR"/>
+        <result column="CORPORATE_PROPERTY" property="corporateProperty" jdbcType="VARCHAR"/>
+        <result column="CORPORATE_TRADE" property="corporateTrade" jdbcType="VARCHAR"/>
+        <result column="N_ENTERPRISE_NUMBER_OF_PEOPLE" property="enterpriseNumberOfPeople" jdbcType="DECIMAL"/>
+        <result column="D_FOUND_Date" property="foundDate" jdbcType="Date"/>
+        <result column="N_ENTERPRISE_STATUS" property="enterpriseStatus" jdbcType="DECIMAL"/>
+        <result column="POSTALCODE" property="postalcode" jdbcType="VARCHAR"/>
+        <result column="UPLOAD_BUSINESS_LICENCE_PICTUR" property="uploadBusinessLicencePictur" jdbcType="VARCHAR"/>
+        <result column="ORGANIZATION_CODE" property="organizationCode" jdbcType="VARCHAR"/>
+        <result column="ENTERPRISE_LEGAL_REPRESENTATIV" property="enterpriseLegalRepresentativ" jdbcType="VARCHAR"/>
+        <result column="ENTERPRISE_REALM_NAME" property="enterpriseRealmName" jdbcType="VARCHAR"/>
+        <result column="D_CREATE_Date" property="createDate" jdbcType="Date"/>
+        <result column="N_CREATED" property="createUser" jdbcType="DECIMAL"/>
+        <result column="D_MODIFY_Date" property="modifyDate" jdbcType="Date"/>
+        <result column="N_MODIFIED" property="modifyUser" jdbcType="DECIMAL"/>
+        <result column="AUTHENTICATION_STATUS" property="authenticationStatus" jdbcType="DECIMAL"/>
+        <result column="BUSINESS_LICENCE_REGISTER" property="businessLicenceRegister" jdbcType="VARCHAR"/>
+        <result column="BUSINESS_TIME_LIMIT" property="businessTimeLimit" jdbcType="VARCHAR"/>
+        <result column="REGISTER_BANKROLL" property="registerBankroll" jdbcType="DECIMAL"/>
+        <result column="BUSINESS_SCOPE" property="businessScope" jdbcType="VARCHAR"/>
+        <result column="BANK_ACCOUNT_NAME" property="bankAccountName" jdbcType="VARCHAR"/>
+        <result column="BANK_OF_DEPOSIT" property="bankOfDeposit" jdbcType="VARCHAR"/>
+        <result column="BANK_OF_DEPOSIT_BRANCH_NAME" property="bankOfDepositBranchName" jdbcType="VARCHAR"/>
+        <result column="COMPANY_ACCOUNT" property="companyAccount" jdbcType="VARCHAR"/>
+        <result column="N_CERTIFICATE_TYPE" property="certificateType" jdbcType="DECIMAL"/>
+        <result column="CERTIFICATE_NUMBER" property="certificateNumber" jdbcType="VARCHAR"/>
+        <result column="LOCATION" property="location" jdbcType="VARCHAR"/>
+        <result column="CERTIFICATE_PICTURE" property="certificatePicture" jdbcType="VARCHAR"/>
+        <result column="BUSINESS_LICENCE_LOCATION" property="businessLicenceLocation" jdbcType="VARCHAR"/>
+
+        <result column="BLINCE_STARTDATE" property="blinceStartdate" jdbcType="DATE"/>
+        <result column="BLINCE_ENDDATE" property="blinceEnddate" jdbcType="DATE"/>
+        <result column="TAX_REGISTRATION_CNO" property="taxRegistrationCno" jdbcType="VARCHAR"/>
+        <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
+        <result column="TAXPAYER_IDNUMBER" property="taxpayerIdnumber" jdbcType="VARCHAR"/>
+        <result column="PROVINCE" property="province" jdbcType="VARCHAR"/>
+        <result column="CITY" property="city" jdbcType="VARCHAR"/>
+        <result column="AREA" property="area" jdbcType="VARCHAR"/>
+        <result column="ORGANIZATION_URL" property="organizationUrl" jdbcType="VARCHAR"/>
+        <result column="TAX_REG_CERTIFICATE_COPY" property="taxRegCertificateCopy" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="ibatorgenerated_BaseResultMap2" class="merchantInfo">
+        <result column="N_COMMERCIAL_TENANT_ID" property="merchantId" jdbcType="DECIMAL"/>
+    </resultMap>
+    <sql id="example_Where_Clause">
+        <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate">
+            <isEqual property="oredCriteria[].valid" compareValue="true">
+                (
+                <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and">
+                    $oredCriteria[].criteriaWithoutValue[]$
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and">
+                    $oredCriteria[].criteriaWithSingleValue[].condition$
+                    #oredCriteria[].criteriaWithSingleValue[].value#
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and">
+                    $oredCriteria[].criteriaWithListValue[].condition$
+                    <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")"
+                             conjunction=",">
+                        #oredCriteria[].criteriaWithListValue[].values[]#
+                    </iterate>
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and">
+                    $oredCriteria[].criteriaWithBetweenValue[].condition$
+                    #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+                    #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+                </iterate>
+                )
+            </isEqual>
+        </iterate>
+    </sql>
+
+    <select id="ibatorgenerated_selectBySuppOrMer" resultMap="baseResultMap"
+            parameterClass="merchantInfoOrSuppliers">
+        select
+        f.n_commercial_tenant_id,f.n_login_id,f.contacts_name,f.mobile,f.corporate_name,f.organization_code,f.d_create_date,f.business_licence_register
+        ,f.corporate_location,f.N_ENTERPRISE_STATUS,f.PROVINCE,f.CITY,f.AREA,s.supplier_id,s.sale_product_describe,s.supplier_type,s.status,s.LOGIN_STATUS,s.BUSINESS_STATUS,s.CLOSE_STATUS
+        from commercial_tenant_basic_info f,suppliers_info s where f.n_commercial_tenant_id=s.merchant_id and
+        s.status!=1
+        <dynamic>
+            <isNotNull property="corporateName" prepend="and">
+                f.CORPORATE_NAME like
+                '%$corporateName$%'
+            </isNotNull>
+            <isNotNull property="contactsName" prepend="and">
+                f.CONTACTS_NAME like
+                '%$contactsName$%'
+            </isNotNull>
+            <isNotNull property="corporateLocation" prepend="and">
+                f.corporate_location like
+                '%$corporateLocation$%'
+            </isNotNull>
+            <isNotNull property="status" prepend="and">
+                s.status =
+                #status:DECIMAL#
+            </isNotNull>
+            <isNotNull property="enterpriseStatus" prepend="and">
+                f.N_ENTERPRISE_STATUS =
+                #enterpriseStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull property="province" prepend="and">
+                f.PROVINCE like
+                '%$province$%'
+            </isNotNull>
+            <isNotNull property="city" prepend="and">
+                f.CITY like
+                '%$city$%'
+            </isNotNull>
+            <isNotNull property="area" prepend="and">
+                f.AREA like
+                '%$area$%'
+            </isNotNull>
+            <isNotNull property="supplierType" prepend="and">
+                s.supplier_type = #supplierType:DECIMAL#
+            </isNotNull>
+            <isNotNull property="supplierId" prepend="and">
+                s.SUPPLIER_ID = #supplierId#
+            </isNotNull>
+        </dynamic>
+        ORDER BY f.n_commercial_tenant_id DESC
+    </select>
+
+    <select id="getSupplierForExcel" resultClass="supplierForExport" parameterClass="merchantInfoOrSuppliers">
+        SELECT F.MOBILE mobile,
+        F.CORPORATE_NAME corporateName,
+        F.ORGANIZATION_CODE organizationCode,
+        F.D_CREATE_DATE createDate,
+        F.BUSINESS_LICENCE_REGISTER businessLicenceRegister,
+        F.CORPORATE_LOCATION corporateLocation,
+        F.N_ENTERPRISE_STATUS enterpriseStatus,
+        S.SUPPLIER_TYPE supplierType,
+        S.STATUS supplierStatus,
+        F.PROVINCE province,
+        F.CITY city,
+        F.AREA area,
+        F.FIXED_PHONE fixedPhone,
+        F.TAX_REGISTRATION_CNO taxRegistrationCno,
+        F.BUSINESS_SCOPE businessScope,
+        F.BANK_OF_DEPOSIT bankOfDeposit,
+        F.BANK_ACCOUNT_NAME bankAccountName,
+        F.COMPANY_ACCOUNT companyAccount,
+        F.REGISTER_BANKROLL registerBankroll,
+        SCN1.CATEGORY_NAME firstCategoryName,
+        SCN2.CATEGORY_NAME secondCategoryName,
+        SWN.WAREHOUSE_NAME warehouseName
+        FROM SUPPLIERS_INFO S
+        INNER JOIN COMMERCIAL_TENANT_BASIC_INFO F ON F.N_COMMERCIAL_TENANT_ID=S.MERCHANT_ID
+        LEFT JOIN SUPPLIERS_WAREHOUSE_NAME SWN ON SWN.SUPPLIER_ID = S.SUPPLIER_ID
+        LEFT JOIN SUPPLIERS_CATEGORY_NAME SCN1 ON SCN1.SUPPLIER_ID = S.SUPPLIER_ID AND SCN1.LEVEL_TYPE=1
+        LEFT JOIN SUPPLIERS_CATEGORY_NAME SCN2 ON SCN2.SUPPLIER_ID = S.SUPPLIER_ID AND SCN2.LEVEL_TYPE=2
+        WHERE S.STATUS!=1
+        <dynamic>
+            <isNotNull property="corporateName" prepend="and">
+                F.CORPORATE_NAME LIKE '%$corporateName$%'
+            </isNotNull>
+            <isNotNull property="contactsName" prepend="and">
+                f.CONTACTS_NAME like '%$contactsName$%'
+            </isNotNull>
+            <isNotNull property="corporateLocation" prepend="and">
+                F.CORPORATE_LOCATION LIKE '%$corporateLocation$%'
+            </isNotNull>
+            <isNotNull property="status" prepend="and">
+                S.STATUS = #status:DECIMAL#
+            </isNotNull>
+            <isNotNull property="enterpriseStatus" prepend="and">
+                F.N_ENTERPRISE_STATUS = #enterpriseStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull property="province" prepend="and">
+                F.PROVINCE LIKE '%$province$%'
+            </isNotNull>
+            <isNotNull property="city" prepend="and">
+                F.CITY LIKE '%$city$%'
+            </isNotNull>
+            <isNotNull property="area" prepend="and">
+                F.AREA LIKE '%$area$%'
+            </isNotNull>
+            <isNotNull property="supplierType" prepend="and">
+                S.SUPPLIER_TYPE = #supplierType:DECIMAL#
+            </isNotNull>
+            <isNotNull property="supplierId" prepend="and">
+                S.SUPPLIER_ID = #supplierId#
+            </isNotNull>
+        </dynamic>
+        ORDER BY F.N_COMMERCIAL_TENANT_ID DESC
+    </select>
+
+    <select id="getSupplierByCloseStatus" resultMap="baseResultMap"
+            parameterClass="merchantInfoOrSuppliers">
+        select
+        f.n_commercial_tenant_id,f.n_login_id,f.contacts_name,f.mobile,f.corporate_name,f.organization_code,f.d_create_date,f.business_licence_register
+        ,f.corporate_location,f.N_ENTERPRISE_STATUS,f.PROVINCE,f.CITY,f.AREA,s.supplier_id,s.sale_product_describe,s.supplier_type,s.status,s.LOGIN_STATUS,s.BUSINESS_STATUS,s.CLOSE_STATUS
+        from commercial_tenant_basic_info f,suppliers_info s where f.n_commercial_tenant_id=s.merchant_id and
+        s.status!=1 and s.CLOSE_STATUS!=1
+        <dynamic>
+            <isNotNull property="corporateName" prepend="and">
+                f.CORPORATE_NAME like
+                '%$corporateName$%'
+            </isNotNull>
+            <isNotNull property="contactsName" prepend="and">
+                f.CONTACTS_NAME like
+                '%$contactsName$%'
+            </isNotNull>
+            <isNotNull property="corporateLocation" prepend="and">
+                f.corporate_location like
+                '%$corporateLocation$%'
+            </isNotNull>
+            <isNotNull property="status" prepend="and">
+                s.status =
+                #status:DECIMAL#
+            </isNotNull>
+            <isNotNull property="enterpriseStatus" prepend="and">
+                f.N_ENTERPRISE_STATUS =
+                #enterpriseStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull property="province" prepend="and">
+                f.PROVINCE like
+                '%$province$%'
+            </isNotNull>
+            <isNotNull property="city" prepend="and">
+                f.CITY like
+                '%$city$%'
+            </isNotNull>
+            <isNotNull property="area" prepend="and">
+                f.AREA like
+                '%$area$%'
+            </isNotNull>
+            <isNotNull property="supplierType" prepend="and">
+                s.supplier_type = #supplierType:DECIMAL#
+            </isNotNull>
+            <isNotNull property="supplierId" prepend="and">
+                s.SUPPLIER_ID = #supplierId#
+            </isNotNull>
+        </dynamic>
+        ORDER BY f.n_commercial_tenant_id DESC
+    </select>
+
+    <select id="ibatorgenerated_countByExample" parameterClass="merchantInfoOrSuppliers"
+            resultClass="java.lang.Integer">
+        select count(1) from commercial_tenant_basic_info f ,suppliers_info s where
+        f.n_commercial_tenant_id=s.merchant_id and s.status!=1
+        <dynamic>
+            <isNotNull property="corporateName" prepend="and">
+                f.CORPORATE_NAME like
+                '%$corporateName$%'
+            </isNotNull>
+            <isNotNull property="contactsName" prepend="and">
+                f.CONTACTS_NAME like
+                '%$contactsName$%'
+            </isNotNull>
+            <isNotNull property="status" prepend="and">
+                s.status =
+                #status:DECIMAL#
+            </isNotNull>
+            <isNotNull property="enterpriseStatus" prepend="and">
+                f.N_ENTERPRISE_STATUS =
+                #enterpriseStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull property="province" prepend="and">
+                f.PROVINCE like
+                '%$province$%'
+            </isNotNull>
+            <isNotNull property="city" prepend="and">
+                f.CITY like
+                '%$city$%'
+            </isNotNull>
+            <isNotNull property="area" prepend="and">
+                f.AREA like
+                '%$area$%'
+            </isNotNull>
+            <isNotNull property="supplierType" prepend="and">
+                s.supplier_type = #supplierType:DECIMAL#
+            </isNotNull>
+        </dynamic>
+    </select>
+    <select id="ibatorgenerated_countCouponByExample" parameterClass="merchantInfoOrSuppliers"
+            resultClass="java.lang.Integer">
+        select count(1) from commercial_tenant_basic_info f ,suppliers_info s where
+        f.n_commercial_tenant_id=s.merchant_id and s.status=3
+        <dynamic>
+            <isNotNull property="corporateName" prepend="and">
+                f.CORPORATE_NAME like
+                '%$corporateName$%'
+            </isNotNull>
+            <isNotNull property="contactsName" prepend="and">
+                f.CONTACTS_NAME like
+                '%$contactsName$%'
+            </isNotNull>
+            <isNotNull property="status" prepend="and">
+                s.status =
+                #status:DECIMAL#
+            </isNotNull>
+            <isNotNull property="enterpriseStatus" prepend="and">
+                f.N_ENTERPRISE_STATUS =
+                #enterpriseStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull property="describe" prepend="and">
+                s.supplier_id not in
+                ($describe$)
+            </isNotNull>
+        </dynamic>
+    </select>
+    <select id="ibatorgenerated_selectByPrimaryKey" resultMap="baseResultMap1"
+            parameterClass="merchantInfo">
+    select N_COMMERCIAL_TENANT_ID, N_LOGIN_ID, CONTACTS_NAME, CONTACTS_DEPARTMENT, FIXED_PHONE,
+      MOBILE, CONTACTS_EMAIL, CORPORATE_NAME, CORPORATE_LOCATION, CORPORATE_PROPERTY,
+      CORPORATE_TRADE, N_ENTERPRISE_NUMBER_OF_PEOPLE, D_FOUND_DATE, N_ENTERPRISE_STATUS, POSTALCODE,
+      UPLOAD_BUSINESS_LICENCE_PICTUR, ORGANIZATION_CODE, ENTERPRISE_LEGAL_REPRESENTATIV,
+      ENTERPRISE_REALM_NAME, D_CREATE_DATE, N_CREATED, D_MODIFY_DATE, N_MODIFIED,
+      AUTHENTICATION_STATUS, BUSINESS_LICENCE_REGISTER, BUSINESS_TIME_LIMIT, REGISTER_BANKROLL,
+      BUSINESS_SCOPE, BANK_ACCOUNT_NAME, BANK_OF_DEPOSIT, BANK_OF_DEPOSIT_BRANCH_NAME,
+      COMPANY_ACCOUNT, N_CERTIFICATE_TYPE, CERTIFICATE_NUMBER, LOCATION, CERTIFICATE_PICTURE,
+      BUSINESS_LICENCE_LOCATION,BLINCE_STARTDATE,BLINCE_ENDDATE,TAX_REGISTRATION_CNO,PHONE,TAXPAYER_IDNUMBER,
+      PROVINCE,CITY,AREA,ORGANIZATION_URL,TAX_REG_CERTIFICATE_COPY
+    from COMMERCIAL_TENANT_BASIC_INFO
+    where N_COMMERCIAL_TENANT_ID = #merchantId:DECIMAL#
+  </select>
+    <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="merchantInfo">
+        <!--
+          WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+          This element was generated on Tue Jan 14 14:47:36 CST 2014.
+        -->
+        update COMMERCIAL_TENANT_BASIC_INFO
+        <dynamic prepend="set">
+            <isNotNull prepend="," property="loginId">
+                N_LOGIN_ID = #loginId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="contactsName">
+                CONTACTS_NAME = #contactsName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="contactsDepartment">
+                CONTACTS_DEPARTMENT = #contactsDepartment:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="fixedPhone">
+                FIXED_PHONE = #fixedPhone:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="mobile">
+                MOBILE = #mobile:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="contactsEmail">
+                CONTACTS_EMAIL = #contactsEmail:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="corporateName">
+                CORPORATE_NAME = #corporateName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="corporateLocation">
+                CORPORATE_LOCATION = #corporateLocation:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="corporateProperty">
+                CORPORATE_PROPERTY = #corporateProperty:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="corporateTrade">
+                CORPORATE_TRADE = #corporateTrade:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="enterpriseNumberOfPeople">
+                N_ENTERPRISE_NUMBER_OF_PEOPLE = #enterpriseNumberOfPeople:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="foundDate">
+                D_FOUND_Date = #foundDate:Date#
+            </isNotNull>
+            <isNotNull prepend="," property="enterpriseStatus">
+                N_ENTERPRISE_STATUS = #enterpriseStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="postalcode">
+                POSTALCODE = #postalcode:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="uploadBusinessLicencePictur">
+                UPLOAD_BUSINESS_LICENCE_PICTUR = #uploadBusinessLicencePictur:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="organizationCode">
+                ORGANIZATION_CODE = #organizationCode:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="enterpriseLegalRepresentativ">
+                ENTERPRISE_LEGAL_REPRESENTATIV = #enterpriseLegalRepresentativ:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="enterpriseRealmName">
+                ENTERPRISE_REALM_NAME = #enterpriseRealmName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="createDate">
+                D_CREATE_Date = #createDate:Date#
+            </isNotNull>
+            <isNotNull prepend="," property="createUser">
+                N_CREATED = #createUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="modifyDate">
+                D_MODIFY_Date = #modifyDate:Date#
+            </isNotNull>
+            <isNotNull prepend="," property="modifyUser">
+                N_MODIFIED = #modifyUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="authenticationStatus">
+                AUTHENTICATION_STATUS = #authenticationStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="businessLicenceRegister">
+                BUSINESS_LICENCE_REGISTER = #businessLicenceRegister:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="businessTimeLimit">
+                BUSINESS_TIME_LIMIT = #businessTimeLimit:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="registerBankroll">
+                REGISTER_BANKROLL = #registerBankroll:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="businessScope">
+                BUSINESS_SCOPE = #businessScope:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="bankAccountName">
+                BANK_ACCOUNT_NAME = #bankAccountName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="bankOfDeposit">
+                BANK_OF_DEPOSIT = #bankOfDeposit:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="bankOfDepositBranchName">
+                BANK_OF_DEPOSIT_BRANCH_NAME = #bankOfDepositBranchName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="companyAccount">
+                COMPANY_ACCOUNT = #companyAccount:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="certificateType">
+                N_CERTIFICATE_TYPE = #certificateType:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="certificateNumber">
+                CERTIFICATE_NUMBER = #certificateNumber:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="location">
+                LOCATION = #location:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="certificatePicture">
+                CERTIFICATE_PICTURE = #certificatePicture:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="businessLicenceLocation">
+                BUSINESS_LICENCE_LOCATION = #businessLicenceLocation:VARCHAR#
+            </isNotNull>
+
+            <isNotNull prepend="," property="blinceStartdate">
+                BLINCE_STARTDATE = #blinceStartdate:DATE#
+            </isNotNull>
+            <isNotNull prepend="," property="blinceEnddate">
+                BLINCE_ENDDATE = #blinceEnddate:DATE#
+            </isNotNull>
+            <isNotNull prepend="," property="taxRegistrationCno">
+                TAX_REGISTRATION_CNO = #taxRegistrationCno:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="phone">
+                PHONE = #phone:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="taxpayerIdnumber">
+                TAXPAYER_IDNUMBER = #taxpayerIdnumber:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="province">
+                PROVINCE = #province:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="city">
+                CITY = #city:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="area">
+                AREA = #area:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="organizationUrl">
+                ORGANIZATION_URL = #organizationUrl:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="taxRegCertificateCopy">
+                TAX_REG_CERTIFICATE_COPY = #taxRegCertificateCopy:VARCHAR#
+            </isNotNull>
+        </dynamic>
+        where N_COMMERCIAL_TENANT_ID = #merchantId:DECIMAL#
+    </update>
+    <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="merchantInfo">
+        <!--
+          WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+          This element was generated on Wed Dec 25 11:00:38 CST 2013.
+        -->
+        delete from COMMERCIAL_TENANT_BASIC_INFO
+        where N_COMMERCIAL_TENANT_ID = #merchantId:DECIMAL#
+    </delete>
+    <insert id="ibatorgenerated_insertSelective" parameterClass="merchantInfo">
+        <!--
+          WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+          This element was generated on Wed Dec 25 11:00:38 CST 2013.
+        -->
+        <selectKey resultClass="java.lang.Long" keyProperty="merchantId">
+            select seq_app_login.nextval from dual
+        </selectKey>
+        insert into COMMERCIAL_TENANT_BASIC_INFO
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="merchantId">
+                N_COMMERCIAL_TENANT_ID
+            </isNotNull>
+            <isNotNull prepend="," property="loginId">
+                N_LOGIN_ID
+            </isNotNull>
+            <isNotNull prepend="," property="contactsName">
+                CONTACTS_NAME
+            </isNotNull>
+            <isNotNull prepend="," property="contactsDepartment">
+                CONTACTS_DEPARTMENT
+            </isNotNull>
+            <isNotNull prepend="," property="fixedPhone">
+                FIXED_PHONE
+            </isNotNull>
+            <isNotNull prepend="," property="mobile">
+                MOBILE
+            </isNotNull>
+            <isNotNull prepend="," property="contactsEmail">
+                CONTACTS_EMAIL
+            </isNotNull>
+            <isNotNull prepend="," property="corporateName">
+                CORPORATE_NAME
+            </isNotNull>
+            <isNotNull prepend="," property="corporateLocation">
+                CORPORATE_LOCATION
+            </isNotNull>
+            <isNotNull prepend="," property="corporateProperty">
+                CORPORATE_PROPERTY
+            </isNotNull>
+            <isNotNull prepend="," property="corporateTrade">
+                CORPORATE_TRADE
+            </isNotNull>
+            <isNotNull prepend="," property="enterpriseNumberOfPeople">
+                N_ENTERPRISE_NUMBER_OF_PEOPLE
+            </isNotNull>
+            <isNotNull prepend="," property="foundDate">
+                D_FOUND_Date
+            </isNotNull>
+            <isNotNull prepend="," property="enterpriseStatus">
+                N_ENTERPRISE_STATUS
+            </isNotNull>
+            <isNotNull prepend="," property="postalcode">
+                POSTALCODE
+            </isNotNull>
+            <isNotNull prepend="," property="uploadBusinessLicencePictur">
+                UPLOAD_BUSINESS_LICENCE_PICTUR
+            </isNotNull>
+            <isNotNull prepend="," property="organizationCode">
+                ORGANIZATION_CODE
+            </isNotNull>
+            <isNotNull prepend="," property="enterpriseLegalRepresentativ">
+                ENTERPRISE_LEGAL_REPRESENTATIV
+            </isNotNull>
+            <isNotNull prepend="," property="enterpriseRealmName">
+                ENTERPRISE_REALM_NAME
+            </isNotNull>
+            <isNotNull prepend="," property="createDate">
+                D_CREATE_Date
+            </isNotNull>
+            <isNotNull prepend="," property="createUser">
+                N_CREATED
+            </isNotNull>
+            <isNotNull prepend="," property="modifyDate">
+                D_MODIFY_Date
+            </isNotNull>
+            <isNotNull prepend="," property="modifyUser">
+                N_MODIFIED
+            </isNotNull>
+            <isNotNull prepend="," property="authenticationStatus">
+                AUTHENTICATION_STATUS
+            </isNotNull>
+            <isNotNull prepend="," property="businessLicenceRegister">
+                BUSINESS_LICENCE_REGISTER
+            </isNotNull>
+            <isNotNull prepend="," property="businessTimeLimit">
+                BUSINESS_TIME_LIMIT
+            </isNotNull>
+            <isNotNull prepend="," property="registerBankroll">
+                REGISTER_BANKROLL
+            </isNotNull>
+            <isNotNull prepend="," property="businessScope">
+                BUSINESS_SCOPE
+            </isNotNull>
+            <isNotNull prepend="," property="bankAccountName">
+                BANK_ACCOUNT_NAME
+            </isNotNull>
+            <isNotNull prepend="," property="bankOfDeposit">
+                BANK_OF_DEPOSIT
+            </isNotNull>
+            <isNotNull prepend="," property="bankOfDepositBranchName">
+                BANK_OF_DEPOSIT_BRANCH_NAME
+            </isNotNull>
+            <isNotNull prepend="," property="companyAccount">
+                COMPANY_ACCOUNT
+            </isNotNull>
+            <isNotNull prepend="," property="certificateType">
+                N_CERTIFICATE_TYPE
+            </isNotNull>
+            <isNotNull prepend="," property="certificateNumber">
+                CERTIFICATE_NUMBER
+            </isNotNull>
+            <isNotNull prepend="," property="location">
+                LOCATION
+            </isNotNull>
+            <isNotNull prepend="," property="certificatePicture">
+                CERTIFICATE_PICTURE
+            </isNotNull>
+            <isNotNull prepend="," property="businessLicenceLocation">
+                BUSINESS_LICENCE_LOCATION
+            </isNotNull>
+
+            <isNotNull prepend="," property="blinceStartdate">
+                BLINCE_STARTDATE
+            </isNotNull>
+            <isNotNull prepend="," property="blinceEnddate">
+                BLINCE_ENDDATE
+            </isNotNull>
+            <isNotNull prepend="," property="taxRegistrationCno">
+                TAX_REGISTRATION_CNO
+            </isNotNull>
+            <isNotNull prepend="," property="phone">
+                PHONE
+            </isNotNull>
+            <isNotNull prepend="," property="taxpayerIdnumber">
+                TAXPAYER_IDNUMBER
+            </isNotNull>
+            <isNotNull prepend="," property="province">
+                PROVINCE
+            </isNotNull>
+            <isNotNull prepend="," property="city">
+                CITY
+            </isNotNull>
+            <isNotNull prepend="," property="area">
+                AREA
+            </isNotNull>
+            <isNotNull prepend="," property="organizationUrl">
+                ORGANIZATION_URL
+            </isNotNull>
+            <isNotNull prepend="," property="taxRegCertificateCopy">
+                TAX_REG_CERTIFICATE_COPY
+            </isNotNull>
+            )
+        </dynamic>
+        values
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="merchantId">
+                #merchantId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="loginId">
+                #loginId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="contactsName">
+                #contactsName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="contactsDepartment">
+                #contactsDepartment:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="fixedPhone">
+                #fixedPhone:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="mobile">
+                #mobile:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="contactsEmail">
+                #contactsEmail:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="corporateName">
+                #corporateName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="corporateLocation">
+                #corporateLocation:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="corporateProperty">
+                #corporateProperty:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="corporateTrade">
+                #corporateTrade:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="enterpriseNumberOfPeople">
+                #enterpriseNumberOfPeople:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="foundDate">
+                #foundDate:Date#
+            </isNotNull>
+            <isNotNull prepend="," property="enterpriseStatus">
+                #enterpriseStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="postalcode">
+                #postalcode:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="uploadBusinessLicencePictur">
+                #uploadBusinessLicencePictur:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="organizationCode">
+                #organizationCode:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="enterpriseLegalRepresentativ">
+                #enterpriseLegalRepresentativ:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="enterpriseRealmName">
+                #enterpriseRealmName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="createDate">
+                #createDate:Date#
+            </isNotNull>
+            <isNotNull prepend="," property="createUser">
+                #createUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="modifyDate">
+                #modifyDate:Date#
+            </isNotNull>
+            <isNotNull prepend="," property="modifyUser">
+                #modifyUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="authenticationStatus">
+                #authenticationStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="businessLicenceRegister">
+                #businessLicenceRegister:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="businessTimeLimit">
+                #businessTimeLimit:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="registerBankroll">
+                #registerBankroll:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="businessScope">
+                #businessScope:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="bankAccountName">
+                #bankAccountName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="bankOfDeposit">
+                #bankOfDeposit:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="bankOfDepositBranchName">
+                #bankOfDepositBranchName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="companyAccount">
+                #companyAccount:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="certificateType">
+                #certificateType:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="certificateNumber">
+                #certificateNumber:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="location">
+                #location:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="certificatePicture">
+                #certificatePicture:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="businessLicenceLocation">
+                #businessLicenceLocation:VARCHAR#
+            </isNotNull>
+
+            <isNotNull prepend="," property="blinceStartdate">
+                #blinceStartdate:DATE#
+            </isNotNull>
+            <isNotNull prepend="," property="blinceEnddate">
+                #blinceEnddate:DATE#
+            </isNotNull>
+            <isNotNull prepend="," property="taxRegistrationCno">
+                #taxRegistrationCno:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="phone">
+                #phone:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="taxpayerIdnumber">
+                #taxpayerIdnumber:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="province">
+                #province:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="city">
+                #city:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="area">
+                #area:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="organizationUrl">
+                #organizationUrl:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="taxRegCertificateCopy">
+                #taxRegCertificateCopy:VARCHAR#
+            </isNotNull>
+            )
+        </dynamic>
+    </insert>
+    <select id="selectByloginId" resultMap="baseResultMap1"
+            parameterClass="merchantInfo">
+        <!--  select * from commercial_tenant_basic_info f where f.n_login_id =#loginId:NUMBER#-->
+        select * from login_info l, login_rose_rel t, commercial_tenant_basic_info c where l.n_login_id = t.n_login_id
+        and t.n_customer_type_id = 5
+        and c.n_commercial_tenant_id = t.n_commercial_id
+        and t.n_login_id =#loginId:NUMBER#
+    </select>
+
+    <select id="ibatorgenerated_selectPageBySuppOrMer" resultMap="baseResultMap"
+            parameterClass="merchantInfoOrSuppliers">
+        select
+        n_commercial_tenant_id,n_login_id,contacts_name,mobile,corporate_name,organization_code,d_create_date,business_licence_register
+        ,corporate_location,N_ENTERPRISE_STATUS,supplier_id,sale_product_describe,supplier_type,status,PROVINCE,CITY,AREA
+        from(
+        select ROW_NUMBER() OVER(order by f.n_commercial_tenant_id desc) as view_row_number,
+        f.n_commercial_tenant_id,f.n_login_id,f.contacts_name,f.mobile,f.corporate_name,f.organization_code,f.d_create_date,f.business_licence_register
+        ,f.corporate_location,f.N_ENTERPRISE_STATUS,f.PROVINCE,f.CITY,f.AREA,s.supplier_id,s.sale_product_describe,s.supplier_type,s.status,s.LOGIN_STATUS,s.BUSINESS_STATUS,s.CLOSE_STATUS
+        from commercial_tenant_basic_info f,suppliers_info s where f.n_commercial_tenant_id=s.merchant_id and
+        s.status!=1
+        <dynamic>
+            <isNotNull property="corporateName" prepend="and">
+                f.CORPORATE_NAME like
+                '%$corporateName$%'
+            </isNotNull>
+            <isNotNull property="contactsName" prepend="and">
+                f.CONTACTS_NAME like
+                '%$contactsName$%'
+            </isNotNull>
+            <isNotNull property="corporateLocation" prepend="and">
+                f.corporate_location like
+                '%$corporateLocation$%'
+            </isNotNull>
+            <isNotNull property="status" prepend="and">
+                s.status =
+                #status:DECIMAL#
+            </isNotNull>
+            <isNotNull property="supplierType" prepend="and">
+                s.supplier_type =
+                #supplierType:DECIMAL#
+            </isNotNull>
+            <isNotNull property="enterpriseStatus" prepend="and">
+                f.N_ENTERPRISE_STATUS =
+                #enterpriseStatus:DECIMAL#
+            </isNotNull>
+        </dynamic>
+        ORDER BY f.n_commercial_tenant_id DESC
+        )
+        WHERE view_row_number between #skip# and #max#
+    </select>
+
+    <select id="ibatorgenerated_selectPageCountBySuppOrMer" resultClass="java.lang.Integer"
+            parameterClass="com.pltfm.app.vobject.MyMerchantInfoOrSuppliers">
+        select count(f.n_commercial_tenant_id)
+        from commercial_tenant_basic_info f,suppliers_info s where f.n_commercial_tenant_id=s.merchant_id and
+        s.status!=1
+        <dynamic>
+            <isNotNull property="corporateName" prepend="and">
+                f.CORPORATE_NAME like
+                '%$corporateName$%'
+            </isNotNull>
+            <isNotNull property="contactsName" prepend="and">
+                f.CONTACTS_NAME like
+                '%$contactsName$%'
+            </isNotNull>
+            <isNotNull property="corporateLocation" prepend="and">
+                f.corporate_location like
+                '%$corporateLocation$%'
+            </isNotNull>
+            <isNotNull property="status" prepend="and">
+                s.status =
+                #status:DECIMAL#
+            </isNotNull>
+            <isNotNull property="supplierType" prepend="and">
+                s.supplier_type =
+                #supplierType:DECIMAL#
+            </isNotNull>
+            <isNotNull property="enterpriseStatus" prepend="and">
+                f.N_ENTERPRISE_STATUS =
+                #enterpriseStatus:DECIMAL#
+            </isNotNull>
+        </dynamic>
+        ORDER BY f.n_commercial_tenant_id DESC
+    </select>
+
+    <select id="ibatorgenerated_selectCouponBySuppOrMer" resultMap="baseResultMap"
+            parameterClass="merchantInfoOrSuppliers">
+        select
+        f.n_commercial_tenant_id,f.n_login_id,f.contacts_name,f.mobile,f.corporate_name,f.organization_code,f.d_create_date,f.business_licence_register
+        ,f.corporate_location,f.N_ENTERPRISE_STATUS,f.PROVINCE,f.CITY,f.AREA,s.supplier_id,s.sale_product_describe,s.supplier_type,s.status,s.LOGIN_STATUS,s.BUSINESS_STATUS,s.CLOSE_STATUS
+        from commercial_tenant_basic_info f,suppliers_info s where f.n_commercial_tenant_id=s.merchant_id and s.status=3
+        <dynamic>
+            <isNotNull property="corporateName" prepend="and">
+                f.CORPORATE_NAME like
+                '%$corporateName$%'
+            </isNotNull>
+            <isNotNull property="describe" prepend="and">
+                s.supplier_id not in
+                ($describe$)
+            </isNotNull>
+
+        </dynamic>
+        ORDER BY f.n_commercial_tenant_id DESC
+    </select>
+
+    <select id="selectBycorName" resultMap="ibatorgenerated_BaseResultMap2"
+            parameterClass="merchantInfo">
+        select f.n_commercial_tenant_id from commercial_tenant_basic_info f,suppliers_info su where
+        f.n_commercial_tenant_id=su.merchant_id and (su.status = 2 or su.status = 3 or su.status = 5 )
+        <isNotNull prepend="and" property="corporateName">
+            f.corporate_name=#corporateName:VARCHAR#
+        </isNotNull>
+        <isNotNull prepend="and" property="merchantId">
+            f.n_commercial_tenant_id !=#merchantId:NUMBER#
+        </isNotNull>
+    </select>
+
+    <!-- 查询商户信息 -->
+    <select id="queryMerList" resultMap="baseResultMap"
+            parameterClass="merchantInfoOrSuppliers">
+        select
+        f.n_commercial_tenant_id,f.n_login_id,f.contacts_name,f.mobile,f.corporate_name,f.organization_code,f.d_create_date,f.business_licence_register
+        ,f.corporate_location,f.N_ENTERPRISE_STATUS,f.PROVINCE,f.CITY,f.AREA,s.supplier_id,s.sale_product_describe,s.supplier_type,s.status,s.LOGIN_STATUS,s.BUSINESS_STATUS,s.CLOSE_STATUS
+        from commercial_tenant_basic_info f,suppliers_info s where f.n_commercial_tenant_id=s.merchant_id and
+        s.status!=1
+        <dynamic>
+            <isNotNull property="corporateName" prepend="and">
+                f.CORPORATE_NAME like
+                '%$corporateName$%'
+            </isNotNull>
+            <isNotNull property="supplierType" prepend="and">
+                s.supplier_type = #supplierType:DECIMAL#
+            </isNotNull>
+        </dynamic>
+        ORDER BY f.n_commercial_tenant_id DESC
+    </select>
+
+    <select id="countItemMer" resultClass="int" parameterClass="merchantInfoOrSuppliers">
+        select count(1)
+        from commercial_tenant_basic_info f,suppliers_info s where f.n_commercial_tenant_id=s.merchant_id and
+        s.status!=1
+        <dynamic>
+            <isNotNull property="corporateName" prepend="and">
+                f.CORPORATE_NAME like
+                '%$corporateName$%'
+            </isNotNull>
+            <isNotNull property="supplierType" prepend="and">
+                s.supplier_type = #supplierType:DECIMAL#
+            </isNotNull>
+        </dynamic>
+        ORDER BY f.n_commercial_tenant_id DESC
+    </select>
+
+    <!-- 查询商户信息，用于活动中心模块待邀请的商家信息 -->
+    <select id="querySuppliersForInviteList" resultMap="baseResultMap" parameterClass="java.util.Map">
+        select f.n_commercial_tenant_id,
+        f.n_login_id,
+        f.contacts_name,
+        f.mobile,
+        f.corporate_name,
+        f.organization_code,
+        f.d_create_date,
+        f.business_licence_register,
+        f.corporate_location,
+        f.N_ENTERPRISE_STATUS,
+        f.PROVINCE,
+        f.CITY,
+        f.AREA,
+        s.supplier_id,
+        s.sale_product_describe,
+        s.supplier_type,
+        s.status,
+        s.LOGIN_STATUS,
+        s.BUSINESS_STATUS,
+        s.CLOSE_STATUS
+        from commercial_tenant_basic_info f, suppliers_info s
+        where f.n_commercial_tenant_id = s.merchant_id
+        and not exists (select 1
+        from activity_supplier_entry ase
+        where ase.supplier_id = s.supplier_id
+        and ase.activity_supplier_type != 5
+        and ase.activity_id = #activityId:DECIMAL#)
+        and s.status != 1
+        <dynamic>
+            <isNotNull property="corporateName" prepend="and">
+                f.CORPORATE_NAME like
+                '%$corporateName$%'
+            </isNotNull>
+            <isNotNull property="supplierType" prepend="and">
+                s.supplier_type = #supplierType:DECIMAL#
+            </isNotNull>
+        </dynamic>
+        ORDER BY f.n_commercial_tenant_id DESC
+    </select>
+
+    <select id="countSuppliersForInvite" resultClass="int" parameterClass="java.util.Map">
+        select count(1)
+        from commercial_tenant_basic_info f, suppliers_info s
+        where f.n_commercial_tenant_id = s.merchant_id
+        and not exists (select 1
+        from activity_supplier_entry ase
+        where ase.supplier_id = s.supplier_id
+        and ase.activity_supplier_type != 5
+        and ase.activity_id = #activityId:DECIMAL#)
+        and s.status != 1
+        <dynamic>
+            <isNotNull property="corporateName" prepend="and">
+                f.CORPORATE_NAME like
+                '%$corporateName$%'
+            </isNotNull>
+            <isNotNull property="supplierType" prepend="and">
+                s.supplier_type = #supplierType:DECIMAL#
+            </isNotNull>
+        </dynamic>
+    </select>
+
+    <select id="ibatorgenerated_querySupplierCertificateLsit" resultMap="supplierCertificateLsitMap"
+            parameterClass="merchantInfoOrSuppliers">
+        SELECT CTBI.N_COMMERCIAL_TENANT_ID,
+        SI.SUPPLIER_ID,
+        CTBI.N_LOGIN_ID,
+        CTBI.CORPORATE_NAME,
+        CTBI.CONTACTS_NAME,
+        CTBI.MOBILE,
+        SR.APPLY_TIME,
+        CTBI.PROVINCE,
+        CTBI.CITY,
+        CTBI.AREA,
+        CTBI.CORPORATE_LOCATION,
+        SR.STATUS,
+        CTBI.N_ENTERPRISE_STATUS,
+        SU.USER_NAME,
+        SI.SALE_PRODUCT_DESCRIBE,
+        SI.SUPPLIER_TYPE,
+        SI.LOGIN_STATUS,
+        SI.BUSINESS_STATUS,
+        SI.CLOSE_STATUS
+        FROM SUPPLIERS_RECHECK SR,
+        SUPPLIERS_INFO SI,
+        COMMERCIAL_TENANT_BASIC_INFO CTBI,
+        SYS_USER SU
+        WHERE SR.SUPPLIER_ID = SI.SUPPLIER_ID
+        AND CTBI.N_COMMERCIAL_TENANT_ID = SI.MERCHANT_ID
+        AND SR.CHECK_USER = SU.USER_ID(+)
+        AND SI.STATUS = 3
+
+        <dynamic>
+            <isNotNull property="corporateName" prepend="and">
+                CTBI.CORPORATE_NAME like
+                '%$corporateName$%'
+            </isNotNull>
+            <isNotNull property="contactsName" prepend="and">
+                CTBI.CONTACTS_NAME like
+                '%$contactsName$%'
+            </isNotNull>
+            <isNotNull property="status" prepend="and">
+                SR.STATUS =
+                #status:DECIMAL#
+            </isNotNull>
+            <isNotNull property="enterpriseStatus" prepend="and">
+                CTBI.N_ENTERPRISE_STATUS =
+                #enterpriseStatus:DECIMAL#
+            </isNotNull>
+        </dynamic>
+        ORDER BY SR.APPLY_TIME
+    </select>
+
+    <select id="ibatorgenerated_countSupplierCertificateLsit"
+            parameterClass="merchantInfoOrSuppliers" resultClass="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM SUPPLIERS_RECHECK SR,
+        SUPPLIERS_INFO SI,
+        COMMERCIAL_TENANT_BASIC_INFO CTBI
+        WHERE SR.SUPPLIER_ID = SI.SUPPLIER_ID
+        AND CTBI.N_COMMERCIAL_TENANT_ID = SI.MERCHANT_ID
+        AND SI.STATUS = 3
+        <dynamic>
+            <isNotNull property="corporateName" prepend="and">
+                CTBI.CORPORATE_NAME like
+                '%$corporateName$%'
+            </isNotNull>
+            <isNotNull property="contactsName" prepend="and">
+                CTBI.CONTACTS_NAME like
+                '%$contactsName$%'
+            </isNotNull>
+            <isNotNull property="status" prepend="and">
+                SR.STATUS =
+                #status:DECIMAL#
+            </isNotNull>
+            <isNotNull property="enterpriseStatus" prepend="and">
+                CTBI.N_ENTERPRISE_STATUS =
+                #enterpriseStatus:DECIMAL#
+            </isNotNull>
+        </dynamic>
+    </select>
+
+    <select id="selectBySupplierCertificateLsitForExcel" resultClass="java.util.HashMap" remapResults="true"
+            parameterClass="merchantInfoOrSuppliers">
+        select f.mobile mobile,f.corporate_name corporateName,f.organization_code organizationCode,f.d_create_date
+        createDate,f.business_licence_register businessLicenceregister
+        ,f.corporate_location corporateLocation,f.N_ENTERPRISE_STATUS enterpriseStatus,s.supplier_type
+        supplierType,sr.status supplierStatus,f.PROVINCE province,f.CITY city,f.AREA area,
+        f.FIXED_PHONE fixedPhone,f.TAX_REGISTRATION_CNO taxRegistrationCno,f.BUSINESS_SCOPE
+        businessScope,f.BANK_OF_DEPOSIT bankOfDeposit
+        ,f.BANK_ACCOUNT_NAME bankAccountName,f.COMPANY_ACCOUNT companyAccount,f.REGISTER_BANKROLL registerBankroll,
+        scn1.CATEGORY_NAME categoryStrOne, scn2.CATEGORY_NAME categoryStrTwo,swn.WAREHOUSE_NAME warehouseStr
+        from SUPPLIERS_RECHECK sr
+        inner join suppliers_info s
+        on s.supplier_id = sr.supplier_id
+        inner join commercial_tenant_basic_info f on f.n_commercial_tenant_id=s.merchant_id
+        left join SUPPLIERS_WAREHOUSE_NAME swn on swn.supplier_id = s.supplier_id
+        left join SUPPLIERS_CATEGORY_NAME scn1 on scn1.supplier_id = s.supplier_id and scn1.level_type=1
+        left join SUPPLIERS_CATEGORY_NAME scn2 on scn2.supplier_id = s.supplier_id and scn2.level_type=2
+        where s.status=3
+        <dynamic>
+            <isNotNull property="corporateName" prepend="and">
+                f.CORPORATE_NAME like
+                '%$corporateName$%'
+            </isNotNull>
+            <isNotNull property="contactsName" prepend="and">
+                f.CONTACTS_NAME like
+                '%$contactsName$%'
+            </isNotNull>
+            <isNotNull property="corporateLocation" prepend="and">
+                f.corporate_location like
+                '%$corporateLocation$%'
+            </isNotNull>
+            <isNotNull property="status" prepend="and">
+                sr.status =
+                #status:DECIMAL#
+            </isNotNull>
+            <isNotNull property="enterpriseStatus" prepend="and">
+                f.N_ENTERPRISE_STATUS =
+                #enterpriseStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull property="province" prepend="and">
+                f.PROVINCE like
+                '%$province$%'
+            </isNotNull>
+            <isNotNull property="city" prepend="and">
+                f.CITY like
+                '%$city$%'
+            </isNotNull>
+            <isNotNull property="area" prepend="and">
+                f.AREA like
+                '%$area$%'
+            </isNotNull>
+            <isNotNull property="supplierType" prepend="and">
+                s.supplier_type = #supplierType:DECIMAL#
+            </isNotNull>
+            <isNotNull property="supplierId" prepend="and">
+                s.SUPPLIER_ID = #supplierId#
+            </isNotNull>
+        </dynamic>
+        ORDER BY SR.APPLY_TIME
+    </select>
+
+</sqlMap>

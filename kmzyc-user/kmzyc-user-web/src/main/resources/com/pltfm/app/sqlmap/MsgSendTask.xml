@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="MsgSendTask" >
+    
+    <typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+    <!-- 数据源 KMCMS 表为cms_information-->
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.MsgSendTask" >
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="RECEIVER" property="receiver" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="DECIMAL" />
+     <result column="SEND_TIME" property="sendTime"/>
+    <result column="IS_SUCCESS" property="isSuccess" jdbcType="DECIMAL" />
+    <result column="SEND_COUNT" property="sendCount" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
+     <result column="MSG_TYPE" property="msgType" jdbcType="DECIMAL" />
+     <result column="repeat_send_id" property="repeatSendId" jdbcType="DATE" />
+     <result column="msg_channel" property="msgChannel" jdbcType="DECIMAL" />
+     <result column="send_success" property="sendSuccess" jdbcType="DECIMAL" />
+     
+  </resultMap>
+  
+  <resultMap id="ibatorgenerated_CountResult" class="com.pltfm.sys.model.SysModelUtil">
+    <result column="the_count" property="theCount" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <select id="queryMsgTaskList" parameterClass="com.pltfm.app.vobject.MsgSendTask" resultMap="ibatorgenerated_BaseResultMap">
+  		select id,receiver,content,type,send_time,
+ 		 		   is_success,send_count,create_time,update_time,msg_type,repeat_send_id,msg_channel,send_success
+   		from  (select row_number() over(order by id desc) as view_row_num,msg.id,msg.receiver,msg.content,msg.type,msg.send_time,
+ 		 		   msg.is_success,msg.send_count,msg.create_time,msg.update_time,msg.msg_type,msg.repeat_send_id,msg.msg_channel,msg.send_success
+ 		 	  from EM_MSG_SEND_TASK msg
+ 		      where 1=1
+	 		 <isNotNull property="receiver">
+			   <isNotEmpty prepend="and" property="receiver">
+				msg.receiver like '%$receiver$%'
+			   </isNotEmpty>
+			 </isNotNull>
+			 <isNotNull property="content">
+			   <isNotEmpty prepend="and" property="content">
+				msg.content like '%$content$%'
+			   </isNotEmpty>
+			 </isNotNull>
+			 <isNotNull property="sendTime">
+			   <isNotEmpty prepend="and" property="sendTime">
+				<![CDATA[  msg.send_time >= #sendTime#]]>
+			   </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="createTime">
+			   <isNotEmpty prepend="and" property="createTime">
+			   <![CDATA[ msg.send_time <= #createTime# ]]>
+			   </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="isSuccess">
+			   <isNotEmpty prepend="and" property="isSuccess">
+				msg.is_success = #isSuccess#
+			   </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="msgType">
+			   <isNotEmpty prepend="and" property="msgType">
+				msg.msg_type = #msgType#
+			   </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="sendCount">
+			   <isNotEmpty prepend="and" property="sendCount">
+				msg.send_count = #sendCount#
+			   </isNotEmpty>
+			</isNotNull>
+			 )
+	   <![CDATA[ where view_row_num <= #max# and view_row_num > #skip# ]]>
+  </select>
+  
+  <select id="getMsgTaskCount" parameterClass="com.pltfm.app.vobject.MsgSendTask" resultMap="ibatorgenerated_CountResult">
+      select count(1) the_count from EM_MSG_SEND_TASK msg
+       		where 1=1
+     		<isNotNull property="receiver">
+			   <isNotEmpty prepend="and" property="receiver">
+				msg.receiver like '%$receiver$%'
+			   </isNotEmpty>
+			 </isNotNull>
+			 <isNotNull property="content">
+			   <isNotEmpty prepend="and" property="content">
+				msg.content like '%$content$%'
+			   </isNotEmpty>
+			 </isNotNull>
+			 <isNotNull property="sendTime">
+			   <isNotEmpty prepend="and" property="sendTime">
+				<![CDATA[  msg.send_time >= #sendTime#]]>
+			   </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="createTime">
+			   <isNotEmpty prepend="and" property="createTime">
+			   <![CDATA[ msg.send_time <= #createTime# ]]>
+			   </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="isSuccess">
+			   <isNotEmpty prepend="and" property="isSuccess">
+				msg.is_success = #isSuccess#
+			   </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="msgType">
+			   <isNotEmpty prepend="and" property="msgType">
+				msg.msg_type = #msgType#
+			   </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="sendCount">
+			   <isNotEmpty prepend="and" property="sendCount">
+				msg.send_count = #sendCount#
+			   </isNotEmpty>
+			</isNotNull>
+  </select>
+
+  
+</sqlMap>

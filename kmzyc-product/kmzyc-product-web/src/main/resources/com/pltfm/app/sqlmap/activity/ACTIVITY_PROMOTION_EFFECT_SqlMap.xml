@@ -1,0 +1,1010 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ACTIVITY_PROMOTION_EFFECT">
+
+	<resultMap id="promotionEffectMap" class="com.pltfm.app.vobject.ActivityInfo">
+		<result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL" />
+		<result column="ACTIVITY_NAME" property="activityName"
+			jdbcType="VARCHAR" />
+		<result column="ACTIVITY_TYPE" property="activityType"
+			jdbcType="DECIMAL" />
+		<result column="ACTIVITY_STATUS" property="activityStatus"
+			jdbcType="DECIMAL" />
+		<result column="CHARGE_TYPE" property="chargeType" jdbcType="DECIMAL" />
+		<result column="ENTRY_START_TIME" property="entryStartTime"
+			jdbcType="TIMESTAMP" />
+		<result column="ENTRY_END_TIME" property="entryEndTime"
+			jdbcType="TIMESTAMP" />
+		<result column="ACTIVITY_START_TIME" property="activityStartTime"
+			jdbcType="TIMESTAMP" />
+		<result column="ACTIVITY_END_TIME" property="activityEndTime"
+			jdbcType="TIMESTAMP" />
+		<result property="activityCharge" resultMap="ACTIVITY_PROMOTION_EFFECT.activityChargeMap" />
+		<result column="enrollPersonNum" property="enrollPersonNum"
+			jdbcType="INTEGER" />
+		<result column="enrollGoodsNum" property="enrollGoodsNum"
+			jdbcType="INTEGER" />
+		<!-- <result column="supplier_entry_id" property="supplierEntryId"
+			jdbcType="LONG" /> -->
+	</resultMap>
+
+	<resultMap id="simpleResultMapForItem" class="com.pltfm.app.vobject.ActivitySku" >
+	    <result column="order_item_id" property="orderItemId" jdbcType="DECIMAL" />
+	    <result column="order_code" property="orderCode" jdbcType="VARCHAR" />	    
+	    <result column="commodity_unit_price" property="commodityUnitPrice" jdbcType="DECIMAL" />
+	    <result column="commodity_number" property="commodityNumber" jdbcType="DECIMAL" />
+	    <result column="commodity_sum" property="commoditySum" jdbcType="DECIMAL" />
+	    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+	    <result column="commodity_sku_description" property="commoditySkuDescription" jdbcType="VARCHAR" />
+	    <result column="commodity_title" property="commodityTitle" jdbcType="VARCHAR" />
+	    <result column="product_sku_id" property="productSkuId" jdbcType="DECIMAL"/>
+	    <result column="commodity_sku" property="commoditySku" jdbcType="DECIMAL"/>
+	    <result column="brandName" property="brandName" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<resultMap id="activityChargeMap" class="com.pltfm.app.vobject.ActivityCharge">
+		<result column="FIXED_CHARGE" property="fixedCharge" jdbcType="DECIMAL" />
+		<result column="SINGLE_CHARGE" property="singleCharge"
+			jdbcType="DECIMAL" />
+		<result column="commissionRate" property="commissionRate"
+			jdbcType="DECIMAL" />
+	</resultMap>
+
+	<resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.entities.OrderMain" >
+    <result column="order_id" property="orderId" jdbcType="DECIMAL" />
+    <result column="customer_account" property="customerAccount" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="customer_mobile" property="customerMobile" jdbcType="VARCHAR" />
+    <result column="order_purchaser_name" property="orderPurchaserName" jdbcType="VARCHAR" />
+    <result column="order_purchaser_mobile" property="orderPurchaserMobile" jdbcType="VARCHAR" />
+    <result column="order_purchaser_tel" property="orderPurchaserTel" jdbcType="VARCHAR" />
+    <result column="order_purchaser_addr" property="orderPurchaserAddr" jdbcType="VARCHAR" />
+    <result column="order_purchaser_type" property="orderPurchaserType" jdbcType="DECIMAL" />
+    <result column="consignee_name" property="consigneeName" jdbcType="VARCHAR" />
+    <result column="consignee_mobile" property="consigneeMobile" jdbcType="VARCHAR" />
+    <result column="consignee_tel" property="consigneeTel" jdbcType="VARCHAR" />
+    <result column="consignee_addr" property="consigneeAddr" jdbcType="VARCHAR" />
+    <result column="pay_method" property="payMethod" jdbcType="DECIMAL" />
+    <result column="fare" property="fare" jdbcType="DECIMAL" />
+    <result column="delivery_date_type" property="deliveryDateType" jdbcType="DECIMAL" />
+    <result column="commodity_sum" property="commoditySum" jdbcType="DECIMAL" />
+    <result column="discount_amount" property="discountAmount" jdbcType="DECIMAL" />
+    <result column="account_balance" property="accountBalance" jdbcType="DECIMAL" />
+    <result column="amount_payable" property="amountPayable" jdbcType="DECIMAL" />
+    <result column="pay_date" property="payDate" jdbcType="date" />
+    <result column="create_date" property="createDate" jdbcType="date" />
+    <result column="agency_number" property="agencyNumber" jdbcType="VARCHAR" />
+    <result column="settlement_no" property="settlementNo" jdbcType="DECIMAL" />
+    <result column="stock_out_id" property="stockOutId" jdbcType="DECIMAL" />
+    <result column="distribution_id" property="distributionId" jdbcType="DECIMAL" />
+    <result column="logistics_order_no" property="logisticsOrderNo" jdbcType="VARCHAR" />
+    <result column="order_source" property="orderSource" jdbcType="VARCHAR" />
+    <result column="invoice_id" property="invoiceId" jdbcType="DECIMAL" />
+    <result column="parent_order_code" property="parentOrderCode" jdbcType="VARCHAR" />
+    <result column="son_order_code" property="sonOrderCode" jdbcType="VARCHAR" />
+    <result column="order_description" property="orderDescription" jdbcType="VARCHAR" />
+    <result column="order_status" property="orderStatus" jdbcType="DECIMAL" />
+    <result column="order_code" property="orderCode" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="DECIMAL" />
+    <result column="order_channel" property="orderChannel" jdbcType="VARCHAR" />
+    <result column="disabled" property="disabled" jdbcType="DECIMAL" />
+    <result column="confirm_delivery" property="confirmDelivery" jdbcType="DECIMAL" />
+    <result column="logistics_code" property="logisticsCode" jdbcType="VARCHAR" />
+    <result column="address_id" property="addressId" jdbcType="DECIMAL" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="DECIMAL" />
+    <result column="assess_status" property="assessStatus" jdbcType="DECIMAL" />
+    <result column="finish_date" property="finishDate" jdbcType="date" />
+    <result column="invoice_info_type" property="invoiceInfoType" jdbcType="VARCHAR" />
+    <result column="INVOICE_INFO_TITLE" property="invoiceInfoTitle" jdbcType="VARCHAR" />
+    <result column="invoice_info_content" property="invoiceInfoContent" jdbcType="VARCHAR" />  
+    <result column="total_credit" property="totalCredit" jdbcType="DECIMAL" />  
+    <result column="logistics_name" property="logisticsName" jdbcType="VARCHAR" />
+    <result column="original_order_sum" property="originalOrderSum" jdbcType="DECIMAL" />  
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="zipcode" jdbcType="DECIMAL" property="zipcode" />
+    <result column="order_type" property="orderType" jdbcType="DECIMAL" />
+    <result column="order_operation_remark" property="orderOperationRemark" jdbcType="VARCHAR" />
+    <result column="commerce_id" property="commerceId" jdbcType="VARCHAR" />
+    <result column="prize_numbers" property="prizeNumbers" jdbcType="VARCHAR" />
+    <result column="prescription_attachment" property="prescriptionAttachment" jdbcType="VARCHAR" />
+    <result column="check_flag" property="checkFlag" jdbcType="DECIMAL" />
+    <result column="medic_flag" property="medicFlag" jdbcType="DECIMAL" />
+  </resultMap> 
+  
+	<resultMap class="com.pltfm.app.vobject.OrderMainVo" id="ibatorgenerated_ExtendsResultMap"
+  		  extends="ibatorgenerated_BaseResultMap">
+  	<!-- 附加 -->
+    <result column="paymethodstr" jdbcType="VARCHAR" property="payMethodStr" />
+    <result column="deliverydatetypestr" jdbcType="VARCHAR" property="deliveryDateTypeStr" />
+    <result column="orderstatusstr" jdbcType="VARCHAR" property="orderStatusStr" />
+    <result column="handlestate" jdbcType="VARCHAR" property="handleState" />
+    <result column="handleaccount" jdbcType="VARCHAR" property="handleAccount" />
+    <!--  -->
+  </resultMap>
+  
+	<!-- 包含基本属性以及根订单号的 -->
+   <resultMap class="com.pltfm.app.vobject.OrderMainVo" id="WithRoot_ResultMap"
+  		  extends="ibatorgenerated_ExtendsResultMap">
+  	<!-- 附加 -->
+	<result property="rootOrderCode" column="root_order_code"/>   
+  </resultMap> 
+  
+	<!-- 包含根订单的还包含订单详情相关的 -->
+  <resultMap class="com.kmzyc.supplier.model.OrderMain" id="extWithRootMap" extends="WithRoot_ResultMap">
+	 <result property="orderItemList" column="order_code" select="ACTIVITY_PROMOTION_EFFECT.queryItemListByOrderCode"/>   
+  </resultMap> 
+  
+  <resultMap id="supplierEntryResultMap" class="com.pltfm.app.vobject.ActivitySupplierEntry" >
+    <result column="SUPPLIER_ENTRY_ID" property="supplierEntryId" jdbcType="DECIMAL" />
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL" />
+    <result column="COMPANY_SHOW_NAME" property="companyShowName" jdbcType="VARCHAR" />
+    <result column="SHOP_NAME" property="shopName" jdbcType="VARCHAR" />
+    <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="ENTRY_TIME" property="entryTime" jdbcType="TIMESTAMP" />
+    <result column="ACTIVITY_PAYMENT_STATUS" property="activityPaymentStatus" jdbcType="DECIMAL" />
+    <result column="AUDIT_STATUS" property="auditStatus" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+	<!-- 查询活动费用 -->
+	<select id="selectActivityFee" parameterClass="java.lang.Integer"
+		resultClass="java.lang.Integer">
+		SELECT * from activity_charge ac where ac.activity_id=#activityId#
+	</select>
+
+  <sql id="activityPromotion_Example_Where_Clause" >
+  	  <!-- <dynamic prepend="where">
+    	<isNotEmpty prepend="AND" property="activityId" >
+	   		<![CDATA[
+	   			ACTIVITY_ID = #activityId#
+	   		]]>
+	   	</isNotEmpty>
+	   	<isNotEmpty prepend="AND" property="activityName" >
+	   		<![CDATA[
+	   			ACTIVITY_NAME like '%'||#activityName#||'%'
+	   		]]>
+	   	</isNotEmpty>
+	   	<isNotEmpty prepend="AND" property="activityType" >
+	   		<![CDATA[
+	   			ACTIVITY_TYPE = #activityType#
+	   		]]>
+	   	</isNotEmpty>
+	   	<isNotEmpty prepend="AND" property="activityStatus" >
+	   		<![CDATA[
+	   			ACTIVITY_STATUS = #activityStatus#
+	   		]]>
+	   	</isNotEmpty>
+		 <isNotEmpty prepend="AND" property="entryStartTime">
+            <![CDATA[
+                ENTRY_START_TIME >=#entryStartTime#
+            ]]>
+        </isNotEmpty>
+         <isNotEmpty prepend="AND" property="entryEndTime">
+            <![CDATA[
+                ENTRY_END_TIME <=#entryEndTime#
+            ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="activityStartTime">
+            <![CDATA[
+                ACTIVITY_START_TIME >= #activityStartTime#
+            ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="activityEndTime">
+            <![CDATA[
+                ACTIVITY_END_TIME <= #activityEndTime#
+            ]]>
+        </isNotEmpty>
+      </dynamic> -->
+      
+      <iterate property="oredCriteria" conjunction="or" prepend="and" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+
+	<!-- 分页查询活动推广效果列表 -->
+	<select id="selectByExample" resultMap="promotionEffectMap" parameterClass="com.pltfm.app.vobject.ActivityInfoExample">
+		select * from(
+		select
+		ACTIVITY_INFO.ACTIVITY_ID,
+		ACTIVITY_INFO.ACTIVITY_NAME,
+		ACTIVITY_INFO.ACTIVITY_TYPE,
+		ACTIVITY_INFO.ACTIVITY_STATUS,
+		ACTIVITY_INFO.CHARGE_TYPE,
+		ACTIVITY_INFO.ENTRY_START_TIME,
+		ACTIVITY_INFO.ENTRY_END_TIME,
+		ACTIVITY_INFO.ACTIVITY_START_TIME,
+		ACTIVITY_INFO.ACTIVITY_END_TIME,
+		ACTIVITY_INFO.CREATE_TIME,
+		ACTIVITY_CHARGE.FIXED_CHARGE,
+		ACTIVITY_CHARGE.SINGLE_CHARGE,
+		ACTIVITY_CHARGE.COMMISSION_RATE*100 AS commissionRate,
+		(select count(atse.supplier_entry_id)
+		from activity_supplier_entry atse
+		where atse.activity_id = ACTIVITY_INFO.ACTIVITY_ID
+		and atse.entry_status = 2
+		and atse.audit_status = 1) as enrollPersonNum,
+		(select count(ats.activity_sku_id)
+                  from activity_sku ats
+                  INNER join activity_supplier_entry ase
+                    on ats.supplier_entry_id = ase.supplier_entry_id
+                 where ats.audit_status = 1
+                   and ats.activity_sku_type = 1
+                   and ase.entry_status = 2
+                   and ase.audit_status = 1
+                   and ats.activity_id=ACTIVITY_INFO.ACTIVITY_ID) as enrollGoodsNum
+		from ACTIVITY_INFO
+		left join ACTIVITY_CHARGE
+		on ACTIVITY_INFO.ACTIVITY_ID = ACTIVITY_CHARGE.ACTIVITY_ID
+		where 1 = 1
+		and ACTIVITY_INFO.Audit_Status=1
+		and 
+			 (
+               ACTIVITY_INFO.activity_status = 8 or 
+               sysdate > ACTIVITY_INFO.activity_end_time or
+               to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss') between
+               to_char(ACTIVITY_INFO.activity_start_time, 'yyyy-mm-dd hh24:mi:ss') and to_char(ACTIVITY_INFO.activity_end_time, 'yyyy-mm-dd hh24:mi:ss')
+             )
+         )
+         where 1=1 
+		 <isNotEmpty property="activityId">
+    		and ACTIVITY_ID = #activityId# 
+    	</isNotEmpty>
+		<isParameterPresent>
+      		<include refid="ACTIVITY_PROMOTION_EFFECT.activityPromotion_Example_Where_Clause" />
+      	</isParameterPresent>
+      	<isNotNull property="orderByClause" >
+        	order by $orderByClause$
+      	</isNotNull>
+	</select>
+
+	<!-- 分页统计活动推广效果个数 -->
+	<select id="countByExample" parameterClass="com.pltfm.app.vobject.ActivityInfoExample" resultClass="java.lang.Integer">
+		SELECT count(1)
+		from
+		(
+			select
+			ACTIVITY_INFO.ACTIVITY_ID,
+			ACTIVITY_INFO.ACTIVITY_NAME,
+			ACTIVITY_INFO.ACTIVITY_TYPE,
+			ACTIVITY_INFO.ACTIVITY_STATUS,
+			ACTIVITY_INFO.CHARGE_TYPE,
+			ACTIVITY_INFO.ENTRY_START_TIME,
+			ACTIVITY_INFO.ENTRY_END_TIME,
+			ACTIVITY_INFO.ACTIVITY_START_TIME,
+			ACTIVITY_INFO.ACTIVITY_END_TIME,
+			ACTIVITY_CHARGE.FIXED_CHARGE,
+			ACTIVITY_CHARGE.SINGLE_CHARGE,
+			ACTIVITY_CHARGE.COMMISSION_RATE,
+			(select count(atse.supplier_entry_id)
+			from activity_supplier_entry atse
+			where atse.activity_id = ACTIVITY_INFO.ACTIVITY_ID
+			and atse.entry_status = 2
+			and atse.audit_status = 1) as enrollPersonNum,
+			(select count(ats.activity_sku_id)
+                  from activity_sku ats
+                  INNER join activity_supplier_entry ase
+                    on ats.supplier_entry_id = ase.supplier_entry_id
+                 where ats.audit_status = 1
+                   and ats.activity_sku_type = 1
+                   and ase.entry_status = 2
+                   and ase.audit_status = 1
+                   and ats.activity_id=ACTIVITY_INFO.ACTIVITY_ID) as enrollGoodsNum
+			from ACTIVITY_INFO
+			left join ACTIVITY_CHARGE
+			on ACTIVITY_INFO.ACTIVITY_ID = ACTIVITY_CHARGE.ACTIVITY_ID
+			where 1 = 1
+			and ACTIVITY_INFO.Audit_Status=1
+			and 
+				(
+	               ACTIVITY_INFO.activity_status = 8 or 
+	               sysdate > ACTIVITY_INFO.activity_end_time or
+	               to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss') between
+	               to_char(ACTIVITY_INFO.activity_start_time, 'yyyy-mm-dd hh24:mi:ss') and to_char(ACTIVITY_INFO.activity_end_time, 'yyyy-mm-dd hh24:mi:ss')
+	            )
+		)
+		where 1=1 
+		 <isNotEmpty property="activityId">
+    		and ACTIVITY_ID = #activityId# 
+    	</isNotEmpty>
+		<isParameterPresent>
+      		<include refid="ACTIVITY_PROMOTION_EFFECT.activityPromotion_Example_Where_Clause" />
+      	</isParameterPresent>
+	</select>
+	
+	<!-- 查询首次缴费 -->
+	<select id="selectActivityFirstPay" parameterClass="map" resultClass="java.lang.Double">
+	select 
+		ap.total_funds
+  	from activity_payment ap
+ 	where 
+ 		ap.activity_id = #activityId#
+ 	and 
+ 		ap.supplier_id = #supplierId#
+   	and 
+   		ap.activity_payment_type = 1
+   	and 
+   		ap.activity_payment_status = 2
+   	and 
+   		ap.one_pay_status = 1
+	</select>
+	
+	<!-- 查询追加缴费 -->
+	<select id="selectActivityAppendPay" parameterClass="map" resultClass="java.lang.Double">
+	select 
+		sum(ap.total_funds)
+  	from activity_payment ap
+ 	where 
+ 		ap.activity_id = #activityId#
+ 	and 
+ 		ap.supplier_id = #supplierId#
+    and 
+    	ap.activity_payment_status = 2
+    and 
+    	ap.activity_payment_type = 2
+	</select>
+
+	<!-- 分页查询渠道活动商家商品列表 -->
+	<select id="selectChannelSupplierProductSalesByParam" parameterClass="map" resultClass="com.pltfm.app.vobject.ActivitySku">
+		select 
+		   pm.product_id as productId,
+       	   pm.product_title as productName,
+	       pb.brand_id as brandId,
+	       pb.brand_name as brandName,
+	       ps.product_sku_code as productSkuCode,
+	       ask.activity_price as activityPrice,
+	       ask.commission_rate*100 as commissionRate,
+	       ask.pre_sale_quantity as preSaleQuantity,
+	       ask.supplier_entry_id as supplierEntryId,
+	       ask.product_sku_id as productSkuId
+	    from activity_sku ask, prod_brand pb, productmain pm, product_sku ps
+	    where ask.activity_id = #activityId#
+	   	and ask.supplier_entry_id = #supplierEntryId#
+	   	and ask.audit_status=1
+	   	and ask.product_sku_id = ps.product_sku_id
+	   	and ps.product_id = pm.product_id
+	   	and pm.brand_id = pb.brand_id
+	   	and ask.activity_sku_type=1 
+	   	<isNotNull property="productSkuCode" >
+	   		and ps.product_sku_code=#productSkuCode#
+	   	</isNotNull>
+	   	<isNotNull property="productName" >
+	   		and pm.product_title like '%'||#productName#||'%'
+	   	</isNotNull>
+		<isNotNull property="brandName" >
+	   		and pb.brand_name like '%'||#brandName#||'%'
+	   	</isNotNull>
+	</select>
+	
+	<!-- 分页统计渠道活动商家商品销量个数 -->
+	<select id="countChannelSupplierProductSalesByParam" parameterClass="map" resultClass="java.lang.Integer">
+		select count(1) 
+	    from activity_sku ask, prod_brand pb, productmain pm, product_sku ps
+	    where ask.activity_id = #activityId#
+	   	and ask.supplier_entry_id = #supplierEntryId#
+	   	and ask.audit_status=1
+	   	and ask.activity_sku_type=1
+	   	and ask.product_sku_id = ps.product_sku_id
+	   	and ps.product_id = pm.product_id
+	   	and pm.brand_id = pb.brand_id
+	   	<isNotNull property="productSkuCode" >
+	   		and ps.product_sku_code=#productSkuCode#
+	   	</isNotNull>
+	   		<isNotNull property="productName" >
+	   		and pm.product_title like '%'||#productName#||'%'
+	   	</isNotNull>
+	   	<isNotNull property="brandName" >
+	   		and pm.brand_name like '%'||#brandName#||'%'
+	   	</isNotNull>
+	</select>
+	
+	<!-- 分页查询促销/图文活动商家商品列表 -->
+	<select id="selectSPAndTxtSupplierProductSalesByParam" parameterClass="map" resultClass="com.pltfm.app.vobject.ActivitySku">
+		select  
+	       pm.product_id as productId,
+       	   pm.product_title as productName,
+	       pb.brand_id as brandId,
+	       pb.brand_name as brandName,
+	       ps.product_sku_code as productSkuCode,
+           ask.supplier_entry_id as supplierEntryId,
+           ask.product_sku_id as productSkuId
+	    from activity_sku ask, prod_brand pb, productmain pm, product_sku ps
+	    where ask.activity_id = #activityId#
+	   	and ask.supplier_entry_id = #supplierEntryId#
+	   	and ask.audit_status=1
+	   	and ask.product_sku_id = ps.product_sku_id
+	   	and ps.product_id = pm.product_id
+	   	and pm.brand_id = pb.brand_id
+	   	and ask.activity_sku_type=1
+	   	<isNotNull property="productSkuCode" >
+	   		and ps.product_sku_code=#productSkuCode#
+	   	</isNotNull>
+	   	<isNotNull property="brandName" >
+	   		and pb.brand_name like '%'||#brandName#||'%'
+	   	</isNotNull>
+		<isNotNull property="productName" >
+	   		and pm.product_title like '%'||#productName#||'%'
+	   	</isNotNull>
+	</select>
+	
+	<!-- 分页统计促销/图文活动商家商品销量个数 -->
+	<select id="countSPAndTxtSupplierProductSalesByParam" parameterClass="map" resultClass="java.lang.Integer">
+		select  
+	       count(1)
+	    from activity_sku ask, prod_brand pb, productmain pm, product_sku ps
+	    where ask.activity_id = #activityId#
+	   	and ask.supplier_entry_id = #supplierEntryId#
+	   	and ask.audit_status=1
+	   	and ask.product_sku_id = ps.product_sku_id
+	   	and ps.product_id = pm.product_id
+	   	and pm.brand_id = pb.brand_id
+	   	and ask.activity_sku_type=1
+	   	<isNotNull property="productSkuCode" >
+	   		and ps.product_sku_code=#productSkuCode#
+	   	</isNotNull>
+	   	<isNotNull property="brandName" >
+	   		and pb.brand_name like '%'||#productName#||'%'
+	   	</isNotNull>
+		<isNotNull property="productName" >
+	   		and pm.product_title like '%'||#productName#||'%'
+	   	</isNotNull>
+	</select>
+	
+	<!-- 分页查询活动商家追加明细 -->
+	<select id="selectSupplierAppendProductListByParam" parameterClass="map" resultClass="com.pltfm.app.vobject.ActivitySku">
+		select 
+		   pm.product_id         as productId,
+	       pm.product_title       as productName,
+	       pb.brand_id           as brandId,
+	       pb.brand_name         as brandName,
+	       ps.product_sku_code   as productSkuCode,
+	       ask.activity_price    as activityPrice,
+	       ask.commission_rate*100   as commissionRate,
+	       ask.pre_sale_quantity as preSaleQuantity,
+	       ask.sku_total_price   as skuTotalPrice,
+	       ask.create_time       as createTime,
+	       ps.price 			 as price
+	  from 
+	  	activity_sku ask, 
+	  	prod_brand pb, 
+	  	productmain pm, 
+	  	product_sku ps
+	  where 
+	  	ask.activity_id = #activityId# 
+	   and ask.supplier_entry_id = #supplierEntryId#
+	   and ask.product_sku_id=#skuId#
+	   and ask.audit_status = 1
+	   and ask.activity_sku_type = 2
+	   and ask.product_sku_id = ps.product_sku_id
+	   and ps.product_id = pm.product_id
+	   and pm.brand_id = pb.brand_id
+	   	<isNotNull property="productSkuCode" >
+	   		and ps.product_sku_code=#productSkuCode#
+	   	</isNotNull>
+	   	<isNotNull property="brandName" >
+	   		and pb.brand_name like '%'||#brandName#||'%'
+	   	</isNotNull>
+		<isNotNull property="productName" >
+	   		and pm.product_title like '%'||#productName#||'%'
+	   	</isNotNull>
+	</select>
+	
+	<!-- 分页统计查询活动商家追加明细数量 -->
+	<select id="countSupplierAppendProductByParam" parameterClass="map" resultClass="java.lang.Integer">
+		select count(1) 
+	    from 
+	  		activity_sku ask, 
+	  		prod_brand pb, 
+	  		productmain pm, 
+	  		product_sku ps
+	   where 
+	   		ask.activity_id = #activityId#
+	   and ask.supplier_entry_id = #supplierEntryId#
+	   and ask.product_sku_id=#skuId#
+	   and ask.audit_status = 1
+	   and ask.activity_sku_type = 2
+	   and ask.product_sku_id = ps.product_sku_id
+	   and ps.product_id = pm.product_id
+	   and pm.brand_id = pb.brand_id
+	   	<isNotNull property="productSkuCode" >
+	   		and ps.product_sku_code=#productSkuCode#
+	   	</isNotNull>
+	   	<isNotNull property="brandName" >
+	   		and pb.brand_name like '%'||#brandName#||'%'
+	   	</isNotNull>
+	   	<isNotNull property="productName" >
+	   		and pm.product_title like '%'||#productName#||'%'
+	   	</isNotNull>
+	</select>
+	
+	<!-- 统计活动商家首次预售数量 -->
+	<select id="countSupplierFristPreSaleQuantity" parameterClass="map" resultClass="int">
+		 select t.pre_sale_quantity
+		 from ACTIVITY_SKU t
+		 where 
+		 	t.supplier_entry_id = #supplierEntryId#
+		 and 
+		 	t.audit_status = 1
+		 and 
+		 	t.activity_sku_type = 1
+		 and 
+		 	t.activity_id=#activityId#
+		 and
+		 	t.product_sku_id=#productSkuId#
+	</select>
+	
+	<!-- 统计活动商家追加数量 -->
+	<select id="countSupplierAppendPreSaleQuantity" parameterClass="map" resultClass="int">
+		 select sum(t.pre_sale_quantity)
+		 from ACTIVITY_SKU t
+		 where 
+		 	t.supplier_entry_id = #supplierEntryId#
+		 and 
+		 	t.audit_status = 1
+		 and 
+		 	t.activity_sku_type = 2
+		 and 
+		 	t.activity_id=#activityId#
+		 and
+		 	t.product_sku_id=#productSkuId#
+	</select>
+	
+	<!-- 查询sku是否是活动进行中的 -->
+	<select id="selectActivityProgressBySkuCode" parameterClass="map" resultClass="com.pltfm.app.vobject.ActivityInfo">
+		select 
+			ai.activity_id AS activityId,
+       		ai.activity_name AS activityName,
+       		ai.activity_status AS activityStatus,
+       		ai.activity_type AS activityType ,
+       		ai.activity_channel AS activityChannel,
+       		supplier_entry_id as supplierEntryId
+		  from (select T.*
+		          from (select distinct asku.activity_id, asku.supplier_entry_id
+		                  from activity_sku asku
+		                 where asku.product_sku_id = #skuId#
+		                   and exists
+		                 (select ai.activity_id
+		                          from activity_info ai
+		                         where asku.activity_id = ai.activity_id
+		                           and ai.activity_status != 8
+		                           and (#payTime# between
+		                               to_char(ai.activity_start_time,
+		                                        'yyyy-mm-dd hh24:mi:ss') and
+		                               to_char(ai.activity_end_time,
+		                                        'yyyy-mm-dd hh24:mi:ss')))) T
+		          left join activity_supplier_entry ase
+		            on ase.supplier_entry_id = T.supplier_entry_id
+		         where ase.audit_status = 1
+		           and ase.entry_status = 2) A
+		  left join activity_info ai
+		    on A.activity_id = ai.activity_id
+	</select>
+	
+	<sql id="Map_Where_Clause">
+		from order_main om where 1=1
+		<!-- 订单状态  -->
+		<isNotEmpty prepend="AND" property="status">
+			om.order_status = #status#
+		</isNotEmpty>
+		<!-- 订单号 -->
+		<isNotEmpty prepend="AND" property="orderCode">
+			om.order_code = #orderCode# 
+		</isNotEmpty>
+		<!-- 订单号 -->
+		<isNotEmpty prepend="AND" property="orderCodeArr">
+			om.order_code in
+			<iterate open="(" close=")" conjunction="," property="orderCodeArr">  
+ 				<![CDATA[#orderCodeArr[]#]]>
+			</iterate> 
+		</isNotEmpty>
+		<isNotEmpty  prepend="AND" property="statusArr">
+			om.order_status in
+			<iterate open="(" close=")" conjunction="," property="statusArr">  
+ 				<![CDATA[#statusArr[]#]]>
+			</iterate> 
+		</isNotEmpty>
+	</sql>
+	
+  <!-- 依据订单号查询订单item -->
+  <select id="queryItemListByOrderCode" resultMap="simpleResultMapForItem" parameterClass="java.lang.String" >
+  	 <![CDATA[ 
+  	 	select 
+  	 		order_item_id, order_code, commodity_unit_price, commodity_number,
+  	 		commodity_sum,image_url,commodity_sku_description,commodity_title,commodity_sku,
+  	   		(select sku.product_sku_id from product_sku sku 
+  	   			where sku.product_sku_code = t.commodity_sku) product_sku_id,
+  	   	    (select pb.brand_name
+          	 from 
+          	 	prod_brand  pb,
+               	productmain pm,
+               	product_sku psk
+         	 where 
+         	 	pb.brand_id = pm.brand_id
+           	 and psk.product_id=pm.product_id
+             and psk.product_sku_code = t.commodity_sku) as brandName
+		  	 from order_item t where order_code=#orderCode#
+  	 ]]>
+  </select>
+  
+  <!-- 只供订单首页查询,后续可做优化 -->
+	
+	
+	 <select id="selectProductSalesDetailByParam"  parameterClass="java.util.Map"  resultMap="extWithRootMap">
+		select tt.order_id,
+       tt.customer_account,
+       tt.customer_name,
+       tt.customer_mobile,
+       tt.order_purchaser_name,
+       tt.order_purchaser_mobile,
+       tt.order_purchaser_tel,
+       tt.order_purchaser_addr,
+       tt.order_purchaser_type,
+       tt.consignee_name,
+       tt.consignee_mobile,
+       tt.consignee_tel,
+       tt.consignee_addr,
+       tt.pay_method,
+       tt.fare,
+       tt.delivery_date_type,
+       tt.commodity_sum,
+       tt.discount_amount,
+       tt.account_balance,
+       tt.amount_payable,
+       tt.pay_date,
+       tt.create_date,
+       tt.agency_number,
+       tt.settlement_no,
+       tt.stock_out_id,
+       tt.distribution_id,
+       tt.logistics_order_no,
+       tt.order_source,
+       tt.invoice_id,
+       tt.parent_order_code,
+       tt.son_order_code,
+       tt.order_description,
+       tt.order_status,
+       tt.order_code,
+       tt.customer_id,
+       tt.order_channel,
+       tt.disabled,
+       tt.confirm_delivery,
+       tt.logistics_code,
+       tt.address_id,
+       tt.email,
+       tt.weight,
+       tt.assess_status,
+       tt.finish_date,
+       tt.invoice_info_type,
+       tt.invoice_info_title,
+       tt.invoice_info_content,
+       tt.total_credit,
+       tt.logistics_name,
+       tt.original_order_sum,
+       tt.province,
+       tt.city,
+       tt.area,
+       tt.zipcode,
+       tt.order_type,
+       tt.order_operation_remark,
+       tt.commerce_id,
+       tt.prize_numbers,
+       tt.prescription_attachment,
+       tt.check_flag,
+       tt.medic_flag
+      ,
+       (select d.order_dictionary_value
+          from order_dictionary d
+         where d.order_dictionary_type = 'Pay_Method'
+           and d.order_dictionary_key = tt.pay_method) paymethodstr,
+       (select d.order_dictionary_value
+          from order_dictionary d
+         where d.order_dictionary_type = 'Delivery_Date_Type'
+           and d.order_dictionary_key = tt.delivery_date_type) deliverydatetypestr,
+       (select d.order_dictionary_value
+          from order_dictionary d
+         where d.order_dictionary_type = 'Order_Status'
+           and d.order_dictionary_key = tt.order_status) orderstatusstr,
+       (case
+         when tt.parent_order_code is null then
+          null
+         else
+          (select order_code
+             from order_main e
+            where connect_by_isleaf = 1
+            start with e.order_code = tt.order_code
+           connect by e.order_code = prior e.parent_order_code)
+       end) root_order_code,
+       (select handle_state
+          from order_handle
+         where order_code = tt.order_code) handlestate,
+       (select handle_account
+          from order_handle
+         where order_code = tt.order_code) handleaccount
+  from (select t.order_id,
+               t.customer_account,
+               t.customer_name,
+               t.customer_mobile,
+               t.order_purchaser_name,
+               t.order_purchaser_mobile,
+               t.order_purchaser_tel,
+               t.order_purchaser_addr,
+               t.order_purchaser_type,
+               t.consignee_name,
+               t.consignee_mobile,
+               t.consignee_tel,
+               t.consignee_addr,
+               t.pay_method,
+               t.fare,
+               t.delivery_date_type,
+               t.commodity_sum,
+               t.discount_amount,
+               t.account_balance,
+               t.amount_payable,
+               t.pay_date,
+               t.create_date,
+               t.agency_number,
+               t.settlement_no,
+               t.stock_out_id,
+               t.distribution_id,
+               t.logistics_order_no,
+               t.order_source,
+               t.invoice_id,
+               t.parent_order_code,
+               t.son_order_code,
+               t.order_description,
+               t.order_status,
+               t.order_code,
+               t.customer_id,
+               t.order_channel,
+               t.disabled,
+               t.confirm_delivery,
+               t.logistics_code,
+               t.address_id,
+               t.email,
+               t.weight,
+               t.assess_status,
+               t.finish_date,
+               t.invoice_info_type,
+               t.invoice_info_title,
+               t.invoice_info_content,
+               t.total_credit,
+               t.logistics_name,
+               t.original_order_sum,
+               t.province,
+               t.city,
+               t.area,
+               t.zipcode,
+               t.order_type,
+               t.order_operation_remark,
+               t.commerce_id,
+               t.prize_numbers,
+               t.prescription_attachment,
+               t.check_flag,
+               t.medic_flag,
+               rownum rn
+          from (select distinct om.order_id,
+                                om.customer_account,
+                                om.customer_name,
+                                om.customer_mobile,
+                                om.order_purchaser_name,
+                                om.order_purchaser_mobile,
+                                om.order_purchaser_tel,
+                                om.order_purchaser_addr,
+                                om.order_purchaser_type,
+                                om.consignee_name,
+                                om.consignee_mobile,
+                                om.consignee_tel,
+                                om.consignee_addr,
+                                om.pay_method,
+                                om.fare,
+                                om.delivery_date_type,
+                                om.commodity_sum,
+                                om.discount_amount,
+                                om.account_balance,
+                                om.amount_payable,
+                                om.pay_date,
+                                om.create_date,
+                                om.agency_number,
+                                om.settlement_no,
+                                om.stock_out_id,
+                                om.distribution_id,
+                                om.logistics_order_no,
+                                om.order_source,
+                                om.invoice_id,
+                                om.parent_order_code,
+                                om.son_order_code,
+                                om.order_description,
+                                om.order_status,
+                                om.order_code,
+                                om.customer_id,
+                                om.order_channel,
+                                om.disabled,
+                                om.confirm_delivery,
+                                om.logistics_code,
+                                om.address_id,
+                                om.email,
+                                om.weight,
+                                om.assess_status,
+                                om.finish_date,
+                                om.invoice_info_type,
+                                om.invoice_info_title,
+                                om.invoice_info_content,
+                                om.total_credit,
+                                logistics_name,
+                                original_order_sum,
+                                om.province,
+                                om.city,
+                                om.area,
+                                om.zipcode,
+                                om.order_type,
+                                om.order_operation_remark,
+                                om.commerce_id,
+                                om.prize_numbers,
+                                om.prescription_attachment,
+                                om.check_flag,
+                                om.medic_flag
+  		<include refid="Map_Where_Clause"/>
+  		order by om.create_date desc) t
+        <!-- where rownum  &lt;= #skip# -->
+        ) tt  
+		<!-- where tt.rn  &gt;= #max#  -->
+  </select>
+  
+  <select id="countProductSalesDetailByParam" parameterClass="java.util.Map"  resultClass="java.lang.Integer">
+  	select count(1)	        
+  		from (select 	t.order_id, t.customer_account, t.customer_name, t.customer_mobile, t.order_purchaser_name, 
+						t.order_purchaser_mobile, t.order_purchaser_tel, t.order_purchaser_addr, t.order_purchaser_type, 
+						t.consignee_name, t.consignee_mobile, t.consignee_tel, t.consignee_addr, t.pay_method, t.fare, 
+						t.delivery_date_type, t.commodity_sum, t.discount_amount, t.account_balance, t.amount_payable, 
+						t.pay_date, t.create_date, t.agency_number, t.settlement_no, t.stock_out_id, t.distribution_id, 
+						t.logistics_order_no, t.order_source, t.invoice_id, t.parent_order_code, t.son_order_code, 
+						t.order_description, t.order_status, t.order_code, t.customer_id, t.order_channel, t.disabled, 
+						t.confirm_delivery, t.logistics_code, t.address_id, t.email, t.weight, t.assess_status, t.finish_date,
+       					t.invoice_info_type,t.invoice_info_title,t.invoice_info_content,t.total_credit ,t.logistics_name,t.original_order_sum,
+       					t.province,t.city,t.area,t.zipcode,t.order_type,t.order_operation_remark,t.commerce_id,t.prize_numbers,
+       					t.prescription_attachment,t.check_flag,t.medic_flag,rownum rn
+        from(select distinct 	om.order_id, om.customer_account, om.customer_name, om.customer_mobile, om.order_purchaser_name, 
+								om.order_purchaser_mobile, om.order_purchaser_tel, om.order_purchaser_addr, om.order_purchaser_type, 
+								om.consignee_name, om.consignee_mobile, om.consignee_tel, om.consignee_addr, om.pay_method, om.fare, 
+								om.delivery_date_type, om.commodity_sum, om.discount_amount, om.account_balance, om.amount_payable, 
+								om.pay_date, om.create_date, om.agency_number, om.settlement_no, om.stock_out_id, om.distribution_id, 
+								om.logistics_order_no, om.order_source, om.invoice_id, om.parent_order_code, om.son_order_code, 
+								om.order_description, om.order_status, om.order_code, om.customer_id, om.order_channel, om.disabled, 
+								om.confirm_delivery, om.logistics_code, om.address_id, om.email, om.weight, om.assess_status, om.finish_date,
+  								om.invoice_info_type,om.invoice_info_title,om.invoice_info_content,om.total_credit,logistics_name,original_order_sum,
+       							om.province,om.city,om.area,om.zipcode,om.order_type,om.order_operation_remark,om.commerce_id,om.prize_numbers,
+       							om.prescription_attachment,om.check_flag,om.medic_flag
+  		<include refid="Map_Where_Clause"/>
+  		order by om.create_date desc) t
+        <!-- where rownum  &lt;= #end# -->
+        ) tt  
+		<!-- where tt.rn  &gt;= #start# -->
+  </select>
+  
+  <select id="selectByEntryExamples" resultMap="supplierEntryResultMap" parameterClass="java.util.HashMap" >
+    SELECT T.SUPPLIER_ENTRY_ID,
+	       T.ACTIVITY_ID,
+	       T.SUPPLIER_ID,
+	       T.COMPANY_SHOW_NAME,
+	       T.SHOP_NAME,
+	       T.LOGIN_ACCOUNT,
+	       T.MOBILE,
+	       T.ENTRY_TIME,
+	       AP.ACTIVITY_PAYMENT_STATUS,
+	       T.AUDIT_STATUS,
+	       T.create_time
+	  FROM (select CTBI.CORPORATE_NAME COMPANY_SHOW_NAME,
+	               SM.SHOP_NAME SHOP_NAME,
+	               LI.LOGIN_ACCOUNT LOGIN_ACCOUNT,
+	               CASE
+	                 WHEN CTBI.MOBILE IS NULL THEN
+	                  CTBI.FIXED_PHONE
+	                 ELSE
+	                  CTBI.MOBILE
+	               END MOBILE,
+	               ASE.ENTRY_TIME ENTRY_TIME,
+	               ASE.AUDIT_STATUS AUDIT_STATUS,
+	               ASE.SUPPLIER_ENTRY_ID SUPPLIER_ENTRY_ID,
+	               ASE.ACTIVITY_ID,
+	               ASE.SUPPLIER_ID,
+	               ASE.create_time
+	           from ACTIVITY_SUPPLIER_ENTRY             ASE,
+                SUPPLIERS_INFO                      SI,
+                commercial_tenant_basic_info CTBI,
+                SHOP_MAIN                           SM,
+                LOGIN_INFO                   LI
+          WHERE ASE.SUPPLIER_ID = SI.SUPPLIER_ID
+            AND SI.MERCHANT_ID = CTBI.N_COMMERCIAL_TENANT_ID
+            AND SI.SUPPLIER_ID = SM.SUPPLIER_ID(+)
+            AND CTBI.N_LOGIN_ID = LI.N_LOGIN_ID
+		    AND ASE.ENTRY_STATUS = 2
+		    AND ASE.audit_status = 1 
+	           <isNotNull property="activityId" prepend="and" >
+		        ASE.ACTIVITY_ID =  #activityId#
+		      </isNotNull>
+		      <isNotNull property="companyShowName" prepend="and" >
+		        CTBI.CORPORATE_NAME like  '%'||#companyShowName#||'%'
+		      </isNotNull>
+		      <isNotNull property="shopName" prepend="and" >
+		        SM.SHOP_NAME like  '%'||#shopName#||'%' 
+		      </isNotNull>
+		      <isNotNull property="loginAccount" prepend="and" >
+		        LI.LOGIN_ACCOUNT =#loginAccount# 
+		      </isNotNull>) T
+	  lEFT join ACTIVITY_PAYMENT AP
+	    on T.SUPPLIER_ENTRY_ID = AP.SUPPLIER_ENTRY_ID
+	   AND AP.ACTIVITY_PAYMENT_TYPE = 1
+	   AND (ap.ONE_PAY_STATUS = 1 or ap.ACTIVITY_PAYMENT_STATUS = 4)
+        order by SUPPLIER_ENTRY_ID
+  </select>
+  
+  <select id="countByEntryExample" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+    SELECT COUNT(1)
+	  FROM (select CTBI.CORPORATE_NAME COMPANY_SHOW_NAME,
+	               SM.SHOP_NAME SHOP_NAME,
+	               LI.LOGIN_ACCOUNT LOGIN_ACCOUNT,
+	               CASE
+	                 WHEN CTBI.MOBILE IS NULL THEN
+	                  CTBI.FIXED_PHONE
+	                 ELSE
+	                  CTBI.MOBILE
+	               END MOBILE,
+	               ASE.ENTRY_TIME ENTRY_TIME,
+	               ASE.AUDIT_STATUS AUDIT_STATUS,
+	               ASE.SUPPLIER_ENTRY_ID SUPPLIER_ENTRY_ID,
+	               ASE.ACTIVITY_ID,
+	               ASE.SUPPLIER_ID
+	          from ACTIVITY_SUPPLIER_ENTRY             ASE,
+                SUPPLIERS_INFO                      SI,
+                commercial_tenant_basic_info CTBI,
+                SHOP_MAIN                           SM,
+                LOGIN_INFO                   LI
+          WHERE ASE.SUPPLIER_ID = SI.SUPPLIER_ID
+            AND SI.MERCHANT_ID = CTBI.N_COMMERCIAL_TENANT_ID
+            AND SI.SUPPLIER_ID = SM.SUPPLIER_ID(+)
+            AND CTBI.N_LOGIN_ID = LI.N_LOGIN_ID
+            AND ASE.ENTRY_STATUS = 2
+            AND ASE.audit_status = 1 
+	           <isNotNull property="activityId" prepend="and" >
+		        ASE.ACTIVITY_ID =  #activityId#
+		      </isNotNull>
+		      <isNotNull property="companyShowName" prepend="and" >
+		        CTBI.CORPORATE_NAME like  '%'||#companyShowName#||'%' 
+		      </isNotNull>
+		      <isNotNull property="shopName" prepend="and" >
+		        SM.SHOP_NAME like  '%'||#shopName#||'%' 
+		      </isNotNull>
+		      <isNotNull property="loginAccount" prepend="and" >
+		        LI.LOGIN_ACCOUNT =#loginAccount# 
+		      </isNotNull>) T
+	  lEFT join ACTIVITY_PAYMENT AP
+	    on T.SUPPLIER_ENTRY_ID = AP.SUPPLIER_ENTRY_ID
+	   AND AP.ACTIVITY_PAYMENT_TYPE = 1
+	   AND (ap.ONE_PAY_STATUS = 1 or ap.ACTIVITY_PAYMENT_STATUS = 4)
+  </select>
+</sqlMap>

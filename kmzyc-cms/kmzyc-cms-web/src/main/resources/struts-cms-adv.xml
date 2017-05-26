@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<package name="default" namespace="/cms" extends="struts">
+
+
+		<action name="GotoAdcolumnAdd">
+			<result>/WEB-INF/jsp/cms/Adcolumn/AdcolumnAdd.jsp</result>
+		</action>
+		<action name="Adcolumn_*" class="cmsAdcolumnAction" method="{1}">
+		  
+			<result name="Success">/WEB-INF/jsp/cms/Adcolumn/AdcolumnList.jsp
+			</result>
+			<result name="ByidSuccess">/WEB-INF/jsp/cms/Adcolumn/AdcolumnUpdate.jsp
+			</result>
+			<result name="gotoAdd">/WEB-INF/jsp/cms/Adcolumn/AdcolumnAdd.jsp</result>
+		</action>
+
+		<action name="GotoAdvAdd">
+			<result>/WEB-INF/jsp/cms/Adv/AdvAdd.jsp</result>
+		</action>
+		<action name="Adv_*" class="cmsAdvAction" method="{1}">
+		 <result name="goto">/WEB-INF/jsp/cms/Adv/AdvAdd.jsp</result>
+			<result name="Success">/WEB-INF/jsp/cms/Adv/AdvList.jsp</result>
+			<result name="ByidSuccess">/WEB-INF/jsp/cms/Adv/AdvUpdate.jsp</result>
+			
+			<result name="queryByAdv">/WEB-INF/jsp/cms/Adv/proAdvList.jsp</result>
+			<result name="openAdvList">/WEB-INF/jsp/cms/Adv/AdvListData.jsp</result>
+		</action>
+		
+		<!-- 供应商广告位管理 -->
+		
+			<action name="supplier_*" class="cmsSupplierAdcolumnAction" method="{1}">
+		
+			<result name="list">/WEB-INF/jsp/cms/supplier/adcolumnList.jsp</result>
+			<result name="edit">/WEB-INF/jsp/cms/supplier/adcolumnUpdate.jsp</result>
+			<result name="gotoAdd">/WEB-INF/jsp/cms/supplier/adcolumnAdd.jsp</result>
+			
+		
+		</action>
+		
+		 
+
+	</package>
+</struts>

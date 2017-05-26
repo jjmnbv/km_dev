@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="KMORDER_EXPRESS_COMPANY" >
+<!-- com.kmzyc.express.entities -->
+  <resultMap id="baseResultMap" class="com.kmzyc.express.entities.ExpressCompany" >
+    <result column="LOGISTICS_ID"   property="logisticsId"   jdbcType="DECIMAL" />
+    <result column="LOGISTICS_NAME" property="logisticsName" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_CODE" property="logisticsCode" jdbcType="VARCHAR" />
+    <result column="MARK"           property="mark" 		 jdbcType="VARCHAR" />
+    <result column="STATUS"         property="status" 		 jdbcType="DECIMAL" />
+    <result column="LOGISTICS_TYPE" property="logisticsType" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="mapWhereClause">
+  <dynamic prepend="WHERE">
+  	<!--物流公司名称 -->
+  	<isNotEmpty prepend="AND" property="logisticsName">
+			LOGISTICS_NAME like '%'||#logisticsName#||'%'
+	</isNotEmpty>
+  	<!-- 物流公司编码 -->
+  	<isNotEmpty prepend="AND" property="logisticsCode">
+			LOGISTICS_CODE = #logisticsCode#
+	</isNotEmpty>	
+    <!-- 物流公司状态-->
+  	<isNotEmpty prepend="AND" property="status">
+			STATUS = #status#
+	</isNotEmpty>
+	</dynamic>
+  </sql>
+  
+  <select id="queryExpressCompanyList" resultMap="baseResultMap" parameterClass="java.util.Map" >
+   SELECT LOGISTICS_ID,LOGISTICS_NAME,LOGISTICS_CODE,MARK,STATUS,LOGISTICS_TYPE 
+   		FROM (SELECT INNER_TABLE.*, ROWNUM RN
+               FROM (SELECT *
+                       FROM  EXPRESS_COMPANY  
+                        <isParameterPresent >  
+                         	<include refid="KMORDER_EXPRESS_COMPANY.mapWhereClause" />
+                        </isParameterPresent>
+                        ORDER BY LOGISTICS_CODE
+                        ) INNER_TABLE
+              WHERE ROWNUM &lt;= #endRow#) OUT_TABLE
+ 	WHERE RN &gt;= #startRow#
+  </select>
+  
+  <select id="queryExpressCompanyCount" resultClass="java.lang.Integer" parameterClass="java.util.Map" >
+   SELECT COUNT(1) FROM  EXPRESS_COMPANY 
+    <isParameterPresent >
+      <include refid="KMORDER_EXPRESS_COMPANY.mapWhereClause" />
+    </isParameterPresent>
+  </select>
+  
+  <select id="selectExpressCompanyByCode" resultMap="baseResultMap" parameterClass="java.lang.String" >
+    select LOGISTICS_ID, LOGISTICS_NAME, LOGISTICS_CODE, MARK, STATUS, LOGISTICS_TYPE
+    from  EXPRESS_COMPANY
+    where LOGISTICS_CODE = #logisticsCode:DECIMAL#
+  </select>
+ 	
+ 	<!-- 查询所有可用物流公司 -->
+ 	<select id="SQL_QUERY_ALL_ENABLE_EXPRESS_COMPANY" resultMap="baseResultMap">
+ 		SELECT ec.LOGISTICS_ID,
+		       ec.LOGISTICS_NAME,
+		       ec.LOGISTICS_CODE,
+		       ec.MARK,
+		       ec.STATUS,
+		       ec.LOGISTICS_TYPE
+		  from  EXPRESS_COMPANY ec
+		 where ec.status = 1
+ 	</select>
+ 	
+ 	<!-- quartz -->
+ 	<resultMap class="com.pltfm.app.entities.QuartzInfo" id="quartzInfoResultMap">
+		<result property="taskId" column="TASKID"  jdbcType="DECIMAL"/>
+		<result property="sysCode" column="SYSCODE" jdbcType="VARCHAR"/>
+		<result property="triggerName" column="TRIGGERNAME" jdbcType="VARCHAR"/>
+		<result property="triggerGroup" column="TRIGGERGROUP" jdbcType="VARCHAR"/>
+		<result property="cronExpression" column="CRONEXPRESSION" jdbcType="VARCHAR"/>
+		<result property="jobName" column="JOBNAME" jdbcType="VARCHAR"/>
+		<result property="jobGroup" column="JOBGROUP" jdbcType="VARCHAR"/>
+		<result property="jobClass" column="JOBCLASS" jdbcType="VARCHAR"/>
+		<result property="isVolatile" column="ISVOLATILE" jdbcType="VARCHAR"/>
+		<result property="jobDescription" column="DESCRIPTION" jdbcType="VARCHAR"/>
+		<result property="createDate" column="CREATEDATE" jdbcType="DATE"/>
+		<result property="updateDate" column="UPDATEDATE" jdbcType="DATE"/>
+	</resultMap>
+ 	<select id="SQL_QUERY_EXPRE_QUARTZ_TASK_LIST" parameterClass="String" resultMap="quartzInfoResultMap">
+ 		select qi.task_id         taskid,
+		       qi.sys_code        sysCode,
+		       qi.trigger_name    triggerName,
+		       qi.trigger_group   triggerGroup,
+		       qi.cron_expression cronExpression,
+		       qi.job_name        jobName,
+		       qi.job_group       jobGroup,
+		       qi.job_class       jobClass,
+		       qi.is_volatile     isVolatile,
+		       qi.job_description    description,
+		       qi.createDate     createDate,
+		       qi.updateDate     updateDate
+		  from quartz_info qi
+		where qi.sys_code = 'express'
+ 	</select>
+ 	<!-- quartz -->
+ 	
+</sqlMap>

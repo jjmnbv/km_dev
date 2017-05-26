@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="Crule8Extent" >
+
+  <typeAlias alias="crule8ExtentDO" type="com.pltfm.app.dataobject.Crule8ExtentDO" />
+
+  <resultMap id="crule8ExtentDOResultMap" class="crule8ExtentDO" >
+    <result property="extendId" column="EXTEND_ID" />
+    <result property="crule8Id" column="CRULE8_ID" />
+    <result property="type" column="TYPE" />
+    <result property="relateCode" column="RELATE_CODE" />
+  </resultMap>
+   <resultMap id="suplerResultMap" class="crule8ExtentDO" >
+    <result property="extendId" column="EXTEND_ID" />
+    <result property="crule8Id" column="CRULE8_ID" />
+    <result property="type" column="TYPE" />
+    <result property="relateCode" column="RELATE_CODE" />
+    <result property="corporateName" column="CORPORATE_NAME" />
+  </resultMap>
+  
+
+  <sql id="crule8Extent_columns" >
+    a1.EXTEND_ID, a1.CRULE8_ID, a1.TYPE, a1.RELATE_CODE
+  </sql>
+
+  <sql id="crule8Extent_do_columns" >
+    a1.EXTEND_ID, a1.CRULE8_ID, a1.TYPE, a1.RELATE_CODE
+  </sql>
+
+  <sql id="queryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="extendId" prepend="AND" >
+        <![CDATA[  
+        EXTEND_ID = #extendId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="crule8Id" prepend="AND" >
+        <![CDATA[  
+        CRULE8_ID = #crule8Id#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="type" prepend="AND" >
+        <![CDATA[  
+        TYPE = #type#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="relateCode" prepend="AND" >
+        <![CDATA[  
+        RELATE_CODE = #relateCode#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="doQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="extendId" prepend="AND" >
+        <![CDATA[  
+        EXTEND_ID = #extendId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="crule8Id" prepend="AND" >
+        <![CDATA[  
+        CRULE8_ID = #crule8Id#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="type" prepend="AND" >
+        <![CDATA[  
+        TYPE = #type#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="relateCode" prepend="AND" >
+        <![CDATA[  
+        RELATE_CODE = #relateCode#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <insert id="insert" parameterClass="crule8ExtentDO" >
+      <selectKey resultClass="java.math.BigDecimal" keyProperty="extendId" >
+           SELECT SEQ_CRULE8_EXTENT.NEXTVAL FROM DUAL
+      </selectKey>
+    INSERT INTO CRULE8_EXTENT( EXTEND_ID, CRULE8_ID, TYPE, RELATE_CODE)
+     VALUES ( #extendId#, #crule8Id#, #type#, #relateCode#)
+  </insert>
+
+  <select id="countByDOExample" parameterClass="crule8ExtentDO" resultClass="java.lang.Integer" >
+    SELECT COUNT(*) AS num FROM CRULE8_EXTENT 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="findListByDO" resultMap="crule8ExtentDOResultMap" parameterClass="crule8ExtentDO" >
+     SELECT 
+    <include refid="crule8Extent_do_columns" />
+     FROM CRULE8_EXTENT a1 
+    <include refid="doQueryParams" />
+  </select>
+  
+   <select id="findSuplerListByDO" resultMap="suplerResultMap" parameterClass="crule8ExtentDO" >
+    select a1.EXTEND_ID, a1.CRULE8_ID, a1.TYPE, a1.RELATE_CODE,c.corporate_name
+  from crule8_extent a1, SUPPLIERS_INFO s,commercial_tenant_basic_info c
+ where a1.relate_code = s.supplier_id
+ and s.merchant_id=c.n_commercial_tenant_id
+   and a1.type = 1
+   <isNotNull property="crule8Id">
+			  <isNotEmpty prepend="and" property="crule8Id">
+				a1.CRULE8_ID = #crule8Id# 
+			  </isNotEmpty>
+		  </isNotNull>
+  </select>
+   <delete id="deleteByPrimaryKey" parameterClass="java.math.BigDecimal" >
+    <![CDATA[  
+     DELETE FROM crule8_extent R WHERE R.CRULE8_ID= #crule8Id#
+    ]]>  
+  </delete>
+</sqlMap>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AddressInfo">
+<!-- 	<typeAlias alias="address" type="com.pltfm.app.vobject.Address" /> -->
+	<resultMap class="com.kmzyc.b2b.model.Address" id="address">
+		<result column="n_address_id" property="addressId" jdbcType="DECIMAL" />
+		<!-- 考虑后期增加用户N_LOGIN_ID -->
+		<result column="n_account_id" property="accountId" jdbcType="DECIMAL" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="province" property="province" jdbcType="VARCHAR" />
+		<result column="city" property="city" jdbcType="VARCHAR" />
+		<result column="detailedaddress" property="detailedAddress" jdbcType="VARCHAR" />
+		<result column="postalcode" property="postalcode" jdbcType="VARCHAR" />
+		<result column="add_name" property="addName" jdbcType="VARCHAR" />
+		<result column="d_createdate" property="createdate" />
+		<result column="d_lastupdate" property="lastupdate" jdbcType="DATE" />
+		<result column="status" property="status" jdbcType="DECIMAL" />
+		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
+		<result column="cellphone" property="cellphone" jdbcType="VARCHAR" />
+		<result column="area" property="area" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="CELLPHONE" property="cellphone" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="byNaccountIDCondition">
+		<![CDATA[
+		   N_ACCOUNT_ID = #accountId:NUMBER#
+	    ]]>
+	</sql>
+	<sql id="byAddressIdCondition">
+        <![CDATA[
+		   n_address_id = #addressId:NUMBER#
+	    ]]>
+	</sql>
+
+
+	<select id="findByN_AccountId" parameterClass="integer"
+		resultMap="address">
+		<![CDATA[
+			SELECT * FROM ADDRESS AD
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byNaccountIDCondition" />
+		</dynamic>
+			ORDER BY AD.STATUS ASC
+	</select>
+	<select id="findAddressbyNaddressId" parameterClass="integer" resultMap="address">
+		<![CDATA[
+			SELECT * FROM ADDRESS       
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byAddressIdCondition" />
+		</dynamic>
+	</select>
+	
+	<select id="findDefaultAddressByLoginId" parameterClass="int" resultMap="address">
+		select a.* from address a, account_info ai where
+		a.N_account_id = ai.N_ACCOUNT_ID
+		and ai.N_LOGIN_ID=#loginId:NUMBER# and
+		status=0
+	</select>
+	
+	<!-- 根据登录ID查询收货地址 -->
+	<!-- 考虑不在使用， 与 Address.findById 类似 -->
+	<select id="SQL_QUERY_ADDRESS_BY_LOGIN_ID" parameterClass="long" resultMap="address">
+		select addr.n_address_id,
+		       addr.n_account_id,
+		       addr.name,
+		       addr.province,
+		       addr.city,
+		       addr.detailedaddress,
+		       addr.postalcode,
+		       addr.add_name,
+		       addr.d_createdate,
+		       addr.d_lastupdate,
+		       addr.status,
+		       addr.telephone,
+		       addr.cellphone,
+		       addr.area,
+		       addr.email
+		  from address addr
+		 where exists (select 1
+		          from account_info ai
+		         where ai.n_account_id = addr.n_account_id
+		           and ai.n_login_id = #loginId:NUMBER#)
+		 order by addr.status asc
+	</select>
+	
+	<!-- 删除我的收货地址 -->
+	<delete id="SQL_DELETE_MY_UN_DEF_ADDRESS" parameterClass="java.util.Map">
+		delete from address addr
+		 where exists (select 1
+		          from account_info ai
+		         where ai.n_account_id = addr.n_account_id
+		           and ai.n_login_id = #loginId:NUMBER#)
+		   and addr.status = 1
+		   and addr.n_address_id = #addressId:NUMBER#
+	</delete>	
+	
+	<!-- 根据登录ID/地址ID查询收货地址 -->
+	<select id="SQL_QUERY_MY_ADDRESS" parameterClass="java.util.Map" resultMap="address">
+		select addr.n_address_id,
+		       addr.n_account_id,
+		       addr.name,
+		       addr.province,
+		       addr.city,
+		       addr.detailedaddress,
+		       addr.postalcode,
+		       addr.add_name,
+		       addr.d_createdate,
+		       addr.d_lastupdate,
+		       addr.status,
+		       addr.telephone,
+		       addr.cellphone,
+		       addr.area,
+		       addr.email
+		  from address addr
+		 where exists (select 1
+		          from account_info ai
+		         where ai.n_account_id = addr.n_account_id
+		           and ai.n_login_id = #loginId:NUMBER#)
+		 and addr.n_address_id =#addressId:NUMBER#
+	</select>	
+</sqlMap>

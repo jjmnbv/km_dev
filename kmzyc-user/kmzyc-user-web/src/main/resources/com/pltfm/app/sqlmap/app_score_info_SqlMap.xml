@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SCORE_INFO" >
+   <!-- 查询结果集 -->
+  <resultMap id="abatorgenerated_ScoreInfoResult" class="com.pltfm.app.vobject.ScoreInfo" >
+    <result column="N_SCORE_INFO_ID" property="n_scoreInfoId" jdbcType="INTEGER" />
+    <result column="N_LOGIN_ID" property="n_loginId" jdbcType="INTEGER" />
+     <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+    <result column="SCORE_TYPE" property="scoreType" jdbcType="INTEGER" />
+    <result column="SCORE_NUMBER" property="scoreNumber" jdbcType="DOUBLE" />
+    <result column="DISCRIBE" property="discribe" jdbcType="VARCHAR" />
+    <result column="D_CREATE_DATE" property="d_createDate"  />
+    <result column="N_CREATED" property="n_created" jdbcType="INTEGER" />
+    <result column="D_MODIFY_DATE" property="d_modifyDate"  />
+    <result column="N_MODIFIED" property="n_modified" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark"/>
+    <result column="COUPON_VALUE" property="couponValue"/>
+    <result column="CONSUME_TYPE" property="consumeType"/>
+    <result column="IS_STAUTS" property="isStauts"/>
+    <result column="N_SCORE_RULE_ID" property="n_scoreRuleId" />
+  </resultMap>
+  
+  <resultMap id="abatorgenerated_NewScoreInfoResult" extends="abatorgenerated_ScoreInfoResult"
+		class="com.pltfm.app.vobject.ScoreInfo">
+		<result property="source"  column="SOURCE"/>
+  </resultMap>
+	
+  
+  <!--查询条件 -->
+  <sql id="abatorgenerated_Example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  <!-- 通过主键查询积分明细信息 -->
+  <select id="abatorgenerated_selectByPrimaryKey" resultMap="abatorgenerated_ScoreInfoResult" parameterClass="java.lang.Integer" >
+    select N_SCORE_INFO_ID, N_LOGIN_ID, LOGIN_ACCOUNT,SCORE_TYPE, SCORE_NUMBER, DISCRIBE, D_CREATE_DATE,
+      N_CREATED, D_MODIFY_DATE, N_MODIFIED,REMARK,COUPON_VALUE,CONSUME_TYPE,IS_STAUTS,N_SCORE_RULE_ID
+     from SCORE_INFO t,LOGIN_INFO l
+         where t.N_LOGIN_ID =l.N_LOGIN_ID and N_SCORE_INFO_ID = #n_scoreInfoId:INTEGER#
+  </select>
+  <!-- 多条件查询积分明细信息 -->
+  <select id="abatorgenerated_selectByExample" resultMap="abatorgenerated_ScoreInfoResult" parameterClass="com.pltfm.app.vobject.ScoreInfoExample" >
+    select N_SCORE_INFO_ID, N_LOGIN_ID, SCORE_TYPE, SCORE_NUMBER, DISCRIBE, D_CREATE_DATE,
+      N_CREATED, D_MODIFY_DATE, N_MODIFIED,REMARK,COUPON_VALUE,CONSUME_TYPE,IS_STAUTS
+    from SCORE_INFO
+    <isParameterPresent >
+      <include refid="SCORE_INFO.abatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <!-- 通过主键删除积分明细信息 -->
+  <delete id="abatorgenerated_deleteByPrimaryKey" parameterClass="com.pltfm.app.vobject.ScoreInfo" >
+    delete from SCORE_INFO
+    where N_SCORE_INFO_ID = #n_scoreInfoId:INTEGER#
+  </delete>
+  <!-- 添加积分明细信息 -->
+  <insert id="abatorgenerated_insert" parameterClass="com.pltfm.app.vobject.ScoreInfo" >
+       <selectKey resultClass="java.lang.Integer" keyProperty="n_scoreInfoId" >
+           select seq_app_business.nextval from dual
+      </selectKey>
+    insert into SCORE_INFO (N_SCORE_INFO_ID, N_LOGIN_ID, SCORE_TYPE, SCORE_NUMBER, DISCRIBE,
+      D_CREATE_DATE, N_CREATED, D_MODIFY_DATE, N_MODIFIED,REMARK,COUPON_VALUE,CONSUME_TYPE,IS_STAUTS,N_SCORE_RULE_ID<isNotEmpty property="source">,SOURCE</isNotEmpty>)
+    values (#n_scoreInfoId:INTEGER#, #n_loginId:INTEGER#, #scoreType:INTEGER#, #scoreNumber:DOUBLE#,
+      #discribe:VARCHAR#, #d_createDate#, #n_created:INTEGER#, #d_createDate#,
+      #n_modified:INTEGER#,#remark#,#couponValue#,#consumeType#,#isStauts#,#n_scoreRuleId# 
+     <isNotEmpty property="source">,#source#</isNotEmpty>)
+  </insert>
+  <!-- 通过主键更新积分明细 -->
+  <update id="abatorgenerated_updateByPrimaryKey" parameterClass="com.pltfm.app.vobject.ScoreInfo" >
+    update SCORE_INFO
+    set N_LOGIN_ID = #n_loginId:INTEGER#,
+      SCORE_TYPE = #scoreType:INTEGER#,
+      SCORE_NUMBER = #scoreNumber:DOUBLE#,
+      DISCRIBE = #discribe:VARCHAR#,
+      D_CREATE_DATE = #d_createDate#,
+      N_CREATED = #n_created:INTEGER#,
+      D_MODIFY_DATE = #d_modifyDate#,
+      N_MODIFIED = #n_modified:INTEGER#,
+      REMARK=#remark#,
+      COUPON_VALUE=#couponValue#,
+      CONSUME_TYPE=#consumeType#,
+      IS_STAUTS=#isStauts#
+    where N_SCORE_INFO_ID = #n_scoreInfoId:INTEGER#
+  </update>
+  <!-- 查询积分明细信息总数 -->
+  <select id="abatorgenerated_countByScoreInfo" parameterClass="com.pltfm.app.vobject.ScoreInfo" resultClass="java.lang.Integer" >
+    select count(*)  from SCORE_INFO t,LOGIN_INFO l
+         where t.N_LOGIN_ID =l.N_LOGIN_ID
+             <isNotNull property="scoreType">
+			  <isNotEmpty prepend="and" property="scoreType">
+				 SCORE_TYPE = #scoreType:INTEGER#
+			  </isNotEmpty>
+			 </isNotNull>
+			 <isNotNull property="loginAccount">
+			  <isNotEmpty prepend="and" property="loginAccount">
+				 LOGIN_ACCOUNT  like '%$loginAccount$%'
+			  </isNotEmpty>
+			</isNotNull>
+			 <isNotNull property="n_scoreRuleId">
+			  <isNotEmpty prepend="and" property="n_scoreRuleId">
+				 t.N_SCORE_RULE_ID = #n_scoreRuleId#
+			  </isNotEmpty>
+			</isNotNull>
+			  <isNotNull property="d_createDateStart">
+			  <isNotEmpty prepend="and" property="d_createDateStart">
+			  	<![CDATA[  t.D_CREATE_DATE  >=#d_createDateStart#]]>
+			  </isNotEmpty>
+			</isNotNull>
+			  <isNotNull property="d_createDateEnd">
+			  <isNotEmpty prepend="and" property="d_createDateEnd">
+				<![CDATA[  t.D_CREATE_DATE  <=#d_createDateEnd#]]>
+			  </isNotEmpty>
+			</isNotNull>
+  </select>
+  <!-- 查询每日积分上限和 -->
+  
+    <select id="countIsDayMaxSorce" parameterClass="com.pltfm.app.vobject.ScoreInfo" resultClass="java.lang.Integer" >
+     SELECT NVL(SUM(T.SCORE_NUMBER),0)
+  FROM SCORE_INFO T
+ WHERE TO_CHAR(T.D_CREATE_DATE, 'yy-mm-dd') = TO_CHAR(SYSDATE, 'yy-mm-dd')
+             <isNotNull property="n_scoreRuleId">
+			  <isNotEmpty prepend="and" property="n_scoreRuleId">
+				 T.N_SCORE_RULE_ID = #n_scoreRuleId:INTEGER#
+			  </isNotEmpty>
+			 </isNotNull>
+			 <isNotNull property="n_loginId">
+			  <isNotEmpty prepend="and" property="n_loginId">
+				 T.N_LOGIN_ID = #n_loginId:INTEGER#
+			  </isNotEmpty>
+			</isNotNull>
+  </select>
+
+  <!-- 分页查询积分明细 -->
+  <select id="abatorgenerated_pageByScoreInfo" parameterClass="com.pltfm.app.vobject.ScoreInfo" resultMap="abatorgenerated_ScoreInfoResult">
+      select N_SCORE_INFO_ID, N_LOGIN_ID, SCORE_TYPE,LOGIN_ACCOUNT,SCORE_NUMBER,null as DISCRIBE, D_CREATE_DATE,REMARK,COUPON_VALUE,CONSUME_TYPE,IS_STAUTS,N_SCORE_RULE_ID,
+      N_CREATED, D_MODIFY_DATE, N_MODIFIED from (
+       select  ROW_NUMBER() OVER(order by N_SCORE_INFO_ID desc) as view_row_number, t.*,l.LOGIN_ACCOUNT from  SCORE_INFO t, LOGIN_INFO l
+         where t.N_LOGIN_ID =l.N_LOGIN_ID 
+            <isNotNull property="n_loginId">
+			  <isNotEmpty prepend="and" property="n_loginId">
+				 t.N_LOGIN_ID = #n_loginId:INTEGER#
+			  </isNotEmpty>
+			</isNotNull>
+            <isNotNull property="scoreType">
+			  <isNotEmpty prepend="and" property="scoreType">
+				 SCORE_TYPE = #scoreType:INTEGER#
+			  </isNotEmpty>
+			</isNotNull>
+			 <isNotNull property="loginAccount">
+			  <isNotEmpty prepend="and" property="loginAccount">
+				 LOGIN_ACCOUNT  like '%$loginAccount$%'
+			  </isNotEmpty>
+			</isNotNull>
+			  <isNotNull property="n_scoreRuleId">
+			  <isNotEmpty prepend="and" property="n_scoreRuleId">
+				 t.N_SCORE_RULE_ID = #n_scoreRuleId#
+			  </isNotEmpty>
+			</isNotNull>
+			  <isNotNull property="d_createDateStart">
+			  <isNotEmpty prepend="and" property="d_createDateStart">
+			  	<![CDATA[  t.D_CREATE_DATE  >=#d_createDateStart#]]>
+			  </isNotEmpty>
+			</isNotNull>
+			  <isNotNull property="d_createDateEnd">
+			  <isNotEmpty prepend="and" property="d_createDateEnd">
+				<![CDATA[  t.D_CREATE_DATE  <=#d_createDateEnd#]]>
+			  </isNotEmpty>
+			</isNotNull>
+       )
+        <![CDATA[ where view_row_number <= #endIndex# and view_row_number > #startIndex# ]]>
+  </select>
+  
+  
+    <!-- 分页查询积分明细（号卡） -->
+  <select id="abatorgenerated_pageByCardNum" parameterClass="com.pltfm.app.vobject.ScoreInfo" resultMap="abatorgenerated_NewScoreInfoResult">
+    select N_SCORE_INFO_ID,
+       N_LOGIN_ID,
+       SCORE_TYPE,
+       LOGIN_ACCOUNT,
+       SCORE_NUMBER,
+       DISCRIBE,
+       D_CREATE_DATE,
+       REMARK,
+       COUPON_VALUE,
+       CONSUME_TYPE,
+       IS_STAUTS,
+       N_SCORE_RULE_ID,
+       N_CREATED,
+       D_MODIFY_DATE,
+       N_MODIFIED,
+       SOURCE
+  from (select ROW_NUMBER() OVER(order by N_SCORE_INFO_ID desc) as view_row_number,
+               t.*,
+               l.LOGIN_ACCOUNT
+          from SCORE_INFO t, LOGIN_INFO l
+         where t.N_LOGIN_ID = l.N_LOGIN_ID
+           and l.card_num=#cardNum#
+        )
+        <![CDATA[ where view_row_number <= #endIndex# and view_row_number > #startIndex# ]]>
+  </select>
+    <!-- 查询积分明细信息总数(卡号) -->
+  <select id="abatorgenerated_countByByCardNum" parameterClass="com.pltfm.app.vobject.ScoreInfo" resultClass="java.lang.Integer" >
+    select count(*)  
+    from SCORE_INFO t,LOGIN_INFO l
+    where t.N_LOGIN_ID =l.N_LOGIN_ID
+		  and l.card_num=#cardNum#
+  </select>
+  
+  
+</sqlMap>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+ <sqlMap namespace="FareType">
+
+  <resultMap id="FareTypeResultMap" class="com.kmzyc.b2b.model.FareType" >
+    <result column="TYPE_ID" property="type_id" jdbcType="NUMBER" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CORP_ID" property="corpId" jdbcType="DECIMAL" />
+  </resultMap>
+
+ 	<select id="listAll"  resultMap="FareTypeResultMap">
+ 		SELECT TYPE_ID,NAME,CORP_ID FROM FARE_TYPE WHERE DISABLED = 0
+ 	</select>
+ 	
+ </sqlMap>

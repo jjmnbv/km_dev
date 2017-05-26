@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PRODUCT_STOCK" >
+
+	<!-- 根据对接系统产品编号查询sku信息 20151023 add  已过滤掉无效的sku-->
+	<select id="querySkuByEprProCode" resultClass="com.pltfm.app.vobject.ProductSku" parameterClass="java.util.Map">
+		select product_sku_id productSkuId, product_id productId, price price, product_sku_code productSkuCode, status status,sku_bar_code skuBarCode from product_sku where status=1 and product_sku_id in(select product_sku_id from product_erp_relation where sys_code=#sysCode:VARCHAR# and erp_pro_code=#erpProCode:VARCHAR#)
+	</select>
+	
+	
+	<!-- 绕过捷科对应关系,直接查我们库中有效的sku列表-->
+	<select id="queryValidSkuByMap" resultClass="com.pltfm.app.vobject.ProductSku" parameterClass="java.util.Map">
+		select product_sku_id productSkuId, product_id productId, price price, product_sku_code productSkuCode, status status,sku_bar_code skuBarCode from product_sku where status=1 
+		<isNotEmpty prepend="and" property="productSkuCode">
+	  	<![CDATA[
+	  		product_sku_code=#productSkuCode:VARCHAR#
+	  	]]>
+	  </isNotEmpty>	  
+	  <isNotEmpty prepend="and" property="productNo">
+	  	<![CDATA[
+	  		product_id in (select product_id from productmain where product_no=#productNo:VARCHAR#)
+	  	]]>
+	  </isNotEmpty>
+		
+		
+	</select>
+	
+	
+	<!-- 根据仓库id和skuId查询库存记录 -->
+	<select id="findProductStockByWareAndSkuId" resultClass="com.pltfm.app.vobject.ProductStock"  parameterClass="java.util.Map" >
+      select stock_id stockid, warehouse_id warehouseid, product_id productid, product_name productname
+      , product_no productno, sku_attribute_id skuattributeid
+      ,	sku_att_value skuattvalue, stock_quality stockquality, order_quality orderquality
+      	, in_transit_quality intransitquality , alarm_quality alarmquality, total_sales totalsales
+      	,price, min_day minday, max_day maxday, adjust, remark 
+    from product_stock where warehouse_id = #warehouseId:DECIMAL# and sku_attribute_id = #productSkuId:DECIMAL#  
+  </select>
+  
+   <!-- 插入库存记录 -->
+   <insert id="ibatorgenerated_insert" parameterClass="com.pltfm.app.vobject.ProductStock" >
+    <selectKey resultClass="java.lang.Long" keyProperty="stockId" >
+	      select seq_app_productstock.nextval from dual
+	</selectKey>
+    insert into product_stock
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="stockId" >
+        stock_id
+      </isNotNull>
+      <isNotNull prepend="," property="warehouseId" >
+        warehouse_id
+      </isNotNull>
+      <isNotNull prepend="," property="productId" >
+        product_id
+      </isNotNull>
+      <isNotNull prepend="," property="productName" >
+        product_name
+      </isNotNull>
+      <isNotNull prepend="," property="productNo" >
+        product_no
+      </isNotNull>
+      <isNotNull prepend="," property="skuAttributeId" >
+        sku_attribute_id
+      </isNotNull>
+      <isNotNull prepend="," property="skuAttValue" >
+        sku_att_value
+      </isNotNull>
+      <isNotNull prepend="," property="stockQuality" >
+        stock_quality
+      </isNotNull>
+      <isNotNull prepend="," property="orderQuality" >
+        order_quality
+      </isNotNull>
+      <isNotNull prepend="," property="inTransitQuality" >
+        in_transit_quality
+      </isNotNull>
+      <isNotNull prepend="," property="alarmQuality" >
+        alarm_quality
+      </isNotNull>
+      <isNotNull prepend="," property="totalSales" >
+        total_sales
+      </isNotNull>
+      <isNotNull prepend="," property="price" >
+        price
+      </isNotNull>
+      <isNotNull prepend="," property="minDay" >
+        min_day
+      </isNotNull>
+      <isNotNull prepend="," property="maxDay" >
+        max_day
+      </isNotNull>
+      <isNotNull prepend="," property="adjust" >
+        adjust
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        remark
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="stockId" >
+        #stockId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="warehouseId" >
+        #warehouseId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="productId" >
+        #productId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="productName" >
+        #productName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productNo" >
+        #productNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="skuAttributeId" >
+        #skuAttributeId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="skuAttValue" >
+        #skuAttValue:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="stockQuality" >
+        #stockQuality:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="orderQuality" >
+        #orderQuality:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="inTransitQuality" >
+        #inTransitQuality:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="alarmQuality" >
+        #alarmQuality:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="totalSales" >
+        #totalSales:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="price" >
+        #price:BIGDECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="minDay" >
+        #minDay:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="maxDay" >
+        #maxDay:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="adjust" >
+        #adjust:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        #remark:VARCHAR#
+      </isNotNull>
+      )
+    </dynamic>   
+  </insert>
+  
+  <!-- 根据库存id更新库存量 -->
+   <update id="updateStockQuantityById" parameterClass="java.util.Map">
+   		update product_stock  set stock_quality=#stockQuality:DECIMAL#,remark=#remark:VARCHAR# where stock_id=#stockId:DECIMAL#
+   </update>
+   
+   <!-- 插入日志记录 -->
+   <insert id="insert_stockLog" parameterClass="com.pltfm.app.vobject.ErpOrderLog" >
+    <selectKey resultClass="java.lang.Long" keyProperty="id" >
+      select seq_erp_log.nextval from dual
+    </selectKey>
+    insert into erp_order_log (id, order_code, error_content,op_type,create_date,sys_code )
+    values (#id:DECIMAL#, #orderCode:VARCHAR#, #errorContent:VARCHAR#, #opType#, #createDate:TIMESTAMP#, #sysCode#)
+  </insert>
+  
+</sqlMap>

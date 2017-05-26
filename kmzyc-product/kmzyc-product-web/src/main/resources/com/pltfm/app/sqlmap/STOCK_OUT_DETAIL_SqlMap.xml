@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="STOCK_OUT_DETAIL" >
+  <resultMap id="BaseResultMap" class="com.pltfm.app.vobject.StockOutDetail" >
+    <result column="DETAIL_ID" property="detailId" jdbcType="LONG" />
+    <result column="STOCK_OUT_ID" property="stockOutId" jdbcType="LONG" />
+    <result column="STOCK_ID" property="stockId" jdbcType="LONG" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="LONG" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="LONG" />
+    <result column="PRODUCT_SKU_VALUE" property="productSkuValue" jdbcType="VARCHAR" />
+    <result column="BAR_CODE" property="barCode" jdbcType="VARCHAR" />
+    <result column="BILL_DETAIL_ID" property="billDetailId" jdbcType="LONG" />
+    <result column="BILL_TYPE" property="billType" jdbcType="DECIMAL" />
+    <result column="QUANTITY" property="quantity" jdbcType="INTEGER" />
+    <result column="TAX_PRICE" property="taxPrice" jdbcType="DECIMAL" />
+    <result column="TAX_SUM" property="taxSum" jdbcType="DECIMAL" />
+    <result column="TAX_RATE" property="taxRate" jdbcType="DECIMAL" />
+    <result column="TAX" property="tax" jdbcType="DECIMAL" />
+    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+    <result column="SUM" property="sum" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$ #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  <sql id="Base_Column_List" >
+    DETAIL_ID, STOCK_OUT_ID, STOCK_ID, PRODUCT_ID, PRODUCT_NAME, PRODUCT_NO, PRODUCT_SKU_ID, 
+    PRODUCT_SKU_VALUE, BAR_CODE, BILL_DETAIL_ID, BILL_TYPE, QUANTITY, TAX_PRICE, TAX_SUM, 
+    TAX_RATE, TAX, PRICE, SUM, REMARK
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterClass="com.pltfm.app.vobject.StockOutDetailExample" >
+    select
+    <isParameterPresent >
+      <isEqual property="distinct" compareValue="true" >
+        distinct
+      </isEqual>
+    </isParameterPresent>
+    <include refid="STOCK_OUT_DETAIL.Base_Column_List" />
+    from STOCK_OUT_DETAIL
+    <isParameterPresent >
+      <include refid="STOCK_OUT_DETAIL.Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterClass="com.pltfm.app.vobject.StockOutDetail" >
+    select 
+    <include refid="STOCK_OUT_DETAIL.Base_Column_List" />
+    from STOCK_OUT_DETAIL
+    where DETAIL_ID = #detailId:LONG#
+  </select>
+  <delete id="deleteByPrimaryKey" parameterClass="com.pltfm.app.vobject.StockOutDetail" >
+    delete from STOCK_OUT_DETAIL
+    where DETAIL_ID = #detailId:LONG#
+  </delete>
+  <delete id="deleteByExample" parameterClass="com.pltfm.app.vobject.StockOutDetailExample" >
+    delete from STOCK_OUT_DETAIL
+    <include refid="STOCK_OUT_DETAIL.Example_Where_Clause" />
+  </delete>
+  <insert id="insert" parameterClass="com.pltfm.app.vobject.StockOutDetail" >
+ 	 <selectKey keyProperty="detailId" resultClass="java.lang.Long">
+  			select SEQ_STOCKOUT_DETAIL.nextval from dual
+  		</selectKey>
+    insert into STOCK_OUT_DETAIL (DETAIL_ID, STOCK_OUT_ID, STOCK_ID, PRODUCT_ID, 
+      PRODUCT_NAME, PRODUCT_NO, PRODUCT_SKU_ID, PRODUCT_SKU_VALUE, 
+      BAR_CODE, BILL_DETAIL_ID, BILL_TYPE, QUANTITY, 
+      TAX_PRICE, TAX_SUM, TAX_RATE, TAX, PRICE, 
+      SUM, REMARK)
+    values (#detailId:LONG#, #stockOutId:LONG#, #stockId:LONG#, #productId:LONG#, 
+      #productName:VARCHAR#, #productNo:VARCHAR#, #productSkuId:LONG#, #productSkuValue:VARCHAR#, 
+      #barCode:VARCHAR#, #billDetailId:LONG#, #billType:DECIMAL#, #quantity:INTEGER#, 
+      #taxPrice:DECIMAL#, #taxSum:DECIMAL#, #taxRate:DECIMAL#, #tax:DECIMAL#, #price:DECIMAL#, 
+      #sum:DECIMAL#, #remark:VARCHAR#)
+  </insert>
+  <insert id="insertSelective" parameterClass="com.pltfm.app.vobject.StockOutDetail" >
+  	 <selectKey keyProperty="detailId" resultClass="java.lang.Long">
+  			select SEQ_STOCKOUT_DETAIL.nextval from dual
+  		</selectKey>
+    insert into STOCK_OUT_DETAIL
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="detailId" >
+        DETAIL_ID
+      </isNotNull>
+      <isNotNull prepend="," property="stockOutId" >
+        STOCK_OUT_ID
+      </isNotNull>
+      <isNotNull prepend="," property="stockId" >
+        STOCK_ID
+      </isNotNull>
+      <isNotNull prepend="," property="productId" >
+        PRODUCT_ID
+      </isNotNull>
+      <isNotNull prepend="," property="productName" >
+        PRODUCT_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="productNo" >
+        PRODUCT_NO
+      </isNotNull>
+      <isNotNull prepend="," property="productSkuId" >
+        PRODUCT_SKU_ID
+      </isNotNull>
+      <isNotNull prepend="," property="productSkuValue" >
+        PRODUCT_SKU_VALUE
+      </isNotNull>
+      <isNotNull prepend="," property="barCode" >
+        BAR_CODE
+      </isNotNull>
+      <isNotNull prepend="," property="billDetailId" >
+        BILL_DETAIL_ID
+      </isNotNull>
+      <isNotNull prepend="," property="billType" >
+        BILL_TYPE
+      </isNotNull>
+      <isNotNull prepend="," property="quantity" >
+        QUANTITY
+      </isNotNull>
+      <isNotNull prepend="," property="taxPrice" >
+        TAX_PRICE
+      </isNotNull>
+      <isNotNull prepend="," property="taxSum" >
+        TAX_SUM
+      </isNotNull>
+      <isNotNull prepend="," property="taxRate" >
+        TAX_RATE
+      </isNotNull>
+      <isNotNull prepend="," property="tax" >
+        TAX
+      </isNotNull>
+      <isNotNull prepend="," property="price" >
+        PRICE
+      </isNotNull>
+      <isNotNull prepend="," property="sum" >
+        SUM
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        REMARK
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="detailId" >
+        #detailId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="stockOutId" >
+        #stockOutId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="stockId" >
+        #stockId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="productId" >
+        #productId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="productName" >
+        #productName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productNo" >
+        #productNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productSkuId" >
+        #productSkuId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="productSkuValue" >
+        #productSkuValue:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="barCode" >
+        #barCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="billDetailId" >
+        #billDetailId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="billType" >
+        #billType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="quantity" >
+        #quantity:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="taxPrice" >
+        #taxPrice:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="taxSum" >
+        #taxSum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="taxRate" >
+        #taxRate:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="tax" >
+        #tax:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="price" >
+        #price:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="sum" >
+        #sum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        #remark:VARCHAR#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  <select id="countByExample" parameterClass="com.pltfm.app.vobject.StockOutDetailExample" resultClass="java.lang.Integer" >
+    select count(1) from STOCK_OUT_DETAIL
+    <include refid="STOCK_OUT_DETAIL.Example_Where_Clause" />
+  </select>
+  <update id="updateByExampleSelective" >
+    update STOCK_OUT_DETAIL
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.detailId" >
+        DETAIL_ID = #record.detailId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="record.stockOutId" >
+        STOCK_OUT_ID = #record.stockOutId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="record.stockId" >
+        STOCK_ID = #record.stockId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="record.productId" >
+        PRODUCT_ID = #record.productId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="record.productName" >
+        PRODUCT_NAME = #record.productName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.productNo" >
+        PRODUCT_NO = #record.productNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.productSkuId" >
+        PRODUCT_SKU_ID = #record.productSkuId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="record.productSkuValue" >
+        PRODUCT_SKU_VALUE = #record.productSkuValue:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.barCode" >
+        BAR_CODE = #record.barCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.billDetailId" >
+        BILL_DETAIL_ID = #record.billDetailId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="record.billType" >
+        BILL_TYPE = #record.billType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.quantity" >
+        QUANTITY = #record.quantity:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="record.taxPrice" >
+        TAX_PRICE = #record.taxPrice:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.taxSum" >
+        TAX_SUM = #record.taxSum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.taxRate" >
+        TAX_RATE = #record.taxRate:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.tax" >
+        TAX = #record.tax:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.price" >
+        PRICE = #record.price:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.sum" >
+        SUM = #record.sum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.remark" >
+        REMARK = #record.remark:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="STOCK_OUT_DETAIL.Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="updateByExample" >
+    update STOCK_OUT_DETAIL
+    set DETAIL_ID = #record.detailId:LONG#,
+      STOCK_OUT_ID = #record.stockOutId:LONG#,
+      STOCK_ID = #record.stockId:LONG#,
+      PRODUCT_ID = #record.productId:LONG#,
+      PRODUCT_NAME = #record.productName:VARCHAR#,
+      PRODUCT_NO = #record.productNo:VARCHAR#,
+      PRODUCT_SKU_ID = #record.productSkuId:LONG#,
+      PRODUCT_SKU_VALUE = #record.productSkuValue:VARCHAR#,
+      BAR_CODE = #record.barCode:VARCHAR#,
+      BILL_DETAIL_ID = #record.billDetailId:LONG#,
+      BILL_TYPE = #record.billType:DECIMAL#,
+      QUANTITY = #record.quantity:INTEGER#,
+      TAX_PRICE = #record.taxPrice:DECIMAL#,
+      TAX_SUM = #record.taxSum:DECIMAL#,
+      TAX_RATE = #record.taxRate:DECIMAL#,
+      TAX = #record.tax:DECIMAL#,
+      PRICE = #record.price:DECIMAL#,
+      SUM = #record.sum:DECIMAL#,
+      REMARK = #record.remark:VARCHAR#
+    <isParameterPresent >
+      <include refid="STOCK_OUT_DETAIL.Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterClass="com.pltfm.app.vobject.StockOutDetail" >
+    update STOCK_OUT_DETAIL
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="stockOutId" >
+        STOCK_OUT_ID = #stockOutId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="stockId" >
+        STOCK_ID = #stockId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="productId" >
+        PRODUCT_ID = #productId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="productName" >
+        PRODUCT_NAME = #productName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productNo" >
+        PRODUCT_NO = #productNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productSkuId" >
+        PRODUCT_SKU_ID = #productSkuId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="productSkuValue" >
+        PRODUCT_SKU_VALUE = #productSkuValue:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="barCode" >
+        BAR_CODE = #barCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="billDetailId" >
+        BILL_DETAIL_ID = #billDetailId:LONG#
+      </isNotNull>
+      <isNotNull prepend="," property="billType" >
+        BILL_TYPE = #billType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="quantity" >
+        QUANTITY = #quantity:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="taxPrice" >
+        TAX_PRICE = #taxPrice:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="taxSum" >
+        TAX_SUM = #taxSum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="taxRate" >
+        TAX_RATE = #taxRate:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="tax" >
+        TAX = #tax:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="price" >
+        PRICE = #price:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="sum" >
+        SUM = #sum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        REMARK = #remark:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    where DETAIL_ID = #detailId:LONG#
+  </update>
+  <update id="updateByPrimaryKey" parameterClass="com.pltfm.app.vobject.StockOutDetail" >
+    update STOCK_OUT_DETAIL
+    set STOCK_OUT_ID = #stockOutId:LONG#,
+      STOCK_ID = #stockId:LONG#,
+      PRODUCT_ID = #productId:LONG#,
+      PRODUCT_NAME = #productName:VARCHAR#,
+      PRODUCT_NO = #productNo:VARCHAR#,
+      PRODUCT_SKU_ID = #productSkuId:LONG#,
+      PRODUCT_SKU_VALUE = #productSkuValue:VARCHAR#,
+      BAR_CODE = #barCode:VARCHAR#,
+      BILL_DETAIL_ID = #billDetailId:LONG#,
+      BILL_TYPE = #billType:DECIMAL#,
+      QUANTITY = #quantity:INTEGER#,
+      TAX_PRICE = #taxPrice:DECIMAL#,
+      TAX_SUM = #taxSum:DECIMAL#,
+      TAX_RATE = #taxRate:DECIMAL#,
+      TAX = #tax:DECIMAL#,
+      PRICE = #price:DECIMAL#,
+      SUM = #sum:DECIMAL#,
+      REMARK = #remark:VARCHAR#
+    where DETAIL_ID = #detailId:LONG#
+  </update>
+</sqlMap>

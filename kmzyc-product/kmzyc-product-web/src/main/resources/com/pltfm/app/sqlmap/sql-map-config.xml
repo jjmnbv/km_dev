@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<settings cacheModelsEnabled="true" enhancementEnabled="true"
+		lazyLoadingEnabled="false" maxRequests="10" maxSessions="20"
+		maxTransactions="50" useStatementNamespaces="true"
+		defaultStatementTimeout="30" statementCachingEnabled="true"
+		classInfoCacheEnabled="true" errorTracingEnabled="true" />
+
+	<!-- app -->
+	<sqlMap resource="com/pltfm/app/sqlmap/app_product_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/SECTIONS_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/app_prodBrand_SqlMap.xml" />
+	<!--<sqlMap resource="com/pltfm/app/sqlmap/app_prodSupplier_SqlMap.xml" />-->
+	<sqlMap resource="com/pltfm/app/sqlmap/CATEGORY_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/CATEGORY_ATTR_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/CATEGORY_ATTR_VALUE_SqlMap.xml" />
+	<!--<sqlMap resource="com/pltfm/app/sqlmap/app_product_att_SqlMap.xml" />-->
+	<sqlMap resource="com/pltfm/app/sqlmap/app_warehouse_info_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/WAREHOUSE_RELATION_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/app_product_stock_SqlMap.xml" />
+	<!-- <sqlMap resource="com/pltfm/app/sqlmap/XIU_CATGROUP_SqlMap.xml" /> 
+		<sqlMap resource="com/pltfm/app/sqlmap/XIU_SEARCH_SqlMap.xml" /> <sqlMap 
+		resource="com/pltfm/app/sqlmap/XIU_KEYWORDS_EXPRESS_SqlMap.xml" /> <sqlMap 
+		resource="com/pltfm/suggest/sqlmap/XIU_CATENTRY_SQLMAP.xml" /> -->
+	<sqlMap resource="com/pltfm/app/sqlmap/app_productImage_SqlMap.xml" />
+	<!-- B2B 产品价格定向发布 -->
+	<!--<sqlMap resource="com/pltfm/app/sqlmap/app_directionalReleasePrice_SqlMap.xml" />-->
+	<!--<sqlMap resource="com/pltfm/app/sqlmap/app_directionalReleasePrice_draft_SqlMap.xml" />	-->
+	<!-- B2B 会员价格协议 -->
+	<!--<sqlMap resource="com/pltfm/app/sqlmap/AGREEMENT_PRICE_SqlMap.xml" />-->
+	<!--<sqlMap resource="com/pltfm/app/sqlmap/AGREEMENT_PRICE_DETAIL_SqlMap.xml" />-->
+	<!-- 供应商产品与店内分类关联 20150120 maliqun add begin -->
+	<sqlMap resource="com/pltfm/app/sqlmap/SHOP_PRODUCT_CATEGORY_SqlMap.xml" />
+	<!-- 供应商产品与店内分类关联  20150120 maliqun add end -->
+	<sqlMap resource="com/pltfm/app/sqlmap/app_areaDict_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/PRODUCT_ATTR_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/OPERATION_ATTR_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/PRODUCT_SKU_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/PRODUCT_SKU_ATTR_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/SECTIONS_DETAIL_SqlMap.xml" />
+	<!-- 产品草稿系列 -->
+	<sqlMap resource="com/pltfm/app/sqlmap/app_productDraft_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/app_productAttrDraft_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/app_productImageDraft_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/app_productSkuDraft_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/app_productSkuAttrDraft_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/app_productPriceRecord_SqlMap.xml" />
+	<!--<sqlMap resource="com/pltfm/app/sqlmap/app_productWebsite_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/app_productWebsiteDraft_SqlMap.xml" />-->
+    <!--产品上下架操作日志-->
+	<sqlMap resource="com/pltfm/app/sqlmap/PRODUCT_OPERATE_LOG_SqlMap.xml" />
+	<!-- 产品资质文件 -->
+	<sqlMap resource="com/pltfm/app/sqlmap/app_productCertificate_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/app_productCertificateDraft_SqlMap.xml" />
+	<!-- 产品评价 -->
+	<sqlMap resource="com/pltfm/app/sqlmap/app_prodAppraise_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/app_appraiseProp_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/app_appraisePropVal_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/app_appraiseRelaProp_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/app_appraiseReply_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/app_appraiseAddToContent_SqlMap.xml" />
+	<!-- 与捷科对应关系 -->
+	<!--<sqlMap resource="com/pltfm/app/sqlmap/PRODUCT_ERP_RELATION_SqlMap.xml" />-->
+    <!--  ERP外部系统对接 -->
+    <!--<sqlMap resource="com/pltfm/app/sqlmap/ERP_SYN_LOG_SqlMap.xml"></sqlMap>
+    <sqlMap resource="com/pltfm/app/sqlmap/ERP_SYN_LOG_DETAIL_SqlMap.xml"></sqlMap>
+    <sqlMap resource="com/pltfm/app/sqlmap/ERP_ORDER_LOG_SqlMap.xml"></sqlMap>-->
+	<!-- 品类 -->
+	<!--<sqlMap resource="com/pltfm/app/sqlmap/app_DrugCategory_SqlMap.xml" />-->
+	<!-- 采购单sqlMap -->
+	<!--<sqlMap resource="com/pltfm/app/sqlmap/PURCHASE_INFO_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/PURCHASE_DETAIL_SqlMap.xml" />-->
+    <!-- 入库单 -->
+    <!--<sqlMap resource="com/pltfm/app/sqlmap/STOCK_IN_SqlMap.xml" />-->
+	<!--<sqlMap resource="com/pltfm/app/sqlmap/STOCK_IN_DETAIL_SqlMap.xml" />-->
+	<sqlMap resource="com/pltfm/app/sqlmap/app_viewProductSku_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/app_viewSkuAttr_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/TIED_SADE_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/PRODUCTMAINTIED_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/CONSULT_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/FILTER_FIELD_SqlMap.xml" />
+	<!--产品库存日志管理 -->
+	<sqlMap resource="com/pltfm/app/sqlmap/PRODUCT_STOCK_LOG_SqlMap.xml" />
+
+	<!--产品库存日志管理 -->
+   <sqlMap resource="com/pltfm/app/sqlmap/PRODUCT_SKU_QUANTITY_SqlMap.xml"></sqlMap>
+	<!-- 出库单 -->
+	<sqlMap resource="com/pltfm/app/sqlmap/STOCK_OUT_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/STOCK_OUT_DETAIL_SqlMap.xml" />
+	<!-- 配送单 -->
+	<sqlMap resource="com/pltfm/app/sqlmap/DISTRIBUTION_INFO_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/DISTRIBUTION_DETAIL_INFO_SqlMap.xml" />
+	<!-- 促销管理 -->
+	<!--<sqlMap resource="com/pltfm/app/sqlmap/PROMOTION_PRODUCT_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/PROMOTION_RULE_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/PROMOTION_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/PROMOTION_ATTR_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/PROMOTION_RULE_DATA_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/PROMOTION_SHOP_MAPPER_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/PromotionInfo.xml" />-->
+	<!--产品销售排行榜 -->
+	<sqlMap resource="com/pltfm/app/sqlmap/SALE_RANK_SqlMap.xml" ></sqlMap>
+	<!-- 退货单 -->
+	<sqlMap resource="com/pltfm/app/sqlmap/app_afterSaleReturnOrder_SqlMap.xml" />
+
+    <!--产品基本字典表-->
+	<sqlMap resource="com/pltfm/app/sqlmap/PRODUCT_DICT_SqlMap.xml" />
+	<!-- 优惠券 -->
+	<!--<sqlMap resource="com/pltfm/app/sqlmap/COUPON_PRODUCT_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/COUPON_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/COUPON_GRANT_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/KMPRODUCT_COUPON_GRANT_FLOW_SqlMap.xml" />-->
+    <!-- 优惠券发放设置 -->
+    <!--<sqlMap resource="com/pltfm/app/sqlmap/CouponGrantSeting.xml"></sqlMap>-->
+	<!-- 产品关联 -->
+	<sqlMap resource="com/pltfm/app/sqlmap/PRODUCT_RELATION_DETAIL_SqlMap.xml"   ></sqlMap>
+	<sqlMap resource="com/pltfm/app/sqlmap/PRODUCT_RELATION_SqlMap.xml"            ></sqlMap>
+	<!-- 供应商申请审核 -->
+	<!--<sqlMap resource="com/pltfm/app/sqlmap/SUPPLIERSRECHECK.xml"></sqlMap>-->
+	<sqlMap resource="com/pltfm/app/sqlmap/SUPPLIERS_CERTIFICATE_SqlMap.xml"></sqlMap>
+	<sqlMap resource="com/pltfm/app/sqlmap/SUPPLIERS_INFO_SqlMap.xml"></sqlMap>
+	<!--<sqlMap resource="com/pltfm/app/sqlmap/SUPPLIER_CHANNEL_SqlMap.xml"></sqlMap>-->
+	<sqlMap resource="com/pltfm/app/sqlmap/SUPPLIERS_AVAILABLE_CATEGORYS_SqlMap.xml"></sqlMap>
+	<sqlMap resource="com/pltfm/app/sqlmap/SUPPLIERS_WAREHOUSE_SqlMap.xml"></sqlMap>
+	<sqlMap resource="com/pltfm/app/sqlmap/AccountInfo.xml"></sqlMap>
+	<sqlMap resource="com/pltfm/app/sqlmap/User.xml"></sqlMap>
+	<sqlMap resource="com/pltfm/app/sqlmap/SUPPLIERAUDIT.xml"></sqlMap>
+	<!-- 供应商店铺 -->
+	<sqlMap resource="com/pltfm/app/sqlmap/SHOP_MAIN_SqlMap.xml"></sqlMap>
+	<sqlMap resource="com/pltfm/app/sqlmap/NEWS_CATEGORY_SqlMap.xml"></sqlMap>
+	<sqlMap resource="com/pltfm/app/sqlmap/SHOP_NEWS_CATEGORY_SqlMap.xml"></sqlMap>
+	<sqlMap resource="com/pltfm/app/sqlmap/SHOP_MAIN_DRAFT_SqlMap.xml"></sqlMap>
+	<!--<sqlMap resource="com/pltfm/app/sqlmap/SHOP_CATEGORYS_SqlMap.xml"></sqlMap>-->
+	<!--  运费管理 -->
+	<sqlMap resource="com/pltfm/app/sqlmap/SUPPLIER_FARE_SqlMap.xml"></sqlMap>
+
+    <!--品牌草稿-->
+    <sqlMap resource="com/pltfm/app/sqlmap/app_prod_brand_draft_SqlMap.xml"></sqlMap>
+    <!-- 返利网对接 -->
+    <!--<sqlMap resource="com/pltfm/app/sqlmap/fanli/CATEGORY_COMMISSION_OUT_SqlMap.xml"></sqlMap>
+    <sqlMap resource="com/pltfm/app/sqlmap/fanli/PRODUCT_COMMISSION_OUT_SqlMap.xml"></sqlMap>-->
+    <!-- 活动管理 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/activity/ACTIVITY_INFO_SqlMap.xml"></sqlMap>
+    <sqlMap resource="com/pltfm/app/sqlmap/activity/ACTIVITY_BRAND_SqlMap.xml"></sqlMap>
+    <sqlMap resource="com/pltfm/app/sqlmap/activity/ACTIVITY_CATEGORYS_SqlMap.xml"></sqlMap>
+    <sqlMap resource="com/pltfm/app/sqlmap/activity/ACTIVITY_CHARGE_SqlMap.xml"></sqlMap>
+    <sqlMap resource="com/pltfm/app/sqlmap/activity/ACTIVITY_SUPPLIER_SCORE_SqlMap.xml"></sqlMap>
+    <!-- 活动报名管理 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/activity/ACTIVITY_SUPPLIER_ENTRY_SqlMap.xml"></sqlMap>
+    <sqlMap resource="com/pltfm/app/sqlmap/activity/ACTIVITY_SKU_SqlMap.xml"></sqlMap>
+    <!-- 款项 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/activity/ACTIVITY_PAYMENT_SqlMap.xml"></sqlMap>
+    <sqlMap resource="com/pltfm/app/sqlmap/activity/ACTIVITY_PAYMENT_DETAIL_SqlMap.xml"></sqlMap>
+    <sqlMap resource="com/pltfm/app/sqlmap/activity/ACTIVITY_PAYMENT_STATEMENT_SqlMap.xml"></sqlMap>
+	<!-- 活动推广效果管理 -->
+	<sqlMap resource="com/pltfm/app/sqlmap/activity/ACTIVITY_PROMOTION_EFFECT_SqlMap.xml"></sqlMap>
+	<!-- 活动推广费用管理 -->
+	<sqlMap resource="com/pltfm/app/sqlmap/activity/ACTIVITY_PROMOTION_COST_SqlMap.xml"></sqlMap>
+</sqlMapConfig>

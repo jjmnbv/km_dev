@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="activity">
+    <sql id="activity_Example_Where_Clause">
+        <dynamic>
+            <isNotEmpty property="free">
+                <![CDATA[
+                  AND CHARGE_TYPE = 1
+                ]]>
+            </isNotEmpty>
+            <isNotEmpty property="notFree">
+                <![CDATA[
+                  AND CHARGE_TYPE <> 1
+                ]]>
+            </isNotEmpty>
+            <isNotEmpty property="wasEntryStart">
+                <![CDATA[
+                  AND ENTRY_START_TIME<SYSDATE AND SYSDATE<ENTRY_END_TIME
+                ]]>
+            </isNotEmpty>
+            <isNotEmpty property="activityLevel">
+                <![CDATA[
+                  AND ACTIVITY_LEVEL = #activityLevel#
+                ]]>
+            </isNotEmpty>
+            <isNotEmpty property="industry">
+                <![CDATA[
+                  AND INDUSTRY LIKE #industry#
+                ]]>
+            </isNotEmpty>
+            <isNotEmpty property="activityLabel">
+                <![CDATA[
+                  AND ACTIVITY_LABEL LIKE #activityLabel#
+                ]]>
+            </isNotEmpty>
+        </dynamic>
+    </sql>
+    <!--活动ID,活动名称，活动简介，LOGO图片，活动关键字，活动有效时间段,活动是否可报名-->
+    <resultMap id="remote_activity_list_map" class="com.pltfm.app.vobject.ActivityInfo">
+        <result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_DESC" property="activityDesc" jdbcType="VARCHAR"/>
+        <result column="LOGO_PATH" property="logoPath" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_SEO" property="activitySeo" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_START_TIME" property="activityStartTime" jdbcType="TIMESTAMP"/>
+        <result column="ACTIVITY_END_TIME" property="activityEndTime" jdbcType="TIMESTAMP"/>
+        <result column="CAN_ENTRY" property="canEntry" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--活动名称，活动简介，LOGO图片，报名时间段，活动时间段，关键字，活动标签，
+    所属行业，收费类型，活动级别，活动介绍，活动答疑-->
+    <resultMap id="remote_activity_map" class="com.pltfm.app.vobject.ActivityInfo">
+        <result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_DESC" property="activityDesc" jdbcType="VARCHAR"/>
+        <result column="LOGO_PATH" property="logoPath" jdbcType="VARCHAR"/>
+        <result column="ENTRY_START_TIME" property="entryStartTime" jdbcType="TIMESTAMP"/>
+        <result column="ENTRY_END_TIME" property="entryEndTime" jdbcType="TIMESTAMP"/>
+        <result column="ACTIVITY_START_TIME" property="activityStartTime" jdbcType="TIMESTAMP"/>
+        <result column="ACTIVITY_END_TIME" property="activityEndTime" jdbcType="TIMESTAMP"/>
+        <result column="ACTIVITY_SEO" property="activitySeo" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_LABEL" property="activityLabel" jdbcType="VARCHAR"/>
+        <result column="INDUSTRY" property="industry" jdbcType="VARCHAR"/>
+        <result column="CHARGE_TYPE" property="chargeType" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_LEVEL" property="activityLevel" jdbcType="DECIMAL"/>
+        <result column="activity_introduce" property="activityIntroduce" jdbcType="COLB"/>
+        <result column="activity_questions" property="activityQuestions" jdbcType="COLB"/>
+    </resultMap>
+
+    <select id="getActivityList" parameterClass="java.util.HashMap" resultMap="remote_activity_list_map">
+        <![CDATA[
+            SELECT ACTIVITY_ID,
+            ACTIVITY_NAME,
+            ACTIVITY_DESC,
+            LOGO_PATH,
+            ACTIVITY_START_TIME,
+            ACTIVITY_END_TIME,
+            ACTIVITY_SEO,
+            CASE WHEN ENTRY_START_TIME<SYSDATE AND SYSDATE<ENTRY_END_TIME THEN 'true' ELSE 'false' END CAN_ENTRY
+            FROM ACTIVITY_INFO
+            WHERE AUDIT_STATUS=1 AND SUPPLIER_CHOICE_TYPE<>4
+        ]]>
+        <include refid="activity_Example_Where_Clause"/>
+        <![CDATA[
+          ORDER BY ACTIVITY_ID DESC
+        ]]>
+    </select>
+    <select id="countActivityList" parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
+        <![CDATA[
+            SELECT COUNT(ACTIVITY_ID) FROM ACTIVITY_INFO WHERE AUDIT_STATUS=1 AND SUPPLIER_CHOICE_TYPE<>4
+        ]]>
+        <include refid="activity_Example_Where_Clause"/>
+    </select>
+    <select id="getActivityById" parameterClass="java.lang.Long" resultMap="remote_activity_map">
+        SELECT AI.ACTIVITY_ID,
+        AI.ACTIVITY_NAME,
+        AI.ACTIVITY_DESC,
+        AI.LOGO_PATH,
+        AI.ENTRY_START_TIME,
+        AI.ENTRY_END_TIME,
+        AI.ACTIVITY_START_TIME,
+        AI.ACTIVITY_END_TIME,
+        AI.ACTIVITY_SEO,
+        AI.ACTIVITY_LABEL,
+        AI.INDUSTRY,
+        DECODE (AI.CHARGE_TYPE, 1, 1, 2) CHARGE_TYPE,
+        AI.ACTIVITY_LEVEL,
+        AI.ACTIVITY_INTRODUCE,
+        AI.ACTIVITY_QUESTIONS
+        FROM ACTIVITY_INFO AI
+        WHERE AI.ACTIVITY_ID=#activityId:DECIMAL#
+    </select>
+</sqlMap>

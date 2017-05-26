@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ACTIVITY_SUPPLIER_SCORE">
+    <resultMap id="baseResultMap" class="com.pltfm.app.vobject.ActivitySupplierScore">
+        <result column="SUPPLIER_SCORE_ID" property="supplierScoreId" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL"/>
+        <result column="GREAT_EQUAL_POINT" property="greatEqualPoint" jdbcType="DECIMAL"/>
+    </resultMap>
+    <sql id="example_Where_Clause">
+        <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate">
+            <isEqual property="oredCriteria[].valid" compareValue="true">
+                (
+                <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and">
+                    $oredCriteria[].criteriaWithoutValue[]$
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and">
+                    $oredCriteria[].criteriaWithSingleValue[].condition$
+                    #oredCriteria[].criteriaWithSingleValue[].value#
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and">
+                    $oredCriteria[].criteriaWithListValue[].condition$
+                    <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")"
+                             conjunction=",">
+                        #oredCriteria[].criteriaWithListValue[].values[]#
+                    </iterate>
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and">
+                    $oredCriteria[].criteriaWithBetweenValue[].condition$
+                    #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+                    #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+                </iterate>
+                )
+            </isEqual>
+        </iterate>
+    </sql>
+    <select id="selectByExample" resultMap="baseResultMap"
+            parameterClass="com.pltfm.app.vobject.ActivitySupplierScoreExample">
+        select SUPPLIER_SCORE_ID, ACTIVITY_ID, GREAT_EQUAL_POINT
+        from ACTIVITY_SUPPLIER_SCORE
+        <isParameterPresent>
+            <include refid="ACTIVITY_SUPPLIER_SCORE.example_Where_Clause"/>
+            <isNotNull property="orderByClause">
+                order by $orderByClause$
+            </isNotNull>
+        </isParameterPresent>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="baseResultMap"
+            parameterClass="com.pltfm.app.vobject.ActivitySupplierScore">
+    select SUPPLIER_SCORE_ID, ACTIVITY_ID, GREAT_EQUAL_POINT
+    from ACTIVITY_SUPPLIER_SCORE
+    where SUPPLIER_SCORE_ID = #supplierScoreId:DECIMAL#
+    </select>
+    <select id="selectByActivityId" resultMap="baseResultMap" parameterClass="java.lang.Long">
+        select SUPPLIER_SCORE_ID, ACTIVITY_ID, GREAT_EQUAL_POINT
+        from ACTIVITY_SUPPLIER_SCORE
+        where ACTIVITY_ID = #activityId:DECIMAL#
+    </select>
+    <select id="countByExample" parameterClass="com.pltfm.app.vobject.ActivitySupplierScoreExample"
+            resultClass="java.lang.Integer">
+        select count(*) from ACTIVITY_SUPPLIER_SCORE
+        <include refid="ACTIVITY_SUPPLIER_SCORE.example_Where_Clause"/>
+    </select>
+</sqlMap>

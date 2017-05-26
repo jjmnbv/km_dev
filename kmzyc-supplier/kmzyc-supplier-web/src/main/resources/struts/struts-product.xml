@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="product" extends="BasePackage">
+		<!-- 产品发布 -->
+		<action name="showList" class="productMainAction" method="showList">
+			<result name="success">/WEB-INF/jsp/product/productMainList.jsp</result>
+		</action>
+		<action name="viewProduct" class="productMainAction" method="viewProduct">
+			<result name="success">/WEB-INF/jsp/product/productMainDetail.jsp</result>
+		</action>
+		<action name="toProductUpdate" class="productMainAction" method="toProductUpdate">
+			<result name="success">/WEB-INF/jsp/product/productMainUpdate.jsp</result>
+		</action>
+		<action name="findProductImagesBySkuId" class="productMainAction" method="findProductImagesBySkuId">
+			<result name="success">/WEB-INF/jsp/product/productSkuImagesView.jsp</result>
+		</action>
+		<action name="findAllProductSkuForFreight" class="productMainAction" method="findAllProductSkuForFreight" >
+			<result name="success">/WEB-INF/jsp/shopFreight/productSkuListForFreight.jsp</result>
+		</action>
+		<action name="toModifySkuFreight" class="productMainAction" method="toModifySkuFreight">
+			<result name="success">/WEB-INF/jsp/shopFreight/modifySkuFreightContent.jsp</result>
+		</action>
+		<action name="productUpdate" class="productMainAction" method="productUpdate">
+			<result name="success">/WEB-INF/jsp/product/productMainList.jsp</result>
+			<result name="image">/WEB-INF/jsp/product/productMoreAddPicture.jsp</result>
+		</action>
+		<action name="toUploadImage" class="productMainAction" method="toUploadImage">
+			<result name="success">/WEB-INF/jsp/product/productMoreAddPicture.jsp</result>
+		</action>
+		<action name="saveImage" class="productMainAction" method="saveImage">
+			<result name="success">/WEB-INF/jsp/product/productMainList.jsp</result>
+		</action>
+		<action name="uploadOfficialImage" class="productImageAjaxAction" method="uploadOfficialImage"></action>
+		<action name="modifyProductImageDefault" class="productImageAjaxAction" method="modifyProductImageDefault"></action>
+		<!--END 产品发布 -->
+		
+		<action name="checkCertiFileImage" class="productImageAjaxAction" method="checkCertiFileImage"></action>
+		
+		<!-- begin 供应商开放库存管理 -->	
+		<action name="showStockList" class="productStockAction" method="showStockList">
+			<result name="success">/WEB-INF/jsp/product/productStockList.jsp</result>
+		</action>
+		<action name="toAddProductStock" class="productStockAction" method="toAddProductStock">
+			<result name="success">/WEB-INF/jsp/product/productStockAdd.jsp</result>
+		</action>		
+		<action name="addProductStock" class="productStockAction" method="addProductStock">
+			<result name="success">/WEB-INF/jsp/product/productStockList.jsp</result>
+		</action>	
+		<action name="toUpdateProductStock" class="productStockAction" method="toUpdateProductStock">
+			<result name="success">/WEB-INF/jsp/product/productStockUpdate.jsp</result>
+		</action>
+		<action name="updateProductStock" class="productStockAction" method="updateProductStock">
+			<result name="success">/WEB-INF/jsp/product/productStockList.jsp</result>
+		</action>
+		<action name="isExistSkuValueStock" class="productStockAction" method="isExistSkuValueStock">
+		</action>
+		<!--库存更新-->
+		<action name="updateProductStockByAjax" class="productStockAction" method="updateProductStockByAjax">
+		</action>
+		<!-- end 供应商开放库存管理 -->
+		<!-- 弹出组件  -->
+		<action name="findAllProductMainSku" class="popupChoiceAction" method="findAllProductMainSku">
+			<result name="success">/WEB-INF/jsp/product/productSkuListChoice.jsp</result>
+		</action>
+		<action name="gotoQueryCouponList" class="popupChoiceAction" method="gotoQueryCouponList">
+			<result name="success">/WEB-INF/jsp/coupon/couponListChoice.jsp</result>
+		</action>
+		<!-- end 弹出组件  -->
+		
+	</package>
+</struts>

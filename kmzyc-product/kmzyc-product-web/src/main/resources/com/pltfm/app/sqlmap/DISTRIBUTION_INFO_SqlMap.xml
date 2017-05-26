@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="DISTRIBUTION_INFO">
+	<resultMap id="BaseResultMap" class="com.pltfm.app.vobject.DistributionInfo">
+		<result column="DISTRIBUTION_ID" property="distributionId"
+			jdbcType="LONG" />
+		<result column="DISTRIBUTION_NO" property="distributionNo"
+			jdbcType="VARCHAR" />
+		<result column="LOGISTICS_COMPANY" property="logisticsCompany"
+			jdbcType="VARCHAR" />
+		<result column="LOGISTICS_NO" property="logisticsNo" jdbcType="VARCHAR" />
+		<result column="WAREHOUSE_ID" property="warehouseId" jdbcType="LONG" />
+		<result column="WAREHOUSE_NAME" property="warehouseName"
+			jdbcType="VARCHAR" />
+		<result column="BILL_NO" property="billNo" jdbcType="VARCHAR" />
+		<result column="TOTAL_QUANTITY" property="totalQuantity"
+			jdbcType="INTEGER" />
+		<result column="TOTAL_SUM" property="totalSum" jdbcType="DECIMAL" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		<result column="DELIVERY_ADDRESS" property="deliveryAddress"
+			jdbcType="VARCHAR" />
+		<result column="TEL" property="tel" jdbcType="VARCHAR" />
+		<result column="LOGISTICS_DATE" property="logisticsDate"
+			jdbcType="timestamp" />
+		<result column="IS_DELIVERIES" property="isDeliveries"
+			jdbcType="CHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="timestamp" />
+		<result column="CREATE_USER" property="createUser" jdbcType="INTEGER" />
+		<result column="CREATE_USER_NAME" property="createUserName"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<iterate property="oredCriteria" conjunction="or" prepend="where"
+			removeFirstPrepend="iterate">
+			<isEqual property="oredCriteria[].valid" compareValue="true">
+				(
+				<iterate prepend="and" property="oredCriteria[].criteriaWithoutValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithSingleValue[].condition$
+					#oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithListValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithListValue[].condition$
+					<iterate property="oredCriteria[].criteriaWithListValue[].values"
+						open="(" close=")" conjunction=",">
+						#oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+				</iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithBetweenValue[].condition$
+					#oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+					#oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+				)
+			</isEqual>
+		</iterate>
+	</sql>
+	<sql id="Base_Column_List">
+		DISTRIBUTION_ID, DISTRIBUTION_NO, LOGISTICS_COMPANY,
+		LOGISTICS_NO, WAREHOUSE_ID,
+		WAREHOUSE_NAME,
+		BILL_NO, TOTAL_QUANTITY,
+		TOTAL_SUM, USER_NAME, DELIVERY_ADDRESS, TEL,
+		LOGISTICS_DATE,IS_DELIVERIES,
+		REMARK,CREATE_DATE,CREATE_USER,CREATE_USER_NAME,ORDER_NO
+  </sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterClass="com.pltfm.app.vobject.DistributionInfoExample">
+		select
+		<isParameterPresent>
+			<isEqual property="distinct" compareValue="true">
+				distinct
+      </isEqual>
+		</isParameterPresent>
+		<include refid="DISTRIBUTION_INFO.Base_Column_List" />
+		from DISTRIBUTION_INFO
+		<isParameterPresent>
+			<include refid="DISTRIBUTION_INFO.Example_Where_Clause" />
+			<isNotNull property="orderByClause">
+				order by $orderByClause$
+      </isNotNull>
+		</isParameterPresent>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterClass="com.pltfm.app.vobject.DistributionInfo">
+		select
+		<include refid="DISTRIBUTION_INFO.Base_Column_List" />
+		from DISTRIBUTION_INFO
+		where DISTRIBUTION_ID = #distributionId:Long#
+	</select>
+	<delete id="deleteByPrimaryKey" parameterClass="com.pltfm.app.vobject.DistributionInfo">
+		delete from
+		DISTRIBUTION_INFO
+		where DISTRIBUTION_ID = #distributionId:Long# AND
+		IS_DELIVERIES = 0
+  </delete>
+	<delete id="deleteByExample" parameterClass="com.pltfm.app.vobject.DistributionInfoExample">
+		delete from DISTRIBUTION_INFO
+		<include refid="DISTRIBUTION_INFO.Example_Where_Clause" />
+	</delete>
+	<insert id="insert" parameterClass="com.pltfm.app.vobject.DistributionInfo">
+		<selectKey keyProperty="distributionId" resultClass="java.lang.Long">
+			select	seq_DISTRIBUTION_INFO.nextval from dual
+  		</selectKey>
+		insert into DISTRIBUTION_INFO (DISTRIBUTION_ID, DISTRIBUTION_NO,
+		LOGISTICS_COMPANY,LOGISTICS_NO, WAREHOUSE_ID, WAREHOUSE_NAME, BILL_NO,
+		TOTAL_QUANTITY, TOTAL_SUM, USER_NAME, DELIVERY_ADDRESS,
+		TEL,LOGISTICS_DATE, IS_DELIVERIES,REMARK,CREATE_DATE,CREATE_USER,CREATE_USER_NAME,ORDER_NO)
+		values
+		(
+		#distributionId:Long#, #distributionNo:VARCHAR#,
+		#logisticsCompany:VARCHAR#,
+		#logisticsNo:VARCHAR#,
+		#warehouseId:LONG#, #warehouseName:VARCHAR#, #billNo:VARCHAR#,
+		#totalQuantity:INTEGER#, #totalSum:DECIMAL#, #userName:VARCHAR#,
+		#deliveryAddress:VARCHAR#,
+		#tel:VARCHAR#, #logisticsDate:timestamp#,
+		#isDeliveries:CHAR#, #remark:VARCHAR#,
+		#createDate:timestamp#,#createUser:INTEGER#,#createUserName:VARCHAR#,#orderNo:VARCHAR#
+		)
+	</insert>
+	<insert id="insertSelective" parameterClass="com.pltfm.app.vobject.DistributionInfo">
+		<selectKey keyProperty="distributionId" resultClass="java.lang.Long">
+			select	seq_DISTRIBUTION_INFO.nextval from dual
+  		</selectKey>
+		insert into DISTRIBUTION_INFO
+		<dynamic prepend="(">
+			<isNotNull prepend="," property="distributionId">
+				DISTRIBUTION_ID
+      </isNotNull>
+			<isNotNull prepend="," property="distributionNo">
+				DISTRIBUTION_NO
+      </isNotNull>
+			<isNotNull prepend="," property="logisticsCompany">
+				LOGISTICS_COMPANY
+			</isNotNull>
+			<isNotNull prepend="," property="logisticsNo">
+				LOGISTICS_NO
+      </isNotNull>
+			<isNotNull prepend="," property="warehouseId">
+				WAREHOUSE_ID
+      </isNotNull>
+			<isNotNull prepend="," property="warehouseName">
+				WAREHOUSE_NAME
+      </isNotNull>
+			<isNotNull prepend="," property="billNo">
+				BILL_NO
+      </isNotNull>
+			<isNotNull prepend="," property="totalQuantity">
+				TOTAL_QUANTITY
+      </isNotNull>
+			<isNotNull prepend="," property="totalSum">
+				TOTAL_SUM
+      </isNotNull>
+			<isNotNull prepend="," property="userName">
+				USER_NAME
+      </isNotNull>
+			<isNotNull prepend="," property="deliveryAddress">
+				DELIVERY_ADDRESS
+			</isNotNull>
+			<isNotNull prepend="," property="tel">
+				TEL
+      </isNotNull>
+			<isNotNull prepend="," property="logisticsDate">
+				LOGISTICS_DATE
+      </isNotNull>
+			<isNotNull prepend="," property="isDeliveries">
+				IS_DELIVERIES
+      </isNotNull>
+			<isNotNull prepend="," property="remark">
+				REMARK
+      </isNotNull>
+			<isNotNull prepend="," property="createDate">
+				CREATE_DATE
+      </isNotNull>
+			<isNotNull prepend="," property="createUser">
+				CREATE_USER
+      </isNotNull>
+			<isNotNull prepend="," property="createUserName">
+				CREATE_USER_NAME
+			</isNotNull>
+			<isNotNull prepend="," property="orderNo">
+				ORDER_NO
+			</isNotNull>
+			)
+		</dynamic>
+		values
+		<dynamic prepend="(">
+			<isNotNull prepend="," property="distributionId">
+				#distributionId:Long#
+			</isNotNull>
+			<isNotNull prepend="," property="distributionNo">
+				#distributionNo:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="logisticsCompany">
+				#logisticsCompany:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="logisticsNo">
+				#logisticsNo:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="warehouseId">
+				#warehouseId:LONG#
+			</isNotNull>
+			<isNotNull prepend="," property="warehouseName">
+				#warehouseName:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="billNo">
+				#billNo:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="totalQuantity">
+				#totalQuantity:INTEGER#
+			</isNotNull>
+			<isNotNull prepend="," property="totalSum">
+				#totalSum:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="userName">
+				#userName:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="deliveryAddress">
+				#deliveryAddress:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="tel">
+				#tel:VARCHAR#
+     		</isNotNull>
+			<isNotNull prepend="," property="logisticsDate">
+				#logisticsDate:timestamp#
+			</isNotNull>
+			<isNotNull prepend="," property="isDeliveries">
+				#isDeliveries:CHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="remark">
+				#remark:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="createDate">
+				#createDate:timestamp#
+			</isNotNull>
+			<isNotNull prepend="," property="createUser">
+				#createUser:INTEGER#
+			</isNotNull>
+			<isNotNull prepend="," property="createUserName">
+				#createUserName:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="orderNo">
+				#orderNo:VARCHAR#
+			</isNotNull>
+			)
+		</dynamic>
+	</insert>
+	<select id="countByExample" parameterClass="com.pltfm.app.vobject.DistributionInfoExample"
+		resultClass="java.lang.Integer">
+		select count(DISTRIBUTION_ID) from DISTRIBUTION_INFO
+		<include refid="DISTRIBUTION_INFO.Example_Where_Clause" />
+	</select>
+	<update id="updateByExampleSelective">
+		update DISTRIBUTION_INFO
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="record.distributionId">
+				DISTRIBUTION_ID =
+				#record.distributionId:Long#
+      </isNotNull>
+			<isNotNull prepend="," property="record.distributionNo">
+				DISTRIBUTION_NO = #record.distributionNo:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="record.logisticsCompany">
+				LOGISTICS_COMPANY = #record.logisticsCompany:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="record.logisticsNo">
+				LOGISTICS_NO = 	#record.logisticsNo:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="record.warehouseId">
+				WAREHOUSE_ID = #record.warehouseId:LONG#
+      </isNotNull>
+			<isNotNull prepend="," property="record.warehouseName">
+				WAREHOUSE_NAME = 	#record.warehouseName:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="record.billNo">
+				BILL_NO = #record.billNo:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="record.totalQuantity">
+				TOTAL_QUANTITY = #record.totalQuantity:INTEGER#
+      </isNotNull>
+			<isNotNull prepend="," property="record.totalSum">
+				TOTAL_SUM = #record.totalSum:DECIMAL#
+      </isNotNull>
+			<isNotNull prepend="," property="record.userName">
+				USER_NAME = #record.userName:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="record.deliveryAddress">
+				DELIVERY_ADDRESS = 	#record.deliveryAddress:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="record.tel">
+				TEL = #record.tel:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="record.logisticsDate">
+				LOGISTICS_DATE = #record.logisticsDate:timestamp#
+      </isNotNull>
+			<isNotNull prepend="," property="record.isDeliveries">
+				IS_DELIVERIES = #record.isDeliveries:CHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="record.remark">
+				REMARK = #record.remark:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="record.createDate">
+				CREATE_DATE =#record.createDate:timestamp#
+      </isNotNull>
+			<isNotNull prepend="," property="record.createUser">
+				CREATE_USER =#record.createUser:INTEGER#
+      </isNotNull>
+			<isNotNull prepend="," property="record.createUserName">
+				CREATE_USER_NAME =#record.createUserName:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="record.orderNo">
+				ORDER_NO =#record.orderNo:VARCHAR#
+      </isNotNull>
+		</dynamic>
+		<isParameterPresent>
+			<include refid="DISTRIBUTION_INFO.Example_Where_Clause" />
+		</isParameterPresent>
+	</update>
+	<update id="updateByExample">
+		update DISTRIBUTION_INFO
+		set DISTRIBUTION_ID = #record.distributionId:Long#,
+		DISTRIBUTION_NO =	#record.distributionNo:VARCHAR#,
+		LOGISTICS_COMPANY =	#record.logisticsCompany:VARCHAR#,
+		LOGISTICS_NO =	#record.logisticsNo:VARCHAR#,
+		WAREHOUSE_ID =	#record.warehouseId:LONG#,
+		WAREHOUSE_NAME = #record.warehouseName:VARCHAR#,
+		BILL_NO = #record.billNo:VARCHAR#,
+		TOTAL_QUANTITY = #record.totalQuantity:INTEGER#,
+		TOTAL_SUM =	#record.totalSum:DECIMAL#,
+		USER_NAME = #record.userName:VARCHAR#,
+		DELIVERY_ADDRESS = #record.deliveryAddress:VARCHAR#,
+		TEL = #record.tel:VARCHAR#,
+		LOGISTICS_DATE = #record.logisticsDate:timestamp#,
+		IS_DELIVERIES =	#record.isDeliveries:CHAR#,
+		REMARK = #record.remark:VARCHAR#,
+		CREATE_DATE = #record.createDate:timestamp#,
+		CREATE_USER = #record.createUser:INTEGER#,
+		CREATE_USER_NAME = #record.createUserName:VARCHAR#,
+		ORDER_NO = #record.orderNo:VARCHAR#
+		<isParameterPresent>
+			<include refid="DISTRIBUTION_INFO.Example_Where_Clause" />
+		</isParameterPresent>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterClass="com.pltfm.app.vobject.DistributionInfo">
+		update DISTRIBUTION_INFO
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="distributionNo">
+				DISTRIBUTION_NO = #distributionNo:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="logisticsCompany">
+				LOGISTICS_COMPANY = #logisticsCompany:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="logisticsNo">
+				LOGISTICS_NO = #logisticsNo:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="warehouseId">
+				WAREHOUSE_ID = #warehouseId:LONG#
+      </isNotNull>
+			<isNotNull prepend="," property="warehouseName">
+				WAREHOUSE_NAME = #warehouseName:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="billNo">
+				BILL_NO = #billNo:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="totalQuantity">
+				TOTAL_QUANTITY = #totalQuantity:INTEGER#
+      </isNotNull>
+			<isNotNull prepend="," property="totalSum">
+				TOTAL_SUM = #totalSum:DECIMAL#
+      </isNotNull>
+			<isNotNull prepend="," property="userName">
+				USER_NAME = #userName:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="deliveryAddress">
+				DELIVERY_ADDRESS = #deliveryAddress:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="tel">
+				TEL = #tel:VARCHAR# 
+	   </isNotNull>
+			<isNotNull prepend="," property="logisticsDate">
+				LOGISTICS_DATE = #logisticsDate:timestamp#
+      </isNotNull>
+			<isNotNull prepend="," property="isDeliveries">
+				IS_DELIVERIES = #isDeliveries:CHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="remark">
+				REMARK = #remark:VARCHAR#
+	 </isNotNull>
+			<isNotNull prepend="," property="createDate">
+				CREATE_DATE =#createDate:timestamp#
+      </isNotNull>
+			<isNotNull prepend="," property="createUser">
+				CREATE_USER =#createUser:INTEGER#
+      </isNotNull>
+			<isNotNull prepend="," property="createUserName">
+				CREATE_USER_NAME =#createUserName:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="orderNo">
+				ORDER_NO =#orderNo:VARCHAR#
+      </isNotNull>
+		</dynamic>
+		where DISTRIBUTION_ID = #distributionId:Long#
+	</update>
+	<update id="updateByPrimaryKey" parameterClass="com.pltfm.app.vobject.DistributionInfo">
+		update	DISTRIBUTION_INFO
+		set DISTRIBUTION_NO = #distributionNo:VARCHAR#,
+		LOGISTICS_COMPANY = #logisticsCompany:VARCHAR#,
+		LOGISTICS_NO = #logisticsNo:VARCHAR#,
+		WAREHOUSE_ID = #warehouseId:LONG#,
+		WAREHOUSE_NAME = #warehouseName:VARCHAR#,
+		BILL_NO = #billNo:VARCHAR#,
+		TOTAL_QUANTITY = #totalQuantity:INTEGER#,
+		TOTAL_SUM =
+		#totalSum:DECIMAL#,
+		USER_NAME = #userName:VARCHAR#,
+		DELIVERY_ADDRESS =	#deliveryAddress:VARCHAR#,
+		TEL = #tel:VARCHAR#,
+		LOGISTICS_DATE =
+		#logisticsDate:timestamp#,
+		IS_DELIVERIES = #isDeliveries:CHAR#,
+		REMARK = #remark:VARCHAR#,
+		CREATE_DATE = #createDate:timestamp#,
+		CREATE_USER = #createUser:INTEGER#,
+		CREATE_USER_NAME = #createUserName:VARCHAR#,
+		ORDER_NO =#orderNo:VARCHAR#
+		where DISTRIBUTION_ID = #distributionId:Long#
+	</update>
+
+	<!--获得当天日期的配送单最大单号 -->
+	<select id="selectDistributionInfoByToday" parameterClass="java.lang.String"
+		resultClass="java.lang.String">
+		SELECT MAX(DISTRIBUTION_NO) DISTRIBUTION_NO
+			FROM DISTRIBUTION_INFO
+			WHERE LOGISTICS_DATE BETWEEN
+		to_date(#today#,'yyyyMMdd') AND to_date(#today#,'yyyyMMdd')+0.99999
+	</select>
+
+	<!--批量删除配送单 -->
+	<delete id="batchDeleteDistributionInfo" parameterClass="com.pltfm.app.vobject.DistributionInfo">
+		DELETE	DISTRIBUTION_INFO
+		WHERE DISTRIBUTION_ID = #distributionId:Long# and
+		IS_DELIVERIES = 0 
+ 	 </delete>
+
+	<!--批量更新配送单 -->
+	<update id="batchUpdateDistributionInfo" parameterClass="com.pltfm.app.vobject.DistributionInfo">
+		UPDATE	DISTRIBUTION_INFO
+		SET IS_DELIVERIES = #isDeliveries:CHAR#
+		WHERE DISTRIBUTION_ID = #distributionId:Long# and IS_DELIVERIES = 0
+	</update>
+</sqlMap>

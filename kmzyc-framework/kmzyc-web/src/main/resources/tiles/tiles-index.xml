@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<!--首页-->
+	<definition name="index" template="/WEB-INF/jsp/template/indexLayout.jsp">
+		<put-attribute name="top" value="/WEB-INF/jsp/template/top.jsp" />
+		<put-attribute name="bodyConent" value="/WEB-INF/jsp/template/indexContent.jsp" />
+		<put-attribute name="end" value="/WEB-INF/jsp/template/end.jsp" />
+	</definition>
+	
+	<definition name="indextop" template="/WEB-INF/jsp/common/top.jsp"></definition>
+	<definition name="indexend" template="/WEB-INF/jsp/common/end.jsp"></definition>
+	<definition name="pagination" template="/WEB-INF/jsp/common/pagination.jsp"></definition>
+</tiles-definitions>

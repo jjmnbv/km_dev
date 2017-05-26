@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="OPERATION_ATTR">
+    <resultMap class="com.pltfm.app.vobject.OperationAttr" id="baseResultMap">
+        <result column="OPERATION_ATTR_ID" jdbcType="DECIMAL" property="operationAttrId"/>
+        <result column="OPERATION_ATTR_NAME" jdbcType="VARCHAR" property="operationAttrName"/>
+        <result column="IS_NAV" jdbcType="DECIMAL" property="isNav"/>
+        <result column="STATUS" jdbcType="CHAR" property="status"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+    <sql id="example_Where_Clause">
+        <iterate conjunction="or" prepend="where" property="oredCriteria" removeFirstPrepend="iterate">
+            <isEqual compareValue="true" property="oredCriteria[].valid">
+                (
+                <iterate conjunction="and" prepend="and" property="oredCriteria[].criteriaWithoutValue">
+                    $oredCriteria[].criteriaWithoutValue[]$
+                </iterate>
+                <iterate conjunction="and" prepend="and" property="oredCriteria[].criteriaWithSingleValue">
+                    $oredCriteria[].criteriaWithSingleValue[].condition$
+                    #oredCriteria[].criteriaWithSingleValue[].value#
+                </iterate>
+                <iterate conjunction="and" prepend="and" property="oredCriteria[].criteriaWithListValue">
+                    $oredCriteria[].criteriaWithListValue[].condition$
+                    <iterate close=")" conjunction="," open="("
+                             property="oredCriteria[].criteriaWithListValue[].values">
+                        #oredCriteria[].criteriaWithListValue[].values[]#
+                    </iterate>
+                </iterate>
+                <iterate conjunction="and" prepend="and" property="oredCriteria[].criteriaWithBetweenValue">
+                    $oredCriteria[].criteriaWithBetweenValue[].condition$
+                    #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+                    #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+                </iterate>
+                )
+            </isEqual>
+        </iterate>
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterClass="com.pltfm.app.vobject.OperationAttr"
+            resultMap="baseResultMap">
+        select OPERATION_ATTR_ID, OPERATION_ATTR_NAME, IS_NAV, STATUS, REMARK
+        from OPERATION_ATTR
+        where OPERATION_ATTR_ID = #operationAttrId:DECIMAL#
+    </select>
+
+    <select id="selectByExample" parameterClass="com.pltfm.app.vobject.OperationAttrExample"
+            resultMap="baseResultMap">
+        select OPERATION_ATTR_ID, OPERATION_ATTR_NAME, IS_NAV, STATUS, REMARK
+        from OPERATION_ATTR
+        <isParameterPresent>
+            <include refid="OPERATION_ATTR.example_Where_Clause"/>
+            <isNotNull property="orderByClause">
+                order by $orderByClause$
+            </isNotNull>
+        </isParameterPresent>
+    </select>
+
+</sqlMap>

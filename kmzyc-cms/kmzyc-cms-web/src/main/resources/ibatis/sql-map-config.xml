@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+    <settings cacheModelsEnabled="true" enhancementEnabled="true"
+              lazyLoadingEnabled="true" maxRequests="10" maxSessions="20"
+              maxTransactions="50" useStatementNamespaces="true"
+              defaultStatementTimeout="30" statementCachingEnabled="true"
+              classInfoCacheEnabled="true" errorTracingEnabled="true"/>
+    <!-- sys  -->
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_param_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_upload_file_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_log_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_user_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_dept_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_menu_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_role_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_role_menu_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_user_role_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_notice_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_notice_send_SqlMap.xml"/>
+    <!--cms-->
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_window_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_window_data_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_template_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_page_window_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_page_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_adv_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_adcolumn_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_information_type_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_informaction_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_promotion_task_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/CMS_LOG_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_user_site_sqlmap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_site_Sqlmap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_supply_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_app_manage_SqlMap.xml" />
+    <!-- 站点管理 -->
+
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_site_data_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_shop_data_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_lottery_luck_draw_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_lottery_prize_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_dulitaocan_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_supplier_adcolumn_SqlMap.xml"/>
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_theme_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_theme_template_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_page_visualization_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_styles_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/cms/sqlmap/cms_template_relation_SqlMap.xml" />
+
+    <sqlMap resource="com/pltfm/app/sqlmap/order_item_SqlMap.xml" />
+
+    <sqlMap resource="com/pltfm/app/sqlmap/product_view_promotion_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/product_promotion_type_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/category_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/poduct_prod_brand_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/product_view_product_info_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/product_image_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/product_view_product_detail_info_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/product_prod_appraise_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/product_attr_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/product_shop_categorys_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/productmain_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/product_view_shop_main_SqlMap.xml" />
+
+    <sqlMap resource="com/pltfm/app/sqlmap/product_certificate_file_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/suppliers_certificate_file_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/suppliers_certificate_info_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/suppliers_recheck_SqlMap.xml" />
+
+    <sqlMap resource="com/pltfm/app/sqlmap/bnes_browsing_his_SqlMap.xml" />
+
+</sqlMapConfig>

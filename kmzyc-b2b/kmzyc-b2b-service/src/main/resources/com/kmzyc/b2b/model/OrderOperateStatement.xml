@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="OrderOperateStatement">
+
+	<resultMap id="orderOperateStatementResultMap" class="com.kmzyc.b2b.model.OrderOperateStatement">
+		<result column="STATEMENT_ID" property="statementId" jdbcType="DECIMAL" />
+		<result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+		<result column="ORDER_ITEM_ID" property="orderItemId" jdbcType="DECIMAL" />
+		<result column="PREVIOUS_ORDER_STATUS" property="previousOrderStatus"
+			jdbcType="DECIMAL" />
+		<result column="NOW_ORDER_STATUS" property="nowOrderStatus"
+			jdbcType="DECIMAL" />
+		<result column="PREVIOUS_OPERATOR" property="previousOperator"
+			jdbcType="VARCHAR" />
+		<result column="NOW_OPERATOR" property="nowOperator" jdbcType="VARCHAR" />
+		<result column="PREVIOUS_OPERATE_DATE" property="previousOperateDate"
+			jdbcType="TIMESTAMP" />
+		<result column="NOW_OPERATE_DATE" property="nowOperateDate"
+			jdbcType="TIMESTAMP" />
+		<result column="PREVIOUS_OPERATE_TYPE" property="previousOperateType"
+			jdbcType="DECIMAL" />
+		<result column="NOW_OPERATE_TYPE" property="nowOperateType"
+			jdbcType="DECIMAL" />
+		<result column="PREVIOUS_ORDER_SUM" property="previousOrderSum"
+			jdbcType="DECIMAL" />
+		<result column="NOW_ORDER_SUM" property="nowOrderSum" jdbcType="DECIMAL" />
+		<result column="OPERATE_INFO" property="operateInfo" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 查找未付款、已取消、已完付款、已配送、已拆分、已完成的订单流水 -->
+	<select id="findByOrderNo" parameterClass="String"
+		resultMap="orderOperateStatementResultMap">
+		<![CDATA[
+			SELECT statement_id,
+			       order_code,
+			       order_item_id,
+			       previous_order_status,
+			       now_order_status,
+			       previous_operator,
+			       now_operator,
+			       previous_operate_date,
+			       now_operate_date,
+			       previous_operate_type,
+			       now_operate_type,
+			       previous_order_sum,
+			       now_order_sum,
+			       operate_info
+			  FROM ORDER_OPERATE_STATEMENT T
+			 WHERE  
+			 ((NOW_ORDER_STATUS IN (-1, 1, 5, 6, 16) AND NOW_OPERATE_TYPE <> 2) OR
+			       NOW_OPERATE_TYPE = 1 OR
+			       (NOW_OPERATE_TYPE = 2 AND NOW_ORDER_STATUS = 2))
+			   AND ORDER_CODE = #orderNo:VARCHAR#
+			   AND NOW_OPERATE_TYPE != 16
+			 ORDER BY NOW_OPERATE_DATE desc
+		]]>
+	</select>
+
+<!-- 查找未付款、已取消、已完付款、已配送、已拆分、已完成的订单流水 ,排除风控状态流水 -->
+	<select id="findByOrderNoForView" parameterClass="String"
+		resultMap="orderOperateStatementResultMap">
+		<![CDATA[
+			SELECT statement_id,
+			       order_code,
+			       order_item_id,
+			       previous_order_status,
+			       now_order_status,
+			       previous_operator,
+			       now_operator,
+			       previous_operate_date,
+			       now_operate_date,
+			       previous_operate_type,
+			       now_operate_type,
+			       previous_order_sum,
+			       now_order_sum,
+			        ( CASE WHEN NOW_ORDER_STATUS in (20,21,22) THEN
+			         '您的订单已支付'
+			       ELSE  
+			       operate_info
+			       END) operate_info
+			  FROM ORDER_OPERATE_STATEMENT T
+			 WHERE  
+			 ((NOW_ORDER_STATUS IN (-1, 1, 5, 6, 16) AND NOW_OPERATE_TYPE <> 2) OR
+			       NOW_OPERATE_TYPE = 1 OR
+			       (NOW_OPERATE_TYPE = 2 AND NOW_ORDER_STATUS = 2))
+			   AND ORDER_CODE = #orderNo:VARCHAR#
+			   AND NOW_OPERATE_TYPE != 16
+			 ORDER BY NOW_OPERATE_DATE desc
+		]]>
+	</select>
+</sqlMap>

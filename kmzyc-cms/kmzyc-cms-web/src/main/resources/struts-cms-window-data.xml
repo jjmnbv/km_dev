@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="cms_window_data" namespace="/cms"  extends="struts">
+    <!-- 窗口数据绑定 -->
+    <action name="cmsWindowDataAction_*" class="cmsWindowDataAction" method="{1}">
+    	<result name="addSuccess" type="redirectAction">cmsWindowDataAction_queryPageList.action</result>
+    	<result name="addError">/WEB-INF/jsp/cms/cmswindowdata/cmsWindowDataAdd.jsp</result>
+    	
+    	<result name="querySuccess">/WEB-INF/jsp/cms/cmswindowdata/cmsWindowDataList.jsp</result>
+    	<result name="queryError">/WEB-INF/jsp/cms/cmswindowdata/cmsWindowDataList.jsp</result>
+    	<result name="winDetail" type="chain">cmsWindowAction_windowDetail</result>
+    	<result name="addUserDefineDate">/WEB-INF/jsp/cms/cmswindowdata/cmsAddUserDefine.jsp</result>
+    	<result name="cmsWindowDataDetail">/WEB-INF/jsp/cms/cmswindowdata/cmsUserDefineDetail.jsp</result>
+    </action>
+    <!-- 加载活动数据 -->
+    <action name="viewPromotionAction_*" class="viewPromotionAction" method="{1}">
+    	<result name="viewPromotionSccuess">/WEB-INF/jsp/app/viewpromotion/popUpViewPromotion.jsp</result>
+    	<result name="openViewPromotionList">/WEB-INF/jsp/app/viewpromotion/viewPromotionList.jsp</result>
+    </action>
+    <!-- 加载活动数据 -->
+    <action name="viewPromotionProductAction_*" class="viewPromotionProductAction" method="{1}">
+    	<result name="viewPromotionProductSccuess">/WEB-INF/jsp/app/viewPromotionProduct/popUpViewPromotionProduct.jsp</result>
+    	<result name="openViewPromotionProductList">/WEB-INF/jsp/app/viewPromotionProduct/viewPromotionProductList.jsp</result>
+    </action>
+    
+     <!-- 加载活动数据 -->
+    <action name="viewProductInfoAction_*" class="viewProductInfoAction" method="{1}">
+    	<result name="viewProductInfoSccuess">/WEB-INF/jsp/app/viewProductInfo/popUpViewProductInfo.jsp</result>
+    	<result name="openViewProductInfoList">/WEB-INF/jsp/app/viewProductInfo/viewProductInfoList.jsp</result>
+    </action>
+    
+    
+    <!-- 窗口管理 -->
+    <action name="cmsWindowAction_*" class="cmsWindowAction" method="{1}">
+    	<result name="windowSccuess">/WEB-INF/jsp/cms/cmswindow/popUpcmsWindow.jsp</result>
+    	<result name="popQueryWindow">/WEB-INF/jsp/cms/cmswindow/popQueryWindow.jsp</result>
+    	<result name="openWindowList">/WEB-INF/jsp/cms/cmswindow/windowList.jsp</result>
+    	<result name="popOpenWindowList">/WEB-INF/jsp/cms/cmswindow/popOpenWindowList.jsp</result>
+    	<result name="windowList">/WEB-INF/jsp/cms/window/cmsWindowList.jsp</result>
+    	<result name="gotoAddWindow">/WEB-INF/jsp/cms/window/cmsWindowAdd.jsp</result>
+    	<result name="gotoEditWindow">/WEB-INF/jsp/cms/window/cmsWindowEdit.jsp</result>
+    	<result name="pageDetail">/WEB-INF/jsp/cms/page/cmsPageDetail.jsp</result>
+    	
+    	<result name="gotoSelTemplate">/WEB-INF/jsp/cms/window/cmsTemplateList.jsp</result>
+    	<result name="windowDetail">/WEB-INF/jsp/cms/window/cmsWindowDetail.jsp</result>
+    	
+    	
+    </action>
+    <!-- 页面窗口管理 -->
+    <action name="cmsWindowPageAction_*" class="cmsPageWindowAction" method="{1}">
+    </action>
+    
+    
+    <!-- 加载品牌数据 -->
+    <action name="prodBrandAction_*" class="prodBrandAction" method="{1}">
+    	<result name="prodBrandSccuess">/WEB-INF/jsp/app/prodbrand/popUpprodBrand.jsp</result>
+    	<result name="openProdBrandList">/WEB-INF/jsp/app/prodbrand/prodbrandList.jsp</result>
+    </action>
+    
+     <!-- 加载类目数据 -->
+    <action name="categoryAction_*" class="categoryAction" method="{1}">
+    	<result name="success">/WEB-INF/jsp/app/category/popUpcategory.jsp</result>
+    	<result name="rankingListCategory">/WEB-INF/jsp/app/rankingList/popUprankingList.jsp</result>
+    	<result name="openCategoryList">/WEB-INF/jsp/app/category/categoryList.jsp</result>
+    	<result name="rankingList">/WEB-INF/jsp/app/rankingList/rankingList.jsp</result>
+    </action>
+   
+   <!-- 窗口商品推荐 -->
+   <!-- 产品推荐 -->
+		<action name="productRecommendAction" class="shopProductAction" method="showListMain">
+			<result>/WEB-INF/jsp/cms/productRecommend/productRecommend.jsp</result>
+		</action>
+		 <action name="productRecommendActionOne" class="shopProductAction" method="showListOne">
+			<result>/WEB-INF/jsp/cms/productRecommend/productRecommendOne.jsp</result>
+		</action>
+		<action name="addProductRecommendAction" class="shopProductAction" method="addProdcutRecomment">
+		</action>
+		<action name="delProductRecommendAction" class="shopProductAction" method="delProductRecommendAction">
+		</action>
+		
+		<action name="updateSorts1" class="shopProductAction" method="updateSorts1">
+		<result name="success">/WEB-INF/jsp/cms/productRecommend/productRecommendTwo.jsp</result>
+		</action>
+		 <action name="showListRecommend" class="shopProductAction" method="showListTwo">
+			<result>/WEB-INF/jsp/cms/productRecommend/productRecommendTwo.jsp</result>
+		</action>
+		<!-- end -->
+    </package>
+</struts>
+
+

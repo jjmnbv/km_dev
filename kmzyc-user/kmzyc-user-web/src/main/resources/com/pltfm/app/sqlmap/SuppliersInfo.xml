@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="SuppliersInfo" >
+
+  <typeAlias alias="suppliersInfoDO" type="com.pltfm.app.dataobject.SuppliersInfoDO" />
+  <resultMap id="suppliersInfoDOResultMap" class="suppliersInfoDO" >
+    <result property="supplierId" column="SUPPLIER_ID" />
+    <result property="merchantId" column="MERCHANT_ID" />
+    <result property="saleProductDescribe" column="SALE_PRODUCT_DESCRIBE" />
+    <result property="settlementCycle" column="SETTLEMENT_CYCLE" />
+    <result property="settlementWay" column="SETTLEMENT_WAY" />
+    <result property="supplierType" column="SUPPLIER_TYPE" />
+    <result property="status" column="STATUS" />
+    <result property="describe" column="DESCRIBE" />
+    <result property="corporateName" column="CORPORATE_NAME" />
+  </resultMap>
+   <resultMap id="suppliersInfoResultMap" class="suppliersInfoDO" >
+    <result property="supplierId" column="SUPPLIER_ID" />
+    <result property="merchantId" column="MERCHANT_ID" />
+    <result property="saleProductDescribe" column="SALE_PRODUCT_DESCRIBE" />
+    <result property="settlementCycle" column="SETTLEMENT_CYCLE" />
+    <result property="settlementWay" column="SETTLEMENT_WAY" />
+    <result property="supplierType" column="SUPPLIER_TYPE" />
+    <result property="status" column="STATUS" />
+    <result property="describe" column="DESCRIBE" />
+  </resultMap>
+  <select id="countByDOExample" parameterClass="suppliersInfoDO" resultClass="java.lang.Integer" >
+    SELECT COUNT(1) AS num
+           FROM SUPPLIERS_INFO a1, commercial_tenant_basic_info t
+          where t.n_commercial_tenant_id = a1.merchant_id
+            and a1.supplier_type = 2
+            and a1.status = 3
+            <isNotNull property="corporateName">
+			  <isNotEmpty prepend="and" property="corporateName">
+				t.CORPORATE_NAME like '%$corporateName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+  </select>
+
+  <select id="findListByDO" resultMap="suppliersInfoDOResultMap" parameterClass="suppliersInfoDO" >
+     SELECT SUPPLIER_ID,
+        MERCHANT_ID,
+        SALE_PRODUCT_DESCRIBE,
+        SETTLEMENT_CYCLE,
+        SETTLEMENT_WAY,
+        SUPPLIER_TYPE,
+        STATUS,
+        DESCRIBE,
+        CORPORATE_NAME
+   from (SELECT ROW_NUMBER() OVER(order by a1.SUPPLIER_ID desc) as view_row_number,
+                a1.SUPPLIER_ID,
+                a1.MERCHANT_ID,
+                a1.SALE_PRODUCT_DESCRIBE,
+                a1.SETTLEMENT_CYCLE,
+                a1.SETTLEMENT_WAY,
+                a1.SUPPLIER_TYPE,
+                a1.STATUS,
+                a1.DESCRIBE,
+                t.CORPORATE_NAME
+           FROM SUPPLIERS_INFO a1, commercial_tenant_basic_info t
+          where t.n_commercial_tenant_id = a1.merchant_id
+            and a1.supplier_type = 2
+            and a1.status = 3
+            <isNotNull property="corporateName">
+			  <isNotEmpty prepend="and" property="corporateName">
+				t.CORPORATE_NAME like '%$corporateName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+            )
+            <![CDATA[ where view_row_number <= #endIndex# and view_row_number > #startIndex# ]]>
+  </select>
+  
+  <!-- 根据产品id查询商家和商品信息 -->
+  <select id="findShopDetailByProductId" parameterClass="java.lang.String" resultMap="suppliersInfoResultMap">
+  		select i.SUPPLIER_ID,
+        	   i.MERCHANT_ID,
+	           i.SALE_PRODUCT_DESCRIBE,
+	           i.SETTLEMENT_CYCLE,
+	           i.SETTLEMENT_WAY,
+               i.SUPPLIER_TYPE,
+               i.STATUS,
+               i.DESCRIBE from  suppliers_info i , productmain p , Product_Sku s
+      where i.supplier_id=p.shop_code and  p.product_id= s.product_id and s.product_sku_code=#skuCode#
+  </select>
+</sqlMap>

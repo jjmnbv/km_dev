@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://code.alibabatech.com/schema/dubbo classpath:dubbo.xsd">
+
+<!-- 	<dubbo:registry address="${dubbo.registry.address}" client="curator" /> -->
+	<dubbo:consumer timeout="10000" check="false" />
+
+	<!-- 账户订单交易远程接口 -->
+	<dubbo:reference id="trationListRemoteService" retries="0"
+		timeout="300000" interface="com.kmzyc.user.remote.service.TrationListRemoteService"
+		check="false" />
+	<dubbo:reference id="couponRemoteService" retries="0"
+		timeout="300000" interface="com.kmzyc.promotion.remote.service.CouponRemoteService"
+		check="false" />
+	<dubbo:reference id="userGrowingService" retries="0"
+		timeout="300000" interface="com.kmzyc.user.remote.service.UserGrowingService"
+		check="false" />
+	<dubbo:reference id="publishMessageRemoteService"
+		retries="0" timeout="300000"
+		interface="com.kmzyc.user.remote.service.PublishMessageRemoteService"
+		check="false" />
+	<dubbo:reference id="expressSubscriptionRemoteService"
+		retries="0" timeout="300000"
+		interface="com.kmzyc.express.remote.ExpressSubscriptionRemoteService"
+		check="false" />
+	<dubbo:reference id="customerRemoteService" retries="0"
+		timeout="300000" interface="com.kmzyc.user.remote.service.CustomerRemoteService"
+		check="false" />
+	<dubbo:reference id="orderPvSyncRemoteService" retries="0"
+		timeout="300000" interface="com.kmzyc.b2b.service.OrderPvSyncRemoteService"
+		check="false" />
+	<!--删除邮件业务  <dubbo:reference id="emailSubscriptionRemoteService"
+		retries="0" timeout="300000"
+		interface="com.kmzyc.mailmobile.service.EmailSubscriptionRemoteService"
+		check="false" /> -->
+	<!--<dubbo:reference id="messageRemoteService" retries="0"
+		timeout="300000" interface="com.kmzyc.mailmobile.service.MessageRemoteService"
+		check="false" />-->
+	<dubbo:reference id="stockRemoteService" retries="0"
+		timeout="300000" interface="com.kmzyc.product.remote.service.StockRemoteService"
+		check="false" />
+	<dubbo:reference id="qryOrderOnLineService" retries="0"
+		timeout="300000" interface="com.kmzyc.b2b.service.QryOrderOnLineService"
+		check="false" />
+	<dubbo:reference id="refundOrderService" retries="3"
+		timeout="30000" interface="com.kmzyc.b2b.service.RefundOrderService"
+		check="false" />
+	<!--删除总部会员对接 <dubbo:reference id="sync2BaseRemoteService" retries="0"
+		timeout="300000" interface="com.pltfm.remote.service.Sync2BaseRemoteService"
+		check="false" /> -->
+	<dubbo:reference id="closeKMTPayService" retries="0"
+	timeout="300000" interface="com.kmzyc.b2b.service.CloseKMTPayService"
+	check="false" />
+	<dubbo:reference id="presellInfoRemoteService" retries="0"
+	timeout="300000" interface="com.kmzyc.promotion.remote.service.PresellInfoRemoteService"
+	check="false" />
+		
+	<!-- 运营类目接口 -->
+	<dubbo:reference id="categoryRemoteService" retries="0"
+	timeout="300000" interface="com.kmzyc.product.remote.service.CategoryRemoteService"
+	check="false" />
+
+</beans>

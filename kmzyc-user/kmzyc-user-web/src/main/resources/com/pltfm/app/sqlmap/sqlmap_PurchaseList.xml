@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="PurchaseList" >
+
+  <typeAlias alias="purchaseListDO" type="com.pltfm.app.vobject.PurchaseListDO" />
+
+  <resultMap id="purchaseListDOResultMap" class="purchaseListDO" >
+    <result property="purchaseId" column="PURCHASE_ID" />
+    <result property="purchaseName" column="PURCHASE_NAME" />
+    <result property="purchaseTotalPrice" column="PURCHASE_TOTAL_PRICE" />
+    <result property="createTime" column="CREATE_TIME" />
+    <result property="loginId" column="LOGIN_ID" />
+    <result property="updateTime" column="UPDATE_TIME" />
+    <result property="presName" column="PRES_NAME" />
+    <result property="presUlr" column="PRES_ULR" />
+    <result property="hospital" column="HOSPITAL" />
+    <result property="doctor" column="DOCTOR" />
+    <result property="patientName" column="PATIENT_NAME" />
+    <result property="clinicalDiagnosis" column="CLINICAL_DIAGNOSIS" />
+    <result property="presStatus" column="PRES_STATUS" />
+    <result property="reviewDescription" column="REVIEW_DESCRIPTION" />
+    <result property="type" column="TYPE" />
+    <result property="mobile" column="MOBILE" />
+    <result property="loginAccount" column="LOGIN_ACCOUNT" />
+  </resultMap>
+
+  <sql id="purchaseList_columns" >
+    a1.PURCHASE_ID, a1.PURCHASE_NAME, a1.PURCHASE_TOTAL_PRICE, a1.CREATE_TIME, a1.LOGIN_ID, 
+      a1.UPDATE_TIME, a1.PRES_NAME, a1.PRES_ULR, a1.HOSPITAL, a1.DOCTOR, a1.PATIENT_NAME, 
+      a1.CLINICAL_DIAGNOSIS, a1.PRES_STATUS, a1.REVIEW_DESCRIPTION, a1.TYPE
+  </sql>
+
+  <sql id="purchaseList_do_columns" >
+    a1.PURCHASE_ID, a1.PURCHASE_NAME, a1.PURCHASE_TOTAL_PRICE, a1.CREATE_TIME, a1.LOGIN_ID, 
+      a1.UPDATE_TIME, a1.PRES_NAME, a1.PRES_ULR, a1.HOSPITAL, a1.DOCTOR, a1.PATIENT_NAME, 
+      a1.CLINICAL_DIAGNOSIS, a1.PRES_STATUS, a1.REVIEW_DESCRIPTION, a1.TYPE
+  </sql>
+
+  <sql id="queryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="purchaseId" prepend="AND" >
+        <![CDATA[  
+        PURCHASE_ID = #purchaseId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="purchaseName" prepend="AND" >
+        <![CDATA[  
+        PURCHASE_NAME = #purchaseName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="purchaseTotalPrice" prepend="AND" >
+        <![CDATA[  
+        PURCHASE_TOTAL_PRICE = #purchaseTotalPrice#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createTime" prepend="AND" >
+        <![CDATA[  
+        CREATE_TIME = #createTime#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="loginId" prepend="AND" >
+        <![CDATA[  
+        LOGIN_ID = #loginId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="updateTime" prepend="AND" >
+        <![CDATA[  
+        UPDATE_TIME = #updateTime#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="presName" prepend="AND" >
+        <![CDATA[  
+        PRES_NAME = #presName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="presUlr" prepend="AND" >
+        <![CDATA[  
+        PRES_ULR = #presUlr#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="hospital" prepend="AND" >
+        <![CDATA[  
+        HOSPITAL = #hospital#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="doctor" prepend="AND" >
+        <![CDATA[  
+        DOCTOR = #doctor#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="patientName" prepend="AND" >
+        <![CDATA[  
+        PATIENT_NAME = #patientName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="clinicalDiagnosis" prepend="AND" >
+        <![CDATA[  
+        CLINICAL_DIAGNOSIS = #clinicalDiagnosis#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="presStatus" prepend="AND" >
+        <![CDATA[  
+        PRES_STATUS = #presStatus#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="reviewDescription" prepend="AND" >
+        <![CDATA[  
+        REVIEW_DESCRIPTION = #reviewDescription#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="type" prepend="AND" >
+        <![CDATA[  
+        TYPE = #type#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="doQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="purchaseId" prepend="AND" >
+        <![CDATA[  
+        PURCHASE_ID = #purchaseId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="purchaseName" prepend="AND" >
+        <![CDATA[  
+        PURCHASE_NAME = #purchaseName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="purchaseTotalPrice" prepend="AND" >
+        <![CDATA[  
+        PURCHASE_TOTAL_PRICE = #purchaseTotalPrice#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createTime" prepend="AND" >
+        <![CDATA[  
+        CREATE_TIME = #createTime#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="loginId" prepend="AND" >
+        <![CDATA[  
+        LOGIN_ID = #loginId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="updateTime" prepend="AND" >
+        <![CDATA[  
+        UPDATE_TIME = #updateTime#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="presName" prepend="AND" >
+        <![CDATA[  
+        PRES_NAME = #presName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="presUlr" prepend="AND" >
+        <![CDATA[  
+        PRES_ULR = #presUlr#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="hospital" prepend="AND" >
+        <![CDATA[  
+        HOSPITAL = #hospital#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="doctor" prepend="AND" >
+        <![CDATA[  
+        DOCTOR = #doctor#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="patientName" prepend="AND" >
+        <![CDATA[  
+        PATIENT_NAME = #patientName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="clinicalDiagnosis" prepend="AND" >
+        <![CDATA[  
+        CLINICAL_DIAGNOSIS = #clinicalDiagnosis#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="presStatus" prepend="AND" >
+        <![CDATA[  
+        PRES_STATUS = #presStatus#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="reviewDescription" prepend="AND" >
+        <![CDATA[  
+        REVIEW_DESCRIPTION = #reviewDescription#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="type" prepend="AND" >
+        <![CDATA[  
+        TYPE = #type#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <insert id="insert" parameterClass="purchaseListDO" >
+    INSERT INTO PURCHASE_LIST( PURCHASE_ID, PURCHASE_NAME, PURCHASE_TOTAL_PRICE, CREATE_TIME, LOGIN_ID, 
+      UPDATE_TIME, PRES_NAME, PRES_ULR, HOSPITAL, DOCTOR, PATIENT_NAME, CLINICAL_DIAGNOSIS, 
+      PRES_STATUS, REVIEW_DESCRIPTION, TYPE)
+     VALUES ( #purchaseId#, #purchaseName#, #purchaseTotalPrice#, #createTime#, #loginId#, 
+      #updateTime#, #presName#, #presUlr#, #hospital#, #doctor#, #patientName#, #clinicalDiagnosis#, 
+      #presStatus#, #reviewDescription#, #type#)
+    <selectKey keyProperty="purchaseId" resultClass="java.math.BigDecimal" >
+      SELECT LAST_INSERT_ID() AS value
+    </selectKey>
+  </insert>
+
+  <update id="update" parameterClass="purchaseListDO" >
+    UPDATE PURCHASE_LIST   
+    <dynamic prepend="SET" >
+      <!--
+      <isNotNull property="purchaseId" prepend="," >
+        <![CDATA[  
+        PURCHASE_ID = #purchaseId#  
+        ]]>  
+      </isNotNull>
+      -->
+      <isNotNull property="purchaseName" prepend="," >
+        <![CDATA[  
+        PURCHASE_NAME = #purchaseName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="purchaseTotalPrice" prepend="," >
+        <![CDATA[  
+        PURCHASE_TOTAL_PRICE = #purchaseTotalPrice#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createTime" prepend="," >
+        <![CDATA[  
+        CREATE_TIME = #createTime#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="loginId" prepend="," >
+        <![CDATA[  
+        LOGIN_ID = #loginId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="updateTime" prepend="," >
+        <![CDATA[  
+        UPDATE_TIME = #updateTime#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="presName" prepend="," >
+        <![CDATA[  
+        PRES_NAME = #presName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="presUlr" prepend="," >
+        <![CDATA[  
+        PRES_ULR = #presUlr#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="hospital" prepend="," >
+        <![CDATA[  
+        HOSPITAL = #hospital#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="doctor" prepend="," >
+        <![CDATA[  
+        DOCTOR = #doctor#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="patientName" prepend="," >
+        <![CDATA[  
+        PATIENT_NAME = #patientName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="clinicalDiagnosis" prepend="," >
+        <![CDATA[  
+        CLINICAL_DIAGNOSIS = #clinicalDiagnosis#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="presStatus" prepend="," >
+        <![CDATA[  
+        PRES_STATUS = #presStatus#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="reviewDescription" prepend="," >
+        <![CDATA[  
+        REVIEW_DESCRIPTION = #reviewDescription#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="type" prepend="," >
+        <![CDATA[  
+        TYPE = #type#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+     WHERE PURCHASE_ID = #purchaseId#  
+  </update>
+
+  <select id="findByPrimaryKey" parameterClass="java.math.BigDecimal" resultMap="purchaseListDOResultMap" >
+    
+    select 
+               a1.PURCHASE_ID,
+               a1.PURCHASE_NAME,
+               a1.PURCHASE_TOTAL_PRICE,
+               a1.CREATE_TIME,
+               a1.LOGIN_ID,
+               a1.UPDATE_TIME,
+               a1.PRES_NAME,
+               a1.PRES_ULR,
+               a1.HOSPITAL,
+               a1.DOCTOR,
+               a1.PATIENT_NAME,
+               a1.CLINICAL_DIAGNOSIS,
+               a1.PRES_STATUS,
+               a1.REVIEW_DESCRIPTION,
+               a1.TYPE,
+               l.login_account,
+               l.mobile
+          FROM PURCHASE_LIST a1, login_info l
+         WHERE l.n_login_id = a1.login_id
+    <![CDATA[  
+    AND  a1.PURCHASE_ID = #purchaseId#
+    ]]>  
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterClass="java.math.BigDecimal" >
+    <![CDATA[  
+     DELETE FROM PURCHASE_LIST WHERE PURCHASE_ID = #purchaseId#
+    ]]>  
+  </delete>
+
+  <select id="countByDOExample" parameterClass="purchaseListDO" resultClass="java.lang.Integer" > 
+      select count(1) as num
+  from (select ROW_NUMBER() OVER(order by a1.purchase_id desc) as view_row_number,
+               a1.PURCHASE_ID,
+               a1.PURCHASE_NAME,
+               a1.PURCHASE_TOTAL_PRICE,
+               a1.CREATE_TIME,
+               a1.LOGIN_ID,
+               a1.UPDATE_TIME,
+               a1.PRES_NAME,
+               a1.PRES_ULR,
+               a1.HOSPITAL,
+               a1.DOCTOR,
+               a1.PATIENT_NAME,
+               a1.CLINICAL_DIAGNOSIS,
+               a1.PRES_STATUS,
+               a1.REVIEW_DESCRIPTION,
+               a1.TYPE,
+               l.login_account,
+               l.mobile
+          from PURCHASE_LIST a1, login_info l
+         where l.n_login_id = a1.login_id
+         <isNotNull property="loginAccount">
+			  <isNotEmpty prepend="and" property="loginAccount">
+				l.LOGIN_ACCOUNT like '%$loginAccount$%'
+			  </isNotEmpty>
+		  </isNotNull>
+         <isNotNull property="mobile">
+			  <isNotEmpty prepend="and" property="mobile">
+				l.MOBILE like '%$mobile$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="presName">
+			  <isNotEmpty prepend="and" property="presName">
+				a1.PRES_NAME like '%$presName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="presStatus">
+			  <isNotEmpty prepend="and" property="presStatus">
+				a1.PRES_STATUS =#presStatus#
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="type">
+			  <isNotEmpty prepend="and" property="type">
+				a1.TYPE =#type#
+			  </isNotEmpty>
+		  </isNotNull>
+
+         )
+  </select>
+
+  <select id="findListByDO" resultMap="purchaseListDOResultMap" parameterClass="purchaseListDO" >
+    select login_account,
+       mobile,
+       PURCHASE_ID,
+       PURCHASE_NAME,
+       PURCHASE_TOTAL_PRICE,
+       CREATE_TIME,
+       LOGIN_ID,
+       UPDATE_TIME,
+       PRES_NAME,
+       PRES_ULR,
+       HOSPITAL,
+       DOCTOR,
+       PATIENT_NAME,
+       CLINICAL_DIAGNOSIS,
+       PRES_STATUS,
+       REVIEW_DESCRIPTION,
+       TYPE
+  from (select ROW_NUMBER() OVER(order by a1.purchase_id desc) as view_row_number,
+               a1.PURCHASE_ID,
+               a1.PURCHASE_NAME,
+               a1.PURCHASE_TOTAL_PRICE,
+               a1.CREATE_TIME,
+               a1.LOGIN_ID,
+               a1.UPDATE_TIME,
+               a1.PRES_NAME,
+               a1.PRES_ULR,
+               a1.HOSPITAL,
+               a1.DOCTOR,
+               a1.PATIENT_NAME,
+               a1.CLINICAL_DIAGNOSIS,
+               a1.PRES_STATUS,
+               a1.REVIEW_DESCRIPTION,
+               a1.TYPE,
+               l.login_account,
+               l.mobile
+          from PURCHASE_LIST a1, login_info l
+         where l.n_login_id = a1.login_id
+         <isNotNull property="loginAccount">
+			  <isNotEmpty prepend="and" property="loginAccount">
+				l.LOGIN_ACCOUNT like '%$loginAccount$%'
+			  </isNotEmpty>
+		  </isNotNull>
+         <isNotNull property="mobile">
+			  <isNotEmpty prepend="and" property="mobile">
+				l.MOBILE like '%$mobile$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="presName">
+			  <isNotEmpty prepend="and" property="presName">
+				a1.PRES_NAME like '%$presName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="presStatus">
+			  <isNotEmpty prepend="and" property="presStatus">
+				a1.PRES_STATUS =#presStatus#
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="type">
+			  <isNotEmpty prepend="and" property="type">
+				a1.TYPE =#type#
+			  </isNotEmpty>
+		  </isNotNull>
+
+         )
+         
+          <![CDATA[ where view_row_number <= #max# and view_row_number > #skip# ]]>
+  </select>
+</sqlMap>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SupplierEnchashment" >
+	<typeAlias alias="BnesAcctEnchashment" type="com.kmzyc.supplier.model.BnesAcctEnchashment"/>
+	<typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+  
+    <resultMap id="BnesAcctEnchashmentResultMap" class="BnesAcctEnchashment" >
+	    <result column="ENCHASHMENT_ID" property="enchashmentId" jdbcType="DECIMAL" />
+	    <result column="N_LOGIN_ID" property="nLoginId" jdbcType="DECIMAL" />
+	    <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+	    <result column="ACCOUNT_TRANSACTION_ID" property="accountTransactionId" jdbcType="VARCHAR" />
+	    <result column="ACCOUNT_ID" property="accountId" jdbcType="DECIMAL" />
+	    <result column="ENCHASHMENT_DEPICT" property="enchashmentDepict" jdbcType="VARCHAR" />
+	    <result column="ENCHASHMENT_STATUS" property="enchashmentStatus" jdbcType="DECIMAL" />
+	    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP"/>
+	    <result column="MODIFY_DATE" property="modifyDate" jdbcType="TIMESTAMP" />
+	    <result column="ENCHASHMENT_AMOUNT" property="enchashmentAmount" jdbcType="DECIMAL" />
+	    <result column="ENCHASHMENT_FROM" property="enchashmentFrom" jdbcType="VARCHAR" />
+	    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+	    <result column="ENCHASHMENT_TYPE" property="enchashmentType" jdbcType="DECIMAL" />
+	    <result column="ENCHASHMENT_RESOURCE" jdbcType="DECIMAL" property="enchashmentResource" />
+	    <result column="BANK_ACCOUNT_NAME" property="bankAccountName" jdbcType="VARCHAR" />
+	    <result column="BANK_OF_DEPOSIT" property="bankOfDeposit" jdbcType="VARCHAR" />
+    	<result column="BANK_OF_DEPOSIT_BRANCH_NAME" property="bankOfDepositBranchName" jdbcType="VARCHAR" />
+    	<result column="COMPANY_ACCOUNT" property="companyAccount" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <resultMap id="BnesAcctEnchashmentResultMap1" class="BnesAcctEnchashment" >
+	    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP"/>
+	    <result column="BANK_OF_DEPOSIT" property="bankOfDeposit" jdbcType="VARCHAR" />
+    	<result column="BANK_CARD_NUMBER" property="companyAccount" jdbcType="VARCHAR" />
+	    <result column="ACCOUNT_TRANSACTION_ID" property="accountTransactionId" jdbcType="VARCHAR" />
+	    <result column="ENCHASHMENT_AMOUNT" property="enchashmentAmount" jdbcType="DECIMAL" />
+	    <result column="ENCHASHMENT_STATUS" property="enchashmentStatus" jdbcType="DECIMAL" />
+	    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+	    <result column="CONFIRM_REMARKS" property="confirmRemarks" jdbcType="VARCHAR" />
+    </resultMap>
+   
+	<!--余额提现列表 -->
+	<!-- 查询条件 -->
+	<sql id="byCondition">
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.nLoginId">
+            <![CDATA[
+					b.n_login_id = #objCondition.nLoginId:DECIMAL#
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.loginAccount">
+            <![CDATA[
+					b.login_account = #objCondition.loginAccount:VARCHAR#
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.enchashmentDepict">
+            <![CDATA[
+					b.enchashment_depict like '%'||#objCondition.enchashmentDepict:VARCHAR#||'%'
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.startDate">
+            <![CDATA[
+					b.create_date>= #objCondition.startDate:Date#
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.endDate">
+            <![CDATA[
+				    b.create_date <= #objCondition.endDate:Date#
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.status">
+            <![CDATA[
+					b.enchashment_status = #objCondition.status:VARCHAR#
+				]]>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.accountTransactionId">
+            <![CDATA[
+					b.account_transaction_id = #objCondition.accountTransactionId:VARCHAR#
+				]]>
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+	<select id="selectBnesAcctEnchashmentList" resultMap="BnesAcctEnchashmentResultMap1" parameterClass="pagination">
+          SELECT * FROM (SELECT t.*, ROWNUM RN FROM (
+						 SELECT b.create_date,
+		                       b.bank_of_deposit,
+		                       b.bank_card_number,
+		                       b.account_transaction_id,
+		                       b.enchashment_amount,
+		                       b.enchashment_status,
+		                       b.remarks,
+                           	   b.confirm_remarks
+		                  FROM bnes_acct_enchashment b
+					WHERE  <![CDATA[ b.enchashment_status<>0 ]]> and b.enchashment_resource = 0
+		<include refid="byCondition" />
+		<![CDATA[
+		ORDER BY CREATE_DATE DESC ) t 
+		WHERE  ROWNUM <= $endindex$ ) WHERE RN >= #startindex# 
+		]]>
+	</select>
+	
+  <select id="selectBnesAcctEnchashmentCount" resultClass="java.lang.Integer" parameterClass="pagination" >  
+	<![CDATA[select count(*) from BNES_ACCT_ENCHASHMENT b where 1=1 AND b.enchashment_status<>0 and b.enchashment_resource = 0 ]]>
+	<include refid="byCondition" />
+  </select>
+  <!-- 余额提现列表  end -->
+  
+  <!-- 根据提现ID查询提现状态 -->
+   <select id="selectBnesAcctEnchashmentById" resultMap="BnesAcctEnchashmentResultMap" parameterClass="java.math.BigDecimal">
+		SELECT b.enchashment_id,
+       b.n_login_id,
+       b.login_account,
+       b.account_transaction_id,
+       b.account_id,
+       b.enchashment_depict,
+       b.enchashment_status,
+       b.create_date,
+       b.modify_date,
+       b.enchashment_amount,
+       b.enchashment_from,
+       b.remarks,
+       b.enchashment_type,
+       b.enchashment_resource,
+       c.bank_account_name,
+       c.bank_of_deposit,
+       c.BANK_OF_DEPOSIT_BRANCH_NAME,
+       c.COMPANY_ACCOUNT
+FROM   COMMERCIAL_TENANT_BASIC_INFO c,
+       ACCOUNT_INFO a,
+       bnes_acct_enchashment b,
+       login_rose_rel r
+WHERE  c.n_login_id = a.n_login_id
+       AND b.n_login_id = c.n_login_id
+       AND r.n_commercial_id = c.n_commercial_tenant_id
+       AND b.enchashment_id=#enchashmentId:DECIMAL#
+   </select>
+  <!-- 根据提现ID查询提现状态 end -->
+  <select id="selectBnesAcctEnchashmentByUserId" parameterClass="java.lang.Long" resultMap="BnesAcctEnchashmentResultMap">
+		SELECT b.enchashment_id,
+         b.n_login_id,
+                 b.login_account,
+                 b.account_transaction_id,
+                 b.account_id,
+                 b.enchashment_depict,
+                 b.enchashment_status,
+                 b.create_date,
+                 b.modify_date,
+                 b.enchashment_amount,
+                 b.enchashment_from,
+                 b.remarks,
+                 b.enchashment_type,
+                 b.enchashment_resource,
+                 c.bank_account_name,
+                 c.bank_of_deposit,
+                 c.BANK_OF_DEPOSIT_BRANCH_NAME,
+                 c.COMPANY_ACCOUNT
+          FROM   COMMERCIAL_TENANT_BASIC_INFO c,
+                 ACCOUNT_INFO a,
+                 bnes_acct_enchashment b,
+                 login_rose_rel r
+          WHERE  c.n_login_id = a.n_login_id
+                 AND b.n_login_id = c.n_login_id
+                 AND r.n_commercial_id = c.n_commercial_tenant_id
+                 AND (b.enchashment_status=0 or b.enchashment_status=3)
+                 and b.enchashment_resource = 0
+                 AND  c.n_commercial_tenant_id = #merchantId:NUMBER#
+	 </select>
+	 
+</sqlMap>

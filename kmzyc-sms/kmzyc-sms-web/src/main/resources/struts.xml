@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.i18n.encoding" value="utf-8"></constant>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<!--开发模式 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- 当修改配置文件不需要重启服务，开发比较有用 -->
+	<constant name="struts.ConfigurationUtil.xml.reload" value="true" />
+	<constant name="struts.action.extension" value="action"></constant>
+	<constant name="struts.custom.i18n.resources" value="message"></constant>
+	<package name="BasePackage" extends="struts-default">
+        <interceptors>
+            <interceptor-stack name="baseStack">
+                <interceptor-ref name="defaultStack" />
+                <!-- 覆盖defultStack中的exception设置，启用它的日志功能 -->
+                <interceptor-ref name="exception">
+                    <param name="logEnabled">true</param>
+                    <param name="logLevel">error</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <!-- 修改默认的拦截器stack，原来是defaultStack -->
+        <default-interceptor-ref name="baseStack"/>
+        <global-results>
+            <result name="error">/error.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"></exception-mapping>
+        </global-exception-mappings>
+		
+	</package>
+
+    
+</struts>

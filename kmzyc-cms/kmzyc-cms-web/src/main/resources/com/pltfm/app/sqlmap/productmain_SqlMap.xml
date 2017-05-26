@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="PRODUCTMAIN">
+<!-- 产品主表 -->
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.Productmain" >
+    <result column="PRODUCT_ID" jdbcType="DECIMAL" property="productId" />
+    <result column="CATEGORY_ID" jdbcType="DECIMAL" property="categoryId" />
+    <result column="PROCUCT_NAME" jdbcType="VARCHAR" property="procuctName" />
+    <result column="PRODUCT_DESC" jdbcType="VARCHAR" property="productDesc" />
+    <result column="PACK_LISTING" jdbcType="VARCHAR" property="packListing" />
+    <result column="PRODUCT_TITLE" jdbcType="VARCHAR" property="productTitle" />
+    <result column="KEYWORD" jdbcType="VARCHAR" property="keyword" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="CREATE_USER" jdbcType="DECIMAL" property="createUser" />
+    <result column="CREATE_TIME" jdbcType="DATE" property="createTime" />
+    <result column="PRODUCTHOT" jdbcType="DECIMAL" property="producthot" />
+    <result column="ARCHIVE_TIME" jdbcType="DATE" property="archiveTime" />
+    <result column="CHECK_TIME" jdbcType="DATE" property="checkTime" />
+    <result column="MODIF_TIME" jdbcType="DATE" property="modifTime" />
+    <result column="SHOP_CODE" jdbcType="VARCHAR" property="shopCode" />
+    <result column="MODIF_USER" jdbcType="DECIMAL" property="modifUser" />
+    <result column="UP_TIME" jdbcType="DATE" property="upTime" />
+    <result column="MARKET_PRICE" jdbcType="DECIMAL" property="marketPrice" />
+    <result column="COST_PRICE" jdbcType="DECIMAL" property="costPrice" />
+    <result column="PRODUCT_NO" jdbcType="VARCHAR" property="productNo" />
+    <result column="CHECK_USER" jdbcType="DECIMAL" property="checkUser" />
+    <result column="CHECK_USER_NAME" jdbcType="VARCHAR" property="checkUserName" />
+    <result column="CREATE_USER_NAME" jdbcType="VARCHAR" property="createUserName" />
+    <result column="BRAND_ID" jdbcType="DECIMAL" property="brandId" />
+    <result column="BRAND_NAME" jdbcType="VARCHAR" property="brandName" />
+    <result column="APPROVAL_TYPE" jdbcType="DECIMAL" property="approvalType" />
+    <result column="APPROVAL_NO" jdbcType="VARCHAR" property="approvalNo" />
+    <result column="CATEGORY_NAME" jdbcType="VARCHAR" property="categoryName" />
+    <result column="IS_NOTICE" jdbcType="CHAR" property="isNotice" />
+    <result column="DRUG_CATE_ID" jdbcType="DECIMAL" property="drugCateId" />
+    <result column="DRUG_CATE_CODE" jdbcType="VARCHAR" property="drugCateCode" />
+    <result column="ERP_PRODUCT_CODE" jdbcType="VARCHAR" property="erpProductCode" />
+    <result column="PRODUCT_SUBTITLE" jdbcType="VARCHAR" property="productSubtitle" />
+    <result column="POSTIL" jdbcType="VARCHAR" property="postil" />
+    <result column="PRODUCT_TYPE" jdbcType="DECIMAL" property="productType" />
+  </resultMap>
+  
+  
+ 
+  <select id="ibatorgenerated_selectByPrimaryKey" parameterClass="com.pltfm.app.vobject.Productmain" resultMap="ibatorgenerated_BaseResultMap">
+    <!--
+                   跟据供应商查询
+    -->
+    select PRODUCT_ID, CATEGORY_ID, PROCUCT_NAME, PRODUCT_DESC, PACK_LISTING, PRODUCT_TITLE,
+      KEYWORD, STATUS, CREATE_USER, CREATE_TIME, PRODUCTHOT, ARCHIVE_TIME, CHECK_TIME, MODIF_TIME,
+      SHOP_CODE, MODIF_USER, UP_TIME, MARKET_PRICE, COST_PRICE, PRODUCT_NO, CHECK_USER,
+      CHECK_USER_NAME, CREATE_USER_NAME, BRAND_ID, BRAND_NAME, APPROVAL_TYPE, APPROVAL_NO,
+      CATEGORY_NAME, IS_NOTICE, DRUG_CATE_ID, DRUG_CATE_CODE, ERP_PRODUCT_CODE, PRODUCT_SUBTITLE,
+      POSTIL, PRODUCT_TYPE, INTRODUCE, INTRODUCE_LAZY
+    from PRODUCTMAIN  where  SHOP_CODE=#shopCode:VARCHAR# and rownum &lt;=#lineNumber:DECIMAL#
+  </select>
+  
+</sqlMap>

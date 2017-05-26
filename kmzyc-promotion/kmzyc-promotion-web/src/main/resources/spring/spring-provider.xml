@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<dubbo:application name="promotion-provider" owner="kmzyc.promotion" />
+	<dubbo:provider timeout="5000" loadbalance="roundrobin" />
+	<!-- 用dubbo协议在20880端口暴露服务 -->
+    <dubbo:protocol name="dubbo" port="20880" threadpool="cached" accepts="2000"/>  
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry address="${dubbo.registry.address}" />
+    <!-- 监控dubbo接口的状态，性能 -->
+    <dubbo:monitor protocol="registry"/>
+    
+    <!-- 服务提供者配置 -->
+    <!-- 声明需要暴露的服务接口 -->
+	<dubbo:service ref="promotionRemoteService" 
+		interface="com.kmzyc.promotion.remote.service.PromotionRemoteService" />
+	<dubbo:service ref="baseProductRemoteService" 
+		interface="com.kmzyc.promotion.remote.service.BaseProductRemoteService" />
+	<dubbo:service ref="couponRemoteService" 
+		interface="com.kmzyc.promotion.remote.service.CouponRemoteService" />
+	<dubbo:service ref="presellInfoRemoteService" 
+		interface="com.kmzyc.promotion.remote.service.PresellInfoRemoteService" />
+	
+	<!-- 服务使用方配置  -->
+	<!-- 生成远程服务代理 -->
+	<dubbo:consumer timeout="10000" retries="0"/>
+	<!-- 用户系统 -->
+	<dubbo:reference id="userGrowingService" interface="com.kmzyc.user.remote.service.UserGrowingService" check="false" />
+	<dubbo:reference id="customerRemoteService" interface="com.kmzyc.user.remote.service.CustomerRemoteService" check="false" />	
+	<dubbo:reference id="specialistRemoteService" interface="com.kmzyc.user.remote.service.SpecialistRemoteService" check="false" />
+	<!-- CMS系统 -->
+	<dubbo:reference id="detailPublishService" interface="com.kmzyc.cms.remote.service.DetailPublishService" check="false" />		
+</beans>

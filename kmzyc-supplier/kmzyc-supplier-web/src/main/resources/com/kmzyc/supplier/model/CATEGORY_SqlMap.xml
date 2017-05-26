@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="CATEGORY">
+	<resultMap id="baseResultMap" class="com.pltfm.app.vobject.Category">
+		<result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+		<result column="PARENT_ID" property="parentId" jdbcType="DECIMAL" />
+		<result column="CATEGORY_CODE" property="categoryCode" jdbcType="DECIMAL" />
+		<result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="SORTNO" property="sortno" jdbcType="DECIMAL" />
+		<result column="CATEGORY_DESC" property="categoryDesc" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+		<result column="MODIF_TIME" property="modifTime" jdbcType="DATE" />
+		<result column="MODIF_USER" property="modifUser" jdbcType="DECIMAL" />
+		<result column="EXEC_SQL" property="execSql" jdbcType="VARCHAR" />
+		<result column="IS_PHY" property="isPhy" jdbcType="DECIMAL" />
+		<result column="SQL_STRING" property="sqlString" jdbcType="DECIMAL" />
+	</resultMap>
+	<resultMap id="baseResultMap_up" class="com.pltfm.app.vobject.Category">
+		<result column="categoryId" property="categoryId" jdbcType="DECIMAL" />
+		<result column="parentId" property="parentId" jdbcType="DECIMAL" />
+		<result column="CATEGORY_NAME" property="categoryName" jdbcType="DECIMAL" />
+	</resultMap>
+	<resultMap id="baseResultMap3" class="com.kmzyc.supplier.model.Categorys">
+		<result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+		<result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="baseResultMap4" class="com.kmzyc.supplier.model.Categorys">
+		<result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+		<result column="CATEGORY_PARENT_ID" property="categoryParentId" jdbcType="DECIMAL" />
+		<result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+		<result column="DEFAULT_REBATE" property="defaultRebate" jdbcType="DECIMAL" />
+	</resultMap>
+	<sql id="example_Where_Clause">
+		<iterate property="oredCriteria" conjunction="or" prepend="where"
+			removeFirstPrepend="iterate">
+			<isEqual property="oredCriteria[].valid" compareValue="true">
+				(
+				<iterate prepend="and" property="oredCriteria[].criteriaWithoutValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithoutValue[]$
+				</iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithSingleValue[].condition$
+					#oredCriteria[].criteriaWithSingleValue[].value#
+				</iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithListValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithListValue[].condition$
+					<iterate property="oredCriteria[].criteriaWithListValue[].values"
+						open="(" close=")" conjunction=",">
+						#oredCriteria[].criteriaWithListValue[].values[]#
+					</iterate>
+				</iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithBetweenValue[].condition$
+					#oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+					#oredCriteria[].criteriaWithBetweenValue[].values[1]#
+				</iterate>
+				)
+			</isEqual>
+		</iterate>
+	</sql>
+	<select id="queryCategoryParentList" resultClass="com.pltfm.app.vobject.Category" parameterClass="com.pltfm.app.vobject.Category">
+		select CATEGORY_ID as categoryId , CATEGORY_NAME as categoryName
+		from CATEGORYS
+		where STATUS = 1 start with
+		<isNotNull property="categoryId">
+			category_id = #categoryId#
+		</isNotNull>
+		connect by prior parent_id = category_id
+	</select>
+
+	<select id="ibatorgenerated_selectByExample" resultMap="baseResultMap" parameterClass="java.util.Map">
+		select * from CATEGORYS where PARENT_ID = #parentId#
+		<dynamic prepend="AND">
+			<iterate open="(" close=")" conjunction=" OR " property="categoryList">
+				CATEGORY_ID = #categoryList[].categoryId#
+			</iterate>
+		</dynamic>
+		order by category_id
+	</select>
+	<select id="queryCategoryList" resultClass="com.pltfm.app.vobject.Category" parameterClass="com.pltfm.app.vobject.Category">
+		select CATEGORY_ID as categoryId, PARENT_ID as parentId, CATEGORY_NAME as categoryName,category_code as categoryCode, IS_PHY as isPhy
+		from CATEGORYS
+		where STATUS = 1
+		<isNotNull property="isPhy" prepend="and">
+			IS_PHY = #isPhy#
+		</isNotNull>
+		start with
+		<isNotNull property="categoryId">
+			category_id = #categoryId#
+		</isNotNull>
+		<isNull property="categoryId">
+			parent_id = 0
+		</isNull>
+		connect by prior category_id=parent_id
+	</select>
+	<select id="ibatorgenerated_selectByExample2" resultMap="baseResultMap" parameterClass="java.util.Map">
+		select * from CATEGORYS where PARENT_ID = #parentId# order by category_id
+	</select>
+
+	<select id="selectCategoryWithSupplyAvailable" resultMap="baseResultMap" parameterClass="java.util.Map">
+		select c.* from SUPPLIERS_AVAILABLE_CATEGORYS sac,CATEGORYS c
+		where sac.category_id=c.category_id
+		and sac.supplier_id = #supplierId#
+		and sac.category_parent_id = #parentId#
+		and sac.status=1
+		order by c.category_id
+	</select>
+
+	<select id="applySuppliersCategories" resultMap="baseResultMap3" parameterClass="com.kmzyc.supplier.model.Categorys">
+		select cat.category_id,cat.category_name
+		from suppliers_categorys_scope sc,categorys cat
+		where sc.category_id=cat.category_id
+	</select>
+	<select id="applySuppliersCategoriesAll" resultMap="baseResultMap4"
+		parameterClass="com.kmzyc.supplier.model.Categorys">
+		select scs.category_id, scs.category_parent_id, cat.category_name,scs.default_rebate
+		from suppliers_categorys_scope scs, CATEGORYS cat
+		where cat.category_id = scs.category_id
+		start with scs.category_parent_id = 0 connect by prior scs.category_id = scs.category_parent_id
+	</select>
+	<select id="getCategoryPvDefaultRebate" resultClass="java.math.BigDecimal" parameterClass="java.lang.Long">
+		SELECT DEFAULT_REBATE FROM CATEGORYS_PV WHERE CATEGORY_ID=#categoryId#
+	</select>
+	<!--判断是否被锁 -->
+	<select id="promotionIsLock" parameterClass="java.lang.Long" resultClass="java.lang.Integer">
+  	<![CDATA[
+        select count(asku.promotion_id)
+		from activity_sku asku, activity_info ai, activity_supplier_entry ase
+		where ai.activity_id = asku.activity_id
+		and ase.activity_id = ai.activity_id
+		and sysdate <= ai.activity_end_time
+		and ai.audit_status = 1 and ase.entry_status = 2 and ase.audit_status = 1
+		and asku.promotion_id is not null and asku.promotion_id = #promotionId:DECIMAL#
+	]]>
+	</select>
+</sqlMap>

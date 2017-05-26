@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package namespace="/tiedSale" name="tiedSale" extends="struts-default">
+
+		<!--跳转到产品搭售主页面 -->
+		<action name="tiedSaleShow" class="com.pltfm.app.action.TiedSaleAction"
+			method="tiedSaleShow">
+			<result name="success" type="dispatcher">
+				/WEB-INF/jsp/app/TiedSale/TiedProductList.jsp
+			</result>
+		</action>
+
+
+		<!--跳转到添加搭售产品页面 -->
+		<action name="tiedSaleAdd" class="com.pltfm.app.action.TiedSaleAction"
+			method="tiedSaleAdd">
+			<result name="success" type="dispatcher">
+			/WEB-INF/jsp/app/TiedSale/TiedProductAdd.jsp
+			</result>
+		</action>
+
+	   
+		<!-- 保存主产品的搭售产品，建立搭售的关系 -->
+		<action name="saveTied" class="com.pltfm.app.action.TiedSaleAction"
+			method="saveTied">
+			<result name="success" type="redirect">
+				/tiedSale/tiedSaleShow.action?rtnMessage=${rtnMessage}
+			</result>
+		</action>
+		
+		<!-- 查看主产品所搭配的产品 -->
+		<action name="tiedSaleView" class="com.pltfm.app.action.TiedSaleAction"
+			method="tiedSaleView">
+			<result name="success" type="dispatcher">
+				/WEB-INF/jsp/app/TiedSale/TiedSaleView.jsp
+			</result>
+		</action>
+
+
+		<!-- 删除搭配组合 -->
+		<action name="delTied" class="com.pltfm.app.action.TiedSaleAction"
+			method="delTied">
+			<result name="success" type="redirect">
+				/tiedSale/tiedSaleView.action?tiedSade.mainSku=${tiedSade.mainSku}&amp;rtnMessage=${rtnMessage}
+			</result>
+		</action>
+
+ 
+		<!--添加页面中点击查询按钮触发的查询事件，主要根据产品名称查询出多对应的产品列表信息 -->
+		<action name="addSearch" class="com.pltfm.app.action.TiedSaleAction"
+			method="addSearch">
+			<result name="success" type="dispatcher">
+			/WEB-INF/jsp/app/TiedSale/TiedProductAdd.jsp
+			</result>
+		</action>
+
+		<!-- 更改搭配组合的搭配价格 -->
+		<action name="update" class="com.pltfm.app.action.TiedSaleAction"
+			method="update">
+			<result name="success" type="redirect">
+				/tiedSale/tiedSaleView.action?tiedSade.mainSku=${tiedSade.mainSku}
+			</result>
+		</action>
+		
+		
+	   <!--以下均为产品搭售查看功能下的action -->
+	   
+	 		
+	  <!-- 跳转到产品搭售查看功能下 的查询页面 -->
+	   <action name="stQuery"  class="com.pltfm.app.action.TiedSaleAction"  
+	   method="tiedSaleViewQuery"  >
+	   <result name="success"  type="dispatcher"  >
+	   /WEB-INF/jsp/app/TiedSale/TSViewList.jsp
+	   </result>
+	   </action>	
+		
+		<!--查看产品搭售查看功能下         主产品所搭售的产品         -->
+		 <action name="tsToView"   class="com.pltfm.app.action.TiedSaleAction" 
+		 method="tiedSaleViewToView"  >
+		 <result name="success"  type="dispatcher"  >
+		 /WEB-INF/jsp/app/TiedSale/TSView.jsp
+		 </result>
+		 </action>
+		
+		
+		<!-- 根据所搭售产品的id删除产品的记录 -->
+		  <action name="delST" class="com.pltfm.app.action.TiedSaleAction"  method="delST" >
+      <result name="success"  type="redirect"  >
+       	/tiedSale/tsToView.action?tiedSade.mainSku=${tiedSade.mainSku}&amp;rtnMessage=${rtnMessage}
+      </result>
+      </action>
+		
+		
+		  <!--跳转到产品搭售添加功能界面 -->
+		 <action name="tsAdd"   class="com.pltfm.app.action.TiedSaleAction"   method="tsAdd"     >
+	   <result name="success"   type="dispatcher" >
+	   /WEB-INF/jsp/app/TiedSale/TSAdd.jsp
+	   </result>
+	     </action>  
+		
+		
+		<!--保存产品搭售 -->
+		<action name="saveST"   class="com.pltfm.app.action.TiedSaleAction"  method="saveST"  >
+		<result name="success"  type="redirect"  >
+	   /tiedSale/stQuery.action?rtnMessage=${rtnMessage}
+		</result>
+		</action>
+		
+	 <!--产品添加中的查看功能  -->
+	   <action name="stAddSearch"   class="com.pltfm.app.action.TiedSaleAction"         method="stAddSearch"  >
+       <result name="success"  type="dispatcher"  >
+    /WEB-INF/jsp/app/TiedSale/TSAdd.jsp
+       </result>
+       </action>
+		
+		
+		
+		
+<action name="updateTiedSaleType"   class="com.pltfm.app.action.TiedSaleAction"       method="updateTiedSaleType"  >
+	<result name="success" type="redirect">
+				/tiedSale/tiedSaleView.action?tiedSade.mainSku=${tiedSade.mainSku}
+			</result>
+</action>		
+		
+		
+		
+		
+
+	</package>
+
+</struts>

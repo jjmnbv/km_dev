@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="UserInfo">
+	<typeAlias alias="userInfo" type="com.kmzyc.b2b.model.UserInfo" />
+	
+	<resultMap class="userInfo" id="userinfo">
+		<result jdbcType="DECIMAL" property="loginId" column="n_login_id" />
+		<result jdbcType="DECIMAL" property="personalId" column="n_personal_id" />
+		<result jdbcType="DECIMAL" property="personalityId" column="n_personality_id" />
+		<result jdbcType="DECIMAL" property="healthYgenericId" column="n_health_ygeneric_id" />
+		<result jdbcType="VARCHAR" property="accountLogin" column="account_login" />
+		<result jdbcType="VARCHAR" property="email" column="email" />
+		<result jdbcType="VARCHAR" property="name" column="name" />
+		<result jdbcType="VARCHAR" property="sex" column="sex" />
+		<result jdbcType="DATE" property="birthday" column="d_birthday" />
+		<result jdbcType="VARCHAR" property="province" column="province" />
+		<result jdbcType="VARCHAR" property="city" column="city" />
+		<result jdbcType="VARCHAR" property="area" column="area" />
+		<result jdbcType="VARCHAR" property="detailedaddress" column="detailedaddress" />
+		<result jdbcType="DECIMAL" property="liveStatus" column="live_status" />
+		<result jdbcType="VARCHAR" property="professionType" column="profession_type" />
+		<result jdbcType="DECIMAL" property="maritalStatus" column="n_marital_status" />
+		<result jdbcType="VARCHAR" property="mobile" column="mobile" />
+		<result jdbcType="VARCHAR" property="nickName" column="nickname" />
+		<result jdbcType="VARCHAR" property="headSculpture" column="head_sculpture" />
+	</resultMap>
+	
+	<resultMap class="com.kmzyc.b2b.model.LoginInfo" id="loginInfo">
+	   <result property="email" column="email" jdbcType="VARCHAR"/>
+	   <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<sql id="ByLoginIdCondition">
+	    <![CDATA[
+		   n_login_id = #loginId:NUMBER#
+	    ]]>
+	</sql>
+	
+	<!-- 获取个人信息 -->
+	<select id="findById" parameterClass="integer" resultMap="userinfo">
+	   <![CDATA[
+			select n_login_id,mobile,n_health_ygeneric_id,n_personal_id,n_personality_id,account_login,
+			email,name,sex,d_birthday,province,city,area,detailedaddress,live_status,profession_type,
+			n_marital_status,nickname,head_sculpture from v_b2b_userinfo
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="ByLoginIdCondition" />
+		</dynamic>
+	</select>
+	
+	<!-- 获取邮箱和手机验证状态 -->
+	<select id="findStatus" parameterClass="Integer" resultMap="loginInfo">
+	 <![CDATA[
+	     select email,mobile from login_info
+	     ]]>
+	     <dynamic prepend="WHERE">
+			<include refid="ByLoginIdCondition" />
+		</dynamic>
+	</select>
+
+	 
+<select id="SQL_QUERY_USER_BY_LOGIN_CARDNUM" parameterClass="java.lang.Long" resultClass="com.kmzyc.b2b.model.User">
+	select 
+	li.login_account loginAccount,
+	li.n_level_id levelId,
+	li.n_customer_type_id customerTypeId,
+	li.login_password loginPassword,
+	li.n_login_id loginId,
+	li.CARD_NUM cardNum,
+	li.n_status status,
+	 (select pi.nickname
+		          from personality_info pi
+		         where pi.n_login_id = li.n_login_id) nickname,
+	li.mobile 
+	from 
+	login_info li 
+	where 
+	li.N_STATUS=1   
+	and li.CARD_NUM=#cardNum:DECIMAL#  
+	</select>  
+</sqlMap>

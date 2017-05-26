@@ -1,0 +1,1057 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="CommercialTenantBasicCopy" >
+
+  <typeAlias alias="commercialTenantBasicCopyDO" type="com.pltfm.app.dataobject.CommercialTenantBasicCopyDO" />
+
+  <resultMap id="commercialTenantBasicCopyDOResultMap" class="commercialTenantBasicCopyDO" >
+    <result property="commercialCopyId" column="N_COMMERCIAL_COPY_ID" />
+    <result property="commercialTenantId" column="N_COMMERCIAL_TENANT_ID" />
+    <result property="loginId" column="N_LOGIN_ID" />
+    <result property="contactsName" column="CONTACTS_NAME" />
+    <result property="contactsDepartment" column="CONTACTS_DEPARTMENT" />
+    <result property="fixedPhone" column="FIXED_PHONE" />
+    <result property="mobile" column="MOBILE" />
+    <result property="contactsEmail" column="CONTACTS_EMAIL" />
+    <result property="corporateName" column="CORPORATE_NAME" />
+    <result property="corporateLocation" column="CORPORATE_LOCATION" />
+    <result property="corporateProperty" column="CORPORATE_PROPERTY" />
+    <result property="corporateTrade" column="CORPORATE_TRADE" />
+    <result property="enterpriseNumberOfPeople" column="N_ENTERPRISE_NUMBER_OF_PEOPLE" />
+    <result property="foundDate" column="D_FOUND_DATE" />
+    <result property="enterpriseStatus" column="N_ENTERPRISE_STATUS" />
+    <result property="postalcode" column="POSTALCODE" />
+    <result property="uploadBusinessLicencePictur" column="UPLOAD_BUSINESS_LICENCE_PICTUR" />
+    <result property="organizationCode" column="ORGANIZATION_CODE" />
+    <result property="enterpriseLegalRepresentativ" column="ENTERPRISE_LEGAL_REPRESENTATIV" />
+    <result property="enterpriseRealmName" column="ENTERPRISE_REALM_NAME" />
+    <result property="createDate" column="D_CREATE_DATE" />
+    <result property="created" column="N_CREATED" />
+    <result property="modifyDate" column="D_MODIFY_DATE" />
+    <result property="modified" column="N_MODIFIED" />
+    <result property="authenticationStatus" column="AUTHENTICATION_STATUS" />
+    <result property="businessLicenceRegister" column="BUSINESS_LICENCE_REGISTER" />
+    <result property="businessTimeLimit" column="BUSINESS_TIME_LIMIT" />
+    <result property="registerBankroll" column="REGISTER_BANKROLL" />
+    <result property="businessScope" column="BUSINESS_SCOPE" />
+    <result property="bankAccountName" column="BANK_ACCOUNT_NAME" />
+    <result property="bankOfDeposit" column="BANK_OF_DEPOSIT" />
+    <result property="bankOfDepositBranchName" column="BANK_OF_DEPOSIT_BRANCH_NAME" />
+    <result property="companyAccount" column="COMPANY_ACCOUNT" />
+    <result property="certificateType" column="N_CERTIFICATE_TYPE" />
+    <result property="certificateNumber" column="CERTIFICATE_NUMBER" />
+    <result property="location" column="LOCATION" />
+    <result property="certificatePicture" column="CERTIFICATE_PICTURE" />
+    <result property="businessLicenceLocation" column="BUSINESS_LICENCE_LOCATION" />
+    <result property="blinceStartdate" column="BLINCE_STARTDATE" />
+    <result property="blinceEnddate" column="BLINCE_ENDDATE" />
+    <result property="blinceVerify" column="BLINCE_VERIFY" />
+    <result property="cidVerify" column="CID_VERIFY" />
+    <result property="province" column="PROVINCE" />
+    <result property="city" column="CITY" />
+    <result property="area" column="AREA" />
+    <result property="certificateOthersid" column="CERTIFICATE_OTHERSID" />
+    <result property="taxpayerIdnumber" column="TAXPAYER_IDNUMBER" />
+    <result property="taxRegCertificateCopy" column="TAX_REG_CERTIFICATE_COPY" />
+    <result property="taxpayerCertificate" column="G_TAXPAYER_CERTIFICATE" />
+    <result property="trccopyVerify" column="TRCCOPY_VERIFY" />
+    <result property="gtcVerify" column="GTC_VERIFY" />
+    <result property="ataxVerify" column="ATAX_VERIFY" />
+    <result property="reviewChange" column="REVIEW_CHANGE" />
+    <result property="taxRegistrationCno" column="TAX_REGISTRATION_CNO" />
+    <result property="phone" column="PHONE" />
+    <result property="organizationUrl" column="ORGANIZATION_URL" />
+     <result property="loginName" column="LOGIN_ACCOUNT" />
+     <result property="creditRating" column="CREDIT_RATING" />
+       <result property="description" column="DESCRIPTION" />
+  </resultMap>
+	<resultMap class="com.pltfm.app.dataobject.AreaDict" id="areaInfo">
+	   <result property="areaId" column="AREA_ID" jdbcType="DECIMAL"/>
+	   <result property="areaName" column="AREA_NAME" jdbcType="VARCHAR"/>
+	   <result property="supperareaId" column="SUPPERAREA_ID" jdbcType="VARCHAR"/>
+	   <result property="areatype" column="AREATYPE" jdbcType="DECIMAL"/>
+	</resultMap>
+  
+
+    
+ 
+  <insert id="insert" parameterClass="commercialTenantBasicCopyDO" >
+  <selectKey resultClass="java.math.BigDecimal" keyProperty="commercialCopyId" >
+            select SEQ_COMMERCIAL_COPY.NEXTVAL from dual
+      </selectKey>
+    INSERT INTO COMMERCIAL_TENANT_BASIC_COPY( N_COMMERCIAL_COPY_ID, N_COMMERCIAL_TENANT_ID, N_LOGIN_ID, CONTACTS_NAME, 
+      CONTACTS_DEPARTMENT, FIXED_PHONE, MOBILE, CONTACTS_EMAIL, CORPORATE_NAME, 
+      CORPORATE_LOCATION, CORPORATE_PROPERTY, CORPORATE_TRADE, N_ENTERPRISE_NUMBER_OF_PEOPLE, 
+      D_FOUND_DATE, N_ENTERPRISE_STATUS, POSTALCODE, UPLOAD_BUSINESS_LICENCE_PICTUR, 
+      ORGANIZATION_CODE, ENTERPRISE_LEGAL_REPRESENTATIV, ENTERPRISE_REALM_NAME, D_CREATE_DATE, 
+      N_CREATED, D_MODIFY_DATE, N_MODIFIED, AUTHENTICATION_STATUS, BUSINESS_LICENCE_REGISTER, 
+      BUSINESS_TIME_LIMIT, REGISTER_BANKROLL, BUSINESS_SCOPE, BANK_ACCOUNT_NAME, BANK_OF_DEPOSIT, 
+      BANK_OF_DEPOSIT_BRANCH_NAME, COMPANY_ACCOUNT, N_CERTIFICATE_TYPE, CERTIFICATE_NUMBER, 
+      LOCATION, CERTIFICATE_PICTURE, BUSINESS_LICENCE_LOCATION, BLINCE_STARTDATE, 
+      BLINCE_ENDDATE, BLINCE_VERIFY, CID_VERIFY, PROVINCE, CITY, AREA, CERTIFICATE_OTHERSID, 
+      TAXPAYER_IDNUMBER, TAX_REG_CERTIFICATE_COPY, G_TAXPAYER_CERTIFICATE, TRCCOPY_VERIFY, 
+      GTC_VERIFY, ATAX_VERIFY, REVIEW_CHANGE, TAX_REGISTRATION_CNO, PHONE, ORGANIZATION_URL,DESCRIPTION,CREDIT_RATING
+      )
+     VALUES ( #commercialCopyId#, #commercialTenantId#, #loginId#, #contactsName#, 
+      #contactsDepartment#, #fixedPhone#, #mobile#, #contactsEmail#, #corporateName#, 
+      #corporateLocation#, #corporateProperty#, #corporateTrade#, #enterpriseNumberOfPeople#, 
+      #foundDate#, #enterpriseStatus#, #postalcode#, #uploadBusinessLicencePictur#, 
+      #organizationCode#, #enterpriseLegalRepresentativ#, #enterpriseRealmName#, #createDate#, 
+      #created#, #modifyDate#, #modified#, #authenticationStatus#, #businessLicenceRegister#, 
+      #businessTimeLimit#, #registerBankroll#, #businessScope#, #bankAccountName#, #bankOfDeposit#, 
+      #bankOfDepositBranchName#, #companyAccount#, #certificateType#, #certificateNumber#, 
+      #location#, #certificatePicture#, #businessLicenceLocation#, #blinceStartdate#, 
+      #blinceEnddate#, #blinceVerify#, #cidVerify#, #province#, #city#, #area#, #certificateOthersid#, 
+      #taxpayerIdnumber#, #taxRegCertificateCopy#, #taxpayerCertificate#, #trccopyVerify#, 
+      #gtcVerify#, #ataxVerify#, #reviewChange#, #taxRegistrationCno#, #phone#, #organizationUrl#,#description#,#creditRating#
+      )
+  </insert>
+
+
+<!-- 更新采购商信息 --> 
+
+
+<update id="updateCommercialTenantBasic" parameterClass="commercialTenantBasicCopyDO" >    <!--
+      WARNING - This element is automatically generated by Abator for iBATIS, do not modify.
+      This element was generated on Tue Jul 09 16:33:05 CST 2013.
+    -->
+    update COMMERCIAL_TENANT_BASIC_INFO   
+       <dynamic prepend="set" >
+      <isNotNull prepend="," property="loginId" >
+        N_LOGIN_ID = #loginId:DECIMAL#
+      </isNotNull>
+         <isNotNull property="ataxVerify" prepend="," >
+        <![CDATA[  
+        ATAX_VERIFY = #ataxVerify#  
+        ]]>  
+      </isNotNull>
+          <isEmpty property="ataxVerify" prepend=",">
+        ATAX_VERIFY = #ataxVerify# 
+      </isEmpty>
+      <isNotNull prepend="," property="contactsName" >
+        CONTACTS_NAME = #contactsName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="contactsDepartment" >
+        CONTACTS_DEPARTMENT = #contactsDepartment:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="fixedPhone" >
+        FIXED_PHONE = #fixedPhone:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="mobile" >
+        MOBILE = #mobile:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="businessLicenceRegister" >
+                 BUSINESS_LICENCE_REGISTER  = #businessLicenceRegister:VARCHAR#
+      </isNotNull>
+            <isNotNull prepend="," property="blinceStartdate" >
+                  BLINCE_STARTDATE=#blinceStartdate#
+      </isNotNull>
+            <isNotNull prepend="," property="blinceEnddate" >
+                BLINCE_ENDDATE=#blinceEnddate#
+      </isNotNull>
+            <isNotNull prepend="," property="blinceVerify" >
+                BLINCE_VERIFY=#blinceVerify:DECIMAL#
+      </isNotNull>
+                <isEmpty property="blinceVerify" prepend=",">
+          BLINCE_VERIFY=#blinceVerify:DECIMAL#
+      
+      </isEmpty>
+      
+               <isEmpty property="blinceStartdate" prepend=",">
+        BLINCE_STARTDATE = null
+      
+      </isEmpty>
+          <isEmpty property="blinceEnddate" prepend=",">
+        BLINCE_ENDDATE = null
+      
+      </isEmpty>
+            <isNotNull prepend="," property="cidVerify" >
+               CID_VERIFY=#cidVerify:DECIMAL#
+      </isNotNull>
+      
+          <isEmpty property="cidVerify" prepend=",">
+        CID_VERIFY = #cidVerify# 
+      
+      </isEmpty>
+      
+            <isNotNull prepend="," property="province" >
+                 PROVINCE=#province:VARCHAR#
+      </isNotNull>
+            <isNotNull prepend="," property="city" >
+                CITY=#city:VARCHAR#
+      </isNotNull>
+            <isNotNull prepend="," property="area" >
+              AREA=#area:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="contactsEmail" >
+        CONTACTS_EMAIL = #contactsEmail:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="corporateName" >
+        CORPORATE_NAME = #corporateName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="corporateLocation" >
+        CORPORATE_LOCATION = #corporateLocation:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="corporateProperty" >
+        CORPORATE_PROPERTY = #corporateProperty:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="corporateTrade" >
+        CORPORATE_TRADE = #corporateTrade:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="enterpriseNumberOfPeople" >
+        N_ENTERPRISE_NUMBER_OF_PEOPLE = #enterpriseNumberOfPeople:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="foundDate" >
+        D_FOUND_DATE = #foundDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="enterpriseStatus" >
+        N_ENTERPRISE_STATUS = #enterpriseStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="postalcode" >
+        POSTALCODE = #postalcode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="uploadBusinessLicencePictur" >
+        UPLOAD_BUSINESS_LICENCE_PICTUR = #uploadBusinessLicencePictur:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="organizationCode" >
+        ORGANIZATION_CODE = #organizationCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="enterpriseLegalRepresentativ" >
+        ENTERPRISE_LEGAL_REPRESENTATIV = #enterpriseLegalRepresentativ:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="enterpriseRealmName" >
+        ENTERPRISE_REALM_NAME = #enterpriseRealmName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        D_CREATE_DATE = #createDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="created" >
+        N_CREATED = #created:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        D_MODIFY_DATE = #modifyDate:DATE#
+      </isNotNull>
+    
+      <isNotNull prepend="," property="modified" >
+        N_MODIFIED = #modified:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="certificateType" >
+        N_CERTIFICATE_TYPE = #certificateType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="certificateNumber" >
+        CERTIFICATE_NUMBER = #certificateNumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="authenticationStatus" >
+        AUTHENTICATION_STATUS = #authenticationStatus:DECIMAL#
+      </isNotNull>
+       <isNotNull property="certificatePicture" prepend="," >
+        <![CDATA[  
+        CERTIFICATE_PICTURE = #certificatePicture#  
+        ]]>  
+      </isNotNull>
+        <isNotNull property="taxRegCertificateCopy" prepend="," >
+        <![CDATA[  
+        TAX_REG_CERTIFICATE_COPY = #taxRegCertificateCopy#  
+        ]]>  
+      </isNotNull>
+       <isNotNull property="taxpayerCertificate" prepend="," >
+        <![CDATA[  
+        G_TAXPAYER_CERTIFICATE = #taxpayerCertificate#  
+        ]]>  
+      </isNotNull>
+          <isNotNull property="taxpayerIdnumber" prepend="," >
+        <![CDATA[  
+        TAXPAYER_IDNUMBER = #taxpayerIdnumber#  
+        ]]>  
+        </isNotNull>
+             <isNotNull property="bankOfDeposit" prepend="," >
+        <![CDATA[  
+        BANK_OF_DEPOSIT = #bankOfDeposit#  
+        ]]>  
+      </isNotNull>
+           <isNotNull property="companyAccount" prepend="," >
+        <![CDATA[  
+        COMPANY_ACCOUNT = #companyAccount#  
+        ]]>  
+      </isNotNull>
+      
+            <isNotNull property="creditRating" prepend="," >
+        <![CDATA[  
+        CREDIT_RATING = #creditRating#  
+        ]]>  
+      </isNotNull>
+           <isNotNull property="trccopyVerify" prepend="," >
+        <![CDATA[  
+        TRCCOPY_VERIFY = #trccopyVerify#  
+        ]]>  
+      </isNotNull>
+      
+        <isEmpty property="trccopyVerify" prepend=",">
+        TRCCOPY_VERIFY = #trccopyVerify# 
+      
+      </isEmpty>
+         <isNotNull property="gtcVerify" prepend="," >
+        <![CDATA[  
+        GTC_VERIFY = #gtcVerify#  
+        ]]>  
+      </isNotNull>
+      
+         <isEmpty property="gtcVerify" prepend=",">
+        GTC_VERIFY = #gtcVerify# 
+      
+      </isEmpty>
+    </dynamic>
+    where N_COMMERCIAL_TENANT_ID = #commercialTenantId:DECIMAL#
+  </update>
+ 
+
+    
+
+
+
+
+
+  <update id="update" parameterClass="commercialTenantBasicCopyDO" >
+    UPDATE COMMERCIAL_TENANT_BASIC_COPY   
+    <dynamic prepend="SET" >
+      <isNotNull property="commercialTenantId" prepend="," >
+        <![CDATA[  
+        N_COMMERCIAL_TENANT_ID = #commercialTenantId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="loginId" prepend="," >
+        <![CDATA[  
+        N_LOGIN_ID = #loginId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="contactsName" prepend="," >
+        <![CDATA[  
+        CONTACTS_NAME = #contactsName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="contactsDepartment" prepend="," >
+        <![CDATA[  
+        CONTACTS_DEPARTMENT = #contactsDepartment#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="fixedPhone" prepend="," >
+        <![CDATA[  
+        FIXED_PHONE = #fixedPhone#  
+        ]]>  
+      </isNotNull>
+        <isNotNull property="blinceStartdate" prepend="," >
+        <![CDATA[  
+        BLINCE_STARTDATE = #blinceStartdate:DATE#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="blinceEnddate" prepend="," >
+        <![CDATA[  
+        BLINCE_ENDDATE = #blinceEnddate:DATE#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="mobile" prepend="," >
+        <![CDATA[  
+        MOBILE = #mobile#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="contactsEmail" prepend="," >
+        <![CDATA[  
+        CONTACTS_EMAIL = #contactsEmail#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="corporateName" prepend="," >
+        <![CDATA[  
+        CORPORATE_NAME = #corporateName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="corporateLocation" prepend="," >
+        <![CDATA[  
+        CORPORATE_LOCATION = #corporateLocation#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="corporateProperty" prepend="," >
+        <![CDATA[  
+        CORPORATE_PROPERTY = #corporateProperty#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="corporateTrade" prepend="," >
+        <![CDATA[  
+        CORPORATE_TRADE = #corporateTrade#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="enterpriseNumberOfPeople" prepend="," >
+        <![CDATA[  
+        N_ENTERPRISE_NUMBER_OF_PEOPLE = #enterpriseNumberOfPeople#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="foundDate" prepend="," >
+        <![CDATA[  
+        D_FOUND_DATE = #foundDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="enterpriseStatus" prepend="," >
+        <![CDATA[  
+        N_ENTERPRISE_STATUS = #enterpriseStatus#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="postalcode" prepend="," >
+        <![CDATA[  
+        POSTALCODE = #postalcode#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="uploadBusinessLicencePictur" prepend="," >
+        <![CDATA[  
+        UPLOAD_BUSINESS_LICENCE_PICTUR = #uploadBusinessLicencePictur#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="organizationCode" prepend="," >
+        <![CDATA[  
+        ORGANIZATION_CODE = #organizationCode#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="enterpriseLegalRepresentativ" prepend="," >
+        <![CDATA[  
+        ENTERPRISE_LEGAL_REPRESENTATIV = #enterpriseLegalRepresentativ#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="enterpriseRealmName" prepend="," >
+        <![CDATA[  
+        ENTERPRISE_REALM_NAME = #enterpriseRealmName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="," >
+        <![CDATA[  
+        D_CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="created" prepend="," >
+        <![CDATA[  
+        N_CREATED = #created#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="," >
+        <![CDATA[  
+        D_MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modified" prepend="," >
+        <![CDATA[  
+        N_MODIFIED = #modified#  
+        ]]>  
+      </isNotNull>
+             <isEmpty property="blinceStartdate" prepend=",">
+        BLINCE_STARTDATE = null
+      
+      </isEmpty>
+          <isEmpty property="blinceEnddate" prepend=",">
+        BLINCE_ENDDATE = null
+      
+      </isEmpty>
+      <isNotNull property="authenticationStatus" prepend="," >
+        <![CDATA[  
+        AUTHENTICATION_STATUS = #authenticationStatus#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="businessLicenceRegister" prepend="," >
+        <![CDATA[  
+        BUSINESS_LICENCE_REGISTER = #businessLicenceRegister#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="businessTimeLimit" prepend="," >
+        <![CDATA[  
+        BUSINESS_TIME_LIMIT = #businessTimeLimit#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="registerBankroll" prepend="," >
+        <![CDATA[  
+        REGISTER_BANKROLL = #registerBankroll#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="businessScope" prepend="," >
+        <![CDATA[  
+        BUSINESS_SCOPE = #businessScope#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="bankAccountName" prepend="," >
+        <![CDATA[  
+        BANK_ACCOUNT_NAME = #bankAccountName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="bankOfDeposit" prepend="," >
+        <![CDATA[  
+        BANK_OF_DEPOSIT = #bankOfDeposit#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="bankOfDepositBranchName" prepend="," >
+        <![CDATA[  
+        BANK_OF_DEPOSIT_BRANCH_NAME = #bankOfDepositBranchName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="companyAccount" prepend="," >
+        <![CDATA[  
+        COMPANY_ACCOUNT = #companyAccount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="certificateType" prepend="," >
+        <![CDATA[  
+        N_CERTIFICATE_TYPE = #certificateType#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="certificateNumber" prepend="," >
+        <![CDATA[  
+        CERTIFICATE_NUMBER = #certificateNumber#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="location" prepend="," >
+        <![CDATA[  
+        LOCATION = #location#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="certificatePicture" prepend="," >
+        <![CDATA[  
+        CERTIFICATE_PICTURE = #certificatePicture#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="businessLicenceLocation" prepend="," >
+        <![CDATA[  
+        BUSINESS_LICENCE_LOCATION = #businessLicenceLocation#  
+        ]]>  
+      </isNotNull>
+ 
+      <isNotNull property="blinceVerify" prepend="," >
+        <![CDATA[  
+        BLINCE_VERIFY = #blinceVerify#  
+        ]]>  
+      </isNotNull>
+      
+      
+      
+      <isNotNull property="cidVerify" prepend="," >
+        <![CDATA[  
+        CID_VERIFY = #cidVerify#  
+        ]]>  
+      </isNotNull>
+      
+      <isNotNull property="province" prepend="," >
+        <![CDATA[  
+        PROVINCE = #province#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="city" prepend="," >
+        <![CDATA[  
+        CITY = #city#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="area" prepend="," >
+        <![CDATA[  
+        AREA = #area#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="certificateOthersid" prepend="," >
+        <![CDATA[  
+        CERTIFICATE_OTHERSID = #certificateOthersid#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="taxpayerIdnumber" prepend="," >
+        <![CDATA[  
+        TAXPAYER_IDNUMBER = #taxpayerIdnumber#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="taxRegCertificateCopy" prepend="," >
+        <![CDATA[  
+        TAX_REG_CERTIFICATE_COPY = #taxRegCertificateCopy#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="taxpayerCertificate" prepend="," >
+        <![CDATA[  
+        G_TAXPAYER_CERTIFICATE = #taxpayerCertificate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="trccopyVerify" prepend="," >
+        <![CDATA[  
+        TRCCOPY_VERIFY = #trccopyVerify#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="gtcVerify" prepend="," >
+        <![CDATA[  
+        GTC_VERIFY = #gtcVerify#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="ataxVerify" prepend="," >
+        <![CDATA[  
+        ATAX_VERIFY = #ataxVerify#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="reviewChange" prepend="," >
+        <![CDATA[  
+        REVIEW_CHANGE = #reviewChange#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="taxRegistrationCno" prepend="," >
+        <![CDATA[  
+        TAX_REGISTRATION_CNO = #taxRegistrationCno#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="phone" prepend="," >
+        <![CDATA[  
+        PHONE = #phone#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="organizationUrl" prepend="," >
+        <![CDATA[  
+        ORGANIZATION_URL = #organizationUrl#  
+        ]]>  
+      </isNotNull>
+         <isNotNull property="description" prepend="," >
+        <![CDATA[  
+        DESCRIPTION = #description#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="creditRating" prepend="," >
+        <![CDATA[  
+        CREDIT_RATING = #creditRating#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+    
+        WHERE N_COMMERCIAL_COPY_ID = #commercialCopyId#  
+     
+       
+      
+  </update>
+
+
+
+  <update id="copyUpdate" parameterClass="commercialTenantBasicCopyDO" >
+    UPDATE COMMERCIAL_TENANT_BASIC_COPY   
+    <dynamic prepend="SET" >
+      <isNotNull property="commercialTenantId" prepend="," >
+        <![CDATA[  
+        N_COMMERCIAL_TENANT_ID = #commercialTenantId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="loginId" prepend="," >
+        <![CDATA[  
+        N_LOGIN_ID = #loginId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="contactsName" prepend="," >
+        <![CDATA[  
+        CONTACTS_NAME = #contactsName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="contactsDepartment" prepend="," >
+        <![CDATA[  
+        CONTACTS_DEPARTMENT = #contactsDepartment#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="fixedPhone" prepend="," >
+        <![CDATA[  
+        FIXED_PHONE = #fixedPhone#  
+        ]]>  
+      </isNotNull>
+        <isNotNull property="blinceStartdate" prepend="," >
+        <![CDATA[  
+        BLINCE_STARTDATE = #blinceStartdate:DATE#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="blinceEnddate" prepend="," >
+        <![CDATA[  
+        BLINCE_ENDDATE = #blinceEnddate:DATE#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="mobile" prepend="," >
+        <![CDATA[  
+        MOBILE = #mobile#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="contactsEmail" prepend="," >
+        <![CDATA[  
+        CONTACTS_EMAIL = #contactsEmail#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="corporateName" prepend="," >
+        <![CDATA[  
+        CORPORATE_NAME = #corporateName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="corporateLocation" prepend="," >
+        <![CDATA[  
+        CORPORATE_LOCATION = #corporateLocation#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="corporateProperty" prepend="," >
+        <![CDATA[  
+        CORPORATE_PROPERTY = #corporateProperty#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="corporateTrade" prepend="," >
+        <![CDATA[  
+        CORPORATE_TRADE = #corporateTrade#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="enterpriseNumberOfPeople" prepend="," >
+        <![CDATA[  
+        N_ENTERPRISE_NUMBER_OF_PEOPLE = #enterpriseNumberOfPeople#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="foundDate" prepend="," >
+        <![CDATA[  
+        D_FOUND_DATE = #foundDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="enterpriseStatus" prepend="," >
+        <![CDATA[  
+        N_ENTERPRISE_STATUS = #enterpriseStatus#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="postalcode" prepend="," >
+        <![CDATA[  
+        POSTALCODE = #postalcode#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="uploadBusinessLicencePictur" prepend="," >
+        <![CDATA[  
+        UPLOAD_BUSINESS_LICENCE_PICTUR = #uploadBusinessLicencePictur#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="organizationCode" prepend="," >
+        <![CDATA[  
+        ORGANIZATION_CODE = #organizationCode#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="enterpriseLegalRepresentativ" prepend="," >
+        <![CDATA[  
+        ENTERPRISE_LEGAL_REPRESENTATIV = #enterpriseLegalRepresentativ#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="enterpriseRealmName" prepend="," >
+        <![CDATA[  
+        ENTERPRISE_REALM_NAME = #enterpriseRealmName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="," >
+        <![CDATA[  
+        D_CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="created" prepend="," >
+        <![CDATA[  
+        N_CREATED = #created#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="," >
+        <![CDATA[  
+        D_MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modified" prepend="," >
+        <![CDATA[  
+        N_MODIFIED = #modified#  
+        ]]>  
+      </isNotNull>
+       
+      <isNotNull property="authenticationStatus" prepend="," >
+        <![CDATA[  
+        AUTHENTICATION_STATUS = #authenticationStatus#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="businessLicenceRegister" prepend="," >
+        <![CDATA[  
+        BUSINESS_LICENCE_REGISTER = #businessLicenceRegister#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="businessTimeLimit" prepend="," >
+        <![CDATA[  
+        BUSINESS_TIME_LIMIT = #businessTimeLimit#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="registerBankroll" prepend="," >
+        <![CDATA[  
+        REGISTER_BANKROLL = #registerBankroll#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="businessScope" prepend="," >
+        <![CDATA[  
+        BUSINESS_SCOPE = #businessScope#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="bankAccountName" prepend="," >
+        <![CDATA[  
+        BANK_ACCOUNT_NAME = #bankAccountName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="bankOfDeposit" prepend="," >
+        <![CDATA[  
+        BANK_OF_DEPOSIT = #bankOfDeposit#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="bankOfDepositBranchName" prepend="," >
+        <![CDATA[  
+        BANK_OF_DEPOSIT_BRANCH_NAME = #bankOfDepositBranchName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="companyAccount" prepend="," >
+        <![CDATA[  
+        COMPANY_ACCOUNT = #companyAccount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="certificateType" prepend="," >
+        <![CDATA[  
+        N_CERTIFICATE_TYPE = #certificateType#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="certificateNumber" prepend="," >
+        <![CDATA[  
+        CERTIFICATE_NUMBER = #certificateNumber#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="location" prepend="," >
+        <![CDATA[  
+        LOCATION = #location#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="certificatePicture" prepend="," >
+        <![CDATA[  
+        CERTIFICATE_PICTURE = #certificatePicture#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="businessLicenceLocation" prepend="," >
+        <![CDATA[  
+        BUSINESS_LICENCE_LOCATION = #businessLicenceLocation#  
+        ]]>  
+      </isNotNull>
+ 
+      <isNotNull property="blinceVerify" prepend="," >
+        <![CDATA[  
+        BLINCE_VERIFY = #blinceVerify#  
+        ]]>  
+      </isNotNull>
+      
+      
+      
+      <isNotNull property="cidVerify" prepend="," >
+        <![CDATA[  
+        CID_VERIFY = #cidVerify#  
+        ]]>  
+      </isNotNull>
+      
+      
+      <isNotNull property="certificateOthersid" prepend="," >
+        <![CDATA[  
+        CERTIFICATE_OTHERSID = #certificateOthersid#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="taxpayerIdnumber" prepend="," >
+        <![CDATA[  
+        TAXPAYER_IDNUMBER = #taxpayerIdnumber#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="taxRegCertificateCopy" prepend="," >
+        <![CDATA[  
+        TAX_REG_CERTIFICATE_COPY = #taxRegCertificateCopy#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="taxpayerCertificate" prepend="," >
+        <![CDATA[  
+        G_TAXPAYER_CERTIFICATE = #taxpayerCertificate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="trccopyVerify" prepend="," >
+        <![CDATA[  
+        TRCCOPY_VERIFY = #trccopyVerify#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="gtcVerify" prepend="," >
+        <![CDATA[  
+        GTC_VERIFY = #gtcVerify#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="ataxVerify" prepend="," >
+        <![CDATA[  
+        ATAX_VERIFY = #ataxVerify#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="reviewChange" prepend="," >
+        <![CDATA[  
+        REVIEW_CHANGE = #reviewChange#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="taxRegistrationCno" prepend="," >
+        <![CDATA[  
+        TAX_REGISTRATION_CNO = #taxRegistrationCno#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="phone" prepend="," >
+        <![CDATA[  
+        PHONE = #phone#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="organizationUrl" prepend="," >
+        <![CDATA[  
+        ORGANIZATION_URL = #organizationUrl#  
+        ]]>  
+      </isNotNull>
+         <isNotNull property="description" prepend="," >
+        <![CDATA[  
+        DESCRIPTION = #description#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="creditRating" prepend="," >
+        <![CDATA[  
+        CREDIT_RATING = #creditRating#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+    
+        WHERE N_COMMERCIAL_COPY_ID = #commercialCopyId#  
+     
+       
+      
+  </update>
+
+ 
+ 
+
+  <delete id="deleteByPrimaryKey" parameterClass="java.math.BigDecimal" >
+    <![CDATA[  
+     DELETE FROM COMMERCIAL_TENANT_BASIC_COPY WHERE N_COMMERCIAL_TENANT_ID = #commercialTenantId# AND REVIEW_CHANGE=0
+    ]]>  
+  </delete>
+
+  <select id="countByDOExample" parameterClass="commercialTenantBasicCopyDO" resultClass="java.lang.Integer" >
+ select count(*) from COMMERCIAL_TENANT_BASIC_COPY A ,LOGIN_INFO B, login_rose_rel C 
+where
+C.n_Login_Id=B.n_Login_Id
+and  
+A.N_COMMERCIAL_TENANT_ID=c.n_commercial_id
+and C.N_CUSTOMER_TYPE_ID =4
+    	<isNotNull property="loginName">
+			  <isNotEmpty prepend="and" property="loginName">
+				B.LOGIN_ACCOUNT like '%$loginName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="contactsName">
+			  <isNotEmpty prepend="and" property="contactsName">
+				A.CONTACTS_NAME like '%$contactsName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="businessLicenceRegister">
+			  <isNotEmpty prepend="and" property="businessLicenceRegister">
+			 A.BUSINESS_LICENCE_REGISTER like '%$businessLicenceRegister$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  	  <isNotNull property="reviewChange">
+			  <isNotEmpty prepend="and" property="reviewChange">
+				A.REVIEW_CHANGE = #reviewChange:DECIMAL#
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  	  <isNotNull property="mobile">
+			  <isNotEmpty prepend="and" property="mobile">
+				A.MOBILE like '%$mobile$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		    <isNotNull property="corporateName">
+			  <isNotEmpty prepend="and" property="corporateName">
+				A.CORPORATE_NAME like '%$corporateName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+  </select>
+
+    <select id="findByPrimaryKey" parameterClass="java.math.BigDecimal" resultMap="commercialTenantBasicCopyDOResultMap" >
+      select  
+         a1.N_COMMERCIAL_COPY_ID, a1.N_COMMERCIAL_TENANT_ID, c.N_LOGIN_ID, a1.CONTACTS_NAME, 
+      a1.CONTACTS_DEPARTMENT, a1.FIXED_PHONE, a1.MOBILE, a1.CONTACTS_EMAIL, a1.CORPORATE_NAME, 
+      a1.CORPORATE_LOCATION, a1.CORPORATE_PROPERTY, a1.CORPORATE_TRADE, a1.N_ENTERPRISE_NUMBER_OF_PEOPLE, 
+      a1.D_FOUND_DATE, a1.N_ENTERPRISE_STATUS, a1.POSTALCODE, a1.UPLOAD_BUSINESS_LICENCE_PICTUR, 
+      a1.ORGANIZATION_CODE, a1.ENTERPRISE_LEGAL_REPRESENTATIV, a1.ENTERPRISE_REALM_NAME, 
+      a1.D_CREATE_DATE, a1.N_CREATED, a1.D_MODIFY_DATE, a1.N_MODIFIED, a1.AUTHENTICATION_STATUS, 
+      a1.BUSINESS_LICENCE_REGISTER, a1.BUSINESS_TIME_LIMIT, a1.REGISTER_BANKROLL, a1.BUSINESS_SCOPE, 
+      a1.BANK_ACCOUNT_NAME, a1.BANK_OF_DEPOSIT, a1.BANK_OF_DEPOSIT_BRANCH_NAME, a1.COMPANY_ACCOUNT, 
+      a1.N_CERTIFICATE_TYPE, a1.CERTIFICATE_NUMBER, a1.LOCATION, a1.CERTIFICATE_PICTURE, 
+      a1.BUSINESS_LICENCE_LOCATION, a1.BLINCE_STARTDATE, a1.BLINCE_ENDDATE, a1.BLINCE_VERIFY, 
+      a1.CID_VERIFY, a1.PROVINCE, a1.CITY, a1.AREA, a1.CERTIFICATE_OTHERSID, a1.TAXPAYER_IDNUMBER, 
+      a1.TAX_REG_CERTIFICATE_COPY, a1.G_TAXPAYER_CERTIFICATE, a1.TRCCOPY_VERIFY, a1.GTC_VERIFY, 
+      a1.ATAX_VERIFY, a1.REVIEW_CHANGE, a1.TAX_REGISTRATION_CNO, a1.PHONE, a1.ORGANIZATION_URL, 
+      a1.CREDIT_RATING, a1.DESCRIPTION,B.LOGIN_ACCOUNT  from COMMERCIAL_TENANT_BASIC_COPY a1 ,LOGIN_INFO B, login_rose_rel C 
+where
+C.n_Login_Id=B.n_Login_Id
+and  
+a1.N_COMMERCIAL_TENANT_ID=c.n_commercial_id
+and C.N_CUSTOMER_TYPE_ID =4
+and a1.n_commercial_copy_id=#nCommercialCopyId#
+  </select>
+
+  <select id="findListByDO" resultMap="commercialTenantBasicCopyDOResultMap" parameterClass="commercialTenantBasicCopyDO" >
+    
+   select *  from (select ROW_NUMBER() OVER(order by a1.N_COMMERCIAL_COPY_ID desc) as view_row_number,
+       a1.N_COMMERCIAL_COPY_ID, a1.N_COMMERCIAL_TENANT_ID, c.N_LOGIN_ID, a1.CONTACTS_NAME, 
+      a1.CONTACTS_DEPARTMENT, a1.FIXED_PHONE, a1.MOBILE, a1.CONTACTS_EMAIL, a1.CORPORATE_NAME, 
+      a1.CORPORATE_LOCATION, a1.CORPORATE_PROPERTY, a1.CORPORATE_TRADE, a1.N_ENTERPRISE_NUMBER_OF_PEOPLE, 
+      a1.D_FOUND_DATE, a1.N_ENTERPRISE_STATUS, a1.POSTALCODE, a1.UPLOAD_BUSINESS_LICENCE_PICTUR, 
+      a1.ORGANIZATION_CODE, a1.ENTERPRISE_LEGAL_REPRESENTATIV, a1.ENTERPRISE_REALM_NAME, 
+      a1.D_CREATE_DATE, a1.N_CREATED, a1.D_MODIFY_DATE, a1.N_MODIFIED, a1.AUTHENTICATION_STATUS, 
+      a1.BUSINESS_LICENCE_REGISTER, a1.BUSINESS_TIME_LIMIT, a1.REGISTER_BANKROLL, a1.BUSINESS_SCOPE, 
+      a1.BANK_ACCOUNT_NAME, a1.BANK_OF_DEPOSIT, a1.BANK_OF_DEPOSIT_BRANCH_NAME, a1.COMPANY_ACCOUNT, 
+      a1.N_CERTIFICATE_TYPE, a1.CERTIFICATE_NUMBER, a1.LOCATION, a1.CERTIFICATE_PICTURE, 
+      a1.BUSINESS_LICENCE_LOCATION, a1.BLINCE_STARTDATE, a1.BLINCE_ENDDATE, a1.BLINCE_VERIFY, 
+      a1.CID_VERIFY, a1.PROVINCE, a1.CITY, a1.AREA, a1.CERTIFICATE_OTHERSID, a1.TAXPAYER_IDNUMBER, 
+      a1.TAX_REG_CERTIFICATE_COPY, a1.G_TAXPAYER_CERTIFICATE, a1.TRCCOPY_VERIFY, a1.GTC_VERIFY, 
+      a1.ATAX_VERIFY, a1.REVIEW_CHANGE, a1.TAX_REGISTRATION_CNO, a1.PHONE, a1.ORGANIZATION_URL, 
+      a1.CREDIT_RATING, a1.DESCRIPTION,B.LOGIN_ACCOUNT  from COMMERCIAL_TENANT_BASIC_COPY a1 ,LOGIN_INFO B, login_rose_rel C 
+where
+C.n_Login_Id=B.n_Login_Id
+and  
+a1.N_COMMERCIAL_TENANT_ID=c.n_commercial_id
+and C.N_CUSTOMER_TYPE_ID =4
+    	<isNotNull property="loginName">
+			  <isNotEmpty prepend="and" property="loginName">
+				B.LOGIN_ACCOUNT like '%$loginName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="contactsName">
+			  <isNotEmpty prepend="and" property="contactsName">
+				a1.CONTACTS_NAME like '%$contactsName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  <isNotNull property="businessLicenceRegister">
+			  <isNotEmpty prepend="and" property="businessLicenceRegister">
+			 a1.BUSINESS_LICENCE_REGISTER like '%$businessLicenceRegister$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  	  <isNotNull property="reviewChange">
+			  <isNotEmpty prepend="and" property="reviewChange">
+				a1.REVIEW_CHANGE = #reviewChange:DECIMAL#
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		  	  <isNotNull property="mobile">
+			  <isNotEmpty prepend="and" property="mobile">
+				a1.MOBILE like '%$mobile$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  
+		    <isNotNull property="corporateName">
+			  <isNotEmpty prepend="and" property="corporateName">
+				a1.CORPORATE_NAME like '%$corporateName$%'
+			  </isNotEmpty>
+		  </isNotNull>
+
+           )
+              <![CDATA[ where view_row_number <= #max# and view_row_number > #skip# ]]>
+  </select>
+  
+  
+      <select id="selectArea"  parameterClass="Integer" resultMap="areaInfo">
+    		select * from area_dict d where d.supperarea_id=#areaId:NUMBER#
+    </select>
+</sqlMap>

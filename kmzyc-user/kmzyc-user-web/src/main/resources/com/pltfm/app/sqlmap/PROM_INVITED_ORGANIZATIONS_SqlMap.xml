@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PROM_INVITED_ORGANIZATIONS" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.PromInvitedOrganizations" >
+    <result column="INVITED_ORGANIZATIONS_ID" property="invitedOrganizationsId" jdbcType="DECIMAL" />
+    <result column="ORGANI_CODE" property="organiCode" jdbcType="VARCHAR" />
+    <result column="ORGANI_DES" property="organiDes" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" />
+    <result column="ORGANI_STATE" property="organtState" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <!-- 查询 -->
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.pltfm.app.vobject.PromInvitedOrganizations" >
+    select INVITED_ORGANIZATIONS_ID, ORGANI_CODE, ORGANI_DES, CREATE_DATE,ORGANI_STATE
+    from PROM_INVITED_ORGANIZATIONS where 1=1
+    <isNotEmpty property="invitedOrganizationsId">
+    	<isNotNull prepend="AND" property="invitedOrganizationsId">
+    		INVITED_ORGANIZATIONS_ID = #invitedOrganizationsId#
+    	</isNotNull>
+    </isNotEmpty>
+    <isNotEmpty property="organiCode">
+    	<isNotNull prepend="AND" property="organiCode">
+    		ORGANI_CODE = #organiCode#
+    	</isNotNull>
+    </isNotEmpty>
+  </select>
+  
+  <!-- 删除 -->
+  <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="com.pltfm.app.vobject.PromInvitedOrganizations" >
+    delete from PROM_INVITED_ORGANIZATIONS
+     <isNotNull prepend="," property="organiCode" >
+        ORGANI_CODE = #organiCode:VARCHAR#
+      </isNotNull>
+    where INVITED_ORGANIZATIONS_ID = #invitedOrganizationsId:DECIMAL#
+  </delete>
+ 
+  <!-- 添加 -->
+  <insert id="ibatorgenerated_insert" parameterClass="com.pltfm.app.vobject.PromInvitedOrganizations" >
+     <selectKey resultClass="java.math.BigDecimal" keyProperty="invitedOrganizationsId" >
+           select SEQ_PROM_INVITED_ORGANIZATIONS.nextval from dual
+      </selectKey>
+    insert into PROM_INVITED_ORGANIZATIONS (INVITED_ORGANIZATIONS_ID, ORGANI_CODE, ORGANI_DES,
+      CREATE_DATE,ORGANI_STATE)
+    values (#invitedOrganizationsId:DECIMAL#, #organiCode:VARCHAR#, #organiDes:VARCHAR#,
+      #createDate#,#organtState#)
+  </insert>
+  
+ <!-- 修改 -->
+  <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="com.pltfm.app.vobject.PromInvitedOrganizations" >
+    update PROM_INVITED_ORGANIZATIONS
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="organiCode" >
+        ORGANI_CODE = #organiCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="organiDes" >
+        ORGANI_DES = #organiDes:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE = #createDate#
+      </isNotNull>
+       <isNotNull prepend="," property="ORGANI_STATE" >
+        ORGANI_STATE = #organtState#
+      </isNotNull>
+    </dynamic>
+    where INVITED_ORGANIZATIONS_ID = #invitedOrganizationsId:DECIMAL#
+  </update>
+</sqlMap>

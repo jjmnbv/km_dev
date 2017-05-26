@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="member" extends="BasePackage">
+        <!-- 验证用户是否已注册 -->
+        <action name="isRegistedUser" class="registAction" method="isRegistedUser">
+        </action>
+        <action name="valid*Regist" class="registAction" method="{1}">
+        </action>
+        <!-- wap注册码是否正确 -->
+        <action name="wapRegistNumber" class="registAction" method="wapRegistNumber">
+        </action>
+        <!-- 验证码 -->
+        <action name="imageAuthCode" class="imageAction">
+            <result type="stream">
+                <param name="contentType">image/jpeg</param>
+                <param name="inputName">inputStream</param>
+            </result>
+        </action>
+        <action name="imageEraCode" class="imageAction" method="imageEraCode">
+            <result type="stream">
+                <param name="contentType">image/jpeg</param>
+                <param name="inputName">inputStream</param>
+            </result>
+        </action>
+        <action name="imageRegistCode" class="imageAction" method="imageRegistCode">
+            <result type="stream">
+                <param name="contentType">image/jpeg</param>
+                <param name="inputName">inputStream</param>
+            </result>
+        </action>
+        <!-- 会员注册  -->
+        <action name="regist" class="registAction" method="regist">
+        </action>
+        <action name="wapRegist" class="registAction" method="wapRegist"></action>
+        <!-- PC端页面手机注册 -->
+
+        <action name="phoneRegist" class="registAction" method="phoneRegist">
+        </action>
+
+        <action name="mobileNumberIsTrue" class="registAction" method="mobileNumberIsTrue">
+        </action>
+        <!-- 注册成功 -->
+        <action name="regSuccess" class="registAction" method="regSuccess">
+            <result name="success">/html/reg-success.jsp</result>
+        </action>
+        <!-- wap注册成功 -->
+        <action name="wapRegSuccess" class="registAction" method="wapRegSuccess">
+            <result name="success">/html/registration-successful.jsp</result>
+        </action>
+        <!-- pc端手机注册成功 -->
+        <action name="phoneRegSuccess" class="registAction" method="phoneRegSuccess">
+            <result name="success">/html/phoneReg-success.jsp</result>
+        </action>
+
+        <!-- 重发注册邮件 -->
+        <!--<action name="resendRegMail" class="registAction" method="resendRegMail">
+        </action>-->
+        <!-- FAQ常见问题 -->
+        <action name="queryFAQList" class="FAQAction" method="queryFAQList">
+            <result name="success">/WEB-INF/jsp/member/faq/faqList.jsp</result>
+        </action>
+
+
+        <!-- 去收货地址 -->
+        <action name="goDeliveryAddress" class="deliveryAddressAction" method="goDeliveryAddress">
+            <result name="success">/WEB-INF/jsp/member/deliveryAddress/deliveryAddress.jsp
+            </result>
+        </action>
+        <!--进入添加修改收获地址页面 -->
+        <action name="goDeliveryAddressSet" class="deliveryAddressAction"
+                method="goDeliveryAddressSet">
+            <result name="success">/WEB-INF/jsp/member/deliveryAddress/addressSet.jsp</result>
+            <result name="input" type="redirect">goDeliveryAddress.action</result>
+        </action>
+
+        <!-- 收货地址添加修改提交 -->
+        <action name="editAction" class="deliveryAddressAction" method="editAction">
+            <result name="success" type="redirect">member/goDeliveryAddress.action</result>
+        </action>
+        <!-- 删除收货地址 -->
+        <action name="deleteById" class="deliveryAddressAction" method="deleteById">
+            <result name="success" type="redirect">goDeliveryAddress.action</result>
+        </action>
+
+        <!-- Wap去收货地址 -->
+        <action name="goWapDeliveryAddress" class="deliveryAddressAction"
+                method="goWapDeliveryAddress">
+            <result name="success">/WEB-INF/jsp/member/deliveryAddress/wapDeliveryAddress.jsp
+            </result>
+        </action>
+        <!--wap进入添加修改收获地址页面 -->
+        <action name="goWapDeliveryAddressSet" class="deliveryAddressAction"
+                method="goWapDeliveryAddressSet">
+            <result name="success">/WEB-INF/jsp/member/deliveryAddress/addressWapSet.jsp</result>
+            <result name="input" type="redirect">goWapDeliveryAddress.action</result>
+        </action>
+        <!-- Wap收货地址添加修改提交 -->
+        <action name="editWapAction" class="deliveryAddressAction" method="editWapAction">
+            <result name="success" type="redirect">member/goWapDeliveryAddress.action</result>
+        </action>
+
+        <!-- Wap删除收货地址 -->
+        <action name="deleteWapById" class="deliveryAddressAction" method="deleteWapById">
+            <result name="success" type="redirect">goWapDeliveryAddress.action</result>
+        </action>
+
+        <!-- 个人信息初始化 -->
+        <action name="goUserInfo" class="userInfoAction" method="goUserInfo">
+            <result name="success">/WEB-INF/jsp/member/userInfo/userInfo.jsp</result>
+            <result name="zxsuccess">/WEB-INF/jsp/member/userInfo/zxUserInfo.jsp</result>
+        </action>
+
+        <!--初始化充值明细与条件查询-->
+        <action name="initRechargeDetails" class="rechargeDetailsAction"
+                method="initRechargeDetails">
+            <result name="success">/WEB-INF/jsp/member/rechargeDetails/rechargeDetails.jsp</result>
+            <result name="input">index.jsp</result>
+        </action>
+        <!--账号余额明细与条件查询-->
+        <action name="queryRechargeDetail" class="rechargeDetailsAction"
+                method="queryRechargeDetail">
+            <result name="success">/WEB-INF/jsp/member/rechargeDetails/rechargeDetails.jsp</result>
+        </action>
+        <!--初始化订单跟踪-->
+        <action name="initOrderLogistics" class="myOrderAction" method="initOrderLogistics">
+            <result name="success">/WEB-INF/jsp/member/myOrder/orderLogistics.jsp</result>
+            <result name="input">index.jsp</result>
+        </action>
+
+
+        <!-- 会员中心首页 -->
+        <action name="goHome">
+            <result>/WEB-INF/jsp/member/home/home.jsp</result>
+        </action>
+
+        <!-- 会员中心首页 -编辑头像 -->
+        <action name="editUserImage" class="uploadUserImgAction">
+            <result>/WEB-INF/jsp/member/home/editUserImage.jsp</result>
+        </action>
+
+        <!-- 会员订单查询 -->
+        <action name="queryOrderList" class="myOrderAction" method="queryOrderList">
+            <result name="success">/WEB-INF/jsp/member/myOrder/orderList.jsp</result>
+        </action>
+
+        <!-- 会员普通订单取消 -->
+        <action name="cancelOrderMain" class="myOrderAction" method="cancelOrderMain">
+            <result name="success" type="chain">queryOrderList</result>
+        </action>
+        <!-- 会员直销订单取消 -->
+        <action name="cancelZxOrderMain" class="myOrderAction" method="cancelZxOrderMain">
+            <result name="success" type="chain">queryOrderList</result>
+        </action>
+
+
+        <!-- 会员订单确认完成 -->
+        <action name="sureHaveProduct" class="myOrderAction" method="sureHaveProduct">
+        </action>
+
+        <!-- 会员订单删除 -->
+        <action name="deleteOrderMain" class="myOrderAction" method="deleteOrderMain">
+            <result name="success" type="chain">queryOrderList</result>
+        </action>
+
+        <!-- 订单详细信息 -->
+        <action name="queryOrderDetail" class="myOrderAction" method="queryOrderDetail">
+            <result name="success">/WEB-INF/jsp/member/myOrder/orderDetail.jsp</result>
+        </action>
+
+        <!-- 会员收藏查询 -->
+        <action name="queryFavoriteList" class="myFavoriteAction" method="queryFavoriteLists">
+            <result name="success">/WEB-INF/jsp/member/myFavorite/favoriteList.jsp</result>
+        </action>
+
+
+        <!-- 会员收藏删除 -->
+        <action name="deleteFavorite" class="myFavoriteAction" method="deleteFavorite">
+            <result name="success" type="chain">queryFavoriteList</result>
+        </action>
+        <!-- 会员收藏店铺查询 -->
+        <action name="queryFavoriteShopList" class="myFavoriteAction"
+                method="queryFavoriteShopLists">
+            <result name="success">/WEB-INF/jsp/member/myFavorite/favoriteShopList.jsp</result>
+        </action>
+        <!-- 会员收藏删除 -->
+        <action name="deleteFavoriteShop" class="myFavoriteAction" method="deleteFavoriteShop">
+            <result name="success" type="chain">queryFavoriteShopList</result>
+        </action>
+
+        <!-- 会员站内通知查询列表 -->
+        <action name="toSiteNotice" class="siteNoticeAction" method="toSiteNotice">
+            <result name="success">/WEB-INF/jsp/member/siteNotice/siteNotice.jsp</result>
+        </action>
+
+        <!-- 会员站内通知的阅读 -->
+        <action name="readerSiteNotice" class="siteNoticeAction" method="readerSiteNotice">
+            <result name="success">/WEB-INF/jsp/member/siteNotice/siteNotice_particulars.jsp
+            </result>
+        </action>
+
+        <!-- 会员站内通知删除 -->
+        <action name="deleteSiteNotice" class="siteNoticeAction" method="deleteSiteNotice">
+            <result name="success">/WEB-INF/jsp/member/siteNotice/siteNotice.jsp</result>
+        </action>
+
+        <!-- 到会员建议投诉添加功能页面 -->
+        <action name="gotoComplaint" class="complaintAction" method="toComplaint">
+            <result name="success">/WEB-INF/jsp/member/siteNotice/complaints.jsp</result>
+        </action>
+
+
+        <action name="kmMallDownload" class="appDownLoadAction" method="getAppDownLoadFile">
+            <result name="success" type="redirect">${verionUrl}</result>
+        </action>
+
+        <!-- 邮件订阅测试用-->
+        <!--<action name="findEmailRrsHisExist" class="emailSubscriptionAction" method="findEmailRrsHisExist">
+            <result name="success">/WEB-INF/jsp/member/siteNotice/mailSubscription.jsp</result>
+        </action>-->
+        <!-- 我的积分 Begin -->
+        <action name="queryPointsRecordList" class="myPointsAction" method="queryPointsRecordList">
+            <result name="success">/WEB-INF/jsp/member/myPoints/pointsRecord.jsp</result>
+            <result name="era">/WEB-INF/jsp/member/myPoints/eraPointsRecord.jsp</result>
+        </action>
+        <action name="queryPointsRuleList" class="myPointsAction" method="queryPointsRuleList">
+            <result name="success">/WEB-INF/jsp/member/myPoints/pointsRule.jsp</result>
+        </action>
+        <action name="queryPointsExchangeCouponList" class="myPointsAction"
+                method="queryPointsExchangeCouponList">
+            <result name="success">/WEB-INF/jsp/member/myPoints/pointsExchangeCoupon.jsp</result>
+        </action>
+        <!--		<action name="savePointsExchangeCoupon" class="myPointsAction" method="savePointsExchangeCoupon">
+                    <result name="success">/WEB-INF/jsp/member/myPoints/pointsExchangeCoupon.jsp</result>
+                </action>-->
+        <!-- 我的积分 End -->
+        <!-- 我的评价 Begin -->
+        <action name="queryNoEvaluateList" class="myEvaluateAction" method="queryNoEvaluateList">
+            <result name="success">/WEB-INF/jsp/member/myEvaluate/noEvaluateList.jsp</result>
+        </action>
+        <action name="queryIsEvaluateList" class="myEvaluateAction" method="queryIsEvaluateList">
+            <result name="success">/WEB-INF/jsp/member/myEvaluate/isEvaluateList.jsp</result>
+        </action>
+
+        <!-- 我的评价 End -->
+
+        <!-- 消费明细查询 -->
+        <action name="queryConsumptionDetail" class="accountAction" method="queryConsumptionDetail">
+            <result name="success">/WEB-INF/jsp/member/accountQuery/accountQuery.jsp</result>
+        </action>
+
+        <!-- 账户信息查询 -->
+        <action name="queryAccountInfo" class="accountAction" method="queryAccountInfo">
+            <result name="success">/WEB-INF/jsp/member/recharge/recharge.jsp</result>
+            <result name="zxError" type="redirect">/member/setUserNameForSd.action</result>
+            <result name="thirdError">
+                /WEB-INF/jsp/third/thirdLogin/template/setUserInfoContent.jsp
+            </result>
+
+        </action>
+
+        <!-- 优惠券查询 -->
+        <action name="queryCouponList" class="myCouponAction" method="queryCouponList">
+            <result name="success">/WEB-INF/jsp/member/myCoupon/couponList.jsp</result>
+        </action>
+        <!-- 激活优惠券 -->
+        <action name="activeCoupon" class="myCouponAction" method="activeCoupon">
+        </action>
+        <!-- 会员退换货记录查询 -->
+        <action name="queryReturnShopList" class="returnShopAction" method="queryReturnShopList">
+            <result name="success">/WEB-INF/jsp/member/returnShop/returnShopList.jsp</result>
+        </action>
+        <action name="checkReturnGoodsTracing" class="returnGoodsTracingAction"
+                method="checkReturnTracing">
+            <result name="success">/WEB-INF/jsp/member/returnShop/returnGoodsTracing.jsp</result>
+        </action>
+        <!-- wap版本查询跟踪信息 -->
+        <action name="checkWapReturnGoodsTracing" class="returnGoodsTracingAction"
+                method="checkWapReturnTracing">
+            <result name="success">/WEB-INF/jsp/member/returnShop/wapTrackingOrders.jsp</result>
+        </action>
+        <!-- 到申请页 -->
+        <action name="applyPrepare" class="returnShopAction" method="applyPrepare">
+            <result name="success">/WEB-INF/jsp/member/returnShop/apply.jsp</result>
+        </action>
+        <!-- 到退货页 -->
+        <action name="doReturn" class="returnShopAction" method="doReturn">
+            <result name="success">/WEB-INF/jsp/member/returnShop/returnInfo.jsp</result>
+        </action>
+        <!-- 取消后删除临时图片 -->
+        <action name="applySubmitCancel" class="returnShopAction" method="applySubmitCancel">
+        </action>
+        <!-- 到提交页 -->
+        <action name="submitPrepare" class="returnShopAction" method="submitPrepare">
+            <result name="success">/WEB-INF/jsp/member/returnShop/applySubmit.jsp</result>
+        </action>
+        <!-- 提交 -->
+        <action name="applySubmit" class="returnShopAction" method="applySubmit">
+            <result name="success">/WEB-INF/jsp/member/returnShop/returnShopList.jsp</result>
+            <result name="backJsp" type="redirect">queryReturnShopList.action</result>
+        </action>
+        <!-- 更改状态 -->
+        <action name="changeApplyStatus" class="returnShopAction" method="changeApplyStatus">
+            <result name="success">/WEB-INF/jsp/member/returnShop/returnShopList.jsp</result>
+            <result name="backJsp" type="redirect">queryReturnShopList.action</result>
+        </action>
+        <!-- 到详情页 -->
+        <action name="queryApplyDetail" class="returnShopAction" method="queryApplyDetail">
+            <result name="success">/WEB-INF/jsp/member/returnShop/applyDetail.jsp</result>
+        </action>
+
+
+        <!-- wap版本到提交页 -->
+        <action name="submitWapPrepare" class="returnShopAction" method="submitWapPrepare">
+            <result name="success">/WEB-INF/jsp/member/returnShop/wapApplySubmit.jsp</result>
+            <result name="backJsp" type="redirect">queryWapOrderList.action</result>
+        </action>
+        <!-- wap版本退换货跳转地址页面 -->
+        <action name="returnWapAddress" class="returnShopAction" method="returnWapAddress">
+            <result name="success" type="redirect">queryWapReturnShopList.action</result>
+            <result name="changeGoods">/WEB-INF/jsp/member/returnShop/wapReturnAddress.jsp</result>
+            <result name="backJsp" type="redirect">queryWapOrderList.action</result>
+        </action>
+
+        <!-- wap版本换货操作页面 -->
+        <action name="wapAlertGoodsInfo" class="returnShopAction" method="wapAlertGoodsInfo">
+            <result name="success">/WEB-INF/jsp/member/returnShop/wapAlertGoodsInfo.jsp</result>
+        </action>
+
+        <!-- wap版本退换货提交 -->
+        <action name="applyWapSubmit" class="returnShopAction" method="applyWapSubmit">
+            <result name="success">/WEB-INF/jsp/member/returnShop/wapReturnRecords.jsp</result>
+            <result name="backJsp" type="redirect">queryWapOrderList.action</result>
+        </action>
+        <!-- wap版本查询退换货记录列表 -->
+        <action name="queryWapReturnShopList" class="returnShopAction"
+                method="queryWapReturnShopList">
+            <result name="success">/WEB-INF/jsp/member/returnShop/wapReturnRecords.jsp</result>
+        </action>
+        <!-- wap版本查询退换货记录列表-详情 -->
+        <action name="queryWapReturnDetail" class="returnShopAction" method="queryWapReturnDetail">
+            <result name="success">/WEB-INF/jsp/member/returnShop/wapReturnDetail.jsp</result>
+        </action>
+        <!-- Wap到退换货页 -->
+        <action name="doWapReturn" class="returnShopAction" method="doWapReturn">
+            <result name="success">/WEB-INF/jsp/member/returnShop/wapAlertGoodsInfo.jsp</result>
+        </action>
+
+        <!-- wap退换货更改状态 -->
+        <action name="changeWapApplyStatus" class="returnShopAction" method="changeWapApplyStatus">
+            <result name="success">/WEB-INF/jsp/member/returnShop/wapReturnRecords.jsp</result>
+            <result name="error" type="redirect">queryWapReturnShopList.action</result>
+            <result name="backJsp" type="redirect">queryWapOrderList.action</result>
+        </action>
+
+        <!--进行订单打分的动作-->
+        <action name="gotoAssessProduct" class="orderassessAction" method="gotoAssessProduct">
+            <result name="success">/WEB-INF/jsp/member/orderAssess/orderAssess.jsp</result>
+        </action>
+
+        <!-- 保存订单、产品打分 -->
+        <action name="saveAssessContent" class="orderassessAction" method="saveAssessContent">
+            <!--  <result name="success" >/WEB-INF/jsp/member/orderAssess/orderAssess.jsp</result>   -->
+            <result type="redirectAction" name="success">
+                <param name="actionName">gotoAssessProduct</param>
+                <param name="method">gotoAssessProduct</param>
+                <param name="saveOk">${saveOk}</param>
+                <param name="orderCodes">${orderCodes}</param>
+                <param name="isOrderList">${isOrderList}</param>
+                <param name="pagenumber">${pagenumber}</param>
+            </result>
+        </action>
+        <!-- ajax验证内容是否包含敏感词汇 -->
+
+        <action name="isSensitive" class="orderassessAction" method="isSensitive">
+        </action>
+        <!-- 忘记密码 -->
+        <action name="resetPwd" class="resetpwdAction">
+            <result name="success">/WEB-INF/jsp/member/resetPwd/resetPwdInit.jsp</result>
+        </action>
+        <!-- 判断输入的登陆密码是否与支付密码相同 -->
+        <action name="checkSamePwd" class="resetpwdAction" method="checkSamePwd"></action>
+        <!-- 忘记密码步骤2 -->
+        <action name="resetPwd2" class="resetpwdAction" method="queryUser">
+            <result name="SENDINFO">/WEB-INF/jsp/member/resetPwd/sendPwd.jsp</result>
+            <result name="error" type="redirect">resetPwd.action</result>
+        </action>
+        <!-- 忘记密码发送校验信息 -->
+        <action name="resetPwdSendValidInfo" class="resetpwdAction" method="sendValidInfo">
+        </action>
+        <!-- 忘记密码检查校验信息 -->
+        <action name="resetPwdValidInfo" class="resetpwdAction" method="validInfo">
+            <result name="success" type="redirect">resetPwd3.action</result>
+            <result name="error" type="redirect">resetPwd.action?reFalg=${reFalg}</result>
+        </action>
+        <!-- 忘记密码步骤3 -->
+        <action name="resetPwd3" class="resetpwdAction" method="goReset">
+            <result name="FAIL" type="redirect">resetPwd.action</result>
+            <result name="RESETPWD">/WEB-INF/jsp/member/resetPwd/resetPwd.jsp</result>
+        </action>
+        <!-- 忘记密码步骤4 -->
+        <action name="resetPwd4" class="resetpwdAction" method="resetPwd">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="token"/>
+            <result name="invalid.token">/WEB-INF/jsp/member/resetPwd/resultPwd.jsp</result>
+            <result name="RESULT">/WEB-INF/jsp/member/resetPwd/resultPwd.jsp</result>
+            <result name="error" type="redirect">resetPwd.action</result>
+        </action>
+
+        <!-- wap忘记密码 -->
+        <action name="wapSendValidInfo" class="mobileVaildCodeAction" method="wapSendValidInfo"/>
+        <action name="wapGetReset" class="resetPwdOnWapAction" method="wapGetReset"/>
+        <action name="wapResetPwd" class="resetPwdOnWapAction" method="wapResetPwd"/>
+        <!-- wap忘记密码 -->
+
+        <!-- 免注册转会员 进入 -->
+        <action name="resetPwdgoUnRegMember" class="resetpwdAction" method="goUnRegMember">
+            <result name="REG">/WEB-INF/jsp/member/regist/unRegMember.jsp</result>
+        </action>
+        <!-- 免注册转会员 校验信息 -->
+        <action name="validExistsUser" class="resetpwdAction" method="validExistsUser">
+            <result name="VALIDINFO">/WEB-INF/jsp/member/regist/validUnregInfo.jsp</result>
+            <result name="FAIL">/WEB-INF/jsp/member/regist/validUnregInfo.jsp</result>
+        </action>
+        <!-- 免注册转会员 重置密码 -->
+        <action name="setunRegPage" class="resetpwdAction" method="setunRegPage">
+            <result name="success">/WEB-INF/jsp/member/regist/setUnregInfo.jsp</result>
+        </action>
+        <!-- 免注册转会员   更新信息 -->
+        <action name="unRegMember" class="resetpwdAction" method="unRegMember">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="token"/>
+            <result name="invalid.token">/WEB-INF/jsp/member/regist/resultUnreg.jsp</result>
+            <result name="success">/WEB-INF/jsp/member/regist/resultUnreg.jsp</result>
+        </action>
+        <!-- 验证码 -->
+        <action name="codeImage" class="CodeImageAction">
+            <result type="stream">
+                <param name="contentType">image/jpeg</param>
+                <param name="inputName">inputStream</param>
+            </result>
+        </action>
+        <!-- 验证密码邮件 -->
+        <!--<action name="validMail" class="resetpwdAction" method="validMail">
+            <result name="success">/html/validMail.jsp</result>
+            <result name="resetPwd" type="chain">resetPwd3</result>
+            <result name="setunRegPage" type="chain">setunRegPage</result>
+        </action>-->
+        <!-- 校验验证码 -->
+        <action name="validCodeImg" class="CodeImageAction" method="validCodeImg"/>
+        <action name="validCodeImgs" class="registAction" method="validCodeImgs"/>
+        <!-- 发送短信验证码 -->
+        <action name="sendMobile" class="mobileVaildCodeAction" method="sendMobile"/>
+        <!-- wap发送短信验证码 -->
+        <action name="wapsendMobile" class="mobileVaildCodeAction" method="wapsendMobile"/>
+        <!-- 校验手机验证码 -->
+        <action name="validMobile" class="mobileVaildCodeAction" method="validMobile"/>
+        <!-- 初始化资讯列表 -->
+        <action name="initSupplierNews" class="supplierNewsInterFaceAction"
+                method="initSupplierNews">
+            <result name="success">/WEB-INF/jsp/supplier/news.jsp</result>
+        </action>
+        <!-- 资讯详情 -->
+        <action name="getNewsDetailByNewsId" class="supplierNewsInterFaceAction"
+                method="getNewsDetailByNewsId">
+            <result name="success">/WEB-INF/jsp/supplier/newsDetail.jsp</result>
+        </action>
+        <!-- 时代会员进行账户验证 -->
+        <action name="setUserNameForSd" class="sdInfoAction" method="setUserNameForSd">
+            <result name="success">/WEB-INF/jsp/member/home/setSdAccount.jsp</result>
+        </action>
+
+        <!-- 时代会员进行绑定 -->
+        <action name="sdBindMember" class="sdInfoAction" method="sdBindMember">
+        </action>
+        <!-- wap端 我的优惠券 -->
+        <action name="goWapCoupon">
+            <result>/WEB-INF/jsp/member/myCoupon/wapCouponList.jsp</result>
+        </action>
+
+        <!-- wap端 会员中心 -->
+        <action name="goWapMyHome">
+            <result>/WEB-INF/jsp/member/home/wapHome.jsp</result>
+        </action>
+        <!-- wap端  我的收藏 -->
+        <action name="goWapMyFavorite" class="homeAction" method="goWapMyFavorite">
+            <result name="success">/WEB-INF/jsp/member/myFavorite/wapFavorite.jsp</result>
+        </action>
+        <!-- wap端 售后服务 -->
+        <action name="wapAfterSales">
+            <result>/WEB-INF/jsp/member/afterSales/wapAfterSales.jsp</result>
+        </action>
+
+
+        <!-- wap我的订单 初始化页面 -->
+        <action name="queryWapOrderList" class="myOrderAction" method="queryWapOrderList">
+            <result name="success">/WEB-INF/jsp/member/myOrder/wapOrderList.jsp</result>
+        </action>
+
+
+        <!-- wap订单详情 -->
+        <action name="queryWapOrderDetail" class="myOrderAction" method="queryWapOrderDetail">
+            <result name="success">/WEB-INF/jsp/member/myOrder/wapOrderDetail.jsp</result>
+        </action>
+
+        <!-- wap订单跟踪 -->
+        <action name="initWapOrderLogistics" class="myOrderAction" method="initWapOrderLogistics">
+            <result name="success">/WEB-INF/jsp/member/myOrder/wapOrderLogistics.jsp</result>
+        </action>
+        <!-- wap订单取消 -->
+        <action name="cancelWapOrderMain" class="myOrderAction" method="cancelWapOrderMain">
+            <result name="success" type="redirectAction">member/queryWapOrderList?t=${time}</result>
+        </action>
+        <!-- wap会员订单删除 -->
+        <action name="deleteWapOrderMain" class="myOrderAction" method="deleteWapOrderMain">
+            <result name="success" type="redirectAction">member/queryWapOrderList?t=${time}</result>
+        </action>
+
+        <!-- 到申请页 -->
+        <action name="applyWapPrepare" class="returnShopAction" method="applyWapPrepare">
+            <result name="success">/WEB-INF/jsp/member/returnShop/wapApply.jsp</result>
+        </action>
+        <!-- 查询我的邀请有奖
+        <action name="queryPrizeInvite" class="prizeInviteAction" method="queryPrizeInvite">
+            <result name="success">/WEB-INF/jsp/member/prizeInvite/prizeInvite.jsp</result>
+        </action>
+         -->
+        <!-- 被邀请人跳转邀请链接
+        <action name="toRegist" class="prizeInviteAction" method="toRegist">
+            <result name="success" type="redirect">${t}</result>
+            <result name="other" type="redirect">${t}</result>
+        </action>
+
+        <action name="gotoProductPage" class="prizeInviteAction" method="gotoProductPage">
+            <result name="other" type="redirect">${t}</result>
+        </action> -->
+    </package>
+</struts>

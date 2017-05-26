@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="WX_RESERVATION" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.kmzyc.b2b.vo.WxReservation" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+    <result column="SHOP_ID" property="shopId" jdbcType="VARCHAR" />
+    <result column="RESERVATION_TIME" property="reservationTime" jdbcType="DATE" />
+    <result column="CARD_ID" property="cardId" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  
+
+ 
+  
+  <!-- 微信优惠券 -->
+  <resultMap id="WXCHOUPONVo" class="com.kmzyc.b2b.vo.WxReservation"   >
+     <result column="id" property="id" jdbcType="VARCHAR" />  
+     <result column="CODE" property="code" jdbcType="VARCHAR" />
+     <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+     <result column="RESERVATION_TIME" property="reservationTime" jdbcType="VARCHAR" />
+     <result column="CREATE_DATE" property="createDate" jdbcType="VARCHAR" />
+      <result column="custom_tel" property="custom_tel" jdbcType="VARCHAR" />
+     <result property="wxShop" resultMap="WX_RESERVATION.SHOPINFO"/>  
+  </resultMap>
+  
+  <resultMap id="SHOPINFO" class="com.kmzyc.b2b.vo.WxKmrsShopInfo" >
+    <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+     <result column="BRANCH_NAME" property="branchName" jdbcType="VARCHAR" />
+     <result column="DETAIL_ADDRESS" property="detailAddress" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 店铺列表 -->
+  <resultMap id="shopVo" class="com.kmzyc.b2b.vo.WxKmrsShopInfo" >
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="branch_name" property="branchName" jdbcType="VARCHAR" />
+  </resultMap>
+    
+   <resultMap id="BaseResultMap" class="com.kmzyc.b2b.vo.WxReservation" >
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+      <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+      <result column="BRANCH_NAME" property="branchName" jdbcType="VARCHAR" />
+    <result column="DETAIL_ADDRESS" property="detail_address" jdbcType="VARCHAR" />
+    <result column="SHOP_TELEPHONE" property="shopTelephone" jdbcType="VARCHAR" />
+     <result column="RESERVATION_TIME" property="reservationTime" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <insert id="ibatorgenerated_insert" parameterClass="com.kmzyc.b2b.vo.WxReservation" >
+    insert into WX_RESERVATION (ID, USERNAME, TELEPHONE, SHOP_ID, RESERVATION_TIME, CARD_ID, CODE)
+    values (#id:VARCHAR#, #username:VARCHAR#, #telephone:VARCHAR#, #shopId:VARCHAR#,
+      #reservationTime:DATE#, #cardId:VARCHAR#, #code:VARCHAR#)
+  </insert>
+  
+  
+  <insert id="ibatorgenerated_insertSelective" parameterClass="com.kmzyc.b2b.vo.WxReservation" >
+    insert into WX_RESERVATION
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="id" >
+        ID
+      </isNotNull>
+      <isNotNull prepend="," property="username" >
+        USERNAME
+      </isNotNull>
+      <isNotNull prepend="," property="telephone" >
+        TELEPHONE
+      </isNotNull>
+      <isNotNull prepend="," property="shopId" >
+        SHOP_ID
+      </isNotNull>
+      <isNotNull prepend="," property="reservationTime" >
+        RESERVATION_TIME
+      </isNotNull>
+      <isNotNull prepend="," property="cardId" >
+        CARD_ID
+      </isNotNull>
+      <isNotNull prepend="," property="code" >
+        CODE
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="id" >
+        #id:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="username" >
+        #username:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="telephone" >
+        #telephone:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="shopId" >
+        #shopId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="reservationTime" >
+        #reservationTime:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="cardId" >
+        #cardId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="code" >
+        #code:VARCHAR#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  <!-- 店铺信息列表 -->
+   <select id="selectStore" resultMap="shopVo" parameterClass="com.kmzyc.b2b.vo.WxKmrsShopInfo" >
+      select  WX.SHOP_ID ,WX.BRANCH_NAME from  wx_kmrs_shop_info WX 
+  </select>
+  
+     <!-- 微信优惠券查询 -->
+   <select id="selectWxCoupon" resultMap="WXCHOUPONVo" parameterClass="pagination" >  
+      select a.*
+  from (
+       select  wr.id,
+               WR.CODE,
+               WR.USERNAME,
+               WR.TELEPHONE custom_tel,
+               WS.BRANCH_NAME,
+               WS.DETAIL_ADDRESS,
+               WS.TELEPHONE,
+               WR.RESERVATION_TIME,
+               WR.CREATE_DATE,
+               rownum rn
+ 		 from WX_KMRS_SHOP_INFO WS ,
+               WX_RESERVATION WR
+               WHERE WR.SHOP_ID = WS.SHOP_ID  
+               <isNotEmpty property="objCondition.shopId">
+                   AND WR.SHOP_ID =  #objCondition.shopId#
+               </isNotEmpty>
+               <isNotEmpty property="objCondition.dateBegin">
+               	   AND WR.RESERVATION_TIME >= to_date(#objCondition.dateBegin:DATE#,'yyyy-MM-dd HH24:mi:ss')
+               </isNotEmpty>
+                <isNotEmpty property="objCondition.dateEnd">
+	                <![CDATA[
+	               AND WR.RESERVATION_TIME <= to_date(#objCondition.dateEnd:DATE#,'yyyy-MM-dd HH24:mi:ss')
+	                 ]]>
+                 </isNotEmpty>
+                  <![CDATA[
+                   and rownum <= #endindex#
+                    ]]>
+                  order by   WR.RESERVATION_TIME desc  
+                     ) a
+ 			where rn >= #startindex#
+  </select>
+   
+   
+     <!--  微信优惠券个数查询 -->
+   <select id="countWxCoupon" parameterClass="pagination" resultClass="int">  
+      select count(*)
+      from (
+       select  wr.id,
+               WR.CODE,
+               WR.USERNAME,
+               WR.TELEPHONE custom_tel,
+               WS.BRANCH_NAME,
+               WS.DETAIL_ADDRESS,
+               WS.TELEPHONE,
+               WR.RESERVATION_TIME,
+               WR.CREATE_DATE,
+               rownum rn
+ 		 from WX_KMRS_SHOP_INFO WS ,
+               WX_RESERVATION WR
+               WHERE WR.SHOP_ID = WS.SHOP_ID (+)
+               <isNotEmpty property="objCondition.shopId">
+                   AND WR.SHOP_ID =  #objCondition.shopId#
+               </isNotEmpty>
+               <isNotEmpty property="objCondition.dateBegin">
+               	   AND WR.RESERVATION_TIME >= to_date(#objCondition.dateBegin:DATE#,'yyyy-MM-dd HH24:mi:ss')
+               </isNotEmpty>
+                <isNotEmpty property="objCondition.dateEnd">
+	                <![CDATA[
+	               AND WR.RESERVATION_TIME <= to_date(#objCondition.dateEnd:DATE#,'yyyy-MM-dd HH24:mi:ss')
+	                 ]]>
+                 </isNotEmpty>
+                   ) a
+    </select>
+   
+
+   
+
+
+
+<select id="selectWxCouponExp" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		select wr.code,
+		       wr.username,
+		       wr.telephone,
+		       wks.branch_name,
+		       wks.detail_address,
+		       wks.telephone SHOP_TELEPHONE,
+		       wr.reservation_time,
+		       wr.create_date
+		  from wx_kmrs_shop_info wks, WX_RESERVATION wr
+			<dynamic prepend="where">
+			     wr.shop_id=wks.shop_id
+			 <isNotEmpty property="shopId">
+			  AND wr.shop_id=#shopId#
+		     </isNotEmpty>  
+			 
+		  <isNotEmpty property="dateBegin">
+		  <![CDATA[  and wr.reservation_time>=to_date(#dateBegin:DATE#,'yyyy-MM-dd HH24:mi:ss') ]]>
+		  </isNotEmpty>
+		  
+		  <isNotEmpty property="dateEnd">
+		  <![CDATA[  and wr.reservation_time<=to_date(#dateEnd:DATE#,'yyyy-MM-dd HH24:mi:ss') ]]>
+		  </isNotEmpty>
+		
+		</dynamic>
+		 order by wr.reservation_time desc 
+	</select>
+
+
+
+
+   
+ 
+</sqlMap>

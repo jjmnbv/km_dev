@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="shop" namespace="/shop"  extends="struts">
+    
+    <!-- 窗口管理 -->
+     <action name="cmsWindowDataAction_*"  class="cmsWindowDataAction" method="{1}">            
+		      <result name="gotoEditBanner">/WEB-INF/jsp/shop/banner.jsp</result> 
+		      <result name="gotoAdvTypeOne">/WEB-INF/jsp/shop/adv_type_one.jsp</result> 
+		      <result name="gotoAdvTypeTwo" >/WEB-INF/jsp/shop/adv_type_two.jsp</result> 
+		      <result name="gotoAdvTypeThree">/WEB-INF/jsp/shop/adv_type_three.jsp</result> 
+		      <result name="gotoAdvTypeFour">/WEB-INF/jsp/shop/adv_type_four.jsp</result>
+		      <result name="gotoAdvTypeFive">/WEB-INF/jsp/shop/adv_type_five.jsp</result>
+		      <result name="dataBindList">/WEB-INF/jsp/shop/bindData/dataBindList.jsp</result>
+		       <result name="bindData">/WEB-INF/jsp/shop/bindData/bindData.jsp</result>
+		        <result name="shopDataDetail">/WEB-INF/jsp/shop/bindData/shopDataDetail.jsp</result>
+		       
+		      <!-- 
+		      <result name="addUserDefineDate">/WEB-INF/jsp/cms/cmswindowdata/cmsAddUserDefine.jsp</result>
+		            -->
+	 </action> 
+	 
+	 <!-- 店铺类目 -->
+	      <action name="shopCategoryAction_*"  class="shopCategoryAction" method="{1}">            
+		      <result name="categoryList">/WEB-INF/jsp/shop/bindData/categoryList.jsp</result>   
+		    
+	 </action> 
+	 
+
+	 
+
+		
+    </package>
+</struts>
+
+

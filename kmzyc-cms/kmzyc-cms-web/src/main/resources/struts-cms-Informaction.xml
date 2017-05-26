@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <package name="default_Information" namespace="/cms" extends="struts">
+     <action name="GotoInforTypeAdd">
+      <result>/WEB-INF/jsp/cms/InformationType/InformationAdd.jsp</result>
+     </action>
+     
+     <action name="InformationType_*" class="cmsInformationTypeAction" method="{1}">
+  <result name="Success">/WEB-INF/jsp/cms/InformationType/InformationTypeList.jsp</result>
+   <result name="ByidSuccess">/WEB-INF/jsp/cms/InformationType/InformationUpdate.jsp</result>
+   <result name="gotoAdd">/WEB-INF/jsp/cms/InformationType/InformationAdd.jsp</result>
+   <result name="queryPopInformationType">/WEB-INF/jsp/cms/InformationType/popUpInformationType.jsp</result>
+   <result name="openInformationTypeList">/WEB-INF/jsp/cms/InformationType/popInformationTypeList.jsp</result>
+  </action>
+  
+  
+
+    <action name="Information_*" class="cmsInformationAtion" method="{1}">
+    <result name="goto">/WEB-INF/jsp/cms/Information/InformationAdd.jsp</result>
+  <result name="Success">/WEB-INF/jsp/cms/Information/InformationList.jsp</result>
+   <result name="ByidSuccess">/WEB-INF/jsp/cms/Information/InformationUpdate.jsp</result>
+  </action>
+  
+  
+    </package>
+</struts>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+	<settings cacheModelsEnabled="true" enhancementEnabled="true"
+		lazyLoadingEnabled="true" maxRequests="32" maxSessions="10"
+		maxTransactions="5" useStatementNamespaces="true" />
+    
+    <!-- 产品库 -->
+    <sqlMap resource="com/kmzyc/supplier/model/SUPPLIERS_AVAILABLE_CATEGORYS_SqlMap.xml" />
+    <sqlMap resource="com/kmzyc/supplier/model/SUPPLIERS_CERTIFICATE_SqlMap.xml" />
+    <sqlMap resource="com/kmzyc/supplier/model/SUPPLIERS_INFO_SqlMap.xml" />
+    <sqlMap resource="com/kmzyc/supplier/model/SUPPLIERS_WAREHOUSE_SqlMap.xml" />
+    <sqlMap resource="com/kmzyc/supplier/model/Product_SqlMap.xml" />
+    <sqlMap resource="com/kmzyc/supplier/model/ProdBrand_SqlMap.xml" />
+    <!--<sqlMap resource="com/kmzyc/supplier/model/SupplierChannel.xml" />-->
+    <sqlMap resource="com/kmzyc/supplier/model/CATEGORY_ATTR_VALUE_SqlMap.xml" />
+    <sqlMap resource="com/kmzyc/supplier/model/OPERATION_ATTR_SqlMap.xml" />
+    <sqlMap resource="com/kmzyc/supplier/model/PRODUCT_ATTR_SqlMap.xml" />
+    <sqlMap resource="com/kmzyc/supplier/model/PRODUCT_DRAFT_ATTR_SqlMap.xml" />
+    <sqlMap resource="com/kmzyc/supplier/model/PRODUCT_SKU_SqlMap.xml" />
+    <sqlMap resource="com/kmzyc/supplier/model/PRODUCT_SKU_ATTR_SqlMap.xml" />
+    <sqlMap resource="com/kmzyc/supplier/model/ProductDraft_SqlMap.xml" />
+    <sqlMap resource="com/kmzyc/supplier/model/PRODUCT_SKU_DRAFT_SqlMap.xml" />
+    <sqlMap resource="com/kmzyc/supplier/model/CATEGORY_SqlMap.xml" />
+    <sqlMap resource="com/kmzyc/supplier/model/PRODUCT_SKU_DRAFT_ATTR_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/supplier/model/ProductImage_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/supplier/model/ProductImageDraft_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/supplier/model/CATEGORY_ATTR_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/supplier/model/SHOP_MAIN_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/supplier/model/SHOP_MAIN_DRAFT_SqlMap.xml" />
+	<!--<sqlMap resource="com/kmzyc/supplier/model/SUPPLIER_NEWS_SqlMap.xml" />-->
+	<!--<sqlMap resource="com/kmzyc/supplier/model/NEWS_CATEGORY_SqlMap.xml" />-->
+	<!--<sqlMap resource="com/kmzyc/supplier/model/SHOP_NEWS_CATEGORY_SqlMap.xml" />-->
+	<sqlMap resource="com/kmzyc/supplier/model/AreaDict_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/supplier/model/PRODUCT_STOCK_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/supplier/model/WAREHOUSE_INFO_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/supplier/model/SUPPLIER_FARE_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/supplier/model/SHOP_CATEGORYS_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/supplier/model/SHOP_PRODUCT_CATEGORY_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/supplier/model/app_afterSaleReturnOrder_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/supplier/model/app_prodAppraise_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/supplier/model/COUPON_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/supplier/model/prod_brand_draft_SqlMap.xml" />
+
+    <!--END 产品库 -->
+    <!-- 财务提现 -->
+    <sqlMap resource="com/kmzyc/supplier/model/SupplierEnchashment_SqlMap.xml"/>
+    <!--活动管理-->
+    <sqlMap resource="com/kmzyc/supplier/model/ACTIVITY_INFO_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/supplier/model/ACTIVITY_CATEGORYS_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/supplier/model/ACTIVITY_SKU_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/supplier/model/ACTIVITY_SUPPLIER_ENTRY_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/supplier/model/ACTIVITY_BRAND_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/supplier/model/ACTIVITY_CHARGE_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/supplier/model/ACTIVITY_SUPPLIER_SCORE_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/supplier/model/ACTIVITY_PAYMENT_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/supplier/model/ACTIVITY_PAYMENT_DETAIL_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/supplier/model/ACTIVITY_PAYMENT_STATEMENT_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/supplier/model/SUPPLIER_ACTIVITY_PROMOTION_EFFECT_SqlMap.xml"/>
+    
+    <!-- 订单库 -->
+	<sqlMap resource="com/kmzyc/supplier/model/KMORDER_ORDER_MAIN_SqlMap.xml" />
+	
+	<!-- 用户库 -->
+	<sqlMap resource="com/kmzyc/supplier/model/User.xml" />
+    <sqlMap resource="com/kmzyc/supplier/model/KeyWords.xml"/>
+    <sqlMap resource="com/kmzyc/supplier/model/MerchantInfo_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/supplier/model/AccountInfo.xml" />
+    <sqlMap resource="com/kmzyc/supplier/model/RechargeDetails.xml" />
+    <sqlMap resource="com/kmzyc/supplier/model/BnesAcctTransaction.xml" />
+    <!-- 康美中药城会员管理 -->
+    <!--<sqlMap resource="com/kmzyc/supplier/model/ERA_INFO_SqlMap.xml"/>-->
+    <!-- END 用户库 -->
+    
+</sqlMapConfig>

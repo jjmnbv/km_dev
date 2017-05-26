@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="BnesFunctions" >
+
+  <typeAlias alias="bnesFunctionsDO" type="com.pltfm.app.dataobject.BnesFunctionsDO" />
+  <typeAlias alias="bnesFunctionsQuery" type="com.pltfm.app.vobject.BnesFunctionsQuery" />
+
+  <resultMap id="bnesFunctionsDOResultMap" class="bnesFunctionsDO" >
+    <result property="binesFunctionId" column="BINES_FUNCTION_ID" />
+    <result property="functionName" column="FUNCTION_NAME" />
+    <result property="url" column="URL" />
+    <result property="description" column="DESCRIPTION" />
+    <result property="functionParentId" column="FUNCTION_PARENT_ID" />
+    <result property="isParent" column="IS_PARENT" />
+    <result property="createDate" column="CREATE_DATE" />
+    <result property="createdId" column="CREATED_ID" />
+    <result property="modifyDate" column="MODIFY_DATE" />
+    <result property="modifieId" column="MODIFIE_ID" />
+  </resultMap>
+
+  <resultMap id="bnesFunctionsQueryResultMap" class="bnesFunctionsQuery" >
+    <result property="binesFunctionId" column="BINES_FUNCTION_ID" />
+    <result property="functionName" column="FUNCTION_NAME" />
+    <result property="url" column="URL" />
+    <result property="description" column="DESCRIPTION" />
+    <result property="functionParentId" column="FUNCTION_PARENT_ID" />
+    <result property="isParent" column="IS_PARENT" />
+    <result property="createDate" column="CREATE_DATE" />
+    <result property="createdId" column="CREATED_ID" />
+    <result property="modifyDate" column="MODIFY_DATE" />
+    <result property="modifieId" column="MODIFIE_ID" />
+  </resultMap>
+
+  <sql id="bnesFunctions_columns" >
+    a1.BINES_FUNCTION_ID, a1.FUNCTION_NAME, a1.URL, a1.DESCRIPTION, a1.FUNCTION_PARENT_ID, 
+      a1.IS_PARENT, a1.CREATE_DATE, a1.CREATED_ID, a1.MODIFY_DATE, a1.MODIFIE_ID
+  </sql>
+
+  <sql id="bnesFunctions_do_columns" >
+    a1.BINES_FUNCTION_ID, a1.FUNCTION_NAME, a1.URL, a1.DESCRIPTION, a1.FUNCTION_PARENT_ID, 
+      a1.IS_PARENT, a1.CREATE_DATE, a1.CREATED_ID, a1.MODIFY_DATE, a1.MODIFIE_ID
+  </sql>
+
+  <sql id="bnesFunctions_query_columns" >
+    a1.BINES_FUNCTION_ID, a1.FUNCTION_NAME, a1.URL, a1.DESCRIPTION, a1.FUNCTION_PARENT_ID, 
+      a1.IS_PARENT, a1.CREATE_DATE, a1.CREATED_ID, a1.MODIFY_DATE, a1.MODIFIE_ID
+  </sql>
+
+  <sql id="queryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="binesFunctionId" prepend="AND" >
+        <![CDATA[  
+        BINES_FUNCTION_ID = #binesFunctionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="functionName" prepend="AND" >
+        <![CDATA[  
+        FUNCTION_NAME = #functionName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="url" prepend="AND" >
+        <![CDATA[  
+        URL = #url#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="description" prepend="AND" >
+        <![CDATA[  
+        DESCRIPTION = #description#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="functionParentId" prepend="AND" >
+        <![CDATA[  
+        FUNCTION_PARENT_ID = #functionParentId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="isParent" prepend="AND" >
+        <![CDATA[  
+        IS_PARENT = #isParent#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="doQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="binesFunctionId" prepend="AND" >
+        <![CDATA[  
+        BINES_FUNCTION_ID = #binesFunctionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="functionName" prepend="AND" >
+        <![CDATA[  
+        FUNCTION_NAME = #functionName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="url" prepend="AND" >
+        <![CDATA[  
+        URL = #url#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="description" prepend="AND" >
+        <![CDATA[  
+        DESCRIPTION = #description#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="functionParentId" prepend="AND" >
+        <![CDATA[  
+        FUNCTION_PARENT_ID = #functionParentId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="isParent" prepend="AND" >
+        <![CDATA[  
+        IS_PARENT = #isParent#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="queryQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="binesFunctionId" prepend="AND" >
+        <![CDATA[  
+        BINES_FUNCTION_ID = #binesFunctionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="functionName" prepend="AND" >
+        <![CDATA[  
+        FUNCTION_NAME = #functionName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="url" prepend="AND" >
+        <![CDATA[  
+        URL = #url#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="description" prepend="AND" >
+        <![CDATA[  
+        DESCRIPTION = #description#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="functionParentId" prepend="AND" >
+        <![CDATA[  
+        FUNCTION_PARENT_ID = #functionParentId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="isParent" prepend="AND" >
+        <![CDATA[  
+        IS_PARENT = #isParent#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <insert id="insert" parameterClass="bnesFunctionsDO" >
+    INSERT INTO BNES_FUNCTIONS( BINES_FUNCTION_ID, FUNCTION_NAME, URL, DESCRIPTION, FUNCTION_PARENT_ID, 
+      IS_PARENT, CREATE_DATE, CREATED_ID, MODIFY_DATE, MODIFIE_ID)
+     VALUES ( #binesFunctionId#, #functionName#, #url#, #description#, #functionParentId#, 
+      #isParent#, #createDate#, #createdId#, #modifyDate#, #modifieId#)
+    <selectKey keyProperty="binesFunctionId" resultClass="java.math.BigDecimal" >
+      SELECT LAST_INSERT_ID() AS value
+    </selectKey>
+  </insert>
+
+  <update id="update" parameterClass="bnesFunctionsDO" >
+    UPDATE BNES_FUNCTIONS   
+    <dynamic prepend="SET" >
+      <!--
+      <isNotNull property="binesFunctionId" prepend="," >
+        <![CDATA[  
+        BINES_FUNCTION_ID = #binesFunctionId#  
+        ]]>  
+      </isNotNull>
+      -->
+      <isNotNull property="functionName" prepend="," >
+        <![CDATA[  
+        FUNCTION_NAME = #functionName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="url" prepend="," >
+        <![CDATA[  
+        URL = #url#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="description" prepend="," >
+        <![CDATA[  
+        DESCRIPTION = #description#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="functionParentId" prepend="," >
+        <![CDATA[  
+        FUNCTION_PARENT_ID = #functionParentId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="isParent" prepend="," >
+        <![CDATA[  
+        IS_PARENT = #isParent#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="," >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="," >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="," >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="," >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+     WHERE BINES_FUNCTION_ID = #binesFunctionId#  
+  </update>
+  <delete id="deleteByPrimaryKey" parameterClass="java.math.BigDecimal" >
+    <![CDATA[  
+     DELETE FROM BNES_FUNCTIONS WHERE BINES_FUNCTION_ID = #binesFunctionId#
+    ]]>  
+  </delete>
+
+  <select id="countByDOExample" parameterClass="bnesFunctionsDO" resultClass="java.lang.Integer" >
+    SELECT COUNT(BINES_FUNCTION_ID) AS num FROM BNES_FUNCTIONS 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="findListByDO" resultMap="bnesFunctionsDOResultMap" parameterClass="bnesFunctionsDO" >
+     SELECT 
+    <include refid="bnesFunctions_do_columns" />
+     FROM BNES_FUNCTIONS a1 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="countByQueryExample" parameterClass="bnesFunctionsQuery" resultClass="java.lang.Integer" >
+    SELECT COUNT(BINES_FUNCTION_ID) AS num FROM BNES_FUNCTIONS 
+    <include refid="queryQueryParams" />
+  </select>
+
+  <select id="findListByQuery" resultMap="bnesFunctionsQueryResultMap" parameterClass="bnesFunctionsQuery" >
+     SELECT 
+    <include refid="bnesFunctions_query_columns" />
+     FROM BNES_FUNCTIONS a1 
+    <include refid="queryQueryParams" />
+  </select>
+    <!-- start查询子功能 -->
+    <select id="findByPrimaryKey" parameterClass="java.lang.Integer" resultMap="bnesFunctionsQueryResultMap" >
+     SELECT 
+    <include refid="bnesFunctions_query_columns" />
+    <![CDATA[  
+     FROM BNES_FUNCTIONS a1 WHERE FUNCTION_PARENT_ID = #binesFunctionId#
+    ]]>  
+  </select>
+    <!-- end查询子功能 -->
+</sqlMap>

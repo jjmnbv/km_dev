@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- 客户成长 --> 
+<struts>
+	<package name="growing" namespace="/growing"  extends="struts">
+		   <!-- 客户等级 -->
+	<!-- 删除	  <action name="userLevel_*"  class="userLevelAction"  method="{1}">
+		         <result name="addSuccess"  type="dispatcher">/WEB-INF/jsp/app/userLevel/userLevelAdd.jsp</result>
+		         <result name="pageSuccess"  type="dispatcher">/WEB-INF/jsp/app/userLevel/userLevelList.jsp</result>
+		          <result  name="editSuccess">/WEB-INF/jsp/app/userLevel/userLevelAdd.jsp </result>
+		          <result name="queryFail"  type="dispatcher">/WEB-INF/jsp/app/userLevel/userLevelList.jsp</result>
+		           <result name="invalid.token" type="redirectAction">
+				    userLevel_queryPageList
+			     </result>
+		  </action> -->
+		  <!-- 客户积分规则 -->
+		  <action name="scoreRule_*"  class="scoreRuleAction" method="{1}">
+		         <result name="addSuccess">/WEB-INF/jsp/app/scoreRule/scoreRuleAdd.jsp</result>
+		         <result name="querySuccess">/WEB-INF/jsp/app/scoreRule/scoreRuleList.jsp </result>
+		         <result name="editSuccess">/WEB-INF/jsp/app/scoreRule/scoreRuleAdd.jsp</result>
+		          <result name="invalid.token" type="redirectAction">
+				    scoreRule_queryPageList
+			     </result>
+		  </action>
+	</package>
+			<package name="rank" namespace="/rank"  extends="struts">
+		  <!-- 头衔 信息 --> 
+		   <action name="rank_*"  class="rankAction" method="{1}">
+		         <result name="addSuccess"  type="dispatcher">/WEB-INF/jsp/app/rank/rankAdd.jsp</result>
+		         <result name="pageSuccess"  type="dispatcher">/WEB-INF/jsp/app/rank/rankList.jsp</result>
+		          <result name="queryFail"  type="dispatcher">/WEB-INF/jsp/app/rank/rankList.jsp</result>
+		         <result name="editSuccess"  type="dispatcher">/WEB-INF/jsp/app/rank/rankUpdate.jsp</result>
+		         <result name="invalid.token" type="redirectAction">
+		             rank_queryPageList
+		   </result>
+		  </action> 	
+	</package>
+</struts>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

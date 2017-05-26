@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="BaseProduct" >
+
+	<!-- 查询商品信息 -->
+	<select id="getProductPriceInfo" parameterClass="java.lang.Long" resultClass="com.kmzyc.promotion.app.vobject.BaseProduct">
+	<![CDATA[
+		select s.product_id productID,
+		       s.product_sku_id productSkuId,
+		       s.product_sku_code productSkuCode,
+		       s.unit_weight unitWeight,
+		       nvl(s.price, 0) price,
+		       nvl(s.price, 0) finalPrice,
+		       s.cost_price costPrice,
+		       s.pv_value pvalue,
+		       s.cost_income_ratio costIncomeRatio,
+		       s.cost_income_ratio costIncomeMoney,
+		       s.mark_price marketPrice,
+		       s.status skuStatus,
+		       m.status productStatus,
+		       m.product_title title,
+		       m.procuct_name name,
+		       m.product_desc productDesc,
+		       m.product_no productNo,
+		       m.shop_code supplierCode,
+		       m.shop_code sellerId,
+		       m.category_id categoryId,
+		       m.brand_id brandId,
+		       m.brand_name brandName,
+		       0 credits,
+		       '' batchNo,
+		       nvl(m.product_type, 0) productType,
+		       '' shopName,
+		       '' skuAttrValue
+		  from product_sku s
+		 inner join productmain m
+		    on (m.product_id = s.product_id)
+		 where s.product_sku_id = #skuId:DECIMAL#
+	]]>
+	</select>
+	
+	
+	
+	<!-- 查询商品信息 -->
+	<select id="SQL_QUERY_BATCH_PRODUCT_PRICE_INFO"  parameterClass="java.util.Map" resultClass="com.kmzyc.promotion.app.vobject.BaseProduct">
+	<![CDATA[
+		select s.product_id productID,
+		       s.product_sku_id productSkuId,
+		       s.product_sku_code productSkuCode,
+		       s.unit_weight unitWeight,
+		       nvl(s.price, 0) price,
+		       nvl(s.price, 0) finalPrice,
+		       s.cost_price costPrice,
+		       s.mark_price marketPrice,
+		       s.pv_value pvalue,
+		       nvl(s.freight, 0) freight,
+		       to_number(s.free_status) freeStatus,
+		       erp.erp_pro_code erpProCode,
+		       erp.sys_code erpSysCode,
+		       (select erpi.erp_pro_code
+		          from product_erp_relation erpi
+		         where erpi.product_sku_id = s.product_sku_id
+		           and erpi.sys_code = 'JXC') jxcCode,
+		       s.cost_income_ratio costIncomeRatio,
+		       s.cost_income_ratio costIncomeMoney,
+		       s.status skuStatus,
+		       m.status productStatus,
+		       m.product_title title,
+		       m.procuct_name name,
+		       m.product_desc productDesc,
+		       m.product_no productNo,
+		       i.img_path imagePath,
+		       m.shop_code supplierCode,
+		       m.shop_code sellerId,
+		       m.category_id categoryId,
+		       m.brand_id brandId,
+		       m.brand_name brandName,
+		       0 credits,
+		       '' batchNo,
+		       nvl(m.product_type, 0) productType,
+		       nvl((select smi.shop_name
+		             from shop_main smi
+		            where smi.audit_status = 2
+		              and smi.supplier_id = si.supplier_id),
+		           (select ctbi.corporate_name
+		              from commercial_tenant_basic_info ctbi
+		             where ctbi.n_commercial_tenant_id = si.merchant_id)) shopName,
+		       (select max(st.stock_quality - st.order_quality) productStockSum
+		          from product_stock st
+		         where st.sku_attribute_id = s.product_sku_id
+		           and st.stock_quality > 0
+		           and st.order_quality >= 0) stockCount,
+		       si.supplier_type supplierType,
+		       (select wmsys.wm_concat(vsa.category_attr_value)
+		          from view_sku_attr vsa
+		         where vsa.product_sku_id = s.product_sku_id) skuAttrValue
+		  from product_sku s
+		 inner join productmain m
+		    on (m.product_id = s.product_id)
+		 inner join suppliers_info si
+		    on (si.supplier_id = to_number(m.shop_code))
+		  left join product_image i
+		    on (i.sku_id = s.product_sku_id and i.is_default = 0)
+		  left join product_erp_relation erp
+		    on (s.product_sku_id = erp.product_sku_id and erp.sys_code <> 'JXC')
+		 where s.product_sku_id in
+		 ]]>
+			<iterate open="(" close=")" conjunction="," property="suitIds">
+		   		#suitIds[]#
+		</iterate>
+	</select>
+	
+	<!--获取加价购商品价格  -->
+	<select id="getAddPriceCarProductInfoList" parameterClass="java.lang.Long" resultClass="com.kmzyc.promotion.app.vobject.BaseProduct">
+	<![CDATA[
+		select ps.product_sku_id   productSkuId,
+		       ps.price            price,
+		       ps.cost_price       costPrice,
+		       ps.mark_price      marketPrice,
+		       pp.price            finalPrice,
+		       t.stock               stockCount,
+		       m.product_title     title,
+		       m.procuct_name      name,
+		       ps.unit_weight      unitWeight,
+		       nvl(ps.freight, 0) freight,
+     		   to_number(ps.free_status) freeStatus,
+		       m.product_no        productNo,
+		       ps.product_sku_code productSkuCode,
+		       ps.pv_value          pvalue,
+		       erp.erp_pro_code  erpProCode ,
+               erp.sys_code      erpSysCode,
+               (select erpi.erp_pro_code
+		          from product_erp_relation erpi
+		         where erpi.product_sku_id = ps.product_sku_id
+		           and erpi.sys_code = 'JXC') jxcCode,
+		       ps.cost_income_ratio costIncomeRatio ,
+		       ps.cost_income_ratio costIncomeMoney ,
+		       m.shop_code         supplierCode,
+		       m.shop_code         sellerId,
+		       0                   marketPrice,
+		       pi.img_path         imagePath,
+		       m.category_id       categoryId,
+		       m.brand_id          brandId,
+		       m.brand_name brandName,
+		       0 credits,
+		       '' batchNo,
+		       nvl(m.product_type, 0) productType,
+		       m.product_id        productID
+		  from promotion_product pp
+		 inner join product_sku ps
+		    on ps.product_sku_id = pp.product_sku_id
+		 inner join productmain m
+		    on m.product_id = ps.product_id
+		 inner join product_image pi
+		    on pi.sku_id = ps.product_sku_id
+		   and pi.is_default = 0
+		   and pp.promotion_id = #promotionId:DECIMAL#
+		 inner join (select max(st.stock_quality - st.order_quality) stock,
+		                    st.sku_attribute_id as skuId
+		               from product_stock st
+		              where st.stock_quality > 0
+		                and st.order_quality >= 0
+		              group by sku_attribute_id) t
+		    on t.skuId = pp.product_sku_id
+		      left join  product_erp_relation erp
+     on (ps.product_sku_id = erp.product_sku_id and erp.sys_code <> 'JXC')
+		 order by pp.price asc
+	]]>
+	</select>
+  
+  	<!-- 获取赠品 -->
+  	<select id="getGiftProduct" parameterClass="java.lang.Long" resultClass="com.kmzyc.promotion.app.vobject.BaseProduct">
+	<![CDATA[
+		select ps.product_sku_id   productSkuId,
+		       ps.price            price,
+		       ps.cost_price       costPrice,
+		       ps.mark_price      marketPrice,
+		       ps.pv_value          pvalue,
+		       nvl(ps.freight, 0) freight,
+     		   to_number(ps.free_status) freeStatus,
+		       erp.erp_pro_code  erpProCode ,
+               erp.sys_code      erpSysCode,
+               (select erpi.erp_pro_code
+		          from product_erp_relation erpi
+		         where erpi.product_sku_id = ps.product_sku_id
+		           and erpi.sys_code = 'JXC') jxcCode,
+		       ps.cost_income_ratio costIncomeRatio ,
+		       ps.cost_income_ratio costIncomeMoney ,
+		       prd.prize_data      finalPrice,
+		       t.stock             stockCount,
+		       m.product_title     title,
+		       m.procuct_name      name,
+		       meet_data           marketPrice,
+		       ps.unit_weight      unitWeight,
+		       m.product_no        productNo,
+		       ps.product_sku_code productSkuCode,
+		       m.shop_code         supplierCode,
+		       m.shop_code         sellerId,
+		       pi.img_path         imagePath,
+		       m.category_id       categoryId,
+		       m.brand_id          brandId,
+		       nvl(m.product_type, 0) productType,
+		       m.product_id        productID,
+		       m.brand_name brandName,
+		       0 credits,
+		       '' batchNo,
+		  from promotion_rule_data prd
+		 inner join product_sku ps
+		    on ps.product_sku_id = prd.entity_id
+		 inner join productmain m
+		    on m.product_id = ps.product_id
+		 inner join product_image pi
+		    on pi.sku_id = ps.product_sku_id
+		   and prd.promotion_id = #promotionId:DECIMAL#
+		   and pi.is_default = 0
+		  left join (select max(st.stock_quality - st.order_quality) stock,
+		                    st.sku_attribute_id as skuId
+		               from product_stock st
+		              where st.stock_quality > 0
+		                and st.order_quality >= 0
+		              group by sku_attribute_id) t
+		    on prd.entity_id = t.skuId
+		          left join  product_erp_relation erp
+     on (ps.product_sku_id = erp.product_sku_id and erp.sys_code <> 'JXC')
+		 order by prd.meet_data desc
+	]]>
+	</select>
+	
+	<!-- 查询可用套餐 -->
+	<select id="SQL_QUERY_ABLE_COMPOSITION" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	<![CDATA[
+		select to_char(pr.relation_id) suitId,
+		       to_char(pm.shop_code) sellerId,
+		       to_char(ps.product_sku_id) skuId,
+		       to_char(pm.product_id) productId,
+		       to_char(pm.brand_id) brandId,
+		       to_char(pm.category_id) categoryId,
+		       to_char(ps.status) skuStatus,
+		       ps.product_sku_code productSkuCode,
+       		   to_char(nvl(ps.unit_weight,0)) unitWeight,
+       		   to_char(nvl(ps.freight, 0)) freight,
+     		   to_number(ps.free_status) freeStatus,
+		       pm.procuct_name productName,
+		       pm.product_no productNo,
+		       to_char(nvl(pr.pv_value ,0))  pvalue,
+		       erp.erp_pro_code  erpProCode ,
+               erp.sys_code      erpSysCode,       
+               (select erpi.erp_pro_code
+		          from product_erp_relation erpi
+		         where erpi.product_sku_id = ps.product_sku_id
+		           and erpi.sys_code = 'JXC') jxcCode,
+		       to_char(nvl(pr.cost_income_ratio ,0))  costIncomeRatio,
+		       to_char(nvl(pr.cost_income_ratio ,0))  costIncomeMoney,
+		       pm.product_title productTitle,
+		       pm.brand_name brandName,
+		       '0' credits,
+		       '' batchNo,
+		       (select pi.img_path || ',' || pi.img_path7
+		          from product_image pi
+		         where pi.sku_id = prd.relation_sku_id
+		           and pi.is_default = 0) imgInfo,
+		       to_char(pm.status) productStatus,
+		       to_char(nvl(prd.product_count, 0)) productCount,
+		       pr.relation_name suitName,
+		       to_char(pr.total_relation_price) suitPrice,
+		       to_char(pr.status) status,
+		       to_char(nvl(ps.price, 0)) productPrice,
+		       to_char(nvl((select max(st.stock_quality - st.order_quality)
+                     from product_stock st
+                    where st.sku_attribute_id = prd.relation_sku_id),0)) stockCount,
+		       (select si.supplier_type || ',' ||
+		               nvl((select sm.shop_name
+		                     from shop_main sm
+		                    where sm.audit_status = 2
+		                      and sm.supplier_id = si.supplier_id),
+		                   (select ctbi.corporate_name
+		                      from commercial_tenant_basic_info ctbi
+		                     where ctbi.n_commercial_tenant_id = si.merchant_id))
+		          from suppliers_info si
+		         where si.supplier_id = to_number(pm.shop_code)) shopInfo,
+		       (select wmsys.wm_concat(vsa.category_attr_value)
+		          from view_sku_attr vsa
+		         where vsa.product_sku_id = prd.relation_sku_id) categoryAttrValue
+		  from product_sku ps
+		 inner join productmain pm
+		    on (pm.product_id = ps.product_id)
+		 inner join product_relation_detail prd
+		    on (ps.product_sku_id = prd.relation_sku_id)
+		 inner join product_relation pr
+		    on (prd.relation_id = pr.relation_id)
+		   left join  product_erp_relation erp
+     on (ps.product_sku_id = erp.product_sku_id and erp.sys_code <> 'JXC')
+		 where pr.relation_id = #suitId:DECIMAL#
+		  order by pm.shop_code desc
+	]]>
+	</select>
+	
+	<!-- 查询可用套餐 -->
+	<select id="SQL_QUERY_BATCH_ABLE_COMPOSITION" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	<![CDATA[
+		select to_char(pr.relation_id) suitId,
+		       to_char(pm.shop_code) sellerId,
+		       to_char(ps.product_sku_id) skuId,
+		       to_char(pm.product_id) productId,
+		       to_char(pm.brand_id) brandId,
+		       to_char(pm.category_id) categoryId,
+		       to_char(ps.status) skuStatus,
+		       to_char(nvl(ps.freight, 0)) freight,
+     		   to_number(ps.free_status) freeStatus,
+		       ps.product_sku_code productSkuCode,
+       		   to_char(nvl(ps.unit_weight,0)) unitWeight,
+		       pm.procuct_name productName,
+		       to_char(nvl(pr.pv_value ,0))  pvalue,
+		       erp.erp_pro_code  erpProCode ,
+               erp.sys_code      erpSysCode,
+               (select erpi.erp_pro_code
+		          from product_erp_relation erpi
+		         where erpi.product_sku_id = ps.product_sku_id
+		           and erpi.sys_code = 'JXC') jxcCode,
+		       to_char(nvl(pr.cost_income_ratio ,0))  costIncomeRatio,
+		       to_char(nvl(pr.cost_income_ratio ,0))  costIncomeMoney,
+		       pm.product_no productNo,
+		       pm.product_title productTitle,
+		       pm.brand_name brandName,
+		       '0' credits,
+		       '' batchNo,
+		       (select pi.img_path || ',' || pi.img_path7
+		          from product_image pi
+		         where pi.sku_id = prd.relation_sku_id
+		           and pi.is_default = 0) imgInfo,
+		       to_char(pm.status) productStatus,
+		       to_char(nvl(prd.product_count, 0)) productCount,
+		       pr.relation_name suitName,
+		       to_char(pr.total_relation_price) suitPrice,
+		       to_char(pr.status) status,
+		       to_char(nvl(ps.price, 0)) productPrice,
+		       to_char(nvl((select max(st.stock_quality - st.order_quality)
+                     from product_stock st
+                    where st.sku_attribute_id = prd.relation_sku_id),0)) stockCount,
+		       (select si.supplier_type || ',' ||
+		               nvl((select sm.shop_name
+		                     from shop_main sm
+		                    where sm.audit_status = 2
+		                      and sm.supplier_id = si.supplier_id),
+		                   (select ctbi.corporate_name
+		                      from commercial_tenant_basic_info ctbi
+		                     where ctbi.n_commercial_tenant_id = si.merchant_id))
+		          from suppliers_info si
+		         where si.supplier_id = to_number(pm.shop_code)) shopInfo,
+		       (select wmsys.wm_concat(vsa.category_attr_value)
+		          from view_sku_attr vsa
+		         where vsa.product_sku_id = prd.relation_sku_id) categoryAttrValue
+		  from product_sku ps
+		 inner join productmain pm
+		    on (pm.product_id = ps.product_id)
+		 inner join product_relation_detail prd
+		    on (ps.product_sku_id = prd.relation_sku_id)
+		 inner join product_relation pr
+		    on (prd.relation_id = pr.relation_id)
+		 left join  product_erp_relation erp
+     on (ps.product_sku_id = erp.product_sku_id and erp.sys_code <> 'JXC')
+		 where pr.relation_id in 
+	]]>
+		<iterate open="(" close=")" conjunction="," property="suitIds">
+		   		#suitIds[]#
+		</iterate>		 
+		 order by pr.relation_id,pm.shop_code desc
+	</select>
+  	
+  	<!-- 查询活动期间某用户购买指定产品数量 -->
+	<select id="SQL_QUERY_SUM_USER_BUY_SKU_NUM"  parameterClass="java.util.Map"  resultClass="java.lang.Integer">
+	<![CDATA[
+		select sum(oir.commodity_number) - nvl(sum(oar.alter_num), 0)
+			  from (select nvl(sum(oi.commodity_number), 0) commodity_number,
+			               oi.order_item_id
+			          from kmorder.order_item oi
+			         where oi.commodity_type in (1, 2)
+			           and exists
+			         (select 1
+			                  from kmorder.order_main om
+			                 where oi.order_code = om.order_code
+			                   and om.parent_order_code is null
+			                   and om.order_status not in (1, -1,-2)
+	]]>
+		<isNotEmpty prepend="and" property="startDate">
+	<![CDATA[
+				trunc(om.pay_date,'mi')>=to_date(#startDate#,'yyyy-MM-dd HH24:mi:ss')
+	]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endDate">
+		<![CDATA[
+				trunc(om.pay_date,'mi')<=to_date(#endDate#,'yyyy-MM-dd HH24:mi:ss')
+		]]>
+		</isNotEmpty>
+	<![CDATA[
+			                   and om.customer_id =  #userId:NUMBER#)
+	]]>		        
+		<isNotEmpty prepend="and" property="skuId">
+						exists (select 1
+			                  from product_sku ps
+			                 where ps.product_sku_code = oi.commodity_sku
+			                   and ps.product_sku_id = #skuId:NUMBER#)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="skuCode">
+						oi.commodity_sku=#skuCode:VARCHAR#
+		</isNotEmpty>      
+	<![CDATA[        
+			         group by oi.order_item_id) oir,
+			       (select nvl(sum(oa.alter_num), 0) alter_num, oa.order_item_id
+			          from kmorder.order_alter oa
+			         where oa.alter_type = 1
+			           and oa.propose_status = 7
+			         group by oa.order_item_id) oar
+			 where oir.order_item_id = oar.order_item_id(+)
+	]]>
+  	</select>
+  	
+  	<!-- 查询全国价和区域价 -->
+  	<select id="SQL_QUERY_AREA_AND_GOBAL_PRICE_BY_SKUID" parameterClass="java.util.Map" resultClass="com.kmzyc.promotion.app.vobject.PriceInfo">
+  	<![CDATA[
+	  	select drp.sku_id skuId,
+		       wmsys.wm_concat(drp.area_id || ',' || nvl(drp.area_price,0)) areaInfo,
+		       wmsys.wm_concat(drp.area_id || ',' || nvl(drp.suggest_retail_price,0)) suggestInfo
+		  from directional_release_price drp
+		 where drp.audit_status = 1
+		   and drp.is_valid = 1
+	]]>
+		<isNotEmpty property="areaId">
+			 and drp.area_id in (1,#areaId#)
+		</isNotEmpty>
+		<isEmpty property="areaId">
+			 and drp.area_id = 1
+		</isEmpty>
+	<![CDATA[		   
+		   and drp.sku_id = #skuId#			
+		 group by drp.sku_id
+  	]]>
+  	</select>
+  	
+  	<!-- 批量查询全国价和区域价 -->
+  	<select id="SQL_QUERY_BATCH_AREA_AND_GOBAL_PRICE_BY_SKUID" parameterClass="java.util.Map" resultClass="com.kmzyc.promotion.app.vobject.PriceInfo">
+  	<![CDATA[
+	  	select drp.sku_id skuId,
+		       wmsys.wm_concat(drp.area_id || ',' || nvl(drp.area_price,0)) areaInfo,
+		       wmsys.wm_concat(drp.area_id || ',' || nvl(drp.suggest_retail_price,0)) suggestInfo
+		  from directional_release_price drp
+		 where drp.audit_status = 1
+		   and drp.is_valid = 1
+	]]>			   
+		<isNotEmpty property="areaId">
+			 and drp.area_id in (1,#areaId#)
+		</isNotEmpty>
+		<isEmpty property="areaId">
+			 and drp.area_id = 1
+		</isEmpty>		   
+		   and drp.sku_id in 
+	<iterate open="(" close=")" conjunction="," property="skuIds">
+		   		#skuIds[]#
+	</iterate>
+	<![CDATA[			
+		 group by drp.sku_id
+  	]]>
+  	</select>
+  	
+  	<!-- 查询商品价格 -->
+	<select id="SQL_QUERY_PRODUCT_PRICE"  parameterClass="java.util.Map" resultClass="com.kmzyc.promotion.app.vobject.BaseProduct">
+		select s.product_sku_id productSkuId,
+		       nvl(s.price, 0) finalPrice,
+		       nvl(s.price, 0) price,
+		       nvl(s.mark_price, 0) marketPrice
+		  from product_sku s, productmain m
+		 where m.product_id = s.product_id
+		   and s.product_sku_id = #skuId:NUMBER#
+	</select>
+  	
+  	<!-- 查询商品价格 -->
+	<select id="SQL_QUERY_BATCH_PRODUCT_PRICE"  parameterClass="java.util.Map" resultClass="com.kmzyc.promotion.app.vobject.BaseProduct">
+	<![CDATA[
+		select s.product_sku_id productSkuId,
+		       nvl(s.price, 0) finalPrice,
+		       nvl(s.price, 0) price,
+		       nvl(s.mark_price, 0) marketPrice
+		  from product_sku s, productmain m
+		 where m.product_id = s.product_id
+		   and s.product_sku_id in
+		 ]]>
+			<iterate open="(" close=")" conjunction="," property="idList">
+		   		#idList[]#
+		</iterate>
+	</select>
+</sqlMap>

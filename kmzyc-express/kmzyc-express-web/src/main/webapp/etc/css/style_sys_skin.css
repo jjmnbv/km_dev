@@ -1,0 +1,95 @@
+﻿body,p,td,input,option,textarea,select{color:#333;font:12px 宋体,Arial,Verdana}
+body,form,ul,li,p,ol{margin:0;padding:0}
+body{text-align:center;}
+img{border:0}
+ul{list-style-type:none}
+a{color:#000;background:inherit}
+a:hover{color:#FF0000;background:inherit}
+.menutexts{font-family:"宋体";font-size:12px;color:#000;text-decoration:none; line-height: 20px;}
+a.menutexts:link{color:#000;text-decoration:none}
+a.menutexts:hover{color:#F00;text-decoration:underline}
+.black_0{font-family:"宋体";font-size:12px;color:#000;text-decoration:none}
+a.black_0:link{color:#000;text-decoration:none}
+a.black_0:hover{color:#F00;text-decoration:underline}
+.black_num{font:11px Verdana,Arial,sans-serif;color:#000;text-decoration:none}
+a.black_num:link{color:#000;text-decoration:none}
+a.black_num:hover{color:#F00;text-decoration:underline}
+.black_num_b{font:11px Verdana,Arial,sans-serif;color:#000;font-weight:bold;text-decoration:none}
+a.black_num_b:link{color:#000;text-decoration:none}
+a.black_num_b:hover{color:#F00;text-decoration:underline}
+.red_num_b{font:11px Verdana,Arial,sans-serif;color:#F00;font-weight:bold;text-decoration:none}
+a.red_num_b:link{color:#F00;text-decoration:none}
+a.red_num_b:hover{color:#C00;text-decoration:underline}
+.formTitle{font-family:"宋体";font-size:14px;color:#FFF;font-weight:bold;text-decoration:none}
+a.formTitle:link{color:#000;text-decoration:none}
+a.formTitle:hover{color:#F00;text-decoration:underline}
+.red{font-family:"宋体";font-size:12px;color:#F00;text-decoration:none}
+a.red:link{color:#F00;text-decoration:none}
+a.red:hover{color:#C00;text-decoration:underline}
+.blue{font-family:"宋体";font-size:12px;color:#00F;text-decoration:none}
+a.blue:link{color:#00F;text-decoration:none}
+a.blue:hover{color:#F00;text-decoration:underline}
+.white{font-family:"宋体";font-size:12px;color:#FFF;text-decoration:none}
+a.white:link{color:#FFF;text-decoration:none}
+a.white:hover{color:#F00;text-decoration:underline}
+.red_a{font-family:"宋体";font-size:12px;color:#AE0000}
+.blue_0{font-family:"宋体";font-size:12px;color:#000499}
+.input{border:1px solid #8D8FBD;color:#000;height:16px;padding:4px 0 0 4px}
+.textarea{border:1px solid #8D8FBD;color:#000;padding:3px 0px 0px 4px}
+.button {font-family:"宋体";font-size:12px;color:#333333;background-color:#03CAFF;cursor:hand;padding:3px;height:22px;border-top:1px solid #DADAE9;border-right:1px solid #666666;border-bottom:1px solid #666666;border-left:1px solid #DADAE9}
+
+
+
+#header_common{background:#DCDBEA url(/etc/images/top_backgroud.jpg) top left;height:76px;text-align:left}
+#header_qq{background:#DCDBEA url(/etc/images/top_backgroud.jpg) ;height:76px; border-bottom:4px solid #079346;   text-align:left}
+
+
+
+#menutop{background:#C8F5FF url(/etc/images/sys/menu_top.gif) no-repeat top left;width:180px;height:86px}
+#menutop p{padding:9px 0px 0px 16px;line-height:1.5em;color:#666;text-align:left}
+#menubg{width:170px;height:540px;}
+
+.menubox{padding:0px;width:170px}
+.menuTitle{padding-left:15px;;width:160px;background:#CBEBD6;border-bottom:1px solid #9ABCAB;height: 20px;vertical-align: middle;}
+.menuico{float:left;width:19px;height:12px;text-align:center;vertical-align: middle;padding-top:5px;}
+.menupic{float:right;width:20px;height:13px}
+.menutext{float:right;width:135px;text-align:left}
+.menutexts{clear:both;padding:0px;width:158px}
+.menutexts ul{background-color: #E1F3E7;}
+.menutexts li{ no-repeat top left;width:160px;height:25px;color:#616161;}
+.menutexts li p{padding:4px 0px 0px 45px;font-size:0px;text-align:left;}
+
+.menuboxDiv{padding:0px;width:158px}
+.menuTitleDiv{padding-top:4px;width:158px;height:20px;background:#FFF}
+.menuicoDiv{float:left;padding-top:1px;width:19px;height:11px;text-align:right}
+.menupicDiv{float:right;width:28px;height:13px}
+.menutextDiv{float:right;width:111px;text-align:left}
+.menutextsDiv{clear:both;padding:0px;width:158px}
+.menutextsDiv ul{margin:0;padding:0}
+.menutextsDiv li{background:#FFF url(/etc/images/sys/menu_ico2.gif) no-repeat top left;width:158px;height:18px}
+.menutextsDiv li p{padding:4px 0px 0px 47px;font-size:12px;text-align:left}
+
+.menumaintexts{clear:both;padding:0 0 0 20px;width:158px;height:20px;background: #CBEBD6;border-bottom:1px solid #9ABCAB;line-height:20px;vertical-align: middle;}
+.menumaintexts li{background:#CBEBD6 url(/etc/images/sys/menu_on.png) no-repeat  left;width:158px;height:18px;vertical-align: middle;}
+.menumaintexts li p{padding:0px 0px 0px 20px;text-align:left;}
+
+#menudi{background:#C8F5FF url(/etc/images/sys/menu_di.gif) no-repeat top left;width:180px;height:11px}
+
+
+
+#compart_common{background:#079346 url(/etc/images/sys/compart_line.gif) top left;width:5px;height:800px}
+#compart_common p{padding-top:240px;text-align:left}
+#compart_qq{background-color:#079346; width:5px; height:660px;}
+#compart_qq p{padding-top:240px;text-align:left}
+
+
+
+#content{margin:0px;padding-left:4px;text-align:center}
+.contentclear{clear:both;margin:0px;padding:0px;height:10px;font-size:0px}
+.tbox{margin:0 auto;border:1px solid #0095E1}
+.trboxtop{height:32px;border:1px solid #FFF;background:#1AB1FF}
+.trboxtop p{padding:10px 0px 0px 0px}
+.trboxbg{padding:15px 0px;border:1px solid #FFF;background:#EFFDFF}
+.trboxdi{height:20px;border:1px solid #FFF;background:#1AB1FF}
+
+#footer{background:#C8F5FF url(/etc/images/sys/bottom_bg.gif) top left;height:14px}

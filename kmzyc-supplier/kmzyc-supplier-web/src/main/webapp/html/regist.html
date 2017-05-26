@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<!--#include file="common/common.html" -->
+		<title>注册 - 康美中药城健康商城</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="Keywords" content="康美中药城"/>
+        <meta name="Description" content="康美中药城"/>
+        <link rel="shortcut icon" href="<!--#echo var="cssAndJsPath" -->/res/images/kmzl.ico" type="image/x-icon"/>
+        <link type="text/css" rel="stylesheet" href="<!--#echo var="cssAndJsPath" -->/res/style/default/html/regist.css"/>
+        <script src="<!--#echo var="cssAndJsPath" -->/res/script/seajs/2.0.2/sea.js"></script>
+        <script src="<!--#echo var="cssAndJsPath" -->/res/script/config.js"></script>
+        <script>
+            var KMZL = {
+                DEBUG: 0, //
+                VERSION: '12312312323', //版本号
+                BASEURI: '',
+                PAGEACTION: '',
+                USERINFO: {
+                    id: '',
+                    name: '',
+                    avatar: ''
+                }
+            };
+            seajs.use('<!--#echo var="cssAndJsPath" -->/res/script/view/html/regist.js');
+        </script>
+    </head>         
+	<body class="l-w1000">
+		<!--#include file="common/static-top.html" -->
+		<!--头部登陆条结束-->
+		<!--logo开始-->
+		<div class="logo-box">
+		   <div class="l-w i-registration-logo">
+		      <a href="<!--#echo var="staticPath" -->/index.html" ><img src="<!--#echo var="cssAndJsPath" -->/res/images/common/registion_logo.png" width="303" height="77" /></a>
+		   </div>
+		</div>
+	<!--logo结束-->
+	<!--正确输入状态-->
+	<div id="registration-form">
+    	<div class="reg-box">
+      		<span class="text">邮箱：</span>
+      		<div class="reg-text">
+	     		<input name="txtregistEmail" id="txtregistEmail" maxlength="50" type="text" class="err-input" /> 
+	      		<div id="emailBox" class="right-box" style="display: none;">
+	        		<i></i>   
+	      		</div>
+	      		<div id="emailBoxFail" class="right-box-fail" style="display: none;">
+	        		<i></i>   
+	      		</div>
+      		</div>
+    	</div>
+	    <div class="reg-box">
+	      	<span class="text">用户名：</span>
+	      	<div class="reg-text">
+		      	<input name="loginAccount"  id="txtloginAccount"  type="text" class="err-input" /> 
+		      	<div id="accountBoxFail" class="right-box-fail" style="display: none;">
+		        	<i></i> 
+		      	</div>
+	      	</div>
+	    </div>
+	    <div class="reg-box con-password">
+	      	<span class="text">密码：</span>
+	      	<div class="reg-text">
+	      		<input name="txtregistPassword"  id="txtregistPassword" type="password" class="i-text err-input" /> 
+	      		<div id="passwordBoxFail" class="right-box-fail">
+	        		<i></i> 
+	      		</div>
+	      		<div style="height: 15px;overflow:hidden;width: 100%;float: right;">
+		      		<div class="letter fn-clear" id="pwdStrongth" style="display: none;">
+			      		<span id="level1" class="current">弱</span>
+			      		<span id="level2" >中</span>
+			      		<span id="level3" >强</span>
+		   			</div>
+		   		</div>
+		   	</div>	
+	    </div>
+	    <div class="reg-box">
+	      	<span class="text">确认密码：</span>
+	      	<div class="reg-text">
+	      		<input name="confirmpassword"  id="confirmpassword" type="password" class="i-text err-input" />  
+	      		<div id="confirmPasswordBoxFail" class="right-box-fail">
+	        		<i></i> 
+	      		</div>
+      		</div>
+	    </div>
+	    <div class="reg-box">
+	      	<span class="text">验证码：</span>
+	      	<div class="reg-text">
+		      	<input name="txtveCode"  id="txtveCode"  type="text" class="code" /> 
+		      	<div class="code-text">
+		        	<a href="javascript:void(0);" id="changeImgLink1">&nbsp;<img id="imageCode"  width="80"	height="30"  src="/codeImage.action?imgKey=regImg"/></a>
+		        	<a href="javascript:void(0);" id="changeImgLink2">看不清？换一张</a>
+		        	<div id="txtveCodeBox" class="right-box-fail">
+	       				<i></i> 
+					</div>
+		   		</div>
+	   		</div>
+		</div>
+		<div class="reg-box">
+	      	<div class="code-box">
+	         	<label>
+	         	<input name="accept" type="checkbox" id="ckaccept" value="radio" checked="checked" />我已阅读并接受</label>
+	         	<a class="fn-blue" href="<!--#echo var="staticPath" -->/helps/help-member-agreement.shtml" target="_blank">《用户协议》</a>
+	      	</div>
+		</div>
+		<div class="reg-btn"><a href="javascript:void(0);" id="btnSubReg">确认注册</a></div>
+	</div>
+	<!--注册页结束-->
+	<!--底部开始-->        
+	<!--#include file="common/static-foot.html" -->
+</body>
+</html>

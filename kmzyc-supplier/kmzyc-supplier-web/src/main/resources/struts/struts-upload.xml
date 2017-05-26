@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="upload" extends="json-default">
+		<!-- 自定义拦截器 -->
+		<interceptors>
+			<interceptor-stack name="myStackByUpload">
+				<interceptor-ref name="defaultStack">
+					<!-- 允许上传的单个文件的大小,字节为单位 -->
+					<param name="fileUpload.maximumSize">5242880</param>
+					<param name="fileUpload.allowedExtensions">jpg,jpeg,gif,png,bmp</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<!-- 文件上传 -->
+		<action name="uploadFile" class="uploadAction" method="uploadFile">
+			<result name="success">/WEB-INF/jsp/common/uploadFileSave.jsp</result>
+			<result name="input">/WEB-INF/jsp/common/uploadFile.jsp</result>
+		</action>	
+		
+		<!-- 供应商资质文件上传 -->
+		<action name="uploadCeriticate" class="supplierCertificateAction" method="uploadCeriticate">
+		    <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="contentType">text/html</param>
+            </result>
+		</action>
+		<!-- 申请供应商资质文件上传 -->
+		<action name="uploadApplySupplierThree" class="applySupplierAction" method="uploadApplySupplierThree">
+			<result name="success">/WEB-INF/jsp/apply/applySupplierThree.jsp</result>
+			<result name="input">/WEB-INF/jsp/apply/applySupplierThree.jsp</result>
+			<result name="invalid.token">/WEB-INF/jsp/supplier/invalidToken.jsp</result>
+			<result name="error">/WEB-INF/jsp/supplier/invalidToken.jsp</result>
+			<interceptor-ref name="myStackByUpload" />
+		</action>
+	</package>
+</struts>

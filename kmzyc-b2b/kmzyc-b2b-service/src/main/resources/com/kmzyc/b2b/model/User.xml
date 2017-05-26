@@ -1,0 +1,865 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="User">
+	<typeAlias alias="users" type="com.kmzyc.b2b.model.User" />
+		<resultMap id="userMapAndNick" class="users">
+		 <result jdbcType="DECIMAL" property="loginId" column="N_LOGIN_ID"/>
+		 <result jdbcType="DECIMAL" property="levelId" column="N_LEVEL_ID"/> 
+		 <result jdbcType="DECIMAL" property="customerTypeId" column="N_CUSTOMER_TYPE_ID"/> 
+		 <result jdbcType="VARCHAR" property="loginAccount" column="LOGIN_ACCOUNT"/> 
+		 <result jdbcType="VARCHAR" property="loginPassword" column="LOGIN_PASSWORD"/> 
+		 <result jdbcType="VARCHAR" property="mobile" column="MOBILE"/> 
+		 <result jdbcType="VARCHAR" property="email" column="EMAIL"/>
+		 <result jdbcType="DECIMAL" property="status" column="N_STATUS"/> 
+		 <result  property="createDate" column="D_CREATE_DATE"/>
+		 <result jdbcType="DECIMAL" property="created" column="N_CREATED"/>
+		 <result  property="modifyDate" column="D_MODIFY_DATE"/> 
+		 <result jdbcType="DECIMAL" property="modified" column="N_MODIFIED"/>
+		 <result jdbcType="DECIMAL" property="nickName"   column="NICKNAME" />
+		 <result jdbcType="VARCHAR" property="cardNum"   column="CARD_NUM" />
+		 <result property="earInfo" resultMap="User.eraMap" />
+	</resultMap>
+	
+	<resultMap id="eraMap" class="com.kmzyc.b2b.vo.EraInfo">
+		 <result jdbcType="DECIMAL" property="eraNo" column="ERA_NO"/>
+		 <result jdbcType="DECIMAL" property="eraInfoId" column="ERA_INFO_ID"/>  
+		 <result jdbcType="DECIMAL" property="loginAccount" column="LG"/> 
+	</resultMap>
+	
+	<resultMap id="userMap" class="users">
+		 <result jdbcType="DECIMAL" property="loginId" column="N_LOGIN_ID"/>
+		 <result jdbcType="DECIMAL" property="levelId" column="N_LEVEL_ID"/> 
+		 <result jdbcType="DECIMAL" property="customerTypeId" column="N_CUSTOMER_TYPE_ID"/> 
+		 <result jdbcType="VARCHAR" property="loginAccount" column="LOGIN_ACCOUNT"/> 
+		 <result jdbcType="VARCHAR" property="loginPassword" column="LOGIN_PASSWORD"/> 
+		 <result jdbcType="VARCHAR" property="mobile" column="MOBILE"/> 
+		 <result jdbcType="VARCHAR" property="email" column="EMAIL"/>
+		 <result jdbcType="DECIMAL" property="status" column="N_STATUS"/> 
+		 <result  property="createDate" column="D_CREATE_DATE"/>
+		 <result jdbcType="DECIMAL" property="created" column="N_CREATED"/>
+		 <result  property="modifyDate" column="D_MODIFY_DATE"/> 
+		 <result jdbcType="DECIMAL" property="modified" column="N_MODIFIED"/>
+		 <result jdbcType="VARCHAR" property="cardNum" column="CARD_NUM"/>
+	</resultMap>
+	
+	
+ 		
+		<resultMap id="userOrganMap" class="users">
+		 <result jdbcType="VARCHAR" property="organCode" column="organ_code"/> 
+		 <result jdbcType="VARCHAR" property="organDes" column="organ_Des"/>
+       </resultMap>
+	<!-- 登录用户map -->
+	<resultMap id="loginUser" class="users">
+		<result jdbcType="DECIMAL" property="loginId" column="N_LOGIN_ID"/>
+		<result jdbcType="DECIMAL" property="levelId" column="N_LEVEL_ID"/> 
+		<result jdbcType="DECIMAL" property="customerTypeId" column="N_CUSTOMER_TYPE_ID"/> 
+		<result jdbcType="VARCHAR" property="loginAccount" column="LOGIN_ACCOUNT"/> 
+		<result jdbcType="VARCHAR" property="loginPassword" column="LOGIN_PASSWORD"/> 
+		<result jdbcType="VARCHAR" property="mobile" column="MOBILE"/> 
+		<result jdbcType="VARCHAR" property="email" column="EMAIL"/>
+		<result jdbcType="DECIMAL" property="status" column="N_STATUS"/> 
+		<result  property="createDate" column="D_CREATE_DATE"/>
+		<result jdbcType="DECIMAL" property="created" column="N_CREATED"/>
+		<result  property="modifyDate" column="D_MODIFY_DATE"/> 
+		<result jdbcType="DECIMAL" property="modified" column="N_MODIFIED"/>
+		<result jdbcType="DECIMAL" property="nickName" column="NICKNAME" />
+		<result jdbcType="VARCHAR" property="headSculpture" column="HEAD_SCULPTURE" />
+		<result property="earInfo" resultMap="User.eraMap" />
+	</resultMap>
+	
+	<sql id="ByLoginId1">
+	    <![CDATA[
+		l.n_login_id= #loginId:NUMBER#
+	    ]]>
+	</sql>
+	
+	
+	 
+	<parameterMap  id="userpar" class="users">
+
+		<parameter jdbcType="DECIMAL" property="loginId" javaType="Long"/>
+		 <parameter jdbcType="DECIMAL" property="levelId" javaType="Integer"/> 
+		 <parameter jdbcType="DECIMAL" property="customerTypeId" javaType="Integer"/> 
+		 <parameter jdbcType="VARCHAR" property="loginAccount" javaType="String"/> 
+		 <parameter jdbcType="VARCHAR" property="loginPassword" javaType="String"/> 
+		 <parameter jdbcType="VARCHAR" property="mobile" javaType="String"/> 
+		 <parameter jdbcType="VARCHAR" property="email" javaType="String"/>
+		 <parameter jdbcType="DECIMAL" property="status" javaType="Integer"/> 
+		 <parameter  property="createDate" javaType="Date"/>
+		 <parameter jdbcType="DECIMAL" property="created" javaType="Long"/>
+		 <parameter  property="modifyDate" javaType="Date"/> 
+		 <parameter jdbcType="DECIMAL" property="modified" javaType="Integer"/>
+		 <!--  <parameter jdbcType="DECIMAL" property="isIllegal" javaType="Integer"/> -->
+	</parameterMap> 
+    <sql id="findByLogin">
+        (
+		<isNotEmpty property="email">
+			li.email = #email:VARCHAR2(50)#
+	    </isNotEmpty>
+	    <isNotEmpty property="loginAccount">
+	        <isNotEmpty property="email">
+			or
+	   	 	</isNotEmpty>
+			li.LOGIN_ACCOUNT = #loginAccount:VARCHAR2(50)#
+	    </isNotEmpty>
+	    <isNotEmpty property="mobile">
+	       	<isNotEmpty property="email">or</isNotEmpty>
+	       <isEmpty property="email">
+	           <isNotEmpty prepend="loginAccount">or</isNotEmpty>
+	       </isEmpty>
+			li.mobile = #mobile:VARCHAR2(50)#
+	   	</isNotEmpty>
+	   	)
+		<isNotEmpty property="loginPassword">
+		and Upper(LOGIN_PASSWORD) = Upper(#loginPassword:VARCHAR2(50)#)
+	    </isNotEmpty>
+   	</sql>
+   	
+   	<!-- update by hl 登录处判断是否是时代会员 -->
+    <select id="findUser"  resultMap="userMapAndNick" parameterClass="users">
+		SELECT li.N_LOGIN_ID,
+		       li.N_LEVEL_ID,
+		       li.N_CUSTOMER_TYPE_ID,
+		       li.LOGIN_ACCOUNT,
+		       li.LOGIN_PASSWORD,
+		       li.MOBILE,
+		       li.EMAIL,
+		       li.N_STATUS,
+		       li.D_CREATE_DATE,
+		       li.N_CREATED,
+		       li.D_MODIFY_DATE,
+		       li.N_MODIFIED,
+		       li.CARD_NUM,
+		<isNotEmpty property="status">
+			   e.era_no, e.era_info_id,e.login_account lg,
+		</isNotEmpty>
+		<isEmpty  property="status">
+			   null era_no, null era_info_id, null lg,
+		</isEmpty>
+		       (select pi.nickname
+		          from personality_info pi
+		         where pi.n_login_id = li.n_login_id) NICKNAME
+			FROM (
+		<isNotEmpty property="email">
+		       SELECT li1.N_LOGIN_ID,
+		               li1.N_LEVEL_ID,
+		               li1.N_CUSTOMER_TYPE_ID,
+		               li1.LOGIN_ACCOUNT,
+		               li1.LOGIN_PASSWORD,
+		               li1.MOBILE,
+		               li1.EMAIL,
+		               li1.N_STATUS,
+		               li1.D_CREATE_DATE,
+		               li1.N_CREATED,
+		               li1.D_MODIFY_DATE,
+		               li1.N_MODIFIED,
+		               li1.CARD_NUM
+		          FROM LOGIN_INFO li1
+		         where Upper(li1.LOGIN_PASSWORD) =
+		               Upper(#loginPassword:VARCHAR2(50)#)
+		           and li1.email = #email:VARCHAR2(50)#
+		        union all
+		</isNotEmpty>		
+		<isNotEmpty property="loginAccount">        
+		        SELECT li2.N_LOGIN_ID,
+		               li2.N_LEVEL_ID,
+		               li2.N_CUSTOMER_TYPE_ID,
+		               li2.LOGIN_ACCOUNT,
+		               li2.LOGIN_PASSWORD,
+		               li2.MOBILE,
+		               li2.EMAIL,
+		               li2.N_STATUS,
+		               li2.D_CREATE_DATE,
+		               li2.N_CREATED,
+		               li2.D_MODIFY_DATE,
+		               li2.N_MODIFIED,
+		               li2.CARD_NUM
+		          FROM LOGIN_INFO li2
+		         where Upper(li2.LOGIN_PASSWORD) =
+		               Upper(#loginPassword:VARCHAR2(50)#)
+		           and li2.LOGIN_ACCOUNT = #loginAccount:VARCHAR2(50)#
+		</isNotEmpty>		           
+		<isNotEmpty property="mobile">		           
+		        union all
+		        SELECT li3.N_LOGIN_ID,
+		               li3.N_LEVEL_ID,
+		               li3.N_CUSTOMER_TYPE_ID,
+		               li3.LOGIN_ACCOUNT,
+		               li3.LOGIN_PASSWORD,
+		               li3.MOBILE,
+		               li3.EMAIL,
+		               li3.N_STATUS,
+		               li3.D_CREATE_DATE,
+		               li3.N_CREATED,
+		               li3.D_MODIFY_DATE,
+		               li3.N_MODIFIED,
+		               li3.CARD_NUM
+		          FROM LOGIN_INFO li3
+		         where Upper(li3.LOGIN_PASSWORD) =
+		               Upper(#loginPassword:VARCHAR2(50)#)
+		           and li3.mobile = #mobile:VARCHAR2(50)#
+		</isNotEmpty>		           
+		           ) li
+		<isNotEmpty property="status">		         
+		  ,ERA_INFO e
+		  where li.n_login_id = e.n_login_id(+)
+		</isNotEmpty>					           	
+	</select>
+	
+	
+	<select id="verifyEmail" resultMap="userMap" parameterClass="users">
+		<![CDATA[
+			SELECT * FROM LOGIN_INFO u where  u.EMAIL=#email:VARCHAR#
+		]]>
+	</select>
+	<select id="notverifyEmail" resultMap="userMap" parameterClass="users">
+		<![CDATA[
+			SELECT * FROM LOGIN_INFO u where u.N_LOGIN_ID != #loginId:NUMBER# AND u.EMAIL=#email:VARCHAR# 
+			UNION ALL
+			SELECT * FROM LOGIN_INFO u where u.N_LOGIN_ID != #loginId:NUMBER# AND u.login_account =#email:VARCHAR#
+		]]>
+	</select>
+	<select id="verifyMobile" resultMap="userMap" parameterClass="users">
+		<![CDATA[
+			SELECT * FROM LOGIN_INFO u where  u.mobile=#mobile:VARCHAR#
+		]]>
+	</select>
+	<!-- add  验证手机号码是否占用  1,判断手机号码是占用  2,是否手机号码为帐号占用 -->
+	<select id="getVerifyMobile" resultMap="userMap" parameterClass="users">
+		<![CDATA[
+			SELECT * FROM LOGIN_INFO u where u.N_LOGIN_ID != #loginId:NUMBER# AND u.mobile=#mobile:VARCHAR# 
+			UNION ALL
+			SELECT * FROM LOGIN_INFO u where u.N_LOGIN_ID != #loginId:NUMBER# AND u.login_account =#mobile:VARCHAR#
+		]]>
+	</select>
+	
+	
+	
+	<select id="verifyName" resultMap="userMap" parameterClass="users">
+		<![CDATA[
+			SELECT * FROM LOGIN_INFO u where  u.LOGIN_ACCOUNT=#loginAccount:VARCHAR#
+		]]>
+	</select>
+	
+	<select id="queryRegistUserByMobilOrEmail" parameterClass="users" resultMap="userMap">
+		SELECT * FROM LOGIN_INFO u where  u.EMAIL=#email:VARCHAR# or u.mobile=#mobile:VARCHAR#
+	</select>
+	
+	<select id="findLeveNameAndNicName" parameterClass="integer" resultMap="userMapAndNick">
+		 <![CDATA[
+		 select  *
+  from login_info l, user_level ul, PERSONALITY_INFO pi
+ where l.n_login_id = pi.n_login_id
+   and l.n_level_id = ul.n_level_id
+		]]>
+ <dynamic prepend="AND">
+			<include refid="ByLoginId1" />
+ </dynamic>
+	</select>
+	<!-- 获取校验邮箱信息 -->
+	<select id="queryTattedCodeByLoginId" parameterClass="java.lang.Long" resultClass="com.pltfm.app.vobject.EmailInfo">
+	<![CDATA[
+		select e.n_email_id                n_EmailId,
+		       e.tatted_code               tattedCode,
+		       e.n_account_id              n_AccountId,
+		       e.url_address               urlAddress,
+		       e.n_login_id                n_LoginId,
+		       e.is_status                 is_Status,
+		       e.last_send_tattedcode_time lastSendTattedcodeTime,
+		       e.n_failure_time_value      n_FailureTimeValue
+		  from EMAIL_INFO e
+		 where to_date(e.last_send_tattedcode_time, 'yyyy-mm-dd hh24:mi:ss') +
+		       numtodsinterval(e.n_failure_time_value, 'minute') > sysdate
+		   and e.is_status = 0    
+		   and e.n_login_id = #loginId :NUMBER#
+		 order by e.last_send_tattedcode_time desc
+	]]>
+	</select>
+	<!-- 查询临时用户  -->
+	<select id="queryTempUserByMailAndMobile" resultMap="userMap" parameterClass="users">
+	<![CDATA[
+		select ai.n_login_id         n_login_id,
+		       ai.n_customer_type_id n_customer_type_id,
+		       0                     N_LEVEL_ID,
+		       null                  LOGIN_PASSWORD,
+		       null                  N_CREATED,
+		       ai.account_login      login_account,
+		       ai.mobile             mobile,
+		       ai.email              email,
+		       ai.n_status           n_status,
+		       ai.d_create_date,
+		       ai.d_modify_date,
+		       ai.n_modified,
+		       '' CARD_NUM
+		  from account_info ai
+		 where ai.n_status = 1
+   ]]>
+   		<dynamic>
+		    <isNotEmpty prepend="and" property="email">	   
+			  	ai.email = #email:VARCHAR2(50)#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mobile">	   
+			   ai.mobile = #mobile:VARCHAR2(50)#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="loginId">	   
+			   ai.n_login_id = #loginId:NUMBER#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="loginAccount">	   
+			    ai.account_login = #loginAccount:VARCHAR2(50)#
+			</isNotEmpty>
+		</dynamic>
+   </select>
+   <!-- 更新临时用户 -->
+   <update id="updateTempUserInfo" parameterClass="users">
+   	<![CDATA[
+		update login_info l set 
+	]]>	   
+	<dynamic>
+	    <isNotEmpty property="loginAccount">	   
+		   		l.login_account  = #loginAccount:VARCHAR2(50)#,
+		</isNotEmpty>   
+		<isNotEmpty property="loginPassword">   
+		       	l.login_password = #loginPassword:VARCHAR2(50)#,
+		</isNotEmpty>   
+		<isNotEmpty property="email">		       
+		       	l.email          = #email:VARCHAR2(50)#,
+		</isNotEmpty>
+		<isNotEmpty property="customerTypeId">		       
+		       	l.n_customer_type_id = #customerTypeId:NUMBER#,
+		</isNotEmpty>   
+		<isNotEmpty property="mobile">	       
+		       	l.mobile         = #mobile:VARCHAR2(50)#,
+		</isNotEmpty>
+	</dynamic>			       
+	<![CDATA[	       
+		       	l.d_modify_date  = sysdate
+		 where 	l.n_login_id = #loginId:NUMBER#
+   	]]>
+   </update>
+   <!-- 根据ID获取用户信息 -->
+   <select id="getUserByLoginId"  resultMap="userMap" parameterClass="Long">
+	<![CDATA[
+		select l.n_login_id,
+		       l.n_level_id,
+		       l.n_customer_type_id,
+		       l.login_account,
+		       l.login_password,
+		       l.mobile,
+		       l.email,
+		       l.n_status,
+		       l.d_create_date,
+		       l.n_created,
+		       l.d_modify_date,
+		       l.n_modified,
+		       l.card_num
+		  from login_info l
+		 where l.n_login_id = #loginId:NUMBER#
+   ]]>
+   </select>
+   	<!-- 查询用户类型 -->
+   	<select id="queryCustomerType" parameterClass="users" resultClass="Long">
+	<![CDATA[
+		select ai.n_customer_type_id from account_info ai where ai.n_status = 1
+	]]>
+	<dynamic>
+	    <isNotEmpty prepend="and"  property="email">
+	      	ai.email = #email:VARCHAR#
+	    </isNotEmpty>
+	    <isNotEmpty prepend="and"  property="mobile">
+	        ai.mobile = #mobile:VARCHAR2(50)#
+	    </isNotEmpty>
+	    <isNotEmpty prepend="and"  property="loginAccount">
+	        ai.account_login = #loginAccount:VARCHAR2(50)#
+	    </isNotEmpty>
+	</dynamic>
+	 	order by ai.d_create_date desc
+	</select>
+	
+   	<!-- 查询用户信息 -->
+   	<select id="queryUserInfo" resultClass="java.util.HashMap" parameterClass="users">
+		<![CDATA[
+		select li.n_login_id loginId,
+		       li.login_account uname,
+		       (select ai.amount_avlibal
+		          from account_info ai
+		         where ai.n_login_id = li.n_login_id) amountAvlibal,
+		       (select count(1)
+		          from coupon_grant c
+		         where c.coupon_status = 3
+		           and c.custom_id = li.n_login_id) couponAvlibalSum,
+		       pi.n_available_integral integralAvlibal,
+		       li.n_level_id levelId,
+		       pi.head_sculpture headImg
+		  from login_info li
+		 inner join personality_info pi
+		    on (li.n_login_id = pi.n_login_id)
+		]]>
+		<dynamic prepend="where">
+			<include refid="findByLogin" />
+		</dynamic>
+	</select>
+	<!-- 校验用户名 -->
+	<select id="validUserName" resultClass="Long" parameterClass="String">
+	<![CDATA[
+		select rs
+		  from (select ai.n_customer_type_id rs
+		          from account_info ai
+		         where ai.account_login = #uName#
+		        union all
+		        select -1 rs
+		          from key_words kw
+		         where kw.key_words = #uName#
+		           and kw.words_type = 2)  where rownum=1
+	]]>
+	</select>
+	
+	
+	<select id="queryEmailExist" parameterClass="String" resultMap="userMap">
+		select b.*
+		  from account_info a, login_info b
+		 where a.N_LOGIN_ID = b.N_LOGIN_ID
+		   and a.EMAIL = #email:varchar#
+	</select>
+	
+	<select id="queryMobilExist" parameterClass="String" resultMap="userMap">
+				select b.*
+		  from account_info a, login_info b
+		 where a.N_LOGIN_ID = b.N_LOGIN_ID
+		   and a.MOBILE =#mobile:varchar#
+	</select>
+	<select id="VerifyMobile" resultMap="userMap" parameterClass="String">
+		<![CDATA[
+			SELECT * FROM LOGIN_INFO u where  u.mobile=#mobile:VARCHAR# or u.login_account =#mobile:VARCHAR#
+		]]>
+	</select>
+	<select id='queryUserByLoginId' parameterClass="long" resultMap="userMap">
+		select N_LOGIN_ID,
+				N_LEVEL_ID,
+				N_CUSTOMER_TYPE_ID,
+				LOGIN_ACCOUNT,
+				LOGIN_PASSWORD,
+				MOBILE,
+				EMAIL,
+				N_STATUS,
+				D_CREATE_DATE,
+				N_CREATED,
+				D_MODIFY_DATE,
+				N_MODIFIED,
+				CARD_NUM
+		from login_info where  N_LOGIN_ID=#loginId:NUMBER# 
+	</select>
+	
+		<select id="findLoginInfoByOrderCode" parameterClass="java.util.HashMap" resultMap="userMap">
+		select l.*
+		  from ORDER_MAIN o, login_info l
+		 where o.CUSTOMER_ID = l.N_LOGIN_ID
+		   and o.ORDER_STATUS=1
+		   <dynamic>
+		    <isNotEmpty prepend="and" property="orderCode">
+		   	 	o.ORDER_CODE = #orderCode#
+		   </isNotEmpty>
+		   <isNotEmpty prepend="and" property="loginId">
+		   		l.N_LOGIN_ID = #loginId#
+		   </isNotEmpty>
+		  </dynamic>
+	</select>
+	
+	<!-- 验证用户是否存在：注册、修改用户名、手机号、邮箱 -->
+	<select id="checkUserExists" resultClass="java.util.HashMap" parameterClass="users">
+	select max(email) email,max(mobile) mobile,max(uname) uname,max(isIllegal) isIllegal from (
+		select li.email email, li.mobile mobile, li.login_account uname
+			,0 isIllegal
+	<![CDATA[	        
+		  from login_info li
+		 where li.n_status = 1 and 
+		 
+		 (
+	]]>
+		<dynamic>
+		    <isNotEmpty property="loginAccount">
+		        li.login_account = #loginAccount:varchar# or li.mobile = #loginAccount:varchar# or li.email = #loginAccount:varchar#
+		    </isNotEmpty>  
+		    <isNotEmpty property="mobile">
+		         <isNotEmpty property="loginAccount">
+		             or
+		         </isNotEmpty>
+		        li.login_account = #mobile:varchar# or li.mobile = #mobile:varchar# or li.email = #mobile:varchar#
+		    </isNotEmpty>  
+		    <isNotEmpty property="email">
+		        <isNotEmpty property="mobile">
+		            or
+		        </isNotEmpty>
+		        <isEmpty  property="mobile">
+		            <isNotEmpty property="loginAccount">
+		                or
+		            </isNotEmpty>
+		        </isEmpty>
+		        li.login_account = #email:varchar# or li.mobile = #email:varchar# or li.email = #email:varchar#
+		    </isNotEmpty>  
+		</dynamic>
+	 	 )
+		 <isNotEmpty property="loginId">
+			     and li.n_login_id  != #loginId:varchar#
+		 </isNotEmpty>
+	 and rownum=1	
+	 
+	 	union
+	 	
+	 	select '' email, '' mobile, '' uname
+			<dynamic>
+		    <isNotEmpty property="loginAccount">
+			,(select count(1)
+			  from key_words kw
+			 where 
+			   instr(#loginAccount#,kw.key_words)&gt;0
+			   and kw.words_type = 2) isIllegal
+		    </isNotEmpty>
+		    <isEmpty property="loginAccount">
+		    ,0 isIllegal
+		    </isEmpty>
+		</dynamic>	
+		 from login_info li
+		 where li.n_status = 1
+		  and rownum=1	
+	 ) 
+	</select>
+	
+	<!-- maliqun add  电商数据和总部会员数据首次导入所作查询 ,请勿轻易使用-->
+	<!-- <select id="queryUserForWebServiceBasicImport"  resultMap="userMap" parameterClass="users">
+		<![CDATA[
+			        SELECT li.N_LOGIN_ID,
+             li.N_LEVEL_ID,
+             li.N_CUSTOMER_TYPE_ID,
+             li.LOGIN_ACCOUNT,
+             li.LOGIN_PASSWORD,
+             li.MOBILE,
+             li.EMAIL,
+             li.N_STATUS,
+             li.D_CREATE_DATE,
+             li.N_CREATED,
+             li.D_MODIFY_DATE,
+             li.N_MODIFIED
+        FROM (SELECT rownum as num, li.N_LOGIN_ID,
+             li.N_LEVEL_ID,
+             li.N_CUSTOMER_TYPE_ID,
+             li.LOGIN_ACCOUNT,
+             li.LOGIN_PASSWORD,
+             li.MOBILE,
+             li.EMAIL,            
+             li.N_STATUS,
+             li.D_CREATE_DATE,
+             li.N_CREATED,
+             li.D_MODIFY_DATE,
+             li.N_MODIFIED
+        FROM login_info_20141218 li order by li.n_login_id asc) li  where num>=#min# and num<#max#
+		]]>
+	</select>	  -->
+	
+	<!-- insert maliqun add 请勿删除,后续可能需要嵌入 -->
+	<insert id="insertFailureInfo" parameterClass="com.kmzyc.b2b.model.UserExportInfo" >
+		insert into user_export_info
+	 	 (login_account, export_status, export_date, remark, export_type)
+		values
+	  	( #loginAccount:VARCHAR#, #status:VARCHAR#,  #exportDate:DATE#,  #remark:VARCHAR#, #exporType:VARCHAR# )	
+  	</insert>
+  	
+  	<!-- 根据用户名、邮箱、手机查询用户信息 -->
+  	<select id="SQL_QUERY_USER_INFO_BY_NEM" parameterClass="String" resultClass="com.kmzyc.b2b.model.User">
+  	<![CDATA[
+  		select li.n_login_id loginId,
+		       li.n_level_id levelId,
+		       li.n_customer_type_id customerTypeId,
+		       li.login_account loginAccount,
+		       li.login_password loginPassword,
+		       li.mobile mobile,
+		       li.email email,
+		       li.n_status status,
+		       li.d_create_date createDate,
+		       li.n_created created,
+		       li.d_modify_date modifyDate,
+		       li.n_modified modified,
+		       (select pi.nickname
+		          from personality_info pi
+		         where pi.n_login_id = li.n_login_id) nickname
+		  from login_info li
+		 where li.n_status = 1
+		   and (li.email = #loginAccount:varchar# or li.mobile = #loginAccount:varchar# or li.login_account = #loginAccount:varchar#)
+  	]]>
+  	</select>
+  	
+  	<!-- 根据用户名、邮箱、手机查询用户信息   包括禁用的账号-->
+  	<select id="queryAllUserInfoByName" parameterClass="String" resultClass="com.kmzyc.b2b.model.User">
+  	<![CDATA[
+  		select li.n_login_id loginId,
+		       li.n_level_id levelId,
+		       li.n_customer_type_id customerTypeId,
+		       li.login_account loginAccount,
+		       li.login_password loginPassword,
+		       li.mobile mobile,
+		       li.email email,
+		       li.n_status status,
+		       li.d_create_date createDate,
+		       li.n_created created,
+		       li.d_modify_date modifyDate,
+		       li.n_modified modified,
+		       (select pi.nickname
+		          from personality_info pi
+		         where pi.n_login_id = li.n_login_id) nickname
+		  from login_info li
+		 where li.email = lower(#loginAccount:varchar#) or li.mobile = lower(#loginAccount:varchar#) or li.login_account = lower(#loginAccount:varchar#)
+  	]]>
+  	</select>
+  	
+  	<!-- 根据用户名、邮箱、手机查询用户信息   包括禁用的账号 forapp-->
+  	<select id="queryAllUserInfoByNameForApp" parameterClass="String" resultClass="com.kmzyc.b2b.model.User">
+  	<![CDATA[
+  		select li.n_login_id loginId,
+		       li.login_account loginAccount,
+		       li.mobile mobile,
+		       li.n_status status,
+		       li.email email,
+		       li.n_customer_type_id customerTypeId
+		  from login_info li
+		 where li.email = lower(#loginAccount:varchar#) or li.mobile = lower(#loginAccount:varchar#) or li.login_account = lower(#loginAccount:varchar#)
+  	]]>
+  	</select>
+  	
+  	<!-- 根据用户ID查询所属组织机构 -->
+  	
+  		<select id="selectOrganInfo"  parameterClass="java.util.Map" resultClass="com.kmzyc.b2b.model.User">
+            select A.Organi_Code organCode,
+               A.Organi_Des  organDes
+         from prom_invited_organizations A 
+              ,prom_members_invitation_list B
+          where A.INVITED_ORGANIZATIONS_ID=B.INVITED_ORGANIZATIONS_ID
+  		   and  B.Invitees_Id = #loginId:DECIMAL#
+  	</select> 
+  	
+  	
+  	<!-- 根据推广者ID查询所属组织机构 -->	
+	<select id="selectPromOrganInfo"  parameterClass="java.util.List" resultClass="com.kmzyc.b2b.model.User">
+		select pio.organi_code organCode, pio.organi_des organDes, si.sid promId
+			  from prom_invited_organizations pio, spreader_info si
+			 where pio.organi_state = 0
+			   and pio.organi_code is not null
+			   and exists
+			 (select 1
+			          from prom_members_invitation_list pmil
+			         where pmil.invited_organizations_id = pio.invited_organizations_id
+			           and pmil.invitees_id = si.login_id)
+			   and si.sid in ( 
+		<iterate conjunction="," >#[]#</iterate>
+			) and rownum = 1
+  	</select> 
+  	
+  
+  	
+  	
+  	
+  	
+  	<!-- 查询用户手机号码 -->
+  	<select id="SQL_QUERY_USER_MOBILE_FOR_VSHOP" parameterClass="java.lang.Long" resultClass="java.util.HashMap" >
+  		select li.n_login_id    loginId,
+		       li.mobile        vmobile,
+		       ai.mobile        mobile,
+		       li.login_account loginAcount,
+		       (select count(1) from spreader_info where login_id=li.n_login_id)  hasRigester
+		  from login_info li, account_info ai
+		 where ai.n_login_id = li.n_login_id
+		   and li.n_login_id = #loginId:DECIMAL#
+  	</select>
+  	
+  	<!-- 微商验证用户是否存在 -->
+	<select id="checkUserExistsForVshop" resultClass="java.util.HashMap" parameterClass="users">
+		select li.n_login_id loginId,
+		       nvl((select count(1)
+		             from spreader_apply_record asr
+		            where asr.login_id = li.n_login_id
+		              and asr.audit_status = 1),
+		           0) || '' isapplay
+		  from login_info li
+		 where li.n_status = 1
+		   and (li.login_account = #loginAccount:varchar# 
+		<isNotEmpty property="mobile">		   
+		   or li.login_account = #mobile:varchar# or
+		       li.mobile = #mobile:varchar#
+		</isNotEmpty>		       
+		       )
+		<isNotEmpty property="loginId">
+			<![CDATA[and li.n_login_id <> #loginId:DECIMAL#]]>
+		</isNotEmpty>		       
+	</select> 
+	
+	<!-- 根据登录名查询用户信息 -->
+  	<select id="SQL_QUERY_USER_BY_LOGIN_ACCOUNT" parameterClass="String" resultClass="com.kmzyc.b2b.model.User">
+  	<![CDATA[
+  		select li.n_login_id loginId,
+		       li.n_level_id levelId,
+		       li.n_customer_type_id customerTypeId,
+		       li.login_account loginAccount,
+		       li.login_password loginPassword,
+		       li.mobile mobile,
+		       li.email email,
+		       li.n_status status,
+		       li.d_create_date createDate,
+		       li.n_created created,
+		       li.d_modify_date modifyDate,
+		       li.n_modified modified,
+		       (select pi.nickname
+		          from personality_info pi
+		         where pi.n_login_id = li.n_login_id) nickname
+		  from login_info li
+		 where li.n_status = 1
+		   and li.login_account = #loginAccount:varchar#
+  	]]>
+  	</select>
+  	
+  	<!-- 查询用户绑定类型 -->
+	<select id="SQL_QUERY_USER_BIND_TYPE" parameterClass="java.lang.Long" resultClass="String">
+		select tai.third_account_type
+		  from third_account_info tai
+		 where tai.status = 'Y'
+		   and tai.open_id = (select tbi.open_id
+		                        from third_bind_info tbi
+		                       where tbi.n_login_id = #loginId:DECIMAL#
+		                         and rownum = 1)
+	</select>
+
+	<!-- 用户登录 -->
+	<select id="SQL_QUERY_USER_LOGIN" resultMap="loginUser" parameterClass="com.kmzyc.b2b.model.User">
+		select li.n_login_id,
+		      li.n_level_id,
+		      li.n_customer_type_id,
+		      li.login_account,
+		      li.login_password,
+		      li.mobile,
+		      li.email,
+		      li.n_status,
+		      li.d_create_date,
+		      li.n_created,
+		      li.d_modify_date,
+		      li.n_modified,
+		      p.head_sculpture,
+		      ei.era_no,
+		      ei.era_info_id,
+		      ei.login_account lg,
+		      (select pi.nickname
+		         from personality_info pi
+		        where pi.n_login_id = li.n_login_id) nickname
+		 from login_info li,
+		 PERSONALITY_INFO p
+		<isNull property="earInfo">
+			, era_info ei
+		</isNull>
+		where 
+		<isNull property="earInfo">
+			li.n_login_id = p.n_login_id(+)
+			and li.n_login_id = ei.n_login_id(+)
+		</isNull>
+		<isNotNull property="earInfo">
+		<isNotEmpty property="earInfo.eraNo">
+			li.n_login_id = p.n_login_id(+)
+			and li.n_login_id = ei.n_login_id
+			and ei.era_no = #earInfo.eraNo:varchar#
+		</isNotEmpty>
+		</isNotNull>
+		<isNotEmpty property="email">
+			and li.n_login_id in
+		      (select li1.n_login_id
+		         from login_info li1
+		        where li1.login_password = #loginPassword:varchar#
+		          and li1.login_account = #email:varchar#
+		       union all
+		       select li2.n_login_id
+		         from login_info li2
+		        where li2.login_password = #loginPassword:varchar#
+		          and li2.email = #email:varchar#)
+		</isNotEmpty>
+		<isNotEmpty property="loginAccount">
+			and li.login_password = #loginPassword:VARCHAR#
+			and li.login_account = #loginAccount:varchar#
+		</isNotEmpty>
+		<isNotEmpty property="mobile">
+			and li.login_password = #loginPassword:VARCHAR#
+			and li.mobile = #mobile:varchar#
+		</isNotEmpty>     
+	</select>
+	
+	<!--  根据时代编号查询用户信息 -->
+  	<select id="SQL_QUERY_ERA_USER_BYE_RANO" parameterClass="String" resultClass="com.kmzyc.b2b.model.User">
+  	<![CDATA[
+  		select li.n_login_id loginId,
+		       li.n_level_id levelId,
+		       li.n_customer_type_id customerTypeId,
+		       li.login_account loginAccount,
+		       li.login_password loginPassword,
+		       li.mobile mobile,
+		       li.email email,
+		       li.n_status status,
+		       li.d_create_date createDate,
+		       li.n_created created,
+		       li.d_modify_date modifyDate,
+		       li.n_modified modified,
+		       (select pi.nickname
+		          from personality_info pi
+		         where pi.n_login_id = li.n_login_id) nickname
+		  from login_info li
+		 where li.n_status = 1
+		   and exists (select 1
+		          from era_info ei
+		         where ei.n_login_id = li.n_login_id
+		           and ei.era_no = #EraNo:varchar#)
+  	]]>
+  	</select>
+  	
+  	
+   <select id="SQL_QUERY_USER_BY_LOGIN_CARDNUM" parameterClass="java.lang.Long" resultClass="com.kmzyc.b2b.model.User">
+	select 
+	li.login_account loginAccount,
+	li.n_level_id levelId,
+	li.n_customer_type_id customerTypeId,
+	li.login_password loginPassword,
+	li.n_login_id loginId,
+	li.CARD_NUM cardNum,
+	li.n_status status,
+	 (select pi.nickname
+		          from personality_info pi
+		         where pi.n_login_id = li.n_login_id) nickname,
+	li.mobile 
+	from 
+	login_info li 
+	where 
+	li.N_STATUS=1   
+	and li.CARD_NUM=#cardNum:DECIMAL#  
+	</select>  
+	
+   <!-- 根据条件查询用户信息 -->
+   <select id="queryUser"  resultMap="userMap" parameterClass="users">
+	
+		select l.n_login_id,
+		       l.n_level_id,
+		       l.n_customer_type_id,
+		       l.login_account,
+		       l.login_password,
+		       l.mobile,
+		       l.email,
+		       l.n_status,
+		       l.d_create_date,
+		       l.n_created,
+		       l.d_modify_date,
+		       l.n_modified,
+		       l.card_num
+		  from login_info l
+		 where 1=1
+		 <isNotEmpty property="mobile">			
+			and l.mobile = #mobile:varchar#
+		</isNotEmpty>  
+		<isNotEmpty property="loginId">			
+			and l.n_login_id = #loginId:DECIMAL#
+		</isNotEmpty>  		
+  
+   </select>
+</sqlMap>

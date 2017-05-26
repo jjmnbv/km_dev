@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="BNES_BROWSING_HIS">
+
+	<resultMap id="ibatorgenerated_BaseResultMap" class="com.kmzyc.b2b.model.BrowsingHis">
+		<result column="procuct_name" property="procuctName" jdbcType="VARCHAR" />
+		<result column="mark_price" property="marketPrice" jdbcType="DECIMAL" />
+        <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+        <result column="img_path5" property="imgPath5" jdbcType="VARCHAR" />
+		<result column="img_path6" property="imgPath6" jdbcType="VARCHAR" />
+        <result column="img_path7" property="imgPath7" jdbcType="VARCHAR" />
+		<result column="product_sku_id" property="productSkuId" jdbcType="DECIMAL" />
+		<result column="product_id" property="productId" jdbcType="DECIMAL" />
+		<result column="content_code" property="contentCode" jdbcType="VARCHAR" />
+		<result column="login_id" property="loginId" jdbcType="DECIMAL" />
+		<result column="browsing_his_id" property="browsingHisId" jdbcType="DECIMAL" />
+		<result column="create_date" property="createDate" jdbcType="DATE" />
+		<result column="update_date" property="updateDate" jdbcType="DATE" />
+		<result column="browsing_type" property="browsingType" jdbcType="DECIMAL" />
+        <result column="price" property="price" jdbcType="DECIMAL" />
+        <result property="categoryAttrValueList" resultMap="BNES_BROWSING_HIS.categoryAttrValueListMap"/>
+		<result column="pv_value" property="pvValue" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<resultMap id="categoryAttrValueListMap" class="java.util.HashMap">
+		<result column="CATEGORY_ATTR_VALUE" property="categoryAttrValue"  javaType="java.lang.String" />
+	</resultMap>
+	<!-- 判断是否记录中是否已有该记录 -->
+	<select id="queryByContentCode" parameterClass="java.util.Map" resultClass="Integer">
+	       select count(*) from bnes_browsing_his b
+	       <dynamic prepend="WHERE">
+                <![CDATA[
+                	 b.content_code=#contentCode:VARCHAR#
+				]]>
+		</dynamic>
+		<dynamic prepend="AND">
+              <![CDATA[
+                	 b.login_id = #loginId:NUMBER#
+				]]>
+		</dynamic>
+	</select>
+	
+	<!-- 修改浏览记录 -->
+	<update id="updateBrowingHis" parameterClass="java.util.Map">
+	    update bnes_browsing_his b 
+	    <dynamic prepend="SET">
+                <![CDATA[
+                	b.update_date=#updateDate#
+				]]>
+		</dynamic>
+	   <dynamic prepend="WHERE">
+                <![CDATA[
+                	 b.content_code=#contentCode:VARCHAR#
+				]]>
+		</dynamic>
+		<dynamic prepend="AND">
+              <![CDATA[
+                	 b.login_id = #loginId:NUMBER#
+				]]>
+		</dynamic>
+	</update>
+	
+    <!-- 添加浏览记录 -->
+	<insert id="SQL_INSERT_MY_BROW_HISTORY" parameterClass="com.kmzyc.b2b.model.BrowsingHis">
+		merge into bnes_browsing_his bbh
+		using (select #loginId:DECIMAL# loginId, #contentCode:VARCHAR# contentCode, #browsingType:DECIMAL# browsingType from dual) cond
+		on (bbh.browsing_type = cond.browsingType and bbh.login_id = cond.loginId and bbh.content_code = cond.contentCode)
+		when not matched then
+		  insert
+		    (browsing_his_id,login_id,content_code,create_date,browsing_type,update_date)
+		  values
+		    (SEQ_BROWSING_HIS.NEXTVAL, #loginId:DECIMAL#, #contentCode:VARCHAR#, sysdate, #browsingType:DECIMAL#, sysdate)
+		when matched then
+  			update set bbh.update_date = sysdate  		    
+	</insert>
+	
+    <!-- 根据登录id获取浏览记录信息 -->
+	<select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap" parameterClass="java.util.Map">
+		select pm.product_title procuct_name,
+		       ps.mark_price mark_price,
+		       pi.img_path img_path,
+		       pi.img_path5 img_path5,
+		       pi.img_path6 img_path6,
+		       pi.img_path7 img_path7,
+		       ps.product_sku_id product_sku_id,
+		       pm.product_id product_id,
+		       brs.content_code content_code,
+		       #loginId:NUMBER# login_id,
+		       brs.browsing_his_id browsing_his_id,
+		       brs.create_date create_date,
+		       brs.update_date update_date,
+		       brs.browsing_type browsing_type,
+		       ps.price price,
+		       '' category_attr_value,
+			   ps.pv_value
+		  from product_sku ps,
+		       productmain pm,
+		       product_image pi,
+		<isNotEmpty property="startNum">
+		<![CDATA[		       
+		       (select birs.browsing_his_id,
+		               birs.login_id,
+		               birs.content_code,
+		               birs.create_date,
+		               birs.browsing_type,
+		               birs.update_date
+		          from (select bbh.browsing_his_id,
+		                       bbh.login_id,
+		                       bbh.content_code,
+		                       bbh.create_date,
+		                       bbh.browsing_type,
+		                       bbh.update_date,
+		                       rownum rn
+		                  from bnes_browsing_his bbh
+		                 where bbh.browsing_type = 1
+		                   and bbh.login_id = #loginId:NUMBER#
+		                   and rownum <= #rowNum:NUMBER#) birs
+		         where birs.rn >= #startNum:NUMBER#) brs
+		]]>		         
+		</isNotEmpty>
+		<isEmpty property="startNum">
+		<![CDATA[
+			   (select bbh.browsing_his_id,
+				       bbh.login_id,
+				       bbh.content_code,
+				       bbh.create_date,
+				       bbh.browsing_type,
+				       bbh.update_date
+				  from bnes_browsing_his bbh
+				 where bbh.browsing_type = 1
+				   and bbh.login_id = #loginId:NUMBER#
+				   and rownum <= #rowNum:NUMBER# ) brs
+		]]>				   
+		</isEmpty>	         
+		 where pi.is_default = 0
+		   and ps.product_id = pm.product_id
+		   and ps.product_sku_id = pi.sku_id
+		   and ps.product_sku_code = brs.content_code
+	</select>
+	
+	
+	   <!-- 根据登录id获取浏览记录信息 -->
+	<select id="ibatorgenerated_query_bnes_browsing_his_list" resultMap="ibatorgenerated_BaseResultMap" parameterClass="pagination">
+         select bb.*, d.category_attr_value  from ( 
+        select * from     (
+ 
+    select ROWNUM rn ,t.*
+		
+		 <![CDATA[
+		from (select b.login_id,b.browsing_his_id,b.create_date,b.update_date,b.browsing_type,
+		m.product_title procuct_name,s.mark_price,s.price,img_path,i.img_path5,i.img_path6,i.img_path7,s.product_sku_id,s.product_id,b.content_code,s.pv_value
+		from
+		product_sku s,
+		productmain m,
+		product_image i,
+		bnes_browsing_his b
+		where b.content_code=s.product_sku_code
+		and  b.browsing_type=1
+		and s.product_sku_id=i.sku_id
+		and i.product_id=m.product_id	
+		and i.is_default=0
+		]]>
+		<dynamic prepend="AND">
+              <![CDATA[
+                	 b.login_id = #objCondition.loginId#
+				]]>
+				order by b.update_date DESC)t 
+		</dynamic>        
+        )
+		<dynamic prepend="WHERE">
+                <![CDATA[
+                	rn < =#endindex# and rn >= #startindex#
+				]]>
+		</dynamic>
+		 )  bb  
+	
+    left join product_sku_attr h
+    on bb.product_sku_id = h.product_sku_id
+  left join category_attr_value d
+    on h.category_attr_value_id = d.category_attr_value_id
+ order by bb.update_date desc 
+	   
+		
+	</select>
+	
+	 <!-- 查询某个登陆Id的浏览记录总数 -->
+	<select id="ibatorgenerated_query_bnes_browsing_his_count" resultClass="int" parameterClass="pagination">
+		 <![CDATA[
+		select  count(*) from (select b.login_id,b.browsing_his_id,b.create_date,b.update_date,b.browsing_type,
+		m.product_title procuct_name,s.mark_price,s.price,img_path,i.img_path5,i.img_path6,i.img_path7,s.product_sku_id,s.product_id,b.content_code
+		from
+		product_sku s,
+		productmain m,
+		product_image i,
+		bnes_browsing_his b
+		where b.content_code=s.product_sku_code
+		and  b.browsing_type=1
+		and s.product_sku_id=i.sku_id
+		and i.product_id=m.product_id	
+		and i.is_default=0
+		]]>
+		<dynamic prepend="AND">
+              <![CDATA[
+                	 b.login_id = #objCondition.loginId#
+				]]>
+				order by b.update_date DESC)t 
+		</dynamic>
+	</select>
+	
+	
+    <!-- 删除对应登陆id的浏览记录 -->
+    <delete id="deleteBrowingHisById" parameterClass="Integer">
+       delete bnes_browsing_his
+       <dynamic prepend="WHERE">
+                <![CDATA[
+                	login_id = #loginId:NUMBER#
+				]]>
+		</dynamic>
+    </delete>
+    
+      <!-- 删除对应登陆id的某个浏览记录 -->
+    <delete id="deleteBrowingHisByBrowsId" parameterClass="java.util.Map">
+       delete from  bnes_browsing_his
+       <dynamic prepend="WHERE">
+                <![CDATA[
+                	login_id = #loginId:NUMBER#
+				]]>
+		</dynamic>
+		      <dynamic prepend="and">
+                <![CDATA[
+                	 browsing_his_id  = #browsingId:NUMBER#
+				]]>
+		</dynamic>
+    </delete>
+    
+      <!-- 查询某个登陆Id的浏览记录 -->
+	<select id="queryBROWSINGCOUNT" resultClass="long" parameterClass="java.util.Map">
+		 <![CDATA[
+		select  count(*) from (select b.login_id,b.browsing_his_id,b.create_date,b.update_date,b.browsing_type,
+		m.product_title procuct_name,s.mark_price,s.price,img_path,i.img_path5,i.img_path6,i.img_path7,s.product_sku_id,s.product_id,b.content_code
+		from
+		product_sku s,
+		productmain m,
+		product_image i,
+		bnes_browsing_his b
+		where b.content_code=s.product_sku_code
+		and  b.browsing_type=1
+		and s.product_sku_id=i.sku_id
+		and i.product_id=m.product_id	
+		and i.is_default=0
+		]]>
+		<dynamic prepend="AND">
+              <![CDATA[
+                	 b.login_id = #loginId:NUMBER#
+				]]>
+				order by b.update_date DESC)t 
+		</dynamic>
+	</select>
+</sqlMap>

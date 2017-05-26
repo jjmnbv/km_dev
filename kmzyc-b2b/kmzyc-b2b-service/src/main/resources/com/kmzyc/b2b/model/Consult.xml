@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="Consult">
+    
+    <!--  consult表-->
+	<resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.Consult" >
+    <result column="CONSULT_ID" property="consultId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_SKUID" property="productSkuid" jdbcType="DECIMAL" />
+    <result column="PRODUCT_SKUCODE" property="productSkucode" jdbcType="VARCHAR" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="CUST_NICKNAME" property="custNickname" jdbcType="VARCHAR" />
+    <result column="CUST_LEVEL" property="custLevel" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="DECIMAL" />
+    <result column="CONSULT_CONTENT" property="consultContent" jdbcType="VARCHAR" />
+    <result column="CONSULT_DATE" property="consultDate" jdbcType="VARCHAR" />
+    <result column="REPLY_CONTENT" property="replyContent" jdbcType="VARCHAR" />
+    <result column="REPLY_PERSON" property="replyPerson" jdbcType="VARCHAR" />
+    <result column="REPLY_DATE" property="replyDate" jdbcType="DATE" />
+    <result column="REPLY_STATUS" property="replyStatus" jdbcType="DECIMAL" />
+    <result column="CHECK_STATUS" property="checkStatus" jdbcType="DECIMAL" />
+    <result column="CHECK_MAN_ID" property="checkManId" jdbcType="DECIMAL" />
+    <result column="CHECK_MAN" property="checkMan" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+
+    <select id="countConsultByUserId" parameterClass="java.util.HashMap" resultClass="long">
+        <![CDATA[
+			select nvl(count(1),0) from consult
+			where cust_id=#userId:NUMBER#
+		]]>
+        <isNotEmpty property="checkStatus" prepend="and">
+            check_status in ($checkStatus$)
+        </isNotEmpty>
+    </select>
+    
+    <!-- 分页查询咨询 -->
+     <select id="findConsultListByPage"
+        parameterClass="pagination"
+        resultMap="ibatorgenerated_BaseResultMap" >
+        <![CDATA[
+			SELECT * FROM (SELECT c.*,ROWNUM RN FROM 
+				(select   * 
+				   			from consult  c               
+								where  c.check_status=2
+									and c.reply_status=1	 					 
+				   					 
+		]]>
+
+        <isNotEmpty property="objCondition.type" >
+            <![CDATA[
+			 and c.type  =  #objCondition.type:DECIMAL#
+			]]>
+        </isNotEmpty>
+        
+        <isNotEmpty property="objCondition.consultContent" >
+            <![CDATA[
+			 and c.CONSULT_CONTENT   like  '%$objCondition.consultContent$%'
+			]]>
+        </isNotEmpty>
+        
+           <isNotEmpty property="objCondition.productSkuid" >
+            <![CDATA[
+			 and c.product_skuid  =  #objCondition.productSkuid:DECIMAL#
+			]]>
+        </isNotEmpty>
+
+       
+        <![CDATA[
+ order by c.consult_date desc		) c  WHERE ROWNUM <= #endindex#) WHERE RN >= #startindex#
+		
+		
+		]]>
+    </select>
+    
+     
+         <!-- 查询的总条数 -->
+  <select id="countConsultByPage" parameterClass="pagination" resultClass="int">
+ 
+			<![CDATA[
+				select count(1) 
+				  from consult  c             
+				 where	  c.check_status=2 
+									and c.reply_status=1
+			]]>
+	 	
+      <isNotEmpty property="objCondition.type" >
+            <![CDATA[
+			 and c.type  =  #objCondition.type:DECIMAL#
+			]]>
+        </isNotEmpty>
+        
+        <isNotEmpty property="objCondition.consultContent" >
+            <![CDATA[
+			 and c.CONSULT_CONTENT   like  '%$objCondition.consultContent$%'
+			]]>
+        </isNotEmpty>
+        
+           <isNotEmpty property="objCondition.productSkuid" >
+            <![CDATA[
+			 and c.product_skuid  =  #objCondition.productSkuid:DECIMAL#
+			]]>
+        </isNotEmpty>
+  
+      
+	</select>
+</sqlMap>

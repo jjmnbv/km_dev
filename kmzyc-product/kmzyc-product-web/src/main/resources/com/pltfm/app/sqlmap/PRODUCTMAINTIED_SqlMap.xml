@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PRODUCTMAINTIED">
+	<resultMap id="baseResultMap" class="com.pltfm.app.vobject.ProductmainTied">
+		<result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+        <result column="MARK_PRICE" property="markPrice" jdbcType="DECIMAL" />
+		<result column="PRICE" property="price" jdbcType="DECIMAL" />
+		<result column="PRODUCT_SKU_CODE" property="productSkuCode" jdbcType="VARCHAR" />
+		<result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+		<result column="PRODUCT_SKU_ID" property="skuAttrList" select="PRODUCTMAINTIED.querySkuAttrBySkuId"/>
+		<result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+		<result column="PROCUCT_NAME" property="procuctName" jdbcType="VARCHAR" />
+		<result column="PRODUCT_DESC" property="productDesc" jdbcType="VARCHAR" />
+		<result column="PACK_LISTING" property="packListing" jdbcType="VARCHAR" />
+		<result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+		<result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="VARCHAR" />
+		<result column="CREATE_USER" property="createUser" jdbcType="DECIMAL" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+		<result column="PRODUCTHOT" property="producthot" jdbcType="DECIMAL" />
+		<result column="ARCHIVE_TIME" property="archiveTime" jdbcType="DATE" />
+		<result column="CHECK_TIME" property="checkTime" jdbcType="DATE" />
+		<result column="MODIF_TIME" property="modifTime" jdbcType="DATE" />
+		<result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR" />
+		<result column="shop_code" property="supplierName" select="PRODUCTMAINTIED.getMerchantName"/>
+		<result column="MODIF_USER" property="modifUser" jdbcType="DECIMAL" />
+		<result column="UP_TIME" property="upTime" jdbcType="DATE" />
+		<result column="MARKET_PRICE" property="marketPrice" jdbcType="DECIMAL" />
+		<result column="COST_PRICE" property="costPrice" jdbcType="DECIMAL" />
+		<result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+		<result column="CHECK_USER" property="checkUser" jdbcType="DECIMAL" />
+		<result column="CHECK_USER_NAME" property="checkUserName" jdbcType="VARCHAR" />
+		<result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+		<result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+		<result column="BRAND_ID" property="prodBrand" select="PRODUCTMAINTIED.getBrandName" />
+		<result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+		<result column="product_type" property="productType" jdbcType="DECIMAL"/>
+	</resultMap>
+
+	<resultMap id="baseResultMap1" class="com.pltfm.app.vobject.ProductmainTied">
+		<result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+        <result column="MARK_PRICE" property="markPrice" jdbcType="DECIMAL" />
+		<result column="PRICE" property="price" jdbcType="DECIMAL" />
+		<result column="PRODUCT_SKU_CODE" property="productSkuCode" jdbcType="VARCHAR" />
+		<result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+        <result column="PRODUCT_ID" property="productSkus" select="PRODUCTMAINTIED.getSkusByProdIdForPrice"/>
+		<result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+		<result column="PROCUCT_NAME" property="procuctName" jdbcType="VARCHAR" />
+		<result column="PRODUCT_DESC" property="productDesc" jdbcType="VARCHAR" />
+		<result column="PACK_LISTING" property="packListing" jdbcType="VARCHAR" />
+		<result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+		<result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="VARCHAR" />
+		<result column="CREATE_USER" property="createUser" jdbcType="DECIMAL" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+		<result column="PRODUCTHOT" property="producthot" jdbcType="DECIMAL" />
+		<result column="ARCHIVE_TIME" property="archiveTime" jdbcType="DATE" />
+		<result column="CHECK_TIME" property="checkTime" jdbcType="DATE" />
+		<result column="MODIF_TIME" property="modifTime" jdbcType="DATE" />
+		<result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR" />
+		<result column="MODIF_USER" property="modifUser" jdbcType="DECIMAL" />
+		<result column="UP_TIME" property="upTime" jdbcType="DATE" />
+		<result column="MARKET_PRICE" property="marketPrice" jdbcType="DECIMAL" />
+		<result column="COST_PRICE" property="costPrice" jdbcType="DECIMAL" />
+		<result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+		<result column="CHECK_USER" property="checkUser" jdbcType="DECIMAL" />
+		<result column="CHECK_USER_NAME" property="checkUserName" jdbcType="VARCHAR" />
+		<result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+		<result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+		<result column="BRAND_ID" property="prodBrand" select="PRODUCTMAINTIED.getBrandName" />
+		<result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+	</resultMap>
+    <resultMap id="ProductBrandResultMap" class="com.pltfm.app.vobject.ProdBrand" >
+        <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    </resultMap>
+
+	<select id="getSkusByProdIdForPrice" parameterClass="java.lang.Long" resultClass="com.pltfm.app.vobject.ProductSku">
+	 <![CDATA[  
+	 select ps.PRODUCT_SKU_ID productSkuId,ps.PRODUCT_SKU_CODE productSkuCode,ps.PRODUCT_ID productId,ps.PRICE price,ps.COST_PRICE costPrice,ps.UNIT_WEIGHT unitWeight,ps.MARK_PRICE markPrice,ta_temp.col as skuAttrs
+		from product_sku ps
+		left join 
+		(select temp.product_sku_id, wm_concat(temp.CATEGORY_ATTR_VALUE) col from (select ps1.product_sku_id,decode(psa.new_attr,null,cav.CATEGORY_ATTR_VALUE,psa.new_attr) as CATEGORY_ATTR_VALUE from product_sku ps1 
+		left join product_sku_attr psa on psa.product_sku_id = ps1.product_sku_id 
+		left join category_attr_value cav on cav.CATEGORY_ATTR_ID = psa.CATEGORY_ATTR_ID and psa.CATEGORY_ATTR_VALUE_ID=cav.CATEGORY_ATTR_VALUE_ID) temp  
+		group by temp.product_sku_id) ta_temp  on ps.product_sku_id=ta_temp.product_sku_id
+	 where ps.PRODUCT_ID = #value#
+	 ]]>
+  </select> 
+  <select id="getBrandName" parameterClass="java.lang.Long" resultMap="ProductBrandResultMap">
+   <![CDATA[  
+	select brn.brand_name from prod_brand brn  where brn.brand_id = #value#
+	 ]]>
+  </select>
+   <select id="selectProductMainBySkuCode" resultMap="baseResultMap"  parameterClass="java.lang.String"  >
+   select PRODUCT_SKU.PRODUCT_SKU_ID,PRODUCT_SKU.PRICE,PRODUCT_SKU.PRODUCT_SKU_CODE,PRODUCT_SKU.MARK_PRICE,
+		PRODUCTMAIN.PRODUCT_ID,PRODUCTMAIN.CATEGORY_ID,
+		PRODUCTMAIN.PROCUCT_NAME,PRODUCTMAIN.PRODUCT_DESC,PRODUCTMAIN.PACK_LISTING,
+		PRODUCTMAIN.PRODUCT_TITLE,PRODUCTMAIN.KEYWORD,PRODUCTMAIN.STATUS,PRODUCTMAIN.CREATE_USER,
+		PRODUCTMAIN.CREATE_TIME,PRODUCTMAIN.PRODUCTHOT,PRODUCTMAIN.ARCHIVE_TIME,PRODUCTMAIN.CHECK_TIME,
+		PRODUCTMAIN.MODIF_TIME,PRODUCTMAIN.SHOP_CODE,PRODUCTMAIN.MODIF_USER,
+		PRODUCTMAIN.UP_TIME,PRODUCTMAIN.MARKET_PRICE,
+		PRODUCTMAIN.COST_PRICE,PRODUCTMAIN.PRODUCT_NO,PRODUCTMAIN.CHECK_USER,
+		PRODUCTMAIN.CHECK_USER_NAME,PRODUCTMAIN.CREATE_USER_NAME,PRODUCTMAIN.BRAND_ID,PRODUCTMAIN.BRAND_NAME,productmain.product_type
+	    from PRODUCT_SKU JOIN PRODUCTMAIN
+		ON PRODUCT_SKU.PRODUCT_ID=PRODUCTMAIN.PRODUCT_ID
+		WHERE   PRODUCT_SKU.STATUS=1 and PRODUCT_SKU.PRODUCT_SKU_CODE=#code#
+   
+   </select>
+
+     
+     <select id="selectProductMainBySkuId" resultMap="baseResultMap1"  parameterClass="java.util.ArrayList"  >
+   select t.*,PB.BRAND_NAME from (select PRODUCT_SKU.PRODUCT_SKU_ID,
+       PRODUCT_SKU.PRICE,
+       PRODUCT_SKU.PRODUCT_SKU_CODE,
+       PRODUCT_SKU.MARK_PRICE,
+       PRODUCTMAIN.PRODUCT_ID,
+       PRODUCTMAIN.CATEGORY_ID,
+       PRODUCTMAIN.PROCUCT_NAME,
+       PRODUCTMAIN.PRODUCT_DESC,
+       PRODUCTMAIN.PACK_LISTING,
+       PRODUCTMAIN.PRODUCT_TITLE,
+       PRODUCTMAIN.KEYWORD,
+       PRODUCTMAIN.STATUS,
+       PRODUCTMAIN.CREATE_USER,
+       PRODUCTMAIN.CREATE_TIME,
+       PRODUCTMAIN.PRODUCTHOT,
+       PRODUCTMAIN.ARCHIVE_TIME,
+       PRODUCTMAIN.CHECK_TIME,
+       PRODUCTMAIN.MODIF_TIME,
+       PRODUCTMAIN.SHOP_CODE,
+       PRODUCTMAIN.MODIF_USER,
+       PRODUCTMAIN.UP_TIME,
+       PRODUCTMAIN.MARKET_PRICE,
+       PRODUCTMAIN.COST_PRICE,
+       PRODUCTMAIN.PRODUCT_NO,
+       PRODUCTMAIN.CHECK_USER,
+       PRODUCTMAIN.CHECK_USER_NAME,
+       PRODUCTMAIN.CREATE_USER_NAME,
+       PRODUCTMAIN.BRAND_ID
+  from PRODUCT_SKU
+  JOIN PRODUCTMAIN
+    ON PRODUCT_SKU.PRODUCT_ID = PRODUCTMAIN.PRODUCT_ID 
+    <dynamic prepend="AND">
+    		<iterate open="(" close=")" conjunction=" OR "  >
+    			PRODUCT_SKU.PRODUCT_SKU_ID = #[]# 
+    		</iterate>
+    	</dynamic> ) T,PROD_BRAND PB
+    where T.BRAND_ID = PB.BRAND_ID
+   </select>
+
+ <resultMap id="baseResultMapForSkuAttr" class="com.pltfm.app.vobject.ProductSkuAttr" >
+    <result column="category_attr_name" property="categoryAttrName" jdbcType="VARCHAR" />
+    <result column="category_attr_value" property="categoryAttrValue" jdbcType="VARCHAR" />
+  </resultMap>
+
+<!-- 查sku属性20151221 add -->
+  <select id="querySkuAttrBySkuId" parameterClass="java.lang.Long" resultMap="baseResultMapForSkuAttr">
+ 	<![CDATA[
+ 		select 
+         c.category_attr_name,
+         d.category_attr_value
+    from product_sku    a,
+         product_sku_attr    b,
+         category_attr  c,
+         category_attr_value d
+   where a.product_sku_id = b.product_sku_id
+     and b.category_attr_value_id = d.category_attr_value_id
+     and c.category_attr_id = b.category_attr_id
+     and a.product_sku_id = #value#	
+ 	]]>
+  </select>
+
+	<select id="selectlist" resultMap="baseResultMap" parameterClass="com.pltfm.app.vobject.ProductmainTied">
+		select PRODUCT_SKU.PRODUCT_SKU_ID,
+		       PRODUCT_SKU.PRICE,
+		       PRODUCT_SKU.PRODUCT_SKU_CODE,
+		       PRODUCT_SKU.MARK_PRICE,
+		       PRODUCTMAIN.PRODUCT_ID,
+		       PRODUCTMAIN.CATEGORY_ID,
+		       PRODUCTMAIN.PROCUCT_NAME,
+		       PRODUCTMAIN.PRODUCT_DESC,
+		       PRODUCTMAIN.PACK_LISTING,
+		       PRODUCTMAIN.PRODUCT_TITLE,
+		       PRODUCTMAIN.KEYWORD,
+		       PRODUCTMAIN.STATUS,
+		       PRODUCTMAIN.CREATE_USER,
+		       PRODUCTMAIN.CREATE_TIME,
+		       PRODUCTMAIN.PRODUCTHOT,
+		       PRODUCTMAIN.ARCHIVE_TIME,
+		       PRODUCTMAIN.CHECK_TIME,
+		       PRODUCTMAIN.MODIF_TIME,
+		       PRODUCTMAIN.SHOP_CODE,
+		       PRODUCTMAIN.MODIF_USER,
+		       PRODUCTMAIN.UP_TIME,
+		       PRODUCTMAIN.MARKET_PRICE,
+		       PRODUCTMAIN.COST_PRICE,
+		       PRODUCTMAIN.PRODUCT_NO,
+		       PRODUCTMAIN.CHECK_USER,
+		       PRODUCTMAIN.CHECK_USER_NAME,
+		       PRODUCTMAIN.CREATE_USER_NAME,
+		       PRODUCTMAIN.BRAND_ID,
+		       PRODUCTMAIN.product_type,
+		       pb.BRAND_NAME 
+		  from PRODUCT_SKU 
+		  left JOIN PRODUCTMAIN ON PRODUCT_SKU.PRODUCT_ID = PRODUCTMAIN.PRODUCT_ID
+		  inner join prod_brand pb on pb.brand_id = PRODUCTMAIN.BRAND_ID 
+		 WHERE PRODUCT_SKU.STATUS = 1
+		<dynamic>
+			<isNotEmpty property="procuctName" prepend="and">
+				PRODUCTMAIN.PROCUCT_NAME like '%$procuctName$%'
+			</isNotEmpty>
+			<isNotEmpty property="productTitle" prepend="and">
+				PRODUCTMAIN.product_Title like '%$productTitle$%'
+			</isNotEmpty>
+			<isNotEmpty property="productNo" prepend="and">
+				PRODUCTMAIN.PRODUCT_NO like '%$productNo$%'
+			</isNotEmpty>
+			<isNotEmpty property="status" prepend="and">
+			PRODUCTMAIN.STATUS = #status:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty property="mCategoryId" prepend="and">
+    			 CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where PARENT_ID = #mCategoryId:DECIMAL# )
+		    </isNotEmpty>
+		    <isNotEmpty property="bCategoryId" prepend="and">
+		    	 CATEGORY_ID in (select sc.CATEGORY_ID from categorys sc
+					inner join categorys mc on sc.parent_id=mc.category_id 
+					inner join categorys bc on mc.parent_id=bc.category_id 
+					where bc.category_id = #bCategoryId:DECIMAL# )
+		    </isNotEmpty>
+			<isNotEmpty property="categoryId" prepend="and">
+				PRODUCTMAIN.CATEGORY_ID=#categoryId#
+			</isNotEmpty>
+			<isNotEmpty property="keyword" prepend="and">
+				KEYWORD like '%$keyword$%'
+			</isNotEmpty>
+			<isNotEmpty property="brandId" prepend="and">
+				PRODUCTMAIN.BRAND_ID=#brandId#
+			</isNotEmpty>
+			<isNotEmpty property="productSkuCode" prepend="and">
+				PRODUCT_SKU_CODE= #productSkuCode:VARCHAR#
+			</isNotEmpty>
+		</dynamic>
+		 ORDER BY PRODUCT_SKU.PRODUCT_SKU_ID DESC  
+	</select>
+	
+	<!-- 添加套餐入驻查询的商品列表 -->
+	<select id="selectlistTaoCan" resultMap="baseResultMap1"
+		parameterClass="com.pltfm.app.vobject.ProductmainTied">
+		select PRODUCT_SKU.PRODUCT_SKU_ID,PRODUCT_SKU.PRICE,PRODUCT_SKU.PRODUCT_SKU_CODE,PRODUCT_SKU.MARK_PRICE,
+		PRODUCTMAIN.PRODUCT_ID,PRODUCTMAIN.CATEGORY_ID,
+		PRODUCTMAIN.PROCUCT_NAME,PRODUCTMAIN.PRODUCT_DESC,PRODUCTMAIN.PACK_LISTING,
+		PRODUCTMAIN.PRODUCT_TITLE,PRODUCTMAIN.KEYWORD,PRODUCTMAIN.STATUS,PRODUCTMAIN.CREATE_USER,
+		PRODUCTMAIN.CREATE_TIME,PRODUCTMAIN.PRODUCTHOT,PRODUCTMAIN.ARCHIVE_TIME,PRODUCTMAIN.CHECK_TIME,
+		PRODUCTMAIN.MODIF_TIME,PRODUCTMAIN.SHOP_CODE,PRODUCTMAIN.MODIF_USER,
+		PRODUCTMAIN.UP_TIME,PRODUCTMAIN.MARKET_PRICE,
+		PRODUCTMAIN.COST_PRICE,PRODUCTMAIN.PRODUCT_NO,PRODUCTMAIN.CHECK_USER,
+		PRODUCTMAIN.CHECK_USER_NAME,PRODUCTMAIN.CREATE_USER_NAME,PRODUCTMAIN.BRAND_ID,PRODUCTMAIN.BRAND_NAME
+	    from PRODUCT_SKU JOIN PRODUCTMAIN
+		ON PRODUCT_SKU.PRODUCT_ID=PRODUCTMAIN.PRODUCT_ID
+		WHERE 1=1
+		<dynamic>
+			<isNotEmpty property="productTitle" prepend="and">
+				PRODUCT_TITLE like '%$productTitle$%'
+			</isNotEmpty>
+			<isNotEmpty property="productNo" prepend="and">
+				PRODUCT_NO like '%$productNo$%'
+			</isNotEmpty>
+			<isNotEmpty property="status" prepend="and">
+			PRODUCTMAIN.STATUS = #status:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty property="categoryId" prepend="and">
+				CATEGORY_ID=#categoryId#
+			</isNotEmpty>
+			<isNotEmpty property="keyword" prepend="and">
+				KEYWORD like '%$keyword$%'
+			</isNotEmpty>
+			<isNotEmpty property="brandId" prepend="and">
+				BRAND_ID=#brandId#
+			</isNotEmpty>
+			<isNotEmpty property="productSkuCode" prepend="and">
+				PRODUCT_SKU_CODE= #productSkuCode:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty property="supplierCode" prepend="and">
+				PRODUCTMAIN.SHOP_CODE= #supplierCode:VARCHAR#
+			</isNotEmpty>
+		</dynamic>
+		 ORDER BY PRODUCT_SKU.PRODUCT_SKU_ID DESC
+	</select>
+	
+	<!-- 添加套餐自营代销查询的商品列表 -->
+	<select id="selectlistTaoCanZiYing" resultMap="baseResultMap1"
+		parameterClass="com.pltfm.app.vobject.ProductmainTied">
+		select PRODUCT_SKU.PRODUCT_SKU_ID,PRODUCT_SKU.PRICE,PRODUCT_SKU.PRODUCT_SKU_CODE,PRODUCT_SKU.MARK_PRICE,
+		PRODUCTMAIN.PRODUCT_ID,PRODUCTMAIN.CATEGORY_ID,
+		PRODUCTMAIN.PROCUCT_NAME,PRODUCTMAIN.PRODUCT_DESC,PRODUCTMAIN.PACK_LISTING,
+		PRODUCTMAIN.PRODUCT_TITLE,PRODUCTMAIN.KEYWORD,PRODUCTMAIN.STATUS,PRODUCTMAIN.CREATE_USER,
+		PRODUCTMAIN.CREATE_TIME,PRODUCTMAIN.PRODUCTHOT,PRODUCTMAIN.ARCHIVE_TIME,PRODUCTMAIN.CHECK_TIME,
+		PRODUCTMAIN.MODIF_TIME,PRODUCTMAIN.SHOP_CODE,PRODUCTMAIN.MODIF_USER,
+		PRODUCTMAIN.UP_TIME,PRODUCTMAIN.MARKET_PRICE,
+		PRODUCTMAIN.COST_PRICE,PRODUCTMAIN.PRODUCT_NO,PRODUCTMAIN.CHECK_USER,
+		PRODUCTMAIN.CHECK_USER_NAME,PRODUCTMAIN.CREATE_USER_NAME,PRODUCTMAIN.BRAND_ID,PRODUCTMAIN.BRAND_NAME
+	    from PRODUCT_SKU JOIN PRODUCTMAIN
+		ON PRODUCT_SKU.PRODUCT_ID=PRODUCTMAIN.PRODUCT_ID
+		WHERE PRODUCTMAIN.SHOP_CODE not in (select to_char(supp.supplier_id) from suppliers_info supp where supp.supplier_type=2 or supp.supplier_type=4)
+		<dynamic>
+			<isNotEmpty property="productTitle" prepend="and">
+				PRODUCT_TITLE like '%$productTitle$%'
+			</isNotEmpty>
+			<isNotEmpty property="productNo" prepend="and">
+				PRODUCT_NO like '%$productNo$%'
+			</isNotEmpty>
+			<isNotEmpty property="status" prepend="and">
+			    PRODUCTMAIN.STATUS = #status:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty property="categoryId" prepend="and">
+				CATEGORY_ID=#categoryId#
+			</isNotEmpty>
+			<isNotEmpty property="mCategoryId">
+		    	and CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where PARENT_ID = #mCategoryId# )
+		    </isNotEmpty>
+		    <isNotEmpty property="bCategoryId">
+		    	and CATEGORY_ID in (select sc.CATEGORY_ID from categorys sc
+					inner join categorys mc on sc.parent_id=mc.category_id 
+					inner join categorys bc on mc.parent_id=bc.category_id 
+					where bc.category_id = #bCategoryId# )
+		    </isNotEmpty>
+			<isNotEmpty property="keyword" prepend="and">
+				KEYWORD like '%$keyword$%'
+			</isNotEmpty>
+			<isNotEmpty property="brandId" prepend="and">
+				BRAND_ID=#brandId#
+			</isNotEmpty>
+			<isNotEmpty property="productSkuCode" prepend="and">
+				PRODUCT_SKU_CODE= #productSkuCode:VARCHAR#
+			</isNotEmpty>
+		</dynamic>
+		 ORDER BY PRODUCT_SKU.PRODUCT_SKU_ID DESC
+	</select>
+	
+	<select id="selectlistByUser" resultMap="baseResultMap" parameterClass="com.pltfm.app.vobject.ProductmainTied">
+		select PRODUCT_SKU.PRODUCT_SKU_ID,PRODUCT_SKU.PRICE,PRODUCT_SKU.PRODUCT_SKU_CODE,PRODUCT_SKU.MARK_PRICE,
+		PRODUCTMAIN.PRODUCT_ID,PRODUCTMAIN.CATEGORY_ID,
+		PRODUCTMAIN.PROCUCT_NAME,PRODUCTMAIN.PRODUCT_DESC,PRODUCTMAIN.PACK_LISTING,
+		PRODUCTMAIN.PRODUCT_TITLE,PRODUCTMAIN.KEYWORD,PRODUCTMAIN.STATUS,PRODUCTMAIN.CREATE_USER,
+		PRODUCTMAIN.CREATE_TIME,PRODUCTMAIN.PRODUCTHOT,PRODUCTMAIN.ARCHIVE_TIME,PRODUCTMAIN.CHECK_TIME,
+		PRODUCTMAIN.MODIF_TIME,PRODUCTMAIN.SHOP_CODE,PRODUCTMAIN.MODIF_USER,
+		PRODUCTMAIN.UP_TIME,PRODUCTMAIN.MARKET_PRICE,
+		PRODUCTMAIN.COST_PRICE,PRODUCTMAIN.PRODUCT_NO,PRODUCTMAIN.CHECK_USER,
+		PRODUCTMAIN.CHECK_USER_NAME,PRODUCTMAIN.CREATE_USER_NAME,PRODUCTMAIN.BRAND_ID,PRODUCTMAIN.BRAND_NAME,productmain.product_type
+	    from PRODUCT_SKU JOIN PRODUCTMAIN
+		ON PRODUCT_SKU.PRODUCT_ID=PRODUCTMAIN.PRODUCT_ID
+		WHERE PRODUCT_SKU.STATUS = '1'
+			  AND PRODUCTMAIN.STATUS IN ('3','4','-2')
+			<dynamic>
+				<isNotEmpty property="procuctName" prepend="and">
+					PROCUCT_NAME like '%$procuctName$%'
+				</isNotEmpty>
+				<isNotEmpty property="productNo" prepend="and">
+					PRODUCT_NO like '%$productNo$%'
+				</isNotEmpty>
+				<isNotEmpty property="status" prepend="and">
+				PRODUCTMAIN.STATUS = #status:VARCHAR#
+				</isNotEmpty>
+				<isNotEmpty property="mCategoryId" prepend="and">
+    			 	CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where PARENT_ID = #mCategoryId:DECIMAL# )
+			    </isNotEmpty>
+			    <isNotEmpty property="bCategoryId" prepend="and">
+			    	 CATEGORY_ID in (select sc.CATEGORY_ID from categorys sc
+						inner join categorys mc on sc.parent_id=mc.category_id 
+						inner join categorys bc on mc.parent_id=bc.category_id 
+						where bc.category_id = #bCategoryId:DECIMAL# )
+			    </isNotEmpty>
+				<isNotEmpty property="categoryId" prepend="and">
+					CATEGORY_ID=#categoryId#
+				</isNotEmpty>
+				<isNotEmpty property="keyword" prepend="and">
+					KEYWORD like '%$keyword$%'
+				</isNotEmpty>
+				<isNotEmpty property="brandId" prepend="and">
+					BRAND_ID=#brandId#
+				</isNotEmpty>
+				<isNotEmpty property="productSkuCode" prepend="and">
+					PRODUCT_SKU_CODE= #productSkuCode:VARCHAR#
+				</isNotEmpty>
+			</dynamic>
+		 ORDER BY PRODUCT_SKU.PRODUCT_SKU_ID DESC
+	</select>
+	
+	<select id="countItemByUserByRelation" resultClass="int"
+		parameterClass="com.pltfm.app.vobject.ProductmainTied">
+		select count(distinct(PRODUCT_RELATION.MAIN_SKU_ID)) from PRODUCT_RELATION 
+	    LEFT JOIN PRODUCT_SKU ON PRODUCT_RELATION.MAIN_SKU_ID=PRODUCT_SKU.PRODUCT_SKU_ID AND PRODUCT_SKU.STATUS=1
+		LEFT JOIN PRODUCTMAIN ON PRODUCT_SKU.PRODUCT_ID=PRODUCTMAIN.PRODUCT_ID
+		WHERE 1=1
+		<dynamic>
+			<isNotEmpty property="relationType" prepend="and">
+				PRODUCT_RELATION.RELATION_TYPE=#relationType:DECIMAL#
+			</isNotEmpty>
+			<isNotEmpty property="procuctName" prepend="and">
+				PROCUCT_NAME like '%$procuctName$%'
+			</isNotEmpty>
+			<isNotEmpty property="productNo" prepend="and">
+				PRODUCT_NO like '%$productNo$%'
+			</isNotEmpty>
+			<isNotEmpty property="status" prepend="and">
+			  PRODUCTMAIN.STATUS = #status:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty property="categoryId" prepend="and">
+				CATEGORY_ID=#categoryId#
+			</isNotEmpty>
+			<isNotEmpty property="keyword" prepend="and">
+				KEYWORD like '%$keyword$%'
+			</isNotEmpty>
+			<isNotEmpty property="brandId" prepend="and">
+				BRAND_ID=#brandId#
+			</isNotEmpty>
+			<isNotEmpty property="productSkuCode" prepend="and">
+				PRODUCT_SKU_CODE= #productSkuCode:VARCHAR#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="selectlistByUserByRelation" resultMap="baseResultMap"
+		parameterClass="com.pltfm.app.vobject.ProductmainTied">
+		select distinct(PRODUCT_SKU.PRODUCT_SKU_ID),PRODUCT_SKU.PRICE,PRODUCT_SKU.PRODUCT_SKU_CODE,PRODUCT_SKU.MARK_PRICE,
+		PRODUCTMAIN.PRODUCT_ID,PRODUCTMAIN.CATEGORY_ID,
+		PRODUCTMAIN.PROCUCT_NAME,PRODUCTMAIN.PRODUCT_DESC,PRODUCTMAIN.PACK_LISTING,
+		PRODUCTMAIN.PRODUCT_TITLE,PRODUCTMAIN.KEYWORD,PRODUCTMAIN.STATUS,PRODUCTMAIN.CREATE_USER,
+		PRODUCTMAIN.CREATE_TIME,PRODUCTMAIN.PRODUCTHOT,PRODUCTMAIN.ARCHIVE_TIME,PRODUCTMAIN.CHECK_TIME,
+		PRODUCTMAIN.MODIF_TIME,PRODUCTMAIN.SHOP_CODE,PRODUCTMAIN.MODIF_USER,
+		PRODUCTMAIN.UP_TIME,PRODUCTMAIN.MARKET_PRICE,
+		PRODUCTMAIN.COST_PRICE,PRODUCTMAIN.PRODUCT_NO,PRODUCTMAIN.CHECK_USER,
+		PRODUCTMAIN.CHECK_USER_NAME,PRODUCTMAIN.CREATE_USER_NAME,PRODUCTMAIN.BRAND_ID,PRODUCTMAIN.BRAND_NAME,productmain.product_type
+	    from PRODUCT_RELATION 
+	    LEFT JOIN PRODUCT_SKU ON PRODUCT_RELATION.MAIN_SKU_ID=PRODUCT_SKU.PRODUCT_SKU_ID AND PRODUCT_SKU.STATUS=1
+		LEFT JOIN PRODUCTMAIN ON PRODUCT_SKU.PRODUCT_ID=PRODUCTMAIN.PRODUCT_ID
+		WHERE 1=1
+		<dynamic>
+			<isNotEmpty property="relationType" prepend="and">
+				PRODUCT_RELATION.RELATION_TYPE=#relationType:DECIMAL#
+			</isNotEmpty>
+			<isNotEmpty property="procuctName" prepend="and">
+				PROCUCT_NAME like '%$procuctName$%'
+			</isNotEmpty>
+			<isNotEmpty property="productNo" prepend="and">
+				PRODUCT_NO like '%$productNo$%'
+			</isNotEmpty>
+			<isNotEmpty property="status" prepend="and">
+			PRODUCTMAIN.STATUS = #status:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty property="categoryId" prepend="and">
+				CATEGORY_ID=#categoryId#
+			</isNotEmpty>
+			<isNotEmpty property="keyword" prepend="and">
+				KEYWORD like '%$keyword$%'
+			</isNotEmpty>
+			<isNotEmpty property="brandId" prepend="and">
+				BRAND_ID=#brandId#
+			</isNotEmpty>
+			<isNotEmpty property="productSkuCode" prepend="and">
+				PRODUCT_SKU_CODE= #productSkuCode:VARCHAR#
+			</isNotEmpty>
+		</dynamic>
+		 ORDER  BY PRODUCT_SKU.PRODUCT_SKU_ID DESC
+		
+	</select>
+
+	<select id="countItem" resultClass="int" parameterClass="com.pltfm.app.vobject.ProductmainTied">
+		select count(1) from PRODUCT_SKU JOIN PRODUCTMAIN
+		ON PRODUCT_SKU.PRODUCT_ID=PRODUCTMAIN.PRODUCT_ID
+		WHERE PRODUCT_SKU.STATUS=1
+		<dynamic>
+			<isNotEmpty property="procuctName" prepend="and">
+				PROCUCT_NAME like '%$procuctName$%'
+			</isNotEmpty>
+			<isNotEmpty property="productTitle" prepend="and">
+				product_Title like '%$productTitle$%'
+			</isNotEmpty>
+			<isNotEmpty property="productNo" prepend="and">
+				PRODUCT_NO like '%$productNo$%'
+			</isNotEmpty>
+			<isNotEmpty property="status" prepend="and">
+			PRODUCTMAIN.STATUS = #status:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty property="mCategoryId" prepend="and">
+    			 CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where PARENT_ID = #mCategoryId:DECIMAL# )
+		    </isNotEmpty>
+		    <isNotEmpty property="bCategoryId" prepend="and">
+		    	 CATEGORY_ID in (select sc.CATEGORY_ID from categorys sc
+					inner join categorys mc on sc.parent_id=mc.category_id 
+					inner join categorys bc on mc.parent_id=bc.category_id 
+					where bc.category_id = #bCategoryId:DECIMAL# )
+		    </isNotEmpty>
+			<isNotEmpty property="categoryId" prepend="and">
+				CATEGORY_ID=#categoryId#
+			</isNotEmpty>
+			<isNotEmpty property="keyword" prepend="and">
+				KEYWORD like '%$keyword$%'
+			</isNotEmpty>
+			<isNotEmpty property="brandId" prepend="and">
+				BRAND_ID=#brandId#
+			</isNotEmpty>
+			<isNotEmpty property="productSkuCode" prepend="and">
+				PRODUCT_SKU_CODE= #productSkuCode:VARCHAR#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="countItemTaoCan" resultClass="int"
+		parameterClass="com.pltfm.app.vobject.ProductmainTied">
+		select count(1) from PRODUCT_SKU JOIN PRODUCTMAIN
+		ON PRODUCT_SKU.PRODUCT_ID=PRODUCTMAIN.PRODUCT_ID
+		WHERE 1=1
+		<dynamic>
+			<isNotEmpty property="productTitle" prepend="and">
+				PRODUCT_TITLE like '%$productTitle$%'
+			</isNotEmpty>
+			<isNotEmpty property="productNo" prepend="and">
+				PRODUCT_NO like '%$productNo$%'
+			</isNotEmpty>
+			<isNotEmpty property="status" prepend="and">
+			PRODUCTMAIN.STATUS = #status:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty property="categoryId" prepend="and">
+				CATEGORY_ID=#categoryId#
+			</isNotEmpty>
+			<isNotEmpty property="keyword" prepend="and">
+				KEYWORD like '%$keyword$%'
+			</isNotEmpty>
+			<isNotEmpty property="brandId" prepend="and">
+				BRAND_ID=#brandId#
+			</isNotEmpty>
+			<isNotEmpty property="productSkuCode" prepend="and">
+				PRODUCT_SKU_CODE= #productSkuCode:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty property="supplierCode" prepend="and">
+				PRODUCTMAIN.SHOP_CODE= #supplierCode:VARCHAR#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 自营代销查询出来的商品 -->
+	<select id="countItemTaoCanZiYing" resultClass="int"
+		parameterClass="com.pltfm.app.vobject.ProductmainTied">
+		select count(1) from PRODUCT_SKU JOIN PRODUCTMAIN
+		ON PRODUCT_SKU.PRODUCT_ID=PRODUCTMAIN.PRODUCT_ID
+		WHERE PRODUCTMAIN.SHOP_CODE not in (select to_char(supp.supplier_id) from suppliers_info supp where supp.supplier_type=2 or supp.supplier_type=4)
+		<dynamic>
+			<isNotEmpty property="productTitle" prepend="and">
+				PRODUCT_TITLE like '%$productTitle$%'
+			</isNotEmpty>
+			<isNotEmpty property="productNo" prepend="and">
+				PRODUCT_NO like '%$productNo$%'
+			</isNotEmpty>
+			<isNotEmpty property="status" prepend="and">
+			PRODUCTMAIN.STATUS = #status:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty property="categoryId" prepend="and">
+				CATEGORY_ID=#categoryId#
+			</isNotEmpty>
+			<isNotEmpty property="mCategoryId">
+		    	and CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where PARENT_ID = #mCategoryId# )
+		    </isNotEmpty>
+		    <isNotEmpty property="bCategoryId">
+		    	and CATEGORY_ID in (select sc.CATEGORY_ID from categorys sc
+					inner join categorys mc on sc.parent_id=mc.category_id 
+					inner join categorys bc on mc.parent_id=bc.category_id 
+					where bc.category_id = #bCategoryId# )
+		    </isNotEmpty>
+			<isNotEmpty property="keyword" prepend="and">
+				KEYWORD like '%$keyword$%'
+			</isNotEmpty>
+			<isNotEmpty property="brandId" prepend="and">
+				BRAND_ID=#brandId#
+			</isNotEmpty>
+			<isNotEmpty property="productSkuCode" prepend="and">
+				PRODUCT_SKU_CODE= #productSkuCode:VARCHAR#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="countItemByUser" resultClass="int"
+		parameterClass="com.pltfm.app.vobject.ProductmainTied">
+		select count(1) from PRODUCT_SKU JOIN PRODUCTMAIN
+		ON PRODUCT_SKU.PRODUCT_ID=PRODUCTMAIN.PRODUCT_ID
+		WHERE PRODUCTMAIN.STATUS IN ('3','4','-2')  AND PRODUCT_SKU.STATUS='1'
+		<dynamic>
+			<isNotEmpty property="procuctName" prepend="and">
+				PROCUCT_NAME like '%$procuctName$%'
+			</isNotEmpty>
+			<isNotEmpty property="productNo" prepend="and">
+				PRODUCT_NO like '%$productNo$%'
+			</isNotEmpty>
+			<isNotEmpty property="status" prepend="and">
+			PRODUCTMAIN.STATUS = #status:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty property="mCategoryId" prepend="and">
+   			 	CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where PARENT_ID = #mCategoryId:DECIMAL# )
+		    </isNotEmpty>
+		    <isNotEmpty property="bCategoryId" prepend="and">
+		    	 CATEGORY_ID in (select sc.CATEGORY_ID from categorys sc
+					inner join categorys mc on sc.parent_id=mc.category_id 
+					inner join categorys bc on mc.parent_id=bc.category_id 
+					where bc.category_id = #bCategoryId:DECIMAL# )
+		    </isNotEmpty>
+			<isNotEmpty property="categoryId" prepend="and">
+				CATEGORY_ID=#categoryId#
+			</isNotEmpty>
+			<isNotEmpty property="keyword" prepend="and">
+				KEYWORD like '%$keyword$%'
+			</isNotEmpty>
+			<isNotEmpty property="brandId" prepend="and">
+				BRAND_ID=#brandId#
+			</isNotEmpty>
+			<isNotEmpty property="productSkuCode" prepend="and">
+				PRODUCT_SKU_CODE= #productSkuCode:VARCHAR#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="selectListExceptMainSku" resultMap="baseResultMap1"
+		parameterClass="com.pltfm.app.vobject.ProductmainTied">
+		select PRODUCT_SKU.PRODUCT_SKU_ID,PRODUCT_SKU.PRICE,PRODUCT_SKU.PRODUCT_SKU_CODE,PRODUCT_SKU.MARK_PRICE,
+		PRODUCTMAIN.PRODUCT_ID,PRODUCTMAIN.CATEGORY_ID,
+		PRODUCTMAIN.PROCUCT_NAME,PRODUCTMAIN.PRODUCT_DESC,PRODUCTMAIN.PACK_LISTING,
+		PRODUCTMAIN.PRODUCT_TITLE,PRODUCTMAIN.KEYWORD,PRODUCTMAIN.STATUS,PRODUCTMAIN.CREATE_USER,
+		PRODUCTMAIN.CREATE_TIME,PRODUCTMAIN.PRODUCTHOT,PRODUCTMAIN.ARCHIVE_TIME,PRODUCTMAIN.CHECK_TIME,
+		PRODUCTMAIN.MODIF_TIME,PRODUCTMAIN.SHOP_CODE,PRODUCTMAIN.MODIF_USER,
+		PRODUCTMAIN.UP_TIME,PRODUCTMAIN.MARKET_PRICE,
+		PRODUCTMAIN.COST_PRICE,PRODUCTMAIN.PRODUCT_NO,PRODUCTMAIN.CHECK_USER,
+		PRODUCTMAIN.CHECK_USER_NAME,PRODUCTMAIN.CREATE_USER_NAME,PRODUCTMAIN.BRAND_ID,PRODUCTMAIN.BRAND_NAME
+	    from PRODUCT_SKU JOIN PRODUCTMAIN
+		ON PRODUCT_SKU.PRODUCT_ID=PRODUCTMAIN.PRODUCT_ID  where
+		PRODUCT_SKU.PRODUCT_SKU_ID not in(select p.RELATION_SKU_ID from product_relation_detail p where p.RELATION_ID=#relationId#)
+		<!-- AND PRODUCT_SKU.STATUS=1 -->
+		<isNotEmpty property="procuctName" prepend="and">
+			PROCUCT_NAME like '%$procuctName$%'
+		</isNotEmpty>
+		<isNotEmpty property="productNo" prepend="and">
+			PRODUCT_NO like '%$productNo$%'
+		</isNotEmpty>
+		<isNotEmpty property="status" prepend="and">
+			PRODUCTMAIN.STATUS = #status:VARCHAR#
+		</isNotEmpty>
+		<isNotEmpty property="categoryId" prepend="and">
+			CATEGORY_ID=#categoryId#
+		</isNotEmpty>
+		<isNotEmpty property="keyword" prepend="and">
+			KEYWORD like '%$keyword$%'
+		</isNotEmpty>
+		<isNotEmpty property="brandId" prepend="and">
+			BRAND_ID=#brandId#
+		</isNotEmpty>
+		<isNotEmpty property="productSkuCode" prepend="and">
+            PRODUCT_SKU_CODE= #productSkuCode:VARCHAR#
+        </isNotEmpty>
+        <isNotEmpty property="supplierCode" prepend="and">
+            PRODUCTMAIN.SHOP_CODE= #supplierCode:VARCHAR#
+        </isNotEmpty>
+        ORDER BY PRODUCT_SKU.PRODUCT_SKU_ID DESC
+	</select>
+
+	<select id="countItemExceptMainsku" resultClass="int"
+		parameterClass="com.pltfm.app.vobject.ProductmainTied">
+		select count(1)
+        from PRODUCT_SKU
+        JOIN PRODUCTMAIN ON PRODUCT_SKU.PRODUCT_ID=PRODUCTMAIN.PRODUCT_ID
+		where PRODUCT_SKU.STATUS=1 AND PRODUCT_SKU_ID!=#productSkuId#
+		<isNotEmpty property="procuctName" prepend="and">
+			PROCUCT_NAME like '%$procuctName$%'
+		</isNotEmpty>
+		<isNotEmpty property="productNo" prepend="and">
+			PRODUCT_NO like '%$productNo$%'
+		</isNotEmpty>
+		<isNotEmpty property="status" prepend="and">
+			PRODUCTMAIN.STATUS = #status:VARCHAR#
+		</isNotEmpty>
+		<isNotEmpty property="categoryId" prepend="and">
+			CATEGORY_ID=#categoryId#
+		</isNotEmpty>
+		<isNotEmpty property="keyword" prepend="and">
+			KEYWORD like '%$keyword$%'
+		</isNotEmpty>
+		<isNotEmpty property="brandId" prepend="and">
+			BRAND_ID=#brandId#
+		</isNotEmpty>
+		<isNotEmpty property="productSkuCode" prepend="and">
+            PRODUCT_SKU_CODE= #productSkuCode:VARCHAR#
+        </isNotEmpty>
+        <isNotEmpty property="supplierCode" prepend="and">
+            PRODUCTMAIN.SHOP_CODE= #supplierCode:VARCHAR#
+        </isNotEmpty>
+	</select>
+
+	<select id="selectExampleByMainSku" resultMap="baseResultMap"
+		parameterClass="java.lang.Long">
+		select PRODUCT_SKU.PRODUCT_SKU_ID,PRODUCT_SKU.PRICE,PRODUCT_SKU.PRODUCT_SKU_CODE,PRODUCT_SKU.MARK_PRICE,
+		PRODUCTMAIN.PRODUCT_ID,PRODUCTMAIN.CATEGORY_ID,
+		PRODUCTMAIN.PROCUCT_NAME,PRODUCTMAIN.PRODUCT_DESC,PRODUCTMAIN.PACK_LISTING,
+		PRODUCTMAIN.PRODUCT_TITLE,PRODUCTMAIN.KEYWORD,PRODUCTMAIN.STATUS,PRODUCTMAIN.CREATE_USER,
+		PRODUCTMAIN.CREATE_TIME,PRODUCTMAIN.PRODUCTHOT,PRODUCTMAIN.ARCHIVE_TIME,PRODUCTMAIN.CHECK_TIME,
+		PRODUCTMAIN.MODIF_TIME,PRODUCTMAIN.SHOP_CODE,PRODUCTMAIN.MODIF_USER,
+		PRODUCTMAIN.UP_TIME,PRODUCTMAIN.MARKET_PRICE,
+		PRODUCTMAIN.COST_PRICE,PRODUCTMAIN.PRODUCT_NO,PRODUCTMAIN.CHECK_USER,
+		PRODUCTMAIN.CHECK_USER_NAME,PRODUCTMAIN.CREATE_USER_NAME,PRODUCTMAIN.BRAND_ID,PRODUCTMAIN.BRAND_NAME,productmain.product_type
+	    from PRODUCT_SKU JOIN PRODUCTMAIN
+		ON PRODUCT_SKU.PRODUCT_ID=PRODUCTMAIN.PRODUCT_ID  where
+		PRODUCT_SKU.PRODUCT_SKU_ID=#id# AND PRODUCT_SKU.STATUS=1
+		 ORDER  BY PRODUCT_SKU.PRODUCT_SKU_ID DESC
+	   </select>
+
+	   <select id="selectProductSkuAndQuantity" resultMap="baseResultMap" parameterClass="java.util.ArrayList">
+        select PRODUCT_SKU.PRODUCT_SKU_ID,PRODUCT_SKU.PRICE,PRODUCT_SKU_CODE ,PRODUCT_SKU.MARK_PRICE,
+		PRODUCTMAIN.PRODUCT_ID,PRODUCTMAIN.CATEGORY_ID,
+		PRODUCTMAIN.PROCUCT_NAME,PRODUCTMAIN.PRODUCT_DESC,PRODUCTMAIN.PACK_LISTING,
+		PRODUCTMAIN.PRODUCT_TITLE,PRODUCTMAIN.KEYWORD,PRODUCTMAIN.STATUS,PRODUCTMAIN.CREATE_USER,
+		PRODUCTMAIN.CREATE_TIME,PRODUCTMAIN.PRODUCTHOT,PRODUCTMAIN.ARCHIVE_TIME,PRODUCTMAIN.CHECK_TIME,
+		PRODUCTMAIN.MODIF_TIME,PRODUCTMAIN.SHOP_CODE,PRODUCTMAIN.MODIF_USER,
+		PRODUCTMAIN.UP_TIME,PRODUCTMAIN.MARKET_PRICE,
+		PRODUCTMAIN.COST_PRICE,PRODUCTMAIN.PRODUCT_NO,PRODUCTMAIN.CHECK_USER,
+		PRODUCTMAIN.CHECK_USER_NAME,PRODUCTMAIN.CREATE_USER_NAME,PRODUCTMAIN.BRAND_ID,PRODUCTMAIN.BRAND_NAME, productmain.product_type
+	    from PRODUCT_SKU JOIN PRODUCTMAIN
+		ON PRODUCT_SKU.PRODUCT_ID=PRODUCTMAIN.PRODUCT_ID 
+    	<dynamic prepend="AND">
+    		<iterate open="(" close=")" conjunction=" OR "  >
+    			PRODUCT_SKU.PRODUCT_SKU_CODE = #[]# 
+    		</iterate>
+    	</dynamic>
+  </select>
+   
+	   <!-- 得到产品的商户名称 20151221 add -->
+    <select id="getMerchantName" parameterClass="java.lang.String" resultClass="java.lang.String">
+		select ct.CORPORATE_NAME from suppliers_info si 
+			inner join commercial_tenant_basic_info ct on ct.N_COMMERCIAL_TENANT_ID=si.merchant_id 
+				where to_char(si.supplier_id)=#shopCode:VARCHAR# 
+  	</select>
+</sqlMap>

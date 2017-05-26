@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="PROMOTION_PRESELL_PRODUCT">
+  
+ 	<!-- 新增预售商品 -->
+  <insert id="insertPresellProduct" parameterClass="com.kmzyc.promotion.app.vobject.PromotionPresellProduct" >
+      <selectKey resultClass="java.lang.Long" keyProperty="presellProductId" >
+           select SEQ_APP_PRESELL_PRODUCT.nextval from dual
+    </selectKey>
+    insert into promotion_presell_product (PRESELL_PRODUCT_ID,PRESELL_ID,PRODUCT_SKU_ID,PRESELL_PRICE,DEPOSIT_PRICE,
+    FINAL_PRICE,PRESELL_STOCK,CREATE_TIME) values(
+	#presellProductId:DECIMAL#,#presellId:DECIMAL#,#productSkuId:DECIMAL#,
+	#presellPrice:DECIMAL#,#depositPrice:DECIMAL#,#finalPrice:DECIMAL#,#presellStock:DECIMAL#,sysdate)
+  </insert>
+</sqlMap>

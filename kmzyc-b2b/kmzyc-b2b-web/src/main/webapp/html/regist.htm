@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <!-- <link rel="shortcut icon" href="http://jscss.kmb2b.com/res/images/kmzl.ico" type="image/x-icon"/> -->
+		<!--#include file="common/common.html" -->
+		<meta charset="UTF-8"/>
+        <meta name="Keywords" content="康美中药城,康美中药城商城,康美,康美官方旗舰店,健康第一,康美药业,康美中药城,商城,康美人生,国参传奇,菊皇茶,西洋参,花旗参,红参,冬虫夏草,虫草瘦身食品,人参,三七,田七,丹参,新开河,新开河红参,红参,高丽参,花旗参,白参,人参切片,参茸贵细"/>
+        <meta name="Description" content="康美中药城是康美药业股份有限公司旗下运营的网上医药商城，通过康美药业的医药行业优势和强大的医药配送体系，致力于发展中国最大的医药零售电子商务市场。便捷、诚信的服务，为您提供愉悦的网上购物体验!"/>
+		<title>注册 - 康美中药城,康美中药城第一商城,中国保健养生健康方面最专业的电子商务平台,康美药业股份有限公司旗下</title>
+        <link rel="stylesheet" href='<!--#echo var="cssAndJsPath" -->/res/<!--#echo var="cssUrl" -->/default/kmb2b/login.css?version=<!--#echo var="version" -->' />
+        <script>
+            var KM = KM || {};
+            KM.VERSION = '<!--#echo var="version" -->';//项目版本号
+        </script>
+        <script type="text/javascript" src='<!--#echo var="cssAndJsPath" -->/res/<!--#echo var="jsUrl" -->/seajs/2.0.2/sea.js?version=<!--#echo var="version" -->'></script>
+        <script type="text/javascript" src='<!--#echo var="cssAndJsPath" -->/res/<!--#echo var="jsUrl" -->/config.js?version=<!--#echo var="version" -->'></script>
+        <script type="text/javascript" src="http://pv.sohu.com/cityjson" charset="UTF-8"></script>
+        <script>
+            window.onload=function(){
+                if(returnCitySN.cip){
+                    document.getElementById("clientIp").value=returnCitySN.cip;
+                }else{
+                    document.getElementById("clientIp").value="";
+                }
+
+            }
+            seajs.use('<!--#echo var="cssAndJsPath" -->/res/<!--#echo var="jsUrl" -->/view/html/regist.js');
+        </script>
+    </head>         
+	<body>
+		<!--头部登陆条结束-->
+		<!--logo开始-->
+		<div class="logo-box">
+   			<div class="login-con page-logo">
+       			<a href='<!--#echo var="staticPath" -->/index.html' title="康美中药城"><img src='<!--#echo var="cssAndJsPath" -->/res/images/kmb2b/logoleft.png' alt="康美中药城"></a>
+       			<div class="security">
+		           <ul>
+		               <li><i class="login-icon icon-return"></i>7天无忧退换货</li>
+		               <li><i class="login-icon icon-real"></i>全网100%正品保证</li>
+		               <li><i class="login-icon icon-km"></i>康美药业旗下平台</li>
+		           </ul>
+       			</div>
+   			</div>
+		</div>
+	<!--logo结束-->
+	<!--正确输入状态-->
+	 <!--手机注册-->
+<div id="km-conter">
+    <div class="login-wrap">
+        <div class="w">
+            <div class="login-from login-from-2"  id="PhoneReg">
+                <div class="mt">
+                    <div class="extra-r">
+                    <input type="hidden"  name="clientIp" id="clientIp"/>
+                        <div class="regist-link"><a class="old">已有账号？</a><a  id="changetoLOGIN" href="/html/loginPage.htm"  clstag="pageclick|keycount|20150112ABD|1">登录</a></div>
+                    </div>
+                </div>
+                <!--<div  class="wz">
+                    <span>账号</span>
+                </div>-->
+                <form method="post" action="" id="phoneregist" name="regist">
+                <div class="item item-fore1 ">
+                    <span class="sj-text">手&nbsp;&nbsp;机&nbsp;&nbsp;号：</span>
+                    <input id="mobileTel" type="text" class="itxt" name="mobile" tabindex="1" autocomplete="off" placeholder="请输入您的手机号">
+                    <label id="mobileTel_error" class="error" style="display: none;"></label>
+                </div>
+               
+                <div class="item item-fore1 ">
+                    <span class="sj-text">设置密码：</span>
+                    <input id="password" type="password" class="itxt" name="password" tabindex="1" autocomplete="off" placeholder="请输入您的密码">
+                    <input type="hidden" name="ploginpwd" id="ploginpwd" value="" class="hide"/>
+                     <label id="password_error" class="error" style="display: none;"></label>
+                      <!--     密码强度 -->
+		      		<div class="letter fn-clear" id="pwdStrongths" style="display: none;">
+			      		<span id="plevel1" class="current">弱</span>
+			      		<span id="plevel2" >中</span>
+			      		<span id="plevel3" >强</span>
+		   			</div>
+                </div>
+                <div class="item item-fore1 ">
+                    <span class="sj-text">确认密码：</span>
+                    <input id="confirmpasswords" type="password" class="itxt" name="confirmpasswords" tabindex="1" autocomplete="off" placeholder="请确认您的密码">
+                     <label id="confirmpasswords_error" class="error" style="display: none;"></label>
+                </div>
+                  		
+               <div class="itme-yz">
+                    <div class="item item-fore1 yz ">
+                        <input id="pveCode" type="text" class="itxt itxt-z" name="pveCode" tabindex="1" autocomplete="off" placeholder="验证码">
+                          <label id="pveCode_error" class="error" style="display: none;"></label>
+                    </div> 
+                
+                     <div class="code-box">
+                        
+                        <a href="javascript:void(0);" id="changeImgLink3" class="pic"><img id="imageCodess"  width="80"	height="30"  src="/codeImage.action?imgKey=regImg"/></a>
+                        <div class="code-text" ><a href="javascript:void(0);" id="changeImgLink4">看不清？换一张</a></div>
+                    </div> 
+                
+                 </div> 
+                 
+              <!--  短信验证码 -->
+						<div class="itme-yz">
+							<div class="item item-fore1 yz ">
+								<input id="smsCode" type="text" class="itxt itxt-z"
+									name="smsCode" tabindex="2" autocomplete="off"
+									placeholder="手机验证码"> <label id="smsCode_error"
+									class="error" style="display: none;"></label>
+							</div>
+							<a class="yz-btn" href="javascript:void(0);" id="sendMobileCode" >
+								<span>获取短信验证码</span>
+							</a>
+                    	</div>
+				<div class="reg-box">
+                    <div class="code-box padle0">
+                        <label><input type="checkbox" value="radio" checked="checked" id="ckaccepts"/>我已阅读并接受</label>
+                        <a class="fn-blue" href='<!--#echo var="staticPath" -->/helps/help-member-agreement.shtml' target="_blank" >《用户协议》</a>
+                         <label id="ckaccept_error" class="error" style="display: none;"></label>
+                    </div>
+                </div>
+
+                <!--<div  class="wz">
+                    <span>账号</span>
+                </div>-->
+
+                <div class="zc-now">
+                 
+                <div class="item login-btn ljzc">
+                         <a class="btn-img btn-entry" href="javascript:void(0);" id="regesitBtn">立即注册</a>
+                </div>
+                
+                    <!--<span><a id="changeToMail" href="javascript:void(0);"> 通过邮箱注册>></a></span>-->
+                </div>
+               </form> 
+                 <form id="mobileForm" action="phoneRegSuccess.action"  method="post">
+	        	<input name="mobile" type="hidden"  id="mobile"/>
+	           </form>
+
+
+            </div>
+
+         </div>
+        <div class="login-banner">
+            <a href="javascript:void(0)" target="_blank"><img src='<!--#echo var="cssAndJsPath"-->/res/images/kmb2b/login-bg.jpg'> </a>
+        </div>
+       </div>
+      </div>   
+	<!--注册页结束-->
+	<!--底部开始-->
+</body>
+</html>

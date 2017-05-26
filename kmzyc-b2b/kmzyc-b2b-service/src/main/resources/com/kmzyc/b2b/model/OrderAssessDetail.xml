@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ORDERASSESSDETAIL" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.kmzyc.b2b.model.OrderAssessDetail" >
+    <result column="ASSESS_DETAIL_ID" property="assessDetailId" jdbcType="DECIMAL" />
+    <result column="ASSESS_INFO_ID" property="assessInfoId" jdbcType="DECIMAL" />
+    <result column="ASSESS_SCORE" property="assessScore" jdbcType="DECIMAL" />
+    <result column="ASSESS_LEVEL" property="assessLevel" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="ASSESS_TYPE" property="assessType" jdbcType="VARCHAR" />
+    <result column="ASSESS_NAME" property="assessName" jdbcType="VARCHAR" />
+    <result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+  </resultMap>
+   
+   
+  <select id="ibatorgenerated_selectByCondition" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.kmzyc.b2b.model.OrderAssessDetail" >
+ 
+    select ASSESS_DETAIL_ID, ASSESS_INFO_ID, ASSESS_SCORE, ASSESS_LEVEL, CREATE_DATE, ASSESS_TYPE,
+      ASSESS_NAME, ORDER_CODE
+    from ORDER_ASSESS_DETAIL
+    where 1=1
+     <isNotEmpty property="orderCode" prepend="and">
+            ORDER_CODE =  #orderCode:DECIMAL#
+     </isNotEmpty>
+  </select>
+  
+  <!-- 根据订单号，查询订单评论信息 -->
+  <select id="findAssessInfoByOrderNo" parameterClass="java.lang.String" resultClass="com.kmzyc.b2b.model.OrderAssessInfo" >
+  	  SELECT ASSESS_INFO_ID assessInfoId, ASSESS_MARK assessMark, GUEST_NUM guestNum
+  	  , ASSESS_CONTEXT assessContext, ORDER_ID orderId, CREATE_DATE createDate, ORDER_CODE orderCode
+      FROM ORDER_ASSESS_INFO 
+      WHERE ORDER_CODE =  #orderCode:VARCHAR#
+  </select>
+   
+   	<!-- 查看店铺评分-->
+   	<select id="SQL_QUERY_SHOP_SCORE" parameterClass="java.lang.Long" resultClass="java.util.HashMap">
+		SELECT NVL(SUM(CASE
+		                 WHEN OAD.ASSESS_TYPE = 'Assess_Type_one' THEN
+		                  OAD.ASSESS_SCORE
+		                 ELSE
+		                  0
+		               END),
+		           0) ASSESS_TYPE_ONE,
+		       NVL(SUM(CASE
+		                 WHEN OAD.ASSESS_TYPE = 'Assess_Type_two' THEN
+		                  OAD.ASSESS_SCORE
+		                 ELSE
+		                  0
+		               END),
+		           0) ASSESS_TYPE_TWO,
+		       NVL(SUM(CASE
+		                 WHEN OAD.ASSESS_TYPE = 'Assess_Type_three' THEN
+		                  OAD.ASSESS_SCORE
+		                 ELSE
+		                  0
+		               END),
+		           0) ASSESS_TYPE_THREE,
+		       NVL(SUM(CASE
+		                 WHEN OAD.ASSESS_TYPE = 'Assess_Type_four' THEN
+		                  OAD.ASSESS_SCORE
+		                 ELSE
+		                  0
+		               END),
+		           0) ASSESS_TYPE_FOUR,
+		       NVL(SUM(CASE
+		                 WHEN OAD.ASSESS_TYPE = 'Assess_Type_one' THEN
+		                  1
+		                 ELSE
+		                  0
+		               END),
+		           0) ASSESSCOUNT
+		  FROM ORDER_ASSESS_DETAIL OAD
+		 WHERE EXISTS (SELECT 1
+		          FROM ORDER_MAIN OM
+		         WHERE OAD.ORDER_CODE = OM.ORDER_CODE
+		           AND OM.COMMERCE_ID = #supplierId:DECIMAL#)
+   	</select>
+   	
+   	<!-- 查看平均店铺评分-->
+   	<select id="SQL_QUERY_SHOP_AVG_SCORE" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		SELECT NVL(SUM(CASE
+		                 WHEN OAD.ASSESS_TYPE = 'Assess_Type_one' THEN
+		                  OAD.ASSESS_SCORE
+		                 ELSE
+		                  0
+		               END),
+		           0) ASSESS_TYPE_ONE_ALL,
+		       NVL(SUM(CASE
+		                 WHEN OAD.ASSESS_TYPE = 'Assess_Type_two' THEN
+		                  OAD.ASSESS_SCORE
+		                 ELSE
+		                  0
+		               END),
+		           0) ASSESS_TYPE_TWO_ALL,
+		       NVL(SUM(CASE
+		                 WHEN OAD.ASSESS_TYPE = 'Assess_Type_three' THEN
+		                  OAD.ASSESS_SCORE
+		                 ELSE
+		                  0
+		               END),
+		           0) ASSESS_TYPE_THREE_ALL,
+		       NVL(SUM(CASE
+		                 WHEN OAD.ASSESS_TYPE = 'Assess_Type_four' THEN
+		                  OAD.ASSESS_SCORE
+		                 ELSE
+		                  0
+		               END),
+		           0) ASSESS_TYPE_FOUR_ALL,
+		       NVL(SUM(CASE
+		                 WHEN OAD.ASSESS_TYPE = 'Assess_Type_one' THEN
+		                  1
+		                 ELSE
+		                  0
+		               END),
+		           0) ASSESSCOUNT_ALL
+		  FROM ORDER_ASSESS_DETAIL OAD
+   	</select>
+</sqlMap>

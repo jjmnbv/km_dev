@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AccountInfo">
+	<!-- <typeAlias alias="accountInfo" type="com.pltfm.app.vobject.AccountInfo"/> -->
+
+	<resultMap id="accountInfo" class="com.kmzyc.b2b.model.AccountInfo">
+		<result column="N_ACCOUNT_ID" property="naccountId" jdbcType="DECIMAL" />
+		<result column="N_CUSTOMER_TYPE_ID" property="customerTypeId" jdbcType="DECIMAL" />
+		<result column="N_LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+		<result column="ACCOUNT_LOGIN" property="accountLogin" jdbcType="VARCHAR" />
+		<result column="PAYMENTPWD" property="paymentpwd" jdbcType="VARCHAR" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="ACCONUT_ID" property="acconutId" jdbcType="VARCHAR" />
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+		<result column="D_CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="N_ACCOUNT_AMOUNT" property="accountAmount" jdbcType="DECIMAL" />
+		<result column="AMOUNT_FROZEN" property="amountFrozen" jdbcType="DECIMAL" />
+		<result column="AMOUNT_AVLIBAL" property="amountAvlibal" jdbcType="DECIMAL" />
+		<result column="N_STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="D_MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+		<result column="N_MODIFIED" property="modified" jdbcType="DECIMAL" />
+		<result column="PAY_RANGE" property="payRange" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="couponMap" class="com.kmzyc.b2b.model.Coupon">
+		<result column="COUPON_ID" property="couponId" jdbcType="DECIMAL" />
+		<result column="COUPON_GIVETYPE_ID" property="couponGivetypeId" jdbcType="DECIMAL" />
+		<result column="COUPON_NAME" property="couponName" jdbcType="VARCHAR" />
+		<result column="COUPON_DESCRIBE" property="couponDescribe" jdbcType="VARCHAR" />
+		<result column="COUPON_MONEY" property="couponMoney" jdbcType="DECIMAL" />
+		<result column="STARTTIME" property="starttime"/>
+		<result column="ENDTIME" property="endtime"/>
+		<result column="CREATETIME" property="createtime" jdbcType="DATE" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="CUSTOM_LEVEID" property="customLeveid" jdbcType="VARCHAR" />
+		<result column="CUSTOM_REG_START" property="customRegStart" jdbcType="DATE" />
+		<result column="CUSTOM_REG_END" property="customRegEnd" jdbcType="DATE" />
+		<result column="PAY_LEAST_MONEY" property="payLeastMoney" jdbcType="DECIMAL" />
+		<result column="CUSTOM_ID" property="customId" jdbcType="VARCHAR" />
+		<result column="IS_GRANT" property="isGrant" jdbcType="VARCHAR" />
+		<result column="COUPON_VALID_DAY" property="couponValidDay" jdbcType="DECIMAL" />
+		<result column="USE_LIMITS_TYPE" property="useLimitsType" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<resultMap id="myHomeLoad" class="com.kmzyc.b2b.model.User">
+		<result column="n_login_id" property="loginId" jdbcType="DECIMAL" />
+		<result column="mobile" property="mobile" jdbcType="DECIMAL" /> 
+		<result column="email" property="email" jdbcType="DECIMAL" /> 
+		<result column="amount_avlibal" property="amountAvlibal" jdbcType="DECIMAL" /> 
+		<result column="paymentpwd" property="paymentPwd" jdbcType="DECIMAL" /> 
+		<result column="n_available_integral" property="availableIntegral" jdbcType="DECIMAL" /> 
+		<result column="level_name" property="levelName" jdbcType="DECIMAL" />
+		<result column="amount_consume" property="totalConsume" jdbcType="DECIMAL" />
+		<result column="LASTYEAR_AMOUNT" property="lastYearAmount" jdbcType="DECIMAL" />
+		<result column="head_sculpture" property="headSculpture" jdbcType="DECIMAL" />
+		<result column="instockSkuAmount" property="instockSkuAmount" jdbcType="DECIMAL" />
+		<result column="card_num" property="cardNum" jdbcType="VARCHAR" /> 
+		<result column="nickname" property="nickName" jdbcType="VARCHAR"/>
+		<result property="earInfo" resultMap="AccountInfo.eraMap" />
+	</resultMap>
+	<resultMap id="eraMap" class="com.kmzyc.b2b.vo.EraInfo">
+		 <result jdbcType="DECIMAL" property="eraNo" column="ERA_NO"/>
+		 <result jdbcType="VARCHAR" property="loginAccount" column="login_account" />
+		 <result jdbcType="DECIMAL" property="eraGradeName" column="era_grade_name"/>  
+		 <result jdbcType="DECIMAL" property="expIntegralValue" column="exp_integral_value"/> 
+	</resultMap>
+	
+	<parameterMap class="java.util.Map" id="couponMoneymap">
+		<parameter property="moneyCount" />
+		<parameter property="customId" />
+	</parameterMap>
+	<sql id="byNaccountIDCondition">
+		<![CDATA[
+		   n_login_id = #loginId:NUMBER#
+	    ]]>
+	</sql>
+
+	<sql id="byUserIdCondition">
+		<![CDATA[
+		   N_LOGIN_ID = #userId:NUMBER#
+	    ]]>
+	</sql>
+
+
+	<select id="findById" parameterClass="Long" resultMap="accountInfo">
+		<![CDATA[
+			SELECT * FROM ACCOUNT_INFO
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byNaccountIDCondition" />
+		</dynamic>
+	</select>
+	
+	<update id="updateEmail" parameterClass="java.util.HashMap">
+		UPDATE ACCOUNT_INFO A SET A.EMAIL=#email:VARCHAR#, A.D_MODIFY_DATE=sysdate WHERE A.N_LOGIN_ID=#userId:NUMBER#
+	</update>
+	<update id="updateMobile" parameterClass="java.util.HashMap">
+		UPDATE ACCOUNT_INFO A SET A.MOBILE=#mobile:VARCHAR#, A.D_MODIFY_DATE=sysdate WHERE A.N_LOGIN_ID=#userId:NUMBER#
+	</update>
+	<update id="updateSource" parameterClass="java.util.HashMap">
+		UPDATE ACCOUNT_INFO A  SET A.SOURCE_REGIST=#resource:VARCHAR#, A.D_MODIFY_DATE=sysdate WHERE A.N_LOGIN_ID = #userId:NUMBER#
+	</update>
+	
+	<select id="findCoupons" parameterClass="java.util.Map" resultMap="couponMap">
+		<![CDATA[
+		select g.coupon_grant_id coupon_id,
+		       c.coupon_givetype_id,
+		       c.coupon_name,
+		       c.coupon_describe,
+		       c.coupon_money,
+		       c.starttime,
+		       c.endtime,
+		       c.createtime,
+		       c.status,
+		       c.custom_leveid,
+		       c.custom_reg_start,
+		       c.custom_reg_end,
+		       c.pay_least_money,
+		       c.custom_id,
+		       c.is_grant,
+		       c.coupon_valid_day
+		  from coupon_grant g, coupon c
+		 where g.coupon_id = c.coupon_id
+		   and g.coupon_status = 3
+		   and c.status = 2
+		   and c.pay_least_money <= #moneyCount:NUMBER#
+		   and sysdate between g.starttime and g.endtime
+		   and g.custom_id = #customId:NUMBER#
+		   and g.coupon_grant_id = #couponId:NUMBER#
+		]]>
+	</select>
+
+	<select id="findcouponsBygrantIds" parameterClass="java.util.List" resultMap="couponMap">
+		select g.COUPON_GRANT_ID as coupon_id,
+				c.coupon_givetype_id,
+				c.coupon_name,
+				c.coupon_describe,
+				c.coupon_money,
+				g.starttime,
+				g.endtime,
+				c.createtime,
+				c.status,
+				c.custom_leveid,
+				c.custom_reg_start,
+				c.custom_reg_end,
+				c.pay_least_money,
+				c.custom_id,
+				c.is_grant,
+				c.coupon_valid_day,
+				nvl(c.use_limits_type,'0')  use_limits_type
+		  from coupon_grant g, coupon c
+		 where g.coupon_id = c.coupon_id
+		 and g.COUPON_GRANT_ID in
+		 	<iterate open="(" close=")" conjunction=",">
+		    	#[]#
+			</iterate>
+	</select>
+	
+	<select id="findCouponByCouponId" parameterClass="long"
+		resultMap="couponMap">
+		select * from coupon where coupon_id =#couponId:DECIMAL#
+	</select>
+
+	<select id="findByUserId" parameterClass="long" resultMap="accountInfo">
+		<![CDATA[
+			SELECT * FROM ACCOUNT_INFO
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byUserIdCondition" />
+		</dynamic>
+	</select>
+
+	<!-- 已过期，不再使用 -->
+	<select id="findDefaultAddressByLoginId" parameterClass="long"
+		resultClass="int">
+		select count(1) from address a, account_info ai where
+		a.N_account_id = ai.N_ACCOUNT_ID
+		and ai.N_LOGIN_ID=#loginId:NUMBER# and
+		status=0
+	</select>
+
+	<!-- 根据商户id查询供应商信息 -->
+	<select id="SQL_QUERY_SELLERINFO_BY_MERCHANTID" parameterClass="java.util.List" resultClass="com.kmzyc.supplier.model.SuppliersInfo">
+	<![CDATA[
+		select sm.shop_id shopId,
+		       si.merchant_id merchantId,
+		       si.supplier_type supplierType,
+		       si.status status,
+		       sm.shop_name shopName,
+		       ctbi.corporate_name merchantCompany,
+		       ctbi.n_login_id loginId,
+		       ctbi.corporate_property merchantProperty,
+		       ctbi.province || '-' || ctbi.city merchantArea,
+		       ctbi.contacts_email merchantEmail
+		  from suppliers_info si
+		 inner join commercial_tenant_basic_info ctbi
+		    on (ctbi.n_commercial_tenant_id = si.merchant_id)
+		 inner join shop_main sm
+		    on (sm.supplier_id = si.supplier_id)
+		 where si.status = 3
+	]]>
+		<isNotEmpty property="merchantIds" prepend=" and ">
+			si.merchant_id in
+			<iterate property="merchantIds" open="(" close=")" conjunction=",">
+		    	#merchantIds[]#
+			</iterate>
+		</isNotEmpty>
+	</select>
+	
+	<!-- 根据商户id查询供应商信息 -->
+	<select id="SQL_GET_SELLERINFO" parameterClass="Long" resultClass="com.kmzyc.b2b.vo.SellerInfo">
+	<![CDATA[
+		select sm.shop_id shopId,
+		       si.merchant_id merchantId,
+		       si.supplier_type supplierType,
+		       si.status status,
+		       sm.shop_name shopName,
+		       ctbi.corporate_name merchantCompany,
+		       ctbi.n_login_id loginId,
+		       ctbi.corporate_property merchantProperty,
+		       ctbi.province || '-' || ctbi.city merchantArea,
+		       ctbi.contacts_email merchantEmail
+		  from suppliers_info si
+		 inner join commercial_tenant_basic_info ctbi
+		    on (ctbi.n_commercial_tenant_id = si.merchant_id)
+		 inner join shop_main sm
+		    on (sm.supplier_id = si.supplier_id)
+		 where si.status = 3
+		 and si.merchant_id= #merchantId#
+	]]>
+	</select>
+	
+	<resultMap id="SETT_RESULT_MAP" class="com.kmzyc.b2b.model.AccountInfo">
+		<result column="N_CUSTOMER_TYPE_ID" property="customerTypeId" jdbcType="DECIMAL" />
+		<result column="N_ACCOUNT_ID" property="naccountId" jdbcType="DECIMAL" />
+		<result column="N_LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+		<result column="LOGIN_ACCOUNT" property="accountLogin" jdbcType="VARCHAR" />
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="PAYMENTPWD" property="paymentpwd" jdbcType="VARCHAR" />
+		<result column="AMOUNT_AVLIBAL" property="amountAvlibal" jdbcType="DECIMAL" />
+		<result column="PAY_RANGE" property="payRange" jdbcType="VARCHAR" />
+		<result column="ORGANCODE" property="organCode" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 登录ID查询帐号信息，结算用 -->
+	<select id="SQL_QUERY_ACCOUNT_INFO_BY_LOGIN_ID_FOR_SETT" parameterClass="Long" resultMap="SETT_RESULT_MAP">
+		select ai.n_customer_type_id n_customer_type_id,
+		       ai.n_account_id n_account_id,
+		       ai.n_login_id n_login_id,
+		       li.login_account login_account,
+		       nvl(li.mobile, ai.mobile) mobile,
+		       nvl(li.email, ai.email) email,
+		       ai.address address,
+		       ai.name name,
+		       ai.paymentpwd paymentpwd,
+		       ai.amount_avlibal amount_avlibal,
+		       ','||ai.pay_range||',' pay_range,
+		       (select pio.organi_code || ',' || pio.organi_des || ',' ||
+		               pmil.invitation_id
+		          from prom_invited_organizations   pio,
+		               prom_members_invitation_list pmil
+		         where pio.invited_organizations_id = pmil.invited_organizations_id
+		           and pmil.invitees_id = li.n_login_id) organCode
+		  from account_info ai, login_info li
+		 where li.n_login_id = ai.n_login_id
+		   and li.n_login_id = #loginId:NUMBER#
+	</select>
+	
+	
+	<!-- 查询我的会员中心的相关信息 -->
+	<select id="findHomeLoadById" parameterClass="java.util.Map" resultMap="myHomeLoad"> 
+		select l.n_login_id,
+		       l.mobile,
+		       l.email,
+		       (select count(distinct fa.content_code)
+		          from bnes_favorites   fa,
+		               product_stock s,
+		               productmain   pm
+		         where fa.login_id = #loginId:NUMBER#
+		           and fa.content_code = s.sku_att_value
+		           and s.product_id = pm.product_id
+		           and pm.status = 3
+		           and fa.favorites_type = 1
+		           and (s.stock_quality - s.order_quality)>0) instockSkuAmount,
+		       a.paymentpwd,
+		       a.amount_avlibal,
+		       p.n_available_integral,
+		       e.era_no,
+		       e.era_grade_name,
+		       e.exp_integral_value,
+		       e.login_account,
+		       (select ul.level_name
+		          from USER_LEVEL ul
+		         where ul.n_level_id = l.n_level_id) level_name,
+		       p.amount_consume,
+		       p.LASTYEAR_AMOUNT,
+		       p.head_sculpture,
+		       p.nickname,
+		       l.card_num
+		  from login_info   l,
+		       account_info a,
+		       PERSONALITY_INFO    p,
+		       era_info     e
+		 where l.n_login_id = a.n_login_id
+		   and l.n_login_id = p.n_login_id(+)
+		   and l.n_login_id = e.n_login_id(+)
+		   and l.n_login_id = #loginId:NUMBER#
+	</select>
+	
+	<!-- 查询用户安全信息 -->
+	<select id="SQL_QUERY_USER_SECURITY_INFO" parameterClass="java.lang.Long" resultClass="java.util.HashMap">
+		select li.login_account  loginAccount,
+		       li.login_password loginPassword,
+		       li.mobile         mobile,
+		       li.email          email,
+		       ai.paymentpwd     paymentpwd,
+		       ai.pay_range      payRange
+		  from login_info li, account_info ai
+		 where ai.n_login_id = li.n_login_id
+		   and li.n_login_id = #loginId:NUMBER#
+	</select>	
+</sqlMap>

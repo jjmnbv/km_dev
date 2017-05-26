@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TraceInfo">
+	<resultMap id="OrderInfo" class="com.kmzyc.b2b.vo.TraceInfoVO">
+		<result column="NOW_OPERATE_DATE" property="date"	jdbcType="date" />
+		<result column="OPERATE_INFO" property="info"  jdbcType="VARCHAR"/>
+		<result column="NOW_OPERATOR" property="operator" jdbcType="VARCHAR"/>
+		<result column="now_order_status" property="status" jdbcType="DECIMAL" />
+		<result column="now_operate_type" property="operatStatus" jdbcType="DECIMAL" />
+	</resultMap>
+	<resultMap id="AlterInfo" class="com.kmzyc.b2b.vo.TraceInfoVO">
+		<result column="NOW_OPERATE_DATE" property="date"	jdbcType="date" />
+		<result column="OPERATE_INFO" property="info"  jdbcType="VARCHAR"/>
+		<result column="NOW_OPERATOR" property="operator" jdbcType="VARCHAR"/>
+		<result column="now_alter_status" property="status" jdbcType="DECIMAL" />
+		<result column="now_operate_type" property="operatStatus" jdbcType="DECIMAL" />
+	</resultMap>
+	<resultMap class="com.kmzyc.b2b.model.OrderAlter"  id="OrderAlterInfo">
+		<result  column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR"/>
+		<result  column="ORDER_ALTER_CODE" property="orderAlterCode" jdbcType="VARCHAR"/>
+		<result column="PROPOSE_STATUS" jdbcType="DECIMAL" property="proposeStatus" />
+		<result column="ALTER_TYPE"  jdbcType="DECIMAL" property="alterType" />
+		<result column="LOGISTICS_ORDER_NO" jdbcType="DECIMAL" property="logisticsOrderNo" />
+	    <result column="CUSTOMER_LOGISTICS_NO" jdbcType="DECIMAL" property="customerLogisticsNo" />
+	    <result column="LOGISTICS_CODE" jdbcType="VARCHAR" property="logisticsCode" />
+	    <result  column="PROPOSER" property="proposer" jdbcType="VARCHAR"/>
+	    <result  column="LOGISTICS_NAME" property="logisticsName" jdbcType="VARCHAR"/>
+	    <result  column="CUSTOMER_LOGISTICS_NAME" property="customerLogisticsName" jdbcType="VARCHAR"/>
+	    <result column="CUSTOMER_LOGISTICS_CODE" jdbcType="VARCHAR" property="customerLogisticsCode" />
+	</resultMap>
+	
+	<select id="qryOrderInfo" parameterClass="java.lang.String"  resultMap="OrderInfo">
+		select oos.now_operate_date,oos.operate_info,oos.now_operator,oos.now_order_status,oos.now_operate_type  
+		 from order_operate_statement oos where oos.order_code=#orderCode:VARCHAR#
+		 order by oos.now_operate_date desc
+	</select>
+	
+	<select id="qryAlterInfo" parameterClass="java.lang.String"  resultMap="AlterInfo">
+		select oos.now_operate_date,oos.operate_info,oos.now_operator ,oos.now_alter_status,oos.now_operate_type
+		 from order_alter_operate_statement oos where oos.order_alter_code=#orderAlterCode:VARCHAR#
+		 order by oos.now_operate_date desc
+	</select>
+	<select id="qryOrderAlter" parameterClass="java.lang.String"   resultMap="OrderAlterInfo">
+		select t.order_code,t.propose_status,t.order_alter_code,t.logistics_order_no,
+		t.customer_logistics_no,t.logistics_code,t.customer_logistics_code ,t.logistics_name,t.customer_logistics_name,t.ALTER_TYPE,t.PROPOSER
+		from order_alter t where t.order_alter_code=#orderAlterCode:VARCHAR#
+	</select>
+</sqlMap>

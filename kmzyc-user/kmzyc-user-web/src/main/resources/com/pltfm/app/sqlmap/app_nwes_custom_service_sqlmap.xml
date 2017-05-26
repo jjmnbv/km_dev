@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="NWES_CUSTOM_SERVICE" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.NwesCustomService" >
+    <result column="CUSTOM_SERVICE_ID" property="customServiceId" jdbcType="DECIMAL" />
+    <result column="LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+    <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+    <result column="CUSTOM_SERVICE_TYPE" property="customServiceType" jdbcType="DECIMAL" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_TYPE_ID" property="customerTypeId" jdbcType="DECIMAL" />
+    <result column="CUSTOM_SERVICE_MODE" property="customServiceMode" jdbcType="DECIMAL" />
+    <result column="CUSTOM_SERVICE_DATE" property="customServiceDate" jdbcType="DATE" />
+    <result column="CREADED" property="creaded" jdbcType="DECIMAL" />
+    <result column="MODIFIED" property="modified" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="MODIFIE_DATE" property="modifieDate" jdbcType="DATE" />
+    <result column="REPLY_STATUS" property="replyStatus" jdbcType="DECIMAL" />    
+  </resultMap>
+  
+    <resultMap id="ibatorgenerated_BaseResultMapResul" class="com.pltfm.app.vobject.NwesCustomService" >
+    <result column="CUSTOM_SERVICE_ID" property="customServiceId" jdbcType="DECIMAL" />
+    <result column="LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+     <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />   
+    <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+    <result column="CUSTOM_SERVICE_TYPE" property="customServiceType" jdbcType="DECIMAL" />
+     <result column="CUSTOMERNAME" property="customerName" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_TYPE_ID" property="customerTypeId" jdbcType="DECIMAL" />
+    <result column="CUSTOM_SERVICE_MODE" property="customServiceMode" jdbcType="DECIMAL" />
+    <result column="CUSTOM_SERVICE_DATE" property="customServiceDate" jdbcType="DATE" />
+    <result column="CREADED" property="creaded" jdbcType="DECIMAL" />
+    <result column="MODIFIED" property="modified" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="MODIFIE_DATE" property="modifieDate" jdbcType="DATE" />
+     <result column="REPLY_STATUS" property="replyStatus" jdbcType="DECIMAL" /> 
+  </resultMap>
+  
+  <resultMap id="ibatorgenerated_CountResult" class="com.pltfm.sys.model.SysModelUtil">
+    <result column="the_count" property="theCount" jdbcType="DECIMAL" />
+  </resultMap>
+   <!-- 服务主键查询信息 -->
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap" parameterClass="java.lang.Integer" >
+    select CUSTOM_SERVICE_ID,LOGIN_NAME,LOGIN_ID,REPLY_STATUS, CUSTOM_SERVICE_TYPE, CONTENT, CUSTOMER_TYPE_ID,
+      CUSTOM_SERVICE_MODE, CUSTOM_SERVICE_DATE, CREADED, MODIFIED, CREATE_DATE, MODIFIE_DATE
+    from NWES_CUSTOM_SERVICE
+    where CUSTOM_SERVICE_ID = #customServiceId:DECIMAL#
+  </select>
+     <!-- 服务主键删除信息 -->
+  <delete id="ibatorgenerated_delete" parameterClass="com.pltfm.app.vobject.NwesCustomService" > 
+    delete from NWES_CUSTOM_SERVICE
+    where CUSTOM_SERVICE_ID = #customServiceId:DECIMAL#
+  </delete>
+  
+    <!-- 添加服务信息 -->
+  <insert id="ibatorgenerated_insert" parameterClass="com.pltfm.app.vobject.NwesCustomService" >
+    <selectKey resultClass="java.lang.Integer" keyProperty="customServiceId" >
+           select seq_app_account.nextval from dual
+      </selectKey>
+    insert into NWES_CUSTOM_SERVICE
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="customServiceId" >
+        CUSTOM_SERVICE_ID
+      </isNotNull>      
+       <isNotNull prepend="," property="loginId" >
+        LOGIN_ID
+      </isNotNull>
+      <isNotNull prepend="," property="loginName" >
+        LOGIN_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="customServiceType" >
+        CUSTOM_SERVICE_TYPE
+      </isNotNull>
+      <isNotNull prepend="," property="content" >
+        CONTENT
+      </isNotNull>
+      <isNotNull prepend="," property="customerTypeId" >
+        CUSTOMER_TYPE_ID
+      </isNotNull>
+      <isNotNull prepend="," property="customServiceMode" >
+        CUSTOM_SERVICE_MODE
+      </isNotNull>
+       <isNotNull prepend="," property="replyStatus" >
+        REPLY_STATUS
+      </isNotNull>
+      <isNotNull prepend="," property="customServiceDate" >
+        CUSTOM_SERVICE_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="creaded" >
+        CREADED
+      </isNotNull>
+      <isNotNull prepend="," property="modified" >
+        MODIFIED
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="modifieDate" >
+        MODIFIE_DATE
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="customServiceId" >
+        #customServiceId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="loginId" >
+        #loginId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="loginName" >
+        #loginName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="customServiceType" >
+        #customServiceType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="content" >
+        #content:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="customerTypeId" >
+        #customerTypeId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="customServiceMode" >
+        #customServiceMode:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="replyStatus" >
+        #replyStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="customServiceDate" >
+        #customServiceDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="creaded" >
+        #creaded:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="modified" >
+        #modified:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        #createDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="modifieDate" >
+        #modifieDate:DATE#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+     <!-- 修改服务信息 -->
+  <update id="ibatorgenerated_update" parameterClass="com.pltfm.app.vobject.NwesCustomService" >
+    update NWES_CUSTOM_SERVICE
+    <dynamic prepend="set" >
+        <isNotNull prepend="," property="loginId" >
+        LOGIN_ID = #loginId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="loginName" >
+        LOGIN_NAME = #loginName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="customServiceType" >
+        CUSTOM_SERVICE_TYPE = #customServiceType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="content" >
+        CONTENT = #content:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="customerTypeId" >
+        CUSTOMER_TYPE_ID = #customerTypeId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="customServiceMode" >
+        CUSTOM_SERVICE_MODE = #customServiceMode:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="replyStatus" >
+        REPLY_STATUS = #replyStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="customServiceDate" >
+        CUSTOM_SERVICE_DATE = #customServiceDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="creaded" >
+        CREADED = #creaded:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="modified" >
+        MODIFIED = #modified:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE = #createDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="modifieDate" >
+        MODIFIE_DATE = #modifieDate:DATE#
+      </isNotNull>
+    </dynamic>
+    where CUSTOM_SERVICE_ID = #customServiceId:DECIMAL#
+  </update>
+   <!-- 分页 -->
+	<!--  ****************  search page by vo  ****************  -->
+	<select id="searchPageByVo" resultMap="ibatorgenerated_BaseResultMapResul"
+		parameterClass="com.pltfm.app.vobject.NwesCustomService">
+		 select CUSTOM_SERVICE_ID, LOGIN_ID,USER_NAME,REPLY_STATUS, LOGIN_NAME, CUSTOM_SERVICE_TYPE,CUSTOMERNAME,CONTENT, CUSTOMER_TYPE_ID,
+      CUSTOM_SERVICE_MODE, CUSTOM_SERVICE_DATE, CREADED, MODIFIED, CREATE_DATE, MODIFIE_DATE  FROM (
+       select  ROW_NUMBER() OVER(order by CUSTOM_SERVICE_ID desc) as view_row_number, 
+       tt.*,com.NAME CUSTOMERNAME,uu.user_name  from NWES_CUSTOM_SERVICE tt,BNES_CUSTOMER_TYPE com,
+       sys_user uu where  tt.CUSTOMER_TYPE_ID = com.CUSTOMER_TYPE_ID and tt.login_id=uu.user_id 
+			<isNotNull property="customerTypeId">
+				<isNotEmpty prepend="and" property="customerTypeId">
+					tt.CUSTOMER_TYPE_ID =#customerTypeId:Integer#
+			  </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="loginName">
+				<isNotEmpty prepend="and" property="loginName">
+					tt.LOGIN_NAME like '%$loginName$%'
+			  </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="customServiceType">
+				<isNotEmpty prepend="and" property="customServiceType">
+					tt.CUSTOM_SERVICE_TYPE =#customServiceType:Integer#
+			  </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="customServiceMode">
+				<isNotEmpty prepend="and" property="customServiceMode">
+					tt.CUSTOM_SERVICE_MODE =#customServiceMode:Integer#
+			  </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="replyStatus">
+				<isNotEmpty prepend="and" property="replyStatus">
+					REPLY_STATUS = #replyStatus:DECIMAL#
+			  </isNotEmpty>
+			</isNotNull>    
+		)
+    <![CDATA[ where view_row_number <= #max# and view_row_number > #skip# ]]>
+	</select>
+
+	<!--
+		**************** search user's roleList by vo ****************
+	-->
+	<select id="selectCountByVo" parameterClass="com.pltfm.app.vobject.NwesCustomService"
+		resultMap="ibatorgenerated_CountResult">
+		select count(1) the_count from NWES_CUSTOM_SERVICE tt,BNES_CUSTOMER_TYPE com,
+       sys_user uu where  tt.CUSTOMER_TYPE_ID = com.CUSTOMER_TYPE_ID and tt.login_id=uu.user_id 
+			<isNotNull property="customerTypeId">
+				<isNotEmpty prepend="and" property="customerTypeId">
+					tt.CUSTOMER_TYPE_ID=#customerTypeId:Integer#
+			  </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="loginName">
+				<isNotEmpty prepend="and" property="loginName">
+					tt.LOGIN_NAME like '%$loginName$%'
+			  </isNotEmpty>
+			</isNotNull>
+		     <isNotNull property="customServiceType">
+				<isNotEmpty prepend="and" property="customServiceType">
+					tt.CUSTOM_SERVICE_TYPE =#customServiceType:Integer#
+			  </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="customServiceMode">
+				<isNotEmpty prepend="and" property="customServiceMode">
+					tt.CUSTOM_SERVICE_MODE =#customServiceMode:Integer#
+			  </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="replyStatus">
+				<isNotEmpty prepend="and" property="replyStatus">
+					REPLY_STATUS = #replyStatus:DECIMAL#
+			  </isNotEmpty>
+			</isNotNull> 
+	</select>
+</sqlMap>

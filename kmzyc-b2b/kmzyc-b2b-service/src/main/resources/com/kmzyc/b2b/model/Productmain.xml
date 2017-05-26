@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Productmain">
+
+	<typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+
+	<resultMap id="productmainResultMap" class="com.kmzyc.b2b.model.Productmain">
+		<result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+		<result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+		<result column="PROCUCT_NAME" property="procuctName" jdbcType="VARCHAR" />
+		<result column="PRODUCT_DESC" property="productDesc" jdbcType="VARCHAR" />
+		<result column="PACK_LISTING" property="packListing" jdbcType="VARCHAR" />
+		<result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+		<result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="VARCHAR" />
+		<result column="CREATE_USER" property="createUser" jdbcType="DECIMAL" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="Date" />
+		<result column="PRODUCTHOT" property="producthot" jdbcType="DECIMAL" />
+		<result column="ARCHIVE_TIME" property="archiveTime" jdbcType="Date" />
+		<result column="CHECK_TIME" property="checkTime" jdbcType="Date" />
+		<result column="MODIF_TIME" property="modifTime" jdbcType="Date" />
+		<result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR" />
+		<result column="MODIF_USER" property="modifUser" jdbcType="DECIMAL" />
+		<result column="UP_TIME" property="upTime" jdbcType="Date" />
+		<result column="CHANNEL" property="channel" jdbcType="VARCHAR" />
+		<result column="MARKET_PRICE" property="marketPrice" jdbcType="DECIMAL" />
+		<result column="COST_PRICE" property="costPrice" jdbcType="DECIMAL" />
+		<result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+		<result column="CHECK_USER" property="checkUser" jdbcType="DECIMAL" />
+		<result column="CHECK_USER_NAME" property="checkUserName" jdbcType="VARCHAR" />
+		<result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+		<result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+		<result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+		<result column="APPROVAL_TYPE" property="approvalType" jdbcType="DECIMAL" />
+		<result column="APPROVAL_NO" property="approvalNo" jdbcType="VARCHAR" />
+		<result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+		<!-- result column="IS_NOTICE" property="isNotice" jdbcType="CHAR" /-->
+		<result column="DRUG_CATE_ID" property="drugCateId" jdbcType="DECIMAL" />
+		<result column="DRUG_CATE_CODE" property="drugCateCode" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="productmainResultMap_intor" class="com.kmzyc.b2b.model.Productmain">
+		<result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+		<result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+		<result column="PROCUCT_NAME" property="procuctName" jdbcType="VARCHAR" />
+		<result column="PRODUCT_DESC" property="productDesc" jdbcType="VARCHAR" />
+		<result column="PACK_LISTING" property="packListing" jdbcType="VARCHAR" />
+		<result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+		 <result column="PRODUCT_SUBTITLE" property="productSubtitle" jdbcType="VARCHAR" />
+		<result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="VARCHAR" />
+		<result column="CREATE_USER" property="createUser" jdbcType="DECIMAL" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="Date" />
+		<result column="PRODUCTHOT" property="producthot" jdbcType="DECIMAL" />
+		<result column="ARCHIVE_TIME" property="archiveTime" jdbcType="Date" />
+		<result column="CHECK_TIME" property="checkTime" jdbcType="Date" />
+		<result column="MODIF_TIME" property="modifTime" jdbcType="Date" />
+		<result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR" />
+		<result column="MODIF_USER" property="modifUser" jdbcType="DECIMAL" />
+		<result column="UP_TIME" property="upTime" jdbcType="Date" />
+		<result column="CHANNEL" property="channel" jdbcType="VARCHAR" />
+		<result column="MARKET_PRICE" property="marketPrice" jdbcType="DECIMAL" />
+		<result column="COST_PRICE" property="costPrice" jdbcType="DECIMAL" />
+		<result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+		<result column="CHECK_USER" property="checkUser" jdbcType="DECIMAL" />
+		<result column="CHECK_USER_NAME" property="checkUserName" jdbcType="VARCHAR" />
+		<result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+		<result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+		<result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+		<result column="APPROVAL_TYPE" property="approvalType" jdbcType="DECIMAL" />
+		<result column="APPROVAL_NO" property="approvalNo" jdbcType="VARCHAR" />
+		<result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+		<!-- result column="IS_NOTICE" property="isNotice" jdbcType="CHAR" /-->
+		<result column="DRUG_CATE_ID" property="drugCateId" jdbcType="DECIMAL" />
+		<result column="DRUG_CATE_CODE" property="drugCateCode" jdbcType="VARCHAR" />
+ 		<result column="INTRODUCE" property="introduce" jdbcType="CLOB" />
+	</resultMap>
+	
+   <resultMap id="productMainForPurchase" class="com.kmzyc.b2b.model.Productmain">
+		<result column="PRODUCT_DESC" property="productDesc" jdbcType="VARCHAR" />
+		<result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+		<result column="PROCUCT_NAME" property="procuctName" jdbcType="VARCHAR" />
+		<result column="CHANNEL" property="channel" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="byProductmainIdCondition">
+		<![CDATA[
+		   PRODUCT_ID = #productId:NUMBER#
+	    ]]>
+	</sql>
+
+
+	<select id="findById" parameterClass="java.lang.Long" resultMap="productmainResultMap">
+		<![CDATA[
+			SELECT * FROM PRODUCTMAIN
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byProductmainIdCondition" />
+		</dynamic>
+	</select>
+
+	
+	<select id="findProductById" parameterClass="java.lang.Long" resultMap="productmainResultMap_intor">
+		<![CDATA[
+			SELECT * FROM PRODUCTMAIN
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byProductmainIdCondition" />
+		</dynamic>
+	</select>
+	
+	<select id="findProductSupplyType" parameterClass="java.lang.Long" resultClass="com.kmzyc.b2b.model.Productmain">
+		<![CDATA[
+			SELECT p.PRODUCT_ID productId,p.CATEGORY_ID categoryId,p.PROCUCT_NAME procuctName,p.PRODUCT_DESC productDesc,p.PRODUCT_TITLE productTitle
+			,p.PRODUCT_SUBTITLE productSubtitle,p.KEYWORD keyword,p.STATUS  status,p.PRODUCTHOT producthot
+			,p.ARCHIVE_TIME archiveTime,p.SHOP_CODE shopCode,p.UP_TIME upTime,p.CHANNEL channel,p.PRODUCT_NO productNo
+			,p.BRAND_ID brandId,p.APPROVAL_TYPE approvalType,p.APPROVAL_NO approvalNo ,p.INTRODUCE introduce, pb.brand_name brandName  
+    		,si.SUPPLIER_TYPE isKmSelf from PRODUCTMAIN p,suppliers_info si,prod_brand pb where p.shop_code=to_char(si.SUPPLIER_ID) and p.brand_id=pb.brand_id and p.product_id=#productId# 
+		]]>
+	</select>
+	
+
+	<select id="findProductMainByProductSkuID" parameterClass="java.lang.Long" resultMap="productmainResultMap">
+		 SELECT m.* FROM productmain m, PRODUCT_SKU s
+ 		where m.PRODUCT_ID=s.PRODUCT_ID and s.PRODUCT_SKU_ID = #productSkuId:NUMBER#
+	</select>
+
+	<select id="findProductMainByTypeAndID" parameterClass="java.lang.Long" resultClass="java.lang.Integer">
+		SELECT count(1) FROM PRODUCTMAIN p WHERE (p.product_type != 0) AND P.PRODUCT_ID= #productId:NUMBER# 
+	</select>
+</sqlMap>

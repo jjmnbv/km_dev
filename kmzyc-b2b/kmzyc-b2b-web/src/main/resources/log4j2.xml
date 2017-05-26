@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="off" monitorInterval="1800">
+    <properties>
+        <property name="log-path">/opt/logs</property>
+        <property name="server-name">b2b</property>
+        <property name="archive">/opt/logs/archive</property>
+    </properties>
+
+    <appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} %L %M - %msg%n"/>
+        </Console>
+        <RollingRandomAccessFile name="logfile" fileName="${log-path}/${server-name}.log"
+                                 filePattern="${archive}/${date:yyyy-MM-dd}/${server-name}-%d{yyyy-MM-dd-HH}.%i.log">
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} %L %M - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingRandomAccessFile>
+        <!-- dubbo config -->
+        <!--<RollingRandomAccessFile name="dubboLogfile"-->
+                                 <!--fileName="${log-path}/${server-name}-dubbo.log"-->
+                                 <!--filePattern="${archive}/${date:yyyy-MM-dd}/${server-name}-dubbo-%d{yyyy-MM-dd-HH}.%i.log">-->
+            <!--<PatternLayout-->
+                    <!--pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} %L %M - %msg%n"/>-->
+            <!--<Policies>-->
+                <!--<TimeBasedTriggeringPolicy/>-->
+                <!--<SizeBasedTriggeringPolicy size="30 MB"/>-->
+            <!--</Policies>-->
+            <!--<DefaultRolloverStrategy max="30"/>-->
+        <!--</RollingRandomAccessFile>-->
+    </appenders>
+
+    <Loggers>
+        <AsyncLogger name="org.springframework" level="info" additivity="true"/>
+        <AsyncLogger name="org.apache" level="warn" additivity="true"/>
+        <AsyncLogger name="org.quartz" level="warn" additivity="true"/>
+        <AsyncLogger name="com.opensymphony" level="warn" additivity="true"/>
+        <AsyncLogger name="com.ibatis" level="info" additivity="true"/>
+        <AsyncLogger name="java.sql" level="info" additivity="true"/>
+
+        <AsyncLogger name="com.alibaba.druid" level="info" additivity="true"/>
+        <AsyncLogger name="com.alibaba.dubbo" level="warn" additivity="true"/>
+
+        <AsyncLogger name="com.kmzyc.b2b" level="debug" additivity="true"/>
+        <AsyncLogger name="java.sql.Connection" level="DEBUG" additivity="true"/>
+        <AsyncLogger name="redis.clients" level="DEBUG" additivity="true"/>
+
+
+
+        <!-- 同时输出到控制台与文件中 -->
+        <AsyncRoot level="info">
+            <AppenderRef ref="logfile"/>
+            <AppenderRef ref="console"/>
+        </AsyncRoot>
+    </Loggers>
+</configuration>

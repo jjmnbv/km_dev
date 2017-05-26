@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PRODUCT_PRICE_RECORD">
+    <typeAlias alias="record" type="com.pltfm.app.vobject.ProductPriceRecord" />
+    <resultMap id="recordMap" class="record">
+        <result column="RECORD_ID" property="recordId" jdbcType="DECIMAL"/>
+        <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL"/>
+        <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL"/>
+        <result column="PRODUCT_SKU_CODE" property="productSkuCode" jdbcType="DECIMAL"/>
+        <result column="PRICE" property="price" jdbcType="DECIMAL"/>
+        <result column="MARK_PRICE" property="markPrice" jdbcType="DECIMAL"/>
+        <result column="PV_VALUE" property="pvValue" jdbcType="DECIMAL" />
+        <result column="UNIT_WEIGHT" property="unitWeight" jdbcType="DECIMAL"/>
+        <result column="CREATE_USER" property="createUser" jdbcType="DECIMAL"/>
+        <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR"/>
+        <result column="LOGIN_ACCOUNT" property="supplierAccount" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="Date"/>
+    </resultMap>
+
+    <insert id="insert" parameterClass="record">
+        <selectKey keyProperty="recordId" resultClass="java.lang.Long">
+            select SEQ_APP_PRODUCT_PRICE_RECORD.nextval from dual
+        </selectKey>
+        insert into PRODUCT_PRICE_RECORD (RECORD_ID, PRODUCT_ID, PRODUCT_SKU_ID, PRICE, MARK_PRICE,PV_VALUE,
+        UNIT_WEIGHT, CREATE_USER, CREATE_TIME)
+        values (#recordId:DECIMAL#, #productId:DECIMAL#, #productSkuId:DECIMAL#, #price:DECIMAL#,
+        #markPrice:DECIMAL#,#pvValue:DECIMAL#, #unitWeight:DECIMAL#, #createUser:DECIMAL#, #createTime#)
+    </insert>
+
+    <select id="getRecordList" resultMap="recordMap" parameterClass="java.lang.Long">
+        SELECT R.RECORD_ID, R.PRODUCT_ID, R.PRODUCT_SKU_ID, R.PRICE, R.MARK_PRICE, R.PV_VALUE, R.UNIT_WEIGHT, R.CREATE_USER,
+        R.CREATE_TIME,PS.PRODUCT_SKU_CODE, U.USER_NAME CREATE_USER_NAME,R.CREATE_USER,KI.LOGIN_ACCOUNT
+        FROM PRODUCT_PRICE_RECORD R
+        LEFT JOIN PRODUCT_SKU PS ON PS.PRODUCT_SKU_ID=R.PRODUCT_SKU_ID
+        LEFT JOIN SYS_USER U ON U.USER_ID=R.CREATE_USER
+        LEFT JOIN LOGIN_INFO KI ON KI.N_LOGIN_ID=R.CREATE_USER
+        WHERE R.PRODUCT_ID=#productId:DECIMAL#
+        ORDER BY R.CREATE_TIME DESC
+    </select>
+</sqlMap>

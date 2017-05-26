@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ACTIVITY_INFO" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.ActivityInfo" >
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL" />
+    <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_TYPE" property="activityType" jdbcType="DECIMAL" />
+    <result column="ACTIVITY_CHANNEL" property="activityChannel" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_STATUS" property="activityStatus" jdbcType="DECIMAL" />
+    <result column="AUDIT_STATUS" property="auditStatus" jdbcType="DECIMAL" />
+    <result column="BRAND_CHOICE_TYPE" property="brandChoiceType" jdbcType="DECIMAL" />
+    <result column="SUPPLIER_CHOICE_TYPE" property="supplierChoiceType" jdbcType="VARCHAR" />
+    <result column="CHARGE_TYPE" property="chargeType" jdbcType="DECIMAL" />
+    <result column="SUPPLIER_MAXIMUM" property="supplierMaximum" jdbcType="DECIMAL" />
+    <result column="SKU_MAXIMUM" property="skuMaximum" jdbcType="DECIMAL" />
+    <result column="ENTRY_START_TIME" property="entryStartTime" jdbcType="TIMESTAMP" />
+    <result column="ENTRY_END_TIME" property="entryEndTime" jdbcType="TIMESTAMP" />
+    <result column="ACTIVITY_START_TIME" property="activityStartTime" jdbcType="TIMESTAMP" />
+    <result column="ACTIVITY_END_TIME" property="activityEndTime" jdbcType="TIMESTAMP" />
+    <result column="LOGO_PATH" property="logoPath" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_DESC" property="activityDesc" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="MODIFY_TIME" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="AUDIT_TIME" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="DECIMAL" />
+    <result column="MODIF_USER" property="modifUser" jdbcType="DECIMAL" />
+    <result column="AUDIT_USER" property="auditUser" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" /><!--
+    <result column="ACTIVITY_LEVEL" property="activityLevel" jdbcType="DECIMAL"/>
+    <result column="ACTIVITY_LABEL" property="activityLabel" jdbcType="VARCHAR"/>
+    <result column="INDUSTRY" property="industry" jdbcType="VARCHAR"/>
+    <result column="ACTIVITY_SEO" property="activitySeo" jdbcType="VARCHAR"/>
+    --><result column="inviteSupplierCount" property="inviteSupplierCount" jdbcType="DECIMAL" />
+    <result property="activityCharge" resultMap="ACTIVITY_INFO.activityChargeMap" />
+  </resultMap>
+  
+  <resultMap id="activityChargeMap" class="com.pltfm.app.vobject.ActivityCharge" >
+    <result column="ACTIVITY_CHARGE_ID" property="activityChargeId" jdbcType="DECIMAL" />
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL" />
+    <result column="FIXED_CHARGE" property="fixedCharge" jdbcType="DECIMAL" />
+    <result column="SINGLE_CHARGE" property="singleCharge" jdbcType="DECIMAL" />
+    <result column="COMMISSION_RATE" property="commissionRate" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="activitySupplierEntryResultMap" class="com.pltfm.app.vobject.ActivitySupplierEntry" >
+    <result column="SUPPLIER_ENTRY_ID" property="supplierEntryId" jdbcType="DECIMAL" />
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL" />
+    <result column="COMPANY_SHOW_NAME" property="companyShowName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="activityCategorysResultMap" class="com.pltfm.app.vobject.ActivityCategorys" >
+    <result column="ACTIVITY_CATEGORY_ID" property="activityCategoryId" jdbcType="DECIMAL" />
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL" />
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+    <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="activityBrandResultMap" class="com.pltfm.app.vobject.ActivityBrand" >
+    <result column="ACTIVITY_BRAND_ID" property="activityBrandId" jdbcType="DECIMAL" />
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL" />
+    <result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" /> 
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="activitySupplierScoreResultMap" class="com.pltfm.app.vobject.ActivitySupplierScore" >
+    <result column="SUPPLIER_SCORE_ID" property="supplierScoreId" jdbcType="DECIMAL" />
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL" />
+    <result column="GREAT_EQUAL_POINT" property="greatEqualPoint" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="activityInfoResultMap" class="com.pltfm.app.vobject.ActivityInfo" >
+  	<result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL" />
+    <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_STATUS" property="activityStatus" jdbcType="DECIMAL" />
+    <result column="ENTRY_START_TIME" property="entryStartTime" jdbcType="TIMESTAMP" />
+    <result column="ENTRY_END_TIME" property="entryEndTime" jdbcType="TIMESTAMP" />
+    <result column="ACTIVITY_START_TIME" property="activityStartTime" jdbcType="TIMESTAMP" />
+    <result column="ACTIVITY_END_TIME" property="activityEndTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="activityDetailInfoResultMap" class="com.pltfm.app.vobject.ActivityInfo" >
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL" />
+    <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_TYPE" property="activityType" jdbcType="DECIMAL" />
+    <result column="ACTIVITY_CHANNEL" property="activityChannel" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_STATUS" property="activityStatus" jdbcType="DECIMAL" />
+    <result column="BRAND_CHOICE_TYPE" property="brandChoiceType" jdbcType="DECIMAL" />
+    <result column="SUPPLIER_CHOICE_TYPE" property="supplierChoiceType" jdbcType="VARCHAR" />
+    <result column="CHARGE_TYPE" property="chargeType" jdbcType="DECIMAL" />
+    <result column="SUPPLIER_MAXIMUM" property="supplierMaximum" jdbcType="DECIMAL" />
+    <result column="SKU_MAXIMUM" property="skuMaximum" jdbcType="DECIMAL" />
+    <result column="ENTRY_START_TIME" property="entryStartTime" jdbcType="TIMESTAMP" />
+    <result column="ENTRY_END_TIME" property="entryEndTime" jdbcType="TIMESTAMP" />
+    <result column="ACTIVITY_START_TIME" property="activityStartTime" jdbcType="TIMESTAMP" />
+    <result column="ACTIVITY_END_TIME" property="activityEndTime" jdbcType="TIMESTAMP" />
+    <result column="LOGO_PATH" property="logoPath" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_DESC" property="activityDesc" jdbcType="VARCHAR" />
+    <result column="activity_introduce" property="activityIntroduce" jdbcType="COLB" />
+    <result column="activity_questions" property="activityQuestions" jdbcType="COLB" />
+    <result column="ACTIVITY_LEVEL" property="activityLevel" jdbcType="DECIMAL"/>
+    <result column="ACTIVITY_LABEL" property="activityLabel" jdbcType="VARCHAR"/>
+    <result column="INDUSTRY" property="industry" jdbcType="VARCHAR"/>
+    <result column="ACTIVITY_SEO" property="activitySeo" jdbcType="VARCHAR"/>
+    <result property="activityCharge" resultMap="ACTIVITY_INFO.activityChargeMap" />
+    <result property="activitySupplierScore" resultMap="ACTIVITY_INFO.activitySupplierScoreResultMap" />
+   	<result column="ACTIVITY_ID" property="activityBrandList" select="ACTIVITY_INFO.selectActivityBrandList" />
+   	<result column="ACTIVITY_ID" property="activityCategorysList" select="ACTIVITY_INFO.selectActivityCategorysList" />
+    <result column="ACTIVITY_ID" property="activitySupplierEntryList" select="ACTIVITY_INFO.selectActivitySupplierEntryList" />  
+  </resultMap>
+  
+  <!--
+  <resultMap id="ibatorgenerated_ResultMapWithBLOBs" class="com.pltfm.app.vobject.ActivityInfoWithBLOBs" extends="ACTIVITY_INFO.ibatorgenerated_BaseResultMap" >
+    <result column="ACTIVITY_INTRODUCE" property="activityIntroduce" jdbcType="CLOB" />
+    <result column="ACTIVITY_INTRODUCE_LAZY" property="activityIntroduceLazy" jdbcType="CLOB" />
+    <result column="ACTIVITY_QUESTIONS" property="activityQuestions" jdbcType="CLOB" />
+    <result column="ACTIVITY_QUESTIONS_LAZY" property="activityQuestionsLazy" jdbcType="CLOB" />
+  </resultMap>-->
+  <sql id="ibatorgenerated_Example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  
+  <sql id="activity_Example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="and" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+    <!--活动ID,活动名称，活动简介，LOGO图片，活动关键字，活动有效时间段,活动是否可报名-->
+    <resultMap id="remote_activity_list_map" class="com.pltfm.app.vobject.ActivityInfo" >
+        <result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL" />
+        <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR" />
+        <result column="ACTIVITY_DESC" property="activityDesc" jdbcType="VARCHAR" />
+        <result column="LOGO_PATH" property="logoPath" jdbcType="VARCHAR" />
+        <result column="ACTIVITY_SEO" property="activitySeo" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_START_TIME" property="activityStartTime" jdbcType="TIMESTAMP" />
+        <result column="ACTIVITY_END_TIME" property="activityEndTime" jdbcType="TIMESTAMP" />
+        <result column="CAN_ENTRY" property="canEntry" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--活动名称，活动简介，LOGO图片，报名时间段，活动时间段，关键字，活动标签，
+    所属行业，收费类型，活动级别，活动介绍，活动答疑-->
+    <resultMap id="remote_activity_map" class="com.pltfm.app.vobject.ActivityInfo" >
+        <result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL" />
+        <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR" />
+        <result column="ACTIVITY_DESC" property="activityDesc" jdbcType="VARCHAR" />
+        <result column="LOGO_PATH" property="logoPath" jdbcType="VARCHAR" />
+        <result column="ENTRY_START_TIME" property="entryStartTime" jdbcType="TIMESTAMP" />
+        <result column="ENTRY_END_TIME" property="entryEndTime" jdbcType="TIMESTAMP" />
+        <result column="ACTIVITY_START_TIME" property="activityStartTime" jdbcType="TIMESTAMP" />
+        <result column="ACTIVITY_END_TIME" property="activityEndTime" jdbcType="TIMESTAMP" />
+        <result column="ACTIVITY_SEO" property="activitySeo" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_LABEL" property="activityLabel" jdbcType="VARCHAR"/>
+        <result column="INDUSTRY" property="industry" jdbcType="VARCHAR"/>
+        <result column="CHARGE_TYPE" property="chargeType" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_LEVEL" property="activityLevel" jdbcType="DECIMAL"/>
+        <result column="activity_introduce" property="activityIntroduce" jdbcType="COLB" />
+        <result column="activity_questions" property="activityQuestions" jdbcType="COLB" />
+    </resultMap>
+
+    <select id="getActivityList" parameterClass="com.pltfm.app.vobject.ActivityInfoExample" resultMap="remote_activity_list_map">
+        <![CDATA[
+            SELECT ACTIVITY_ID,
+            ACTIVITY_NAME,
+            ACTIVITY_DESC,
+            LOGO_PATH,
+            ACTIVITY_START_TIME,
+            ACTIVITY_END_TIME,
+            ACTIVITY_SEO,
+            CASE WHEN ENTRY_START_TIME<SYSDATE AND SYSDATE<ENTRY_END_TIME THEN 'true' ELSE 'false' END CAN_ENTRY
+            FROM ACTIVITY_INFO
+            WHERE AUDIT_STATUS=1
+        ]]>
+        <include refid="activity_Example_Where_Clause"/>
+        <![CDATA[
+          ORDER BY ACTIVITY_ID DESC
+        ]]>
+    </select>
+    <select id="countActivityList" parameterClass="com.pltfm.app.vobject.ActivityInfoExample" resultClass="java.lang.Integer">
+        <![CDATA[
+            SELECT COUNT(ACTIVITY_ID) FROM ACTIVITY_INFO WHERE AUDIT_STATUS=1
+        ]]>
+        <include refid="activity_Example_Where_Clause"/>
+    </select>
+    <select id="getActivityById" parameterClass="java.lang.Long" resultMap="remote_activity_map">
+        SELECT AI.ACTIVITY_ID,
+        AI.ACTIVITY_NAME,
+        AI.ACTIVITY_DESC,
+        AI.LOGO_PATH,
+        AI.ENTRY_START_TIME,
+        AI.ENTRY_END_TIME,
+        AI.ACTIVITY_START_TIME,
+        AI.ACTIVITY_END_TIME,
+        AI.ACTIVITY_SEO,
+        AI.ACTIVITY_LABEL,
+        AI.INDUSTRY,
+        AI.CHARGE_TYPE,
+        AI.ACTIVITY_LEVEL,
+        AI.ACTIVITY_INTRODUCE,
+        AI.ACTIVITY_QUESTIONS
+        FROM ACTIVITY_INFO AI
+        WHERE AI.ACTIVITY_ID=#activityId:DECIMAL#
+    </select>
+  <!--
+  <select id="ibatorgenerated_selectByExampleWithBLOBs" resultMap="ibatorgenerated_ResultMapWithBLOBs" parameterClass="com.pltfm.app.vobject.ActivityInfoExample" >
+    select ACTIVITY_ID, ACTIVITY_NAME, ACTIVITY_TYPE, ACTIVITY_CHANNEL, ACTIVITY_STATUS,
+      AUDIT_STATUS, BRAND_CHOICE_TYPE, SUPPLIER_CHOICE_TYPE, CHARGE_TYPE, SUPPLIER_MAXIMUM,
+      SKU_MAXIMUM, ENTRY_START_TIME, ENTRY_END_TIME, ACTIVITY_START_TIME, ACTIVITY_END_TIME,
+      LOGO_PATH, ACTIVITY_DESC, CREATE_TIME, MODIFY_TIME, AUDIT_TIME, CREATE_USER, MODIF_USER,
+      AUDIT_USER, REMARK, ACTIVITY_INTRODUCE_LAZY, 
+      ACTIVITY_QUESTIONS_LAZY
+    from ACTIVITY_INFO
+    <isParameterPresent >
+      <include refid="ACTIVITY_INFO.ibatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  -->
+    <select id="ibatorgenerated_selectByExample" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.pltfm.app.vobject.ActivityInfoExample" >
+    select ACTIVITY_INFO.ACTIVITY_ID, ACTIVITY_NAME, ACTIVITY_TYPE, ACTIVITY_CHANNEL, ACTIVITY_STATUS,
+      AUDIT_STATUS, BRAND_CHOICE_TYPE, SUPPLIER_CHOICE_TYPE, CHARGE_TYPE, SUPPLIER_MAXIMUM,
+      SKU_MAXIMUM, ENTRY_START_TIME, ENTRY_END_TIME, ACTIVITY_START_TIME, ACTIVITY_END_TIME,
+      LOGO_PATH, ACTIVITY_DESC, CREATE_TIME, MODIFY_TIME, AUDIT_TIME, CREATE_USER, MODIF_USER,
+      AUDIT_USER, REMARK,ACTIVITY_CHARGE.ACTIVITY_CHARGE_ID,ACTIVITY_CHARGE.ACTIVITY_ID
+      ,ACTIVITY_CHARGE.FIXED_CHARGE,ACTIVITY_CHARGE.SINGLE_CHARGE,ACTIVITY_CHARGE.COMMISSION_RATE,
+      (select count(1)
+          from activity_supplier_entry ase
+         where ase.activity_supplier_type = 5
+           and ase.activity_id = ACTIVITY_INFO.activity_id) as inviteSupplierCount
+    from ACTIVITY_INFO
+    left join ACTIVITY_CHARGE on ACTIVITY_INFO.ACTIVITY_ID = ACTIVITY_CHARGE.ACTIVITY_ID 
+    where 1=1 
+    <isNotEmpty property="activityId">
+    	and ACTIVITY_INFO.ACTIVITY_ID = #activityId# 
+    </isNotEmpty>
+    <isParameterPresent >
+      <include refid="ACTIVITY_INFO.activity_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <!--<select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_ResultMapWithBLOBs" parameterClass="com.pltfm.app.vobject.ActivityInfo" >
+    select ACTIVITY_ID, ACTIVITY_NAME, ACTIVITY_TYPE, ACTIVITY_CHANNEL, ACTIVITY_STATUS,
+      AUDIT_STATUS, BRAND_CHOICE_TYPE, SUPPLIER_CHOICE_TYPE, CHARGE_TYPE, SUPPLIER_MAXIMUM,
+      SKU_MAXIMUM, ENTRY_START_TIME, ENTRY_END_TIME, ACTIVITY_START_TIME, ACTIVITY_END_TIME,
+      LOGO_PATH, ACTIVITY_DESC, CREATE_TIME, MODIFY_TIME, AUDIT_TIME, CREATE_USER, MODIF_USER,
+      AUDIT_USER, REMARK, ACTIVITY_INTRODUCE, ACTIVITY_INTRODUCE_LAZY, ACTIVITY_QUESTIONS,
+      ACTIVITY_QUESTIONS_LAZY
+    from ACTIVITY_INFO
+    where ACTIVITY_ID = #activityId:DECIMAL#
+  </select>
+  -->
+  <!-- 只有渠道推广类型活动终止 -->
+  <update id="stopActivityById" parameterClass="java.lang.Long" >
+    update ACTIVITY_INFO set ACTIVITY_STATUS = 8 
+    where ACTIVITY_ID = #activityId:DECIMAL# and ACTIVITY_TYPE = 3  
+  </update>
+  <!-- 只有草稿状态才可以提交审核 -->
+  <update id="submitAuditActivityById" parameterClass="java.lang.Long" >
+    update ACTIVITY_INFO set ACTIVITY_STATUS = 1 
+    where ACTIVITY_ID = #activityId:DECIMAL# and (ACTIVITY_STATUS = 0 or ACTIVITY_STATUS = 7) 
+  </update>
+  <!-- 只有未到报名时间、待审核状态才可以撤销提审 -->
+  <update id="cancelSubmitAuditActivityById" parameterClass="java.lang.Long" >
+    update ACTIVITY_INFO set ACTIVITY_STATUS = 0 ,AUDIT_STATUS = 0 
+    where ACTIVITY_ID = #activityId:DECIMAL# and ACTIVITY_STATUS = 1 
+  </update>
+  <!-- 只有未到报名时间的活动，且已审核通过的状态才可以撤销审核 -->
+  <update id="cancelAuditActivityById" parameterClass="java.lang.Long" >
+  <![CDATA[ 
+    update ACTIVITY_INFO set ACTIVITY_STATUS = 7 ,AUDIT_STATUS = 0 
+    where ACTIVITY_ID = #activityId:DECIMAL# and AUDIT_STATUS = 1 and ACTIVITY_STATUS < 3 
+    and ENTRY_START_TIME>sysdate 
+  ]]>
+  </update>
+  <!-- 只有草稿、已撤销状态状态才可以删除 -->
+  <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="java.lang.Long" >
+    delete from ACTIVITY_INFO
+    where ACTIVITY_ID = #activityId:DECIMAL# and (ACTIVITY_STATUS = 0 or ACTIVITY_STATUS = 7) 
+  </delete>
+  <insert id="ibatorgenerated_insert" parameterClass="com.pltfm.app.vobject.ActivityInfo" >
+    <selectKey resultClass="java.lang.Long" keyProperty="activityId" >
+      select SEQ_ACTIVITY_INFO.nextval from dual
+    </selectKey>
+    insert into ACTIVITY_INFO (ACTIVITY_ID, ACTIVITY_NAME, ACTIVITY_TYPE, ACTIVITY_CHANNEL,
+      ACTIVITY_STATUS, AUDIT_STATUS, BRAND_CHOICE_TYPE, SUPPLIER_CHOICE_TYPE, CHARGE_TYPE,
+      SUPPLIER_MAXIMUM, SKU_MAXIMUM, ENTRY_START_TIME, ENTRY_END_TIME, ACTIVITY_START_TIME,
+      ACTIVITY_END_TIME, LOGO_PATH, ACTIVITY_DESC, CREATE_TIME,  
+      CREATE_USER,   REMARK, ACTIVITY_INTRODUCE, ACTIVITY_INTRODUCE_LAZY,
+      ACTIVITY_QUESTIONS, ACTIVITY_QUESTIONS_LAZY,ACTIVITY_LEVEL,ACTIVITY_LABEL,INDUSTRY,ACTIVITY_SEO)
+    values (#activityId:DECIMAL#, #activityName:VARCHAR#, #activityType:DECIMAL#,
+      #activityChannel:VARCHAR#, #activityStatus:DECIMAL#, #auditStatus:DECIMAL#,
+      #brandChoiceType:DECIMAL#, #supplierChoiceType:DECIMAL#, #chargeType:DECIMAL#,
+      #supplierMaximum:DECIMAL#, #skuMaximum:DECIMAL#, #entryStartTime:TIMESTAMP#,
+      #entryEndTime:TIMESTAMP#, #activityStartTime:TIMESTAMP#, #activityEndTime:TIMESTAMP#,
+      #logoPath:VARCHAR#, #activityDesc:VARCHAR#, sysdate, #createUser:DECIMAL#, 
+      #remark:VARCHAR#, #activityIntroduce:CLOB#, #activityIntroduceLazy:CLOB#,
+      #activityQuestions:CLOB#, #activityQuestionsLazy:CLOB#, #activityLevel:DECIMAL#, #activityLabel:VARCHAR#, #industry:VARCHAR#, #activitySeo:VARCHAR#)
+  </insert>
+  <select id="ibatorgenerated_countByExample" parameterClass="com.pltfm.app.vobject.ActivityInfoExample" resultClass="java.lang.Integer" >
+    select count(1) from ACTIVITY_INFO
+    left join ACTIVITY_CHARGE on ACTIVITY_INFO.ACTIVITY_ID = ACTIVITY_CHARGE.ACTIVITY_ID 
+    where 1=1 
+    <isNotEmpty property="activityId">
+    	and ACTIVITY_INFO.ACTIVITY_ID = #activityId# 
+    </isNotEmpty>
+    <isParameterPresent >
+      <include refid="ACTIVITY_INFO.activity_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  
+  <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="com.pltfm.app.vobject.ActivityInfo" >
+    update ACTIVITY_INFO
+    <dynamic prepend="set" >
+      <isNotEmpty prepend="," property="activityName" >
+        ACTIVITY_NAME = #activityName:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="activityType" >
+        ACTIVITY_TYPE = #activityType:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="activityChannel" >
+        ACTIVITY_CHANNEL = #activityChannel:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="activityStatus" >
+        ACTIVITY_STATUS = #activityStatus:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="auditStatus" >
+        AUDIT_STATUS = #auditStatus:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="brandChoiceType" >
+        BRAND_CHOICE_TYPE = #brandChoiceType:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="supplierChoiceType" >
+        SUPPLIER_CHOICE_TYPE = #supplierChoiceType:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="chargeType" >
+        CHARGE_TYPE = #chargeType:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="supplierMaximum" >
+        SUPPLIER_MAXIMUM = #supplierMaximum:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="skuMaximum" >
+        SKU_MAXIMUM = #skuMaximum:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="entryStartTime" >
+        ENTRY_START_TIME = #entryStartTime:TIMESTAMP#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="entryEndTime" >
+        ENTRY_END_TIME = #entryEndTime:TIMESTAMP#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="activityStartTime" >
+        ACTIVITY_START_TIME = #activityStartTime:TIMESTAMP#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="activityEndTime" >
+        ACTIVITY_END_TIME = #activityEndTime:TIMESTAMP#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="logoPath" >
+        LOGO_PATH = #logoPath:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="activityDesc" >
+        ACTIVITY_DESC = #activityDesc:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="createTime" >
+        CREATE_TIME = #createTime:TIMESTAMP#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="modifyTime" >
+        MODIFY_TIME = #modifyTime:TIMESTAMP#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="auditTime" >
+        AUDIT_TIME = #auditTime:TIMESTAMP#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="createUser" >
+        CREATE_USER = #createUser:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="modifUser" >
+        MODIF_USER = #modifUser:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="auditUser" >
+        AUDIT_USER = #auditUser:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="remark" >
+        REMARK = #remark:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="activityIntroduce" >
+        ACTIVITY_INTRODUCE = #activityIntroduce:CLOB#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="activityIntroduceLazy" >
+        ACTIVITY_INTRODUCE_LAZY = #activityIntroduceLazy:CLOB#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="activityQuestions" >
+        ACTIVITY_QUESTIONS = #activityQuestions:CLOB#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="activityQuestionsLazy" >
+        ACTIVITY_QUESTIONS_LAZY = #activityQuestionsLazy:CLOB#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="activityLevel">
+        ACTIVITY_LEVEL = #activityLevel:DECIMAL#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="activityLabel">
+        ACTIVITY_LABEL = #activityLabel:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="industry">
+        INDUSTRY = #industry:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="activitySeo">
+        ACTIVITY_SEO = #activitySeo:VARCHAR#
+      </isNotEmpty>
+    </dynamic>
+    where ACTIVITY_ID = #activityId:DECIMAL#
+  </update>
+  
+  <update id="ibatorgenerated_updateByExampleSelective" >
+    update ACTIVITY_INFO
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.activityId" >
+        ACTIVITY_ID = #record.activityId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.activityName" >
+        ACTIVITY_NAME = #record.activityName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.activityType" >
+        ACTIVITY_TYPE = #record.activityType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.activityChannel" >
+        ACTIVITY_CHANNEL = #record.activityChannel:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.activityStatus" >
+        ACTIVITY_STATUS = #record.activityStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.auditStatus" >
+        AUDIT_STATUS = #record.auditStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.brandChoiceType" >
+        BRAND_CHOICE_TYPE = #record.brandChoiceType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.supplierChoiceType" >
+        SUPPLIER_CHOICE_TYPE = #record.supplierChoiceType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.chargeType" >
+        CHARGE_TYPE = #record.chargeType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.supplierMaximum" >
+        SUPPLIER_MAXIMUM = #record.supplierMaximum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.skuMaximum" >
+        SKU_MAXIMUM = #record.skuMaximum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.entryStartTime" >
+        ENTRY_START_TIME = #record.entryStartTime:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="record.entryEndTime" >
+        ENTRY_END_TIME = #record.entryEndTime:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="record.activityStartTime" >
+        ACTIVITY_START_TIME = #record.activityStartTime:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="record.activityEndTime" >
+        ACTIVITY_END_TIME = #record.activityEndTime:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="record.logoPath" >
+        LOGO_PATH = #record.logoPath:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.activityDesc" >
+        ACTIVITY_DESC = #record.activityDesc:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createTime" >
+        CREATE_TIME = #record.createTime:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="record.modifyTime" >
+        MODIFY_TIME = #record.modifyTime:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="record.auditTime" >
+        AUDIT_TIME = #record.auditTime:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createUser" >
+        CREATE_USER = #record.createUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.modifUser" >
+        MODIF_USER = #record.modifUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.auditUser" >
+        AUDIT_USER = #record.auditUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.remark" >
+        REMARK = #record.remark:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.activityIntroduce" >
+        ACTIVITY_INTRODUCE = #record.activityIntroduce:CLOB#
+      </isNotNull>
+      <isNotNull prepend="," property="record.activityIntroduceLazy" >
+        ACTIVITY_INTRODUCE_LAZY = #record.activityIntroduceLazy:CLOB#
+      </isNotNull>
+      <isNotNull prepend="," property="record.activityQuestions" >
+        ACTIVITY_QUESTIONS = #record.activityQuestions:CLOB#
+      </isNotNull>
+      <isNotNull prepend="," property="record.activityQuestionsLazy" >
+        ACTIVITY_QUESTIONS_LAZY = #record.activityQuestionsLazy:CLOB#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="ACTIVITY_INFO.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+
+  <select id="findActivityInfo" resultMap="activityInfoResultMap" parameterClass="com.pltfm.app.vobject.ActivityInfo">
+  	select t.ACTIVITY_ID,
+         t.ACTIVITY_NAME,
+         t.ACTIVITY_STATUS,
+         t.ENTRY_START_TIME,
+         t.ENTRY_END_TIME,
+         t.ACTIVITY_START_TIME,
+         t.ACTIVITY_END_TIME
+    from ACTIVITY_INFO t
+    where t.ACTIVITY_ID=#activityId:DECIMAL#
+  	<isNotNull prepend="and" property="activityStatus">
+  		t.ACTIVITY_STATUS=#activityStatus:DECIMAL#
+  	</isNotNull>
+  	<isNotNull prepend="and" property="auditStatus" >
+  		t.AUDIT_STATUS=#auditStatus:DECIMAL#
+  	</isNotNull>
+  </select>
+  
+  <update id="updateActivityInfoForAudit" parameterClass="com.pltfm.app.vobject.ActivityInfo">
+  	update activity_info t
+  	<dynamic prepend="set">
+  		<isNotNull prepend="," property="activityStatus">
+  			t.activity_status=#activityStatus:DECIMAL#
+  		</isNotNull>
+  		<isNotNull prepend="," property="auditStatus">
+  			t.audit_status=#auditStatus:DECIMAL#
+  		</isNotNull>
+  		<isNotNull prepend="," property="auditTime">
+  			t.audit_time=#auditTime:TIMESTAMP#
+  		</isNotNull>
+  		<isNotNull prepend="," property="auditUser">
+  			t.audit_user=#auditUser:DECIMAL#
+  		</isNotNull>
+  	</dynamic>
+  	<![CDATA[ 
+  	  where t.activity_status = 1
+    	and t.audit_status = 0
+    	and t.entry_start_time>=sysdate
+     	and t.activity_id=#activityId:DECIMAL#
+     ]]>
+  </update>
+  
+   <select id="findActivityInfoById" resultMap="activityDetailInfoResultMap" parameterClass="java.lang.Long">
+	  select ai.activity_id,
+	       ai.activity_name,
+	       ai.activity_type,
+	       ai.activity_channel,
+	       ai.activity_status,
+	       ai.brand_choice_type,
+	       ai.supplier_choice_type,
+	       ai.charge_type,
+	       ai.entry_start_time,
+	       ai.entry_end_time,
+	       ai.activity_start_time,
+	       ai.activity_end_time,
+	       ai.supplier_maximum,
+	       ai.sku_maximum,
+	       ai.logo_path,
+	       ai.activity_desc,
+	       ai.activity_introduce,
+	       ai.activity_questions,
+	       ai.ACTIVITY_LEVEL,
+	       ai.ACTIVITY_LABEL,
+	       ai.INDUSTRY,
+	       ai.ACTIVITY_SEO,
+	       ac.activity_charge_id,
+	       ac.activity_id,
+	       ac.fixed_charge,
+	       ac.single_charge,
+	       ac.commission_rate*100 commission_rate,
+	       ass.supplier_score_id,
+	       ass.great_equal_point,
+	       ass.activity_id
+	  from activity_info ai, activity_charge ac, activity_supplier_score ass
+	 where ai.activity_id = ac.activity_id(+)
+	   and ai.activity_id = ass.activity_id(+)
+	    and ai.activity_id=#activityId:DECIMAL#
+  </select>
+  
+  <select id="selectActivitySupplierEntryList" resultMap="activitySupplierEntryResultMap" parameterClass="java.lang.Long">
+	   select ase.supplier_entry_id,
+          ase.activity_id,
+          f.CORPORATE_NAME as COMPANY_SHOW_NAME,
+          s.supplier_id
+	     from activity_supplier_entry             ase,
+	          suppliers_info                      s,
+	          commercial_tenant_basic_info f
+	    where ase.supplier_id = s.supplier_id
+	      and f.n_commercial_tenant_id = s.merchant_id
+	      and ase.activity_supplier_type = 4
+		   and ase.activity_id=#value#
+	      and s.status != 1
+  </select>
+  
+  <select id="selectActivityCategorysList" resultMap="activityCategorysResultMap" parameterClass="java.lang.Long">
+	select ac.activity_category_id,
+	         ac.activity_id,
+	         ac.category_id,
+	         ca.category_name
+	    from activity_categorys ac, categorys ca
+	   where ac.category_id = ca.category_id
+	     and ac.activity_id = #value#
+  </select>
+  
+  <select id="selectActivityBrandList" resultMap="activityBrandResultMap" parameterClass="java.lang.Long">
+	  select ab.activity_brand_id, ab.brand_id, ab.activity_id, pd.brand_name
+	     from activity_brand ab, prod_brand pd
+	    where pd.brand_id = ab.brand_id
+    		  and ab.activity_id =#value#
+  </select>
+  
+  <select id="queryInvitedSupplier" resultClass="java.lang.String" parameterClass="java.lang.Long">
+	  select ase.supplier_id  from activity_supplier_entry ase where ase.activity_supplier_type=5 and ase.activity_id=#value#
+  </select>
+  
+</sqlMap>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PRODUCT_DICT">
+    <typeAlias alias="productDict" type="com.pltfm.app.vobject.ProductDict"/>
+
+    <resultMap id="baseResultMap" class="productDict">
+        <result column="ID" property="id" jdbcType="DECIMAL"/>
+        <result column="DICT_TYPE" property="dictType" jdbcType="DECIMAL"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+        <result column="NUMBER_VALUE" property="numberValue" jdbcType="DECIMAL"/>
+        <result column="STRING_VALUE" property="StringValue" jdbcType="VARCHAR"/>
+        <result column="DATE_VALUE" property="dateValue" jdbcType="Date"/>
+    </resultMap>
+
+    <select id="getSupportPvProportion" resultClass="java.math.BigDecimal">
+      SELECT NUMBER_VALUE FROM PRODUCT_DICT_COMMON WHERE DICT_TYPE = 1
+    </select>
+</sqlMap>

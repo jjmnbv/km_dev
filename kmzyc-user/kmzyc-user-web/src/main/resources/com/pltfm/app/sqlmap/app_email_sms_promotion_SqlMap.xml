@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="EMAIL_SMS_PROMOTION" >
+  <resultMap id="abatorgenerated_EmailSmsPromotionResult" class="com.pltfm.app.vobject.EmailSmsPromotion" >
+    <result column="PROMOTION_ID" property="promotionId" jdbcType="DECIMAL" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="C_STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="CreateDate" jdbcType="DATE" />
+     <result column="CREATED_ID" property="createId" jdbcType="DECIMAL" />
+     <result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+     <result column="MODIFIE_ID" property="modifyId" jdbcType="DECIMAL" />
+     <result column="EMAIL_CONTENT" property="emailContext" jdbcType="VARCHAR" />
+     <result column="SMS_TEXT" property="smsText" jdbcType="VARCHAR" /> 
+     <result column="P_TYPE" property="promotionType" jdbcType="DECIMAL" />
+     <result column="S_TYPE" property="publicType" jdbcType="DECIMAL" />
+     <result column="IS_TIME" property="isTime" jdbcType="DECIMAL" />
+     <result column="TIMING_DATE" property="timingDate" />
+     <result column="TEMPLET_ID" property="templetId" jdbcType="DECIMAL" />
+    <result column="SMS_TYPE" property="smsType" jdbcType="DECIMAL" />
+     <result column="CHANNEL_ID" property="channelId" jdbcType="DECIMAL" />
+    
+    
+  </resultMap>
+  
+   
+  <select id="getEmailSmsPromotionCount" parameterClass="com.pltfm.app.vobject.EmailSmsPromotion" resultClass="java.lang.Integer">
+                    select count(*) from EMAIL_SMS_PROMOTION  AA
+                   <dynamic prepend="where">
+						<isNotNull property="title">
+							  <isNotEmpty prepend="and" property="title">
+							  AA.TITLE  like '%$title$%'
+							  </isNotEmpty>
+							    </isNotNull>
+				<isNotNull property="promoteContent">
+							  <isNotEmpty prepend="and" property="promoteContent">
+							  (AA.EMAIL_CONTENT  like '%$promoteContent$%' 
+							  or
+							  AA.SMS_TEXT  like '%$promoteContent$%' )
+							  </isNotEmpty>
+				</isNotNull>
+				<isNotNull property="status">
+			    	<isNotEmpty prepend="and" property="status">
+					    	 AA.C_STATUS =#status#
+			        </isNotEmpty>
+		        </isNotNull>
+		        <isNotNull property="timingDateStart">
+			    	<isNotEmpty prepend="and" property="timingDateStart">
+					    	<![CDATA[  AA.TIMING_DATE >=#timingDateStart# ]]> 
+			        </isNotEmpty>
+		        </isNotNull>
+		        
+		        <isNotNull property="timingDateEnd">
+			    	<isNotEmpty prepend="and" property="timingDateEnd">
+					    	 <![CDATA[  AA.TIMING_DATE <=#timingDateEnd# ]]> 
+			        </isNotEmpty>
+		        </isNotNull>
+						
+					<isNotNull>
+			   <isNotEmpty prepend="and" property="promotionType">
+					      AA.P_TYPE =#promotionType#
+			        </isNotEmpty>
+		             </isNotNull>
+		             	<isNotNull property="channelId">
+			   <isNotEmpty prepend="and" property="channelId">
+					    	 AA.CHANNEL_ID =#channelId#
+			        </isNotEmpty>
+		             </isNotNull>
+						  </dynamic>
+						 
+  </select>
+  <select id="searchPageSmsPromotion" resultMap="abatorgenerated_EmailSmsPromotionResult" parameterClass="com.pltfm.app.vobject.EmailSmsPromotion">
+   SELECT * FROM  
+     (select ROW_NUMBER() OVER(order by AA.PROMOTION_ID desc) as view_row_number ,AA.*
+     from  EMAIL_SMS_PROMOTION AA
+                  <dynamic prepend="where">
+                  
+                  <isNotNull property="title">
+							  <isNotEmpty prepend="and" property="title">
+							  AA.TITLE  like '%$title$%'
+							  </isNotEmpty>
+				  </isNotNull>
+				  <isNotNull property="promoteContent">
+							  <isNotEmpty prepend="and" property="promoteContent">
+							  (AA.EMAIL_CONTENT  like '%$promoteContent$%' 
+							  or
+							  AA.SMS_TEXT  like '%$promoteContent$%' )
+							  </isNotEmpty>
+				</isNotNull>
+				<isNotNull property="status">
+			    	<isNotEmpty prepend="and" property="status">
+					    	 AA.C_STATUS =#status#
+			        </isNotEmpty>
+		        </isNotNull>
+		         <isNotNull property="timingDateStart">
+			    	<isNotEmpty prepend="and" property="timingDateStart">
+					    	<![CDATA[  AA.TIMING_DATE >=#timingDateStart# ]]> 
+			        </isNotEmpty>
+		        </isNotNull>
+		        
+		        <isNotNull property="timingDateEnd">
+			    	<isNotEmpty prepend="and" property="timingDateEnd">
+					    	 <![CDATA[  AA.TIMING_DATE <=#timingDateEnd# ]]> 
+			        </isNotEmpty>
+		        </isNotNull>
+		        
+			<isNotNull property="promotionType">
+			   <isNotEmpty prepend="and" property="promotionType">
+					    	 AA.P_TYPE =#promotionType#
+			        </isNotEmpty>
+		             </isNotNull>
+		             
+		             	<isNotNull property="channelId">
+			   <isNotEmpty prepend="and" property="channelId">
+					    	 AA.CHANNEL_ID =#channelId#
+			        </isNotEmpty>
+		             </isNotNull>
+						  </dynamic>
+						        ) 
+						     <![CDATA[ where view_row_number <= #max# and view_row_number > #skip# ]]>
+	</select>
+  <insert id="insertPromotion" parameterClass="com.pltfm.app.vobject.EmailSmsPromotion" >
+  
+    <selectKey resultClass="java.lang.Integer" keyProperty="promotionId" >
+           select  SEQ_USER_APP_PROMOTION.nextval from dual
+   </selectKey>
+			    insert into EMAIL_SMS_PROMOTION 
+			    (PROMOTION_ID,
+			     TITLE,
+			     C_STATUS,
+			     CREATE_DATE,
+			     CREATED_ID,
+			     MODIFY_DATE,
+			     EMAIL_CONTENT, 
+			     SMS_TEXT,
+			     P_TYPE,
+			     S_TYPE,
+			     IS_TIME,
+			     TIMING_DATE,
+			     TEMPLET_ID,
+			     SMS_TYPE,
+			     CHANNEL_ID)
+			    values (#promotionId:DECIMAL#,
+			            #title:VARCHAR#,
+			            #status:DECIMAL#, 
+			            #CreateDate:DATE#,
+			            #createId:DECIMAL#, 
+			            #modifyDate:DATE#, 
+			            #emailContext:VARCHAR#,
+			            #smsText:VARCHAR#,
+			            #promotionType:DECIMAL#,
+			            #publicType:DECIMAL#,
+			            #isTime:DECIMAL#,
+			            #timingDate#,
+					    #templetId:DECIMAL#,
+			            #smsType:DECIMAL#,
+			           #channelId:DECIMAL#
+					)
+  </insert>
+  
+  
+  
+    <!--删除推广邮件短信信息  -->
+    <delete id="deletePromotion"   parameterClass="com.pltfm.app.vobject.EmailSmsPromotion" >
+    delete from EMAIL_SMS_PROMOTION
+    where PROMOTION_ID = #promotionId:Integer#
+  </delete>
+  
+       <!--查看推广邮件短信详细信息  -->
+       
+         <select id="getEmailSmsPromotion" resultMap="abatorgenerated_EmailSmsPromotionResult" parameterClass="com.pltfm.app.vobject.EmailSmsPromotion">
+    select * FROM EMAIL_SMS_PROMOTION where PROMOTION_ID = #promotionId:DECIMAL# 
+  </select>
+  
+    <!-- 获取所有定时任务数据 -->
+      <select id="getListEmailSmsIsTime" resultMap="abatorgenerated_EmailSmsPromotionResult" parameterClass="com.pltfm.app.vobject.EmailSmsPromotion">
+    select * FROM EMAIL_SMS_PROMOTION where C_STATUS = #status:DECIMAL#  and IS_TIME=#isTime:DECIMAL#
+  </select>
+	
+	  <update id="updateStatus" parameterClass="com.pltfm.app.vobject.EmailSmsPromotion" >
+ 
+    update EMAIL_SMS_PROMOTION
+    set C_STATUS =#status:DECIMAL#
+    where PROMOTION_ID=#promotionId:DECIMAL#
+      
+  </update>
+  
+  
+  
+  
+  	  <update id="updatEmailSmsPromotion" parameterClass="com.pltfm.app.vobject.EmailSmsPromotion" >
+    update EMAIL_SMS_PROMOTION
+    set 
+        TITLE= #title:VARCHAR#,
+	     C_STATUS= #status:DECIMAL#, 
+	     CREATE_DATE=#CreateDate:DATE#,
+	     CREATED_ID= #createId:DECIMAL#, 
+	     MODIFY_DATE= #modifyDate:DATE#, 
+	     MODIFIE_ID=#modifyId:DATE#, 
+	     EMAIL_CONTENT=#emailContext:VARCHAR#, 
+	     SMS_TEXT= #smsText:VARCHAR#,
+	     P_TYPE= #promotionType:DECIMAL#,
+	     S_TYPE= #publicType:DECIMAL#,
+	     IS_TIME=#isTime:DECIMAL#,
+	     TIMING_DATE= #timingDate#,
+	     TEMPLET_ID= #templetId:DECIMAL#,
+	     SMS_TYPE=#smsType:DECIMAL#,
+	     CHANNEL_ID=  #channelId:DECIMAL#
+    where PROMOTION_ID= #promotionId:DECIMAL#			   
+			            
+  </update>
+  
+  
+  
+  
+  
+  
+ 
+</sqlMap>

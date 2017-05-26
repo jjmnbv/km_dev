@@ -1,0 +1,16 @@
+#created on: 2011-11-23
+package ruls
+
+#list any import classes here.
+import com.kmzyc.mailmobile.mq.ConsumeEmailMsg;
+import com.km.framework.mq.bean.KmMsg
+#declare any global variables here
+	dialect "mvel"
+
+	#编码为6000为回复消息
+	rule "mail1" no-loop true
+	when
+	    $m : KmMsg(msgCode=="6000")
+	then
+	    ConsumeEmailMsg.consumeMsg($m);
+	end

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!--模板action-->
+    <package name="cms_template" namespace="/cms"  extends="struts">
+		<action name="cmsTemplateAction_*" class="cmsTemplateAction" method="{1}">
+			<result name="templateList">/WEB-INF/jsp/cms/template/cmsTemplateList.jsp</result>
+			<result name="varTemplateList">/WEB-INF/jsp/cms/template/cmsVarTemplateList.jsp</result>
+			<result name="gotoTemplateAdd">/WEB-INF/jsp/cms/template/cmsTemplateAdd.jsp</result>  
+			              
+			<result name="gotoAddVarTemplate">/WEB-INF/jsp/cms/template/cmsVarTemplateAdd.jsp</result>
+			             
+			<result name="gotoEditVarTemplate">/WEB-INF/jsp/cms/template/cmsVarTemplateEdit.jsp</result>
+			
+			<result name="gotoTemplateBandList">/WEB-INF/jsp/cms/template/templateBandList.jsp</result>
+			<result name="gotoWindowList">/WEB-INF/jsp/cms/template/templateWindowList.jsp</result>
+			<result name="gotoConfirmBandList">/WEB-INF/jsp/cms/template/templateConfirmBandList.jsp</result>
+			<result name="editTemplate">/WEB-INF/jsp/cms/template/cmsTemplateEdit.jsp</result>
+		
+			<result name="templateDetail">/WEB-INF/jsp/cms/template/cmsTemplateDetail.jsp</result>
+		</action> 	
+    </package>
+    <!--页面action-->
+    <package name="cms_page" namespace="/cms" extends="struts">
+    	<action name="cmsPageAction_*" class="cmsPageAction" method="{1}">
+    		<result name="pageList">/WEB-INF/jsp/cms/page/cmsPageList.jsp</result>
+    		<result name="gotoAddPage">/WEB-INF/jsp/cms/page/cmsPageAdd.jsp</result>
+    		<result name="gotoSelPage">/WEB-INF/jsp/cms/page/cmsTemplateList.jsp</result>
+    		<result name="gotoEditPage">/WEB-INF/jsp/cms/page/cmsPageEdit.jsp</result>
+    		<result name="gotoBindWindow">/WEB-INF/jsp/cms/page/cmsWindowList.jsp</result>
+    		<result name="pageDetail">/WEB-INF/jsp/cms/page/cmsPageDetail.jsp</result>
+    		<result name="queryByPage">/WEB-INF/jsp/cms/page/proCmsPageList.jsp</result>
+    		<result name="openPageList">/WEB-INF/jsp/cms/page/cmsPageListData.jsp</result>
+    		<result name="gotoAddTheme">/WEB-INF/jsp/cms/theme/cmsThemeAdd.jsp</result>
+    		<result name="gotoTheme">/WEB-INF/jsp/cms/theme/cmsThemeList.jsp</result>
+    		<result name="gotoThemeEditPage">/WEB-INF/jsp/cms/theme/cmsThemeEdit.jsp</result>
+    		<result name="visualization">/WEB-INF/jsp/cms/styles/cmsVisualization.jsp</result>
+    		<result name="visualizationData">/WEB-INF/jsp/cms/styles/cmsVisualization.jsp</result>
+    		<result name="gotoSelStyles">/WEB-INF/jsp/cms/page/cmsPageStylesList.jsp</result>
+    		
+    		
+    		
+    	</action>
+    </package>
+    
+    
+    <package name="productToptenzAction" namespace="/cms" extends="struts">
+    	<action name="toAddProductToptenz" class="productToptenzAction" method="toAddProductToptenz">
+    		<result name="success">/WEB-INF/jsp/cms/productToptenz/addProductToptenz.jsp</result>
+    		</action>
+    		<action name="addProductToptenz" class="productToptenzAction" method="addProductToptenz">
+    		<result name="success">/WEB-INF/jsp/cms/productToptenz/addProductToptenz.jsp</result>
+    		</action>
+    		
+    		<action name="toAddAllProducts" class="productToptenzAction" method="toAddAllProducts">
+    		<result name="success">/WEB-INF/jsp/cms/productToptenz/addAllProducts.jsp</result>
+    		</action>
+    		<action name="addAllProducts" class="productToptenzAction" method="addAllProducts">
+    		<result name="success">/WEB-INF/jsp/cms/productToptenz/addAllProducts.jsp</result>
+    		</action>
+    </package>
+    
+</struts>
+
+

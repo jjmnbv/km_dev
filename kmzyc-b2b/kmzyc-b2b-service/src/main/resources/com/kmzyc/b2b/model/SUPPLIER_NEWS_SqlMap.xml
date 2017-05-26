@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SUPPLIER_NEWS" >
+	<typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+	
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.kmzyc.b2b.model.SupplierNews" >
+    <result column="NEWS_ID" property="newsId" jdbcType="LONG" />
+    <result column="NEWS_CATEGORY_ID" property="newsCategoryId" jdbcType="DECIMAL" />
+    <result column="NEWS_TITLE" property="newsTitle" jdbcType="VARCHAR" />
+    <result column="NEWS_SEO" property="newsSeo" jdbcType="VARCHAR" />
+    <result column="VISIT_NUM" property="visitNum" jdbcType="DECIMAL" />
+    <result column="APPRAISE_NUM" property="appraiseNum" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="AUDIT_STATUS" property="auditStatus" jdbcType="CHAR" />
+    <result column="AUDIT_USER" property="auditUser" jdbcType="DECIMAL" />
+    <result column="AUDIT_TIME" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+     <result column="NEWS_CONTENT" property="newsContent" jdbcType="CLOB" />
+  </resultMap>
+  
+  <!-- <resultMap id="ibatorgenerated_ResultMapWithBLOBs" class="com.kmzyc.b2b.model.SupplierNews" extends="SUPPLIER_NEWS.ibatorgenerated_BaseResultMap" >
+    <result column="NEWS_CONTENT" property="newsContent" jdbcType="CLOB" />
+  </resultMap> -->
+  
+    <resultMap id="ibatorgenerated_COMMERCIALMap" class="com.kmzyc.b2b.vo.CommercialTenantBasicInfo" >
+    <result column="CORPORATE_NAME"  property="corporateName" jdbcType="VARCHAR" />
+    <result column="CORPORATE_LOCATION" property="corporateLocation" jdbcType="VARCHAR"/>
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="CONTACTS_EMAIL"  property="contactsEmail" jdbcType="VARCHAR" />
+    <result column="FIXED_PHONE"   property="fixedPhone" jdbcType="VARCHAR" />
+    <result column="SHOP_NAME"  property="shopName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 根据newId获取资讯详情 -->
+  <select id="selectByNewsId" resultMap="ibatorgenerated_BaseResultMap" parameterClass="String">
+  	select NEWS_ID, NEWS_CATEGORY_ID, NEWS_TITLE,NEWS_SEO, VISIT_NUM, APPRAISE_NUM, STATUS,
+        AUDIT_STATUS, AUDIT_USER, AUDIT_TIME, CREATE_USER,CREATE_TIME,news_content from supplier_news
+        where NEWS_ID=#newsId#
+  
+  </select>
+  
+  
+  <!-- 根据shopId分页获取资讯  企业动态 -->
+  <select id="queryPage_selectBySupplierId" resultMap="ibatorgenerated_BaseResultMap" parameterClass="pagination">
+     	<![CDATA[ 
+select * from (select rownum rn,NEWS_ID,NEWS_CATEGORY_ID,NEWS_TITLE, NEWS_SEO,VISIT_NUM,APPRAISE_NUM,STATUS,
+        AUDIT_STATUS, AUDIT_USER, AUDIT_TIME,CREATE_USER,CREATE_TIME ,news_content from 
+      (select s.NEWS_ID, s.NEWS_CATEGORY_ID, s.NEWS_TITLE,s.NEWS_SEO, s.VISIT_NUM, s.APPRAISE_NUM, s.STATUS,
+        s.AUDIT_STATUS, s.AUDIT_USER, s.AUDIT_TIME, s.CREATE_USER, s.CREATE_TIME,s.news_content from supplier_news s,news_category n,shop_news_category sh
+        where  s.news_category_id=n.news_category_id and s.news_category_id=sh.news_category_id  and sh.shop_id=#objCondition.shopId#
+      	]]>
+      	 	<isNotNull property="objCondition.status">
+      	  	 	<isNotEmpty prepend="AND" property="objCondition.status">
+      	  	 	<![CDATA[ 
+      	   		    s.status= $objCondition.status$
+      	   		    ]]>
+      	  	 	</isNotEmpty>
+      	    </isNotNull>
+      	    <isNotNull property="objCondition.auditStatus">
+      	  	 	<isNotEmpty prepend="AND" property="objCondition.auditStatus">
+      	  	 	<![CDATA[ 
+      	   		    s.auditStatus= $objCondition.auditStatus$
+      	   		    ]]>
+      	  	 	</isNotEmpty>
+      	    </isNotNull>
+      	    <![CDATA[ 
+      	 		order by s.create_time DESC)) where rn <= #endindex#  and rn >= #startindex#
+      	 	]]>      
+  </select>
+  <!-- 根据supplierId获取资讯总条数 -->
+  <select id="queryCount_selectBySupplierId" resultClass="Integer" parameterClass="pagination">
+     	<![CDATA[ 
+select count(*) from (select rownum rn,NEWS_ID,NEWS_CATEGORY_ID,NEWS_TITLE, NEWS_SEO,VISIT_NUM,APPRAISE_NUM,STATUS,
+        AUDIT_STATUS, AUDIT_USER, AUDIT_TIME,CREATE_USER,CREATE_TIME,news_content from 
+      (select s.NEWS_ID, s.NEWS_CATEGORY_ID, s.NEWS_TITLE,s.NEWS_SEO, s.VISIT_NUM, s.APPRAISE_NUM, s.STATUS,
+        s.AUDIT_STATUS, s.AUDIT_USER, s.AUDIT_TIME, s.CREATE_USER, s.CREATE_TIME,s.news_content from supplier_news s,news_category n,shop_news_category sh 
+        where  s.news_category_id=n.news_category_id and s.news_category_id=sh.news_category_id  and sh.shop_id=#objCondition.shopId#
+      	]]>
+      	 	<isNotNull property="objCondition.status">
+      	  	 	<isNotEmpty prepend="AND" property="objCondition.status">
+      	  	 	<![CDATA[ 
+      	   		    s.status= $objCondition.status$
+      	   		    ]]>
+      	  	 	</isNotEmpty>
+      	    </isNotNull>
+      	    <isNotNull property="objCondition.auditStatus">
+      	  	 	<isNotEmpty prepend="AND" property="objCondition.auditStatus">
+      	  	 	<![CDATA[ 
+      	   		    s.auditStatus= $objCondition.auditStatus$
+      	   		    ]]>
+      	  	 	</isNotEmpty>
+      	    </isNotNull>
+      	    <![CDATA[ 
+      	 		order by s.create_time DESC))
+      	 	]]>      
+  </select>
+  
+  <!-- 根据供应商ID查询店铺信息 -->
+    <select id="app_queryCommecalBySupplierId" resultMap="ibatorgenerated_COMMERCIALMap" parameterClass="java.lang.Long">
+	     select t.corporate_name,
+         t.corporate_location,
+         t.mobile,
+         t.contacts_email,
+         t.fixed_phone ,
+         SM.SHOP_NAME
+          from  SUPPLIERS_INFO spi ,
+                  COMMERCIAL_TENANT_BASIC_INFO t,
+                  SHOP_MAIN SM
+                  where spi.merchant_id =t.n_commercial_tenant_id
+                   AND   SPI.SUPPLIER_ID = SM.SUPPLIER_ID
+                  and spi.supplier_id = #supplierId:DECIMAL# and <![CDATA[ rownum<2 ]]>
+    </select> 
+</sqlMap>

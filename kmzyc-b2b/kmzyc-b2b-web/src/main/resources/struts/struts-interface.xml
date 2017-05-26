@@ -1,0 +1,956 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="interface" extends="json-default">
+        <!-- 获取收货地址数量 -->
+        <action name="isOverAddressCount" class="deliveryAddressAction" method="isOverAddressCount">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- AJAX接口-查询活动列表 -->
+        <action name="getActivityList" class="activityAction" method="getActivityList">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- AJAX接口-获取活动详情 -->
+        <action name="getActivity" class="activityAction" method="getActivityInfoById">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- AJAX接口-兑换优惠劵 -->
+        <!--		<action name="savePointsExchangeCoupon" class="myPointsAction" method="savePointsExchangeCoupon">
+                    <result type="json">
+                        <param name="defaultEncoding">UTF-8</param>
+                        <param name="root">returnResult</param>
+                        <param name="callbackParameter">callback</param>
+                    </result>
+                </action>-->
+
+        <!-- AJAX接口-添加商品至收藏夹 -->
+        <action name="insertFavorite" class="favoriteInterfaceAction"
+                method="insertFavorite">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- AJAX接口-添加店铺至收藏夹 -->
+        <action name="insertFavoriteShop" class="favoriteInterfaceAction"
+                method="insertFavoriteShop">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- AJAX接口-查收藏店铺用户数量 -->
+        <action name="findFavoriteShopUserCount" class="favoriteInterfaceAction"
+                method="findFavoriteShopUserCount">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- AJAX接口-获取某用户收藏夹中同类目商品列表 -->
+        <action name="getRelatedFavorites" class="favoriteInterfaceAction"
+                method="getRelatedFavorites">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+        <!-- 获取用户收藏列表 -->
+        <action name="getMyFavoriteProductList" class="favoriteInterfaceAction"
+                method="getMyFavoriteProductList">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- AJAX接口-判断用户是否已收藏该商品 -->
+        <action name="isSavedFavorite" class="favoriteInterfaceAction"
+                method="isSavedFavorite">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!-- 根据SKUCODE删除商品收藏-->
+        <action name="wapdeleteFavoriteBySku" class="favoriteInterfaceAction"
+                method="wapdeleteFavoriteBySku">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <action name="getPromotionByProduct" class="promotionInfoAction"
+                method="getPromotionByProduct">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+        <!-- 查询库存 -->
+        <action name="queryStock" class="promotionInfoAction" method="queryStock">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+        <!-- 详情页获取产品信息 -->
+        <action name="getProductInfoForDetailPage" class="promotionInfoAction"
+                method="getProductInfoForDetailPage">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+        <!-- 批量获取产品促销价格 -->
+        <action name="queryBatchPromotionPrice" class="promotionInfoAction"
+                method="queryBatchPromotionPrice">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+        <action name="test" class="promotionInfoAction" method="test">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!-- AJAX接口-添加用户浏览记录 -->
+        <action name="insertBrowsingHis" class="browsingHisInterfaceAction"
+                method="insertBrowsingHis">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- AJAX接口-获取商品总库存数量 -->
+        <action name="queryProductStockById" class="productStockInterfaceAction"
+                method="queryProductStockById">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- AJAX接口-获取套餐库存信息 -->
+        <action name="getSuitInfo" class="productStockInterfaceAction" method="getSuitInfo">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- AJAX接口-获取对应登陆用户的浏览记录信息 -->
+        <action name="querybrowsingHisById" class="browsingHisInterfaceAction"
+                method="querybrowsingHisById">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!-- AJAX接口-删除浏览记录信息 -->
+        <action name="deleteBrowsingHisById" class="browsingHisInterfaceAction"
+                method="deleteBrowsingHisById">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!-- AJAX接口-根据浏览ID删除浏览记录 -->
+        <action name="deleteBrowsingHisByBrowsingId" class="browsingHisInterfaceAction"
+                method="deleteBrowsingHisByBrowsingId">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!-- 获取会员中心首页信息 -->
+        <action name="loadHomeInfo" class="homeAction" method="loadHomeInfo">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!-- 会员中心首页-头像编辑 -->
+        <action name="uploadUserImg" class="uploadUserImgAction" method="uploadUserImg">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="contentType">text/html</param>
+            </result>
+        </action>
+
+        <!-- APP会员中心首页-头像编辑 -->
+        <action name="uploadUserImgApp" class="uploadUserImgAction" method="uploadUserImg4App"/>
+
+        <!-- 会员中心首页-保存头像 -->
+        <action name="saveUserImg" class="uploadUserImgAction" method="saveUserImg">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+
+        <!-- 退换货图片 -->
+        <action name="uploadReturnShopPhoto" class="returnShopAction" method="uploadPhoto">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+
+        <!-- 保存图片 -->
+        <action name="saveReturnShopPhoto" class="returnShopAction" method="savePhoto">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+
+        <!-- 计算退款额 -->
+        <action name="applyCompute" class="returnShopAction" method="compute">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+
+        <!-- 获取热销信息 -->
+        <action name="loadHotSaleProducts" class="sectionsInterfaceAction" method="loadHotSaleProducts">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+
+        <!-- AJAX接口-获取某件商品的评分、平均分、人数的计算 -->
+        <action name="getAssessPointBySku" class="productPointInterfaceAction"
+                method="getAssessPointBySku">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- AJAX接口-给某件商品提供咨询插入的接口 -->
+        <action name="saveConsult" class="consultInterfaceAction"
+                method="saveConsult">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- AJAX接口-获取商品咨询的查询 -->
+        <action name="findConsultByCondition" class="consultInterfaceAction"
+                method="findConsultByCondition">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- AJAX接口-获取某件商品的分页查询 -->
+        <action name="findAssessByCondition" class="productPointInterfaceAction"
+                method="findAssessByCondition">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- AJAX接口-插入某件商品的评价的回复 -->
+        <action name="saveAppraiseReply" class="productPointInterfaceAction"
+                method="saveAppraiseReply">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- AJAX接口-插入某件商品的评价的回复 -->
+        <action name="showSupplierPoint" class="productPointInterfaceAction"
+                method="showSupplierPoint">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <action name="easyBuy" class="easyBuyAction" method="easyBuy">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 还买过 -->
+        <action name="queryViewProductRelationPurchase" class="viewProductRelationPurchaseAction"
+                method="queryViewProductRelationPurchase">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 还看过 -->
+        <action name="getRelevanceSKU" class="viewProductRelationPurchaseAction"
+                method="getRelevanceSKU">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!--订单快递信息跟踪-->
+        <action name="queryExpressOrderInfo" class="myOrderAction" method="queryExpressOrderInfo">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+        <!--检查订单是否过期-->
+        <action name="checkOverdue" class="myOrderAction" method="checkOverdue">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+        <!--检查预售订单是否过期-->
+        <action name="checkPresellOverdue" class="myOrderAction" method="checkPresellOverdue">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+        <!--检查预售当前时间是否符合尾款支付时间-->
+        <action name="checkRetainagePay" class="myOrderAction" method="checkRetainagePay">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+        <!--检查退换货是否过期-->
+        <action name="checkReturnOverdue" class="returnShopAction" method="checkOverdue">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+
+        <!--cms添加普通商品到购物车
+        <action name="cmsAddProductToShopCar" class="cmsShopCarAction" method="cmsAddProductToShopCar">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        -->
+        <action name="getPromotionObject" class="cmsShopCarAction" method="getObject">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 改变购物车所选商家 -->
+        <action name="changeCheckSeller" class="cmsShopCarAction" method="changeCheckSeller">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 购物车全选 -->
+        <action name="checkAll" class="cmsShopCarAction" method="checkAll">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <action name="getPromotionMapKeyValue" class="cmsShopCarAction" method="getMapKeyValue">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <action name="setPromotionObject" class="cmsShopCarAction" method="setObject">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <action name="setPromotionMapKeyValue" class="cmsShopCarAction" method="setMapKeyValue">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!--cms添加普通商品到购物车 new-->
+        <action name="cmsAddProductToShopCar" class="cmsShopCarAction"
+                method="cmsAddProductToShopCarNew">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 批量添加 -->
+        <action name="cmsBatchAdd" class="cmsShopCarAction" method="cmsBatchAdd">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!--cms添加套装商品到购物车
+        <action name="cmsAddSuitToShopCar" class="cmsShopCarAction" method="cmsAddSuitToShopCar">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        -->
+        <action name="cmsAddSuitToShopCar" class="cmsShopCarAction" method="cmsAddSuitToShopCarNew">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <action name="cmsDeleteProductFromShopCar" class="cmsShopCarAction"
+                method="cmsDeleteProductFromShopCar">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <action name="cmsListShopCar" class="cmsShopCarAction" method="cmsListShopCar">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- AJAX会员详情页的订单确认收货 -->
+        <action name="confirmReceiptOrder" class="myOrderAction" method="confirmReceiptOrder">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- AJAX会员建议投诉敏感词验证 -->
+        <action name="checkComplaintContent" class="complaintAction" method="checkComplaintContent">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 查询过期活动 提供给CMS -->
+        <action name="queryExpirePromotion" class="cmsPromotionTaskInterfaceAction"
+                method="queryExpirePromotion">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!-- 根据类型查询活动列表 提供给CMS -->
+        <action name="queryPromotionListByType" class="cmsPromotionTaskInterfaceAction"
+                method="queryPromotionListByType">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+
+        <!--获取用户运行购买的数量-->
+        <action name="cmsGetAllowBuyNum" class="cmsShopCarAction" method="cmsGetAllowBuyNum">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 抽奖ajax收货地址 -->
+        <action name="ajaxDeliveryAddress" class="deliveryAddressAction"
+                method="ajaxDeliveryAddress">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!--<action name="advClick" class="clickInterfaceAction"  method="advClick">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>-->
+
+        <action name="pagePublish" class="cmsPagePublishAction" method="pagePublish">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!--<action name="praiseClick" class="clickInterfaceAction"  method="praiseClick">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>-->
+
+        <!-- <action name="countPraises" class="clickInterfaceAction"  method="countPraises">
+             <result type="json">
+                 <param name="defaultEncoding">UTF-8</param>
+                 <param name="root">returnResult</param>
+                 <param name="callbackParameter">callback</param>
+             </result>
+         </action>-->
+
+        <!-- <action name="isClickPraise" class="clickInterfaceAction"  method="isClickPraise">
+             <result type="json">
+                 <param name="defaultEncoding">UTF-8</param>
+                 <param name="root">returnResult</param>
+                 <param name="callbackParameter">callback</param>
+             </result>
+         </action>-->
+        <!-- 商品销量 -->
+        <!--<action name="salesVolume" class="clickInterfaceAction"  method="salesVolume">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>-->
+
+        <!-- 修改密码，开放给第三方 -->
+        <action name="resetPass" class="resetpwdAction" method="resetPass">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 查询用户名、已验证邮箱、手机号码是否存在 -->
+        <action name="validNEMIsexists" class="resetpwdAction" method="validNEMIsexists">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 提供给资信的接口：商品详情 -->
+        <action name="getProductDetail" class="referencesProductDetailAction"
+                method="getProductDetail">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <!-- 提供给cms的接口：根据供应商店铺查询-->
+        <action name="getProductRankByCondition" class="referencesProductDetailAction"
+                method="getProductRankByCondition">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 提供给cms的接口：根据供应商店铺查询类目-->
+        <action name="getShopCate" class="referencesProductDetailAction" method="getShopCate">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+
+
+        <action name="findProductRelationCount" class="productRelationInterfaceAction"
+                method="findProductRelationCount">
+
+        </action>
+
+        <action name="findProductRelation" class="productRelationInterfaceAction"
+                method="findProductRelation">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+
+        <action name="updateZxUserInfo" class="userInfoAction" method="updateZxUserInfo">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!-- 提供给CMS的接口：查看移动充值人数-->
+        <!--<action name="getNowCount" class="phoneBillInterfaceAction" method="getNowCount">-->
+            <!--<result type="json">-->
+                <!--<param name="defaultEncoding">UTF-8</param>-->
+                <!--<param name="root">returnResult</param>-->
+                <!--<param name="callbackParameter">callback</param>-->
+            <!--</result>-->
+        <!--</action>-->
+
+        <!-- 提供给CMS的接口：查看随着时间基数增长的-->
+        <!--<action name="increaseByTime" class="phoneBillInterfaceAction" method="increaseByTime">-->
+            <!--<result type="json">-->
+                <!--<param name="defaultEncoding">UTF-8</param>-->
+                <!--<param name="root">returnResult</param>-->
+                <!--<param name="callbackParameter">callback</param>-->
+            <!--</result>-->
+        <!--</action>-->
+
+        <!-- 提供给CMS的接口：生成我的专属邀请有奖链接-->
+        <!--<action name="getPrizeInvitationHref" class="phoneBillInterfaceAction"-->
+                <!--method="getPrizeInvitationHref">-->
+            <!--<result type="json">-->
+                <!--<param name="defaultEncoding">UTF-8</param>-->
+                <!--<param name="root">returnResult</param>-->
+                <!--<param name="callbackParameter">callback</param>-->
+            <!--</result>-->
+        <!--</action>-->
+
+        <!-- wap端，我的优惠券查询 -->
+        <action name="wapQueryCoupon" class="myCouponAction" method="wapQueryCoupon">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!-- wap端，我的优惠券查询 -->
+        <action name="wapActiveCoupon" class="myCouponAction" method="wapActiveCoupon">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+        <!-- wapAjax我的订单 初始化页面 -->
+        <action name="ajaxQueryWapOrderList" class="myOrderAction" method="ajaxQueryWapOrderList">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+        <!-- 根据订单编码获得对应支付时间 -->
+        <action name="findReserveByOrderCode" class="myOrderAction" method="findReserveByOrderCode">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">orderTime</param>
+            </result>
+        </action>
+        <!-- 根据订单号获得尾款支付截止时间 -->
+        <action name="findPayEndTimeByOrderCode" class="myOrderAction"
+                method="findPayEndTimeByOrderCode">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">orderTime</param>
+            </result>
+        </action>
+        <!-- 根据订单编码判断是否可以支付定金 -->
+        <action name="judgeDepositTimeByOrderMoney" class="myOrderAction"
+                method="judgeDepositTimeByOrderMoney">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">orderTime</param>
+            </result>
+        </action>
+        <!-- wapAjax退换货初始化页面 -->
+        <action name="ajaxApplyWapPrepare" class="returnShopAction" method="ajaxApplyWapPrepare">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+        <!-- 退换货保存收货地址 -->
+        <action name="returnSaveAddressInfo" class="returnShopAction" method="saveAddressInfo">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+        <!-- wapAjax退换货记录页面 -->
+        <action name="ajaxQueryWapReturnShopList" class="returnShopAction"
+                method="ajaxQueryWapReturnShopList">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+            </result>
+        </action>
+        <!-- wap端，我的会员中心首页-->
+        <action name="waploadHomeInfo" class="homeAction" method="waploadHomeInfo">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!-- 会员收藏删除 -->
+        <action name="wapdeleteFavorite" class="homeAction" method="wapdeleteFavorite">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!-- wap端 我的收藏 -->
+        <action name="wapQueryMyFavorite" class="homeAction" method="wapQueryMyFavorite">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <!-- wap端 我的收藏 -->
+        <action name="wapQuerybrowsingHisById" class="browsingHisInterfaceAction"
+                method="wapQuerybrowsingHisById">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+        <!-- 详情页获取产品信息
+        <action name="getProductInfoForDetailPage" class="promotionInfoAction" method="getProductInfoForDetailPage">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+         -->
+        <!-- 批量获取产品促销价格
+        <action name="queryBatchPromotionPrice" class="promotionInfoAction" method="queryBatchPromotionPrice">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>-->
+
+        <!-- 验证码 -->
+        <action name="authImage" class="authImageAction"/>
+        <action name="verificate" class="authImageAction" method="verificate"/>
+
+        <action name="messageReturn" class="messageReturnAction"
+                method="messageReturn">
+        </action>
+
+        <action name="yxMessageReturn" class="messageReturnAction"
+                method="yxMessageReturn">
+        </action>
+
+
+        <!-- 进入组合页面 -->
+        <action name="gotoWapCombinePage" class="productRelationAction" method="gotoCombinePage">
+            <result name="success">/WEB-INF/jsp/product/wapCombinePage.jsp</result>
+        </action>
+
+        <action name="omsApi" class="outApiAction" method="omsApi">
+            <result type="plainText"></result>
+        </action>
+
+        <!-- 20151222 add 返利网查询超级返商品信息 -->
+        <!--<action name="queryProduct" class="outApiAction" method="queryProductForFanli" >
+            <result type="plainText" ></result>
+        </action>-->
+
+<!--
+        <action name="youkuSendCoupons" class="couponAction" method="youkuSendCoupons">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>-->
+
+        <!--<action name="find51FanliOrder" class="fanliOrderAction" method="find51FanliOrder" />-->
+
+
+        <action name="orderReconciliation" class="webServiceTestAxis" method="orderReconciliation">
+        </action>
+        <action name="webServicequeryCouponList" class="webServiceTestAxis"
+                method="queryCouponList">
+        </action>
+
+        <!-- 商品按销量排序 -->
+        <action name="queryViewProductBySalequantity" class="viewProductRelationPurchaseAction"
+                method="queryViewProductBySalequantity">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 查询昨日的订单数量 -->
+        <action name="queryYesterdayOrderCount" class="orderOperInterfaceAction"
+                method="queryYesterdayOrderCount">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 下载app -->
+        <action name="downLoadApp" class="downLoadAppAction">
+            <result name="weixin">/html/weixinDownloadApp.jsp</result>
+        </action>
+
+
+        <!-- 提供给资信的接口：查询指定商家的产品列表和店铺信息 -->
+        <action name="getProductAndShopList" class="referencesProductDetailAction"
+                method="getProductAndShopList">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 批量获取产品促销价格 ,根据传入的活动时间-->
+        <action name="queryBatchPromotionPriceByDate" class="promotionInfoAction"
+                method="queryBatchPromotionPriceByDate">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+                <param name="noCache">true</param>
+            </result>
+        </action>
+
+        <action name="grantCouponForActivity" class="couponAction" method="grantCouponForActivity">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+        <!-- 校验订单状态 -->
+        <action name="checkApplyStatus" class="returnShopAction" method="checkApplyStatus">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+
+    </package>
+</struts>

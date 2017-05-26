@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ThirdBindInfo">
+	<typeAlias alias="thirdBindInfo" type="com.kmzyc.b2b.third.model.ThirdBindInfo"/>
+
+	<!-- 封装到实体中的map集合,只返回有用的信息 -->
+	<resultMap id="bindInfoResult" class="thirdBindInfo">
+		<result column="open_id" property="openId" jdbcType="VARCHAR"/>
+		<result column="third_account_type" property="thirdAccountType" jdbcType="VARCHAR"/>
+		<result column="n_login_id" property="nLoginId" jdbcType="VARCHAR"/>
+		<result column="bind_type" property="bindType" jdbcType="VARCHAR"/>
+		<result column="is_bind" property="isBind" jdbcType="VARCHAR"/>
+		<result column="last_update_time" property="lastUpdateTime" jdbcType="VARCHAR"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 只返回有用的列信息 -->
+	<resultMap id="mainInfoResultMap" class="thirdBindInfo">
+		<result column="open_id" property="openId" jdbcType="VARCHAR"/>
+		<result column="third_account_type" property="thirdAccountType" jdbcType="VARCHAR"/>
+		<result column="n_login_id" property="nLoginId" jdbcType="VARCHAR"/>
+		<result column="bind_type" property="bindType" jdbcType="VARCHAR"/>
+		<result column="nickname" property="extends1" jdbcType="VARCHAR"/>
+		<result column="heading_url" property="extends2" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 新增绑定信息 -->
+	<insert id="saveBindInfo" parameterClass="thirdBindInfo">
+		<![CDATA[
+			insert into third_bind_info(open_id, third_account_type, n_login_id, bind_type, is_bind, last_update_time, remark)
+			values
+  			(#openId:VARCHAR#, #thirdAccountType:VARCHAR#, #nLoginId:VARCHAR#, #bindType:VARCHAR#, #isBind:VARCHAR#, #lastUpdateTime:VARCHAR#, #remark:VARCHAR#)
+		]]>
+	</insert>	
+	
+	<!-- 更新绑定信息(绑定类型,绑定状态,最后一次操作时间) 主要用于临时会员转为正式会员时需更新绑定类型 -->
+	<update id="updateBindStatus" parameterClass="thirdBindInfo">
+		update third_bind_info set bind_type=#bindType:VARCHAR#,is_bind=#isBind:VARCHAR#,last_update_time=#lastUpdateTime:VARCHAR#
+		<dynamic prepend=",">
+			<isNotNull property="remark">
+				remark=#remark:VARCHAR# 
+			</isNotNull>
+		</dynamic>
+		where open_id=#openId:VARCHAR# and third_account_type=#thirdAccountType:VARCHAR# and n_login_id=#nLoginId:VARCHAR#
+	</update>
+	
+	<!-- 查询某一个正式会员所绑定的所有第三方账号 -->
+	<select id="queryBindInfo" resultMap="mainInfoResultMap" parameterClass="java.lang.String">
+		<![CDATA[
+			select open_id, third_account_type, n_login_id,bind_type,(select nick_name from third_account_info a where a.open_id=b.open_id and a.third_account_type=b.third_account_type) nickname,(select heading_url from third_account_info a where a.open_id=b.open_id and a.third_account_type=b.third_account_type) heading_url from third_bind_info b where b.n_login_id=#loginId:VARCHAR#
+		]]>
+	</select>
+	
+	<!-- 根据open_id,account_type查询loginId和昵称信息而已 -->
+	<select id="queryLoginIdByOpenIdAndAcctType" resultClass="java.lang.String" parameterClass="com.kmzyc.b2b.third.model.ThirdAccountInfo">
+		<![CDATA[
+			SELECT t.N_LOGIN_ID || ',' ||
+			       (select pi.nickname
+			          from personality_info pi
+			         where pi.n_login_id = t.n_login_id) NICKNAME
+			  FROM third_bind_info t where t.open_id=#openId:VARCHAR# and t.third_account_type=#thirdAccountType:VARCHAR#
+		]]>
+	</select>
+	
+	<!-- 依据open_id,account_type查询是否有绑定正式会员(只考虑第三方账号和一个康美账号绑定情况,所以可不用考虑依据login_id查询) -->
+	<select id="queryIsBindTourist" resultMap="bindInfoResult" parameterClass="com.kmzyc.b2b.third.model.ThirdAccountInfo">
+		<![CDATA[
+			select open_id, third_account_type, n_login_id, bind_type, is_bind, last_update_time, remark from third_bind_info where open_id=#openId:VARCHAR# and third_account_type=#thirdAccountType:VARCHAR# and bind_type='02'
+		]]>
+	</select>
+	
+	<!-- 删除绑定信息,供解绑操作使用 -->
+	<delete id="deleteBindInfo" parameterClass="thirdBindInfo">
+		delete from third_bind_info where open_id=#openId:VARCHAR# and third_account_type=#thirdAccountType:VARCHAR# and n_login_id=#nLoginId:VARCHAR#
+	</delete>
+	
+	<delete id="deleteBindInfoByOpenId" parameterClass="thirdBindInfo">
+		delete from third_bind_info where open_id=#openId:VARCHAR# and third_account_type=#thirdAccountType:VARCHAR#
+	</delete>
+</sqlMap>

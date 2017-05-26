@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="CATEGORY">
+   <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.Category" >
+	    <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+	    <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL" />
+	    <result column="CATEGORY_CODE" property="categoryCode" jdbcType="DECIMAL" />
+	    <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+	    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+	    <result column="SORTNO" property="sortno" jdbcType="DECIMAL" />
+	    <result column="CATEGORY_DESC" property="categoryDesc" jdbcType="VARCHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+	    <result column="MODIF_TIME" property="modifTime" jdbcType="DATE" />
+	    <result column="MODIF_USER" property="modifUser" jdbcType="DECIMAL" />
+	    <result column="CHANNEL" property="channel" jdbcType="VARCHAR" />
+	    <result column="EXEC_SQL" property="execSql" jdbcType="VARCHAR" />
+	    <result column="IS_PHY" property="isPhy" jdbcType="DECIMAL" />
+	    <result column="SQL_STRING" property="sqlString" jdbcType="DECIMAL" />
+  </resultMap>
+   <!-- 获取类目 -->
+   <select id="selectById" resultMap="ibatorgenerated_BaseResultMap" parameterClass="java.lang.Long">
+          select * from  CATEGORYS c
+	    		where c.parent_id=#parentId#
+	    		and c.is_phy=1 and c.status=1
+   </select>
+   <!-- 类目反推三级类目 -->
+   <select id="selectBack" resultMap="ibatorgenerated_BaseResultMap" parameterClass="java.lang.Long">
+   		select *from  CATEGORYS
+			 where STATUS = 1
+			 start with
+			 category_id = #categoryId#
+			 and parent_id = 0
+			connect by prior category_id = parent_id
+   </select>
+  
+
+</sqlMap>

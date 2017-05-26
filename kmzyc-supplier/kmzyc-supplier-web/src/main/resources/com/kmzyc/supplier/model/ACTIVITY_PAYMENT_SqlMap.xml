@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ACTIVITY_PAYMENT">
+    <resultMap id="BaseResultMap" class="com.pltfm.app.vobject.ActivityPayment">
+        <result column="ACTIVITY_PAYMENT_ID" property="activityPaymentId" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_PAYMENT_CODE" property="activityPaymentCode" jdbcType="VARCHAR"/>
+        <result column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL"/>
+        <result column="SUPPLIER_ENTRY_ID" property="supplierEntryId" jdbcType="DECIMAL"/>
+        <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_PAYMENT_TYPE" property="activityPaymentType" jdbcType="DECIMAL"/>
+        <result column="ACTIVITY_PAYMENT_STATUS" property="activityPaymentStatus" jdbcType="DECIMAL"/>
+        <result column="TOTAL_FUNDS" property="totalFunds" jdbcType="DECIMAL"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="MODIFY_TIME" property="modifyTime" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_USER" property="createUser" jdbcType="DECIMAL"/>
+        <result column="MODIF_USER" property="modifUser" jdbcType="DECIMAL"/>
+        <result column="AUDIT_STATUS" property="auditStatus" jdbcType="DECIMAL"/>
+        <result column="AUDIT_TIME" property="auditTime" jdbcType="TIMESTAMP"/>
+        <result column="AUDIT_USER" property="auditUser" jdbcType="DECIMAL"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+        <result column="ONE_PAY_STATUS" property="onePayStatus" jdbcType="DECIMAL"/>
+        <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Example_Where_Clause">
+        <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate">
+            <isEqual property="oredCriteria[].valid" compareValue="true">
+                (
+                <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and">
+                    $oredCriteria[].criteriaWithoutValue[]$
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and">
+                    $oredCriteria[].criteriaWithSingleValue[].condition$
+                    #oredCriteria[].criteriaWithSingleValue[].value#
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and">
+                    $oredCriteria[].criteriaWithListValue[].condition$
+                    <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")"
+                             conjunction=",">
+                        #oredCriteria[].criteriaWithListValue[].values[]#
+                    </iterate>
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and">
+                    $oredCriteria[].criteriaWithBetweenValue[].condition$
+                    #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+                    #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+                </iterate>
+                )
+            </isEqual>
+        </iterate>
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterClass="com.pltfm.app.vobject.ActivityPaymentExample">
+        select ACTIVITY_PAYMENT_ID, ACTIVITY_PAYMENT_CODE, ACTIVITY_ID, SUPPLIER_ENTRY_ID, SUPPLIER_ID, ACTIVITY_PAYMENT_TYPE,
+        ACTIVITY_PAYMENT_STATUS, TOTAL_FUNDS, CREATE_TIME, MODIFY_TIME, CREATE_USER, MODIF_USER,
+        AUDIT_STATUS, AUDIT_TIME, AUDIT_USER, REMARK, ONE_PAY_STATUS, PARENT_ID
+        from ACTIVITY_PAYMENT
+        <isParameterPresent>
+            <include refid="ACTIVITY_PAYMENT.Example_Where_Clause"/>
+            <isNotNull property="orderByClause">
+                order by $orderByClause$
+            </isNotNull>
+        </isParameterPresent>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
+            parameterClass="com.pltfm.app.vobject.ActivityPayment">
+        select ACTIVITY_PAYMENT_ID, ACTIVITY_PAYMENT_CODE, ACTIVITY_ID, SUPPLIER_ENTRY_ID, SUPPLIER_ID, ACTIVITY_PAYMENT_TYPE,
+        ACTIVITY_PAYMENT_STATUS, TOTAL_FUNDS, CREATE_TIME, MODIFY_TIME, CREATE_USER, MODIF_USER,
+        AUDIT_STATUS, AUDIT_TIME, AUDIT_USER, REMARK, ONE_PAY_STATUS, PARENT_ID
+        from ACTIVITY_PAYMENT
+        where ACTIVITY_PAYMENT_ID = #activityPaymentId:DECIMAL#
+    </select>
+    <insert id="insert" parameterClass="com.pltfm.app.vobject.ActivityPayment">
+        insert into ACTIVITY_PAYMENT (ACTIVITY_PAYMENT_ID, ACTIVITY_PAYMENT_CODE, ACTIVITY_ID, SUPPLIER_ENTRY_ID, SUPPLIER_ID,
+        ACTIVITY_PAYMENT_TYPE, ACTIVITY_PAYMENT_STATUS, TOTAL_FUNDS, CREATE_TIME, MODIFY_TIME,
+        CREATE_USER, MODIF_USER, AUDIT_STATUS, AUDIT_TIME, AUDIT_USER, REMARK, ONE_PAY_STATUS,
+        PARENT_ID)
+        values (#activityPaymentId:DECIMAL#, #activityPaymentCode:VARCHAR#, #activityId:DECIMAL#, #supplierEntryId:DECIMAL#,
+        #supplierId:DECIMAL#, #activityPaymentType:DECIMAL#, #activityPaymentStatus:DECIMAL#,
+        #totalFunds:DECIMAL#, #createTime:TIMESTAMP#, #modifyTime:TIMESTAMP#, #createUser:DECIMAL#,
+        #modifUser:DECIMAL#, #auditStatus:DECIMAL#, #auditTime:TIMESTAMP#, #auditUser:DECIMAL#,
+        #remark:VARCHAR#, #onePayStatus:DECIMAL#, #parentId:DECIMAL#)
+    </insert>
+    <insert id="insertSelective" parameterClass="com.pltfm.app.vobject.ActivityPayment">
+        <selectKey keyProperty="activityPaymentId" resultClass="java.lang.Long" >
+            select SEQ_ACTIVITY_PAYMENT.nextval from dual
+        </selectKey>
+        insert into ACTIVITY_PAYMENT
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="activityPaymentId">
+                ACTIVITY_PAYMENT_ID
+            </isNotNull>
+            <isNotNull prepend="," property="activityPaymentCode">
+                ACTIVITY_PAYMENT_CODE
+            </isNotNull>
+            <isNotNull prepend="," property="activityId">
+                ACTIVITY_ID
+            </isNotNull>
+            <isNotNull prepend="," property="supplierEntryId">
+                SUPPLIER_ENTRY_ID
+            </isNotNull>
+            <isNotNull prepend="," property="supplierId">
+                SUPPLIER_ID
+            </isNotNull>
+            <isNotNull prepend="," property="activityPaymentType">
+                ACTIVITY_PAYMENT_TYPE
+            </isNotNull>
+            <isNotNull prepend="," property="activityPaymentStatus">
+                ACTIVITY_PAYMENT_STATUS
+            </isNotNull>
+            <isNotNull prepend="," property="totalFunds">
+                TOTAL_FUNDS
+            </isNotNull>
+            <isNotNull prepend="," property="createTime">
+                CREATE_TIME
+            </isNotNull>
+            <isNotNull prepend="," property="modifyTime">
+                MODIFY_TIME
+            </isNotNull>
+            <isNotNull prepend="," property="createUser">
+                CREATE_USER
+            </isNotNull>
+            <isNotNull prepend="," property="modifUser">
+                MODIF_USER
+            </isNotNull>
+            <isNotNull prepend="," property="auditStatus">
+                AUDIT_STATUS
+            </isNotNull>
+            <isNotNull prepend="," property="auditTime">
+                AUDIT_TIME
+            </isNotNull>
+            <isNotNull prepend="," property="auditUser">
+                AUDIT_USER
+            </isNotNull>
+            <isNotNull prepend="," property="remark">
+                REMARK
+            </isNotNull>
+            <isNotNull prepend="," property="onePayStatus">
+                ONE_PAY_STATUS
+            </isNotNull>
+            <isNotNull prepend="," property="parentId">
+                PARENT_ID
+            </isNotNull>
+            )
+        </dynamic>
+        values
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="activityPaymentId">
+                #activityPaymentId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="activityPaymentCode">
+                #activityPaymentCode:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="activityId">
+                #activityId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="supplierEntryId">
+                #supplierEntryId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="supplierId">
+                #supplierId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="activityPaymentType">
+                #activityPaymentType:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="activityPaymentStatus">
+                #activityPaymentStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="totalFunds">
+                #totalFunds:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="createTime">
+                #createTime:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="," property="modifyTime">
+                #modifyTime:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="," property="createUser">
+                #createUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="modifUser">
+                #modifUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="auditStatus">
+                #auditStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="auditTime">
+                #auditTime:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="," property="auditUser">
+                #auditUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="remark">
+                #remark:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="onePayStatus">
+                #onePayStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="parentId">
+                #parentId:DECIMAL#
+            </isNotNull>
+            )
+        </dynamic>
+    </insert>
+    <select id="countByExample" parameterClass="com.pltfm.app.vobject.ActivityPaymentExample"
+            resultClass="java.lang.Integer">
+        select count(*) from ACTIVITY_PAYMENT
+        <include refid="ACTIVITY_PAYMENT.Example_Where_Clause"/>
+    </select>
+    <update id="updateByExampleSelective">
+        update ACTIVITY_PAYMENT
+        <dynamic prepend="set">
+            <isNotNull prepend="," property="record.activityPaymentId">
+                ACTIVITY_PAYMENT_ID = #record.activityPaymentId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.activityPaymentCode">
+                ACTIVITY_PAYMENT_CODE = #record.activityPaymentCode:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.activityId">
+                ACTIVITY_ID = #record.activityId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.supplierEntryId">
+                SUPPLIER_ENTRY_ID = #record.supplierEntryId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.supplierId">
+                SUPPLIER_ID = #record.supplierId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.activityPaymentType">
+                ACTIVITY_PAYMENT_TYPE = #record.activityPaymentType:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.activityPaymentStatus">
+                ACTIVITY_PAYMENT_STATUS = #record.activityPaymentStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.totalFunds">
+                TOTAL_FUNDS = #record.totalFunds:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.createTime">
+                CREATE_TIME = #record.createTime:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="," property="record.modifyTime">
+                MODIFY_TIME = #record.modifyTime:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="," property="record.createUser">
+                CREATE_USER = #record.createUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.modifUser">
+                MODIF_USER = #record.modifUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.auditStatus">
+                AUDIT_STATUS = #record.auditStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.auditTime">
+                AUDIT_TIME = #record.auditTime:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="," property="record.auditUser">
+                AUDIT_USER = #record.auditUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.remark">
+                REMARK = #record.remark:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.onePayStatus">
+                ONE_PAY_STATUS = #record.onePayStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.parentId">
+                PARENT_ID = #record.parentId:DECIMAL#
+            </isNotNull>
+        </dynamic>
+        <isParameterPresent>
+            <include refid="ACTIVITY_PAYMENT.Example_Where_Clause"/>
+        </isParameterPresent>
+    </update>
+    <update id="updateByExample">
+        update ACTIVITY_PAYMENT
+        set ACTIVITY_PAYMENT_ID = #record.activityPaymentId:DECIMAL#,
+        ACTIVITY_PAYMENT_CODE = #record.activityPaymentCode:VARCHAR#
+        ACTIVITY_ID = #record.activityId:DECIMAL#,
+        SUPPLIER_ENTRY_ID = #record.supplierEntryId:DECIMAL#,
+        SUPPLIER_ID = #record.supplierId:DECIMAL#,
+        ACTIVITY_PAYMENT_TYPE = #record.activityPaymentType:DECIMAL#,
+        ACTIVITY_PAYMENT_STATUS = #record.activityPaymentStatus:DECIMAL#,
+        TOTAL_FUNDS = #record.totalFunds:DECIMAL#,
+        CREATE_TIME = #record.createTime:TIMESTAMP#,
+        MODIFY_TIME = #record.modifyTime:TIMESTAMP#,
+        CREATE_USER = #record.createUser:DECIMAL#,
+        MODIF_USER = #record.modifUser:DECIMAL#,
+        AUDIT_STATUS = #record.auditStatus:DECIMAL#,
+        AUDIT_TIME = #record.auditTime:TIMESTAMP#,
+        AUDIT_USER = #record.auditUser:DECIMAL#,
+        REMARK = #record.remark:VARCHAR#,
+        ONE_PAY_STATUS = #record.onePayStatus:DECIMAL#,
+        PARENT_ID = #record.parentId:DECIMAL#
+        <isParameterPresent>
+            <include refid="ACTIVITY_PAYMENT.Example_Where_Clause"/>
+        </isParameterPresent>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterClass="com.pltfm.app.vobject.ActivityPayment">
+        update ACTIVITY_PAYMENT
+        <dynamic prepend="set">
+            <isNotNull prepend="," property="activityId">
+                ACTIVITY_ID = #activityId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="activityPaymentCode">
+                ACTIVITY_PAYMENT_CODE = #activityPaymentCode:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="supplierEntryId">
+                SUPPLIER_ENTRY_ID = #supplierEntryId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="supplierId">
+                SUPPLIER_ID = #supplierId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="activityPaymentType">
+                ACTIVITY_PAYMENT_TYPE = #activityPaymentType:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="activityPaymentStatus">
+                ACTIVITY_PAYMENT_STATUS = #activityPaymentStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="totalFunds">
+                TOTAL_FUNDS = #totalFunds:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="createTime">
+                CREATE_TIME = #createTime:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="," property="modifyTime">
+                MODIFY_TIME = #modifyTime:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="," property="createUser">
+                CREATE_USER = #createUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="modifUser">
+                MODIF_USER = #modifUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="auditStatus">
+                AUDIT_STATUS = #auditStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="auditTime">
+                AUDIT_TIME = #auditTime:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="," property="auditUser">
+                AUDIT_USER = #auditUser:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="remark">
+                REMARK = #remark:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="onePayStatus">
+                ONE_PAY_STATUS = #onePayStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="parentId">
+                PARENT_ID = #parentId:DECIMAL#
+            </isNotNull>
+        </dynamic>
+        where ACTIVITY_PAYMENT_ID = #activityPaymentId:DECIMAL#
+    </update>
+    <update id="updateByPrimaryKey" parameterClass="com.pltfm.app.vobject.ActivityPayment">
+        update ACTIVITY_PAYMENT
+        set ACTIVITY_ID = #activityId:DECIMAL#,
+        ACTIVITY_PAYMENT_CODE = #activityPaymentCode:VARCHAR#
+        SUPPLIER_ENTRY_ID = #supplierEntryId:DECIMAL#,
+        SUPPLIER_ID = #supplierId:DECIMAL#,
+        ACTIVITY_PAYMENT_TYPE = #activityPaymentType:DECIMAL#,
+        ACTIVITY_PAYMENT_STATUS = #activityPaymentStatus:DECIMAL#,
+        TOTAL_FUNDS = #totalFunds:DECIMAL#,
+        CREATE_TIME = #createTime:TIMESTAMP#,
+        MODIFY_TIME = #modifyTime:TIMESTAMP#,
+        CREATE_USER = #createUser:DECIMAL#,
+        MODIF_USER = #modifUser:DECIMAL#,
+        AUDIT_STATUS = #auditStatus:DECIMAL#,
+        AUDIT_TIME = #auditTime:TIMESTAMP#,
+        AUDIT_USER = #auditUser:DECIMAL#,
+        REMARK = #remark:VARCHAR#,
+        ONE_PAY_STATUS = #onePayStatus:DECIMAL#,
+        PARENT_ID = #parentId:DECIMAL#
+        where ACTIVITY_PAYMENT_ID = #activityPaymentId:DECIMAL#
+    </update>
+    <update id="payed" parameterClass="java.util.HashMap">
+        update ACTIVITY_PAYMENT
+        set ACTIVITY_PAYMENT_STATUS = 2
+        where ACTIVITY_ID = #activityId:DECIMAL# AND SUPPLIER_ID = #supplierId:DECIMAL# AND ONE_PAY_STATUS = 1
+    </update>
+</sqlMap>

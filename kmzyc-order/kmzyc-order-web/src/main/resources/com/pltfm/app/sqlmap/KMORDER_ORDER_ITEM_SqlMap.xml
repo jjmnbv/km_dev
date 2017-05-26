@@ -1,0 +1,1142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="KMORDER_ORDER_ITEM" >
+	<resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.entities.OrderItem" >
+	    <result column="ORDER_ITEM_ID" property="orderItemId" jdbcType="DECIMAL" />
+	    <result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+	    <result column="COMMODITY_NAME" property="commodityName" jdbcType="VARCHAR" />
+	    <result column="COMMODITY_CODE" property="commodityCode" jdbcType="VARCHAR" />
+	    <result column="COMMODITY_SKU" property="commoditySku" jdbcType="VARCHAR" />
+	    <result column="COMMODITY_BATCH_NUMBER" property="commodityBatchNumber" jdbcType="VARCHAR" />
+	    <result column="COMMODITY_CALLED_PRICE" property="commodityCalledPrice" jdbcType="DECIMAL" />
+	    <result column="COMMODITY_UNIT_PRICE" property="commodityUnitPrice" jdbcType="DECIMAL" />
+	    <result column="COMMODITY_NUMBER" property="commodityNumber" jdbcType="DECIMAL" />
+	    <result column="COMMODITY_SUM" property="commoditySum" jdbcType="DECIMAL" />
+	    <result column="COMMODITY_CALLED_SUM" property="commodityCalledSum" jdbcType="DECIMAL" />
+	    <result column="COMMODITY_DESCRIPTION" property="commoditySkuDescription" jdbcType="VARCHAR" />
+	    <result column="WAREHOUSE_ID" property="warehouseId" jdbcType="DECIMAL" />
+	    <result column="CREDITS" property="credits" jdbcType="DECIMAL" />
+	    <result column="IMAGE_URL" property="imageUrl" jdbcType="VARCHAR" />
+	    <result column="COMMODITY_UNIT_WEIGHT" property="commodityUnitWeight" jdbcType="DECIMAL" />
+	    <result column="SUIT_ID" property="suitId" jdbcType="DECIMAL" />
+	    <result column="COMMODITY_TYPE" property="commodityType" jdbcType="DECIMAL" />
+	    <result column="COMMODITY_SKU_DESCRIPTION" property="commoditySkuDescription" jdbcType="VARCHAR" />
+	    <result column="COMMODITY_TITLE" property="commodityTitle" jdbcType="VARCHAR" />
+	    <result column="SUPPLIER" property="supplier" jdbcType="VARCHAR" />
+	    <result column="COMMODITY_CHANNEL" property="commodityChannel" jdbcType="VARCHAR" />
+	    <result column="COMMODITY_COST_PRICE" property="commodityCostPrice" jdbcType="DECIMAL" />
+	    <result column="COMMODITY_BRAND" property="commodityBrand" jdbcType="VARCHAR" />
+	    <result column="COMMODITY_UNIT_INCOMING" property="commodityUnitIncoming" jdbcType="DECIMAL" />
+	    <result column="COMMISSION_RATE" property="commissionRate" jdbcType="DECIMAL" />
+	    <result column="SUPPLIER_TYPE" property="supplierType" jdbcType="DECIMAL" />
+	    <result column="EXT_ATTR_TYPE" property="extAttrType" jdbcType="DECIMAL" />
+	    <result column="SETTLEMENT_LOAN" property="settlementLoan" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<resultMap class="com.pltfm.app.entities.OrderItem" id="ibatorgenerated_BaseResultMap_ys" extends="ibatorgenerated_BaseResultMap">
+		<result column="SKUID" jdbcType="DECIMAL" property="skuId" />
+	    <result column="PRESELL_ID" property="presellId" jdbcType="DECIMAL"/>
+	    <result column="DEPOSIT" property="deposit" jdbcType="DECIMAL"/>
+	</resultMap>
+	<resultMap class="com.pltfm.app.vobject.OrderItemVo" id="ibatorgenerated_ExtendsResultMap" extends="ibatorgenerated_BaseResultMap">
+	    <result column="ISRETURNING" jdbcType="DECIMAL" property="isReturning" />
+	    <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL"/>
+	    <result column="COMMODITY_PV" property="commodityPv" jdbcType="DECIMAL"/>
+	    <result column="COST_INCOME_RATIO" property="costIncomeRatio" jdbcType="DECIMAL"/>
+	    <result column="COST_INCOME_MONEY" property="costIncomeMoney" jdbcType="DECIMAL"/>
+	    <result column="DEPOSIT" property="deposit" jdbcType="DECIMAL"/>
+	</resultMap>
+	<resultMap class="com.pltfm.app.vobject.OrderItemVo" id="orderItemOut_ResultMap" extends="ibatorgenerated_ExtendsResultMap">
+	    <result column="OUT_REBATE_RATE" property="outRebateRate" jdbcType="DECIMAL"/>
+	    <result column="OUT_REBATE_MONEY" property="outRebateMoney" jdbcType="DECIMAL"/>
+	</resultMap>
+	<resultMap class="com.pltfm.app.entities.OrderMain" id="orderTree">
+	    <result column="ORDERCODE" jdbcType="VARCHAR" property="orderCode" />
+	    <result column="PARENTORDERCODE" jdbcType="VARCHAR" property="parentOrderCode" />
+	</resultMap>
+
+	<resultMap id="qrySellerExportOrderItem" class="com.pltfm.app.entities.OrderItem">
+	  <result column="COMMODITY_TITLE" property="commodityTitle" jdbcType="VARCHAR" />
+	  <result column="COMMODITY_SKU"  property="commoditySku" jdbcType="VARCHAR" />
+	  <result column="COMMODITY_SKU_DESCRIPTION"  property="commoditySkuDescription" jdbcType="VARCHAR" />
+	  <result column="COMMODITY_UNIT_PRICE" property="commodityUnitPrice" jdbcType="DECIMAL" />
+	  <result column="COMMODITY_NUMBER" property="commodityNumber" jdbcType="DECIMAL" />
+	  <result column="COMMISSION_RATE" property="commissionRate" jdbcType="DECIMAL" />
+	  <result column="COMMISSION" property="commission" jdbcType="DECIMAL" />
+	  <result column="PROMOTION_TYPE" property="promotionType"  jdbcType="VARCHAR"/>
+	  <result column="COMMODITY_PAYMENT" property="commodityPayment" jdbcType="DECIMAL" />
+	  <result column="SELLER_SKU_CODE" property="sellerSkuCode" jdbcType="VARCHAR" />
+  	</resultMap>
+  	<!--订单明细同步 -->
+  	<resultMap id="syncOrderItemInfo2Base" class="com.pltfm.app.entities.OrderItem">
+	  <result column="COMMODITY_TITLE" property="commodityTitle" jdbcType="VARCHAR" />
+	  <result column="COMMODITY_SKU"  property="commoditySku" jdbcType="VARCHAR" />
+	  <result column="COMMODITY_SKU_DESCRIPTION"  property="commoditySkuDescription" jdbcType="VARCHAR" />
+	  <result column="COMMODITY_UNIT_PRICE" property="commodityUnitPrice" jdbcType="DECIMAL" />
+	  <result column="COMMODITY_NUMBER" property="commodityNumber" jdbcType="DECIMAL" />
+	  <result column="COMMODITY_SUM" property="commoditySum" jdbcType="DECIMAL" />
+	  <result column="COMMODITY_UNIT_INCOMING" property="commodityUnitIncoming" jdbcType="DECIMAL" />
+  	</resultMap>
+	
+  	<sql id="ibatorgenerated_Example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  	
+  <select id="selectByOrderCode" parameterClass="java.lang.String" resultMap="ibatorgenerated_ExtendsResultMap">   
+  	  select ORDER_ITEM_ID, ORDER_CODE, COMMODITY_NAME, COMMODITY_CODE, COMMODITY_SKU,T.COST_INCOME_RATIO, T.COMMODITY_PV,T.COST_INCOME_MONEY,
+      COMMODITY_BATCH_NUMBER, COMMODITY_CALLED_PRICE, COMMODITY_UNIT_PRICE, COMMODITY_NUMBER,
+      COMMODITY_SUM, COMMODITY_CALLED_SUM, COMMODITY_DESCRIPTION, WAREHOUSE_ID, CREDITS,SUIT_ID,
+      COMMODITY_UNIT_WEIGHT,SUIT_ID,COMMODITY_TYPE,COMMODITY_SKU_DESCRIPTION,COMMODITY_TITLE,SUPPLIER,
+      COMMODITY_CHANNEL,COMMODITY_COST_PRICE,COMMODITY_BRAND,COMMODITY_UNIT_INCOMING,COMMISSION_RATE,
+      SUPPLIER_TYPE,EXT_ATTR_TYPE,SETTLEMENT_LOAN,DEPOSIT,
+			(CASE
+		         WHEN EXISTS (SELECT *
+		                 FROM  ORDER_ALTER
+		                WHERE ORDER_ITEM_ID = T.ORDER_ITEM_ID
+		                  AND PROPOSE_STATUS NOT IN (-2, -1, 7)
+		                  AND ROWNUM = 1) THEN
+		          1
+		         ELSE
+		          (CASE
+		            WHEN (SELECT T.COMMODITY_NUMBER - SUM(ALTER_NUM)
+		                    FROM  ORDER_ALTER
+		                   WHERE ALTER_TYPE = 1
+		                     AND PROPOSE_STATUS = 7
+		                     AND ORDER_ITEM_ID = T.ORDER_ITEM_ID) = 0 THEN
+		             1
+		            ELSE
+		             0
+		          END)
+		    END) ISRETURNING,
+		    (SELECT SKU.PRODUCT_SKU_ID FROM  PRODUCT_SKU SKU WHERE SKU.PRODUCT_SKU_CODE = T.COMMODITY_SKU) PRODUCT_SKU_ID
+      from  ORDER_ITEM T WHERE T.ORDER_CODE = #value#   
+  </select>
+  <select id="ibatorgenerated_selectByExample" resultMap="ibatorgenerated_ExtendsResultMap" parameterClass="com.pltfm.app.entities.OrderItemExample" >
+      select ORDER_ITEM_ID, ORDER_CODE, COMMODITY_NAME, COMMODITY_CODE, COMMODITY_SKU,T.COST_INCOME_RATIO, T.COMMODITY_PV,T.COST_INCOME_MONEY,
+      COMMODITY_BATCH_NUMBER, COMMODITY_CALLED_PRICE, COMMODITY_UNIT_PRICE, COMMODITY_NUMBER,
+      COMMODITY_SUM, COMMODITY_CALLED_SUM, COMMODITY_DESCRIPTION, WAREHOUSE_ID, CREDITS, IMAGE_URL, 
+      COMMODITY_UNIT_WEIGHT,SUIT_ID,COMMODITY_TYPE,COMMODITY_SKU_DESCRIPTION,COMMODITY_TITLE,SUPPLIER,
+      COMMODITY_CHANNEL,COMMODITY_COST_PRICE,COMMODITY_BRAND,COMMODITY_UNIT_INCOMING,COMMISSION_RATE,
+      SUPPLIER_TYPE,EXT_ATTR_TYPE,SETTLEMENT_LOAN,COMMODITY_PV,DEPOSIT,
+	  (CASE WHEN EXISTS(SELECT 1 FROM  ORDER_ALTER
+                    WHERE ORDER_ITEM_ID = T.ORDER_ITEM_ID  AND ALTER_TYPE = 4 AND ROWNUM = 1 )
+                    THEN 1 
+      ELSE 
+      	(CASE
+	         WHEN EXISTS (SELECT *
+	                 FROM  ORDER_ALTER
+	                WHERE ORDER_ITEM_ID = T.ORDER_ITEM_ID
+	                  AND PROPOSE_STATUS NOT IN (-2, -1, 7)
+	                  AND ROWNUM = 1) THEN
+	          1
+	         ELSE
+	          (CASE
+	            WHEN (SELECT T.COMMODITY_NUMBER - SUM(ALTER_NUM)
+	                    FROM  ORDER_ALTER
+	                   WHERE ALTER_TYPE in(1,3)
+	                     AND PROPOSE_STATUS = 7
+	                     AND ORDER_ITEM_ID = T.ORDER_ITEM_ID) = 0 THEN
+	             1
+	            ELSE
+	             0
+	          END)
+	    END)
+	  END) ISRETURNING,
+	    (SELECT SKU.PRODUCT_SKU_ID FROM  PRODUCT_SKU SKU WHERE SKU.PRODUCT_SKU_CODE = T.COMMODITY_SKU) PRODUCT_SKU_ID
+    from  ORDER_ITEM T
+    <isParameterPresent >
+      <include refid="KMORDER_ORDER_ITEM.ibatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  
+  
+    <select id="ibatorgenerated_selectOutOrderByExample" resultMap="orderItemOut_ResultMap" parameterClass="java.lang.String" >
+    select  T.ORDER_ITEM_ID,
+        T.ORDER_CODE,
+         T.COMMODITY_NAME,
+         T.COMMODITY_CODE,
+         T.COMMODITY_SKU,
+        T.COST_INCOME_RATIO,
+        T.COMMODITY_PV,
+        T.COST_INCOME_MONEY,
+         T.COMMODITY_BATCH_NUMBER,
+         T.COMMODITY_CALLED_PRICE,
+         T.COMMODITY_UNIT_PRICE,
+         T.COMMODITY_NUMBER,
+         T.COMMODITY_SUM,
+         T.COMMODITY_CALLED_SUM,
+         T.COMMODITY_DESCRIPTION,
+         T.WAREHOUSE_ID,
+         T.CREDITS,
+         T.IMAGE_URL,
+         T.COMMODITY_UNIT_WEIGHT,
+         T.SUIT_ID,
+         T.COMMODITY_TYPE,
+         T.COMMODITY_SKU_DESCRIPTION,
+         T.COMMODITY_TITLE,
+         T.SUPPLIER,
+         T.COMMODITY_CHANNEL,
+         T.COMMODITY_COST_PRICE,
+         T.COMMODITY_BRAND,
+         T.COMMODITY_UNIT_INCOMING,
+         T.COMMISSION_RATE,
+         T.DEPOSIT,
+        SUPPLIER_TYPE,
+        EXT_ATTR_TYPE,
+        SETTLEMENT_LOAN,
+        COMMODITY_PV,
+        (CASE
+          WHEN EXISTS (SELECT *
+                  FROM  ORDER_ALTER
+                 WHERE ORDER_ITEM_ID = T.ORDER_ITEM_ID
+                   AND PROPOSE_STATUS NOT IN (-2, -1, 7)
+                   AND ROWNUM = 1) THEN
+           1
+          ELSE
+           (CASE
+             WHEN (SELECT T.COMMODITY_NUMBER - SUM(ALTER_NUM)
+                     FROM  ORDER_ALTER
+                    WHERE ALTER_TYPE = 1
+                      AND PROPOSE_STATUS = 7
+                      AND ORDER_ITEM_ID = T.ORDER_ITEM_ID) = 0 THEN
+              1
+             ELSE
+              0
+           END)
+        END) ISRETURNING,
+        (SELECT SKU.PRODUCT_SKU_ID
+           FROM  PRODUCT_SKU SKU
+          WHERE SKU.PRODUCT_SKU_CODE = T.COMMODITY_SKU) PRODUCT_SKU_ID,
+        ex.out_rebate_money,
+        ex.out_rebate_rate
+    from  ORDER_ITEM T ,  order_item_ext ex 
+     where T.order_item_id=ex.order_item_id
+     and  T.ORDER_CODE = #orderCode#
+        order by ORDER_ITEM_ID ASC
+  </select>
+  
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_ExtendsResultMap" parameterClass="java.lang.Long" >
+    select ORDER_ITEM_ID, ORDER_CODE, COMMODITY_NAME, COMMODITY_CODE, COMMODITY_SKU,T.COST_INCOME_RATIO, T.COMMODITY_PV,T.COST_INCOME_MONEY,
+      COMMODITY_BATCH_NUMBER, COMMODITY_CALLED_PRICE, COMMODITY_UNIT_PRICE, COMMODITY_NUMBER,
+      COMMODITY_SUM, COMMODITY_CALLED_SUM, COMMODITY_DESCRIPTION, WAREHOUSE_ID, CREDITS,IMAGE_URL, 
+      COMMODITY_UNIT_WEIGHT,SUIT_ID,COMMODITY_TYPE,COMMODITY_SKU_DESCRIPTION,COMMODITY_TITLE,SUPPLIER,
+      COMMODITY_CHANNEL,COMMODITY_COST_PRICE,COMMODITY_BRAND,COMMODITY_UNIT_INCOMING,COMMISSION_RATE,
+      SUPPLIER_TYPE,EXT_ATTR_TYPE,SETTLEMENT_LOAN,DEPOSIT,
+			(CASE
+		         WHEN EXISTS (SELECT *
+		                 FROM  ORDER_ALTER
+		                WHERE ORDER_ITEM_ID = T.ORDER_ITEM_ID
+		                  AND PROPOSE_STATUS NOT IN (-2, -1, 7)
+		                  AND ROWNUM = 1) THEN
+		          1
+		         ELSE
+		          (CASE
+		            WHEN (SELECT T.COMMODITY_NUMBER - SUM(ALTER_NUM)
+		                    FROM  ORDER_ALTER
+		                   WHERE ALTER_TYPE = 1
+		                     AND PROPOSE_STATUS = 7
+		                     AND ORDER_ITEM_ID = T.ORDER_ITEM_ID) = 0 THEN
+		             1
+		            ELSE
+		             0
+		          END)
+		    END) ISRETURNING,
+		    (SELECT SKU.PRODUCT_SKU_ID FROM  PRODUCT_SKU SKU WHERE SKU.PRODUCT_SKU_CODE = T.COMMODITY_SKU) PRODUCT_SKU_ID
+    from  ORDER_ITEM T
+    where ORDER_ITEM_ID = #orderItemId:DECIMAL#
+  </select>
+  	<!-- 批量查询 -->
+  	<resultMap class="java.util.HashMap" id="RESULT_MAP_QUERY_EXEC_ORDER_ITEM" groupBy="orderCode">
+  		<result column="orderCode" property="orderCode" jdbcType="VARCHAR" />
+  		<result property="list" resultMap="KMORDER_ORDER_ITEM.EXEC_ORDER_ITEM" javaType="java.util.List"/>
+  	</resultMap>
+	<resultMap class="com.pltfm.app.entities.OrderItem" id="EXEC_ORDER_ITEM" >
+		<result column="ORDERITEMID" property="orderItemId" jdbcType="DECIMAL" />
+	    <result column="ORDERCODE" property="orderCode" jdbcType="VARCHAR" />
+	    <result column="COMMODITYNAME" property="commodityName" jdbcType="VARCHAR" />
+	    <result column="COMMODITYCODE" property="commodityCode" jdbcType="VARCHAR" />
+	    <result column="COMMODITYSKU" property="commoditySku" jdbcType="VARCHAR" />
+	    <result column="SKUBARCODE" property="skuBarCode" jdbcType="VARCHAR" />
+	    <result column="COMMODITYBATCHNUMBER" property="commodityBatchNumber" jdbcType="VARCHAR" />
+	    <result column="COMMODITYCALLEDPRICE" property="commodityCalledPrice" jdbcType="DECIMAL" />
+	    <result column="COMMODITYUNITPRICE" property="commodityUnitPrice" jdbcType="DECIMAL" />
+	    <result column="COMMODITYNUMBER" property="commodityNumber" jdbcType="DECIMAL" />
+	    <result column="COMMODITYSUM" property="commoditySum" jdbcType="DECIMAL" />
+	    <result column="COMMODITYCALLEDSUM" property="commodityCalledSum" jdbcType="DECIMAL" />
+	    <result column="COMMODITYDESCRIPTION" property="commodityDescription" jdbcType="VARCHAR" />
+	    <result column="WAREHOUSEID" property="warehouseId" jdbcType="DECIMAL" />
+	    <result column="CREDITS" property="credits" jdbcType="DECIMAL" />
+	    <result column="IMAGEURL" property="imageUrl" jdbcType="VARCHAR" />
+	    <result column="COMMODITYUNITWEIGHT" property="commodityUnitWeight" jdbcType="DECIMAL" />
+	    <result column="SUITID" property="suitId" jdbcType="DECIMAL" />
+	    <result column="COMMODITYTYPE" property="commodityType" jdbcType="DECIMAL" />
+	    <result column="COMMODITYSKUDESCRIPTION" property="commoditySkuDescription" jdbcType="VARCHAR" />
+	    <result column="COMMODITYTITLE" property="commodityTitle" jdbcType="VARCHAR" />
+	    <result column="COMMODITYCHANNEL" property="commodityChannel" jdbcType="VARCHAR" />
+	    <result column="SUPPLIER" property="supplier" jdbcType="VARCHAR" />
+	    <result column="SUPPLIERNAME" property="supplierName" jdbcType="VARCHAR" />
+	    <result column="COMMODITYCOSTPRICE" property="commodityCostPrice" jdbcType="DECIMAL" />
+	    <result column="COMMODITYBRAND" property="commodityBrand" jdbcType="VARCHAR" />
+	    <result column="COMMODITYUNITINCOMING" property="commodityUnitIncoming" jdbcType="DECIMAL" />
+	    <result column="COMMISSIONRATE" property="commissionRate" jdbcType="DECIMAL" />
+	    <result column="SUPPLIERTYPE" property="supplierType" jdbcType="DECIMAL" />
+	    <result column="EXTATTRTYPE" property="extAttrType" jdbcType="DECIMAL" />
+	    <result column="SETTLEMENTLOAN" property="settlementLoan" jdbcType="DECIMAL" />
+	    <result column="COSTINCOMEMONEY" property="costIncomeMoney" jdbcType="DECIMAL" />
+	    <result column="COMMODITYPV" property="commodityPv" jdbcType="DECIMAL" />
+	    <result column="SKUID" property="skuId" jdbcType="DECIMAL" />
+	    <result column="ERPPROCODE" property="erpProCode" jdbcType="VARCHAR" />
+	    <result column="ERPSYSCODE" property="erpSysCode" jdbcType="VARCHAR" />
+	    <result column="SUPPLIERTYPENAME" property="supplierTypeName" jdbcType="VARCHAR" />
+	    <result column="WAREHOUSENAME" property="warehouseName" jdbcType="VARCHAR" />
+	    <result column="orderItemExt.ItemExtId" property="orderItemExt.ItemExtId" jdbcType="DECIMAL" />
+	    <result column="orderItemExt.ItemExtId" property="orderItemExt.ItemExtId" jdbcType="DECIMAL" />
+	    <result column="orderItemExt.ItemExtId" property="orderItemExt.ItemExtId" jdbcType="DECIMAL" />
+	    <result column="orderItemExt.produceFactory" property="orderItemExt.produceFactory" jdbcType="VARCHAR" />
+	    <result column="orderItemExt.invoicingCode" property="orderItemExt.invoicingCode" jdbcType="VARCHAR" />
+  	</resultMap>
+  	<select id="SQL_QUERY_EXEC_ORDER_ITEM" resultMap="RESULT_MAP_QUERY_EXEC_ORDER_ITEM" parameterClass="java.util.List">
+  	<![CDATA[
+	    select oi.order_item_id orderItemId,
+		       oi.order_code orderCode,
+		       oi.commodity_name commodityName,
+		       oi.commodity_code commodityCode,
+		       oi.commodity_sku commoditySku,
+		       oi.commodity_batch_number commodityBatchNumber,
+		       oi.commodity_called_price commodityCalledPrice,
+		       oi.commodity_unit_price commodityUnitPrice,
+		       oi.commodity_number commodityNumber,
+		       oi.commodity_sum commoditySum,
+		       oi.commodity_called_sum commodityCalledSum,
+		       oi.commodity_description commodityDescription,
+		       oi.warehouse_id warehouseId,
+		       oi.credits credits,
+		       oi.image_url imageUrl,
+		       oi.commodity_unit_weight commodityUnitWeight,
+		       oi.suit_id suitId,
+		       oi.commodity_type commodityType,
+		       oi.commodity_sku_description commoditySkuDescription,
+		       oi.commodity_title commodityTitle,
+		       oi.supplier supplier,
+		       (select bi.corporate_name
+		          from   commercial_tenant_basic_info bi
+		         where exists (select 1
+		                  from  suppliers_info si
+		                 where bi.n_commercial_tenant_id = si.merchant_id
+		                   and (to_char(si.supplier_id) = oi.supplier))
+		           and rownum = 1) supplierName,
+		       oi.commodity_channel commodityChannel,
+		       oi.commodity_cost_price commodityCostPrice,
+		       oi.commodity_brand commodityBrand,
+		       nvl(oi.commodity_unit_incoming, 0) commodityUnitIncoming,
+		       oi.commission_rate commissionRate,
+		       oi.supplier_type supplierType,
+		       oi.ext_attr_type extAttrType,
+		       oi.settlement_loan settlementLoan,
+		       oi.COMMODITY_PV commodityPv,
+		       oi.cost_income_money costIncomeMoney,
+		       oi.skuid skuId,
+		       oi.erp_pro_code         erpProCode,
+		       oi.erp_sys_code         erpSysCode,
+		       oi.SKU_BAR_CODE  skuBarCode,
+		       (select od.order_dictionary_value
+		          from order_dictionary od
+		         where od.order_dictionary_type = 'Supplier_Type'
+		           and od.order_dictionary_key = oi.supplier_type) supplierTypeName,
+		       (select wi.warehouse_name
+		          from  warehouse_info wi
+		         where wi.warehouse_id = oi.warehouse_id) warehouseName,
+		       oie.item_ext_id "orderItemExt.ItemExtId",
+		       oie.order_item_id "orderItemExt.orderItemId",
+		       oie.produce_factory "orderItemExt.produceFactory",
+		       oie.invoicing_code "orderItemExt.invoicingCode"
+		  from  order_item oi
+		  left join  order_item_ext oie
+		    on (oie.order_item_id = oi.order_item_id)
+		 where order_code in
+		]]>		 
+       <iterate open="(" close=")" conjunction=","> #[]# </iterate>
+	</select>
+  
+  <!-- 单个查询 -->
+  <select id="ibatorgenerated_selectByOrderCode" resultMap="ibatorgenerated_BaseResultMap" parameterClass="java.lang.String">
+    <!--
+      	通过orderCode集合查询出相关的订单项集合
+    -->
+    select ORDER_ITEM_ID, ORDER_CODE, COMMODITY_NAME, COMMODITY_CODE, COMMODITY_SKU,
+      COMMODITY_BATCH_NUMBER, COMMODITY_CALLED_PRICE, COMMODITY_UNIT_PRICE, COMMODITY_NUMBER,
+      COMMODITY_SUM, COMMODITY_CALLED_SUM, COMMODITY_DESCRIPTION, WAREHOUSE_ID, CREDITS,IMAGE_URL, 
+      COMMODITY_UNIT_WEIGHT,SUIT_ID,COMMODITY_TYPE,COMMODITY_SKU_DESCRIPTION,COMMODITY_TITLE,SUPPLIER,
+      COMMODITY_CHANNEL,COMMODITY_COST_PRICE,COMMODITY_BRAND,COMMODITY_UNIT_INCOMING,COMMISSION_RATE,
+      SUPPLIER_TYPE,EXT_ATTR_TYPE,SETTLEMENT_LOAN,COMMODITY_PV
+    from  ORDER_ITEM
+    where ORDER_CODE = #value#
+  </select>
+  
+  <insert id="ibatorgenerated_insert" parameterClass="com.pltfm.app.entities.OrderItem" >
+    <selectKey resultClass="java.lang.Long" keyProperty="orderItemId" >
+      select SEQ_ORDER_ITEM.NEXTVAL from dual
+    </selectKey>
+    insert into  ORDER_ITEM (ORDER_ITEM_ID, ORDER_CODE, COMMODITY_NAME, COMMODITY_CODE,
+      COMMODITY_SKU, COMMODITY_BATCH_NUMBER, COMMODITY_CALLED_PRICE, COMMODITY_UNIT_PRICE,
+      COMMODITY_NUMBER, COMMODITY_SUM, COMMODITY_CALLED_SUM, COMMODITY_DESCRIPTION, WAREHOUSE_ID,
+      CREDITS,IMAGE_URL, COMMODITY_UNIT_WEIGHT,SUIT_ID,COMMODITY_TYPE,COMMODITY_SKU_DESCRIPTION,
+      COMMODITY_TITLE,SUPPLIER,COMMODITY_CHANNEL,COMMODITY_COST_PRICE,COMMODITY_BRAND,
+      COMMODITY_UNIT_INCOMING,COMMISSION_RATE,SUPPLIER_TYPE,EXT_ATTR_TYPE,SETTLEMENT_LOAN,COMMODITY_PV,cost_income_money,deposit,PRESELL_ID,
+      ACTUAL_MONEY,SKU_BAR_CODE)
+    values (#orderItemId:DECIMAL#, #orderCode:VARCHAR#, #commodityName:VARCHAR#,
+      #commodityCode:VARCHAR#, #commoditySku:VARCHAR#, #commodityBatchNumber:VARCHAR#,
+      #commodityCalledPrice:DECIMAL#, #commodityUnitPrice:DECIMAL#, #commodityNumber:DECIMAL#,
+      #commoditySum:DECIMAL#, #commodityCalledSum:DECIMAL#, #commodityDescription:VARCHAR#,
+      #warehouseId:DECIMAL#, #credits:DECIMAL#, #imageUrl:VARCHAR#,#commodityUnitWeight:DECIMAL#,
+      #suitId:DECIMAL#,#commodityType:DECIMAL#,#commoditySkuDescription:VARCHAR#,#commodityTitle:VARCHAR#,
+      #supplier:VARCHAR#,#commodityChannel:VARCHAR#,#commodityCostPrice:DECIMAL#,#commodityBrand:VARCHAR#,
+      #commodityUnitIncoming:DECIMAL#,#commissionRate:DECIMAL#,#supplierType:DECIMAL#,#extAttrType:DECIMAL#,
+      #settlementLoan:DECIMAL#,#commodityPv:DECIMAL#,#costIncomeMoney:DECIMAL#,#deposit:DECIMAL#,#presellId:DECIMAL#,
+      #actualMoney:DECIMAL#,#skuBarCode:VARCHAR#)
+  </insert>
+  <insert id="ibatorgenerated_insertSelective" parameterClass="com.pltfm.app.entities.OrderItem" >
+    <selectKey resultClass="java.lang.Long" keyProperty="orderItemId" >
+      select SEQ_ORDER_ITEM.NEXTVAL from dual
+    </selectKey>
+    insert into  ORDER_ITEM
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="orderItemId" >
+        ORDER_ITEM_ID
+      </isNotNull>
+      <isNotNull prepend="," property="orderCode" >
+        ORDER_CODE
+      </isNotNull>
+      <isNotNull prepend="," property="commodityName" >
+        COMMODITY_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="commodityCode" >
+        COMMODITY_CODE
+      </isNotNull>
+      <isNotNull prepend="," property="commoditySku" >
+        COMMODITY_SKU
+      </isNotNull>
+      <isNotNull prepend="," property="commodityBatchNumber" >
+        COMMODITY_BATCH_NUMBER
+      </isNotNull>
+      <isNotNull prepend="," property="commodityCalledPrice" >
+        COMMODITY_CALLED_PRICE
+      </isNotNull>
+      <isNotNull prepend="," property="commodityUnitPrice" >
+        COMMODITY_UNIT_PRICE
+      </isNotNull>
+      <isNotNull prepend="," property="commodityNumber" >
+        COMMODITY_NUMBER
+      </isNotNull>
+      <isNotNull prepend="," property="commoditySum" >
+        COMMODITY_SUM
+      </isNotNull>
+      <isNotNull prepend="," property="commodityCalledSum" >
+        COMMODITY_CALLED_SUM
+      </isNotNull>
+      <isNotNull prepend="," property="commodityDescription" >
+        COMMODITY_DESCRIPTION
+      </isNotNull>
+      <isNotNull prepend="," property="warehouseId" >
+        WAREHOUSE_ID
+      </isNotNull>
+      <isNotNull prepend="," property="credits" >
+        CREDITS
+      </isNotNull>
+      <isNotNull prepend="," property="imageUrl" >
+        IMAGE_URL
+      </isNotNull>      
+      <isNotNull prepend="," property="commodityUnitWeight" >
+        COMMODITY_UNIT_WEIGHT
+      </isNotNull>     
+      <isNotNull prepend="," property="suitId" >
+        SUIT_ID
+      </isNotNull>   
+	  <isNotNull prepend="," property="commodityType" >
+        COMMODITY_TYPE
+      </isNotNull>      
+	  <isNotNull prepend="," property="commoditySkuDescription" >
+        COMMODITY_SKU_DESCRIPTION
+      </isNotNull>      
+	  <isNotNull prepend="," property="commodityTitle" >
+        COMMODITY_TITLE
+      </isNotNull>                  
+	  <isNotNull prepend="," property="supplier" >
+        SUPPLIER
+      </isNotNull>       
+	  <isNotNull prepend="," property="commodityChannel" >
+        COMMODITY_CHANNEL
+      </isNotNull>               
+      <isNotNull prepend="," property="commodityCostPrice" >
+        COMMODITY_COST_PRICE
+      </isNotNull>      
+      <isNotNull prepend="," property="commodityBrand" >
+        COMMODITY_BRAND
+      </isNotNull>        
+      <isNotNull prepend="," property="commodityUnitIncoming" >
+        COMMODITY_UNIT_INCOMING
+      </isNotNull>      
+      <isNotNull prepend="," property="commissionRate" >
+        COMMISSION_RATE
+      </isNotNull>      
+      <isNotNull prepend="," property="supplierType" >
+        SUPPLIER_TYPE
+      </isNotNull>    
+       <isNotNull prepend="," property="commodityPv" >
+        COMMODITY_PV
+      </isNotNull>
+      <isNotNull prepend="," property="extAttrType" >
+        EXT_ATTR_TYPE
+      </isNotNull>      
+      <isNotNull prepend="," property="settlementLoan" >
+        SETTLEMENT_LOAN
+      </isNotNull>    
+        <isNotNull prepend="," property="costIncomeRatio" >
+        COST_INCOME_RATIO
+      </isNotNull>  
+       <isNotNull prepend="," property="erpProCode" >
+        ERP_PRO_CODE
+      </isNotNull>  
+      <isNotNull prepend="," property="erpSysCode" >
+        ERP_SYS_CODE
+      </isNotNull>  
+      <isNotNull prepend="," property="costIncomeMoney" >
+        cost_income_money
+      </isNotNull> 
+      <isNotNull prepend="," property="skuId" >
+        SKUID
+      </isNotNull>
+       <isNotNull prepend="," property="deposit" >
+        DEPOSIT
+      </isNotNull>
+      <isNotNull prepend="," property="presellId" >
+        PRESELL_ID
+      </isNotNull>
+       <isNotNull prepend="," property="actualMoney" >
+        ACTUAL_MONEY
+      </isNotNull>
+      <isNotNull prepend="," property="skuBarCode" >
+        SKU_BAR_CODE
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="orderItemId" >
+        #orderItemId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="orderCode" >
+        #orderCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="commodityName" >
+        #commodityName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="commodityCode" >
+        #commodityCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="commoditySku" >
+        #commoditySku:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="commodityBatchNumber" >
+        #commodityBatchNumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="commodityCalledPrice" >
+        #commodityCalledPrice:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="commodityUnitPrice" >
+        #commodityUnitPrice:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="commodityNumber" >
+        #commodityNumber:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="commoditySum" >
+        #commoditySum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="commodityCalledSum" >
+        #commodityCalledSum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="commodityDescription" >
+        #commodityDescription:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="warehouseId" >
+        #warehouseId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="credits" >
+        #credits:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="imageUrl" >
+        #imageUrl:VARCHAR#
+      </isNotNull>     
+      <isNotNull prepend="," property="commodityUnitWeight" >
+        #commodityUnitWeight:DECIMAL#
+      </isNotNull>     
+      <isNotNull prepend="," property="suitId" >
+        #suitId:DECIMAL#
+      </isNotNull>        
+      <isNotNull prepend="," property="commodityType" >
+        #commodityType:DECIMAL#
+      </isNotNull>         
+      <isNotNull prepend="," property="commoditySkuDescription" >
+        #commoditySkuDescription:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="commodityTitle" >
+        #commodityTitle:VARCHAR#
+      </isNotNull>  
+      <isNotNull prepend="," property="supplier" >
+        #supplier:VARCHAR#
+      </isNotNull>    
+      <isNotNull prepend="," property="commodityChannel" >
+        #commodityChannel:VARCHAR#
+      </isNotNull>               
+      <isNotNull prepend="," property="commodityCostPrice" >
+        #commodityCostPrice:DECIMAL#
+      </isNotNull>                  
+      <isNotNull prepend="," property="commodityBrand" >
+        #commodityBrand:VARCHAR#
+      </isNotNull>      
+      <isNotNull prepend="," property="commodityUnitIncoming" >
+        #commodityUnitIncoming:DECIMAL#
+      </isNotNull>      
+      <isNotNull prepend="," property="commissionRate" >
+        #commissionRate:DECIMAL#
+      </isNotNull>      
+      <isNotNull prepend="," property="supplierType" >
+        #supplierType:DECIMAL#
+      </isNotNull>  
+      <isNotNull prepend="," property="commodityPv" >
+        #commodityPv:DECIMAL#
+      </isNotNull>      
+      <isNotNull prepend="," property="extAttrType" >
+        #extAttrType:DECIMAL#
+      </isNotNull>      
+      <isNotNull prepend="," property="settlementLoan" >
+        #settlementLoan:DECIMAL#
+      </isNotNull>  
+      <isNotNull prepend="," property="costIncomeRatio" >
+        #costIncomeRatio:DECIMAL#
+      </isNotNull> 
+       <isNotNull prepend="," property="erpProCode" >
+        #erpProCode:VARCHAR#
+      </isNotNull> 
+       <isNotNull prepend="," property="erpSysCode" >
+        #erpSysCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="costIncomeMoney" >
+        #costIncomeMoney:DECIMAL#
+      </isNotNull>    
+      <isNotNull prepend="," property="skuId" >
+        #skuId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="deposit" >
+        #deposit:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="presellId" >
+        #presellId:DECIMAL#
+      </isNotNull> 
+      <isNotNull prepend="," property="actualMoney" >
+        #actualMoney:DECIMAL#
+      </isNotNull> 
+      <isNotNull prepend="," property="skuBarCode" >
+        #skuBarCode:VARCHAR#
+      </isNotNull> 
+      )
+    </dynamic>
+  </insert>
+  <select id="ibatorgenerated_countByExample" parameterClass="com.pltfm.app.entities.OrderItemExample" resultClass="java.lang.Integer" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Mon Jul 29 11:23:58 CST 2013.
+    -->
+    select count(*) from  ORDER_ITEM
+    <include refid="KMORDER_ORDER_ITEM.ibatorgenerated_Example_Where_Clause" />
+  </select>
+  <update id="ibatorgenerated_updateByExampleSelective" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Mon Jul 29 11:23:58 CST 2013.
+    -->
+    update  ORDER_ITEM
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.orderItemId" >
+        ORDER_ITEM_ID = #record.orderItemId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.orderCode" >
+        ORDER_CODE = #record.orderCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.commodityName" >
+        COMMODITY_NAME = #record.commodityName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.commodityCode" >
+        COMMODITY_CODE = #record.commodityCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.commoditySku" >
+        COMMODITY_SKU = #record.commoditySku:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.commodityBatchNumber" >
+        COMMODITY_BATCH_NUMBER = #record.commodityBatchNumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.commodityCalledPrice" >
+        COMMODITY_CALLED_PRICE = #record.commodityCalledPrice:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.commodityUnitPrice" >
+        COMMODITY_UNIT_PRICE = #record.commodityUnitPrice:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.commodityNumber" >
+        COMMODITY_NUMBER = #record.commodityNumber:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.commoditySum" >
+        COMMODITY_SUM = #record.commoditySum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.commodityCalledSum" >
+        COMMODITY_CALLED_SUM = #record.commodityCalledSum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.commodityDescription" >
+        COMMODITY_DESCRIPTION = #record.commodityDescription:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.warehouseId" >
+        WAREHOUSE_ID = #record.warehouseId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.credits" >
+        CREDITS = #record.credits:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.imageUrl" >
+        IMAGE_URL = #record.imageUrl:VARCHAR#
+      </isNotNull>      
+      <isNotNull prepend="," property="record.commodityUnitWeight" >
+        COMMODITY_UNIT_WEIGHT = #record.commodityUnitWeight:DECIMAL#
+      </isNotNull>      
+      <isNotNull prepend="," property="record.suitId" >
+        SUIT_ID = #record.suitId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.commodityType" >
+        COMMODITY_TYPE = #record.commodityType:DECIMAL#
+      </isNotNull>      
+      <isNotNull prepend="," property="record.commoditySkuDescription" >
+        COMMODITY_SKU_DESCRIPTION = #record.commoditySkuDescription:VARCHAR#
+      </isNotNull>      
+      <isNotNull prepend="," property="record.commodityTitle" >
+        COMMODITY_TITLE = #record.commodityTitle:VARCHAR#
+      </isNotNull>      
+      <isNotNull prepend="," property="record.supplier" >
+        SUPPLIER = #record.supplier:VARCHAR#
+      </isNotNull>     
+      <isNotNull prepend="," property="record.commodityChannel" >
+        COMMODITY_CHANNEL = #record.commodityChannel:VARCHAR#
+      </isNotNull>      
+      <isNotNull prepend="," property="record.commodityCostPrice" >
+        COMMODITY_COST_PRICE = #record.commodityCostPrice:DECIMAL#
+      </isNotNull>      
+      <isNotNull prepend="," property="record.commodityBrand" >
+        COMMODITY_BRAND = #record.commodityBrand:VARCHAR#
+      </isNotNull>       
+      <isNotNull prepend="," property="record.commodityUnitIncoming" >
+        COMMODITY_UNIT_INCOMING = #record.commodityUnitIncoming:DECIMAL#
+      </isNotNull>      
+      <isNotNull prepend="," property="record.commissionRate" >
+        COMMISSION_RATE = #record.commissionRate:DECIMAL#
+      </isNotNull>      
+      <isNotNull prepend="," property="record.supplierType" >
+        SUPPLIER_TYPE = #record.supplierType:DECIMAL#
+      </isNotNull>      
+      <isNotNull prepend="," property="record.extAttrType" >
+        EXT_ATTR_TYPE = #record.extAttrType:DECIMAL#
+      </isNotNull>      
+      <isNotNull prepend="," property="record.settlementLoan" >
+        SETTLEMENT_LOAN = #record.settlementLoan:DECIMAL#
+      </isNotNull>      
+    </dynamic>
+    <isParameterPresent >
+      <include refid="KMORDER_ORDER_ITEM.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="ibatorgenerated_updateByExample" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Mon Jul 29 11:23:58 CST 2013.
+    -->
+    update  ORDER_ITEM
+    set ORDER_ITEM_ID = #record.orderItemId:DECIMAL#,
+      ORDER_CODE = #record.orderCode:VARCHAR#,
+      COMMODITY_NAME = #record.commodityName:VARCHAR#,
+      COMMODITY_CODE = #record.commodityCode:VARCHAR#,
+      COMMODITY_SKU = #record.commoditySku:VARCHAR#,
+      COMMODITY_BATCH_NUMBER = #record.commodityBatchNumber:VARCHAR#,
+      COMMODITY_CALLED_PRICE = #record.commodityCalledPrice:DECIMAL#,
+      COMMODITY_UNIT_PRICE = #record.commodityUnitPrice:DECIMAL#,
+      COMMODITY_NUMBER = #record.commodityNumber:DECIMAL#,
+      COMMODITY_SUM = #record.commoditySum:DECIMAL#,
+      COMMODITY_CALLED_SUM = #record.commodityCalledSum:DECIMAL#,
+      COMMODITY_DESCRIPTION = #record.commodityDescription:VARCHAR#,
+      WAREHOUSE_ID = #record.warehouseId:DECIMAL#,
+      CREDITS = #record.credits:DECIMAL#,
+      IMAGE_URL = #record.imageUrl:VARCHAR#,
+      COMMODITY_UNIT_WEIGHT = #record.commodityUnitWeight:DECIMAL#,
+      SUIT_ID = #record.suitId:DECIMAL#,
+      COMMODITY_TYPE = #record.commodityType:DECIMAL#,
+      COMMODITY_SKU_DESCRIPTION = #record.commoditySkuDescription:VARCHAR#,
+      COMMODITY_TITLE= #record.commodityTitle:VARCHAR#,
+      SUPPLIER = #record.supplier:VARCHAR#,
+      COMMODITY_CHANNEL = #record.commodityChannel:VARCHAR#,
+      COMMODITY_TITLE = #record.commodityTitle:VARCHAR#,
+      SUPPLIER = #record.supplier:VARCHAR#,
+      COMMODITY_CHANNEL = #record.commodityChannel:VARCHAR#,
+      COMMODITY_COST_PRICE = #record.commodityCostPrice:DECIMAL#,
+      COMMODITY_BRAND = #record.commodityBrand:VARCHAR#,
+      COMMODITY_UNIT_INCOMING = #record.commodityUnitIncoming:DECIMAL#,
+      COMMISSION_RATE = #record.commissionRate:DECIMAL#,
+      SUPPLIER_TYPE = #record.supplierType:DECIMAL#,
+      EXT_ATTR_TYPE = #record.extAttrType:DECIMAL#,
+      SETTLEMENT_LOAN = #record.settlementLoan:DECIMAL#
+    <isParameterPresent >
+      <include refid="KMORDER_ORDER_ITEM.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="com.pltfm.app.entities.OrderItem" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Mon Jul 29 11:23:58 CST 2013.
+    -->
+    update  ORDER_ITEM
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="orderCode" >
+        ORDER_CODE = #orderCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="commodityName" >
+        COMMODITY_NAME = #commodityName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="commodityCode" >
+        COMMODITY_CODE = #commodityCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="commoditySku" >
+        COMMODITY_SKU = #commoditySku:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="commodityBatchNumber" >
+        COMMODITY_BATCH_NUMBER = #commodityBatchNumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="commodityCalledPrice" >
+        COMMODITY_CALLED_PRICE = #commodityCalledPrice:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="commodityUnitPrice" >
+        COMMODITY_UNIT_PRICE = #commodityUnitPrice:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="commodityNumber" >
+        COMMODITY_NUMBER = #commodityNumber:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="commoditySum" >
+        COMMODITY_SUM = #commoditySum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="commodityCalledSum" >
+        COMMODITY_CALLED_SUM = #commodityCalledSum:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="commodityDescription" >
+        COMMODITY_DESCRIPTION = #commodityDescription:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="warehouseId" >
+        WAREHOUSE_ID = #warehouseId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="credits" >
+        CREDITS = #credits:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="imageUrl" >
+        IMAGE_URL = #imageUrl:VARCHAR#
+      </isNotNull>      
+      <isNotNull prepend="," property="commodityUnitWeight" >
+        COMMODITY_UNIT_WEIGHT = #commodityUnitWeight:DECIMAL#
+      </isNotNull>      
+      <isNotNull prepend="," property="suitId" >
+        SUIT_ID = #suitId:DECIMAL#
+      </isNotNull> 
+      <isNotNull prepend="," property="commodityType" >
+        COMMODITY_TYPE = #commodityType:DECIMAL#
+      </isNotNull>      
+      <isNotNull prepend="," property="commoditySkuDescription" >
+        COMMODITY_SKU_DESCRIPTION = #commoditySkuDescription:VARCHAR#
+      </isNotNull>      
+      <isNotNull prepend="," property="commodityTitle" >
+        COMMODITY_TITLE = #commodityTitle:VARCHAR#
+      </isNotNull>      
+      <isNotNull prepend="," property="supplier" >
+        SUUPLIER = #supplier:VARCHAR#
+      </isNotNull>      
+      <isNotNull prepend="," property="commodityChannel" >
+        COMMODITY_CHANNEL= #commodityChannel:VARCHAR#
+      </isNotNull>      
+      <isNotNull prepend="," property="commodityCostPrice" >
+        COMMODITY_COST_PRICE = #commodityCostPrice:DECIMAL#
+      </isNotNull>      
+      <isNotNull prepend="," property="commodityBrand" >
+        COMMODITY_BRAND = #commodityBrand:VARCHAR#
+      </isNotNull>      
+      <isNotNull prepend="," property="commodityUnitIncoming" >
+        COMMODITY_UNIT_INCOMING = #commodityUnitIncoming:DECIMAL#
+      </isNotNull>      
+      <isNotNull prepend="," property="commissionRate" >
+        COMMISSION_RATE = #commissionRate:DECIMAL#
+      </isNotNull>      
+      <isNotNull prepend="," property="supplierType" >
+        SUPPLIER_TYPE = #supplierType:DECIMAL#
+      </isNotNull>      
+      <isNotNull prepend="," property="extAttrType" >
+        EXT_ATTR_TYPE = #extAttrType:DECIMAL#
+      </isNotNull>      
+      <isNotNull prepend="," property="settlementLoan" >
+        SETTLEMENT_LOAN = #settlementLoan:DECIMAL#
+      </isNotNull>      
+    </dynamic>
+    where ORDER_ITEM_ID = #orderItemId:DECIMAL#
+  </update>
+  <update id="ibatorgenerated_updateByPrimaryKey" parameterClass="com.pltfm.app.entities.OrderItem" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Mon Jul 29 11:23:58 CST 2013.
+    -->
+    update  ORDER_ITEM
+    set ORDER_CODE = #orderCode:VARCHAR#,
+      COMMODITY_NAME = #commodityName:VARCHAR#,
+      COMMODITY_CODE = #commodityCode:VARCHAR#,
+      COMMODITY_SKU = #commoditySku:VARCHAR#,
+      COMMODITY_BATCH_NUMBER = #commodityBatchNumber:VARCHAR#,
+      COMMODITY_CALLED_PRICE = #commodityCalledPrice:DECIMAL#,
+      COMMODITY_UNIT_PRICE = #commodityUnitPrice:DECIMAL#,
+      COMMODITY_NUMBER = #commodityNumber:DECIMAL#,
+      COMMODITY_SUM = #commoditySum:DECIMAL#,
+      COMMODITY_CALLED_SUM = #commodityCalledSum:DECIMAL#,
+      COMMODITY_DESCRIPTION = #commodityDescription:VARCHAR#,
+      WAREHOUSE_ID = #warehouseId:DECIMAL#,
+      CREDITS = #credits:DECIMAL#,
+      IMAGE_URL = #imageUrl:VARCHAR#,
+      COMMODITY_UNIT_WEIGHT = #commodityUnitWeight:DECIMAL#,
+      SUIT_ID = #suitId:DECIMAL#,
+      COMMODITY_TYPE = #commodityType:DECIMAL#,
+	  COMMODITY_SKU_DESCRIPTION = #commoditySkuDescription:VARCHAR#,      
+	  COMMODITY_TITLE = #commodityTitle:VARCHAR#,
+	  SUUPLIER = #supplier:VARCHAR#,
+	  COMMODITY_CHANNEL = #commodityChannel:VARCHAR#,
+	  COMMODITY_COST_PRICE = #commodityCostPrice:DECIMAL#,
+	  COMMODITY_BRAND = #commodityBrand:VARCHAR#,
+	  COMMODITY_UNIT_INCOMING = #commodityUnitIncoming:DECIMAL#,
+	  COMMISSION_RATE = #commissionRate:DECIMAL#,
+	  SUPPLIER_TYPE = #supplierType:DECIMAL#,
+	  EXT_ATTR_TYPE = #extAttrType:DECIMAL#,
+	  SETTLEMENT_LOAN = #settlementLoan:DECIMAL#
+    where ORDER_ITEM_ID = #orderItemId:DECIMAL#
+  </update>
+  <select id="SumCreidtsByOrderCode" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+  	SELECT SUM(CREDITS) FROM ORDER_ITEM  WHERE ORDER_CODE = #orderCode#
+  </select>
+  <select id="orderTree"  parameterClass="String"  resultMap="orderTree">
+		SELECT
+			ORDER_CODE ORDERCODE,
+			NVL(PARENT_ORDER_CODE,0) PARENTORDERCODE
+		FROM
+			ORDER_MAIN E START WITH E.ORDER_CODE = (
+				SELECT
+					T.ORDER_CODE
+				FROM
+					(
+						SELECT
+							ORDER_CODE,
+							PARENT_ORDER_CODE
+						FROM
+							ORDER_MAIN E START WITH E.ORDER_CODE = #value# CONNECT BY E.ORDER_CODE = PRIOR E.PARENT_ORDER_CODE
+					) T
+				WHERE
+					T.PARENT_ORDER_CODE IS NULL
+			) CONNECT BY PRIOR E.ORDER_CODE = E.PARENT_ORDER_CODE   
+   </select>
+     
+  <select id="queryIsSuit" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+		SELECT COUNT(*)
+		  FROM ORDER_ITEM
+		 WHERE ORDER_CODE =
+		       (SELECT ORDER_CODE
+		          FROM ORDER_MAIN E
+		         WHERE CONNECT_BY_ISLEAF = 1
+		         START WITH E.ORDER_CODE = #value#
+		        CONNECT BY E.ORDER_CODE = PRIOR E.PARENT_ORDER_CODE)
+		   AND (COMMODITY_TYPE != 1 OR COMMODITY_TYPE IS NULL)
+  </select>
+  <update id="updateBatchNoByOrderCode" parameterClass="com.pltfm.app.entities.OrderItem" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Mon Jul 29 11:23:58 CST 2013.
+    -->
+    update  ORDER_ITEM
+    set   COMMODITY_BATCH_NUMBER = #commodityBatchNumber:VARCHAR#
+    where ORDER_CODE = #orderCode:VARCHAR# and COMMODITY_SKU = #commoditySku:VARCHAR#
+  </update>  
+  <!-- 商品已退数量 -->
+  <select id="selectOverplusNum" parameterClass="java.lang.Long"  resultClass="java.lang.Long">
+  	SELECT SUM(ALTER_NUM) FROM  ORDER_ALTER WHERE ALTER_TYPE = 1 AND PROPOSE_STATUS = 7 AND ORDER_ITEM_ID = #value#
+  	<!--  
+  	SELECT SUM(ALTER_NUM) 
+  	FROM  ORDER_ALTER 
+  	WHERE (
+             (ALTER_TYPE = 1 AND PROPOSE_STATUS = 7)
+              OR
+             (PROPOSE_STATUS NOT IN (-1, -2, 7))
+          ) AND ORDER_ITEM_ID = #value#
+  	-->
+  </select>
+  
+  	<!-- 批量根据订单号查询订单明细 -->
+	<select id="SQL_QUERY_ORDER_ITEM_BY_ORDER_CODES" parameterClass="java.util.List" resultClass="com.pltfm.app.entities.OrderItem">
+	<![CDATA[	
+		select oi.order_item_id        orderItemId,
+		       oi.commodity_number     commodityNumber,
+		       oi.commodity_title      commodityTitle,
+		       oi.commodity_sku        commoditySku,
+	   oi.commodity_sku_description    commoditySkuDescription,
+		    oi.commodity_unit_price    commodityUnitPrice,
+		 oi.commodity_unit_incoming    commodityUnitIncoming,
+		       oi.warehouse_id         warehouseId,
+		       oi.commodity_type       commodityType,
+		       oi.order_code           orderCode,
+		       oi.commodity_pv         commodityPv,
+		       oi.cost_income_ratio    costIncomeRatio,
+		       oi.cost_income_money    costIncomeMoney,
+		       oi.commodity_sum        commoditySum,
+		       oi.erp_pro_code         erpProCode,
+		       oi.erp_sys_code         erpSysCode
+		  from order_item oi
+		 where oi.order_code in
+	]]>
+		<iterate open="(" close=")" conjunction=","> #[]# </iterate>
+	</select>
+	
+	<!-- 根据订单号查询订单明细 -->
+	<select id="SQL_QUERY_ORDER_ITEM_BY_SINGLE_ORDER_CODES" parameterClass="java.lang.String" resultClass="com.pltfm.app.entities.OrderItem">
+	  <![CDATA[	
+			  select oi.order_item_id             orderItemId,
+		       oi.commodity_number          commodityNumber,
+		       oi.commodity_title           commodityTitle,
+		       oi.commodity_sku             commoditySku,
+		       oi.commodity_sku_description commoditySkuDescription,
+		       oi.commodity_unit_price      commodityUnitPrice,
+		       oi.commodity_unit_incoming   commodityUnitIncoming,
+		       oi.warehouse_id              warehouseId,
+		       oi.commodity_type            commodityType,
+		       oi.order_code                orderCode,
+		       oi.commodity_pv              commodityPv,
+		       oi.cost_income_ratio         costIncomeRatio,
+		       oi.cost_income_money         costIncomeMoney,
+		       oi.commodity_sum             commoditySum,
+		       oi.erp_pro_code              erpProCode,
+		       oi.erp_sys_code              erpSysCode
+		  from order_item oi
+		 where oi.order_code = #orderCode#
+	  ]]>
+	</select>
+	
+	<!-- 新增订单明细扩展 -->
+	<insert id="SQL_INSERT_ORDER_ITEM_EXT_INFO" parameterClass="com.pltfm.app.entities.OrderItemExt">
+		<selectKey resultClass="java.lang.Long" keyProperty="ItemExtId" >
+      		select SEQ_ORDER_ITEM_EXT_ID.NEXTVAL from dual
+    	</selectKey>
+    	insert into order_item_ext
+			(item_ext_id, order_item_id	
+   			<isNotEmpty prepend="," property="produceFactory" >
+        		produce_factory
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="invoicingCode" >
+        		invoicing_code
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="spreadId" >
+        		spread_id
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="srId" >
+        		srId
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="outRebateRate" >
+        		out_rebate_rate
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="outRebateMoney" >
+        		out_rebate_money
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="rebateType" >
+        		rebate_type
+      		</isNotEmpty>
+      		)
+    		values
+    		(
+    		#ItemExtId:DECIMAL#,#orderItemId:DECIMAL#
+      		<isNotEmpty prepend="," property="produceFactory" >
+        		#produceFactory:VARCHAR#
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="invoicingCode" >
+        		#invoicingCode:VARCHAR#
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="spreadId" >
+        		#spreadId:DECIMAL#
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="srId" >
+        		#srId:DECIMAL#
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="outRebateRate" >
+        		#outRebateRate:DECIMAL#
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="outRebateMoney" >
+        		#outRebateMoney:DECIMAL#
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="rebateType" >
+        		#rebateType:DECIMAL#
+      		</isNotEmpty>
+       		)
+	</insert>
+	
+	<!-- 查询订单明细库存 start -->
+	<resultMap class="java.util.HashMap" id="RESULT_MAP_ORDER_ITEM_STOCK">
+		<result column="WSID" property="WSID" javaType="java.lang.String"/>
+		<result column="STOCK" property="STOCK" javaType="java.lang.Integer"/>
+	</resultMap>
+	<select id="SQL_QUERY_ORDER_ITEM_STOCK" parameterClass="java.util.List" resultMap="RESULT_MAP_ORDER_ITEM_STOCK">
+		select ps.stock_quality STOCK,
+		       ps.warehouse_id || '_' || ps.sku_attribute_id WSID
+		  from  product_stock ps
+		 where ps.warehouse_id || '_' || ps.sku_attribute_id in
+       <iterate open="(" close=")" conjunction=","> #[]# </iterate>
+	</select>
+	<!-- 查询订单明细库存 end -->
+	
+	<!-- 单个查询 ys-->
+  <select id="ibatorgenerated_selectByOrderCode_ys" resultMap="ibatorgenerated_BaseResultMap_ys" parameterClass="java.lang.String">
+    <!--
+      	通过orderCode集合查询出相关的订单项集合
+    -->
+    select ORDER_ITEM_ID, ORDER_CODE, COMMODITY_NAME, COMMODITY_CODE, COMMODITY_SKU,
+      COMMODITY_BATCH_NUMBER, COMMODITY_CALLED_PRICE, COMMODITY_UNIT_PRICE, COMMODITY_NUMBER,
+      COMMODITY_SUM, COMMODITY_CALLED_SUM, COMMODITY_DESCRIPTION, WAREHOUSE_ID, CREDITS,IMAGE_URL, 
+      COMMODITY_UNIT_WEIGHT,SUIT_ID,COMMODITY_TYPE,COMMODITY_SKU_DESCRIPTION,COMMODITY_TITLE,SUPPLIER,
+      COMMODITY_CHANNEL,COMMODITY_COST_PRICE,COMMODITY_BRAND,COMMODITY_UNIT_INCOMING,COMMISSION_RATE,
+      SUPPLIER_TYPE,EXT_ATTR_TYPE,SETTLEMENT_LOAN,COMMODITY_PV,SKUID,PRESELL_ID,DEPOSIT
+    from  ORDER_ITEM
+    where ORDER_CODE = #value#
+  </select>
+  
+</sqlMap>

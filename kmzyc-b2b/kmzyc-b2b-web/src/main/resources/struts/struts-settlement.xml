@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="settlement" extends="BasePackage" namespace="/settlement">
+        <action name="gotoSettlement" class="settlementAction" method="gotoSettlement">
+            <result name="success">/WEB-INF/jsp/settlement/settlement.jsp</result>
+            <result name="input" type="redirectAction">
+                <param name="namespace">/cart</param>
+                <param name="actionName">listShopCar.action</param>
+            </result>
+        </action>
+
+        <action name="consigneeInfo" class="settlementAction" method="consigneeInfo">
+            <result name="success">/WEB-INF/jsp/settlement/consigneeInfo.jsp</result>
+            <result name="input" type="redirectAction">
+                <param name="namespace">/cart</param>
+                <param name="actionName">listShopCar.action</param>
+            </result>
+        </action>
+
+        <!-- 进入添加收货人页面 -->
+        <action name="addConsigneeInfo" class="settlementAction" method="addConsigneeInfo">
+            <result name="success">/WEB-INF/jsp/settlement/addConsigneeInfo.jsp</result>
+            <result name="input" type="redirectAction">
+                <param name="namespace">/cart</param>
+                <param name="actionName">listShopCar.action</param>
+            </result>
+        </action>
+        <!-- 进入修改收货人页面 -->
+        <action name="editConsigneeInfo" class="settlementAction" method="addConsigneeInfo">
+            <result name="success">/WEB-INF/jsp/settlement/editConsigneeInfo.jsp</result>
+            <result name="input" type="redirectAction">
+                <param name="namespace">/cart</param>
+                <param name="actionName">listShopCar.action</param>
+            </result>
+        </action>
+
+
+        <!-- 保存收货人信息 -->
+        <action name="saveConsignee" class="settlementAction" method="addAddressInfo">
+            <result name="success">/WEB-INF/jsp/settlement/consigneeInfo.jsp</result>
+            <result name="input" type="redirectAction">
+                <param name="namespace">/cart</param>
+                <param name="actionName">listShopCar.action</param>
+            </result>
+        </action>
+
+
+        <action name="addAddressInfo" class="settlementAction" method="addAddressInfo">
+            <result name="success">/WEB-INF/jsp/settlement/settlement.jsp</result>
+            <result name="wapsuccess">/WEB-INF/jsp/settlement/wapSettlement.jsp</result>
+        </action>
+
+        <!-- wap端 保存 修改收货人信息 -->
+        <action name="wapaddAddressInfo" class="settlementAction" method="wapaddAddressInfo">
+            <result name="success" type="redirectAction">consigneeInfo</result>
+        </action>
+
+
+        <action name="deleteAddress" class="settlementAction" method="deleteAddress">
+            <result name="success">/WEB-INF/jsp/settlement/settlement.jsp</result>
+            <result name="wapsuccess">/WEB-INF/jsp/settlement/wapSettlement.jsp</result>
+        </action>
+        <!-- 删除我的收货地址 -->
+        <action name="deleteMyAddress" class="settlementAction" method="deleteMyAddress"/>
+
+        <action name="saveUser" class="settlementAction" method="saveUser">
+            <result name="success">/WEB-INF/jsp/settlement/settlement.jsp</result>
+        </action>
+        <action name="getAddressListByNaccountId" class="settlementAction"
+                method="getAddressListByNaccountId"/>
+        <action name="savePaymodelDeliveryInfo" class="settlementAction"
+                method="savePaymodelDeliveryInfo">
+            <result name="success">/WEB-INF/jsp/settlement/settlement.jsp</result>
+        </action>
+        <action name="saveAndPayOrder" class="settlementAction" method="saveAndPayOrder">
+            <result name="input" type="redirectAction">
+                <param name="namespace">/cart</param>
+                <param name="actionName">listShopCar.action</param>
+            </result>
+            <result type="redirectAction" name="success">
+                <param name="actionName">payOrderInit.action</param>
+                <param name="orderCode">${orderCode}</param>
+                <param name="wapPay">${wapPay}</param>
+                <param name="rechargeOrOrderFlag">${rechargeOrOrderFlag}</param>
+                <param name="isCreate">1</param>
+            </result>
+        </action>
+
+        <!--<action name="refreshFare" class="settlementAction" method="refreshFare">
+            <result name="success">/WEB-INF/jsp/settlement/settlement.jsp</result>
+        </action>-->
+
+        <!-- 激活并使用优惠券 -->
+        <action name="activatAndUseCoupon" class="settlementAction" method="activatAndUseCoupon"/>
+
+        <action name="getCouponList" class="settlementAction" method="getCouponsList">
+            <result name="success">/WEB-INF/jsp/settlement/settlementCoupon.jsp</result>
+        </action>
+    </package>
+</struts>

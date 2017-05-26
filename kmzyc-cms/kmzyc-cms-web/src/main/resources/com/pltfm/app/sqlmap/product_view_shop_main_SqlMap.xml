@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="VIEW_SHOPMAIN" > 
+  <!--供应商店铺主表 -->
+   <resultMap id="ibatorgenerated_BaseResultShopMainMap" class="com.pltfm.app.vobject.ViewShopMain" >
+         <result column="SHOP_ID" property="shopId" jdbcType="DECIMAL" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL" />
+    <result column="SHOP_TYPE" property="shopType" jdbcType="DECIMAL" />
+    <result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR" />
+    <result column="SHOP_NAME" property="shopName" jdbcType="VARCHAR" />
+    <result column="SHOP_TITLE" property="shopTitle" jdbcType="VARCHAR" />
+    <result column="LOGO_PATH" property="logoPath" jdbcType="VARCHAR" />
+    <result column="PHYSHOP_IMAGE_PATH" property="physhopImagePath" jdbcType="VARCHAR" />
+    <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+    <result column="CONTACT_INFO" property="contactInfo" jdbcType="VARCHAR" />
+    <result column="INTRODUCE" property="introduce" jdbcType="VARCHAR" />
+    <result column="SHOP_LEVEL" property="shopLevel" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="AUDIT_STATUS" property="auditStatus" jdbcType="CHAR" />
+  
+    <result column="DEFAULT_DOMAIN_URL" property="defaultDomainUrl" jdbcType="VARCHAR" />
+    <result column="SHOP_SITE" property="shopSite" jdbcType="VARCHAR" />
+    <result column="SHOP_SEO_KEY" property="shopSeoKey" jdbcType="VARCHAR" />
+    <result column="APPLY_USER" property="applyUser" jdbcType="DECIMAL" />
+    <result column="APPLY_TIME" property="applyTime" jdbcType="DATE" />
+    <result column="AUDIT_TIME" property="auditTime" jdbcType="DATE" />
+    <result column="AUDIT_USER" property="auditUser" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="DESCRIBE" property="describe" jdbcType="VARCHAR" />
+    <result column="SERVICE_TYPE" property="serviceType" jdbcType="DECIMAL" />
+    <result column="SERVICE_QQ" property="serviceQq" jdbcType="VARCHAR" />
+    
+     <result column="free_price" property="freePrice" jdbcType="DECIMAL" />
+      <result column="first_heavy_freight" property="firstHeavyFreight" jdbcType="DECIMAL" />
+    
+    
+
+     
+  </resultMap>
+
+ 
+
+
+   <!--查询店铺主表  -->
+    <select id="ibatorgenerated_queryShopMain" 
+    resultMap="ibatorgenerated_BaseResultShopMainMap" parameterClass="com.pltfm.app.vobject.ViewShopMain" >
+    select  SHOP_ID, SUPPLIER_ID, SHOP_TYPE, SHOP_CODE, SHOP_NAME, SHOP_TITLE, LOGO_PATH,
+      PHYSHOP_IMAGE_PATH, FILE_PATH, CONTACT_INFO, INTRODUCE, SHOP_LEVEL, STATUS,
+      AUDIT_STATUS, DEFAULT_DOMAIN_URL, SHOP_SITE, SHOP_SEO_KEY, APPLY_USER, APPLY_TIME, AUDIT_TIME,
+      AUDIT_USER, REMARK, DESCRIBE,DESCRIBE,SERVICE_QQ,SERVICE_TYPE,free_price,first_heavy_freight
+    from VIEW_SHOP_MAIN
+    where SHOP_ID = #shopId:DECIMAL#
+  </select>
+  
+  
+	
+   
+</sqlMap>

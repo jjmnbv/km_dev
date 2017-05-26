@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="OrderAlterPhoto">
+
+	<resultMap id="orderAlterPhotoResultMap" class="com.kmzyc.b2b.model.OrderAlterPhoto">
+	    <result column="PHOTO_ID" jdbcType="DECIMAL" property="photoId" />
+	    <result column="BATCH_NO" jdbcType="VARCHAR" property="batchNo" />
+	    <result column="URL" jdbcType="VARCHAR" property="url" />
+  	</resultMap>
+  	
+  	<select id="findByPhotoBatchNo" parameterClass="String" resultMap="orderAlterPhotoResultMap">
+	    select PHOTO_ID, BATCH_NO, URL
+	    from ORDER_ALTER_PHOTO
+	    where BATCH_NO = #batchNo:VARCHAR#	   
+	</select>
+	
+</sqlMap>

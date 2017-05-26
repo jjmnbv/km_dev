@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package namespace="/supplierActivity" name="supplierActivity" extends="struts-default">
+		<!--跳转到活动列表页面 -->
+		<action name="activityList" class="activityAction" method="activityList">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/activityList.jsp
+			</result>
+		</action>
+		<!--跳转到活动创建页面 -->
+		<action name="toActivityAdd" class="activityAction" method="toActivityAdd">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/activityInfoAdd.jsp
+			</result>
+		</action>
+		<!--跳转到活动修改页面 -->
+		<action name="toActivityModify" class="activityAction" method="toActivityModify">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/activityInfoModify.jsp
+			</result>
+		</action>
+		<!-- 修改活动 -->
+		<action name="updateActivity" class="activityAction" method="updateActivity"></action>
+		<!-- 添加活动 -->
+		<action name="addActivity" class="activityAction" method="addActivity"></action>
+		<!-- 删除活动 -->
+		<action name="deleteActivity" class="activityAction" method="deleteActivity"></action>
+		<!-- 终止活动 -->
+		<action name="stopActivity" class="activityAction" method="stopActivity"></action>
+		<!-- 提交审核 -->
+		<action name="submitAuditActivity" class="activityAction" method="submitAuditActivity"></action>
+		<!-- 撤销提审 -->
+		<action name="cancelSubmitAuditActivity" class="activityAction" method="cancelSubmitAuditActivity"></action>
+		<!-- 撤销审核 -->
+		<action name="cancelAuditActivity" class="activityAction" method="cancelAuditActivity"></action>
+		<!--跳转到创建活动页面 -->
+		<action name="createActivity" class="activityAction" method="createActivity">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/createActivityPackage.jsp
+			</result>
+		</action>
+		<!--查询邀请商家 -->
+		<action name="queryInvitedSupplier" class="activityAction" method="queryInvitedSupplier"></action>
+		<!--保存邀请商家 -->
+		<action name="saveInviteSuppliers" class="activityAction" method="saveInviteSuppliers"></action>
+		<!-- 跳转到活动审核列表 -->
+		<action name="activityAuditList" class="activityAuditAction" method="activityAuditList">
+			<result name="success" >/WEB-INF/jsp/activity/activityAuditList.jsp</result>
+		</action>
+		<!-- 跳转到活动信息列表 -->
+		<action name="findActivityInfoById" class="activityAction" method="findActivityInfoById">
+			<result name="success" >/WEB-INF/jsp/activity/activityInfoDetail.jsp</result>
+		</action>
+		<!--审核活动 -->
+		<action name="auditActivityById" class="activityAuditAction" method="auditActivityById"></action>
+		
+		<!-- 查询供应商弹窗,供邀请商家功能使用 -->
+		<action name="selectSupplierForInvite" class="activityAction" method="selectSupplierForInvite">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/suppliersDialogForInvite.jsp
+			</result>
+		</action>
+		<!-- pengbo Start -->
+		<!-- 查询类目弹窗使用 -->
+		<action name="categorysSelect" class="activityAction" method="categorysSelect">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/categorysDialog.jsp
+			</result>
+		</action>
+		<!-- 查询供应商弹窗使用 -->
+		<action name="shopSelect" class="activityAction" method="shopSelect">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/shopDialog.jsp
+			</result>
+		</action>
+		<!-- 查询品牌信息弹窗使用 -->
+		<action name="brandSelect" class="activityAction" method="brandSelect">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/brandDialog.jsp
+			</result>
+		</action>
+		<!-- 查询促销详情 -->
+		<action name="selectPromotion" class="activityEntryAction" method="selectPromotion">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/promotionDialog.jsp
+			</result>
+		</action>
+		<!-- 跳转到活动报名管理列表页面 -->
+		<action name="activityEntryList" class="activityEntryAction" method="activityEntryList">
+			<result name="success" >/WEB-INF/jsp/activity/activityEntryList.jsp</result>
+		</action>
+		<!-- 跳转到活动商家报名列表页面 -->
+		<action name="querySupplierEntryList" class="activityEntryAction" method="querySupplierEntryList">
+			<result name="success" >/WEB-INF/jsp/activity/activitySupplierEntryList.jsp</result>
+		</action>
+		<!-- 跳转到活动商家报名详情页面 -->
+		<action name="querySupplierEntryDeatil" class="activityEntryAction" method="querySupplierEntryDeatil">
+			<result name="success" >/WEB-INF/jsp/activity/activitySupplierEntryDeatil.jsp</result>
+		</action>
+		<!-- 报名详情审核 -->
+		<action name="activityAuditEntry" class="activityEntryAction" method="activityAuditEntry"></action>
+		<!-- 跳转到活动商家报名商品列表页面 -->
+		<action name="querySupplierProductList" class="activityEntryAction" method="querySupplierProductList">
+			<result name="success" >/WEB-INF/jsp/activity/activitySupplierProductList.jsp</result>
+		</action>
+		<!-- 导出活动商家报名商品列表 -->
+		<action name="exportActivitySupplierProductList" class="activityEntryAction" method="exportActivitySupplierProductList">
+		</action>
+		<!-- 审核校验 -->
+		<action name="verifyStauts" class="activityEntryAction" method="verifyStauts">
+		</action>
+		<!-- pengbo End -->
+		
+		<!-- 活动推广效果列表 -->
+		<action name="findPromotionEffectList" class="activityPromotionEffectAction" method="findPromotionEffectList">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/activityPromotionEffectList.jsp
+			</result>
+		</action>
+		
+		<!-- 活动商家总销量列表 -->
+		<action name="findActivitySupplierSalesList" class="activityPromotionEffectAction" method="findActivitySupplierSalesList">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/activitySupplierSalesList.jsp
+			</result>
+		</action>
+		
+		<!-- 促销活动商家商品销量列表 -->
+		<action name="findPromotionActivitySupplierSales" class="activityPromotionEffectAction" method="findPromotionActivitySupplierSales">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/activitySupplierGoodsSales_promotion.jsp
+			</result>
+		</action>
+		
+		<!-- 图文活动商家商品销量列表 -->
+		<action name="findTeletextActivitySupplierSales" class="activityPromotionEffectAction" method="findTeletextActivitySupplierSales">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/activitySupplierGoodsSales_teletext.jsp
+			</result>
+		</action>
+		
+		<!-- 渠道活动商家商品销量列表 -->
+		<action name="findChannelSupplierProductSalesList" class="activityPromotionEffectAction" method="findChannelSupplierProductSalesList">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/activitySupplierGoodsSales_channel.jsp
+			</result>
+		</action>
+		
+		<!-- 渠道活动商家追加推广明细 -->
+		<action name="findSupplierAppendProductList" class="activityPromotionEffectAction" method="findSupplierAppendProductList">
+			<result name="success" type="dispatcher">
+	       		/WEB-INF/jsp/activity/activitySupplierAppendProductList.jsp
+			</result>
+		</action>
+		<!-- 跳转到活动邀请商家页面 -->
+		<action name="queryInviteSupplierEntryList" class="activityEntryAction" method="queryInviteSupplierEntryList">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/activity/activityInviteSupplierEntryList.jsp</result>
+		</action>
+		
+		<!-- 活动的推广费用（渠道推广） -->
+		<action name="queryActivityPromotionCost" class="activityPromotionCostAction" method="queryActivityPromotionCost">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/activity/activityPromotionCostList.jsp</result>
+		</action>
+		<!-- 活动推广销售明细（渠道推广） -->
+		<action name="queryActivitySupplierCostDetail" class="activityPromotionCostAction" method="queryActivitySupplierCostDetail">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/activity/activityCostDetail.jsp</result>
+		</action>
+		<!-- 活动结束退款 -->
+		<action name="activityEndRefundment" class="activityPaymentAction" method="activityEndRefundment"></action>
+		<!-- 活动中止退款 -->
+		<action name="activityCancleRefundment" class="activityPaymentAction" method="activityCancleRefundment"></action>
+		
+		<!-- 活动效果推广SKU销售明细 -->
+		<action name="findActivitySkuSalesDetail" class="activityPromotionEffectAction" method="findActivitySkuSalesDetail">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/activity/activitySkuSalesDetail.jsp</result>
+		</action>
+	</package>
+
+</struts>

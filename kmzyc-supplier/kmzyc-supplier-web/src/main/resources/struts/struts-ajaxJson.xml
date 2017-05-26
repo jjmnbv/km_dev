@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ajaxJson" extends="json-default">
+		<action name="checkUserType" class="testAction" method="checkUserType"></action>
+		<action name="downShelf" class="productMainAjaxAction" method="downShelf"></action>
+		<action name="upShelf" class="productMainAjaxAction" method="upShelf"></action>
+		<action name="deleteProduct" class="productMainAjaxAction" method="deleteProduct"></action>
+		<action name="selectCategory" class="productMainAjaxAction" method="selectCategory"></action>
+		<action name="selectSecondCategoryWithSupplyAvailable" class="productMainAjaxAction" method="selectSecondCategoryWithSupplyAvailable"></action>
+		<action name="findSameProductFromDraft" class="productMainAjaxAction" method="findSameProductFromDraft"></action>
+		<action name="previewProductInfoPage" class="productMainAjaxAction" method="previewProductInfoPage"></action>
+		<action name="updateSkuFreight" class="productMainAjaxAction" method="updateSkuFreight"></action>
+        <action name="previewProductDraftInfoPage" class="productDraftAjaxAction" method="previewProductDraftInfoPage"></action>
+        <action name="upAduit" class="productDraftAjaxAction" method="upAduit"></action>
+        <action name="deleteProductDraft" class="productDraftAjaxAction" method="deleteProductDraft"></action>
+		<action name="productuUpShelf" class="productDraftAjaxAction" method="productDraftUpShelf"></action>
+		<action name="checkSkuPvValue" class="productDraftAjaxAction" method="checkSkuPvValue"></action>
+		<action name="checkAllSkuPvValue" class="productDraftAjaxAction" method="checkAllSkuPvValue"></action>
+		<action name="gotoCheckSkuPriceAndWeight" class="productDraftAjaxAction" method="gotoCheckSkuPriceAndWeight"></action>
+		<action name="gotoSubmitAuditProductPrice" class="productDraftAjaxAction" method="gotoSubmitAuditProductPrice"></action>
+		<action name="deleteProductDraftById" class="productDraftAjaxAction" method="deleteProductDraftById"></action>
+		<action name="productuDeleteBatch" class="productDraftAjaxAction" method="productuDeleteBatch"></action>
+		<action name="releaseProductPrice" class="productDraftAjaxAction" method="releaseProductPrice"></action>
+       	<action name="deletePromotion" class="promotionAjaxAction" method="deletePromotion" />
+		<action name="copyPromotion" class="promotionAjaxAction" method="copyPromotion" />
+        <action name="deletePromotionProduct" class="promotionAjaxAction" method="deletePromotionProduct" />
+		<!-- 获取所有有效的品牌 -->
+		<action name="findAllBrandForJson" class="productDraftAjaxAction" method="findAllBrandForJson" ></action>
+		
+		<action name="findProductDetailPagePath" class="productMainAjaxAction" method="findProductDetailPagePath" ></action>
+		<!-- 更新草稿SKU的价格 -->
+		<action name="updatePriceAndWeight" class="productDraftAjaxAction" method="updatePriceAndWeight" ></action>
+		<action name="updateProductSKUPrice" class="productDraftAjaxAction" method="updateProductSKUPrice" ></action>
+        <!-- 图片处理 -->
+		<action name="uploadProductImage" class="productImageDraftAjaxAction" method="uploadFile"></action>
+		<action name="modifyProductImageDefault" class="productImageDraftAjaxAction" method="modifyImageDefault"></action>
+		<action name="deleteProductImage" class="productImageDraftAjaxAction" method="deleteImage"></action>
+		<action name="updateImageSortNo" class="productImageDraftAjaxAction" method="updateImageSortNo"></action>
+		<action name="updateSkuIntroduce" class="productImageDraftAjaxAction" method="updateSkuIntroduce"></action>
+		<action name="uploadImage" class="productImageDraftAjaxAction" method="uploadImage" ></action>
+
+		<action name="choiceArea" class="shopMainAjaxAction" method="choiceArea"></action>
+		<action name="addShopMain" class="shopMainAjaxAction" method="addShopMain"></action>
+		<action name="updateShopMain" class="shopMainAjaxAction" method="updateShopMain"></action>
+		<action name="deleteShopMain" class="shopMainAjaxAction" method="deleteShopMain"></action>
+		<action name="openShop" class="shopMainAjaxAction" method="openShop"></action>
+		<action name="closeShop" class="shopMainAjaxAction" method="closeShop"></action>
+		<action name="applyShop" class="shopMainAjaxAction" method="applyShop"></action>
+		<action name="cancelShop" class="shopMainAjaxAction" method="cancelShop"></action>
+		<action name="publishHomePage" class="shopMainAjaxAction" method="publishHomePage"></action>
+		<action name="deleteFilePath" class="shopMainAjaxAction" method="deleteFilePath"></action>
+		<action name="deleteLogoPath" class="shopMainAjaxAction" method="deleteLogoPath"></action>
+		<action name="previewHomePage" class="shopMainAjaxAction" method="previewHomePage"></action>
+		<action name="deleteShopMainMsg" class="shopMainAjaxAction" method="deleteShopMainMsg"></action>
+		<action name="updateShopMainDescribe" class="shopMainAjaxAction" method="updateShopMainDescribe"></action>
+		<action name="deleteShopMainDraft" class="shopMainDraftAjaxAction" method="deleteShopMainDraft"></action>
+		<action name="updateShopMainDraft" class="shopMainDraftAjaxAction" method="updateShopMainDraft"></action>
+		<action name="toEditOfficialData" class="shopMainDraftAjaxAction" method="toEditOfficialData"></action>
+		<action name="applyShopMainDraft" class="shopMainDraftAjaxAction" method="applyShopMainDraft"></action>
+		<action name="cancelShopMainDraft" class="shopMainDraftAjaxAction" method="cancelShopMainDraft"></action>
+		<action name="deleteMsg" class="shopMainDraftAjaxAction" method="deleteMsg"></action>
+		
+		<!-- 供应商申请店铺 -->
+		<action name="applySupplierShop" class="shopMainAjaxAction" method="applySupplierShop"></action>
+		<!-- 供应商添加运费规则 -->
+		<action name="addSupplerFare" class="supplierFareAjaxAction" method="addSupperFare"></action>
+		<!-- 供应商添加运费规则 -->
+		<action name="updateSupplerFare" class="supplierFareAjaxAction" method="updateSupplerFare"></action>
+			<!-- 供应商删除运费规则 -->
+		<action name="deleteFare" class="supplierFareAjaxAction" method="deleteFare"></action>
+		<!-- 订单结转  -->
+		<action name="batckCarryOver" class="orderAjaxAction" method="batckCarryOver"></action>
+		<!-- 店铺模板 -->
+		<action name="editTemplet" class="shopDecorationAjaxAction" method="editTemplet"></action>
+		<action name="viewTemplet" class="shopDecorationAjaxAction" method="viewTemplet"></action>
+		<action name="publishTemplet" class="shopDecorationAjaxAction" method="publishTemplet"></action>
+		<!-- 店铺模板 end -->
+		<!-- 商家确认 -->
+		<action name="merchantConfirmation" class="supplierSettlemenAjaxtAction" method="merchantConfirmation"></action>
+		<!-- 商家确认  end-->
+		<!-- 提现审核 -->
+        <action name="applyForValidation" class="supplierMentAction" method="accoutPass"></action>
+        <action name="supplierApplyFor" class="supplierMentAction" method="addEnchashment"></action>
+		<!-- 结算单 end -->
+	</package>
+</struts>

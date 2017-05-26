@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>    
+      
+        <!-- 广告定时发布 -->
+        <!-- 
+        <bean id="jobtask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+           
+            <property name="targetObject">
+                <ref bean="advPublish"/>
+            </property>
+          
+            <property name="targetMethod"> 
+                <value>work</value>
+            </property>
+        </bean>
+         -->
+        <!-- 定义触发时间 -->
+        <!-- 
+        <bean id="doTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail">
+                <ref bean="jobtask"/>
+            </property>
+          
+            <property name="cronExpression">
+                <value>0 0/3 * * * ?</value>
+            </property>
+        </bean>
+         -->
+         <!-- 定义调用对象和调用对象的方法 -->
+        <!--<bean id="timing" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            &lt;!&ndash; 调用的类 &ndash;&gt;
+            <property name="targetObject">
+                <ref bean="timingPublish"/>
+            </property>
+            &lt;!&ndash; 调用类中的方法 &ndash;&gt;
+            <property name="targetMethod"> 
+                <value>publish</value>
+            </property>
+        </bean>
+        &lt;!&ndash; 定义触发时间 &ndash;&gt;
+        <bean id="doTimingTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail">
+                <ref bean="timing"/>
+            </property>
+            &lt;!&ndash; cron表达式  "0 15 10 L * ?" 每月最后一日的上午10:15触发           每天10点15分触发0 15 10 ? * *   每三分钟0 0/3 * * * ?  每小时执行一次0 0/1 * * * ?&ndash;&gt;
+            <property name="cronExpression">
+
+                <value>0 15 10 ? * *</value>
+
+            </property>
+        </bean>-->
+        
+        
+          <!-- 资讯列表定时更新器0 0/1 * * * ?-->
+        <!--<bean id="infosJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
+            <!--&lt;!&ndash; 调用的类 &ndash;&gt;-->
+            <!--<property name="targetObject">-->
+                <!--<ref bean="urlConnection"/>-->
+            <!--</property>-->
+            <!--&lt;!&ndash; 调用类中的方法 &ndash;&gt;-->
+            <!--<property name="targetMethod"> -->
+                <!--<value>makeLocalFile</value>-->
+            <!--</property>-->
+        <!--</bean>-->
+        <!--&lt;!&ndash; 定义触发时间 &ndash;&gt;-->
+        <!--<bean id="infosJobTime" class="org.springframework.scheduling.quartz.CronTriggerBean">-->
+            <!--<property name="jobDetail">-->
+                <!--<ref bean="infosJob"/>-->
+            <!--</property>-->
+           <!---->
+            <!--<property name="cronExpression">-->
+
+                <!--<value>0 0/3 * * * ?</value>-->
+
+            <!--</property>-->
+        <!--</bean>-->
+        
+        
+        <!--
+        
+       
+       
+        定义调用对象和调用对象的方法 
+        <bean id="promotionJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+             调用的类 
+            <property name="targetObject">
+                <ref bean="promotionPublish"/>
+            </property>
+             调用类中的方法 
+            <property name="targetMethod"> 
+                <value>promotion</value>
+            </property>
+        </bean>
+         定义触发时间 
+        <bean id="doTimes" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail">
+                <ref bean="promotionJob"/>
+            </property>
+             cron表达式           每天10点15分触发0 15 10 ? * *   每三分钟0 0/3 * * * ?  每分钟执行一次0 0/1 * * * ?
+            <property name="cronExpression">
+                <value>0 15 10 L * ?</value>
+            </property>
+        </bean>
+       
+        
+        
+        -->
+        
+        <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序  -->
+       <!-- <bean id="startQuertz" lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+            <property name="triggers">
+                <list>
+                 &lt;!&ndash;   <ref bean="doTime"/>
+                    <ref bean="doTimingTime"/>&ndash;&gt;
+                   
+                     &lt;!&ndash; <ref bean="infosJobTime"/>&ndash;&gt;
+                </list>
+            </property>
+        </bean>-->
+    
+</beans>

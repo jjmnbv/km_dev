@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SPREADER_RP_INFO" >
+  <!-- 查询微商信息  次查询必须保证条件查询结果唯一 -->
+  <select id="selectUserRpInfoList" resultClass="java.util.HashMap" parameterClass="com.pltfm.app.vobject.SpreaderRPInfoCriteria" >
+    <![CDATA[  
+        select ai.n_login_id ,rpcount from (
+        select bat.ACCOUNT_ID ,count(1) rpcount from   BNES_ACCT_TRANSACTION bat
+        where exists(select 1 from  account_info ai where bat.ACCOUNT_ID=ai.n_account_id 
+        and ai.D_CREATE_DATE between  #activeStartDate:DATE#  and #activeEndDate:DATE# 
+        and bat.TYPE = '-3'
+        )
+        group  by bat.ACCOUNT_ID
+        Having bat.ACCOUNT_ID not in (select ACCOUNT_ID from  BNES_ACCT_TRANSACTION bat where bat.TYPE='-4' and ACCOUNT_ID is not null)
+        and  bat.ACCOUNT_ID not in (
+        select ai.n_account_id
+        from ORDER_MAIN om
+        left join  order_pay_statement  ops
+        on om.order_code = ops.order_code
+        left join   account_info ai
+        on om.customer_id = ai.N_LOGIN_ID
+        where om.amount_payable >= 5
+        and ai.n_account_id is not null
+        and om.ORDER_STATUS in (3,4,5,6,15,16,18)
+        and ops.payment_way = 4
+        and ops.flag = 1
+        and ops.state = 1
+        and ops.END_DATE between  #activeStartDate:DATE#  and #rpEndDate:DATE# 
+        )) a
+        left join  account_info ai 
+        on a.ACCOUNT_ID = ai.N_ACCOUNT_ID
+        where rownum<=1000 
+    ]]>  
+  </select>
+</sqlMap>

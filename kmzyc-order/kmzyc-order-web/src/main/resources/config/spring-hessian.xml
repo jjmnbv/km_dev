@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://www.springframework.org/schema/context  
+            http://www.springframework.org/schema/context/spring-context.xsd">
+	<!--<bean id="defaultHandlerMapping"
+		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+	&lt;!&ndash; 退换货申请状态变更接口 &ndash;&gt;
+	<bean name="/orderAlterChangeStatusService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="orderAlterChangeStatusRemoteService" />
+		<property name="serviceInterface" value="com.pltfm.app.remote.OrderAlterChangeStatusRemoteService" />
+	</bean>	 
+	&lt;!&ndash; 退换货申请状态变更接口 &ndash;&gt;
+	<bean name="/orderAlterQryService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="orderAlterQryRemoteService" />
+		<property name="serviceInterface" value="com.pltfm.app.remote.OrderAlterQryRemoteService" />
+	</bean>	 
+	&lt;!&ndash; 退换货退款接口 &ndash;&gt;
+	<bean name="/orderAlterPayService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="orderAlterPayRemoteService" />
+		<property name="serviceInterface" value="com.pltfm.app.remote.OrderAlterPayRemoteService" />
+	</bean>	 
+	&lt;!&ndash; 退款回调接口 &ndash;&gt;
+	<bean name="/refundMentService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="refundMentRemoteService" />
+		<property name="serviceInterface" value="com.pltfm.app.remote.RefundMentRemoteService" />
+	</bean>	 
+	&lt;!&ndash; 退换货回调接口 &ndash;&gt;
+	<bean name="/alterCallBackService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="orderAlterCallBackRemoteService" />
+		<property name="serviceInterface" value="com.pltfm.app.remote.OrderAlterCallBackRemoteService" />
+	</bean>	
+	&lt;!&ndash; 订单状态变更接口 &ndash;&gt;
+	<bean name="/orderChangeStatusService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="orderChangeStatusRemoteService" />
+		<property name="serviceInterface" value="com.pltfm.app.remote.OrderChangeStatusRemoteService" />
+	</bean>	 
+	&lt;!&ndash; 订单明细查询接口 &ndash;&gt;
+	<bean name="/orderItemQryService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="orderItemQryRemoteService" />
+		<property name="serviceInterface" value="com.pltfm.app.remote.OrderItemQryRemoteService" />
+	</bean>	 
+	&lt;!&ndash; 订单支付接口 &ndash;&gt;
+	<bean name="/orderPayService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="orderPayRemoteService" />
+		<property name="serviceInterface" value="com.pltfm.app.remote.OrderPayRemoteService" />
+	</bean>	 
+	&lt;!&ndash; 订单查询接口 &ndash;&gt;
+	<bean name="/orderQryService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="orderQryRemoteService" />
+		<property name="serviceInterface" value="com.pltfm.app.remote.OrderQryRemoteService" />
+	</bean>	 
+	&lt;!&ndash; 订单生成接口 &ndash;&gt;
+	<bean name="/orderCreateService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="orderCreateRemoteService" />
+		<property name="serviceInterface" value="com.pltfm.app.remote.OrderCreateRemoteService" />
+	</bean>
+	&lt;!&ndash; 订单评价生成接口 &ndash;&gt;
+	<bean name="/orderAssessService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="orderAssessRemoteService" />
+		<property name="serviceInterface" value="com.pltfm.app.remote.OrderAssessRemoteService" />
+	</bean>
+	&lt;!&ndash; 订单运费生成接口 &ndash;&gt;
+	<bean name="/fareService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="fareRemoteService" />
+		<property name="serviceInterface" value="com.pltfm.app.remote.FareRemoteService" />
+	</bean>	
+	&lt;!&ndash; 订单回调接口 &ndash;&gt;
+	<bean name="/callBackService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="orderCallBackRemoteService" />
+		<property name="serviceInterface" value="com.pltfm.app.remote.OrderCallBackRemoteService" />
+	</bean>			
+	&lt;!&ndash; 订单结转接口 &ndash;&gt;
+	<bean name="/orderExecuteService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="orderExecuteRemoteService" />
+		<property name="serviceInterface" value="com.pltfm.app.remote.OrderExecuteRemoteService" />
+	</bean>
+	&lt;!&ndash; 订单同步接口 &ndash;&gt;
+	<bean name="/orderSyncService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="orderSyncRemoteService" />
+		<property name="serviceInterface" value="com.pltfm.app.remote.OrderSyncRemoteService" />
+	</bean>
+	&lt;!&ndash; 订单取消接口 &ndash;&gt;
+	<bean name="/orderCancelService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+	    <property name="service" ref="orderCancelRemoteService"/>
+	    <property name="serviceInterface" value="com.pltfm.app.remote.OrderCancelRemoteService"/>
+	</bean>
+	
+	&lt;!&ndash; 系统常量接口 &ndash;&gt;
+	<bean name="/sysConstantsService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+	    <property name="service" ref="sysConstantsRemoteService"/>
+	    <property name="serviceInterface" value="com.pltfm.app.remote.SysConstantsRemoteService"/>
+	</bean>
+	&lt;!&ndash; 结算单对外接口 &ndash;&gt;
+	<bean name="/supplierSettlementService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+	    <property name="service" ref="supplierSettlementRemoteService"/>
+	    <property name="serviceInterface" value="com.pltfm.app.remote.SupplierSettlementService"/>
+	</bean>
+	
+	&lt;!&ndash; 推广效果记录接口 &ndash;&gt;
+	<bean name="/spreadResultRecodeService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+	    <property name="service" ref="spreadEffectRemoteService"/>
+	    <property name="serviceInterface" value="com.pltfm.app.remote.SpreadEffectRemoteService"/>
+	</bean>-->
+</beans>  

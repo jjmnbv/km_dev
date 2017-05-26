@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="KMUTILS" >
+  	<resultMap class="com.pltfm.app.entities.QuartzInfo" id="quartzInfoResultMap">
+		<result property="taskId" column="TASKID"  jdbcType="DECIMAL"/>
+		<result property="sysCode" column="SYSCODE" jdbcType="VARCHAR"/>
+		<result property="triggerName" column="TRIGGERNAME" jdbcType="VARCHAR"/>
+		<result property="triggerGroup" column="TRIGGERGROUP" jdbcType="VARCHAR"/>
+		<result property="cronExpression" column="CRONEXPRESSION" jdbcType="VARCHAR"/>
+		<result property="jobName" column="JOBNAME" jdbcType="VARCHAR"/>
+		<result property="jobGroup" column="JOBGROUP" jdbcType="VARCHAR"/>
+		<result property="jobClass" column="JOBCLASS" jdbcType="VARCHAR"/>
+		<result property="isVolatile" column="ISVOLATILE" jdbcType="VARCHAR"/>
+		<result property="jobDescription" column="DESCRIPTION" jdbcType="VARCHAR"/>
+		<result property="createDate" column="CREATEDATE" jdbcType="DATE"/>
+		<result property="updateDate" column="UPDATEDATE" jdbcType="DATE"/>
+	</resultMap>
+	<sql id="taskCondition">
+		<isNotEmpty prepend="and" property="taskId">
+	<![CDATA[qi.task_id = #taskId#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="sysCode">
+	<![CDATA[qi.sys_code = #sysCode#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jobGroup">
+	<![CDATA[qi.job_group = #jobGroup#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jobName">
+	<![CDATA[qi.job_name like '%'||#jobName#||'%']]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="isVolatile">
+	<![CDATA[qi.is_volatile = #isVolatile#]]>
+		</isNotEmpty>
+	<![CDATA[ order by qi.task_id desc]]>	
+	</sql>
+	<!-- 查询定时任务 -->
+	<select id="SQL_QUERY_TASK" parameterClass="com.pltfm.app.entities.QuartzInfo" resultMap="quartzInfoResultMap">
+	<![CDATA[
+		select qi.task_id         taskid,
+		       qi.sys_code        sysCode,
+		       qi.trigger_name    triggerName,
+		       qi.trigger_group   triggerGroup,
+		       qi.cron_expression cronExpression,
+		       qi.job_name        jobName,
+		       qi.job_group       jobGroup,
+		       qi.job_class       jobClass,
+		       qi.is_volatile     isVolatile,
+		       qi.job_description    description,
+		       qi.createDate     createDate,
+		       qi.updateDate     updateDate
+		  from quartz_info qi
+		 where 1 = 1
+	]]>
+	<include refid="taskCondition"/>
+	</select>
+	
+	<!-- 分页查询定时任务 -->
+	<select id="SQL_QUERY_TASK_BY_PAGE" parameterClass="java.util.Map" resultMap="quartzInfoResultMap">
+	<![CDATA[
+		select rs.taskid         taskid,
+		       rs.syscode        sysCode,
+		       rs.triggername    triggerName,
+		       rs.triggergroup   triggerGroup,
+		       rs.cronexpression cronExpression,
+		       rs.jobname        jobName,
+		       rs.jobgroup       jobGroup,
+		       rs.jobclass       jobClass,
+		       rs.isvolatile     isVolatile,
+		       rs.description    description,
+		       rs.createDate     createDate,
+		       rs.updateDate     updateDate
+		  from (select irs.taskid         taskid,
+		               irs.syscode        sysCode,
+		               irs.triggername    triggerName,
+		               irs.triggergroup   triggerGroup,
+		               irs.cronexpression cronExpression,
+		               irs.jobname        jobName,
+		               irs.jobgroup       jobGroup,
+		               irs.jobclass       jobClass,
+		               irs.isvolatile     isVolatile,
+		               irs.description    description,
+		               irs.createDate     createDate,
+		               irs.updateDate     updateDate,
+		               rownum             rn
+		          from (select qi.task_id         taskid,
+		                       qi.sys_code        sysCode,
+		                       qi.trigger_name    triggerName,
+		                       qi.trigger_group   triggerGroup,
+		                       qi.cron_expression cronExpression,
+		                       qi.job_name        jobName,
+		                       qi.job_group       jobGroup,
+		                       qi.job_class       jobClass,
+		                       decode(qi.is_volatile,'0','启用','停用')     isVolatile,
+		                       qi.job_description    description,
+		                       qi.createDate     createDate,
+		                       qi.updateDate     updateDate
+		                  from quartz_info qi
+		                 where 1 = 1
+	]]>
+		<include refid="taskCondition"/>
+	<![CDATA[		                 
+		                 ) irs
+		         where rownum <= #end#) rs
+		 where rs.rn >= #start#
+ 	]]>
+	</select>
+	<!-- 查询定时任务个数 -->
+	<select id="SQL_QUERY_TASK_COUNT" parameterClass="java.util.Map" resultClass="int">
+	<![CDATA[
+		select count(1)
+		  from quartz_info qi
+		 where 1 = 1
+	]]>
+	<include refid="taskCondition"/>
+	</select>
+	
+	
+	
+	<!-- 删除任务 -->
+	<delete id="SQL_DELETE_TASK" parameterClass="java.lang.Long">
+	<![CDATA[
+		delete from quartz_info qi where qi.task_id = #pid#
+	]]>
+	</delete>
+	
+	<update id="SQL_UPDATE_TASK" parameterClass="com.pltfm.app.entities.QuartzInfo">
+	<![CDATA[
+		update quartz_info qi set qi.updatedate = sysdate
+	]]>
+		<isNotEmpty prepend="," property="sysCode">
+	<![CDATA[qi.sys_code = #sysCode#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="triggerName">
+	<![CDATA[qi.trigger_name = #triggerName#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="triggerGroup">
+	<![CDATA[qi.trigger_group = #triggerGroup#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="cronExpression">
+	<![CDATA[qi.cron_expression = #cronExpression#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jobName">
+	<![CDATA[qi.job_name = #jobName#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jobGroup">
+	<![CDATA[qi.job_group = #jobGroup#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jobClass">
+	<![CDATA[qi.job_class = #jobClass#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="isVolatile">
+	<![CDATA[qi.is_volatile = #isVolatile#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jobDescription">
+	<![CDATA[qi.job_description = #jobDescription#]]>
+		</isNotEmpty>
+	<![CDATA[ where qi.task_id = #taskId#]]>
+	</update>
+	
+	
+	<!-- 新增任务 -->
+	<insert id="SQL_INSERT_TASK" parameterClass="com.pltfm.app.entities.QuartzInfo" >
+    <selectKey resultClass="java.lang.Long" keyProperty="taskId" >
+      SELECT SEQ_QUARTZ_INFO.NEXTVAL FROM DUAL
+    </selectKey>
+    <![CDATA[
+	    insert into  QUARTZ_INFO (TASK_ID, SYS_CODE, TRIGGER_NAME, TRIGGER_GROUP,
+	      CRON_EXPRESSION, JOB_NAME, JOB_GROUP, JOB_CLASS, IS_VOLATILE, JOB_DESCRIPTION, CREATEDATE,
+	      UPDATEDATE)
+	    values (#taskId:DECIMAL#, #sysCode:VARCHAR#, #triggerName:VARCHAR#, #triggerGroup:VARCHAR#,
+	      #cronExpression:VARCHAR#, #jobName:VARCHAR#, #jobGroup:VARCHAR#, #jobClass:VARCHAR#,
+	      #isVolatile:VARCHAR#, #jobDescription:VARCHAR#, sysdate,sysdate)
+	]]>      
+  	</insert>
+</sqlMap>

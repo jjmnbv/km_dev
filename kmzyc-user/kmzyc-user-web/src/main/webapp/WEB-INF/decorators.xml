@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<decorators defaultdir="/WEB-INF/jsp/decorators">
+
+    <!-- Any urls that are excluded will never be decorated by Sitemesh -->
+    <excludes>
+	    <pattern>/index.jsp</pattern>
+		<pattern>/admin.jsp</pattern>
+		<pattern>/*.html</pattern>
+		<pattern>/WEB-INF/jsp/sys/sysUserLogin.jsp</pattern>
+		<pattern>/WEB-INF/jsp/public/*</pattern>
+		<pattern>/fck_bpl/*</pattern>
+		<pattern>/sys/gotoSysUserLogin.action</pattern>
+	</excludes>
+
+
+	<decorator name="panelEmty" page="panel_emty.jsp">
+	</decorator>
+
+    <decorator name="main_nullHome" page="main_nullHome.jsp">
+ 	</decorator>
+
+
+
+    <decorator name="main_sys" page="main_sys.jsp">
+        <pattern>/sys/*.action</pattern>
+	</decorator>
+
+
+
+</decorators>

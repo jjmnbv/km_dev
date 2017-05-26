@@ -1,0 +1,818 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="MerchantInfo" >
+    <resultMap id="baseResultMap" class="com.kmzyc.supplier.model.MerchantInfo" >
+    <result column="N_COMMERCIAL_TENANT_ID" property="merchantId" jdbcType="DECIMAL" />
+    <result column="N_LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+    <result column="CONTACTS_NAME" property="contactsName" jdbcType="VARCHAR" />
+    <result column="CONTACTS_DEPARTMENT" property="contactsDepartment" jdbcType="VARCHAR" />
+    <result column="FIXED_PHONE" property="fixedPhone" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="CONTACTS_EMAIL" property="contactsEmail" jdbcType="VARCHAR" />
+    <result column="CORPORATE_NAME" property="corporateName" jdbcType="VARCHAR" />
+    <result column="CORPORATE_LOCATION" property="corporateLocation" jdbcType="VARCHAR" />
+    <result column="CORPORATE_PROPERTY" property="corporateProperty" jdbcType="VARCHAR" />
+    <result column="CORPORATE_TRADE" property="corporateTrade" jdbcType="VARCHAR" />
+    <result column="N_ENTERPRISE_NUMBER_OF_PEOPLE" property="enterpriseNumberOfPeople" jdbcType="DECIMAL" />
+    <result column="D_FOUND_Date" property="foundDate" jdbcType="Date" />
+    <result column="N_ENTERPRISE_STATUS" property="enterpriseStatus" jdbcType="DECIMAL" />
+    <result column="POSTALCODE" property="postalcode" jdbcType="VARCHAR" />
+    <result column="UPLOAD_BUSINESS_LICENCE_PICTUR" property="uploadBusinessLicencePictur" jdbcType="VARCHAR" />
+    <result column="ORGANIZATION_CODE" property="organizationCode" jdbcType="VARCHAR" />
+    <result column="ENTERPRISE_LEGAL_REPRESENTATIV" property="enterpriseLegalRepresentativ" jdbcType="VARCHAR" />
+    <result column="ENTERPRISE_REALM_NAME" property="enterpriseRealmName" jdbcType="VARCHAR" />
+    <result column="D_CREATE_Date" property="createDate" jdbcType="Date" />
+    <result column="N_CREATED" property="createUser" jdbcType="DECIMAL" />
+    <result column="D_MODIFY_Date" property="modifyDate" jdbcType="Date" />
+    <result column="N_MODIFIED" property="modifyUser" jdbcType="DECIMAL" />
+    <result column="AUTHENTICATION_STATUS" property="authenticationStatus" jdbcType="DECIMAL" />
+    <result column="BUSINESS_LICENCE_REGISTER" property="businessLicenceRegister" jdbcType="VARCHAR" />
+    <result column="BUSINESS_TIME_LIMIT" property="businessTimeLimit" jdbcType="VARCHAR" />
+    <result column="REGISTER_BANKROLL" property="registerBankroll" jdbcType="DECIMAL" />
+    <result column="BUSINESS_SCOPE" property="businessScope" jdbcType="VARCHAR" />
+    <result column="BANK_ACCOUNT_NAME" property="bankAccountName" jdbcType="VARCHAR" />
+    <result column="BANK_OF_DEPOSIT" property="bankOfDeposit" jdbcType="VARCHAR" />
+    <result column="BANK_OF_DEPOSIT_BRANCH_NAME" property="bankOfDepositBranchName" jdbcType="VARCHAR" />
+    <result column="COMPANY_ACCOUNT" property="companyAccount" jdbcType="VARCHAR" />
+    <result column="N_CERTIFICATE_TYPE" property="certificateType" jdbcType="DECIMAL" />
+    <result column="CERTIFICATE_NUMBER" property="certificateNumber" jdbcType="VARCHAR" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+    <result column="CERTIFICATE_PICTURE" property="certificatePicture" jdbcType="VARCHAR" />
+    <result column="BUSINESS_LICENCE_LOCATION" property="businessLicenceLocation" jdbcType="VARCHAR" />
+    
+    <result column="BLINCE_STARTDATE" property="blinceStartdate" jdbcType="DATE" />
+    <result column="BLINCE_ENDDATE" property="blinceEnddate" jdbcType="DATE" />
+    <result column="TAX_REGISTRATION_CNO" property="taxRegistrationCno" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="TAXPAYER_IDNUMBER" property="taxpayerIdnumber" jdbcType="VARCHAR" />
+    <result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+    <result column="CITY" property="city" jdbcType="VARCHAR" />
+    <result column="AREA" property="area" jdbcType="VARCHAR" />
+    <result column="ORGANIZATION_URL" property="organizationUrl" jdbcType="VARCHAR" />
+     <result column="TAX_REG_CERTIFICATE_COPY" property="taxRegCertificateCopy" jdbcType="VARCHAR" />
+  </resultMap>
+    <resultMap id="baseResultMap1" class="com.kmzyc.supplier.model.MerchantInfo" >
+        <result column="N_COMMERCIAL_TENANT_ID" property="merchantId" jdbcType="DECIMAL" />
+    </resultMap>
+  <sql id="ibatorgenerated_Example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  <select id="ibatorgenerated_selectByExample" resultMap="baseResultMap" parameterClass="com.kmzyc.supplier.model.example.MerchantInfoExample" >
+    select N_COMMERCIAL_TENANT_ID, N_LOGIN_ID, CONTACTS_NAME, CONTACTS_DEPARTMENT, FIXED_PHONE,
+      MOBILE, CONTACTS_EMAIL, CORPORATE_NAME, CORPORATE_LOCATION, CORPORATE_PROPERTY,
+      CORPORATE_TRADE, N_ENTERPRISE_NUMBER_OF_PEOPLE, D_FOUND_Date, N_ENTERPRISE_STATUS, POSTALCODE,
+      UPLOAD_BUSINESS_LICENCE_PICTUR, ORGANIZATION_CODE, ENTERPRISE_LEGAL_REPRESENTATIV,
+      ENTERPRISE_REALM_NAME, D_CREATE_Date, N_CREATED, D_MODIFY_Date, N_MODIFIED,
+      AUTHENTICATION_STATUS, BUSINESS_LICENCE_REGISTER, BUSINESS_TIME_LIMIT, REGISTER_BANKROLL,
+      BUSINESS_SCOPE, BANK_ACCOUNT_NAME, BANK_OF_DEPOSIT, BANK_OF_DEPOSIT_BRANCH_NAME,
+      COMPANY_ACCOUNT, N_CERTIFICATE_TYPE, CERTIFICATE_NUMBER, LOCATION, CERTIFICATE_PICTURE,
+      BUSINESS_LICENCE_LOCATION
+    from COMMERCIAL_TENANT_BASIC_INFO
+    <isParameterPresent >
+      <include refid="MerchantInfo.ibatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="baseResultMap" parameterClass="com.kmzyc.supplier.model.MerchantInfo" >
+    select N_COMMERCIAL_TENANT_ID, N_LOGIN_ID, CONTACTS_NAME, CONTACTS_DEPARTMENT, FIXED_PHONE,
+      MOBILE, CONTACTS_EMAIL, CORPORATE_NAME, CORPORATE_LOCATION, CORPORATE_PROPERTY,
+      CORPORATE_TRADE, N_ENTERPRISE_NUMBER_OF_PEOPLE, D_FOUND_Date, N_ENTERPRISE_STATUS, POSTALCODE,
+      UPLOAD_BUSINESS_LICENCE_PICTUR, ORGANIZATION_CODE, ENTERPRISE_LEGAL_REPRESENTATIV,
+      ENTERPRISE_REALM_NAME, D_CREATE_Date, N_CREATED, D_MODIFY_Date, N_MODIFIED,
+      AUTHENTICATION_STATUS, BUSINESS_LICENCE_REGISTER, BUSINESS_TIME_LIMIT, REGISTER_BANKROLL,
+      BUSINESS_SCOPE, BANK_ACCOUNT_NAME, BANK_OF_DEPOSIT, BANK_OF_DEPOSIT_BRANCH_NAME,
+      COMPANY_ACCOUNT, N_CERTIFICATE_TYPE, CERTIFICATE_NUMBER, LOCATION, CERTIFICATE_PICTURE,
+      BUSINESS_LICENCE_LOCATION
+    from COMMERCIAL_TENANT_BASIC_INFO
+    where N_COMMERCIAL_TENANT_ID = #merchantId:DECIMAL#
+  </select>
+  <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="com.kmzyc.supplier.model.MerchantInfo" >
+    delete from COMMERCIAL_TENANT_BASIC_INFO
+    where N_COMMERCIAL_TENANT_ID = #merchantId:DECIMAL#
+  </delete>
+  <delete id="ibatorgenerated_deleteByExample" parameterClass="com.kmzyc.supplier.model.example.MerchantInfoExample" >
+    delete from COMMERCIAL_TENANT_BASIC_INFO
+    <include refid="MerchantInfo.ibatorgenerated_Example_Where_Clause" />
+  </delete>
+  <insert id="ibatorgenerated_insert" parameterClass="com.kmzyc.supplier.model.MerchantInfo" >
+     <selectKey resultClass="java.lang.Long" keyProperty="merchantId" >
+	      select seq_app_login.nextval from dual
+	</selectKey>
+    insert into COMMERCIAL_TENANT_BASIC_INFO (N_COMMERCIAL_TENANT_ID, N_LOGIN_ID, CONTACTS_NAME,
+      CONTACTS_DEPARTMENT, FIXED_PHONE, MOBILE, CONTACTS_EMAIL, CORPORATE_NAME, CORPORATE_LOCATION,
+      CORPORATE_PROPERTY, CORPORATE_TRADE, N_ENTERPRISE_NUMBER_OF_PEOPLE, D_FOUND_Date,
+      N_ENTERPRISE_STATUS, POSTALCODE, UPLOAD_BUSINESS_LICENCE_PICTUR, ORGANIZATION_CODE,
+      ENTERPRISE_LEGAL_REPRESENTATIV, ENTERPRISE_REALM_NAME, D_CREATE_Date, N_CREATED,
+      D_MODIFY_Date, N_MODIFIED, AUTHENTICATION_STATUS, BUSINESS_LICENCE_REGISTER,
+      BUSINESS_TIME_LIMIT, REGISTER_BANKROLL, BUSINESS_SCOPE, BANK_ACCOUNT_NAME, BANK_OF_DEPOSIT,
+      BANK_OF_DEPOSIT_BRANCH_NAME, COMPANY_ACCOUNT, N_CERTIFICATE_TYPE, CERTIFICATE_NUMBER,
+      LOCATION, CERTIFICATE_PICTURE, BUSINESS_LICENCE_LOCATION)
+    values (#merchantId:DECIMAL#, #loginId:DECIMAL#, #contactsName:VARCHAR#,
+      #contactsDepartment:VARCHAR#, #fixedPhone:VARCHAR#, #mobile:VARCHAR#, #contactsEmail:VARCHAR#,
+      #corporateName:VARCHAR#, #corporateLocation:VARCHAR#, #corporateProperty:VARCHAR#,
+      #corporateTrade:VARCHAR#, #enterpriseNumberOfPeople:DECIMAL#, #foundDate:Date#,
+      #enterpriseStatus:DECIMAL#, #postalcode:VARCHAR#, #uploadBusinessLicencePictur:VARCHAR#,
+      #organizationCode:VARCHAR#, #enterpriseLegalRepresentativ:VARCHAR#,
+      #enterpriseRealmName:VARCHAR#, #createDate:Date#, #createUser:DECIMAL#, #modifyDate:Date#,
+      #modifyUser:DECIMAL#, #authenticationStatus:DECIMAL#, #businessLicenceRegister:VARCHAR#,
+      #businessTimeLimit:VARCHAR#, #registerBankroll:DECIMAL#, #businessScope:VARCHAR#,
+      #bankAccountName:VARCHAR#, #bankOfDeposit:VARCHAR#, #bankOfDepositBranchName:VARCHAR#,
+      #companyAccount:VARCHAR#, #certificateType:DECIMAL#, #certificateNumber:VARCHAR#,
+      #location:VARCHAR#, #certificatePicture:VARCHAR#, #businessLicenceLocation:VARCHAR#)
+  </insert>
+  <insert id="ibatorgenerated_insertSelective" parameterClass="com.kmzyc.supplier.model.MerchantInfo" >
+     <selectKey resultClass="java.lang.Long" keyProperty="merchantId" >
+	      select seq_app_login.nextval from dual
+	</selectKey>
+    insert into COMMERCIAL_TENANT_BASIC_INFO
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="merchantId" >
+        N_COMMERCIAL_TENANT_ID
+      </isNotNull>
+      <isNotNull prepend="," property="loginId" >
+        N_LOGIN_ID
+      </isNotNull>
+      <isNotNull prepend="," property="contactsName" >
+        CONTACTS_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="contactsDepartment" >
+        CONTACTS_DEPARTMENT
+      </isNotNull>
+      <isNotNull prepend="," property="fixedPhone" >
+        FIXED_PHONE
+      </isNotNull>
+      <isNotNull prepend="," property="mobile" >
+        MOBILE
+      </isNotNull>
+      <isNotNull prepend="," property="contactsEmail" >
+        CONTACTS_EMAIL
+      </isNotNull>
+      <isNotNull prepend="," property="corporateName" >
+        CORPORATE_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="corporateLocation" >
+        CORPORATE_LOCATION
+      </isNotNull>
+      <isNotNull prepend="," property="corporateProperty" >
+        CORPORATE_PROPERTY
+      </isNotNull>
+      <isNotNull prepend="," property="corporateTrade" >
+        CORPORATE_TRADE
+      </isNotNull>
+      <isNotNull prepend="," property="enterpriseNumberOfPeople" >
+        N_ENTERPRISE_NUMBER_OF_PEOPLE
+      </isNotNull>
+      <isNotNull prepend="," property="foundDate" >
+        D_FOUND_Date
+      </isNotNull>
+      <isNotNull prepend="," property="enterpriseStatus" >
+        N_ENTERPRISE_STATUS
+      </isNotNull>
+      <isNotNull prepend="," property="postalcode" >
+        POSTALCODE
+      </isNotNull>
+      <isNotNull prepend="," property="uploadBusinessLicencePictur" >
+        UPLOAD_BUSINESS_LICENCE_PICTUR
+      </isNotNull>
+      <isNotNull prepend="," property="organizationCode" >
+        ORGANIZATION_CODE
+      </isNotNull>
+      <isNotNull prepend="," property="enterpriseLegalRepresentativ" >
+        ENTERPRISE_LEGAL_REPRESENTATIV
+      </isNotNull>
+      <isNotNull prepend="," property="enterpriseRealmName" >
+        ENTERPRISE_REALM_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        D_CREATE_Date
+      </isNotNull>
+      <isNotNull prepend="," property="createUser" >
+        N_CREATED
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        D_MODIFY_Date
+      </isNotNull>
+      <isNotNull prepend="," property="modifyUser" >
+        N_MODIFIED
+      </isNotNull>
+      <isNotNull prepend="," property="authenticationStatus" >
+        AUTHENTICATION_STATUS
+      </isNotNull>
+      <isNotNull prepend="," property="businessLicenceRegister" >
+        BUSINESS_LICENCE_REGISTER
+      </isNotNull>
+      <isNotNull prepend="," property="businessTimeLimit" >
+        BUSINESS_TIME_LIMIT
+      </isNotNull>
+      <isNotNull prepend="," property="registerBankroll" >
+        REGISTER_BANKROLL
+      </isNotNull>
+      <isNotNull prepend="," property="businessScope" >
+        BUSINESS_SCOPE
+      </isNotNull>
+      <isNotNull prepend="," property="bankAccountName" >
+        BANK_ACCOUNT_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="bankOfDeposit" >
+        BANK_OF_DEPOSIT
+      </isNotNull>
+      <isNotNull prepend="," property="bankOfDepositBranchName" >
+        BANK_OF_DEPOSIT_BRANCH_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="companyAccount" >
+        COMPANY_ACCOUNT
+      </isNotNull>
+      <isNotNull prepend="," property="certificateType" >
+        N_CERTIFICATE_TYPE
+      </isNotNull>
+      <isNotNull prepend="," property="certificateNumber" >
+        CERTIFICATE_NUMBER
+      </isNotNull>
+      <isNotNull prepend="," property="location" >
+        LOCATION
+      </isNotNull>
+      <isNotNull prepend="," property="certificatePicture" >
+        CERTIFICATE_PICTURE
+      </isNotNull>
+      <isNotNull prepend="," property="businessLicenceLocation" >
+        BUSINESS_LICENCE_LOCATION
+      </isNotNull>
+      
+       <isNotNull prepend="," property="blinceStartdate" >
+        BLINCE_STARTDATE
+      </isNotNull>
+       <isNotNull prepend="," property="blinceEnddate" >
+        BLINCE_ENDDATE
+      </isNotNull>
+      <isNotNull prepend="," property="taxRegistrationCno" >
+        TAX_REGISTRATION_CNO
+      </isNotNull>
+       <isNotNull prepend="," property="phone" >
+        PHONE
+      </isNotNull>
+       <isNotNull prepend="," property="taxpayerIdnumber" >
+        TAXPAYER_IDNUMBER
+      </isNotNull>
+      <isNotNull prepend="," property="province" >
+        PROVINCE
+      </isNotNull>
+      <isNotNull prepend="," property="city" >
+        CITY
+      </isNotNull>
+      <isNotNull prepend="," property="area" >
+        AREA
+      </isNotNull>
+      <isNotNull prepend="," property="organizationUrl" >
+        ORGANIZATION_URL
+      </isNotNull>
+       <isNotNull prepend="," property="taxRegCertificateCopy" >
+        TAX_REG_CERTIFICATE_COPY
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="merchantId" >
+        #merchantId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="loginId" >
+        #loginId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="contactsName" >
+        #contactsName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="contactsDepartment" >
+        #contactsDepartment:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="fixedPhone" >
+        #fixedPhone:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="mobile" >
+        #mobile:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="contactsEmail" >
+        #contactsEmail:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="corporateName" >
+        #corporateName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="corporateLocation" >
+        #corporateLocation:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="corporateProperty" >
+        #corporateProperty:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="corporateTrade" >
+        #corporateTrade:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="enterpriseNumberOfPeople" >
+        #enterpriseNumberOfPeople:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="foundDate" >
+        #foundDate:Date#
+      </isNotNull>
+      <isNotNull prepend="," property="enterpriseStatus" >
+        #enterpriseStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="postalcode" >
+        #postalcode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="uploadBusinessLicencePictur" >
+        #uploadBusinessLicencePictur:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="organizationCode" >
+        #organizationCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="enterpriseLegalRepresentativ" >
+        #enterpriseLegalRepresentativ:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="enterpriseRealmName" >
+        #enterpriseRealmName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        #createDate:Date#
+      </isNotNull>
+      <isNotNull prepend="," property="createUser" >
+        #createUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        #modifyDate:Date#
+      </isNotNull>
+      <isNotNull prepend="," property="modifyUser" >
+        #modifyUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="authenticationStatus" >
+        #authenticationStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="businessLicenceRegister" >
+        #businessLicenceRegister:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="businessTimeLimit" >
+        #businessTimeLimit:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="registerBankroll" >
+        #registerBankroll:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="businessScope" >
+        #businessScope:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="bankAccountName" >
+        #bankAccountName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="bankOfDeposit" >
+        #bankOfDeposit:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="bankOfDepositBranchName" >
+        #bankOfDepositBranchName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="companyAccount" >
+        #companyAccount:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="certificateType" >
+        #certificateType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="certificateNumber" >
+        #certificateNumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="location" >
+        #location:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="certificatePicture" >
+        #certificatePicture:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="businessLicenceLocation" >
+        #businessLicenceLocation:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="blinceStartdate" >
+         #blinceStartdate:DATE#
+      </isNotNull>
+       <isNotNull prepend="," property="blinceEnddate" >
+        #blinceEnddate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="taxRegistrationCno" >
+       #taxRegistrationCno:VARCHAR#
+      </isNotNull>
+       <isNotNull prepend="," property="phone" >
+       #phone:VARCHAR#
+      </isNotNull>
+       <isNotNull prepend="," property="taxpayerIdnumber" >
+        #taxpayerIdnumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="province" >
+        #province:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="city" >
+        #city:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="area" >
+        #area:VARCHAR#
+      </isNotNull>
+       <isNotNull prepend="," property="organizationUrl" >
+        #organizationUrl:VARCHAR#
+      </isNotNull>
+       <isNotNull prepend="," property="taxRegCertificateCopy" >
+        #taxRegCertificateCopy:VARCHAR#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  <select id="ibatorgenerated_countByExample" parameterClass="com.kmzyc.supplier.model.example.MerchantInfoExample" resultClass="java.lang.Integer" >
+    select count(*) from COMMERCIAL_TENANT_BASIC_INFO
+    <include refid="MerchantInfo.ibatorgenerated_Example_Where_Clause" />
+  </select>
+  <update id="ibatorgenerated_updateByExampleSelective" >
+    update COMMERCIAL_TENANT_BASIC_INFO
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.merchantId" >
+        N_COMMERCIAL_TENANT_ID = #record.merchantId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.loginId" >
+        N_LOGIN_ID = #record.loginId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.contactsName" >
+        CONTACTS_NAME = #record.contactsName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.contactsDepartment" >
+        CONTACTS_DEPARTMENT = #record.contactsDepartment:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.fixedPhone" >
+        FIXED_PHONE = #record.fixedPhone:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.mobile" >
+        MOBILE = #record.mobile:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.contactsEmail" >
+        CONTACTS_EMAIL = #record.contactsEmail:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.corporateName" >
+        CORPORATE_NAME = #record.corporateName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.corporateLocation" >
+        CORPORATE_LOCATION = #record.corporateLocation:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.corporateProperty" >
+        CORPORATE_PROPERTY = #record.corporateProperty:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.corporateTrade" >
+        CORPORATE_TRADE = #record.corporateTrade:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.enterpriseNumberOfPeople" >
+        N_ENTERPRISE_NUMBER_OF_PEOPLE = #record.enterpriseNumberOfPeople:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.foundDate" >
+        D_FOUND_Date = #record.foundDate:Date#
+      </isNotNull>
+      <isNotNull prepend="," property="record.enterpriseStatus" >
+        N_ENTERPRISE_STATUS = #record.enterpriseStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.postalcode" >
+        POSTALCODE = #record.postalcode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.uploadBusinessLicencePictur" >
+        UPLOAD_BUSINESS_LICENCE_PICTUR = #record.uploadBusinessLicencePictur:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.organizationCode" >
+        ORGANIZATION_CODE = #record.organizationCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.enterpriseLegalRepresentativ" >
+        ENTERPRISE_LEGAL_REPRESENTATIV = #record.enterpriseLegalRepresentativ:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.enterpriseRealmName" >
+        ENTERPRISE_REALM_NAME = #record.enterpriseRealmName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createDate" >
+        D_CREATE_Date = #record.createDate:Date#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createUser" >
+        N_CREATED = #record.createUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.modifyDate" >
+        D_MODIFY_Date = #record.modifyDate:Date#
+      </isNotNull>
+      <isNotNull prepend="," property="record.modifyUser" >
+        N_MODIFIED = #record.modifyUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.authenticationStatus" >
+        AUTHENTICATION_STATUS = #record.authenticationStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.businessLicenceRegister" >
+        BUSINESS_LICENCE_REGISTER = #record.businessLicenceRegister:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.businessTimeLimit" >
+        BUSINESS_TIME_LIMIT = #record.businessTimeLimit:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.registerBankroll" >
+        REGISTER_BANKROLL = #record.registerBankroll:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.businessScope" >
+        BUSINESS_SCOPE = #record.businessScope:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.bankAccountName" >
+        BANK_ACCOUNT_NAME = #record.bankAccountName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.bankOfDeposit" >
+        BANK_OF_DEPOSIT = #record.bankOfDeposit:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.bankOfDepositBranchName" >
+        BANK_OF_DEPOSIT_BRANCH_NAME = #record.bankOfDepositBranchName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.companyAccount" >
+        COMPANY_ACCOUNT = #record.companyAccount:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.certificateType" >
+        N_CERTIFICATE_TYPE = #record.certificateType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.certificateNumber" >
+        CERTIFICATE_NUMBER = #record.certificateNumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.location" >
+        LOCATION = #record.location:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.certificatePicture" >
+        CERTIFICATE_PICTURE = #record.certificatePicture:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.businessLicenceLocation" >
+        BUSINESS_LICENCE_LOCATION = #record.businessLicenceLocation:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="MerchantInfo.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="ibatorgenerated_updateByExample" >
+    update COMMERCIAL_TENANT_BASIC_INFO
+    set N_COMMERCIAL_TENANT_ID = #record.merchantId:DECIMAL#,
+      N_LOGIN_ID = #record.loginId:DECIMAL#,
+      CONTACTS_NAME = #record.contactsName:VARCHAR#,
+      CONTACTS_DEPARTMENT = #record.contactsDepartment:VARCHAR#,
+      FIXED_PHONE = #record.fixedPhone:VARCHAR#,
+      MOBILE = #record.mobile:VARCHAR#,
+      CONTACTS_EMAIL = #record.contactsEmail:VARCHAR#,
+      CORPORATE_NAME = #record.corporateName:VARCHAR#,
+      CORPORATE_LOCATION = #record.corporateLocation:VARCHAR#,
+      CORPORATE_PROPERTY = #record.corporateProperty:VARCHAR#,
+      CORPORATE_TRADE = #record.corporateTrade:VARCHAR#,
+      N_ENTERPRISE_NUMBER_OF_PEOPLE = #record.enterpriseNumberOfPeople:DECIMAL#,
+      D_FOUND_Date = #record.foundDate:Date#,
+      N_ENTERPRISE_STATUS = #record.enterpriseStatus:DECIMAL#,
+      POSTALCODE = #record.postalcode:VARCHAR#,
+      UPLOAD_BUSINESS_LICENCE_PICTUR = #record.uploadBusinessLicencePictur:VARCHAR#,
+      ORGANIZATION_CODE = #record.organizationCode:VARCHAR#,
+      ENTERPRISE_LEGAL_REPRESENTATIV = #record.enterpriseLegalRepresentativ:VARCHAR#,
+      ENTERPRISE_REALM_NAME = #record.enterpriseRealmName:VARCHAR#,
+      D_CREATE_Date = #record.createDate:Date#,
+      N_CREATED = #record.createUser:DECIMAL#,
+      D_MODIFY_Date = #record.modifyDate:Date#,
+      N_MODIFIED = #record.modifyUser:DECIMAL#,
+      AUTHENTICATION_STATUS = #record.authenticationStatus:DECIMAL#,
+      BUSINESS_LICENCE_REGISTER = #record.businessLicenceRegister:VARCHAR#,
+      BUSINESS_TIME_LIMIT = #record.businessTimeLimit:VARCHAR#,
+      REGISTER_BANKROLL = #record.registerBankroll:DECIMAL#,
+      BUSINESS_SCOPE = #record.businessScope:VARCHAR#,
+      BANK_ACCOUNT_NAME = #record.bankAccountName:VARCHAR#,
+      BANK_OF_DEPOSIT = #record.bankOfDeposit:VARCHAR#,
+      BANK_OF_DEPOSIT_BRANCH_NAME = #record.bankOfDepositBranchName:VARCHAR#,
+      COMPANY_ACCOUNT = #record.companyAccount:VARCHAR#,
+      N_CERTIFICATE_TYPE = #record.certificateType:DECIMAL#,
+      CERTIFICATE_NUMBER = #record.certificateNumber:VARCHAR#,
+      LOCATION = #record.location:VARCHAR#,
+      CERTIFICATE_PICTURE = #record.certificatePicture:VARCHAR#,
+      BUSINESS_LICENCE_LOCATION = #record.businessLicenceLocation:VARCHAR#
+    <isParameterPresent >
+      <include refid="MerchantInfo.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="com.kmzyc.supplier.model.MerchantInfo" >
+    update COMMERCIAL_TENANT_BASIC_INFO
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="loginId" >
+        N_LOGIN_ID = #loginId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="contactsName" >
+        CONTACTS_NAME = #contactsName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="contactsDepartment" >
+        CONTACTS_DEPARTMENT = #contactsDepartment:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="fixedPhone" >
+        FIXED_PHONE = #fixedPhone:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="mobile" >
+        MOBILE = #mobile:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="contactsEmail" >
+        CONTACTS_EMAIL = #contactsEmail:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="corporateName" >
+        CORPORATE_NAME = #corporateName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="corporateLocation" >
+        CORPORATE_LOCATION = #corporateLocation:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="corporateProperty" >
+        CORPORATE_PROPERTY = #corporateProperty:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="corporateTrade" >
+        CORPORATE_TRADE = #corporateTrade:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="enterpriseNumberOfPeople" >
+        N_ENTERPRISE_NUMBER_OF_PEOPLE = #enterpriseNumberOfPeople:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="foundDate" >
+        D_FOUND_Date = #foundDate:Date#
+      </isNotNull>
+      <isNotNull prepend="," property="enterpriseStatus" >
+        N_ENTERPRISE_STATUS = #enterpriseStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="postalcode" >
+        POSTALCODE = #postalcode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="uploadBusinessLicencePictur" >
+        UPLOAD_BUSINESS_LICENCE_PICTUR = #uploadBusinessLicencePictur:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="organizationCode" >
+        ORGANIZATION_CODE = #organizationCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="enterpriseLegalRepresentativ" >
+        ENTERPRISE_LEGAL_REPRESENTATIV = #enterpriseLegalRepresentativ:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="enterpriseRealmName" >
+        ENTERPRISE_REALM_NAME = #enterpriseRealmName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        D_CREATE_Date = #createDate:Date#
+      </isNotNull>
+      <isNotNull prepend="," property="createUser" >
+        N_CREATED = #createUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        D_MODIFY_Date = #modifyDate:Date#
+      </isNotNull>
+      <isNotNull prepend="," property="modifyUser" >
+        N_MODIFIED = #modifyUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="authenticationStatus" >
+        AUTHENTICATION_STATUS = #authenticationStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="businessLicenceRegister" >
+        BUSINESS_LICENCE_REGISTER = #businessLicenceRegister:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="businessTimeLimit" >
+        BUSINESS_TIME_LIMIT = #businessTimeLimit:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="registerBankroll" >
+        REGISTER_BANKROLL = #registerBankroll:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="businessScope" >
+        BUSINESS_SCOPE = #businessScope:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="bankAccountName" >
+        BANK_ACCOUNT_NAME = #bankAccountName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="bankOfDeposit" >
+        BANK_OF_DEPOSIT = #bankOfDeposit:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="bankOfDepositBranchName" >
+        BANK_OF_DEPOSIT_BRANCH_NAME = #bankOfDepositBranchName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="companyAccount" >
+        COMPANY_ACCOUNT = #companyAccount:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="certificateType" >
+        N_CERTIFICATE_TYPE = #certificateType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="certificateNumber" >
+        CERTIFICATE_NUMBER = #certificateNumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="location" >
+        LOCATION = #location:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="certificatePicture" >
+        CERTIFICATE_PICTURE = #certificatePicture:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="businessLicenceLocation" >
+        BUSINESS_LICENCE_LOCATION = #businessLicenceLocation:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="blinceStartdate" >
+        BLINCE_STARTDATE = #blinceStartdate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="blinceEnddate" >
+        BLINCE_ENDDATE = #blinceEnddate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="taxRegistrationCno" >
+        TAX_REGISTRATION_CNO = #taxRegistrationCno:VARCHAR#
+      </isNotNull>
+       <isNotNull prepend="," property="phone" >
+        PHONE = #phone:VARCHAR#
+      </isNotNull>
+       <isNotNull prepend="," property="taxpayerIdnumber" >
+        TAXPAYER_IDNUMBER = #taxpayerIdnumber:VARCHAR#
+      </isNotNull>
+       <isNotNull prepend="," property="province" >
+        PROVINCE = #province:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="city" >
+        CITY = #city:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="area" >
+        AREA = #area:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="organizationUrl" >
+        ORGANIZATION_URL = #organizationUrl:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="taxRegCertificateCopy" >
+        TAX_REG_CERTIFICATE_COPY = #taxRegCertificateCopy:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    where N_COMMERCIAL_TENANT_ID = #merchantId:DECIMAL#
+  </update>
+  <update id="ibatorgenerated_updateByPrimaryKey" parameterClass="com.kmzyc.supplier.model.MerchantInfo" >
+    update COMMERCIAL_TENANT_BASIC_INFO
+    set N_LOGIN_ID = #loginId:DECIMAL#,
+      CONTACTS_NAME = #contactsName:VARCHAR#,
+      CONTACTS_DEPARTMENT = #contactsDepartment:VARCHAR#,
+      FIXED_PHONE = #fixedPhone:VARCHAR#,
+      MOBILE = #mobile:VARCHAR#,
+      CONTACTS_EMAIL = #contactsEmail:VARCHAR#,
+      CORPORATE_NAME = #corporateName:VARCHAR#,
+      CORPORATE_LOCATION = #corporateLocation:VARCHAR#,
+      CORPORATE_PROPERTY = #corporateProperty:VARCHAR#,
+      CORPORATE_TRADE = #corporateTrade:VARCHAR#,
+      N_ENTERPRISE_NUMBER_OF_PEOPLE = #enterpriseNumberOfPeople:DECIMAL#,
+      D_FOUND_Date = #foundDate:Date#,
+      N_ENTERPRISE_STATUS = #enterpriseStatus:DECIMAL#,
+      POSTALCODE = #postalcode:VARCHAR#,
+      UPLOAD_BUSINESS_LICENCE_PICTUR = #uploadBusinessLicencePictur:VARCHAR#,
+      ORGANIZATION_CODE = #organizationCode:VARCHAR#,
+      ENTERPRISE_LEGAL_REPRESENTATIV = #enterpriseLegalRepresentativ:VARCHAR#,
+      ENTERPRISE_REALM_NAME = #enterpriseRealmName:VARCHAR#,
+      D_CREATE_Date = #createDate:Date#,
+      N_CREATED = #createUser:DECIMAL#,
+      D_MODIFY_Date = #modifyDate:Date#,
+      N_MODIFIED = #modifyUser:DECIMAL#,
+      AUTHENTICATION_STATUS = #authenticationStatus:DECIMAL#,
+      BUSINESS_LICENCE_REGISTER = #businessLicenceRegister:VARCHAR#,
+      BUSINESS_TIME_LIMIT = #businessTimeLimit:VARCHAR#,
+      REGISTER_BANKROLL = #registerBankroll:DECIMAL#,
+      BUSINESS_SCOPE = #businessScope:VARCHAR#,
+      BANK_ACCOUNT_NAME = #bankAccountName:VARCHAR#,
+      BANK_OF_DEPOSIT = #bankOfDeposit:VARCHAR#,
+      BANK_OF_DEPOSIT_BRANCH_NAME = #bankOfDepositBranchName:VARCHAR#,
+      COMPANY_ACCOUNT = #companyAccount:VARCHAR#,
+      N_CERTIFICATE_TYPE = #certificateType:DECIMAL#,
+      CERTIFICATE_NUMBER = #certificateNumber:VARCHAR#,
+      LOCATION = #location:VARCHAR#,
+      CERTIFICATE_PICTURE = #certificatePicture:VARCHAR#,
+      BUSINESS_LICENCE_LOCATION = #businessLicenceLocation:VARCHAR#
+    where N_COMMERCIAL_TENANT_ID = #merchantId:DECIMAL#
+  </update>
+  <select id="selectByLoginId" resultMap="baseResultMap" parameterClass="com.kmzyc.supplier.model.MerchantInfo">
+   select c.* from login_info l, login_rose_rel t, commercial_tenant_basic_info c where l.n_login_id = t.n_login_id
+   and t.n_customer_type_id = 5
+   and c.n_commercial_tenant_id = t.n_commercial_id
+   and t.n_login_id =#loginId:NUMBER# 
+  </select>
+  
+  <select id="selectByLoginIdForLogin" resultClass="com.kmzyc.supplier.model.MerchantInfo" parameterClass="com.kmzyc.supplier.model.MerchantInfo">
+   select c.N_COMMERCIAL_TENANT_ID merchantId,c.contacts_Email contactsEmail,c.CORPORATE_NAME corporateName,l.MOBILE mobile,pi.HEAD_SCULPTURE headSculpture
+   from login_info l, login_rose_rel t, commercial_tenant_basic_info c,PERSONALITY_INFO pi where l.n_login_id = t.n_login_id and pi.n_login_id = l.n_login_id 
+   and t.n_customer_type_id = 5
+   and c.n_commercial_tenant_id = t.n_commercial_id
+   and t.n_login_id =#loginId:NUMBER# 
+  </select>
+  
+   <select id="selectByCompanyName" resultMap="baseResultMap1" parameterClass="com.kmzyc.supplier.model.MerchantInfo">
+       select f.n_commercial_tenant_id from commercial_tenant_basic_info f,suppliers_info su where f.n_commercial_tenant_id=su.merchant_id and (su.status = 2 or su.status = 3 or su.status = 5 ) 
+       <isNotNull prepend="and" property="corporateName">
+        f.corporate_name=#corporateName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="merchantId">
+       f.n_commercial_tenant_id !=#merchantId:NUMBER#
+       </isNotNull>
+  </select>
+</sqlMap>

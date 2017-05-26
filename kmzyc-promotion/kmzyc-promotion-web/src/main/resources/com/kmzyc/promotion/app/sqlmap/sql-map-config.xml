@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<settings cacheModelsEnabled="true" enhancementEnabled="true"
+		lazyLoadingEnabled="true" maxRequests="10" maxSessions="20"
+		maxTransactions="50" useStatementNamespaces="true"
+		defaultStatementTimeout="30" statementCachingEnabled="true"
+		classInfoCacheEnabled="true" errorTracingEnabled="true" />
+	<!-- app -->
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/app_product_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/SECTIONS_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/app_prodBrand_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/app_prodSupplier_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/CATEGORY_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/CATEGORY_ATTR_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/CATEGORY_ATTR_VALUE_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/app_product_stock_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/SUPPLIERAUDIT.xml" />
+    <sqlMap resource="com/kmzyc/promotion/app/sqlmap/SUPPLIERS_INFO_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/PRODUCT_SKU_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/PRODUCT_SKU_ATTR_SqlMap.xml" />
+	<!-- 促销管理 -->
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/PROMOTION_RULE_SqlMap.xml"/>
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/PROMOTION_ATTR_SqlMap.xml"/>
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/PROMOTION_RULE_DATA_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/PromotionInfo.xml" />
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/BaseProduct.xml" />
+   	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/PROMOTION_PRODUCT_SqlMap.xml" />
+   	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/PROMOTION_PRODUCT_DATA_SqlMap.xml" />
+	<!-- 优惠券 -->
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/COUPON_PRODUCT_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/COUPON_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/COUPON_GRANT_SqlMap.xml" />
+		<sqlMap resource="com/kmzyc/promotion/app/sqlmap/app_viewProductSku_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/COUPON_GRANT_FLOW_SqlMap.xml" />
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/CouponGrantSeting.xml" />
+	<!-- 产品关联 -->
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/PRODUCT_RELATION_DETAIL_SqlMap.xml"/> 
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/PRODUCT_RELATION_SqlMap.xml" /> 
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/SECTIONS_DETAIL_SqlMap.xml" /> 
+	<!-- 促销优化 -->
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/promotion_optimization.xml"></sqlMap>
+	<!-- 预售工具 -->
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/PROMOTION_PRESELL_SqlMap.xml"></sqlMap>
+	<sqlMap resource="com/kmzyc/promotion/app/sqlmap/PROMOTION_PRESELL_PRODUCT_SqlMap.xml"></sqlMap>
+</sqlMapConfig>

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="KMORDER_CPS_QUERY" >
+	<!-- CPS跳转数据 -->
+	<sql id="SQL_QUERY_CPS_TRACK_INFO_CONDITION">
+	<![CDATA[	where 1 = 1]]>
+	<isNotEmpty prepend="and" property="campaignid">
+	<![CDATA[	t.campaignid = #campaignid#]]>
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="source">
+	<![CDATA[	t.source = #source#]]>
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="channel">
+	<![CDATA[	t.channel = #channel#]]>
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="dateStart">
+	<![CDATA[	t.trackdate >= to_date(#dateStart#, 'yyyy-mm-dd hh24:mi:ss')]]>
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="dateEnd">
+	<![CDATA[	t.trackdate <= to_date(#dateEnd#, 'yyyy-mm-dd hh24:mi:ss')]]>
+	</isNotEmpty>
+	</sql>
+	<select id="SQL_QUERY_CPS_TRACK_INFO" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	<![CDATA[
+		select rs.tid        tid,
+		       rs.source     source,
+		       rs.channel    channel,
+		       rs.campaignid campaignid,
+		       rs.feedback   feedback,
+		       rs.target     target,
+		       rs.trackdate  trackdate
+		  from (select rsi.tid        tid,
+		               rsi.source     source,
+		               rsi.channel    channel,
+		               rsi.campaignid campaignid,
+		               rsi.feedback   feedback,
+		               rsi.target     target,
+		               to_char(rsi.trackdate,'yyyy-mm-dd hh24:mi:ss')  trackdate,
+		               rownum         rn
+		          from (select t.tid        tid,
+		                       t.source     source,
+		                       t.channel    channel,
+		                       t.campaignid campaignid,
+		                       t.feedback   feedback,
+		                       t.target     target,
+		                       t.trackdate  trackdate
+		                  from  cps_track_info t
+	]]>
+		<include refid="SQL_QUERY_CPS_TRACK_INFO_CONDITION"/>
+	<![CDATA[
+		                 order by t.trackdate desc) rsi
+		         where rownum <= #end#) rs
+		 where rs.rn >= #start#
+	]]>
+	</select>
+	
+	<select id="SQL_QUERY_CPS_TRACK_INFO_COUNT" parameterClass="java.util.Map" resultClass="int">
+	<![CDATA[
+		select count(1) from  cps_track_info t
+	]]>
+	<include refid="SQL_QUERY_CPS_TRACK_INFO_CONDITION"/>
+	</select>
+	<!-- CPS跳转数据 -->
+	
+	<!-- CPS订单标识信息数据 -->
+	<sql id="SQL_QUERY_CPS_ORDER_FLAG_CONDITION">
+	<![CDATA[	where 1 = 1]]>
+	<isNotEmpty prepend="and" property="source">
+	<![CDATA[	o.source = #source#]]>
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="campaignid">
+	<![CDATA[	o.campaignid = #campaignid#]]>
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="dateStart">
+	<![CDATA[	o.createdate >= to_date(#dateStart#, 'yyyy-mm-dd hh24:mi:ss')]]>
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="dateEnd">
+	<![CDATA[	o.createdate <= to_date(#dateEnd#, 'yyyy-mm-dd hh24:mi:ss')]]>
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="orderCode">
+	<![CDATA[	o.order_code = #orderCode#]]>
+	</isNotEmpty>
+	</sql>
+	<select id="SQL_QUERY_CPS_ORDER_FLAG" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	<![CDATA[
+		select rs.oid             oid,
+		       rs.orderCode       orderCode,
+		       rs.campaignid      campaignid,
+		       rs.feedback        feedback,
+		       rs.source          source,
+		       rs.channel         channel,
+		       rs.commissionType  commissionType,
+		       rs.createdate      createdate
+		  from (select rsi.oid oid,
+		               rsi.orderCode orderCode,
+		               rsi.campaignid campaignid,
+		               rsi.feedback feedback,
+		               rsi.source source,
+		               rsi.channel channel,
+		               rsi.commissionType commissionType,
+		               to_char(rsi.createdate, 'yyyy-mm-dd hh24:mi:ss') createdate,
+		               rownum rn
+		          from (select o.oid             oid,
+		                       o.order_code      orderCode,
+		                       o.campaignid      campaignid,
+		                       o.feedback        feedback,
+		                       o.source          source,
+		                       o.channel         channel,
+		                       o.commission_type commissionType,
+		                       o.createdate      createdate
+		                  from  order_out_side_ext_info o
+	]]>
+		<include refid="SQL_QUERY_CPS_ORDER_FLAG_CONDITION"/>
+	<![CDATA[		                  
+		                 order by o.createdate desc) rsi
+		         where rownum <= #end#) rs
+		 where rs.rn >= #start#
+	]]>
+	</select>
+	
+	<select id="SQL_QUERY_CPS_ORDER_FLAG_COUNT" parameterClass="java.util.Map" resultClass="int">
+	<![CDATA[
+		select count(1) from  order_out_side_ext_info o
+	]]>
+	<include refid="SQL_QUERY_CPS_ORDER_FLAG_CONDITION"/>
+	</select>
+	<!-- CPS订单标识信息数据 -->
+	
+	<!-- CPS请求明细数据 -->
+	<sql id="SQL_QUERY_CPS_REQUEST_INFO_CONDITION">
+	<![CDATA[	where 1 = 1]]>
+	<isNotEmpty prepend="and" property="systemCode">
+	<![CDATA[	r.system_code = #systemCode#]]>
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="serviceName">
+	<![CDATA[	r.system_code = #serviceName#]]>
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="dateStart">
+	<![CDATA[	r.request_start_date >= to_date(#dateStart#, 'yyyy-mm-dd hh24:mi:ss')]]>
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="dateEnd">
+	<![CDATA[	r.request_start_date <= to_date(#dateEnd#, 'yyyy-mm-dd hh24:mi:ss')]]>
+	</isNotEmpty>
+	</sql>
+	<select id="SQL_QUERY_CPS_REQUEST_INFO" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	<![CDATA[
+		select rs.rid              rid,
+		       rs.systemCode       systemCode,
+		       rs.serviceName      serviceName,
+		       rs.requestSource    requestSource,
+		       rs.requestIp        requestIp,
+		       rs.cuid             cuid,
+		       rs.requestParams    requestParams,
+		       rs.requestStatus    requestStatus,
+		       rs.requestStartDate requestStartDate,
+		       rs.requestEndDate   requestEndDate
+		  from (select rsi.rid rid,
+		               rsi.systemCode systemCode,
+		               rsi.serviceName serviceName,
+		               rsi.requestSource requestSource,
+		               rsi.requestIp requestIp,
+		               rsi.cuid cuid,
+		               rsi.requestParams requestParams,
+		               rsi.requestStatus requestStatus,
+		               to_char(rsi.requestStartDate, 'yyyy-mm-dd hh24:mi:ss') requestStartDate,
+		               to_char(rsi.requestEndDate, 'yyyy-mm-dd hh24:mi:ss') requestEndDate,
+		               rownum rn
+		          from (select r.rid                rid,
+		                       r.system_code        systemCode,
+		                       r.service_name       serviceName,
+		                       r.request_source     requestSource,
+		                       r.request_ip         requestIp,
+		                       r.cuid               cuid,
+		                       r.request_params     requestParams,
+		                       r.request_status     requestStatus,
+		                       r.request_start_date requestStartDate,
+		                       r.request_end_date   requestEndDate
+		                  from  request_info r
+	]]>
+		<include refid="SQL_QUERY_CPS_REQUEST_INFO_CONDITION"/>
+	<![CDATA[	                  
+		                 order by requestStartDate desc) rsi
+		         where rownum <= #end#) rs
+		 where rs.rn >= #start#
+	]]>
+	</select>
+	
+	<select id="SQL_QUERY_CPS_REQUEST_INFO_COUNT" parameterClass="java.util.Map" resultClass="int">
+	<![CDATA[
+		select count(1) from  request_info r
+	]]>
+	<include refid="SQL_QUERY_CPS_REQUEST_INFO_CONDITION"/>
+	</select>
+	<!-- CPS请求明细数据 -->
+	
+	<!-- CPS订单数据 -->
+	<sql id="SQL_QUERY_CPS_ORDER_INFO_CONDITION">
+	<![CDATA[
+		where om.parent_order_code is null
+	]]>	
+	<isNotEmpty property="source" prepend="and">
+	<![CDATA[	ocio.source = #source:VARCHAR#]]>
+	</isNotEmpty>
+	<isNotEmpty property="channel" prepend="and">
+	<![CDATA[	ocio.channel = #channel#]]>
+	</isNotEmpty>
+	<isNotEmpty property="cid" prepend="and">
+	<![CDATA[	ocio.campaignid = #cid:VARCHAR#]]>
+	</isNotEmpty>
+	<isNotEmpty property="promotionType" prepend="and">
+	<![CDATA[	ocio.promotion_type = #promotionType:VARCHAR#]]>
+	</isNotEmpty>
+	<isNotEmpty property="dateStart" prepend="and">
+	<![CDATA[	om.create_date >= to_date(#dateStart#, 'yyyy-mm-dd hh24:mi:ss')]]>
+	</isNotEmpty>
+	<isNotEmpty property="dateEnd" prepend="and">
+	<![CDATA[	om.create_date <= to_date(#dateEnd#, 'yyyy-mm-dd hh24:mi:ss')]]>
+	</isNotEmpty>
+	</sql>
+	<select id="SQL_QUERY_CPS_ORDER_INFO" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	<![CDATA[
+		select rs.campaignId     campaignId,
+		       rs.channel        channel,
+		       rs.source         source,
+		       rs.fare           fare,
+		       rs.favorable      favorable,
+		       rs.favorableCode  favorableCode,
+		       rs.feedback       feedback,
+		       rs.orderNo        orderNo,
+		       rs.payable        payable,
+		       rs.orderTime      orderTime,
+		       rs.orderstatus    orderstatus,
+		       rs.commissionType commissionType
+		  from (select rsi.campaignId     campaignId,
+		               rsi.channel        channel,
+		               rsi.source         source,
+		               rsi.fare           fare,
+		               rsi.favorable      favorable,
+		               rsi.favorableCode  favorableCode,
+		               rsi.feedback       feedback,
+		               rsi.orderNo        orderNo,
+		               rsi.payable        payable,
+		               rsi.orderTime      orderTime,
+		               rsi.orderstatus    orderstatus,
+		               rsi.commissionType commissionType,
+		               rownum             rn
+		          from (select ocio.campaignId campaignId,
+		                       ocio.channel channel,
+		                       ocio.source source,
+		                       nvl(om.fare, 0) fare,
+		                       nvl(ops.favorable, 0) favorable,
+		                       nvl(to_char(ops.favorableCode), ' ') favorableCode,
+		                       ocio.feedback feedback,
+		                       om.order_code orderNo,
+		                       om.amount_payable payable,
+		                       to_char(om.create_date, 'yyyy-mm-dd hh24:mi:ss') orderTime,
+		                       (select od1.order_dictionary_value
+		                          from order_dictionary od1
+		                         where od1.order_dictionary_type = 'Order_Status'
+		                           and od1.order_dictionary_key = om.order_status) orderstatus,
+		                       decode(sign(om.order_status - 1),
+		                              1,
+		                              '已支付',
+		                              '未支付') paymentStatus,
+		                       nvl(ocio.commission_Type, '') commissionType
+		                  from order_main om
+		                 inner join order_out_side_ext_info ocio
+		                    on (ocio.order_code = om.order_code)
+		                  left join (select opsi.order_code,
+		                                   opsi.preferential_no favorableCode,
+		                                   opsi.order_money     favorable
+		                              from order_pay_statement opsi
+		                             where opsi.payment_way = 2
+		                               and opsi.state = 1) ops
+		                    on (ops.order_code = om.order_code)
+	]]>
+	<include refid="SQL_QUERY_CPS_ORDER_INFO_CONDITION"/>
+	<![CDATA[		                    
+		                    order by om.create_date desc, om.order_code desc) rsi
+		         where rownum <= #end#) rs
+		 where rs.rn >= #start#
+	]]>
+	
+	</select>
+	
+	<select id="SQL_QUERY_CPS_ORDER_INFO_COUNT" parameterClass="java.util.Map" resultClass="int">
+	<![CDATA[
+		select count(1) from order_main om
+		  join order_out_side_ext_info ocio
+		    on (ocio.order_code = om.order_code)
+	]]>
+	<include refid="SQL_QUERY_CPS_ORDER_INFO_CONDITION"/>
+	</select>
+	<!-- CPS订单数据 -->
+</sqlMap>

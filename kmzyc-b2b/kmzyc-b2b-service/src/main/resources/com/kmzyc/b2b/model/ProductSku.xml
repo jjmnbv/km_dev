@@ -1,0 +1,1305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ProductSku">
+	<typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+
+	<resultMap id="priceMap" class="com.kmzyc.b2b.model.ProductSku">
+		<result column="product_sku_id" property="productSkuId"
+			jdbcType="DECIMAL" />
+		<result column="product_id" property="productId" jdbcType="DECIMAL" />
+		<result column="PRODUCT_SKU_CODE" property="productSkuCode"
+			jdbcType="VARCHAR" />
+		<result column="PRICE" property="price" jdbcType="DECIMAL" />
+		<result column="mark_price" property="marketPrice" jdbcType="DECIMAL" />
+		<result column="cost_price" property="costPrice" jdbcType="DECIMAL" />
+		<result column="pv_value" property="pvalue" jdbcType="DECIMAL" />
+	</resultMap>
+    
+	<resultMap id="productSkuResultMap" class="com.kmzyc.b2b.model.ProductSku">
+		<result column="PRODUCT_SKU_ID" property="productSkuId"
+			jdbcType="DECIMAL" />
+		<result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+		<result column="PRICE" property="price" jdbcType="DECIMAL" />
+		<result column="PRODUCT_SKU_CODE" property="productSkuCode"
+			jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="CHAR" />
+		<result column="UNIT_WEIGHT" property="unitWeight" jdbcType="DECIMAL" />
+		<result column="mark_price" property="marketPrice" jdbcType="DECIMAL" />
+	</resultMap>
+	<!-- update by songmiao -->
+	<resultMap id="productSkuResultMap1" extends="productSkuResultMap" class="com.kmzyc.b2b.model.ProductSku">
+	    <result column="st_stock" property="stock" jdbcType="DECIMAL" />
+		<result column="IMG_PATH" property="defaultProductSkuImgPath" jdbcType="VARCHAR" />
+		<result column="PROCUCT_NAME" property="productName" jdbcType="VARCHAR" />
+		<result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />  
+		<result column="PV_VALUE" property="pvalue" jdbcType="DECIMAL" />
+	</resultMap>
+	<resultMap id="productSkuWindowResultMap"  class="com.kmzyc.b2b.model.ProductSku">
+	    <result column="USER_DEFINED_URL" property="productSkuCode" jdbcType="VARCHAR" />
+		<result column="USER_DEFINED_PICPATH" property="defaultProductSkuImgPath" jdbcType="VARCHAR" />
+		<result column="USER_DEFINED_NAME" property="productName" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- update by songmiao -->
+	<resultMap id="recommandProductSkuResultMap" extends="productSkuResultMap"
+		class="com.kmzyc.b2b.model.ProductSku">
+		<result column="IMG_PATH" property="defaultProductSkuImgPath" jdbcType="VARCHAR" />
+		<result column="PROCUCT_NAME" property="productName" jdbcType="VARCHAR" />
+		<result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+		<result column="PV_VALUE" property="pvalue" jdbcType="DECIMAL" />
+	</resultMap>
+	<!-- update by lijianjun -->
+	<resultMap id="productSkuWithImageResultMap" extends="productSkuResultMap"
+		class="com.kmzyc.b2b.model.ProductSku">
+		<result column="PROCUCT_NAME" property="productName" jdbcType="VARCHAR" />
+		<result column="imgPath6" property="defaultProductSkuImgPath100_100"
+			jdbcType="VARCHAR" />
+		<result column="imgPath" property="defaultProductSkuImgPath"
+			jdbcType="VARCHAR" />
+		<result column="mark_price" property="marketPrice" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<resultMap id="productSkuObjectMap" extends="productSkuResultMap"
+		class="com.kmzyc.b2b.model.ProductSku">
+		<result column="COST_PRICE" property="costPrice" jdbcType="DECIMAL"
+			nullValue="0" />
+		<result column="PV_VALUE" property="pvalue" jdbcType="DECIMAL"
+			nullValue="0" />
+			
+		<result column="freight" property="freight" jdbcType="DECIMAL"
+			nullValue="0" />	
+		<result column="free_status" property="freeStatus" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="app_CategoryAttrResultMap" class="com.pltfm.app.vobject.CategoryAttrValue">
+		<result column="CATEGORY_ATTR_VALUE_ID" property="categoryAttrValueId"
+			jdbcType="DECIMAL" />
+		<result column="CATEGORY_ATTR_ID" property="categoryAttrId"
+			jdbcType="DECIMAL" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="CATEGORY_ATTR_VALUE" property="categoryAttrValue"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<resultMap id="app_ProductAttrResultMap" class="com.pltfm.app.vobject.ProductAttr">
+		<result column="PRODUCT_ATTR_ID" property="productAttrId"
+			jdbcType="DECIMAL" />
+		<result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+		<result column="PRODUCT_ATTR_NAME" property="productAttrName"
+			jdbcType="VARCHAR" />
+		<result column="PRODUCT_ATTR_VALUE" property="productAttrValue"
+			jdbcType="VARCHAR" />
+		<result column="PRODUCT_ATTR_TYPE" property="productAttrType"
+			jdbcType="DECIMAL" />
+		<result column="RELATE_ATTR_ID" property="relateAttrId"
+			jdbcType="DECIMAL" />
+		<result column="INPUT_TYPE" property="inputType" jdbcType="DECIMAL" />
+		<result column="IS_REQ" property="isReq" jdbcType="DECIMAL" />
+		<result column="IS_NAV" property="isNav" jdbcType="DECIMAL" />
+		<result column="IS_SKU" property="isSku" jdbcType="DECIMAL" />
+		<result column="SORTNO" property="sortno" jdbcType="DECIMAL" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+		<result column="CREATE_USER" property="createUser" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<resultMap id="orderItemForShop" class="com.kmzyc.b2b.model.OrderItem"
+		groupBy="orderCode">
+		<result column="ORDER_ITEM_ID" property="orderItemId" jdbcType="DECIMAL" />
+		<result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+		<result column="COMMODITY_SKU" property="commoditySku"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<resultMap id="productDetail" class="com.kmzyc.b2b.model.ProductSku"
+		groupBy="productSkuCode">
+		<result column="PRODUCT_SKU_CODE" property="productSkuCode"
+			jdbcType="DECIMAL" />
+		<result column="PRODUCT_SKU_ID" property="productSkuId"
+			jdbcType="DECIMAL" />
+		<result column="MARK_PRICE" property="marketPrice" jdbcType="DECIMAL" />
+		<result column="PRICE" property="price" jdbcType="VARCHAR" />
+		<result property="productSkuAttrList" resultMap="ProductSku.productSkuAttr" />
+		<result property="productMain" resultMap="ProductSku.productMainVO" />
+		<result property="productImage" resultMap="ProductSku.productImageVO" />
+	</resultMap>
+
+	<resultMap id="productRank" class="com.kmzyc.b2b.model.ProductSku"
+		groupBy="productSkuCode">
+		<result column="CONTENT_CODE" property="productSkuCode"
+			jdbcType="DECIMAL" />
+		<result column="PRODUCTFAVORCOUNT" property="productFavorCount"
+			jdbcType="DECIMAL" />
+		<result column="PRODUCTSALECOUNT" property="productSaleCount"
+			jdbcType="DECIMAL" />
+		<result column="PRODUCT_TITLE" property="productName" jdbcType="VARCHAR" />
+		<result column="PRICE" property="price" jdbcType="VARCHAR" />
+		<result column="IMG_PATH7" property="defaultProductSkuImgPath"
+			jdbcType="VARCHAR" />
+		<result column="UP_TIME" property="productMain.upTime"
+			jdbcType="VARCHAR" />
+		<result column="PRODUCT_SKU_ID" property="productSkuId"
+			jdbcType="VARCHAR" />
+		<result property="productSkuAttrList" resultMap="ProductSku.productSkuAttr2" />
+	</resultMap>
+
+	<resultMap id="productImageVO" class="com.kmzyc.b2b.model.ProductImage">
+		<result column="img_path5" property="imgPath5" />
+		<result column="img_path7" property="imgPath7" />
+	</resultMap>
+
+
+	<resultMap id="productMainVO" class="com.kmzyc.b2b.model.Productmain">
+		<result column="PRODUCT_TITLE" property="productTitle" />
+		<result column="PRODUCT_DESC" property="productDesc" />
+		<result column="BRAND_NAME" property="brandName" />
+	</resultMap>
+
+	<resultMap id="productSkuAttr" class="com.kmzyc.b2b.model.ProductSkuAttr">
+		<result column="category_attr_name" property="categoryAttrName" />
+
+		<result property="categoryAttr" resultMap="ProductSku.categoryAttr" />
+		<result property="categoryAttrValue" resultMap="ProductSku.categoryAttrValue" />
+	</resultMap>
+
+	<resultMap id="productSkuAttr2" class="com.kmzyc.b2b.model.ProductSkuAttr">
+		<result column="category_attr_value" property="categoryAttrName" />
+	</resultMap>
+
+	<resultMap id="categoryAttrValue" class="com.kmzyc.b2b.model.CategoryAttrValue">
+		<result column="category_attr_value" property="categoryAttrValue"
+			jdbcType="DECIMAL" />
+	</resultMap>
+
+	<resultMap id="categoryAttr" class="com.kmzyc.b2b.model.CategoryAttr">
+		<result column="category_attr_id" property="categoryAttrId"
+			jdbcType="DECIMAL" />
+	</resultMap>
+
+	<!-- 店铺分类 推介 -->
+	<resultMap id="shopCateGroysTui" class="com.kmzyc.b2b.vo.ShopCategorys">
+		<result column="SHOP_CATEGORY_ID" property="shopCategoryId"
+			jdbcType="DECIMAL" />
+		<!-- <result column="SHOP_CATEGORY_ID" property="sonShopCate" select="ProductSku.selectSon" 
+			/> -->
+		<result column="IS_SUGGEST" property="isSuggest" jdbcType="DECIMAL" />
+		<result property="sonShopCate"
+			column="{shopCategoryId=SHOP_CATEGORY_ID,isSuggest=IS_SUGGEST}"
+			select="ProductSku.selectSonTui" />
+		<result column="CATEGORY_NAME" property="categoryName"
+			jdbcType="VARCHAR" />
+		<result column="IS_EXPANDALL" property="isExpandall" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="shopSonTui" class="com.kmzyc.b2b.vo.ShopCategorys">
+		<result column="SHOP_CATEGORY_ID" property="shopCategoryId"
+			jdbcType="DECIMAL" />
+		<result column="CATEGORY_NAME" property="categoryName"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 店铺分类全部 -->
+	<resultMap id="shopCateGroysAll" class="com.kmzyc.b2b.vo.ShopCategorys">
+		<result column="SHOP_CATEGORY_ID" property="shopCategoryId"
+			jdbcType="DECIMAL" />
+		<!-- <result column="SHOP_CATEGORY_ID" property="sonShopCate" select="ProductSku.selectSon" 
+			/> -->
+		<result column="IS_SUGGEST" property="isSuggest" jdbcType="DECIMAL" />
+		<result property="sonShopCate"
+			column="{shopCategoryId=SHOP_CATEGORY_ID,isSuggest=IS_SUGGEST}"
+			select="ProductSku.selectSonAll" />
+		<result column="CATEGORY_NAME" property="categoryName"
+			jdbcType="VARCHAR" />
+		<result column="IS_EXPANDALL" property="isExpandall" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="shopSon" class="com.kmzyc.b2b.vo.ShopCategorys">
+		<result column="SHOP_CATEGORY_ID" property="shopCategoryId"
+			jdbcType="DECIMAL" />
+		<result column="CATEGORY_NAME" property="categoryName"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="byProductSkuIdCondition">
+		<![CDATA[
+		   PRODUCT_SKU_ID = #productSkuId:NUMBER#
+	    ]]>
+	</sql>
+
+	<sql id="byProductSkuCodeCondition">
+		<![CDATA[
+		   PRODUCT_SKU_CODE = #productSkuCode:VARCHAR#
+	    ]]>
+	</sql>
+
+	<select id="findById" parameterClass="java.lang.Long" resultMap="productSkuObjectMap">
+		<![CDATA[
+			SELECT * FROM PRODUCT_SKU
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byProductSkuIdCondition" />
+		</dynamic>
+	</select>
+
+
+	<select id="findBySkuCode" parameterClass="String" resultMap="productSkuResultMap">
+		<![CDATA[
+			SELECT * FROM PRODUCT_SKU
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byProductSkuCodeCondition" />
+		</dynamic>
+	</select>
+
+	<select id="findCategotyIdBySkuCode" parameterClass="String"
+		resultClass="long">
+        <![CDATA[
+			select t.category_id
+              from productmain t, product_sku k
+             where k.product_id = t.product_id
+               and k.product_sku_code = #productSkuCode:VARCHAR#
+		]]>
+	</select>
+
+	<!-- 获取栏目管理热销和特价商品 -->
+	<select id="queryProductSkuBySections" parameterClass="java.lang.String"
+			resultMap="productSkuWithImageResultMap">
+		<![CDATA[
+            select d.product_title procuct_name,
+               c.mark_price,
+               b.sortno,
+               c.product_sku_id,
+               c.product_id,
+               c.price,
+               c.product_sku_code,
+               c.status,
+               c.unit_weight,
+               e.img_path5 imgPath,
+               e.img_path6 imgPath6
+          from sections        a,
+               sections_detail b,
+               product_sku     c,
+               productmain     d,
+               product_image   e
+         where a.identification =  #identification:VARCHAR#
+           and a.sections_id = b.sections_id
+           and b.sku_id = c.product_sku_id
+           and c.product_id = d.product_id
+           and c.product_sku_id = e.sku_id
+           and e.is_default = '0'
+           and c.status = 1
+           and d.status=3
+           order by b.sortno
+        ]]>
+	</select>
+
+	<select id="app_findByValueId" resultMap="app_CategoryAttrResultMap"
+		parameterClass="java.lang.String">
+		select * from CATEGORY_ATTR_VALUE t where
+		t.CATEGORY_ATTR_VALUE_ID in
+		($productAttrValue$)
+	</select>
+
+
+	<select id="app_queryProductAttrByProductId" resultMap="app_ProductAttrResultMap"
+		parameterClass="java.lang.Long">
+        <![CDATA[
+		SELECT * from PRODUCT_ATTR where PRODUCT_ID = #productId#
+		AND (PRODUCT_ATTR_TYPE=2 OR ( PRODUCT_ATTR_TYPE=1 AND IS_SKU<>1))
+        ]]>
+	</select>
+
+	<select id="app_queryProductSkuMap" resultMap="productSkuResultMap"
+		parameterClass="java.lang.Long">
+		select * from product_sku p where p.product_id=
+		#productId#
+	</select>
+
+	<select id="app_queryOrderItemByShopId" resultMap="orderItemForShop"
+		parameterClass="java.util.Map">
+		SELECT DISTINCT OT.ORDER_CODE,
+		OT.COMMODITY_SKU,
+		OT.COMMODITY_NAME,
+		OT.ORDER_ITEM_ID
+		FROM ORDER_ITEM OT
+		WHERE
+		EXISTS (SELECT 1
+		FROM PRODUCTMAIN PM, PRODUCT_SKU
+		PS
+		WHERE PS.PRODUCT_ID = PM.PRODUCT_ID(+)
+		AND OT.COMMODITY_SKU =
+		PS.PRODUCT_SKU_CODE
+		AND PM.SHOP_CODE = #supplierId#)
+	</select>
+
+
+	<select id="findProductDetail" resultMap="productDetail">
+		select ps.product_sku_code,
+		ps.product_sku_id,
+		pm.product_title,
+		pm.product_desc,
+		pb.brand_name,
+		pi.img_path5 ,
+		pi.img_path7 ,
+		ps.mark_price,
+		ps.price,
+		psa.category_attr_name,
+		cav.category_attr_value,
+		ca.category_attr_id
+		from PRODUCTMAIN
+		PM ,
+		PRODUCT_SKU PS ,
+		PRODUCT_IMAGE PI,
+		PRODUCT_SKU_ATTR PSA ,
+		CATEGORY_ATTR CA ,
+		CATEGORY_ATTR_VALUE CAV ,
+		PROD_BRAND PB
+		WHERE
+		PS.PRODUCT_ID = PM.PRODUCT_ID
+		AND PS.PRODUCT_SKU_ID =
+		PSA.PRODUCT_SKU_ID(+)
+		AND PSA.CATEGORY_ATTR_ID = CA.CATEGORY_ATTR_ID(+)
+		AND PSA.CATEGORY_ATTR_VALUE_ID = CAV.CATEGORY_ATTR_VALUE_ID(+)
+		AND
+		PS.PRODUCT_SKU_ID = PI.SKU_ID(+)
+		AND PM.BRAND_ID = PB.BRAND_ID(+)
+		AND
+		pi.is_default = 0
+		AND ps.product_sku_code in
+		<iterate open="(" close=")" conjunction=",">
+			#[]#
+		</iterate>
+
+
+	</select>
+
+
+	<!-- 按照销量查询 -->
+	<select id="findProductListRank" resultMap="productRank">
+		select * from ( select
+		FAV.productFavorCount ,
+		OMM.productSaleCount,
+		KPP.PRODUCT_TITLE,
+		KPP.PRICE,
+		KPP.IMG_PATH7,
+		KPP.PRODUCT_SKU_ID,
+		KPP.UP_TIME,
+		va.category_attr_value ,
+		FAV.CONTENT_CODE
+		from (
+		select bb.*
+		, rownum from
+		( select ps.product_sku_code as content_code, 0 as
+		productFavorCount,
+		ps.product_sku_id
+		from PRODUCTMAIN PM,
+		PRODUCT_SKU PS
+		<isNotNull property="haveCategory">
+			,SHOP_PRODUCT_CATEGORY PC
+		</isNotNull>
+		WHERE pm.product_id = ps.product_id
+		and pm.status = 3
+		and ps.status = 1
+		<isNotNull property="haveCategory">
+			AND PM.PRODUCT_ID = PC.PRODUCT_ID
+			AND
+			PC.SHOP_CATEGORY_ID = #haveCategory:DECIMAL#
+		</isNotNull>
+		<isNotNull property="searchKey">
+			and pm.keyword = #searchKey:DECIMAL#
+		</isNotNull>
+		<isNotNull property="priceStart">
+			and ps.price >= #priceStart:DECIMAL#
+		</isNotNull>
+		<isNotNull property="priceEnd">
+			                  	<![CDATA[
+			                   		and ps.price <= #priceEnd:DECIMAL#
+			                   	]]>
+		</isNotNull>
+		<isNotNull property="supplierId">
+			and pm.shop_code = #supplierId:DECIMAL#
+		</isNotNull>
+
+		) bb
+		<isNotNull property="showNumber">
+				   				 <![CDATA[
+				  					 where  ROWNUM <= #showNumber:number#
+				  			 	]]>
+		</isNotNull>
+		) FAV,
+		(select Q.SALE_QUANTITY AS productSaleCount,
+		ps.product_sku_code
+		from PRODUCT_SKU_QUANTITY Q ,
+		PRODUCT_SKU PS
+		WHERE
+		Q.PRODUCT_SKU_ID = PS.PRODUCT_SKU_ID
+		<!-- 如果是查询销量则从销量数据不为0的开始查询 -->
+		and Q.SALE_QUANTITY != 0
+		) OMM ,
+		(SELECT PN.PRODUCT_TITLE,
+		PU.PRICE,
+		PIE.Img_Path6 as Img_Path7,
+		PU.PRODUCT_SKU_CODE,
+		PU.PRODUCT_SKU_ID,
+		pn.up_time
+		FROM PRODUCTMAIN PN,
+		PRODUCT_SKU PU,
+		PRODUCT_IMAGE PIE
+		WHERE PN.PRODUCT_ID = PU.PRODUCT_ID
+		AND
+		PU.PRODUCT_SKU_ID = PIE.SKU_ID
+		AND PIE.IS_DEFAULT = 0) KPP,
+		(select
+		cav.category_attr_value , psa.product_sku_id from
+		PRODUCT_SKU_ATTR PSA ,
+		CATEGORY_ATTR_VALUE CAV ,
+		PRODUCT_SKU PU
+		where pu.product_sku_id = psa.product_sku_id
+		(+)
+		and psa.category_attr_value_id = cav.category_attr_value_id(+)
+		) va
+		WHERE 1=1
+		AND FAV.content_code = OMM.product_sku_code
+		AND
+		FAV.content_code = KPP.PRODUCT_SKU_CODE(+)
+		and fav.product_sku_id =
+		va.product_sku_id(+)
+		ORDER BY productSaleCount DESC
+		) a
+	</select>
+
+
+	<!-- 按照收藏排序 -->
+	<select id="findProductListFavRank" resultMap="productRank">
+		select * from (select
+		FAV.productFavorCount ,
+		OMM.productSaleCount,
+		KPP.PRODUCT_TITLE,
+		KPP.PRICE,
+		KPP.IMG_PATH7,
+		KPP.PRODUCT_SKU_ID,
+		KPP.UP_TIME,
+		va.category_attr_value ,
+		FAV.CONTENT_CODE
+		from (
+		select FAV.*
+		from
+		( select FAV.* ,ROWNUM FROM (
+		select fav.content_code ,
+		fav.productFavorCount ,PSS.PRODUCT_SKU_ID from
+		( select
+		fa.content_code, count(fa.content_code) AS productFavorCount
+		from
+		Bnes_Favorites FA
+		where fa.favorites_type = 1
+		and fa.content_code
+		in
+		(select ps.product_sku_code
+		from PRODUCTMAIN PM,
+		PRODUCT_SKU PS
+		<isNotNull property="haveCategory">
+			,SHOP_PRODUCT_CATEGORY PC
+		</isNotNull>
+		WHERE pm.product_id = ps.product_id
+		and pm.status = 3
+		and ps.status = 1
+		<isNotNull property="haveCategory">
+			AND PM.PRODUCT_ID = PC.PRODUCT_ID
+			AND
+			PC.SHOP_CATEGORY_ID = #haveCategory:DECIMAL#
+		</isNotNull>
+		<isNotNull property="searchKey">
+			and pm.keyword = #searchKey:DECIMAL#
+		</isNotNull>
+		<isNotNull property="priceStart">
+			and ps.price >= #priceStart:DECIMAL#
+		</isNotNull>
+		<isNotNull property="priceEnd">
+				                  	<![CDATA[
+				                   		and ps.price <= #priceEnd:DECIMAL#
+				                   	]]>
+		</isNotNull>
+		<isNotNull property="supplierId">
+			and pm.shop_code = #supplierId:DECIMAL#
+		</isNotNull>
+
+		)
+		group by fa.content_code
+		) fav ,PRODUCT_SKU PSS
+		WHERE
+		FAV.CONTENT_CODE = PSS.PRODUCT_SKU_ID) FAV
+		<isNotNull property="showNumber">
+				   				 <![CDATA[
+				  					 where  ROWNUM <= #showNumber:number#
+				  			 	]]>
+		</isNotNull>
+		) FAV
+		) FAV,
+		(select Q.SALE_QUANTITY AS productSaleCount,
+		ps.product_sku_code
+		from PRODUCT_SKU_QUANTITY Q ,
+		PRODUCT_SKU PS
+		WHERE Q.PRODUCT_SKU_ID = PS.PRODUCT_SKU_ID
+		)
+		OMM ,
+		(SELECT PN.PRODUCT_TITLE,
+		PU.PRICE,
+		PIE.Img_Path6 as Img_Path7,
+		PU.PRODUCT_SKU_CODE,
+		PU.PRODUCT_SKU_ID,
+		pn.up_time
+		FROM
+		PRODUCTMAIN PN,
+		PRODUCT_SKU PU,
+		PRODUCT_IMAGE PIE
+		WHERE PN.PRODUCT_ID = PU.PRODUCT_ID
+		AND
+		PU.PRODUCT_SKU_ID = PIE.SKU_ID
+		AND PIE.IS_DEFAULT = 0) KPP,
+		(select
+		cav.category_attr_value , psa.product_sku_id from
+		PRODUCT_SKU_ATTR PSA ,
+		CATEGORY_ATTR_VALUE CAV ,
+		PRODUCT_SKU PU
+		where pu.product_sku_id = psa.product_sku_id
+		(+)
+		and psa.category_attr_value_id = cav.category_attr_value_id(+)
+		) va
+		WHERE 1=1
+		AND FAV.content_code =OMM.product_sku_code(+)
+		AND
+		FAV.content_code = KPP.PRODUCT_SKU_CODE(+)
+		and fav.product_sku_id =
+		va.product_sku_id(+)
+		ORDER BY productFavorCount DESC
+		) a
+	</select>
+
+	<!-- 按照上架时间排序 -->
+	<select id="findUptimeProductListRank" resultMap="productRank">
+		select * from (
+		select FAV.productFavorCount ,
+		OMM.productSaleCount,
+		KPP.PRODUCT_TITLE,
+		KPP.PRICE,
+		KPP.IMG_PATH7,
+		KPP.PRODUCT_SKU_ID,
+		KPP.UP_TIME,
+		va.category_attr_value,
+		FAV.CONTENT_CODE
+		from (
+		select bb.* ,
+		rownum from
+		( select ps.product_sku_code as content_code, 0 as
+		productFavorCount,
+		ps.product_sku_id,
+		pm.up_time
+		from
+		PRODUCTMAIN PM, PRODUCT_SKU PS
+		<isNotNull property="haveCategory">
+			,SHOP_PRODUCT_CATEGORY PC
+		</isNotNull>
+		WHERE pm.product_id = ps.product_id
+		and pm.status = 3
+		and ps.status = 1
+		<isNotNull property="haveCategory">
+			AND PM.PRODUCT_ID = PC.PRODUCT_ID
+			AND
+			PC.SHOP_CATEGORY_ID = #haveCategory:DECIMAL#
+		</isNotNull>
+		<isNotNull property="searchKey">
+			and pm.keyword = #searchKey:DECIMAL#
+		</isNotNull>
+		<isNotNull property="priceStart">
+			and ps.price >= #priceStart:DECIMAL#
+		</isNotNull>
+		<isNotNull property="priceEnd">
+			                  	<![CDATA[
+			                   		and ps.price <= #priceEnd:DECIMAL#
+			                   	]]>
+		</isNotNull>
+		<isNotNull property="supplierId">
+			and pm.shop_code = #supplierId:DECIMAL#
+		</isNotNull>
+
+		order by up_time desc
+		) bb
+		<isNotNull property="showNumber">
+				   				 <![CDATA[
+				  					 where  ROWNUM <= #showNumber:number#
+				  			 	]]>
+		</isNotNull>
+		) FAV,
+		(select Q.SALE_QUANTITY AS productSaleCount,
+		ps.product_sku_code
+		from PRODUCT_SKU_QUANTITY Q ,
+		PRODUCT_SKU PS
+		WHERE
+		Q.PRODUCT_SKU_ID = PS.PRODUCT_SKU_ID
+		) OMM ,
+		(SELECT PN.PRODUCT_TITLE,
+		PU.PRICE,
+		PIE.Img_Path6 as Img_Path7,
+		PU.PRODUCT_SKU_CODE,
+		PU.PRODUCT_SKU_ID,
+		pn.up_time
+		FROM PRODUCTMAIN PN,
+		PRODUCT_SKU PU,
+		PRODUCT_IMAGE PIE
+		WHERE
+		PN.PRODUCT_ID = PU.PRODUCT_ID
+		AND PU.PRODUCT_SKU_ID = PIE.SKU_ID
+		AND
+		PIE.IS_DEFAULT = 0) KPP,
+		(select cav.category_attr_value ,
+		psa.product_sku_id from
+		PRODUCT_SKU_ATTR PSA ,
+		CATEGORY_ATTR_VALUE CAV ,
+		PRODUCT_SKU PU
+		where
+		pu.product_sku_id = psa.product_sku_id (+)
+		and
+		psa.category_attr_value_id = cav.category_attr_value_id(+)
+		) va
+		WHERE
+		FAV.content_code = OMM.product_sku_code(+)
+		AND FAV.content_code =
+		KPP.PRODUCT_SKU_CODE(+)
+		and fav.product_sku_id = va.product_sku_id(+)
+		ORDER BY up_time DESC
+		) a
+	</select>
+
+
+
+
+
+
+	<select id="findCateGroysByshopidTui" resultMap="shopCateGroysTui"
+		parameterClass="java.util.Map">
+		select sc.shop_category_id, sc.category_name,sc.is_expandall
+		,sc.is_suggest from shop_categorys sc where 1=1
+		<isNotNull property="shopId" prepend="and">
+			sc.shop_id =
+			#shopId:varchar#
+		</isNotNull>
+		<isNotNull property="recommde" prepend="and">
+			sc.is_suggest =
+			#recommde:number#
+		</isNotNull>
+		and sc.status = 1 and sc.category_level =1
+		order by sortno asc
+	</select>
+
+	<select id="selectSonTui" resultMap="shopSon">
+		SELECT sc.shop_category_id,
+		sc.category_name FROM shop_categorys SC WHERE
+		SC.parent_category_id =
+		#shopCategoryId#
+		and sc.status = 1
+		and sc.is_suggest = 1
+		order by sortno
+		asc
+	</select>
+
+
+	<select id="findCateGroysByshopidAll" resultMap="shopCateGroysAll"
+		parameterClass="java.util.Map">
+		select sc.shop_category_id, sc.category_name,sc.is_expandall
+		,sc.is_suggest from shop_categorys sc where 1=1
+		<isNotNull property="shopId" prepend="and">
+			sc.shop_id =
+			#shopId:varchar#
+		</isNotNull>
+		<isNotNull property="recommde" prepend="and">
+			sc.is_suggest =
+			#recommde:number#
+		</isNotNull>
+		and sc.status = 1 and sc.category_level =1
+		order by sortno asc
+	</select>
+
+	<select id="selectSonAll" resultMap="shopSon">
+		SELECT sc.shop_category_id,
+		sc.category_name FROM shop_categorys SC WHERE
+		SC.parent_category_id =
+		#shopCategoryId#
+		and sc.status = 1
+		order by sortno asc
+	</select>
+
+	<!-- 查询产品价格信息 -->
+	<select id="SQL_QUERY_PRICE_BY_SKU_ID" parameterClass="java.lang.Long"
+		resultMap="priceMap">
+		select ps.product_sku_id,
+		ps.product_id,
+		ps.product_sku_code,
+		ps.price,
+		ps.mark_price,
+		ps.cost_price,
+		ps.pv_value
+		from product_sku ps
+		where ps.product_sku_id = #recommde:number#
+	</select>
+
+
+	<!-- 查询商品库存、状态、价格 详情页面专用 -->
+	<select id="SQL_QUERY_PRODUCT_SKU_INFO_DETAIL_PAGE" parameterClass="java.lang.Long" resultClass="java.util.HashMap">
+	<![CDATA[
+		select sku.product_sku_id skuId,
+		       sku.product_sku_code,
+		       sku.price,
+		       (select max(st.stock_quality - (case
+		                     when st.order_quality < 0 then
+		                      0
+		                     else
+		                      st.order_quality
+		                   end)) productStockSum
+		          from product_stock st
+		         where st.sku_attribute_id = #skuId:number#
+		           and st.stock_quality > 0) productStockSum,
+		       (select pm.status
+		          from productmain pm
+		         where sku.product_id = pm.product_id) status,
+		       sku.status skuStatus
+		  from product_sku sku
+		 where sku.product_sku_id = #skuId:number#
+	]]>		
+	</select>
+
+	<resultMap class="java.util.HashMap" id="comratioMap">
+		<result column="PRODUCTNO" property="PRODUCTNO" jdbcType="VARCHAR" />
+		<result column="COMRATIO" property="COMRATIO" />
+	</resultMap>
+	<!-- 查询返佣率 -->
+	<select id="SQL_QUERY_BATCHCOMRATIO" parameterClass="java.util.List" resultMap="comratioMap">
+		select pm.product_no PRODUCTNO, sac.commission_ratio COMRATIO
+		  from suppliers_available_categorys sac, productmain pm
+		 where sac.supplier_id = to_number(pm.shop_code)
+		   and exists (select 1
+		          from product_sku ps
+		         where pm.product_id = ps.product_id
+		           and ps.product_sku_id in (<iterate conjunction=","> #[]# </iterate>))
+		   and exists (select 1
+		          from categorys c
+		         where sac.category_id = c.parent_id
+		           and c.category_id = pm.category_id)
+	</select>
+
+	<resultMap class="com.kmzyc.b2b.shopcart.vo.CartProduct" id="PROMOTION_PRODUCTS_RESULT_MAP">
+		<result property="productID" column="PRODUCTID" jdbcType="DECIMAL" />
+		<result property="productSkuId" column="PRODUCTSKUID" jdbcType="DECIMAL" />
+		<result property="productSkuCode" column="PRODUCTSKUCODE" jdbcType="VARCHAR" />
+		<result property="unitWeight" column="UNITWEIGHT" jdbcType="DECIMAL" />
+		<result property="price" column="PRICE" jdbcType="DECIMAL" />
+		<result property="finalPrice" column="FINALPRICE" jdbcType="DECIMAL" />
+		<result property="costPrice" column="COSTPRICE" jdbcType="DECIMAL" />
+		<result property="pvalue" column="PVALUE" jdbcType="DECIMAL" />
+		<result property="erpProCode" column="ERPPROCODE" jdbcType="VARCHAR" />
+		<result property="erpSysCode" column="ERPSYSCODE" jdbcType="VARCHAR" />
+		<result property="pvalue" column="PVALUE" jdbcType="DECIMAL" />
+		<result property="costIncomeRatio" column="COSTINCOMERATIO" jdbcType="DECIMAL" />
+		<result property="costIncomeMoney" column="COSTINCOMEMONEY" jdbcType="DECIMAL" />
+		<result property="marketPrice" column="MARKETPRICE" jdbcType="DECIMAL" />
+		<result property="skuStatus" column="SKUSTATUS" jdbcType="DECIMAL" />
+		<result property="productStatus" column="PRODUCTSTATUS" jdbcType="DECIMAL" />
+		<result property="title" column="TITLE" jdbcType="VARCHAR" />
+		<result property="name" column="NAME" jdbcType="VARCHAR" />
+		<result property="productDesc" column="PRODUCTDESC" jdbcType="VARCHAR" />
+		<result property="productNo" column="PRODUCTNO" jdbcType="VARCHAR" />
+		<result property="imagePath" column="IMAGEPATH" jdbcType="VARCHAR" />
+		<result property="supplierCode" column="SUPPLIERCODE" jdbcType="VARCHAR" />
+		<result property="sellerId" column="SELLERID" jdbcType="DECIMAL" />
+		<result property="channel" column="CHANNEL" jdbcType="VARCHAR" />
+		<result property="categoryId" column="CATEGORYID" jdbcType="DECIMAL" />
+		<result property="brandId" column="BRANDID" jdbcType="DECIMAL" />
+		<result property="brandName" column="BRANDNAME" jdbcType="VARCHAR" />
+		<result property="credits" column="credits" jdbcType="DECIMAL" />
+		<result property="batchNo" column="BATCHNO" jdbcType="VARCHAR" />
+		<result property="supplierType" column="SUPPLIERTYPE" jdbcType="VARCHAR" />
+		<result property="productType" column="PRODUCTTYPE" jdbcType="DECIMAL" />
+		<result property="skuAttrValue" column="skuAttrValue" jdbcType="VARCHAR" />
+		<result property="skuBarCode" column="skuBarCode" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 查询活动产品信息 -->
+	<select id="SQL_QUERY_PROMOTION_PRODUCTS" parameterClass="java.util.List"
+		resultMap="PROMOTION_PRODUCTS_RESULT_MAP">
+		select s.product_id productID,
+		s.product_sku_id productSkuId,
+		s.product_sku_code productSkuCode,
+		s.unit_weight unitWeight,
+		nvl(s.price, 0) price,
+		nvl(s.price, 0) finalPrice,
+		s.cost_price costPrice,
+		s.pv_value pvalue,
+		s.sku_bar_code skuBarCode,
+		erp.erp_pro_code erpProCode,
+		erp.sys_code erpSysCode,
+		s.cost_income_ratio costIncomeRatio,
+		s.cost_income_ratio costIncomeMoney,
+		s.mark_price marketPrice,
+		s.status skuStatus,
+		m.status productStatus,
+		m.product_title title,
+		m.procuct_name name,
+		m.product_desc productDesc,
+		m.product_no productNo,
+		i.img_path imagePath,
+		m.shop_code supplierCode,
+		m.shop_code sellerId,
+		m.channel channel,
+		m.category_id categoryId,
+		m.brand_id brandId,
+		m.brand_name brandName,
+		0 credits,
+		'' batchNo,
+		nvl(m.product_type, 0) productType,
+		'' shopName,
+		si.supplier_type supplierType,
+		(select
+		wmsys.wm_concat(vsa.category_attr_value)
+		from view_sku_attr
+		vsa
+		where vsa.product_sku_id = s.product_sku_id) skuAttrValue
+		from
+		product_sku s
+		inner join productmain m
+		on
+		(m.product_id = s.product_id)
+		inner join suppliers_info si
+		on
+		(si.supplier_id = to_number(m.shop_code))
+		left join
+		product_image i
+		on (i.sku_id = s.product_sku_id and
+		i.is_default = 0)
+		left join product_erp_relation erp
+		on
+		(s.product_sku_id = erp.product_sku_id)
+		where s.product_sku_id in (
+		<iterate conjunction=","> #[]# </iterate>
+		)
+	</select>
+	<!-- 查询秒杀产品信息 -->
+	<select id="getSeckillProducts" parameterClass="java.util.HashMap"
+		resultClass="java.lang.String">
+		 select wm_concat(PRODUCT_SKU_ID) as nids
+		    from (select cwdp.PRODUCT_SKU_ID
+		            from CMS_WINDOW_DATA cwdp,
+		                 product_sku sku,
+		                 productmain pm
+		           where cwdp.data_type = 0
+		             and exists (select 1
+		                    from CMS_WINDOW      cw,
+		                         CMS_WINDOW_DATA cwd,
+		                         cms_site        csite
+		                   where csite.engname = 'WAP'
+		                     and cw.SITE_ID = csite.SITE_ID
+		                     and cw.WINDOW_ID = cwd.WINDOW_ID
+		                     and cw.name = #windowName:VARCHAR#
+		                     and cwd.data_type = 4
+		                     and cwd.sort = #week:number#
+		                     and cwdp.window_id = cwd.data_id)
+		             and cwdp.product_sku_id = sku.product_sku_id
+		             and sku.product_id = pm.product_id
+		             and pm.status = 3
+		           order by cwdp.sort)
+	</select>
+	<!-- 查询秒杀产品信息 -->
+	<select id="getWindowDatas" parameterClass="String"
+		resultMap="productSkuWindowResultMap">
+		select cwd.* from
+		CMS_WINDOW
+		cw,CMS_WINDOW_DATA cwd,cms_site cs where cs.engname='WAP' and cw.SITE_ID = cs.SITE_ID and cw.WINDOW_ID=cwd.WINDOW_ID and
+		cw.name =
+		#windowName:VARCHAR# ORDER BY cwd.sort
+	</select>
+	<!-- 根据多个skuId查询sku列表 -->
+	<select id="getProductBySkuIds" resultMap="productSkuResultMap1"
+		parameterClass="java.lang.String">
+		select p.PRODUCT_SKU_ID,p.PRODUCT_ID,p.PV_VALUE,p.PRICE,p.PRODUCT_SKU_CODE,p.UNIT_WEIGHT,p.mark_price,pm.PROCUCT_NAME,pm.PRODUCT_TITLE,pm.status ,pi.IMG_PATH, (select max(st.stock_quality -
+		st.order_quality)
+		productStockSum
+		from product_stock st
+		where
+		st.sku_attribute_id = p.product_sku_id
+		and st.stock_quality > 0
+		and
+		st.order_quality >= 0) st_stock
+		from product_sku p , PRODUCT_IMAGE pi ,productmain pm
+		where p.product_sku_id in ($skuIds$) and p.PRODUCT_ID = pm.PRODUCT_ID
+		and pi.SKU_ID = p.product_sku_id and pi.IS_DEFAULT='0'
+		ORDER BY instr('$skuIds$',p.PRODUCT_SKU_ID)
+	</select>
+	<!-- 查询推荐产品 -->
+	<select id="getRecommendProduct" resultMap="recommandProductSkuResultMap"
+		 parameterClass="pagination">
+		 <![CDATA[
+		select * from(
+		select 
+		ROW_NUMBER() OVER(order by sd.SORTNO) as view_row_number,
+		pk.*,pi.IMG_PATH,pm.PROCUCT_NAME,pm.PRODUCT_TITLE from product_sku pk,SECTIONS s,PRODUCTMAIN pm,
+		SECTIONS_DETAIL sd,PRODUCT_IMAGE pi where 
+		s.SECTIONS_ID =sd.SECTIONS_ID and
+		sd.sku_id=pk.PRODUCT_SKU_ID and pi.SKU_ID = pk.product_sku_id and pm.PRODUCT_ID =pk.PRODUCT_ID  and pi.IS_DEFAULT='0'
+		]]>
+		<isNotEmpty  prepend="and"  property="objCondition.name">
+ 	 		s.SECTIONS_NAME  = #objCondition.name#
+ 	 	</isNotEmpty>
+		) where view_row_number between #startindex:DECIMAL#  and #endindex:DECIMAL#
+	</select>
+	<!-- 查询推荐产品 -->
+	
+	<select id="getRecommendProductCount" resultClass="java.lang.Integer" parameterClass="pagination">
+		<![CDATA[
+		select 
+		count(pk.PRODUCT_SKU_ID)
+		from product_sku pk,SECTIONS s,PRODUCTMAIN pm,
+		SECTIONS_DETAIL sd,PRODUCT_IMAGE pi where s.SECTIONS_ID =sd.SECTIONS_ID and
+		sd.sku_id=pk.PRODUCT_SKU_ID and pi.SKU_ID = pk.product_sku_id and pm.PRODUCT_ID =pk.PRODUCT_ID and pi.IS_DEFAULT='0'
+		]]>
+		<dynamic>
+		<isNotEmpty  prepend="and"  property="objCondition.name">
+ 	 		s.SECTIONS_NAME  = #objCondition.name#
+ 	 	</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 套餐查询 -->
+	<select id="SQL_FIND_PRODUCT_RELATION_SET_MEAL" parameterClass="java.util.HashMap"
+		resultClass="java.util.HashMap" remapResults="true">
+		with groupTab as
+		 (select pr.relation_id relation_id,
+		         sum(ps.price * prd.product_count) sum_relation_sku_price
+		    from product_relation_detail prd
+		    left join product_relation pr
+		      on pr.relation_id = prd.relation_id
+		     <isNotNull property="productRelationType" prepend="and">
+			      pr.relation_type = #productRelationType:number# 
+			  </isNotNull>
+		     and pr.status = 3
+		    left join product_image pi
+		      on pi.sku_id = prd.relation_sku_id
+		     and pi.IS_DEFAULT = 0
+		    left join product_sku ps
+		      on ps.product_sku_id = prd.relation_sku_id
+		   where pr.relation_id in
+		         (select prd.relation_id
+		            from product_relation_detail prd
+		           where 1 = 1
+			      <isNotNull property="productSkuId" prepend="and">
+				      prd.relation_sku_id = #productSkuId:number#
+				  </isNotNull>)
+		   group by pr.relation_id),
+		tab as
+		 (select case relation_sku_id
+		           WHEN to_number(#productSkuId:number#) then
+		            0
+		           else
+		            rownum
+		         end rn,
+		         pm.product_title, 
+		         tab.*
+		    from productmain pm,
+		         (select ps.product_id, tab.*
+		            from (select prd.relation_sku_id     relation_sku_id,
+		                         pr.relation_name        relation_name,
+		                         pr.total_relation_price total_relation_price,
+		                         prd.product_count       product_count,
+		                         ps.price                relation_sku_price,
+		                         pi.img_path6            img_path,
+		                         pr.relation_id
+		                    from product_relation_detail prd
+		                    left join product_relation pr
+		                      on pr.relation_id = prd.relation_id
+						     <isNotNull property="productRelationType" prepend="and">
+							      pr.relation_type = #productRelationType:number# 
+							  </isNotNull>
+		                     and pr.status = 3
+		                    left join product_image pi
+		                      on pi.sku_id = prd.relation_sku_id
+		                     and pi.IS_DEFAULT = 0
+		                    left join product_sku ps
+		                      on ps.product_sku_id = prd.relation_sku_id
+		                   where pr.relation_id in
+		                         (select prd.relation_id
+		                            from product_relation_detail prd
+		                           where 1 = 1
+							      <isNotNull property="productSkuId" prepend="and">
+								      prd.relation_sku_id = #productSkuId:number#
+								  </isNotNull>)) tab
+		            left join product_sku ps
+		              on tab.relation_sku_id = ps.product_sku_id) tab
+		   where pm.product_id = tab.product_id)
+		select tab.relation_id                 relation_id,
+		       tab.relation_name               relation_name,
+		       tab.total_relation_price        total_relation_price,
+		       tab.relation_sku_id             relation_sku_id,
+		       tab.product_count               product_count,
+		       tab.relation_sku_price          relation_sku_price,
+		       tab.img_path                    img_path,
+		       groupTab.sum_relation_sku_price sum_relation_sku_price,
+		       tab.product_title               procuct_name 
+		  from groupTab, tab
+		 where groupTab.relation_id = tab.relation_id
+		 order by tab.relation_id,tab.rn
+		
+	</select>
+	<!-- 组合查询 -->
+	<select id="SQL_FIND_PRODUCT_RELATION_GROUP" parameterClass="java.util.HashMap"
+		resultClass="java.util.HashMap" remapResults="true">
+		with tab as
+		 (select pr.relation_id,
+		         pr.relation_name    relation_name,
+		         prd.relation_sku_id relation_sku_id,
+		         ps.price            relation_sku_price,
+		         pi.img_path6        img_path,
+		         pm.product_title    procuct_name,
+		         ps.price            sum_relation_sku_price
+		    from product_relation_detail prd
+		    left join product_relation pr
+		      on pr.relation_id = prd.relation_id
+		     and pr.status = 1
+		    left join product_image pi
+		      on pi.sku_id = prd.relation_sku_id
+		     and pi.IS_DEFAULT = 0
+		    left join product_sku ps
+		      on ps.product_sku_id = prd.relation_sku_id
+		     and ps.status = 1
+		    left join productmain pm
+		      on ps.product_id = pm.product_id
+		   where pr.relation_id in (select pr.relation_id
+		                              from product_relation pr
+		                             where 1 = 1
+						          <isNotNull property="productRelationType" prepend="and">
+								      pr.relation_type = #productRelationType:number#
+								  </isNotNull>
+						          <isNotNull property="productSkuId" prepend="and">
+								      pr.main_sku_id = #productSkuId:number#
+								  </isNotNull>)
+		     and pm.status = 3)
+		select case relation_sku_id
+		           WHEN to_number(#productSkuId:number#) then
+		            0
+		           else
+		            rownum
+		         end rn,tab2.* from (
+			select tab.*
+			  from tab,
+			       (select sku_attribute_id
+			          from (select max(productStockSum) maxStock, sku_attribute_id
+			                  from (select sum(st.stock_quality - st.order_quality) productStockSum,
+			                               st.sku_attribute_id
+			                          from product_stock st,tab
+			                         where st.sku_attribute_id in
+			                               (tab.relation_sku_id)
+			                           and st.stock_quality > 0
+			                           and st.order_quality >= 0
+			                         group by st.warehouse_id, st.sku_attribute_id)
+			                 group by sku_attribute_id)
+			         where maxStock > 0) skt
+			 where tab.relation_sku_id = skt.sku_attribute_id
+			union
+			select pr.relation_id,
+			       pr.relation_name  relation_name,
+			       ps.product_sku_id relation_sku_id,
+			       ps.price          relation_sku_price,
+			       pi.img_path6      img_path,
+			       pm.product_title  procuct_name,
+			       ps.price          sum_relation_sku_price
+			  from product_sku ps
+			  left join product_image pi
+			    on ps.product_sku_id = pi.sku_id
+			   and pi.IS_DEFAULT = 0
+			  left join product_relation pr
+			    on pr.main_sku_id = ps.product_sku_id
+			  left join productmain pm
+			    on ps.product_id = pm.product_id
+			 where pr.status = 1 
+	          <isNotNull property="productRelationType" prepend="and">
+			      pr.relation_type = #productRelationType:number#
+			  </isNotNull>
+	          <isNotNull property="productSkuId" prepend="and">
+			      pr.main_sku_id = #productSkuId:number#
+			  </isNotNull>) tab2
+			  <isNotNull property="productSkuId" prepend="where">
+			    exists (select sku_attribute_id
+			    from (select max(productStockSum) maxStock, sku_attribute_id
+			            from (select sum(st.stock_quality - st.order_quality) productStockSum,
+			                         st.sku_attribute_id
+			                    from product_stock st
+			                   where st.sku_attribute_id in
+			                         (to_number(#productSkuId:number#))
+			                     and st.stock_quality > 0
+			                     and st.order_quality >= 0
+			                   group by st.warehouse_id, st.sku_attribute_id)
+			           group by sku_attribute_id)
+           		</isNotNull>
+   where maxStock > 0)
+			  <isNotNull property="productSkuId" prepend="and">
+   					 exists (select * from productmain pm,product_sku ps 
+						   where ps.product_id = pm.product_id
+						   and ps.product_sku_id = to_number(#productSkuId:number#)
+						   and  pm.status = 3
+						   )
+           		</isNotNull>
+     order by relation_id,rn
+		
+		
+	</select>
+
+	<!-- 20150921 mlq add 微信组方需求,根据sku条形码查询skuId -->
+	<select id="querySkuIdByBarcode" parameterClass="java.lang.String" resultClass="java.lang.Long">
+		select product_sku_id from product_sku where sku_bar_code=#skuBarCode:VARCHAR#
+	</select>
+	
+	
+	<!-- 20151222 add 提供给返利网相关的sku信息 -->
+	<resultMap class="com.kmzyc.b2b.model.ProductSku" id="skuInfoMapForFanli">
+		<result column="product_sku_id" property="productSkuId" jdbcType="DECIMAL" />
+		<result column="product_id" property="productId" jdbcType="DECIMAL" />
+		<result column="product_sku_code" property="productSkuCode" jdbcType="VARCHAR" />
+		<result column="product_title" property="productTitle" jdbcType="VARCHAR" />
+		<result column="introduce" property="introduce" jdbcType="CLOB" />
+		<result column="price" property="price" jdbcType="DECIMAL" />
+		<result column="status" property="status" jdbcType="DECIMAL" />
+		<result column="product_sku_id" property="imageList" select="ProductSku.queryImagesForSku" />
+		<result column="category_id" property="minCategoryName" select="ProductSku.queryMinCategoryName" />
+		<result column="category_id" property="middleCategoryName" select="ProductSku.queryMiddleCategoryName" />
+		<result column="category_id" property="topCategoryName" select="ProductSku.queryTopCategoryName" />
+	</resultMap>
+	
+	<!-- 20151222 add 返利网需求,查询sku相关信息 -->
+	<select id="querySkuInfoForFanli" parameterClass="java.util.HashMap" resultMap="skuInfoMapForFanli">
+	select pm.product_id,
+       pm.category_id,
+       pm.product_title,
+       pm.introduce,
+       pm.status,
+       ps.price,
+       ps.product_sku_id,
+       ps.product_sku_code
+  	from productmain pm, product_sku ps
+ 		where ps.product_id = pm.product_id
+   		<isNotNull property="productSkuId" prepend="and">
+		      ps.product_sku_id = #productSkuId:DECIMAL#
+		  </isNotNull>
+	</select>
+	
+	<!-- 查询小类名称 20151222 add -->
+	<select id="queryMinCategoryName" parameterClass="java.lang.Long" resultClass="java.lang.String">
+		select category_name from categorys where category_id=#value#
+	</select>
+	
+	<!-- 查询中类名称 20151222 add -->
+	<select id="queryMiddleCategoryName" parameterClass="java.lang.Long" resultClass="java.lang.String">
+		select category_name from categorys where category_id=(select parent_id from categorys where category_id=#value#)
+	</select>
+	
+	<!-- 查询大类名称 20151222 add -->
+	<select id="queryTopCategoryName" parameterClass="java.lang.Long" resultClass="java.lang.String">
+		select category_name from categorys where category_id=(select parent_id from categorys where category_id=(select parent_id from categorys where category_id=#value#))
+	</select>
+	
+	<!-- 查询图片 20151222 add  imgPath是最原始的分辨率,imgPath1是800*800 的-->
+	<select id="queryImagesForSku" parameterClass="java.lang.Long" resultClass="com.kmzyc.b2b.model.ProductImage">
+		select is_default isDefault,img_path imgPath,img_path1 imgPath1 from product_image where sku_id=#value#
+	</select>
+	
+	<!-- 超级返佣金 -->
+	<resultMap class="java.util.HashMap" id="outComRatio">
+		<result column="SKUID" property="SKUID" javaType="java.lang.Long"/>
+		<result column="COMRATIO" property="COMRATIO" />
+	</resultMap>
+	<select id="SQL_QUERY_BATCH_OUT_COM_RATIO" parameterClass="java.util.Map" resultMap="outComRatio">
+		select pco.product_sku_id SKUID, pco.commission/100 COMRATIO
+		  from product_commission_out pco
+		 where pco.sys_code = #syscode:VARCHAR#
+		   and pco.status = 1
+		   and pco.product_sku_id in (<iterate conjunction="," property="skuIds"> #skuIds[]# </iterate>)
+	</select>
+	
+	<!-- 查询普通返佣 -->
+	<select id="SQL_QUERY_BATCH_OUT_NOR_COM_RATIO" parameterClass="java.util.Map" resultMap="comratioMap">
+		select pm.product_no PRODUCTNO, sco.commission/100 COMRATIO
+		  from category_commission_out sco, productmain pm,suppliers_info si
+		 where sco.sys_code = #syscode:VARCHAR# and pm.shop_code = to_char(si.supplier_id) and si.SUPPLIER_TYPE!=1 and si.SUPPLIER_TYPE!=3 
+		   and exists (select 1
+		          from categorys c
+		         where sco.category_id = c.parent_id
+		           and c.category_id = pm.category_id)
+		   and exists (select 1
+		          from product_sku ps
+		         where ps.product_id = pm.product_id
+		           and ps.product_sku_id in (<iterate conjunction="," property="skuIds"> #skuIds[]# </iterate>))
+	</select>
+	
+	<!-- 查询商品类目 -->
+	<resultMap class="java.util.HashMap" id="cateMap">
+		<result column="PRODUCTNO" property="PRODUCTNO"  jdbcType="VARCHAR"/>
+		<result column="CATEGORYID" property="CATEGORYID" javaType="java.lang.Integer"/>
+	</resultMap>
+	<select id="SQL_QUERY_PRODUCT_PARENT_CATE" parameterClass="java.util.List" resultMap="cateMap">
+		select pm.product_no productNo, c.parent_id categoryId
+		  from categorys c, productmain pm
+		 where c.category_id = pm.category_id
+		   and exists (select 1
+		          from product_sku ps
+		         where ps.product_id = pm.product_id
+		           and ps.product_sku_id in (<iterate conjunction=","> #[]# </iterate>))
+	</select>
+	
+	<!-- 产品列表和店铺信息 -->
+	<resultMap id="productAndShopMap" class="com.kmzyc.b2b.model.ProductSku">
+		<result column="shop_id" property="shopId" jdbcType="DECIMAL" />
+		<result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+		<result column="file_path" property="logoPath" jdbcType="VARCHAR" />
+		<result column="product_title" property="productTitle" jdbcType="VARCHAR" />
+		<result column="product_subtitle" property="productName" jdbcType="VARCHAR" />
+		<result column="market_price" property="marketPrice" jdbcType="DECIMAL" />
+		<result column="price" property="costPrice" jdbcType="DECIMAL" />
+		<result column="product_sku_id" property="productSkuCode" jdbcType="VARCHAR" />
+		<result column="img_path7" property="imageUrl" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="queryProductAndShopBySupplierId" parameterClass="pagination" resultMap="productAndShopMap">
+		<![CDATA[
+	       select * from (select rownum rn,c.* from (
+			    select sm.shop_id,
+				       sm.shop_name,
+				       sm.file_path,
+				       pm.product_title,
+				       pm.product_subtitle,
+				       pm.market_price,
+				       ps.price,
+				       ps.product_sku_id,
+             		   pi.img_path7
+				  from shop_main sm
+		          left join productmain pm 
+		            on sm.shop_id = pm.shop_code
+		          left join product_sku ps
+		            on ps.product_id = pm.product_id
+		          left join product_image pi
+		            on ps.product_sku_id = pi.sku_id
+		         where sm.supplier_id = '$objCondition.supplierId$'
+			     )c where rownum <= #endindex#) where rn >= #startindex#
+		   ]]>
+	</select>
+	
+	<!-- 产品列表和店铺总数 -->
+	<select id="queryProductAndShopBySupplierIdCount" resultClass="java.lang.Integer" parameterClass="pagination">
+		<![CDATA[
+		 select count(1)
+			   from shop_main sm
+	          left join productmain pm 
+	            on sm.shop_id = pm.shop_code
+	          left join product_sku ps
+	            on ps.product_id = pm.product_id
+	          left join product_image pi
+	            on ps.product_sku_id = pi.sku_id
+	         where sm.supplier_id = '$objCondition.supplierId$'
+		]]>
+	</select>
+	
+</sqlMap>

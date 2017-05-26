@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="KMORDER_EXPRESS_LOG" >
+  <resultMap id="baseResultMap" class="com.kmzyc.express.entities.ExpressLog" >
+    <result column="EXPRESS_LOG_ID" property="expressLogId" jdbcType="DECIMAL" />
+    <result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_NAME" property="logisticsName" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_CODE" property="logisticsCode" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_NO" property="logisticsNo" jdbcType="VARCHAR" />
+    <result column="NODE" property="node" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="date" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="MARK" property="mark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="mapWhereClause">
+   <dynamic prepend="WHERE">
+  	<!--订单号 -->
+  	<isNotEmpty prepend="AND" property="orderCode">
+			ORDER_CODE like '%'||#orderCode#||'%'
+	</isNotEmpty>
+  	<!-- 物流单号 -->
+  	<isNotEmpty prepend="AND" property="logisticsNo">
+			LOGISTICS_NO like '%'||#logisticsNo#||'%'
+	</isNotEmpty>	
+	<!-- 日志生成时间 -->
+	<isNotEmpty prepend="AND" property="createDateStart">
+		<![CDATA[
+	    	CREATE_DATE >= to_date(#createDateStart#,'yyyy-MM-dd HH24:mi:ss')     
+	    ]]>
+     </isNotEmpty>
+     <isNotEmpty prepend="AND" property="createDateEnd">
+	 	<![CDATA[
+	    	CREATE_DATE <=  to_date(#createDateEnd#,'yyyy-MM-dd HH24:mi:ss')       
+	    ]]>
+     </isNotEmpty>
+    <!-- 节点-->
+  	<isNotEmpty prepend="AND" property="node">
+			NODE = #node#
+	</isNotEmpty>
+    <!-- 日志状态 -->
+  	<isNotEmpty prepend="AND" property="status">
+			STATUS = #status#
+	</isNotEmpty>
+	</dynamic>
+  </sql>
+  
+  <select id="queryExpressLogList" resultMap="baseResultMap" parameterClass="java.util.Map" >
+   SELECT  EXPRESS_LOG_ID,ORDER_CODE,LOGISTICS_NAME,LOGISTICS_CODE,
+   		   LOGISTICS_NO,NODE,CREATE_DATE,STATUS,MARK 
+   		FROM (SELECT INNER_TABLE.*, ROWNUM RN
+               FROM (SELECT *
+                       FROM EXPRESS_LOG
+                        <isParameterPresent >  
+                        	<include refid="KMORDER_EXPRESS_LOG.mapWhereClause" />
+    					</isParameterPresent>
+                       ORDER BY CREATE_DATE ) INNER_TABLE
+              WHERE ROWNUM &lt;= #endRow#) OUT_TABLE
+ 	WHERE RN &gt;= #startRow#
+  </select>
+  
+  <select id="queryExpressLogCount" resultClass="java.lang.Integer" parameterClass="java.util.Map" >
+   SELECT COUNT(1) FROM EXPRESS_LOG
+    <isParameterPresent >
+      <include refid="KMORDER_EXPRESS_LOG.mapWhereClause" />
+    </isParameterPresent>
+  </select>
+  
+   <insert id="insertExpressLog" parameterClass="com.kmzyc.express.entities.ExpressLog" >
+    <selectKey keyProperty="expressLogId" resultClass="java.math.BigDecimal" >
+    	SELECT SEQ_EXPRESS_SUB_LOG.NEXTVAL FROM DUAL
+ 	</selectKey>
+   
+    insert into EXPRESS_LOG
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="expressLogId" >
+        EXPRESS_LOG_ID
+      </isNotNull>
+      <isNotNull prepend="," property="orderCode" >
+        ORDER_CODE
+      </isNotNull>
+      <isNotNull prepend="," property="logisticsName" >
+        LOGISTICS_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="logisticsCode" >
+        LOGISTICS_CODE
+      </isNotNull>
+      <isNotNull prepend="," property="logisticsNo" >
+        LOGISTICS_NO
+      </isNotNull>
+      <isNotNull prepend="," property="node" >
+        NODE
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        STATUS
+      </isNotNull>
+      <isNotNull prepend="," property="mark" >
+        MARK
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="expressLogId" >
+        #expressLogId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="orderCode" >
+        #orderCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="logisticsName" >
+        #logisticsName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="logisticsCode" >
+        #logisticsCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="logisticsNo" >
+        #logisticsNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="node" >
+        #node:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        #createDate#
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        #status:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="mark" >
+        #mark:VARCHAR#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  
+</sqlMap>

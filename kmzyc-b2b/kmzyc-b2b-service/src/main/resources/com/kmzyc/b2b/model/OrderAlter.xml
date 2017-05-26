@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="OrderAlter">
+
+	<typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+	<typeAlias alias="orderItem" type="com.kmzyc.b2b.model.OrderItem" />
+
+	<resultMap id="orderAlterResultMap" class="com.kmzyc.b2b.model.OrderAlter">
+	    <result column="ORDER_ALTER_ID" jdbcType="DECIMAL" property="orderAlterId" />
+	    <result column="ORDER_CODE" jdbcType="VARCHAR" property="orderCode" />
+	    <result column="PROPOSER" jdbcType="VARCHAR" property="proposer" />
+	    <result column="CHECKER" jdbcType="VARCHAR" property="checker" />
+	    <result column="PROPOSE_STATUS" jdbcType="DECIMAL" property="proposeStatus" />
+	    <result column="CREATE_DATE" jdbcType="date" property="createDate" />
+	    <result column="CHECK_DATE" jdbcType="date" property="checkDate" />
+	    <result column="ALTER_COMMENT" jdbcType="VARCHAR" property="alterComment" />
+	    <result column="BACK_TYPE" jdbcType="DECIMAL" property="backType" />
+	    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+	    <result column="NAME" jdbcType="VARCHAR" property="name" />
+	    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+	    <result column="FINISH_DATE" jdbcType="date" property="finishDate" />
+	    <result column="RUTURN_MONEY" jdbcType="DECIMAL" property="ruturnMoney" />
+	    <result column="FARE_SUBSIDY" jdbcType="DECIMAL" property="fareSubsidy" />
+	    <result column="RUTURN_SUM" jdbcType="DECIMAL" property="ruturnSum" />
+	    <result column="ORDER_ALTER_CODE" jdbcType="VARCHAR" property="orderAlterCode" />
+	    <result column="STOCK_OUT_ID" jdbcType="DECIMAL" property="stockOutId" />
+	    <result column="DISTRIBUTION_ID" jdbcType="DECIMAL" property="distributionId" />
+	    <result column="LOGISTICS_ORDER_NO" jdbcType="VARCHAR" property="logisticsOrderNo" />
+	    <result column="CUSTOMER_LOGISTICS_NO" jdbcType="VARCHAR" property="customerLogisticsNo" />
+	    <result column="ORDER_ITEM_ID" jdbcType="DECIMAL" property="orderItemId" />
+	    <result column="ALTER_TYPE" jdbcType="DECIMAL" property="alterType" />
+	    <result column="ALTER_NUM" jdbcType="DECIMAL" property="alterNum" />
+	    <result column="PHOTO_BATCH_NO" jdbcType="VARCHAR" property="photoBatchNo" />
+	    <result column="EVIDENCE" jdbcType="DECIMAL" property="evidence" />
+	    <result column="LOGISTICS_CODE" jdbcType="VARCHAR" property="logisticsCode" />
+        <result column="CUSTOMER_LOGISTICS_CODE" property="customerLogisticsCode" jdbcType="VARCHAR" />
+	    <result column="ADDRESS_ID" jdbcType="DECIMAL" property="addressId" />
+	    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+	    <result column="DISCOUNT_AMOUNT" jdbcType="DECIMAL" property="discountAmount" />
+	    <result column="FARE_ADDITIONAL" jdbcType="DECIMAL" property="fareAdditional" />
+	    <result column="PREFERENTIAL_AMOUNT" jdbcType="DECIMAL" property="preferentialAmount" />
+	    <result column="AUDIT_COMMENT" property="auditComment" jdbcType="VARCHAR" />
+    	<result column="QUALITY_COMMENT" property="qualityComment" jdbcType="VARCHAR" />
+	    <result column="LOGISTICS_NAME" property="logisticsName" jdbcType="VARCHAR" />
+	    <result column="CUSTOMER_LOGISTICS_NAME" property="customerLogisticsName" jdbcType="VARCHAR" />
+	    <result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+	    <result column="CITY" property="city" jdbcType="VARCHAR" />
+	    <result column="AREA" property="area" jdbcType="VARCHAR" />
+    	<result column="ZIPCODE" property="zipcode" jdbcType="DECIMAL" />
+  	</resultMap>
+  	
+  	<resultMap id="orderAlterWithItemResultMap" extends="orderAlterResultMap" class="com.kmzyc.b2b.model.OrderAlter">
+  		    <result property="orderItem" resultMap="OrderItem.orderItemResultMap" />
+  		    <result column="RETURN_FARE" property = "returnFare" jdbcType="DECIMAL"/>
+  		    <result column="deposit" property = "deposit" jdbcType="DECIMAL"/>
+  		    <result column="finalmoney" property = "finalmoney" jdbcType="DECIMAL"/>
+  		    <result column="compensate" property = "compensate" jdbcType="DECIMAL"/>
+  	</resultMap>
+
+  	<resultMap id="orderAlterWithDefaultImageResultMap" extends="orderAlterResultMap" class="com.kmzyc.b2b.model.OrderAlter">
+  		    <result property="orderItem" resultMap="OrderItem.orderItemWithDefaultImageResultMap" />
+  	</resultMap>
+  	
+  	<sql id="byUserIdCondition">
+			(SELECT CUSTOMER_ID FROM ORDER_MAIN WHERE ORDER_CODE = OA.ORDER_CODE AND ROWNUM = 1)  = #objCondition.userId:NUMBER#
+	</sql>
+	
+  	<sql id="byChannelCondition">
+		AND OA.ORDER_CODE = OM.ORDER_CODE
+	</sql>
+	
+	<sql id="byPageCondition">
+		<isNotEmpty property="objCondition.keyword" prepend="and" open="(" close=")">
+			OA.ORDER_CODE LIKE '%'||#objCondition.keyword#||'%' 
+			OR OA.ORDER_ALTER_CODE LIKE '%'||#objCondition.keyword#||'%' 
+			OR EXISTS
+ 			  (SELECT * FROM ORDER_ITEM B WHERE OA.ORDER_ITEM_ID = B.ORDER_ITEM_ID 
+ 			   AND (B.COMMODITY_NAME LIKE '%'||#objCondition.keyword#||'%' 
+ 			        OR B.COMMODITY_CODE LIKE '%'||#objCondition.keyword#||'%'))
+		</isNotEmpty>
+	</sql>
+	
+	<select id="findByOrderAlterId" parameterClass="int" resultMap="orderAlterResultMap">
+			SELECT OA.*,OT.*
+			 FROM ORDER_ALTER OA, ORDER_ITEM OT, ORDER_MAIN OM
+			WHERE OA.ORDER_ITEM_ID=OT.ORDER__ITEM_ID(+) AND OA.ORDER_ALTER_ID = #orderAlterId:NUMBER#
+			<include refid="byChannelCondition"/>
+	</select>
+	
+	<select id="findByOrderAlterCode" parameterClass="String" resultMap="orderAlterWithItemResultMap">
+			SELECT OA.*,OT.*
+			,(CASE
+		         WHEN EXISTS (SELECT *
+		                 FROM ORDER_ALTER
+		                WHERE ORDER_ITEM_ID = OT.ORDER_ITEM_ID
+		                  AND PROPOSE_STATUS NOT IN (-2, -1, 7)
+		                  AND ROWNUM = 1) THEN
+		          1
+		         ELSE
+		          (CASE
+		            WHEN (SELECT OT.COMMODITY_NUMBER - SUM(ALTER_NUM)
+		                    FROM ORDER_ALTER
+		                   WHERE ALTER_TYPE IN (1,3)
+		                     AND PROPOSE_STATUS = 7
+		                     AND ORDER_ITEM_ID = OT.ORDER_ITEM_ID) = 0 THEN
+		             1
+		            ELSE
+		             0
+		          END)
+		     END) ISRETURNING
+			,0 ISOVERDUE
+			 FROM ORDER_ALTER OA, ORDER_ITEM OT, ORDER_MAIN OM
+			WHERE OA.ORDER_ITEM_ID=OT.ORDER_ITEM_ID(+) AND OA.ORDER_ALTER_CODE = #orderAlterCode:VARCHAR#
+			<include refid="byChannelCondition"/>
+	</select>
+
+	<select id="findByPage" parameterClass="pagination" resultMap="orderAlterWithDefaultImageResultMap">
+		SELECT PT.*,ST.* FROM (SELECT * FROM (SELECT C.*,ROWNUM RN FROM 
+			(SELECT OA.*
+			,(SELECT (CASE
+			         WHEN EXISTS (SELECT *
+			                 FROM ORDER_ALTER
+			                WHERE ORDER_ITEM_ID = IT.ORDER_ITEM_ID
+			                  AND PROPOSE_STATUS NOT IN (-2, -1, 7)
+			                  AND ROWNUM = 1) THEN
+			          1
+			         ELSE
+			          (CASE
+			            WHEN (SELECT IT.COMMODITY_NUMBER - SUM(ALTER_NUM)
+			                    FROM ORDER_ALTER
+			                   WHERE ALTER_TYPE IN (1,3)
+			                     AND PROPOSE_STATUS = 7
+			                     AND ORDER_ITEM_ID = IT.ORDER_ITEM_ID) = 0 THEN
+			             1
+			            ELSE
+			             0
+			          END)
+			       END) 
+			  FROM ORDER_ITEM IT 
+			 WHERE IT.ORDER_ITEM_ID = OA.ORDER_ITEM_ID) ISRETURNING
+			,0 ISOVERDUE
+			 FROM ORDER_ALTER OA, ORDER_MAIN OM
+		<dynamic prepend="WHERE">
+			<include refid="byUserIdCondition" />
+		</dynamic>
+		<dynamic prepend="AND">
+			<include refid="byPageCondition"/>
+		</dynamic>
+		<include refid="byChannelCondition"/>
+		ORDER BY OA.CREATE_DATE DESC
+		) C WHERE ROWNUM &lt;= #endindex#) WHERE RN &gt;= #startindex#) PT,
+			(SELECT IT.*,M.*
+	           FROM ORDER_ITEM IT,
+	                (SELECT SKU.PRODUCT_SKU_CODE,SKU.PRODUCT_SKU_ID,IM.* FROM PRODUCT_SKU SKU,PRODUCT_IMAGE IM
+	                 WHERE SKU.PRODUCT_SKU_ID=IM.SKU_ID AND IM.IS_DEFAULT=0) M
+	          WHERE IT.COMMODITY_SKU=M.PRODUCT_SKU_CODE(+)) ST
+        WHERE PT.ORDER_ITEM_ID=ST.ORDER_ITEM_ID(+)
+        ORDER BY PT.CREATE_DATE DESC
+	</select>
+	
+	<select id="countByPage" parameterClass="pagination" resultClass="int">
+		SELECT count(1) FROM ORDER_ALTER OA, ORDER_MAIN OM
+		<dynamic prepend="WHERE">
+			<include refid="byUserIdCondition" />
+		</dynamic>
+		<dynamic prepend="AND">
+			<include refid="byPageCondition"/>
+		</dynamic>
+		<include refid="byChannelCondition"/>
+	</select>
+
+
+	<select id="findOrderAlterPv" parameterClass="java.util.HashMap"
+		resultMap="orderAlterResultMap">
+		SELECT *
+		FROM  ORDER_ALTER OA
+		WHERE OA.ORDER_CODE = #orderCode:VARCHAR#
+		AND OA.propose_status IN (7, 51, 61)
+		AND OA.ORDER_ITEM_ID =#orderItemId#
+		AND OA.ALTER_TYPE != 2
+	</select>    
+	
+	
+</sqlMap>

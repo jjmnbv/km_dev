@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="KMORDER_EXPRESS_SUBSCRIPTION" >
+  <resultMap id="baseResultMap" class="com.kmzyc.express.entities.ExpressSubscription" >
+    <result column="SUB_ID" property="subId" jdbcType="DECIMAL" />
+    <result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+    <result column="CHANNEL" property="channel" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_NAME" property="logisticsName" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_NO" property="logisticsNo" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_CODE" property="logisticsCode" jdbcType="VARCHAR" />
+    <result column="SUB_DATE" property="subDate" jdbcType="date" />
+    <result column="TRACK_STATUS" property="trackStatus" jdbcType="DECIMAL" />
+    <result column="LATEST_PUSH_STATUS" property="latestPushStatus" jdbcType="DECIMAL" />
+    <result column="LATEST_PUSH_DATE" property="latestPushDate" jdbcType="date" />
+    <result column="EXPRESS_STATUS" property="expressStatus" jdbcType="DECIMAL" />
+    <result column="FROM_CITY" property="fromCity" jdbcType="VARCHAR" />
+    <result column="TO_CITY" property="toCity" jdbcType="VARCHAR" />
+    <result column="USELESS_FLAG" property="uselessFlag" jdbcType="DECIMAL" />
+    <result column="ABORT_COUNT" property="abortCount" jdbcType="DECIMAL" />
+  </resultMap>
+    
+  <resultMap id="subWithTrackDetailResultMap" extends="baseResultMap"
+  		class="com.kmzyc.express.entities.ExpressSubscription" groupBy="subId" >
+    <result property="expressTrackList" resultMap="KMORDER_EXPRESS_TRACK.baseResultMap"/>
+  </resultMap>
+
+   <sql id="mapWhereClause">
+  	<!--订单号 -->
+  	<isNotEmpty prepend="AND" property="orderCode">
+			ORDER_CODE like '%'||#orderCode#||'%'
+	</isNotEmpty>
+	  	<!-- 物流公司编码-->
+  	<isNotEmpty prepend="AND" property="logisticsCode">
+			LOGISTICS_CODE = #logisticsCode#
+	</isNotEmpty>	
+  	<!-- 物流单号 -->
+  	<isNotEmpty prepend="AND" property="logisticsNo">
+			LOGISTICS_NO like '%'||#logisticsNo#||'%'
+	</isNotEmpty>	
+	<!-- 订阅时间 -->
+	<isNotEmpty prepend="AND" property="subDateStart">
+		<![CDATA[
+	    	SUB_DATE >= to_date(#subDateStart#,'yyyy-MM-dd HH24:mi:ss')     
+	    ]]>
+     </isNotEmpty>
+     <isNotEmpty prepend="AND" property="subDateEnd">
+	 	<![CDATA[
+	    	SUB_DATE <=  to_date(#subDateEnd#,'yyyy-MM-dd HH24:mi:ss')       
+	    ]]>
+     </isNotEmpty>
+     <!-- 推送时间-->
+	<isNotEmpty prepend="AND" property="latestPushDateStart">
+		<![CDATA[
+	    	LATEST_PUSH_DATE >= to_date(#latestPushDateStart#,'yyyy-MM-dd HH24:mi:ss')     
+	    ]]>
+     </isNotEmpty>
+     <isNotEmpty prepend="AND" property="latestPushDateEnd">
+	 	<![CDATA[
+	    	LATEST_PUSH_DATE <=  to_date(#latestPushDateEnd#,'yyyy-MM-dd HH24:mi:ss')       
+	    ]]>
+     </isNotEmpty>
+    <!-- 渠道-->
+  	<isNotEmpty prepend="AND" property="channel">
+			CHANNEL = #channel#
+	</isNotEmpty>
+    <!-- 推送状态 -->
+  	<isNotEmpty prepend="AND" property="latestPushStatus">
+			LATEST_PUSH_STATUS = #latestPushStatus#
+	</isNotEmpty>
+	<!-- 跟踪状态 -->
+  	<isNotEmpty prepend="AND" property="trackStatus">
+			TRACK_STATUS = #trackStatus#
+	</isNotEmpty>
+	<!-- 快递状态-->
+  	<isNotEmpty prepend="AND" property="expressStatus">
+			EXPRESS_STATUS = #expressStatus#
+	</isNotEmpty>
+  </sql>
+  
+  <select id="queryExpressSubscriptionList" resultMap="baseResultMap" parameterClass="java.util.Map" >
+   SELECT  SUB_ID,ORDER_CODE,CHANNEL,LOGISTICS_NAME,LOGISTICS_NO,
+       LOGISTICS_CODE,SUB_DATE,TRACK_STATUS,LATEST_PUSH_STATUS,LATEST_PUSH_DATE,EXPRESS_STATUS,FROM_CITY, TO_CITY,USELESS_FLAG,ABORT_COUNT
+	FROM (SELECT INNER_TABLE.*, ROWNUM RN
+               FROM (SELECT *
+                       FROM EXPRESS_SUBSCRIPTION  WHERE USELESS_FLAG = 1
+                       <isParameterPresent >  
+                       	<include refid="KMORDER_EXPRESS_SUBSCRIPTION.mapWhereClause" />
+                       </isParameterPresent>
+                       ORDER BY SUB_DATE) INNER_TABLE
+              WHERE ROWNUM &lt;= #endRow#) OUT_TABLE
+ 	WHERE RN &gt;= #startRow#  
+  </select>
+
+  <select id="queryExpressSubscriptionCount" resultClass="java.lang.Integer"  parameterClass="java.util.Map" >
+   SELECT COUNT(1) FROM EXPRESS_SUBSCRIPTION WHERE  USELESS_FLAG = 1
+    <isParameterPresent >
+      <include refid="KMORDER_EXPRESS_SUBSCRIPTION.mapWhereClause" />
+    </isParameterPresent>
+  </select>
+  
+  <!-- 根据物流单号和公司编码查询订阅记录数量 -->
+  <select id="querySubCountByLosCodeAndNo" resultClass="java.lang.Integer"  parameterClass="java.util.Map" >
+   SELECT COUNT(1) FROM EXPRESS_SUBSCRIPTION WHERE  USELESS_FLAG = 1
+    AND LOGISTICS_CODE = #logisticsCode#
+    AND LOGISTICS_NO =#logisticsNo#
+  </select>
+  
+   <!-- 根据物流单号和公司编码查询订阅记录 -->
+  <select id="querySubscriptionByLosCodeAndNo" resultMap="baseResultMap"  parameterClass="java.util.Map" >
+   SELECT 
+   	SUB_ID,ORDER_CODE,CHANNEL,LOGISTICS_NAME,LOGISTICS_NO,
+       LOGISTICS_CODE,SUB_DATE,TRACK_STATUS,LATEST_PUSH_STATUS,LATEST_PUSH_DATE,EXPRESS_STATUS,FROM_CITY, TO_CITY,USELESS_FLAG,ABORT_COUNT
+    FROM EXPRESS_SUBSCRIPTION WHERE  USELESS_FLAG = 1
+    AND LOGISTICS_CODE = #logisticsCode#
+    AND LOGISTICS_NO =#logisticsNo#
+  </select>
+  
+  <select id="queryExpressSubWithTrackDetail" resultMap="subWithTrackDetailResultMap" parameterClass="java.util.Map" >
+    SELECT 
+    	s.SUB_ID,s.ORDER_CODE,s.CHANNEL,s.LOGISTICS_NAME,s.LOGISTICS_NO,s.LOGISTICS_CODE,s.SUB_DATE,
+    	s.TRACK_STATUS,s.LATEST_PUSH_STATUS,s.LATEST_PUSH_DATE,s.EXPRESS_STATUS,s.FROM_CITY,s.TO_CITY,s.USELESS_FLAG,s.ABORT_COUNT,
+       	t.TRACK_ID,t.TRACK_DATE,t.TRACK_MSG 
+     FROM EXPRESS_SUBSCRIPTION s ,EXPRESS_TRACK t  WHERE  s.USELESS_FLAG = 1 AND s.SUB_ID = t.SUB_ID(+) 
+    	<isNotEmpty prepend="AND" property="subId">
+         	 s.SUB_ID = #subId#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="logisticsCode">
+         	 s.LOGISTICS_CODE = #logisticsCode#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="logisticsNo">
+         	 s.LOGISTICS_NO = #logisticsNo#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="orderCode">
+         	 s.ORDER_CODE = #orderCode#
+        </isNotEmpty>
+        ORDER BY t.TRACK_DATE DESC
+  </select>
+  
+   <select id="selectSubscriptionByPrimaryKey" resultMap="baseResultMap" parameterClass="com.kmzyc.express.entities.ExpressSubscription" >
+   SELECT  SUB_ID,ORDER_CODE,CHANNEL,LOGISTICS_NAME,LOGISTICS_NO,
+       LOGISTICS_CODE,SUB_DATE,TRACK_STATUS,LATEST_PUSH_STATUS,LATEST_PUSH_DATE,EXPRESS_STATUS,FROM_CITY, TO_CITY,USELESS_FLAG,ABORT_COUNT
+	FROM EXPRESS_SUBSCRIPTION
+	WHERE SUB_ID = #subId#
+  </select>
+    
+  <!-- 查询所有中止,但依然可以重新订阅的记录 -->
+   <select id="queryAllAbortExpressSubscriptionList" resultMap="baseResultMap" parameterClass="java.util.Map" >
+	select SUB_ID, ORDER_CODE, CHANNEL, LOGISTICS_NAME, LOGISTICS_NO, LOGISTICS_CODE, SUB_DATE,
+      TRACK_STATUS, LATEST_PUSH_STATUS, LATEST_PUSH_DATE, EXPRESS_STATUS,FROM_CITY, TO_CITY,USELESS_FLAG,ABORT_COUNT
+    from EXPRESS_SUBSCRIPTION
+    WHERE USELESS_FLAG = #uselessFlag# 
+    AND TRACK_STATUS = #trackStatus#
+    <![CDATA[
+     	AND nvl(ABORT_COUNT,0) < #maxCount#
+	    AND	LATEST_PUSH_DATE <= to_date(#latestPushDateEnd#,'yyyy-MM-dd HH24:mi:ss')     
+	    ]]>
+  </select>
+  
+  
+  <delete id="deleteSubScriptionByPrimaryKey" parameterClass="com.kmzyc.express.entities.ExpressSubscription" >
+    delete from EXPRESS_SUBSCRIPTION
+    where SUB_ID = #subId:DECIMAL#
+  </delete>
+  
+  <insert id="insertSubscription" parameterClass="com.kmzyc.express.entities.ExpressSubscription" >
+    <selectKey keyProperty="subId" resultClass="java.math.BigDecimal" >
+    	SELECT SEQ_EXPRESS_SUB.NEXTVAL FROM DUAL
+ 	</selectKey>
+    insert into EXPRESS_SUBSCRIPTION
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="subId" >
+        SUB_ID
+      </isNotNull>
+      <isNotNull prepend="," property="orderCode" >
+        ORDER_CODE
+      </isNotNull>
+      <isNotNull prepend="," property="channel" >
+        CHANNEL
+      </isNotNull>
+      <isNotNull prepend="," property="logisticsName" >
+        LOGISTICS_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="logisticsNo" >
+        LOGISTICS_NO
+      </isNotNull>
+      <isNotNull prepend="," property="logisticsCode" >
+        LOGISTICS_CODE
+      </isNotNull>
+      <isNotNull prepend="," property="subDate" >
+        SUB_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="trackStatus" >
+        TRACK_STATUS
+      </isNotNull>
+      <isNotNull prepend="," property="latestPushStatus" >
+        LATEST_PUSH_STATUS
+      </isNotNull>
+      <isNotNull prepend="," property="latestPushDate" >
+        LATEST_PUSH_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="expressStatus" >
+        EXPRESS_STATUS
+      </isNotNull>
+   	  <isNotNull prepend="," property="fromCity" >
+        FROM_CITY
+      </isNotNull>
+      <isNotNull prepend="," property="toCity" >
+        TO_CITY
+      </isNotNull>
+       <isNotNull prepend="," property="uselessFlag" >
+        USELESS_FLAG
+      </isNotNull>
+      <isNotNull prepend="," property="abortCount" >
+        ABORT_COUNT
+      </isNotNull> 
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="subId" >
+        #subId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="orderCode" >
+        #orderCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="channel" >
+        #channel:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="logisticsName" >
+        #logisticsName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="logisticsNo" >
+        #logisticsNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="logisticsCode" >
+        #logisticsCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="subDate" >
+        #subDate#
+      </isNotNull>
+      <isNotNull prepend="," property="trackStatus" >
+        #trackStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="latestPushStatus" >
+        #latestPushStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="latestPushDate" >
+        #latestPushDate#
+      </isNotNull>
+      <isNotNull prepend="," property="expressStatus" >
+        #expressStatus:DECIMAL#
+      </isNotNull>
+  	  <isNotNull prepend="," property="fromCity" >
+        #fromCity:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="toCity" >
+        #toCity:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="uselessFlag" >
+        #uselessFlag:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="abortCount" >
+        #abortCount:DECIMAL#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  
+  <update id="updateSubscriptionByPrimaryKey" parameterClass="com.kmzyc.express.entities.ExpressSubscription" >
+    update EXPRESS_SUBSCRIPTION
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="orderCode" >
+        ORDER_CODE = #orderCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="channel" >
+        CHANNEL = #channel:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="logisticsName" >
+        LOGISTICS_NAME = #logisticsName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="logisticsNo" >
+        LOGISTICS_NO = #logisticsNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="logisticsCode" >
+        LOGISTICS_CODE = #logisticsCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="subDate" >
+        SUB_DATE = #subDate#
+      </isNotNull>
+      <isNotNull prepend="," property="trackStatus" >
+        TRACK_STATUS = #trackStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="latestPushStatus" >
+        LATEST_PUSH_STATUS = #latestPushStatus:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="latestPushDate" >
+        LATEST_PUSH_DATE = #latestPushDate#
+      </isNotNull>
+      <isNotNull prepend="," property="expressStatus" >
+        EXPRESS_STATUS = #expressStatus:DECIMAL#
+      </isNotNull>
+  	  <isNotNull prepend="," property="fromCity" >
+        FROM_CITY = #fromCity:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="toCity" >
+        TO_CITY = #toCity:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="uselessFlag" >
+        USELESS_FLAG = #uselessFlag:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="abortCount" >
+        ABORT_COUNT = #abortCount:DECIMAL#
+      </isNotNull> 
+    </dynamic>
+    where SUB_ID = #subId:DECIMAL#
+  </update>
+</sqlMap>

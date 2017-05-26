@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="LIVE800">
+
+	<select id="getUserId" parameterClass="java.lang.String" resultClass="java.lang.Long">
+		select l.n_login_id from login_info l where l.login_account = #userName:VARCHAR#
+	</select>
+	
+	<resultMap class="java.util.HashMap" id="RS_LIVE800_CUSTOM_INFO">
+		<result column="LOGINID" property="loginId" jdbcType="DECIMAL" />
+		<result column="EVELID" property="evelId" jdbcType="DECIMAL" />
+		<result column="LOGINACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="REGIESTDATE" property="regiestDate" jdbcType="DATE" />
+		<result column="PERSONALID" property="personalId" jdbcType="DECIMAL" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="BIRTHDAY" property="birthday" jdbcType="DATE" />
+		<result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+		<result column="CITY" property="city" jdbcType="VARCHAR" />
+		<result column="AREA" property="area" jdbcType="VARCHAR" />
+		<result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+		<result column="PROFESSION" property="profession" jdbcType="VARCHAR" />
+		<result column="PROFESSIONTYPE" property="professionType" jdbcType="VARCHAR" />
+		<result column="LIVESTATUS" property="liveStatus" jdbcType="DECIMAL" />
+		<result column="SEX" property="sex" jdbcType="VARCHAR" />
+		<result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+		<result column="AVAILSCORE" property="availScore" jdbcType="DECIMAL" />
+		<result column="LEVELNAME" property="levelName" jdbcType="VARCHAR" />
+		<result column="AMOUNTAVLIBAL" property="amountAvlibal" jdbcType="DECIMAL" />
+		<result column="maritalStatus" property="maritalStatus" jdbcType="DECIMAL" />
+	</resultMap>
+	<!-- 获取用户的基本信息 -->
+	<select id="SQL_QUERY_CUSTOM_INFO" parameterClass="java.lang.Long" resultMap="RS_LIVE800_CUSTOM_INFO">
+		select l.n_login_id loginId,
+		       l.n_level_id evelId,
+		       l.login_account loginAccount,
+		       l.mobile mobile,
+		       l.email email,
+		       l.d_create_date regiestDate,
+		       pb.n_personal_id personalId,
+		       pb.name name,
+		       pb.d_birthday birthday,
+		       pb.province province,
+		       pb.city city,
+		       pb.area area,
+		       pb.detailedaddress address,
+		       pb.profession_type professionType,
+		       pb.n_certificate_type profession,
+		       pb.live_status liveStatus,
+		       pb.sex sex,
+		       pi.nickname nickname,
+		       pi.n_available_integral availScore,
+		       (select le.level_name
+		          from user_level le
+		         where le.n_level_id = l.n_level_id) levelName,
+		       (select a.amount_avlibal
+		          from account_info a
+		         where a.n_login_id = l.n_login_id) amountAvlibal,
+		       (select h.n_marital_status
+		          from health_ygeneric_info h
+		         where h.n_login_id = l.n_login_id) maritalStatus
+		  from login_info l, personality_info pi, personal_basic_info pb
+		 where l.n_login_id = pi.n_login_id
+		   and l.n_login_id = pb.n_login_id
+		   and l.n_login_id = #userId:NUMBER#
+	</select>
+	
+	<resultMap class="java.util.HashMap" id="RS_LIVE800_ADDRESS">
+		<result column="ADDID" property="addId" jdbcType="DECIMAL" />
+		<result column="ACCID" property="accId" jdbcType="DECIMAL" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+		<result column="CITY" property="city" jdbcType="VARCHAR" />
+		<result column="AREA" property="area" jdbcType="VARCHAR" />
+		<result column="DETAILADD" property="detailAdd" jdbcType="VARCHAR" />
+		<result column="POSTALCODE" property="postalCode" jdbcType="VARCHAR" />
+		<result column="ADDNAME" property="addName" jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="TEL" property="tel" jdbcType="VARCHAR" />
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="VARCHAR" />
+		<result column="UPDATEDATE" property="updateDate" jdbcType="DATE" />
+		<result column="CREATEDATE" property="createDate" jdbcType="DATE" />
+	</resultMap>
+	
+	<!-- 不在使用，请关注AddressService 获取用户收获地址信息 -->
+	<select id="SQL_QUERY_ADDRESS" parameterClass="java.lang.Long" resultMap="RS_LIVE800_ADDRESS">
+		   select addr.n_address_id    addId,
+		          addr.n_account_id    accId,
+		          ai.account_login     accLogin,
+		          addr.name            name,
+		          addr.province        province,
+		          addr.city            city,
+		          addr.area            area,
+		          addr.detailedaddress detailAdd,
+		          addr.postalcode      postalCode,
+		          addr.add_name        addName,
+		          addr.email           email,
+		          ai.n_login_id        loginId,
+		          addr.telephone       tel,
+		          addr.cellphone       mobile,
+		          addr.status          status,
+		          addr.d_createdate    createDate,
+		          addr.d_lastupdate    updateDate
+		     from address addr, account_info ai
+		    where addr.n_account_id = ai.n_account_id
+		      and ai.n_login_id = #userId:NUMBER#
+	</select>
+</sqlMap>

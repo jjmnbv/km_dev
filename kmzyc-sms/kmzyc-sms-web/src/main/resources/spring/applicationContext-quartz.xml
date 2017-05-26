@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<!-- Timer schedule -->  
+	  
+	<!--要调度的对象--> 
+	<!--定时发送-->                                 
+	<bean id="jobBean" class="com.kmzyc.mailmobile.quartz.ScanMsgAndSend" />
+	<bean id="timelyJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	    <property name="targetObject" ref="jobBean" />  
+	    <property name="targetMethod" value="scanMsgAndSendTiming" />  
+	    <!--将并发设置为false-->  
+	    <property name="concurrent" value="false" />  
+	</bean>  
+	<bean id="timelyTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">  
+        <property name="jobDetail" ref="timelyJobDetail" />  
+         <!--表达式，我的是每 30 执行一次-->  
+        <property name="cronExpression" value="0/15 * * * * ?" />
+	</bean> 
+	
+	<!--立即发送--> 
+   <bean id="timingJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+	    <property name="targetObject" ref="jobBean" />  
+	    <property name="targetMethod" value="scanMsgAndSendTimely" />  
+	    <!--将并发设置为false-->  
+	    <property name="concurrent" value="false" />  
+	</bean>  
+	<bean id="timingTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">  
+        <property name="jobDetail" ref="timingJobDetail" />  
+        <!--表达式，我的是每 10 执行一次-->
+        <property name="cronExpression" value="0/10 * * * * ?" /> 
+	</bean> 
+
+	  
+	<!--  总管理类如果将lazy-init='false'那么容器启动就会执行调度程序   -->  
+	<bean id="startQuertz" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false" >  
+        <property name="triggers">  
+            <list>  
+                <!--作业调度器,list下可加入其他的调度器-->  
+            	<ref bean="timelyTrigger" /> 
+            	<ref bean="timingTrigger" />
+            </list>  
+    	</property>  
+	</bean>  
+
+</beans>

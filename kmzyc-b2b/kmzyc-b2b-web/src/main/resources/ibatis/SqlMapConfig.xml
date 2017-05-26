@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+    <settings cacheModelsEnabled="true" enhancementEnabled="true"
+              lazyLoadingEnabled="true" maxRequests="32" maxSessions="10"
+              maxTransactions="5" useStatementNamespaces="true"/>
+    <sqlMap resource="com/kmzyc/b2b/model/Company.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/Productmain.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/ProductSku.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/TiedSade.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/ProductImage.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/ScoreRule.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/PromotionRuleData.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/PromotionInfo.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/User.xml"/>
+
+    <sqlMap resource="com/kmzyc/b2b/model/Address.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/UserInfo.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/RechargeDetails.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/BrowsingHis.xml"/>
+
+    <sqlMap resource="com/kmzyc/b2b/model/OrderItem.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/OrderMain.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/Favorite.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/Information.xml"/>
+
+    <sqlMap resource="com/kmzyc/b2b/model/OrderAlter.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/OrderAlterPhoto.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/FareType.xml"/>
+
+    <sqlMap resource="com/kmzyc/b2b/model/AccountInfo.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/addressInfo.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/OrderDictionary.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/SiteNoticeSqlMap.xml"/>
+
+    <sqlMap resource="com/kmzyc/b2b/model/Coupon.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/CouponGrant.xml"/>
+
+    <sqlMap resource="com/kmzyc/b2b/model/ScoreInfo.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/UserLevel.xml"/>
+
+    <sqlMap resource="com/kmzyc/b2b/model/MobileCodeInf.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/RelevanceSKU.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/OrderOperateStatement.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/ProductStock.xml"/>
+
+    <sqlMap resource="com/kmzyc/b2b/model/Consult.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/ProdAppraise.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/PersonalityInfo.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/CmsPromotionTask.xml"/>
+
+    <sqlMap resource="com/kmzyc/b2b/model/TraceInfo.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/AppraiseReply.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/BnesAcctTransaction.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/OrderPayStatement.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/OrderAssessDetail.xml"/>
+
+    <sqlMap resource="com/kmzyc/b2b/model/ProductRelation.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/ProductRelationDetailAll.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/ViewProductRelationPurchase.xml"/>
+
+    <sqlMap resource="com/kmzyc/b2b/model/MyEvaluate.xml"/>
+
+    <sqlMap resource="com/kmzyc/b2b/model/AppraiseAddtoContent.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/ProductSkuQuantity.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/KeyWords.xml"/>
+
+    <sqlMap resource="com/kmzyc/b2b/model/CarProduct.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/PromotionProduct.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/AppVersion.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/ProductSkuAttr.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/Categorys.xml"/>
+
+    <sqlMap resource="com/kmzyc/b2b/model/ThirdAccountInfo.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/ThirdBindInfo.xml"/>
+
+    <!-- <sqlMap resource="com/kmzyc/b2b/model/LUCK_DRAW_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/RULE_INFO_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/RULES_TABLES_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/Extract_prize_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/ZhuRule_8_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/ZjRule_9_SqlMap.xml"/>
+   <sqlMap resource="com/kmzyc/b2b/model/ZjRule_10_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/ZjRule_11_SqlMap.xml"/>-->
+    <!--<sqlMap resource="com/kmzyc/b2b/model/Awards_SqlMap.xml"/>-->
+    <!--<sqlMap resource="com/kmzyc/b2b/model/CRULE_1_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/CRULE_2_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/CRULE_3_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/CRULE_4_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/CRULE_5_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/CRULE_6_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/CRULE_7_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/CRULE_8_SqlMap.xml"/>-->
+    <!--<sqlMap resource="com/kmzyc/b2b/model/LOTTERY_CRULE_9_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/CRULE9_EXTENT_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/CRULE8_EXTENT_SqlMap.xml"/>-->
+    <!--<sqlMap resource="com/kmzyc/b2b/model/WIN_PRIZE_SqlMap.xml"/>-->
+    <!--<sqlMap resource="com/kmzyc/b2b/model/PRIZE_SqlMap.xml"/>-->
+    <!--<sqlMap resource="com/kmzyc/b2b/model/Extract_PrizeVo_SqlMap.xml"/>-->
+
+    <sqlMap resource="com/kmzyc/b2b/model/CmsAppManager.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/SUPPLIER_NEWS_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/PromotionStatistics.xml"/>
+    <sqlMap
+            resource="com/kmzyc/b2b/model/KMUSER_COMMERCIAL_TENANT_BASIC_INFO_SqlMap.xml"/>
+
+    <!-- 微信春节摇一摇 maliqun add begin -->
+    <sqlMap resource="com/kmzyc/b2b/model/wx/WX_CONSUME_CODE_RECORD_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/wx/WX_RESERVATION_SqlMap.xml"/>
+    <!--maliqun add end -->
+
+    <sqlMap resource="com/kmzyc/b2b/model/WX_RESERVATION_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/ERA_INFO_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/RefData.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/shopcart/NormalCartProduct.xml"></sqlMap>
+
+
+    <!-- CMS -->
+
+    <!--活动 -->
+    <sqlMap resource="com/kmzyc/b2b/model/activity.xml"></sqlMap>
+
+    <sqlMap resource="com/kmzyc/b2b/model/CmsWindowData.xml"></sqlMap>
+
+    <sqlMap resource="com/kmzyc/b2b/model/supplier/SHOP_INFO_SqlMap.xml"></sqlMap>
+    <sqlMap resource="com/kmzyc/b2b/model/wx/WX_SCAN_PRODUCT_SqlMap.xml"/>
+    <!-- oms product -->
+    <sqlMap resource="com/kmzyc/b2b/model/omsProduct/PRODUCT_STOCK_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/omsProduct/DISTRIBUTION_INFO_SqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/omsProduct/PRODUCT_SqlMap.xml"/>
+
+    <!-- Live800 -->
+    <sqlMap resource="com/kmzyc/b2b/model/LIVE800_SqlMap.xml"></sqlMap>
+
+    <!-- presell -->
+    <sqlMap resource="com/kmzyc/b2b/model/PresellProduct.xml"></sqlMap>
+
+    <sqlMap resource="com/kmzyc/b2b/model/EM_MSG_SEND_TASK_SqlMap.xml"></sqlMap>
+    <sqlMap resource="com/kmzyc/b2b/model/ORDER_SYNC_SqlMap.xml"></sqlMap>
+    <sqlMap resource="com/kmzyc/b2b/model/EmailRpsInfoSqlMap.xml"/>
+    <sqlMap resource="com/kmzyc/b2b/model/EmailRrsHisSqlMap.xml"/>
+
+
+</sqlMapConfig>

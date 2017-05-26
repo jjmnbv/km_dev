@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="supplier" extends="BasePackage">
+		<!-- 跳转到第一步申请页面 -->
+		<action name="goFirstApplyPag" class="applySupplierAction" method="goFirstApplyPag">
+			<result name="success">/WEB-INF/jsp/apply/applySupplier.jsp</result>
+		</action>
+		
+		<!-- 验证用户是否为会员 -->
+		<action name="verifyMember" class="applySupplierAction" method="verifyMember">
+		</action>
+		
+		<!-- 跳转到申请供应商协议页面 -->
+		<action name="goApplyAgreement" class="applySupplierAction" method="goApplyAgreement">
+			<result name="success">/WEB-INF/jsp/apply/applyAgreement.jsp</result>
+			<result name="verify">/WEB-INF/jsp/apply/applyAgreementVerify.jsp</result>
+		</action>
+		
+		<!-- 申请供应商第二步 -->
+		<action name="applySupplierTwo" class="applySupplierAction" method="applySupplierTwo">
+		</action>
+
+		<!-- 查询是否存在一样的公司名称 -->
+		<action name="ckCorporateName" class="applySupplierAction" method="ckCorporateName">
+		</action>
+		
+		<!-- 查询是否存相同的机构组织代码 -->
+		<action name="ckCode" class="applySupplierAction" method="ckCode">
+		</action>
+		
+		<!-- 查询是否存相同的营业执照注册号 -->
+		<action name="ckRegister" class="applySupplierAction" method="ckRegister">
+		</action>
+		
+		<!-- 删除上传的图片 -->
+		<action name="deleteFile" class="applySupplierAction" method="deleteFile">
+			<result name="success">/WEB-INF/jsp/apply/applySupplierThree.jsp</result>
+		</action>
+		
+		<!-- 申请供应商第三步完成按钮 -->
+		<action name="finishUpdate" class="applySupplierAction" method="finishUpdate">
+		</action>
+		
+		<action name="goApplySupplierThree" class="applySupplierAction" method="goApplySupplierThree">
+			<result name="success">/WEB-INF/jsp/apply/applySupplierThree.jsp</result>
+		</action>
+		
+		<!-- 按供应商id查询上传文件的数量 -->
+		<action name="selectCount" class="applySupplierAction" method="selectCount">
+		</action>
+		
+		<!-- 撤销申请 -->
+		<action name="applyRevocation" class="applySupplierAction" method="applyRevocation">
+		</action>
+		
+		<!-- 返回到第二步-->
+		<action name="goBackTwo" class="applySupplierAction" method="goNewBackTwo">
+		    <result name="success">/WEB-INF/jsp/apply/applySupplierTwo.jsp</result>
+		</action>
+		
+		<!-- 返回到第三步-->
+		<action name="goBackThree" class="applySupplierAction" method="goBackThree">
+		    <result name="success">/WEB-INF/jsp/apply/applySupplierThree.jsp</result>
+		</action>
+		
+		<!-- 去撤销页面 -->
+		<action name="goRevocation" class="applySupplierAction" method="goBackTwo">
+			<result name="success">/WEB-INF/jsp/apply/applySupplierDialog.jsp</result>
+		</action>
+		
+		<!-- 申请店铺 -->
+		<action name="goAddShop" class="shopMainAction" method="goAddShop">
+			<result name="success">/WEB-INF/jsp/apply/applySupplierShop.jsp</result>
+		</action>
+		<!-- 申请店铺结束 -->
+		
+		<!-- 主框架页面 -->
+		<action name="gotoFareMenu" class="loginAction" method="gotoFareMenu">
+			<result name="success">/WEB-INF/jsp/shopFreight/fareMenus.jsp</result>
+		</action>
+		<!--END 主框架页面 -->
+		
+		<!-- 登陆 -->
+		<action name="login" class="loginAction" method="login"></action>
+		<!-- 登陆成功 -->
+		<action name="loginSuccess" class="loginAction" method="loginSuccess">
+			<result name="success">/WEB-INF/jsp/login/index.jsp</result>
+			<!--<result name="reLogin">/html/login.html</result>
+		--></action>
+		<!-- 去登陆 -->
+		<!--<action name="goLogin" class="loginAction" method="goLogin">
+			<result name="success">/WEB-INF/jsp/member/login/login.jsp</result>
+		</action>-->
+		<!-- 商家确认直接登陆 -->
+		<action name="goIndex" class="loginAction" method="loginIndex">
+			<result name="success">/WEB-INF/jsp/login/index.jsp</result>
+		</action>
+		<!-- 验证码 -->
+		<action name="codeImage" class="codeImageAction">
+			<result type="stream">
+				<param name="contentType">image/jpeg</param>   
+				<param name="inputName">inputStream</param>  
+			</result>
+		</action>
+		
+		<!-- 退出登陆 -->
+		<action name="loginout" class="loginOutAction" method="loginout">
+			<result name="success">/html/login.html</result>
+		</action>
+		
+		<!-- 申请供应商生成验证码 -->
+		<action name="imageAuthCode"  class="imageAction">
+			<result type="stream">
+				<param name="contentType">image/jpeg</param>   
+				<param name="inputName">inputStream</param>  
+			</result>
+		</action>
+		<!-- 校验验证码 -->
+		<action name="validCodeImg" class="codeImageAction" method="validCodeImg" />
+		
+		<!-- 查看供应商信息 -->
+		<action name="showSupplierInfo" class="supplierInfoAction" method="showSupplierInfo">
+			<result name="success">/WEB-INF/jsp/supplier/supplierInfo.jsp</result>
+		</action>
+		<!-- 运费管理列表页面 -->
+		<action name="toSupplierFare" class="com.kmzyc.supplier.action.SupplierFareAction" method="toSupplierFare">
+			<result name="listPage">/WEB-INF/jsp/shopFreight/supplierFareList.jsp</result>
+			<result name="success">/WEB-INF/jsp/shopFreight/fareMenus.jsp</result>
+		</action>
+		
+		<!-- 去运费添加页面 -->
+		<action name="toAddFare" class="com.kmzyc.supplier.action.SupplierFareAction" method="toAddFare">
+			<result name="success">/WEB-INF/jsp/shopFreight/supplierFareAdd.jsp</result>
+		</action>
+		<!-- 去运费修改页面 -->
+		<action name="toUpdateFare" class="com.kmzyc.supplier.action.SupplierFareAction" method="toUpdateFare">
+			<result name="success">/WEB-INF/jsp/shopFreight/supplierFareAdd.jsp</result>
+		</action>
+		<!-- 查询是否存在运费信息 -->
+		<action name="cktest" class="com.kmzyc.supplier.ajax.SupplierFareAjaxAction" method="cktest">
+		</action>
+		<!-- 店铺 -->
+		<action name="toAddOrUpdateShopMain" class="shopMainAction" method="toAddOrUpdateShopMain">
+			<result name="add">/WEB-INF/jsp/supplier/shopMainAdd.jsp</result>
+			<result name="update">/WEB-INF/jsp/supplier/shopMainDraftUpdate.jsp</result>
+			<result name="success">/WEB-INF/jsp/supplier/shopMainUpdate.jsp</result>
+		</action>
+		<!--商家介绍-->
+		<action name="toShopMainDescribe" class="shopMainAction" method="toShopMainDescribe">
+			<result name="success">/WEB-INF/jsp/supplier/shopMainDescribe.jsp</result>
+		</action>
+		<action name="toEditShopMainDraft" class="shopMainDraftAction" method="toEditShopMainDraft">
+			<result name="success">/WEB-INF/jsp/supplier/shopMainDraftUpdate.jsp</result>
+		</action>
+		<!-- END 店铺 -->
+
+		<!-- 店内分类管理 begin -->
+		<!-- 显示店内所有分类 -->
+		<action name="showShopCategoryList" class="shopCategoryAction" method="showShopCategoryList">
+			<result name="success">/WEB-INF/jsp/shopCategory/shopCategoryManage.jsp</result>
+		</action>
+		<action name="toShopCategoryAdd" class="shopCategoryAction" method="toShopCategoryAdd"></action>
+		<action name="toShopCategoryUpdate" class="shopCategoryAction" method="toShopCategoryUpdate"></action>
+		<action name="updateShopCategoryByAjax" class="shopCategoryAction" method="updateShopCategoryByAjax"></action>		
+		<action name="saveShopCategoryByAjax" class="shopCategoryAction" method="saveShopCategoryByAjax"></action>
+		<action name="deleteShopCategoryByAjax" class="shopCategoryAction" method="deleteShopCategoryByAjax"></action>
+		<action name="updateSortNoByAjax" class="shopCategoryAction" method="updateSortNoByAjax"></action>
+		<action name="relationProductWithShopCategoryByAjax" class="shopCategoryAction" method="relationProductWithShopCategoryByAjax"></action>		
+		<action name="toShopCategoryManage" class="shopCategoryAction" method="toShopCategoryManage">
+			<result name="success">/WEB-INF/jsp/shopCategory/shopCategoryManage.jsp</result>
+		</action>
+		<action name="showProductListForShopCategory" class="shopCategoryAction" method="showProductListForShopCategory">
+			<result name="success">/WEB-INF/jsp/shopCategory/shopCategoryManage.jsp</result>
+		</action>
+		<!-- 店内分类管理 end -->	
+		
+		<!-- 店铺装修 -->
+		<action name="templetChoice" class="shopDecorationAction" method="templetChoice">
+			<result name="success">/WEB-INF/jsp/shopDecoration/templetChoice.jsp</result>
+		</action>
+		<!-- 店铺装修 end -->
+		
+		<!-- 供应商退货单列表 -->
+		<action name="findAllReturnNotes" class="aftersaleReturnOrderAction" method="showList">
+			<result name="success">/WEB-INF/jsp/supplier/returnNoteList.jsp</result>
+		</action>
+
+		<action name="gotoReturnNotesEdit" class="aftersaleReturnOrderAction" method="gotoEdit" >
+			<result name="detailOrder">/WEB-INF/jsp/supplier/returnNoteAudit.jsp</result>
+			<result name="checkOder">/WEB-INF/jsp/supplier/returnOderAudit.jsp</result>
+		</action>
+		<action name="editReturnNotesStatus" class="aftersaleReturnOrderAction" method="editStatus">
+		</action>
+		<action name="editReturnNotesResult"  class="aftersaleReturnOrderAction" method="edit" >
+		</action>
+		<action name="checkedStockOut"  class="aftersaleReturnOrderAction" method="checkedStockOut" >
+		</action>
+		<action name="checkedDistributionInfo" class="aftersaleReturnOrderAction" method="checkedDistributionInfo" />
+
+		<action name="checkOrderAlter" class="aftersaleReturnOrderAction" method="checkOrderAlter" />
+
+		<action name="changeAlterStatus" class="aftersaleReturnOrderAction" method="changeAlterStatus" />
+		<!-- 导出订单 20151113 add -->
+		<action name="exportReturnOrder" class="aftersaleReturnOrderAction" method="exportReturnOrder">
+		</action>
+
+		<action name="showOrderItemDetails" class="orderAction" method="showOrderItemDetail" >
+			<result name="success">/WEB-INF/jsp/supplier/returnOrderItemDetail.jsp</result>
+		</action>
+		<action name="logisticsInfo" class="aftersaleReturnOrderAction" method="logisticsInfo" >
+			<result name="success">/WEB-INF/jsp/supplier/logisticsCompany.jsp</result>
+		</action>
+		<action name="peiSong" class="aftersaleReturnOrderAction" method="peiSong" >
+		</action>
+		<!-- 店铺浏览量 -->
+		<action name="queryShopBrowseList" class="shopBrowseAction" method="queryShopBrowseList">
+			<result name="success">/WEB-INF/jsp/shopBrowse/shopBrowseList.jsp</result>
+		</action>
+		<!-- 启用店铺浏览量 -->
+		<action name="openShopBrowseStatusByAjax" class="shopBrowseAction" method="openShopBrowseStatusByAjax">
+		</action>
+	
+	
+		<!-- 结算单 -->
+        <!-- 结算单列表-->
+        <action name="settlementList" class="supplierSettlementAction" method="findSettlementList">
+            <result name="success">/WEB-INF/jsp/settlement/settlementList.jsp</result>
+        </action>
+        <!-- 商家结算单详情-->
+        <action name="toViewsettlementDetail" class="supplierSettlementAction" method="sellerSettlementDetailByNo">
+            <result name="success">/WEB-INF/jsp/settlement/settlementDetailView.jsp</result>
+        </action>
+
+        <!-- 查询商家结算单详情 以及妥投商品结算明细 列表-->
+        <action name="settlementSimpleDetail" class="supplierSettlementAction" method="sellerSettlementDetailByNo">
+            <result name="success">/WEB-INF/jsp/settlement/hurlProductlist.jsp</result>
+        </action>
+        <!-- 查询商家结算单详情 以及妥投商品结算明细 列表 -->
+        <action name="hurlProductListDetail" class="supplierSettlementAction" method="findHurlProductList">
+            <result name="success">/WEB-INF/jsp/settlement/hurlProductlist.jsp</result>
+        </action>
+        <!-- 运费明细 -->
+        <action name="hurlFareListDetail" class="supplierSettlementAction" method="findHurlFareList">
+            <result name="success">/WEB-INF/jsp/settlement/hurlFareList.jsp</result>
+        </action>
+
+        <!-- 退款明细 -->
+        <action name="settlementRefundListDetail" class="supplierSettlementAction" method="findSettlementRefundList">
+            <result name="success">/WEB-INF/jsp/settlement/settlementRefundList.jsp</result>
+        </action>
+
+        <!-- 差异调整明细 -->
+        <action name="diffAdjListDetail" class="supplierSettlementAction" method="findDiffAdjList">
+            <result name="success">/WEB-INF/jsp/settlement/diffAdjList.jsp</result>
+        </action>
+        <!-- 结算单明细导出 -->
+        <action name="hurlProductListExport" class="supplierSettlementAction" method="outHurlProductList">
+            <result name="success">/WEB-INF/jsp/settlement/downLoad.jsp</result>
+        </action>
+        <action name="settlementRefundExport" class="supplierSettlementAction" method="outputSettlementRefundData">
+            <result name="success">/WEB-INF/jsp/settlement/downLoad.jsp</result>
+        </action>
+        <action name="hurlFareExport" class="supplierSettlementAction" method="outputHurlFareData">
+            <result name="success">/WEB-INF/jsp/settlement/downLoad.jsp</result>
+        </action>
+        <action name="diffAdjExport" class="supplierSettlementAction" method="outputDiffAdjData">
+            <result name="success">/WEB-INF/jsp/settlement/downLoad.jsp</result>
+        </action>
+        <action name="exportSettleOrder" class="supplierSettlementAction" method="outExportSettleOrder">
+            <result name="success">/WEB-INF/jsp/settlement/downLoad.jsp</result>
+        </action>
+        <!-- 结算单明细导出 end -->
+			
+		<!-- 结算单  end-->
+		<!-- 财务提现 -->
+        <!--<action name="bnesAcctEmcjashmentList" class="supplierEnchashmentAction" method="searchEnchashmentByPage">
+            <result name="success">/WEB-INF/jsp/settlement/bnesAcctEmcjashmentList.jsp</result>
+        </action>
+
+        <action name="bnesAcctEnchashmentDetail" class="supplierEnchashmentAction" method="searchEnchashmentById">
+            <result name="success">/WEB-INF/jsp/settlement/bnesAcctEnchashmentView.jsp</result>
+        </action>-->
+        <!-- 余额明细 -->
+        <action name="queryRechargeDetail" class="rechargeDetailAction" method="queryRechargeDetail">
+            <result name="success">/WEB-INF/jsp/settlement/rechargeDetails.jsp</result>
+        </action>
+		<!-- 余额明细  end -->
+		<!--提现申请-->
+        <action name="AccountBasicInfo" class="rechargeDetailAction" method="queryAccountBasicInfo">
+            <result name="success">/WEB-INF/jsp/settlement/accountBasicView.jsp</result>
+        </action>
+		<!--提现申请 end-->
+		<!-- 历史申请 -->
+        <action name="hisEnchashmentList" class="supplierEnchashmentAction" method="searchEnchashmentByPage">
+            <result name="success">/WEB-INF/jsp/settlement/hisEnchashmentList.jsp</result>
+        </action>
+        <!-- 历史申请 end -->
+		<!-- 财务提现  end-->
+	</package>
+</struts>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="DISTRIBUTION_INFO">
+	<resultMap id="distributionInfoResultMap" class="com.pltfm.app.vobject.DistributionInfo">
+		<result column="DISTRIBUTION_ID" property="distributionId"
+			jdbcType="LONG" />
+		<result column="DISTRIBUTION_ID" property="distributionDetailInfoList" select="DISTRIBUTION_INFO.getDistributionDetailInfoList" />
+		<result column="DISTRIBUTION_NO" property="distributionNo"
+			jdbcType="VARCHAR" />
+		<result column="LOGISTICS_COMPANY" property="logisticsCompany"
+			jdbcType="VARCHAR" />
+		<result column="LOGISTICS_NO" property="logisticsNo" jdbcType="VARCHAR" />
+		<!--<result column="WAREHOUSE_ID" property="warehouseId" jdbcType="LONG" />
+		<result column="WAREHOUSE_NAME" property="warehouseName"
+			jdbcType="VARCHAR" />
+		--><result column="BILL_NO" property="billNo" jdbcType="VARCHAR" />
+		<!--<result column="TOTAL_QUANTITY" property="totalQuantity"
+			jdbcType="INTEGER" />
+		<result column="TOTAL_SUM" property="totalSum" jdbcType="DECIMAL" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		<result column="DELIVERY_ADDRESS" property="deliveryAddress"
+			jdbcType="VARCHAR" />
+		<result column="TEL" property="tel" jdbcType="VARCHAR" />
+		<result column="LOGISTICS_DATE" property="logisticsDate"
+			jdbcType="timestamp" />
+		--><result column="IS_DELIVERIES" property="isDeliveries"
+			jdbcType="CHAR" />
+		<!--<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="timestamp" />
+		<result column="CREATE_USER" property="createUser" jdbcType="INTEGER" />
+		<result column="CREATE_USER_NAME" property="createUserName"
+			jdbcType="VARCHAR" />
+		--><result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="distributionDetailInfoResultMap" class="com.pltfm.app.vobject.DistributionDetailInfo">
+		<result column="DETAIL_ID" property="detailId" jdbcType="LONG" />
+		<result column="DISTRIBUTION_ID" property="distributionId" jdbcType="LONG" />
+		<result column="BILL_DETAIL_ID" property="billDetailId" jdbcType="LONG" />
+		<result column="PRODUCT_ID" property="productId" jdbcType="LONG" />
+		<result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+		<result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+		<result column="PRODUCT_SKU_ID" property="productSkuId"	jdbcType="LONG" />
+		<result column="PRODUCT_SKU_VALUE" property="productSkuValue" jdbcType="VARCHAR" />
+		<result column="QUANTITY" property="quantity" jdbcType="Integer" />
+		<result column="PRICE" property="price" jdbcType="DECIMAL" />
+		<result column="SUM" property="sum" jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<iterate property="oredCriteria" conjunction="or" prepend="where"
+			removeFirstPrepend="iterate">
+			<isEqual property="oredCriteria[].valid" compareValue="true">
+				(
+				<iterate prepend="and" property="oredCriteria[].criteriaWithoutValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithSingleValue[].condition$
+					#oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithListValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithListValue[].condition$
+					<iterate property="oredCriteria[].criteriaWithListValue[].values"
+						open="(" close=")" conjunction=",">
+						#oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+				</iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithBetweenValue[].condition$
+					#oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+					#oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+				)
+			</isEqual>
+		</iterate>
+	</sql>
+	<sql id="Base_Column_List">
+		DISTRIBUTION_ID, DISTRIBUTION_NO, LOGISTICS_COMPANY,
+		LOGISTICS_NO, WAREHOUSE_ID,
+		WAREHOUSE_NAME,
+		BILL_NO, TOTAL_QUANTITY,
+		TOTAL_SUM, USER_NAME, DELIVERY_ADDRESS, TEL,
+		LOGISTICS_DATE,IS_DELIVERIES,
+		REMARK,CREATE_DATE,CREATE_USER,CREATE_USER_NAME,ORDER_NO
+  </sql>
+
+	<select id="getDistributionInfoListByOrderCode" resultMap="distributionInfoResultMap" parameterClass="java.lang.String">
+		select di.DISTRIBUTION_ID,di.DISTRIBUTION_NO,di.LOGISTICS_COMPANY,di.LOGISTICS_NO,di.BILL_NO,di.IS_DELIVERIES,di.ORDER_NO from DISTRIBUTION_INFO di , stock_out so where di.BILL_NO=so.STOCK_OUT_NO and so."TYPE" =1 and di.ORDER_NO = #orderCode# order by di.CREATE_DATE desc 
+	</select>
+	<select id="getDistributionDetailInfoList" parameterClass="java.lang.Long" resultMap="distributionDetailInfoResultMap">
+	 select * from DISTRIBUTION_DETAIL_INFO where DISTRIBUTION_ID = #value#  
+  	</select>
+  	
+	<update id="updateLogisticNumber" parameterClass="com.pltfm.app.vobject.DistributionInfo">
+		update DISTRIBUTION_INFO
+		set LOGISTICS_COMPANY = #logisticsCompany#,
+		LOGISTICS_NO =	#logisticsNo#, 
+		IS_DELIVERIES =	#isDeliveries# 
+		where DISTRIBUTION_ID = #distributionId#
+	</update>
+</sqlMap>

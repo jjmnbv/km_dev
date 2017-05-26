@@ -1,0 +1,16 @@
+#created on: 2011-11-23
+package ruls
+
+import com.km.framework.mq.bean.KmMsg;
+import com.pltfm.remote.service.impl.ProductQueue;
+	#declare any global variables here
+	dialect "mvel"
+
+	
+	#接收编码2002(B2B服务)
+	rule "b2b_promotion_accept" no-loop true
+	when
+	    $m : KmMsg(msgCode=="2002")
+	then
+	    ProductQueue.receiveActivityQueue($m);
+	end

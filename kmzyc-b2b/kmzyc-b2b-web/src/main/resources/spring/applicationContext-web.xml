@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.kmzyc"/>
+    <aop:aspectj-autoproxy/>
+
+    <bean id="propertyConfigurer"
+          class="com.kmzyc.zkconfig.ZKPropertyPlaceholderConfigurer">
+        <constructor-arg ref="zkClient"/>
+        <property name="zkPaths">
+            <list>
+
+                <value>/kmconfig/commons/redis.properties</value>
+                <value>/kmconfig/commons/memcache.properties</value>
+                <value>/kmconfig/commons/jdbc.properties</value>
+                <value>/kmconfig/commons/mq.properties</value>
+                <value>/kmconfig/commons/dubbo.properties</value>
+                <value>/kmconfig/commons/common.properties</value>
+
+                <value>/kmconfig/b2b/config.properties</value>
+                <!--<value>/kmconfig/b2b/kmCloudConfig.properties</value>-->
+                <value>/kmconfig/b2b/loginCheck.properties</value>
+                <value>/kmconfig/b2b/cachedKey.properties</value>
+              <!--  <value>/kmconfig/b2b/lotteryResultTips.properties</value>-->
+                <value>/kmconfig/b2b/outApi.properties</value>
+                <value>/kmconfig/b2b/cpsKeyConfig.properties</value>
+                <value>/kmconfig/b2b/threadPool.properties</value>
+                <!--<value>/kmconfig/b2b/fanliConfig.properties</value>-->
+                <value>/kmconfig/b2b/thirdloginconfig.properties</value>
+                <value>/kmconfig/b2b/fckeditor.properties</value>
+                <value>/kmconfig/b2b/logistics.properties</value>
+
+                <value>/kmconfig/b2b/merchantInfo.properties</value>
+                <value>/kmconfig/b2b/ebank.properties</value>
+                <value>/kmconfig/b2b/quartz.properties</value>
+                <value>/kmconfig/b2b/activity.properties</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="zkClient" class="com.kmzyc.zkconfig.CuratorFrameworkFactoryBean"/>
+
+    <bean id="logisticsMap" class="com.kmzyc.zkconfig.ConfigurationUtil"
+          factory-method="load">
+        <constructor-arg ref="zkClient"/>
+        <constructor-arg value="/kmconfig/commons/logistics.properties"/>
+    </bean>
+
+    <bean id="keyWordsFilter" class="com.kmzyc.framework.filter.KeyWordsFilter"/>
+
+    <import resource="classpath*:spring/applicationContext-common.xml"/>
+    <import resource="classpath*:spring/applicationContext-redis.xml"/>
+    <!--<import resource="classpath*:spring/applicationContext-chain.xml"/>-->
+    <import resource="classpath*:spring/applicationContext-consumer.xml"/><!--
+		调用其他服务 -->
+    <import resource="classpath*:spring/applicationContext-provider.xml"/><!--
+		对外提供的服务 -->
+    <import resource="classpath*:spring/applicationContext-memcached.xml"/>
+    <import resource="classpath*:spring/applicationContext-mq.xml"/>
+    <import resource="classpath*:spring/applicationContext-quartz.xml"/>
+    <!--<import resource="classpath*:spring/applicationContext-webService.xml"/>-->
+</beans>

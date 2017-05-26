@@ -1,0 +1,1360 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PRODUCT_DRAFT" >
+	<typeAlias alias="ProductDraft" type="com.pltfm.app.vobject.ProductDraft"/>
+	<typeAlias alias="ProductSkuDraft" type="com.pltfm.app.vobject.ProductSkuDraft"/>
+	<typeAlias alias="ProductImageDraft" type="com.pltfm.app.vobject.ProductImageDraft"/>
+
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.ProductDraft" >
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+    <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_TYPE" property="productType" jdbcType="DECIMAL" />
+    <result column="PRODUCT_SUBTITLE" property="productSubtitle" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+    <result column="PACK_LISTING" property="packListing" jdbcType="VARCHAR" />
+    <result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+    <result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
+    <result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+    <result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+    <result column="DRUG_CATE_ID" property="drugCateId" jdbcType="DECIMAL" />
+    <result column="DRUG_CATE_CODE" property="drugCateCode" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="Date" />
+    <result column="CHECK_USER" property="checkUser" jdbcType="DECIMAL" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="Date" />
+    <result column="MODIF_USER" property="modifUser" jdbcType="DECIMAL" />
+    <result column="MODIF_TIME" property="modifTime" jdbcType="Date" />
+    <result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR" />
+    <result column="SHOP_CODE" property="merchantName" select="PRODUCT_DRAFT.getMerchantNameForDraft" />
+    <result column="UP_TIME" property="upTime" jdbcType="Date" />
+    <result column="ARCHIVE_TIME" property="archiveTime" jdbcType="Date" />
+    <result column="APPROVAL_TYPE" property="approvalType" jdbcType="DECIMAL" />
+    <result column="APPROVAL_NO" property="approvalNo" jdbcType="VARCHAR" />
+    <result column="PRODUCTHOT" property="producthot" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="OP_TYPE" property="opType" jdbcType="DECIMAL" />
+    <result column="REASONS" property="reasons" jdbcType="VARCHAR" />
+    <result column="PRODUCT_DESC" property="productDesc" jdbcType="VARCHAR" />
+    <result column="ERP_PRODUCT_CODE" property="erpProductCode" jdbcType="VARCHAR" />
+    <result column="DRUG_CATE_ID" property="drugCategory" select="PRODUCT_DRAFT.getDrugCategoryName" />
+    <result column="BRAND_ID" property="prodBrand" select="PRODUCT_DRAFT.getProdBrandName" />
+  	<result column="PRICE_STATUS" property="priceStatus" jdbcType="VARCHAR" />
+    <result column="PRICE_REASONS" property="priceReasons" jdbcType="VARCHAR" />
+    <result column="IMAGE_STATUS" property="imageStatus" jdbcType="VARCHAR" />
+    <result column="IMAGE_REASONS" property="imageReasons" jdbcType="VARCHAR" />
+  </resultMap>
+    <resultMap id="resultMapWithToCheckTime" class="com.pltfm.app.vobject.ProductDraft"
+               extends="PRODUCT_DRAFT.ibatorgenerated_BaseResultMap">
+        <result column="TO_CHECK_TIME" property="toCheckTime" jdbcType="TIMESTAMP"/>
+        <result column="SHOP_CODE" property="supplyType" select="PRODUCT_DRAFT.getSupplyType"/>
+    </resultMap>
+  <resultMap id="ibatorgenerated_BaseResultMapForPrice" class="com.pltfm.app.vobject.ProductDraft" >
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_ID" property="productSkuDrafts" select="PRODUCT_DRAFT.getSkusByProductDraftIdForAudit"/>
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+    <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_TYPE" property="productType" jdbcType="DECIMAL" />
+    <result column="PRODUCT_SUBTITLE" property="productSubtitle" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+    <result column="PACK_LISTING" property="packListing" jdbcType="VARCHAR" />
+    <result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+    <result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
+    <result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+    <result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+    <result column="DRUG_CATE_ID" property="drugCateId" jdbcType="DECIMAL" />
+    <result column="DRUG_CATE_CODE" property="drugCateCode" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="Date" />
+    <result column="CHECK_USER" property="checkUser" jdbcType="DECIMAL" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="Date" />
+    <result column="MODIF_USER" property="modifUser" jdbcType="DECIMAL" />
+    <result column="MODIF_TIME" property="modifTime" jdbcType="Date" />
+    <result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR" />
+    <result column="SHOP_CODE" property="merchantName" select="PRODUCT_DRAFT.getMerchantNameForDraft" />
+    <result column="UP_TIME" property="upTime" jdbcType="Date" />
+    <result column="ARCHIVE_TIME" property="archiveTime" jdbcType="Date" />
+    <result column="APPROVAL_TYPE" property="approvalType" jdbcType="DECIMAL" />
+    <result column="APPROVAL_NO" property="approvalNo" jdbcType="VARCHAR" />
+    <result column="PRODUCTHOT" property="producthot" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="OP_TYPE" property="opType" jdbcType="DECIMAL" />
+    <result column="REASONS" property="reasons" jdbcType="VARCHAR" />
+    <result column="PRODUCT_DESC" property="productDesc" jdbcType="VARCHAR" />
+    <result column="ERP_PRODUCT_CODE" property="erpProductCode" jdbcType="VARCHAR" />
+    <result column="DRUG_CATE_ID" property="drugCategory" select="PRODUCT_DRAFT.getDrugCategoryName" />
+    <result column="BRAND_ID" property="prodBrand" select="PRODUCT_DRAFT.getProdBrandName" />
+  	<result column="PRICE_STATUS" property="priceStatus" jdbcType="VARCHAR" />
+    <result column="PRICE_REASONS" property="priceReasons" jdbcType="VARCHAR" />
+    <result column="IMAGE_STATUS" property="imageStatus" jdbcType="VARCHAR" />
+    <result column="IMAGE_REASONS" property="imageReasons" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ProductDraftResult" class="ProductDraft">
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_ID" property="productSkuDrafts" select="PRODUCT_DRAFT.getSkusByProductDraftId"/>
+    <result column="PRODUCT_SUBTITLE" property="productSubtitle" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="PRICE_STATUS" property="priceStatus" jdbcType="VARCHAR" />
+    <result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+    <result column="BRAND_ID" property="prodBrand" select="PRODUCT_DRAFT.getProdBrandName" />
+    <result column="PRODUCT_TYPE" property="productType" jdbcType="DECIMAL" />
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap class="ProductSkuDraft" id="ProductSkuDraftResult">
+  	<result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+  	<result column="PRODUCT_SKU_ID" property="productSkuImages" select="PRODUCT_DRAFT.getImagesDraftByskuId" />
+  	<result column="PRODUCT_SKU_CODE" property="productSkuCode" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL"/>
+    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+    <result column="UNIT_WEIGHT" property="unitWeight" jdbcType="DECIMAL" />
+	<result column="MARK_PRICE" property="markPrice" jdbcType="DECIMAL" />
+	<result column="PV_VALUE" property="pvValue" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap class="ProductSkuDraft" id="ProductSkuDraftResultForAudit">
+  	<result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+  	<result column="PRODUCT_SKU_CODE" property="productSkuCode" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL"/>
+    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+    <result column="UNIT_WEIGHT" property="unitWeight" jdbcType="DECIMAL" />
+	<result column="MARK_PRICE" property="markPrice" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="ProductImageDraftResult" class="ProductImageDraft" >
+    <result column="IMAGE_ID" property="imageId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+    <result column="SKU_ID" property="skuId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="ibatorgenerated_ResultMapWithBLOBs" class="com.pltfm.app.vobject.ProductDraft" extends="PRODUCT_DRAFT.ibatorgenerated_BaseResultMap" >
+    <result column="INTRODUCE" property="introduce" jdbcType="CLOB" />
+    <result column="INTRODUCE_LAZY" property="introduceLazy" jdbcType="CLOB" />
+  </resultMap>
+  <resultMap id="DrugCategoryResult" class="com.pltfm.app.vobject.DrugCategory" >
+    <result column="DRUG_CATEGORY_ID" property="id" jdbcType="DECIMAL" />
+    <result column="DRUG_CATEGORY_NAME" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ProductBrandResult" class="ProdBrand" >
+    <result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+    <result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+    <result column="IS_VALID" property="isValid" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <resultMap id="singProductDraftMap" class="com.pltfm.app.vobject.ProductDraft" groupBy="productId" >
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_SUBTITLE" property="productSubtitle" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+    <result column="SHOP_CODE" property="merchantName" select="PRODUCT_DRAFT.getMerchantNameForDraft" />
+    <result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR" />
+    <result property="productSkuDrafts" resultMap="PRODUCT_DRAFT.productSkuDraftsMap"  />
+  </resultMap>
+  
+  <resultMap id="productSkuDraftsMap" class="com.pltfm.app.vobject.ProductSkuDraft" groupBy="productSkuId" >
+    <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_SKU_CODE" property="productSkuCode" jdbcType="VARCHAR" />
+    <result column="MARK_PRICE" property="markPrice" jdbcType="DECIMAL" />
+    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+    <result column="UNIT_WEIGHT" property="unitWeight" jdbcType="DECIMAL" />
+    <result column="COST_PRICE" property="costPrice" jdbcType="DECIMAL" />
+    <result column="PV_VALUE" property="pvValue" jdbcType="DECIMAL" />
+    <result column="COST_INCOME_RATIO" property="costIncomeRatio" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="SKU_BAR_CODE" property="skuBarCode" jdbcType="VARCHAR" />
+    <result property="attributeValues" resultMap="PRODUCT_DRAFT.attributeValue" />
+  </resultMap>
+  
+  <resultMap id="attributeValue" class="com.pltfm.app.fobject.AttributeValue">
+  	<result column="CATEGORY_ATTR_ID" property="categoryAttrId" jdbcType="DECIMAL" />
+  	<result column="CATEGORY_ATTR_VALUE_ID" property="categoryAttrValueId" jdbcType="DECIMAL" />
+    <result column="CATEGORY_ATTR_NAME" property="attribute" jdbcType="VARCHAR" />
+    <result column="CATEGORY_ATTR_VALUE" property="value" jdbcType="VARCHAR" />
+  </resultMap>
+   <sql id="ibatorgenerated_Example_Where_ClauseByUser" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Dec 03 08:55:29 CST 2013.
+    -->
+    <iterate property="oredCriteria" conjunction="or" prepend="and" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  <sql id="ibatorgenerated_Example_Where_Clause" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Dec 03 08:55:29 CST 2013.
+    -->
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+   <select id="ibatorgenerated_countByExampleByUser" parameterClass="com.pltfm.app.vobject.ProductDraftExample" resultClass="java.lang.Integer" >
+    select count(1) from PRODUCT_DRAFT where 1=1
+     <isNotEmpty property="mCategoryId">
+    	and CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where PARENT_ID = #mCategoryId# )
+    </isNotEmpty>
+    <isNotEmpty property="bCategoryId">
+    	and CATEGORY_ID in (select sc.CATEGORY_ID from categorys sc
+			inner join categorys mc on sc.parent_id=mc.category_id 
+			inner join categorys bc on mc.parent_id=bc.category_id 
+			where bc.category_id = #bCategoryId# )
+    </isNotEmpty>
+    <isNotEmpty property="searchBrandName">
+    	and BRAND_ID in (select BRAND_ID from PROD_BRAND where BRAND_NAME like '%'||#searchBrandName#||'%' )
+    </isNotEmpty>
+     <isNotEmpty property="supplierNameForSearch">
+    	and shop_code in (select to_char(a.supplier_id) from suppliers_info a,commercial_tenant_basic_info b where a.merchant_id=b.n_commercial_tenant_id and b.corporate_name like '%'||#supplierNameForSearch#||'%')
+    </isNotEmpty>
+    <include refid="PRODUCT_DRAFT.ibatorgenerated_Example_Where_ClauseByUser" />
+  </select>
+    <select id="getSupplyType" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+        SELECT DECODE(SUPPLIER_TYPE, 1, 1, 3, 1, 2) SUPPLIER_TYPE FROM SUPPLIERS_INFO
+        WHERE SUPPLIER_ID=#shopCode#
+    </select>
+  <select id="ibatorgenerated_selectByExampleByUser" resultMap="resultMapWithToCheckTime"
+          parameterClass="com.pltfm.app.vobject.ProductDraftExample" >
+    select PRODUCT_ID, CATEGORY_ID, CATEGORY_NAME, PRODUCT_NAME, PRODUCT_NO, PACK_LISTING, PRODUCT_SUBTITLE,
+      PRODUCT_TITLE, KEYWORD, BRAND_ID, BRAND_NAME, DRUG_CATE_ID, DRUG_CATE_CODE, CREATE_USER,
+      CREATE_TIME, CHECK_USER, CHECK_TIME, MODIF_USER, MODIF_TIME, SHOP_CODE, UP_TIME, ARCHIVE_TIME,
+      APPROVAL_TYPE, APPROVAL_NO, PRODUCTHOT, STATUS, OP_TYPE, REASONS, PRODUCT_DESC,
+      ERP_PRODUCT_CODE, PRICE_STATUS,PRICE_REASONS, IMAGE_STATUS, IMAGE_REASONS,
+      PRODUCT_TYPE,TO_CHECK_TIME
+    from PRODUCT_DRAFT where 1=1
+    <isNotEmpty property="mCategoryId">
+    	and CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where PARENT_ID = #mCategoryId# )
+    </isNotEmpty>
+    <isNotEmpty property="bCategoryId">
+    	and CATEGORY_ID in (select sc.CATEGORY_ID from categorys sc
+			inner join categorys mc on sc.parent_id=mc.category_id 
+			inner join categorys bc on mc.parent_id=bc.category_id 
+			where bc.category_id = #bCategoryId# )
+    </isNotEmpty>
+    <isNotEmpty property="searchBrandName">
+    	and BRAND_ID in (select BRAND_ID from PROD_BRAND where BRAND_NAME like '%'||#searchBrandName#||'%' )
+    </isNotEmpty>
+    <isNotEmpty property="supplierNameForSearch">
+    	and shop_code in (select to_char(a.supplier_id) from suppliers_info a,commercial_tenant_basic_info b where a.merchant_id=b.n_commercial_tenant_id and b.corporate_name like '%'||#supplierNameForSearch#||'%')
+    </isNotEmpty>
+    <isParameterPresent >
+      <include refid="PRODUCT_DRAFT.ibatorgenerated_Example_Where_ClauseByUser" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  
+  <select id="ibatorgenerated_selectByExampleByUserForAudit" resultMap="ibatorgenerated_BaseResultMapForPrice" parameterClass="com.pltfm.app.vobject.ProductDraftExample" >
+    select PRODUCT_ID, CATEGORY_ID, CATEGORY_NAME, PRODUCT_NAME, PRODUCT_NO, PACK_LISTING, PRODUCT_SUBTITLE,
+      PRODUCT_TITLE, KEYWORD, BRAND_ID, BRAND_NAME, DRUG_CATE_ID, DRUG_CATE_CODE, CREATE_USER,
+      CREATE_TIME, CHECK_USER, CHECK_TIME, MODIF_USER, MODIF_TIME, SHOP_CODE, UP_TIME, ARCHIVE_TIME,
+      APPROVAL_TYPE, APPROVAL_NO, PRODUCTHOT, STATUS, OP_TYPE, REASONS, PRODUCT_DESC,
+      ERP_PRODUCT_CODE, PRICE_STATUS, PRICE_REASONS, IMAGE_STATUS, IMAGE_REASONS, PRODUCT_TYPE
+    from PRODUCT_DRAFT where 1=1
+    <isNotEmpty property="mCategoryId">
+    	and CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where PARENT_ID = #mCategoryId# )
+    </isNotEmpty>
+    <isNotEmpty property="bCategoryId">
+    	and CATEGORY_ID in (select sc.CATEGORY_ID from categorys sc
+			inner join categorys mc on sc.parent_id=mc.category_id 
+			inner join categorys bc on mc.parent_id=bc.category_id 
+			where bc.category_id = #bCategoryId# )
+    </isNotEmpty>
+    <isNotEmpty property="searchBrandName">
+    	and BRAND_ID in (select BRAND_ID from PROD_BRAND where BRAND_NAME like '%'||#searchBrandName#||'%' )
+    </isNotEmpty>
+    <isParameterPresent >
+      <include refid="PRODUCT_DRAFT.ibatorgenerated_Example_Where_ClauseByUser" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  
+  <select id="productDraft_selectById" resultMap="ProductDraftResult" parameterClass="java.lang.Long" >
+    <![CDATA[
+    select PRODUCT_ID,PRODUCT_NAME,PRICE_STATUS,STATUS,BRAND_ID, PRODUCT_SUBTITLE,PRODUCT_TYPE,CATEGORY_ID
+    from PRODUCT_DRAFT
+    where PRODUCT_ID = #productId:DECIMAL#
+     ]]>
+  </select>
+	<!-- 查询SKU -->
+	<select id="getSkusByProductDraftId" parameterClass="java.lang.Long" resultMap="ProductSkuDraftResult">
+	 <![CDATA[  
+	 select PRODUCT_SKU_ID,PRODUCT_SKU_CODE,PRODUCT_ID,PRICE,UNIT_WEIGHT,MARK_PRICE,PV_VALUE from PRODUCT_SKU_DRAFT where PRODUCT_ID = #value# and status = '1'
+	 ]]>
+  </select> 
+  
+  <select id="getSkusByProductDraftIdForAudit" parameterClass="java.lang.Long" resultClass="com.pltfm.app.vobject.ProductSkuDraft">
+	 <![CDATA[  
+	 select ps.PRODUCT_SKU_ID productSkuId,ps.PRODUCT_SKU_CODE productSkuCode,ps.PRODUCT_ID productId,ps.PRICE price,ps.COST_PRICE costPrice,ps.UNIT_WEIGHT unitWeight,ps.MARK_PRICE markPrice,PV_VALUE pvValue,SKU_BAR_CODE skuBarCode,COST_INCOME_RATIO,ta_temp.col as skuAttrs
+		from product_sku_draft ps
+		left join 
+		(select temp.product_sku_id, wm_concat(temp.CATEGORY_ATTR_VALUE) col from (select ps1.product_sku_id,decode(psa.new_attr,null,cav.CATEGORY_ATTR_VALUE,psa.new_attr) as CATEGORY_ATTR_VALUE from product_sku_draft ps1 
+		left join product_sku_attr_draft psa on psa.product_sku_id = ps1.product_sku_id 
+		left join category_attr_value cav on cav.CATEGORY_ATTR_ID = psa.CATEGORY_ATTR_ID and psa.CATEGORY_ATTR_VALUE_ID=cav.CATEGORY_ATTR_VALUE_ID) temp  
+		group by temp.product_sku_id) ta_temp  on ps.product_sku_id=ta_temp.product_sku_id
+	 where ps.PRODUCT_ID = #value#   
+	 ]]>
+  </select> 
+    	
+  <select id="getImagesDraftByskuId" parameterClass="java.lang.Long" resultMap="ProductImageDraftResult">
+	 <![CDATA[
+	 select * from PRODUCT_IMAGE_DRAFT where SKU_ID = #value#  
+	 ]]>
+  </select> 
+  
+  <select id="ibatorgenerated_selectByExampleWithBLOBs" resultMap="ibatorgenerated_ResultMapWithBLOBs" parameterClass="com.pltfm.app.vobject.ProductDraftExample" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Dec 03 08:55:29 CST 2013.
+    -->
+    select PRODUCT_ID, CATEGORY_ID, CATEGORY_NAME, PRODUCT_NAME, PRODUCT_NO, PACK_LISTING,
+      PRODUCT_TITLE, KEYWORD, BRAND_ID, BRAND_NAME, DRUG_CATE_ID, DRUG_CATE_CODE, CREATE_USER,
+      CREATE_TIME, CHECK_USER, CHECK_TIME, MODIF_USER, MODIF_TIME, SHOP_CODE, UP_TIME, ARCHIVE_TIME,
+      APPROVAL_TYPE, APPROVAL_NO, PRODUCTHOT, STATUS, OP_TYPE, REASONS, PRODUCT_DESC,
+      ERP_PRODUCT_CODE, INTRODUCE, INTRODUCE_LAZY, PRICE_STATUS,PRICE_REASONS, IMAGE_STATUS, IMAGE_REASONS, PRODUCT_TYPE
+    from PRODUCT_DRAFT
+    <isParameterPresent >
+      <include refid="PRODUCT_DRAFT.ibatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <select id="ibatorgenerated_selectByExample" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.pltfm.app.vobject.ProductDraftExample" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Dec 03 08:55:29 CST 2013.
+    -->
+    select PRODUCT_ID, CATEGORY_ID, CATEGORY_NAME, PRODUCT_NAME, PRODUCT_NO, PACK_LISTING, PRODUCT_SUBTITLE,
+      PRODUCT_TITLE, KEYWORD, BRAND_ID, BRAND_NAME, DRUG_CATE_ID, DRUG_CATE_CODE, CREATE_USER,
+      CREATE_TIME, CHECK_USER, CHECK_TIME, MODIF_USER, MODIF_TIME, SHOP_CODE, UP_TIME, ARCHIVE_TIME,
+      APPROVAL_TYPE, APPROVAL_NO, PRODUCTHOT, STATUS, OP_TYPE, REASONS, PRODUCT_DESC,
+      ERP_PRODUCT_CODE, PRICE_STATUS,PRICE_REASONS, IMAGE_STATUS, IMAGE_REASONS, PRODUCT_TYPE
+    from PRODUCT_DRAFT
+    <isParameterPresent >
+      <include refid="PRODUCT_DRAFT.ibatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_ResultMapWithBLOBs" parameterClass="com.pltfm.app.vobject.ProductDraft" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Dec 03 08:55:29 CST 2013.
+    -->
+    select PRODUCT_ID, CATEGORY_ID, CATEGORY_NAME, PRODUCT_NAME, PRODUCT_NO, PACK_LISTING, PRODUCT_SUBTITLE,
+      PRODUCT_TITLE, KEYWORD, BRAND_ID, BRAND_NAME, DRUG_CATE_ID, DRUG_CATE_CODE, CREATE_USER,
+      CREATE_TIME, CHECK_USER, CHECK_TIME, MODIF_USER, MODIF_TIME, SHOP_CODE, UP_TIME, ARCHIVE_TIME,
+      APPROVAL_TYPE, APPROVAL_NO, PRODUCTHOT, STATUS, OP_TYPE, REASONS, PRODUCT_DESC,
+      ERP_PRODUCT_CODE, INTRODUCE, INTRODUCE_LAZY, PRICE_STATUS,PRICE_REASONS, IMAGE_STATUS, IMAGE_REASONS, PRODUCT_TYPE
+    from PRODUCT_DRAFT
+    where PRODUCT_ID = #productId:DECIMAL#
+  </select>
+  <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="com.pltfm.app.vobject.ProductDraft" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Dec 03 08:55:29 CST 2013.
+    -->
+    delete from PRODUCT_DRAFT
+    where PRODUCT_ID = #productId:DECIMAL#
+  </delete>
+  <delete id="ibatorgenerated_deleteByExample" parameterClass="com.pltfm.app.vobject.ProductDraftExample" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Dec 03 08:55:29 CST 2013.
+    -->
+    delete from PRODUCT_DRAFT
+    <include refid="PRODUCT_DRAFT.ibatorgenerated_Example_Where_Clause" />
+  </delete>
+  <insert id="ibatorgenerated_insert" parameterClass="com.pltfm.app.vobject.ProductDraft" >
+    <selectKey keyProperty="productId" resultClass="java.lang.Long" >
+    	select seq_app_productmain.nextval from dual
+    </selectKey>
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Dec 03 08:55:29 CST 2013.
+    -->
+    insert into PRODUCT_DRAFT (PRODUCT_ID, CATEGORY_ID, CATEGORY_NAME, PRODUCT_SUBTITLE, PRODUCT_NAME, PRODUCT_NO,
+      PACK_LISTING, PRODUCT_TITLE, KEYWORD, BRAND_ID, BRAND_NAME, DRUG_CATE_ID, DRUG_CATE_CODE,
+      CREATE_USER, CREATE_TIME, CHECK_USER, CHECK_TIME, MODIF_USER, MODIF_TIME, SHOP_CODE, UP_TIME,
+      ARCHIVE_TIME,  APPROVAL_TYPE, APPROVAL_NO, PRODUCTHOT, STATUS, OP_TYPE, REASONS,
+      PRODUCT_DESC, ERP_PRODUCT_CODE, INTRODUCE, INTRODUCE_LAZY, PRICE_STATUS,PRICE_REASONS, IMAGE_STATUS, IMAGE_REASONS, PRODUCT_TYPE)
+    values (#productId:DECIMAL#, #categoryId:DECIMAL#, #categoryName:VARCHAR#, #productSubtitle:VARCHAR#,
+      #productName:VARCHAR#, #productNo:VARCHAR#, #packListing:VARCHAR#, #productTitle:VARCHAR#,
+      #keyword:VARCHAR#, #brandId:DECIMAL#, #brandName:VARCHAR#, #drugCateId:DECIMAL#,
+      #drugCateCode:VARCHAR#, #createUser:DECIMAL#, #createTime#, #checkUser:DECIMAL#,
+      #checkTime#, #modifUser:DECIMAL#, #modifTime#, #shopCode:VARCHAR#, #upTime#,
+      #archiveTime#, #approvalType:DECIMAL#, #approvalNo:VARCHAR#,
+      #producthot:DECIMAL#, #status:VARCHAR#, #opType:DECIMAL#, #reasons:VARCHAR#,
+      #productDesc:VARCHAR#, #erpProductCode:VARCHAR#, #introduce:CLOB#, #introduceLazy:CLOB#, #priceStatus:VARCHAR#,
+      #priceReasons:VARCHAR#, #imageStatus:VARCHAR#, #imageReasons:VARCHAR#, #productType:DECIMAL#)
+  </insert> 
+  <insert id="ibatorgenerated_insert_withOutSeq" parameterClass="com.pltfm.app.vobject.ProductDraft" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Dec 03 08:55:29 CST 2013.
+    -->
+    insert into PRODUCT_DRAFT (PRODUCT_ID, CATEGORY_ID, CATEGORY_NAME, PRODUCT_SUBTITLE, PRODUCT_NAME, PRODUCT_NO,
+      PACK_LISTING, PRODUCT_TITLE, KEYWORD, BRAND_ID, BRAND_NAME, DRUG_CATE_ID, DRUG_CATE_CODE,
+      CREATE_USER, CREATE_TIME, CHECK_USER, CHECK_TIME, MODIF_USER, MODIF_TIME, SHOP_CODE, UP_TIME,
+      ARCHIVE_TIME,  APPROVAL_TYPE, APPROVAL_NO, PRODUCTHOT, STATUS, OP_TYPE, REASONS,
+      PRODUCT_DESC, ERP_PRODUCT_CODE, INTRODUCE, INTRODUCE_LAZY, PRICE_STATUS,PRICE_REASONS, IMAGE_STATUS, IMAGE_REASONS, PRODUCT_TYPE)
+    values (#productId:DECIMAL#, #categoryId:DECIMAL#, #categoryName:VARCHAR#, #productSubtitle:VARCHAR#,
+      #productName:VARCHAR#, #productNo:VARCHAR#, #packListing:VARCHAR#, #productTitle:VARCHAR#,
+      #keyword:VARCHAR#, #brandId:DECIMAL#, #brandName:VARCHAR#, #drugCateId:DECIMAL#,
+      #drugCateCode:VARCHAR#, #createUser:DECIMAL#, #createTime#, #checkUser:DECIMAL#,
+      #checkTime#, #modifUser:DECIMAL#, #modifTime#, #shopCode:VARCHAR#, #upTime#,
+      #archiveTime#,  #approvalType:DECIMAL#, #approvalNo:VARCHAR#,
+      #producthot:DECIMAL#, #status:VARCHAR#, #opType:DECIMAL#, #reasons:VARCHAR#,
+      #productDesc:VARCHAR#, #erpProductCode:VARCHAR#, #introduce:CLOB#, #introduceLazy:CLOB#, #priceStatus:VARCHAR#,
+      #priceReasons:VARCHAR#, #imageStatus:VARCHAR#, #imageReasons:VARCHAR#, #productType:DECIMAL#)
+  </insert>
+  <insert id="ibatorgenerated_insertSelective" parameterClass="com.pltfm.app.vobject.ProductDraft" >
+    <selectKey keyProperty="productId" resultClass="java.lang.Long" >
+    	select seq_app_productmain.nextval from dual
+    </selectKey>
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Dec 03 08:55:29 CST 2013.
+    -->
+    insert into PRODUCT_DRAFT
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="productId" >
+        PRODUCT_ID
+      </isNotNull>
+      <isNotNull prepend="," property="categoryId" >
+        CATEGORY_ID
+      </isNotNull>
+      <isNotNull prepend="," property="categoryName" >
+        CATEGORY_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="productSubtitle" >
+        PRODUCT_SUBTITLE
+      </isNotNull>
+      <isNotNull prepend="," property="productName" >
+        PRODUCT_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="productNo" >
+        PRODUCT_NO
+      </isNotNull>
+      <isNotNull prepend="," property="packListing" >
+        PACK_LISTING
+      </isNotNull>
+      <isNotNull prepend="," property="productTitle" >
+        PRODUCT_TITLE
+      </isNotNull>
+      <isNotNull prepend="," property="keyword" >
+        KEYWORD
+      </isNotNull>
+      <isNotNull prepend="," property="brandId" >
+        BRAND_ID
+      </isNotNull>
+      <isNotNull prepend="," property="brandName" >
+        BRAND_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="drugCateId" >
+        DRUG_CATE_ID
+      </isNotNull>
+      <isNotNull prepend="," property="drugCateCode" >
+        DRUG_CATE_CODE
+      </isNotNull>
+      <isNotNull prepend="," property="createUser" >
+        CREATE_USER
+      </isNotNull>
+      <isNotNull prepend="," property="createTime" >
+        CREATE_TIME
+      </isNotNull>
+      <isNotNull prepend="," property="checkUser" >
+        CHECK_USER
+      </isNotNull>
+      <isNotNull prepend="," property="checkTime" >
+        CHECK_TIME
+      </isNotNull>
+      <isNotNull prepend="," property="modifUser" >
+        MODIF_USER
+      </isNotNull>
+      <isNotNull prepend="," property="modifTime" >
+        MODIF_TIME
+      </isNotNull>
+      <isNotNull prepend="," property="shopCode" >
+        SHOP_CODE
+      </isNotNull>
+      <isNotNull prepend="," property="upTime" >
+        UP_TIME
+      </isNotNull>
+      <isNotNull prepend="," property="archiveTime" >
+        ARCHIVE_TIME
+      </isNotNull>
+      <isNotNull prepend="," property="approvalType" >
+        APPROVAL_TYPE
+      </isNotNull>
+      <isNotNull prepend="," property="approvalNo" >
+        APPROVAL_NO
+      </isNotNull>
+      <isNotNull prepend="," property="producthot" >
+        PRODUCTHOT
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        STATUS
+      </isNotNull>
+      <isNotNull prepend="," property="opType" >
+        OP_TYPE
+      </isNotNull>
+      <isNotNull prepend="," property="reasons" >
+        REASONS
+      </isNotNull>
+      <isNotNull prepend="," property="productDesc" >
+        PRODUCT_DESC
+      </isNotNull>
+      <isNotNull prepend="," property="erpProductCode" >
+        ERP_PRODUCT_CODE
+      </isNotNull>
+      <isNotNull prepend="," property="introduce" >
+        INTRODUCE
+      </isNotNull>
+      <isNotNull prepend="," property="introduceLazy" >
+        INTRODUCE_LAZY
+      </isNotNull>
+      <isNotNull prepend="," property="priceStatus" >
+        PRICE_STATUS
+      </isNotNull>
+      <isNotNull prepend="," property="priceReasons" >
+        PRICE_REASONS
+      </isNotNull>
+      <isNotNull prepend="," property="imageStatus" >
+        IMAGE_STATUS
+      </isNotNull>
+      <isNotNull prepend="," property="imageReasons" >
+        IMAGE_REASONS
+      </isNotNull>
+      <isNotNull prepend="," property="productType" >
+        PRODUCT_TYPE
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="productId" >
+        #productId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="categoryId" >
+        #categoryId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="categoryName" >
+        #categoryName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productSubtitle" >
+        #productSubtitle:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productName" >
+        #productName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productNo" >
+        #productNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="packListing" >
+        #packListing:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productTitle" >
+        #productTitle:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="keyword" >
+        #keyword:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="brandId" >
+        #brandId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="brandName" >
+        #brandName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="drugCateId" >
+        #drugCateId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="drugCateCode" >
+        #drugCateCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createUser" >
+        #createUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="createTime" >
+        #createTime#
+      </isNotNull>
+      <isNotNull prepend="," property="checkUser" >
+        #checkUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="checkTime" >
+        #checkTime#
+      </isNotNull>
+      <isNotNull prepend="," property="modifUser" >
+        #modifUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="modifTime" >
+        #modifTime#
+      </isNotNull>
+      <isNotNull prepend="," property="shopCode" >
+        #shopCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="upTime" >
+        #upTime#
+      </isNotNull>
+      <isNotNull prepend="," property="archiveTime" >
+        #archiveTime#
+      </isNotNull>
+      <isNotNull prepend="," property="approvalType" >
+        #approvalType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="approvalNo" >
+        #approvalNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="producthot" >
+        #producthot:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        #status:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="opType" >
+        #opType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="reasons" >
+        #reasons:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productDesc" >
+        #productDesc:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="erpProductCode" >
+        #erpProductCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="introduce" >
+        #introduce:CLOB#
+      </isNotNull>
+      <isNotNull prepend="," property="introduceLazy" >
+        #introduceLazy:CLOB#
+      </isNotNull>
+      <isNotNull prepend="," property="priceStatus" >
+        #priceStatus:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="priceReasons" >
+        #priceReasons:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="imageStatus" >
+        #imageStatus:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="imageReasons" >
+        #imageReasons:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productType" >
+        #productType:DECIMAL#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  <select id="ibatorgenerated_countByExample" parameterClass="com.pltfm.app.vobject.ProductDraftExample" resultClass="java.lang.Integer" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Dec 03 08:55:29 CST 2013.
+    -->
+    select count(1) from PRODUCT_DRAFT
+    <include refid="PRODUCT_DRAFT.ibatorgenerated_Example_Where_Clause" />
+  </select>
+  <update id="ibatorgenerated_updateByExampleSelective" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Dec 03 08:55:29 CST 2013.
+    -->
+    update PRODUCT_DRAFT
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.productId" >
+        PRODUCT_ID = #record.productId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.categoryId" >
+        CATEGORY_ID = #record.categoryId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.categoryName" >
+        CATEGORY_NAME = #record.categoryName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.productSubtitle" >
+        PRODUCT_SUBTITLE = #record.productSubtitle:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.productName" >
+        PRODUCT_NAME = #record.productName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.productNo" >
+        PRODUCT_NO = #record.productNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.packListing" >
+        PACK_LISTING = #record.packListing:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.productTitle" >
+        PRODUCT_TITLE = #record.productTitle:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.keyword" >
+        KEYWORD = #record.keyword:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.brandId" >
+        BRAND_ID = #record.brandId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.brandName" >
+        BRAND_NAME = #record.brandName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.drugCateId" >
+        DRUG_CATE_ID = #record.drugCateId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.drugCateCode" >
+        DRUG_CATE_CODE = #record.drugCateCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createUser" >
+        CREATE_USER = #record.createUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createTime" >
+        CREATE_TIME = #record.createTime#
+      </isNotNull>
+      <isNotNull prepend="," property="record.checkUser" >
+        CHECK_USER = #record.checkUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.checkTime" >
+        CHECK_TIME = #record.checkTime#
+      </isNotNull>
+      <isNotNull prepend="," property="record.modifUser" >
+        MODIF_USER = #record.modifUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.modifTime" >
+        MODIF_TIME = #record.modifTime#
+      </isNotNull>
+      <isNotNull prepend="," property="record.shopCode" >
+        SHOP_CODE = #record.shopCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.upTime" >
+        UP_TIME = #record.upTime#
+      </isNotNull>
+      <isNotNull prepend="," property="record.archiveTime" >
+        ARCHIVE_TIME = #record.archiveTime#
+      </isNotNull>
+      <isNotNull prepend="," property="record.approvalType" >
+        APPROVAL_TYPE = #record.approvalType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.approvalNo" >
+        APPROVAL_NO = #record.approvalNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.producthot" >
+        PRODUCTHOT = #record.producthot:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.status" >
+        STATUS = #record.status:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.opType" >
+        OP_TYPE = #record.opType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.reasons" >
+        REASONS = #record.reasons:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.productDesc" >
+        PRODUCT_DESC = #record.productDesc:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.erpProductCode" >
+        ERP_PRODUCT_CODE = #record.erpProductCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.introduce" >
+        INTRODUCE = #record.introduce:CLOB#
+      </isNotNull>
+      <isNotNull prepend="," property="record.introduceLazy" >
+        INTRODUCE_LAZY = #record.introduceLazy:CLOB#
+      </isNotNull>
+      <isNotNull prepend="," property="record.priceStatus" >
+        PRICE_STATUS = #record.priceStatus:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.priceReasons" >
+        PRICE_REASONS = #record.priceReasons:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.imageStatus" >
+        IMAGE_STATUS = #record.imageStatus:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.imageReasons" >
+        IMAGE_REASONS = #record.imageReasons:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.productType" >
+        PRODUCT_TYPE = #record.productType:DECIMAL#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="PRODUCT_DRAFT.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="ibatorgenerated_updateByExampleWithBLOBs" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Dec 03 08:55:29 CST 2013.
+    -->
+    update PRODUCT_DRAFT
+    set PRODUCT_ID = #record.productId:DECIMAL#,
+      CATEGORY_ID = #record.categoryId:DECIMAL#,
+      CATEGORY_NAME = #record.categoryName:VARCHAR#,
+      PRODUCT_SUBTITLE = #record.productSubtitle:VARCHAR#,
+      PRODUCT_NAME = #record.productName:VARCHAR#,
+      PRODUCT_NO = #record.productNo:VARCHAR#,
+      PACK_LISTING = #record.packListing:VARCHAR#,
+      PRODUCT_TITLE = #record.productTitle:VARCHAR#,
+      KEYWORD = #record.keyword:VARCHAR#,
+      BRAND_ID = #record.brandId:DECIMAL#,
+      BRAND_NAME = #record.brandName:VARCHAR#,
+      DRUG_CATE_ID = #record.drugCateId:DECIMAL#,
+      DRUG_CATE_CODE = #record.drugCateCode:VARCHAR#,
+      CREATE_USER = #record.createUser:DECIMAL#,
+      CREATE_TIME = #record.createTime#,
+      CHECK_USER = #record.checkUser:DECIMAL#,
+      CHECK_TIME = #record.checkTime#,
+      MODIF_USER = #record.modifUser:DECIMAL#,
+      MODIF_TIME = #record.modifTime#,
+      SHOP_CODE = #record.shopCode:VARCHAR#,
+      UP_TIME = #record.upTime#,
+      ARCHIVE_TIME = #record.archiveTime#,
+      APPROVAL_TYPE = #record.approvalType:DECIMAL#,
+      APPROVAL_NO = #record.approvalNo:VARCHAR#,
+      PRODUCTHOT = #record.producthot:DECIMAL#,
+      STATUS = #record.status:VARCHAR#,
+      OP_TYPE = #record.opType:DECIMAL#,
+      REASONS = #record.reasons:VARCHAR#,
+      PRODUCT_DESC = #record.productDesc:VARCHAR#,
+      ERP_PRODUCT_CODE = #record.erpProductCode:VARCHAR#,
+      INTRODUCE = #record.introduce:CLOB#,
+      INTRODUCE_LAZY = #record.introduceLazy:CLOB#,
+      PRICE_STATUS = #record.priceStatus:VARCHAR#,
+      PRICE_REASONS = #record.priceReasons:VARCHAR#,
+      IMAGE_STATUS = #record.imageStatus:VARCHAR#,
+      IMAGE_REASONS = #record.imageReasons:VARCHAR#,
+      PRODUCT_TYPE = #record.productType:DECIMAL#
+    <isParameterPresent >
+      <include refid="PRODUCT_DRAFT.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="ibatorgenerated_updateByExample" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Dec 03 08:55:29 CST 2013.
+    -->
+    update PRODUCT_DRAFT
+    set PRODUCT_ID = #record.productId:DECIMAL#,
+      CATEGORY_ID = #record.categoryId:DECIMAL#,
+      CATEGORY_NAME = #record.categoryName:VARCHAR#,
+      PRODUCT_SUBTITLE = #record.productSubtitle:VARCHAR#,
+      PRODUCT_NAME = #record.productName:VARCHAR#,
+      PRODUCT_NO = #record.productNo:VARCHAR#,
+      PACK_LISTING = #record.packListing:VARCHAR#,
+      PRODUCT_TITLE = #record.productTitle:VARCHAR#,
+      KEYWORD = #record.keyword:VARCHAR#,
+      BRAND_ID = #record.brandId:DECIMAL#,
+      BRAND_NAME = #record.brandName:VARCHAR#,
+      DRUG_CATE_ID = #record.drugCateId:DECIMAL#,
+      DRUG_CATE_CODE = #record.drugCateCode:VARCHAR#,
+      CREATE_USER = #record.createUser:DECIMAL#,
+      CREATE_TIME = #record.createTime#,
+      CHECK_USER = #record.checkUser:DECIMAL#,
+      CHECK_TIME = #record.checkTime#,
+      MODIF_USER = #record.modifUser:DECIMAL#,
+      MODIF_TIME = #record.modifTime#,
+      SHOP_CODE = #record.shopCode:VARCHAR#,
+      UP_TIME = #record.upTime#,
+      ARCHIVE_TIME = #record.archiveTime#,
+      APPROVAL_TYPE = #record.approvalType:DECIMAL#,
+      APPROVAL_NO = #record.approvalNo:VARCHAR#,
+      PRODUCTHOT = #record.producthot:DECIMAL#,
+      STATUS = #record.status:VARCHAR#,
+      OP_TYPE = #record.opType:DECIMAL#,
+      REASONS = #record.reasons:VARCHAR#,
+      PRODUCT_DESC = #record.productDesc:VARCHAR#,
+      ERP_PRODUCT_CODE = #record.erpProductCode:VARCHAR#,
+      PRICE_STATUS = #record.priceStatus:VARCHAR#,
+      PRICE_REASONS = #record.priceReasons:VARCHAR#,
+      IMAGE_STATUS = #record.imageStatus:VARCHAR#,
+      IMAGE_REASONS = #record.imageReasons:VARCHAR#,
+      PRODUCT_TYPE = #record.productType:DECIMAL#
+    <isParameterPresent >
+      <include refid="PRODUCT_DRAFT.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="com.pltfm.app.vobject.ProductDraft" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Dec 03 08:55:29 CST 2013.
+    -->
+    update PRODUCT_DRAFT
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="categoryId" >
+        CATEGORY_ID = #categoryId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="productType" >
+        PRODUCT_TYPE = #productType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="categoryName" >
+        CATEGORY_NAME = #categoryName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productSubtitle" >
+        PRODUCT_SUBTITLE = #productSubtitle:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productName" >
+        PRODUCT_NAME = #productName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productNo" >
+        PRODUCT_NO = #productNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="packListing" >
+        PACK_LISTING = #packListing:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productTitle" >
+        PRODUCT_TITLE = #productTitle:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="keyword" >
+        KEYWORD = #keyword:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="brandId" >
+        BRAND_ID = #brandId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="brandName" >
+        BRAND_NAME = #brandName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="drugCateId" >
+        DRUG_CATE_ID = #drugCateId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="drugCateCode" >
+        DRUG_CATE_CODE = #drugCateCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createUser" >
+        CREATE_USER = #createUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="createTime" >
+        CREATE_TIME = #createTime#
+      </isNotNull>
+      <isNotNull prepend="," property="checkUser" >
+        CHECK_USER = #checkUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="checkTime" >
+        CHECK_TIME = #checkTime#
+      </isNotNull>
+      <isNotNull prepend="," property="modifUser" >
+        MODIF_USER = #modifUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="modifTime" >
+        MODIF_TIME = #modifTime#
+      </isNotNull>
+      <isNotNull prepend="," property="shopCode" >
+        SHOP_CODE = #shopCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="upTime" >
+        UP_TIME = #upTime#
+      </isNotNull>
+      <isNotNull prepend="," property="archiveTime" >
+        ARCHIVE_TIME = #archiveTime#
+      </isNotNull>
+      <isNotNull prepend="," property="approvalType" >
+        APPROVAL_TYPE = #approvalType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="approvalNo" >
+        APPROVAL_NO = #approvalNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="producthot" >
+        PRODUCTHOT = #producthot:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        STATUS = #status:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="opType" >
+        OP_TYPE = #opType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="reasons" >
+        REASONS = #reasons:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productDesc" >
+        PRODUCT_DESC = #productDesc:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="erpProductCode" >
+        ERP_PRODUCT_CODE = #erpProductCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="introduce" >
+        INTRODUCE = #introduce:CLOB#
+      </isNotNull>
+      <isNotNull prepend="," property="introduceLazy" >
+        INTRODUCE_LAZY = #introduceLazy:CLOB#
+      </isNotNull>
+      <isNotNull prepend="," property="priceStatus" >
+        PRICE_STATUS = #priceStatus:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="priceReasons" >
+        PRICE_REASONS = #priceReasons:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="imageStatus" >
+        IMAGE_STATUS = #imageStatus:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="imageReasons" >
+        IMAGE_REASONS = #imageReasons:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="toCheckTime" >
+        TO_CHECK_TIME = #toCheckTime:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    where PRODUCT_ID = #productId:DECIMAL#
+  </update>
+  <update id="ibatorgenerated_updateByPrimaryKeyWithBLOBs" parameterClass="com.pltfm.app.vobject.ProductDraft" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Dec 03 08:55:29 CST 2013.
+    -->
+    update PRODUCT_DRAFT
+    set CATEGORY_ID = #categoryId:DECIMAL#,
+      CATEGORY_NAME = #categoryName:VARCHAR#,
+      PRODUCT_SUBTITLE = #productSubtitle:VARCHAR#,
+      PRODUCT_NAME = #productName:VARCHAR#,
+      PRODUCT_NO = #productNo:VARCHAR#,
+      PACK_LISTING = #packListing:VARCHAR#,
+      PRODUCT_TITLE = #productTitle:VARCHAR#,
+      KEYWORD = #keyword:VARCHAR#,
+      BRAND_ID = #brandId:DECIMAL#,
+      BRAND_NAME = #brandName:VARCHAR#,
+      DRUG_CATE_ID = #drugCateId:DECIMAL#,
+      DRUG_CATE_CODE = #drugCateCode:VARCHAR#,
+      CREATE_USER = #createUser:DECIMAL#,
+      CREATE_TIME = #createTime#,
+      CHECK_USER = #checkUser:DECIMAL#,
+      CHECK_TIME = #checkTime#,
+      MODIF_USER = #modifUser:DECIMAL#,
+      MODIF_TIME = #modifTime#,
+      SHOP_CODE = #shopCode:VARCHAR#,
+      UP_TIME = #upTime#,
+      ARCHIVE_TIME = #archiveTime#,
+      APPROVAL_TYPE = #approvalType:DECIMAL#,
+      APPROVAL_NO = #approvalNo:VARCHAR#,
+      PRODUCTHOT = #producthot:DECIMAL#,
+      STATUS = #status:VARCHAR#,
+      OP_TYPE = #opType:DECIMAL#,
+      REASONS = #reasons:VARCHAR#,
+      PRODUCT_DESC = #productDesc:VARCHAR#,
+      ERP_PRODUCT_CODE = #erpProductCode:VARCHAR#,
+      INTRODUCE = #introduce:CLOB#,
+      INTRODUCE_LAZY = #introduceLazy:CLOB#,
+      PRICE_STATUS = #priceStatus:VARCHAR#,
+      PRICE_REASONS = #priceReasons:VARCHAR#,
+      IMAGE_STATUS = #imageStatus:VARCHAR#,
+      IMAGE_REASONS = #imageReasons:VARCHAR#,
+      PRODUCT_TYPE = #productType:DECIMAL#
+    where PRODUCT_ID = #productId:DECIMAL#
+  </update>
+    <update id="handleNeedUpProduct2NotPass" parameterClass="com.pltfm.app.vobject.ProductDraft" >
+    UPDATE PRODUCT_DRAFT
+    SET STATUS = 6, REASONS = #reasons:VARCHAR#, PRICE_STATUS = 6
+    WHERE SHOP_CODE = #shopCode# AND STATUS=2 AND PRICE_STATUS =2
+    AND EXISTS (SELECT 1 FROM SUPPLIERS_RE_PRODUCT_CATEGORY SC WHERE SC.CATEGORY_ID=PRODUCT_DRAFT.CATEGORY_ID)
+  </update>
+
+  <update id="ibatorgenerated_updateByPrimaryKey" parameterClass="com.pltfm.app.vobject.ProductDraft" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Tue Dec 03 08:55:29 CST 2013.
+    -->
+    update PRODUCT_DRAFT
+    set CATEGORY_ID = #categoryId:DECIMAL#,
+      CATEGORY_NAME = #categoryName:VARCHAR#,
+      PRODUCT_SUBTITLE = #productSubtitle:VARCHAR#,
+      PRODUCT_NAME = #productName:VARCHAR#,
+      PRODUCT_NO = #productNo:VARCHAR#,
+      PACK_LISTING = #packListing:VARCHAR#,
+      PRODUCT_TITLE = #productTitle:VARCHAR#,
+      KEYWORD = #keyword:VARCHAR#,
+      BRAND_ID = #brandId:DECIMAL#,
+      BRAND_NAME = #brandName:VARCHAR#,
+      DRUG_CATE_ID = #drugCateId:DECIMAL#,
+      DRUG_CATE_CODE = #drugCateCode:VARCHAR#,
+      CREATE_USER = #createUser:DECIMAL#,
+      CREATE_TIME = #createTime#,
+      CHECK_USER = #checkUser:DECIMAL#,
+      CHECK_TIME = #checkTime#,
+      MODIF_USER = #modifUser:DECIMAL#,
+      MODIF_TIME = #modifTime#,
+      SHOP_CODE = #shopCode:VARCHAR#,
+      UP_TIME = #upTime#,
+      ARCHIVE_TIME = #archiveTime#,
+      APPROVAL_TYPE = #approvalType:DECIMAL#,
+      APPROVAL_NO = #approvalNo:VARCHAR#,
+      PRODUCTHOT = #producthot:DECIMAL#,
+      STATUS = #status:VARCHAR#,
+      OP_TYPE = #opType:DECIMAL#,
+      REASONS = #reasons:VARCHAR#,
+      PRODUCT_DESC = #productDesc:VARCHAR#,
+      ERP_PRODUCT_CODE = #erpProductCode:VARCHAR#,
+      PRICE_STATUS = #priceStatus:VARCHAR#,
+      PRICE_REASONS = #priceReasons:VARCHAR#,
+      IMAGE_STATUS = #imageStatus:VARCHAR#,
+      IMAGE_REASONS = #imageReasons:VARCHAR#,
+      PRODUCT_TYPE = #productType:DECIMAL#
+    where PRODUCT_ID = #productId:DECIMAL#
+  </update>
+  
+  <select id="getDrugCategoryName" parameterClass="java.lang.Long" resultMap="DrugCategoryResult">
+ 	select DRUG_CATEGORY_ID,DRUG_CATEGORY_NAME from DRUG_CATEGORY where DRUG_CATEGORY_ID = #drugCateId#
+  </select>
+  
+  	<select id="getMerchantNameForDraft" parameterClass="java.lang.String" resultClass="java.lang.String">
+		select ct.CORPORATE_NAME from suppliers_info si 
+			inner join commercial_tenant_basic_info ct on ct.N_COMMERCIAL_TENANT_ID=si.merchant_id 
+				where to_char(si.supplier_id)=#shopCode:VARCHAR# 
+  	</select>
+  
+  <select id="getProdBrandName" parameterClass="java.lang.Long" resultMap="ProductBrandResult">
+	select BRAND_ID,BRAND_NAME,IS_VALID from PROD_BRAND where BRAND_ID = #brandId# 
+  </select>
+  
+  <select id="findSingleProductAndSkusAndAttrValues" resultMap="singProductDraftMap" parameterClass="com.pltfm.app.vobject.ProductDraft" >
+  	select pd.product_id,
+  	   pd.product_subtitle,
+       pd.product_name,
+       pd.product_no,
+       pd.SHOP_CODE,
+       psd.product_sku_id,
+       psd.product_sku_code,
+       psd.mark_price,
+       psd.cost_price,
+       psd.price,
+       psd.unit_weight,
+       psd.pv_value,
+       psd.cost_income_ratio,
+       psd.sku_bar_code,
+       psd.status,
+       ca.category_attr_id,
+       ca.category_attr_name,
+       cav.category_attr_value_id,
+       decode(psad.new_attr,null,cav.CATEGORY_ATTR_VALUE,psad.new_attr) as CATEGORY_ATTR_VALUE
+  from product_draft          pd,
+       product_sku_draft      psd,
+       product_sku_attr_draft psad,
+       category_attr_value    cav,
+       category_attr          ca
+ where pd.product_id = psd.product_id(+)
+   and psd.product_sku_id = psad.product_sku_id(+)
+   and psad.category_attr_value_id = cav.category_attr_value_id(+)
+   and psad.category_attr_id = ca.category_attr_id(+)
+   
+   <isNotNull prepend="and" property="productId" >
+    pd.product_id = #productId#
+   </isNotNull>
+   <isNotNull prepend="and" property="skuStatus" >
+    psd.status = #skuStatus#
+   </isNotNull>
+  
+  	order by psd.product_sku_code,ca.category_attr_id	
+  </select>
+  
+  <insert id="insertProductOfficial" parameterClass="com.pltfm.app.vobject.ProductDraft" >
+  	<selectKey keyProperty="productNo" resultClass="java.lang.String" >
+  		select (substr((select t.category_code from Categorys t where t.Category_Id = #categoryId:DECIMAL#), 0, 2) || SEQ_APP_PRODUCT_CODE.Nextval) from dual
+  	</selectKey>
+	insert into PRODUCTMAIN (PRODUCT_ID, CATEGORY_ID, PRODUCT_SUBTITLE, PROCUCT_NAME, PRODUCT_DESC, PACK_LISTING,
+      PRODUCT_TITLE, KEYWORD, STATUS, CREATE_USER, CREATE_TIME, PRODUCTHOT, ARCHIVE_TIME,
+      CHECK_TIME, MODIF_TIME, SHOP_CODE, MODIF_USER, UP_TIME,
+      PRODUCT_NO, CHECK_USER, BRAND_ID, BRAND_NAME, PRODUCT_TYPE,
+      APPROVAL_TYPE, APPROVAL_NO, CATEGORY_NAME, DRUG_CATE_ID, DRUG_CATE_CODE, ERP_PRODUCT_CODE,
+      INTRODUCE, INTRODUCE_LAZY)
+    values (#productId:DECIMAL#, #categoryId:DECIMAL#, #productSubtitle:VARCHAR#, #productName:VARCHAR#, #productDesc:VARCHAR#, #packListing:VARCHAR#, 
+      #productTitle:VARCHAR#, #keyword:VARCHAR#, #status:VARCHAR#, #createUser:DECIMAL#, #createTime#, #producthot:DECIMAL#, #archiveTime#,
+      #checkTime#, #modifTime#, #shopCode:VARCHAR#, #modifUser:DECIMAL#, #upTime#,
+      #productNo:VARCHAR#,
+      #checkUser:DECIMAL#, #brandId:DECIMAL#, #brandName:VARCHAR#, #productType:DECIMAL#, 
+      #approvalType:DECIMAL#, #approvalNo:VARCHAR#, #categoryName:VARCHAR#, #drugCateId:DECIMAL#, #drugCateCode:VARCHAR#, #erpProductCode:VARCHAR#, 
+      #introduce:CLOB#, #introduceLazy:CLOB#)
+  </insert>
+  <insert id="insertProductOfficialOld" parameterClass="com.pltfm.app.vobject.ProductDraft" >
+	insert into PRODUCTMAIN (PRODUCT_ID, CATEGORY_ID, PRODUCT_SUBTITLE, PROCUCT_NAME, PRODUCT_DESC, PACK_LISTING,
+      PRODUCT_TITLE, KEYWORD, STATUS, CREATE_USER, CREATE_TIME, PRODUCTHOT, ARCHIVE_TIME,
+      CHECK_TIME, MODIF_TIME, SHOP_CODE, MODIF_USER, UP_TIME,
+      PRODUCT_NO, CHECK_USER, BRAND_ID, BRAND_NAME, PRODUCT_TYPE,
+      APPROVAL_TYPE, APPROVAL_NO, CATEGORY_NAME, DRUG_CATE_ID, DRUG_CATE_CODE, ERP_PRODUCT_CODE,
+      INTRODUCE, INTRODUCE_LAZY)
+    values (#productId:DECIMAL#, #categoryId:DECIMAL#, #productSubtitle:VARCHAR#, #productName:VARCHAR#, #productDesc:VARCHAR#, #packListing:VARCHAR#,
+      #productTitle:VARCHAR#, #keyword:VARCHAR#, #status:VARCHAR#, #createUser:DECIMAL#, #createTime#, #producthot:DECIMAL#, #archiveTime#,
+      #checkTime#, #modifTime#, #shopCode:VARCHAR#, #modifUser:DECIMAL#, #upTime#,
+      #productNo:VARCHAR#,
+      #checkUser:DECIMAL#, #brandId:DECIMAL#, #brandName:VARCHAR#, #productType:DECIMAL#,
+      #approvalType:DECIMAL#, #approvalNo:VARCHAR#, #categoryName:VARCHAR#, #drugCateId:DECIMAL#, #drugCateCode:VARCHAR#, #erpProductCode:VARCHAR#,
+      #introduce:CLOB#, #introduceLazy:CLOB#)
+  </insert>
+
+  <update id="updateOfficialByPrimaryKey" parameterClass="com.pltfm.app.vobject.ProductDraft" >
+    update PRODUCTMAIN
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="categoryId" >
+        CATEGORY_ID = #categoryId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="categoryName" >
+        CATEGORY_NAME = #categoryName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productName" >
+        PROCUCT_NAME = #productName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productNo" >
+        PRODUCT_NO = #productNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productTitle" >
+        PRODUCT_TITLE = #productTitle:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        STATUS = #status:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="brandId" >
+        BRAND_ID = #brandId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="brandName" >
+        BRAND_NAME = #brandName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="drugCateId" >
+        DRUG_CATE_ID = #drugCateId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="drugCateCode" >
+        DRUG_CATE_CODE = #drugCateCode:VARCHAR#
+      </isNotNull>
+      <!--<isNotNull prepend="," property="createUser" >
+        CREATE_USER = #createUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="createTime" >
+        CREATE_TIME = #createTime#
+      </isNotNull>
+      --><isNotNull prepend="," property="checkUser" >
+        CHECK_USER = #checkUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="checkTime" >
+        CHECK_TIME = #checkTime#
+      </isNotNull>
+      <isNotNull prepend="," property="modifUser" >
+        MODIF_USER = #modifUser:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="modifTime" >
+        MODIF_TIME = #modifTime#
+      </isNotNull>
+      <isNotNull prepend="," property="shopCode" >
+        SHOP_CODE = #shopCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="upTime" >
+        UP_TIME = #upTime#
+      </isNotNull>
+      <isNotNull prepend="," property="archiveTime" >
+        ARCHIVE_TIME = #archiveTime#
+      </isNotNull>
+      <isNotNull prepend="," property="approvalType" >
+        APPROVAL_TYPE = #approvalType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="producthot" >
+        PRODUCTHOT = #producthot:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="productType" >
+        PRODUCT_TYPE = #productType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="introduce" >
+        INTRODUCE = #introduce:CLOB#
+      </isNotNull>
+      <isNotNull prepend="," property="introduceLazy" >
+        INTRODUCE_LAZY = #introduceLazy:CLOB#
+      </isNotNull>
+      ,PRODUCT_SUBTITLE = #productSubtitle:VARCHAR#,KEYWORD = #keyword:VARCHAR#,PACK_LISTING = #packListing:VARCHAR#
+      ,ERP_PRODUCT_CODE = #erpProductCode:VARCHAR#,APPROVAL_NO = #approvalNo:VARCHAR# 
+      ,PRODUCT_DESC = #productDesc:VARCHAR# 
+    </dynamic>
+    where PRODUCT_ID = #productId:DECIMAL#
+  </update>
+  
+  <insert id="insertDraftFromOfficial" parameterClass="com.pltfm.app.vobject.Product" >
+  	insert into PRODUCT_DRAFT (PRODUCT_ID, CATEGORY_ID, CATEGORY_NAME, PRODUCT_SUBTITLE, PRODUCT_NAME, PRODUCT_NO,
+      PACK_LISTING, PRODUCT_TITLE, KEYWORD, BRAND_ID, BRAND_NAME, DRUG_CATE_ID, DRUG_CATE_CODE,
+      CREATE_USER, CREATE_TIME, CHECK_USER, CHECK_TIME, MODIF_USER, MODIF_TIME, SHOP_CODE, UP_TIME,
+      ARCHIVE_TIME,  APPROVAL_TYPE, APPROVAL_NO, PRODUCTHOT, STATUS, OP_TYPE,
+      PRODUCT_DESC, ERP_PRODUCT_CODE, INTRODUCE, INTRODUCE_LAZY, PRICE_STATUS,IMAGE_STATUS, PRODUCT_TYPE)
+    values (#id:DECIMAL#, #categoryId:DECIMAL#, #categoryName:VARCHAR#, #productSubtitle:VARCHAR#,
+      #name:VARCHAR#, #productNo:VARCHAR#, #packListing:VARCHAR#, #productTitle:VARCHAR#,
+      #keyword:VARCHAR#, #brandId:DECIMAL#, #brandName:VARCHAR#, #drugCateId:DECIMAL#,
+      #drugCateCode:VARCHAR#, #createUser:DECIMAL#, #createTime#, #checkUser:DECIMAL#,
+      #checkTime#, #modifUser:DECIMAL#, #modifTime#, #shopCode:VARCHAR#, #upTime#,
+      #archiveTime#, #approvalType:DECIMAL#, #approvalNo:VARCHAR#,
+      #productHot:DECIMAL#, '0', 2, 
+      #productDesc:VARCHAR#, #erpProductCode:VARCHAR#, #introduce:CLOB#, #introduceLazy:CLOB#, '2',
+      '2', #productType:DECIMAL#)
+  </insert>
+  
+  <insert id="insertDraftFromOfficialNew" parameterClass="com.pltfm.app.vobject.Product" >
+  	insert into PRODUCT_DRAFT (PRODUCT_ID, CATEGORY_ID, CATEGORY_NAME, PRODUCT_SUBTITLE, PRODUCT_NAME, PRODUCT_NO,
+      PACK_LISTING, PRODUCT_TITLE, KEYWORD, BRAND_ID, BRAND_NAME, DRUG_CATE_ID, DRUG_CATE_CODE,
+      CREATE_USER, CREATE_TIME, CHECK_USER, CHECK_TIME, MODIF_USER, MODIF_TIME, SHOP_CODE, UP_TIME,
+      ARCHIVE_TIME,  APPROVAL_TYPE, APPROVAL_NO, PRODUCTHOT, STATUS, OP_TYPE,
+      PRODUCT_DESC, ERP_PRODUCT_CODE, INTRODUCE, INTRODUCE_LAZY, PRICE_STATUS,IMAGE_STATUS, PRODUCT_TYPE,REASONS)
+    values (#id:DECIMAL#, #categoryId:DECIMAL#, #categoryName:VARCHAR#, #productSubtitle:VARCHAR#,
+      #name:VARCHAR#, #productNo:VARCHAR#, #packListing:VARCHAR#, #productTitle:VARCHAR#,
+      #keyword:VARCHAR#, #brandId:DECIMAL#, #brandName:VARCHAR#, #drugCateId:DECIMAL#,
+      #drugCateCode:VARCHAR#, #createUser:DECIMAL#, #createTime#, #checkUser:DECIMAL#,
+      #checkTime#, #modifUser:DECIMAL#, #modifTime#, #shopCode:VARCHAR#, #upTime#,
+      #archiveTime#, #approvalType:DECIMAL#, #approvalNo:VARCHAR#,
+      #productHot:DECIMAL#, '6', 6,
+      #productDesc:VARCHAR#, #erpProductCode:VARCHAR#, #introduce:CLOB#, #introduceLazy:CLOB#, '6',
+      '2', #productType:DECIMAL#,'由于《网络食品安全违法行为查处办法》新规，需对平台在售商品补充相关资质证书信息，请完善后重新进行提交审核。')
+  </insert>
+  <update id="batchSubmitDraftTheAudit" parameterClass="com.pltfm.app.vobject.ProductDraft" >
+  	update PRODUCT_DRAFT
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="status" >
+        STATUS = #status:VARCHAR#
+      </isNotNull>
+        <isNotNull prepend="," property="toCheckTime" >
+            TO_CHECK_TIME = #toCheckTime:VARCHAR#
+        </isNotNull>
+    </dynamic>
+    where PRODUCT_ID = #productId:DECIMAL# and STATUS='0' 
+  </update>
+  
+  <select id="selectProductSupplierType" parameterClass="java.lang.Long" resultClass="java.lang.Short" >
+  	select spi.supplier_type from product_draft pd,suppliers_info spi where pd.shop_code = to_char(spi.supplier_id) and pd.product_id = #productId:DECIMAL#
+  </select>
+  
+</sqlMap>

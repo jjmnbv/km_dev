@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<!-- 供应商独立库存管理 -->
+	<definition name="productStockAddContent" template="/WEB-INF/jsp/product/template/productStockAddContent.jsp"></definition>
+</tiles-definitions>
+

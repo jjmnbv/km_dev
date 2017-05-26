@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="CMS_SUPPLIER" >
+   <!--供应商资讯  -->
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.cms.vobject.SupplierNews" >
+    <result column="NEWS_ID" property="newsId" jdbcType="DECIMAL" />
+    <result column="NEWS_CATEGORY_ID" property="newsCategoryId" jdbcType="DECIMAL" />
+    <result column="NEWS_TITLE" property="newsTitle" jdbcType="VARCHAR" />
+    <result column="NEWS_SEO" property="newsSeo" jdbcType="VARCHAR" />
+    <result column="VISIT_NUM" property="visitNum" jdbcType="DECIMAL" />
+    <result column="appraise_NUM" property="appraiseNum" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="AUDIT_STATUS" property="auditStatus" jdbcType="CHAR" />
+    <result column="AUDIT_USER" property="auditUser" jdbcType="DECIMAL" />
+    <result column="AUDIT_TIME" property="auditTime" jdbcType="DATE" />
+    <result column="CREATE_USER" property="createUser" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+   </resultMap>
+   
+   <!--供应商信息  --> 
+   <resultMap id="ibatorgenerated_suppliersInfoMap" class="com.kmzyc.supplier.model.SuppliersInfo" >
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL" />
+    <result column="MERCHANT_ID" property="merchantId" jdbcType="DECIMAL" />
+    <result column="SALE_PRODUCT_DESCRIBE" property="saleProductDescribe" jdbcType="VARCHAR" />
+    <result column="SETTLEMENT_CYCLE" property="settlementCycle" jdbcType="DECIMAL" />
+    <result column="SETTLEMENT_WAY" property="settlementWay" jdbcType="DECIMAL" />
+    <result column="SUPPLIER_TYPE" property="supplierType" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="DESCRIBE" property="describe" jdbcType="VARCHAR" />
+  </resultMap>
+   
+   <!--用户信息  -->
+    <resultMap id="ibatorgenerated_CommercialTenantBasicInfo" class="com.pltfm.cms.vobject.CommercialTenantBasicInfo" >
+    <result column="N_COMMERCIAL_TENANT_ID" property="nCommercialTenantId" jdbcType="DECIMAL" />
+    <result column="N_LOGIN_ID" property="nLoginId" jdbcType="DECIMAL" />
+    <result column="CONTACTS_NAME" property="contactsName" jdbcType="VARCHAR" />
+    <result column="CONTACTS_DEPARTMENT" property="contactsDepartment" jdbcType="VARCHAR" />
+    <result column="FIXED_PHONE" property="fixedPhone" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="CONTACTS_EMAIL" property="contactsEmail" jdbcType="VARCHAR" />
+    <result column="CORPORATE_NAME" property="corporateName" jdbcType="VARCHAR" />
+    <result column="CORPORATE_LOCATION" property="corporateLocation" jdbcType="VARCHAR" />
+    <result column="CORPORATE_PROPERTY" property="corporateProperty" jdbcType="VARCHAR" />
+    <result column="CORPORATE_TRADE" property="corporateTrade" jdbcType="VARCHAR" />
+    <result column="N_ENTERPRISE_NUMBER_OF_PEOPLE" property="nEnterpriseNumberOfPeople" jdbcType="DECIMAL" />
+    <result column="D_FOUND_DATE" property="dFoundDate" jdbcType="DATE" />
+    <result column="N_ENTERPRISE_STATUS" property="nEnterpriseStatus" jdbcType="DECIMAL" />
+    <result column="POSTALCODE" property="postalcode" jdbcType="VARCHAR" />
+    <result column="UPLOAD_BUSINESS_LICENCE_PICTUR" property="uploadBusinessLicencePictur" jdbcType="VARCHAR" />
+    <result column="ORGANIZATION_CODE" property="organizationCode" jdbcType="VARCHAR" />
+    <result column="ENTERPRISE_LEGAL_REPRESENTATIV" property="enterpriseLegalRepresentativ" jdbcType="VARCHAR" />
+    <result column="ENTERPRISE_REALM_NAME" property="enterpriseRealmName" jdbcType="VARCHAR" />
+    <result column="D_CREATE_DATE" property="dCreateDate" jdbcType="DATE" />
+    <result column="N_CREATED" property="nCreated" jdbcType="DECIMAL" />
+    <result column="D_MODIFY_DATE" property="dModifyDate" jdbcType="DATE" />
+    <result column="N_MODIFIED" property="nModified" jdbcType="DECIMAL" />
+    <result column="AUTHENTICATION_STATUS" property="authenticationStatus" jdbcType="DECIMAL" />
+    <result column="BUSINESS_LICENCE_REGISTER" property="businessLicenceRegister" jdbcType="VARCHAR" />
+    <result column="BUSINESS_TIME_LIMIT" property="businessTimeLimit" jdbcType="VARCHAR" />
+    <result column="REGISTER_BANKROLL" property="registerBankroll" jdbcType="DECIMAL" />
+    <result column="BUSINESS_SCOPE" property="businessScope" jdbcType="VARCHAR" />
+    <result column="BANK_ACCOUNT_NAME" property="bankAccountName" jdbcType="VARCHAR" />
+    <result column="BANK_OF_DEPOSIT" property="bankOfDeposit" jdbcType="VARCHAR" />
+    <result column="BANK_OF_DEPOSIT_BRANCH_NAME" property="bankOfDepositBranchName" jdbcType="VARCHAR" />
+    <result column="COMPANY_ACCOUNT" property="companyAccount" jdbcType="VARCHAR" />
+    <result column="N_CERTIFICATE_TYPE" property="nCertificateType" jdbcType="DECIMAL" />
+    <result column="CERTIFICATE_NUMBER" property="certificateNumber" jdbcType="VARCHAR" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+    <result column="CERTIFICATE_PICTURE" property="certificatePicture" jdbcType="VARCHAR" />
+    <result column="BUSINESS_LICENCE_LOCATION" property="businessLicenceLocation" jdbcType="VARCHAR" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL" />
+    <result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+    <result column="CITY" property="city" jdbcType="VARCHAR" />    
+  </resultMap>
+<!--供应商资质文件  -->
+  <resultMap id="ibatorgenerated_BaseResultCertificateMap" class="com.pltfm.cms.vobject.SuppliersCertificate" >
+    <result column="SC_ID" property="scId" jdbcType="DECIMAL" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL" />
+    <result column="DOC_TYPE" property="docType" jdbcType="VARCHAR" />
+    <result column="DOC_CODE" property="docCode" jdbcType="VARCHAR" />
+    <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!--供应商店铺主表 -->
+   <resultMap id="ibatorgenerated_BaseResultShopMainMap" class="com.kmzyc.supplier.model.ShopMain" >
+         <result column="SHOP_ID" property="shopId" jdbcType="DECIMAL" />
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL" />
+    <result column="SHOP_TYPE" property="shopType" jdbcType="DECIMAL" />
+    <result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR" />
+    <result column="SHOP_NAME" property="shopName" jdbcType="VARCHAR" />
+    <result column="SHOP_TITLE" property="shopTitle" jdbcType="VARCHAR" />
+    <result column="LOGO_PATH" property="logoPath" jdbcType="VARCHAR" />
+    <result column="PHYSHOP_IMAGE_PATH" property="physhopImagePath" jdbcType="VARCHAR" />
+    <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+    <result column="CONTACT_INFO" property="contactInfo" jdbcType="VARCHAR" />
+    <result column="INTRODUCE" property="introduce" jdbcType="VARCHAR" />
+    <result column="SHOP_LEVEL" property="shopLevel" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="AUDIT_STATUS" property="auditStatus" jdbcType="CHAR" />
+    <!--
+    <result column="PROVINCE_ID" property="provinceId" jdbcType="DECIMAL" />
+    <result column="CITY_ID" property="cityId" jdbcType="DECIMAL" />
+    <result column="COUNTY_ID" property="countyId" jdbcType="DECIMAL" />
+    <result column="SHOP_MANAGER" property="shopManager" jdbcType="DECIMAL" />
+    <result column="CORP_NAME" property="corpName" jdbcType="VARCHAR" />
+    <result column="CORP_IDCODE" property="corpIdcode" jdbcType="VARCHAR" />
+    <result column="REG_NUMBER" property="regNumber" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    -->
+    <result column="DEFAULT_DOMAIN_URL" property="defaultDomainUrl" jdbcType="VARCHAR" />
+    <result column="SHOP_SITE" property="shopSite" jdbcType="VARCHAR" />
+    <result column="SHOP_SEO_KEY" property="shopSeoKey" jdbcType="VARCHAR" />
+    <result column="APPLY_USER" property="applyUser" jdbcType="DECIMAL" />
+    <result column="APPLY_TIME" property="applyTime" jdbcType="DATE" />
+    <result column="AUDIT_TIME" property="auditTime" jdbcType="DATE" />
+    <result column="AUDIT_USER" property="auditUser" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="DESCRIBE" property="describe" jdbcType="VARCHAR" />
+    <result column="SERVICE_TYPE" property="serviceType" jdbcType="DECIMAL" />
+    <result column="SERVICE_QQ" property="serviceQq" jdbcType="VARCHAR" />
+     
+  </resultMap>
+  
+  
+  
+  
+  
+  
+    <resultMap id="ibatorgenerated_suppliersBaseResultMap" class="com.kmzyc.supplier.model.MerchantInfoOrSuppliers" >
+     <result column="N_COMMERCIAL_TENANT_ID" property="merchantId" jdbcType="DECIMAL" />
+    <result column="N_LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+    <result column="CONTACTS_NAME" property="contactsName" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="CORPORATE_NAME" property="corporateName" jdbcType="VARCHAR" />
+    <result column="ORGANIZATION_CODE" property="organizationCode" jdbcType="VARCHAR" />
+    <result column="D_CREATE_Date" property="createDate" jdbcType="Date" />
+    <result column="BUSINESS_LICENCE_REGISTER" property="businessLicenceRegister" jdbcType="VARCHAR" />
+    <result column="corporate_location" property="corporateLocation" jdbcType="VARCHAR" />
+    <result column="N_ENTERPRISE_STATUS" property="enterpriseStatus" jdbcType="DECIMAL" />
+    
+     <result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+    <result column="CITY" property="city" jdbcType="VARCHAR" />
+    <result column="AREA" property="area" jdbcType="VARCHAR" />
+    <!-- 供应商属性 -->
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL" />
+    <result column="SALE_PRODUCT_DESCRIBE" property="saleProductDescribe" jdbcType="VARCHAR" />
+    <result column="SUPPLIER_TYPE" property="supplierType" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="LOGIN_STATUS" property="loginStatus" jdbcType="DECIMAL" />
+    <result column="BUSINESS_STATUS" property="businessStatus" jdbcType="DECIMAL" />
+    <result column="CLOSE_STATUS" property="closeStatus" jdbcType="DECIMAL" />
+    <!--  <result column="MERCHANT_ID" property="suppliersMerchantId" jdbcType="DECIMAL" />-->
+    <!--  <result column="SETTLEMENT_CYCLE" property="settlementCycle" jdbcType="DECIMAL" />-->
+    <!--  <result column="SETTLEMENT_WAY" property="settlementWay" jdbcType="DECIMAL" />-->
+    <!--  <result column="DESCRIBE" property="describe" jdbcType="VARCHAR" />-->
+  </resultMap>
+  
+
+  <!--查询供应商资讯  -->
+  <select id="ibatorgenerated_select"  parameterClass="com.pltfm.cms.vobject.SupplierNews" resultMap="ibatorgenerated_BaseResultMap">
+    select NEWS_ID, NEWS_CATEGORY_ID, NEWS_TITLE, NEWS_SEO, VISIT_NUM, appraise_NUM, STATUS,
+      AUDIT_STATUS, AUDIT_USER, AUDIT_TIME, CREATE_USER, CREATE_TIME, NEWS_CONTENT
+    from SUPPLIER_NEWS
+    where NEWS_CATEGORY_ID = #newsCategoryId:DECIMAL#
+  </select>
+  
+    	 <!--查询供应商信息  -->
+    <select id="ibatorgenerated_selectCommercialTenantId"  resultMap="ibatorgenerated_CommercialTenantBasicInfo"
+		parameterClass="java.lang.Long">
+      select N_COMMERCIAL_TENANT_ID, N_LOGIN_ID, CONTACTS_NAME, CONTACTS_DEPARTMENT, FIXED_PHONE,
+      MOBILE, CONTACTS_EMAIL, CORPORATE_NAME, CORPORATE_LOCATION, CORPORATE_PROPERTY,
+      CORPORATE_TRADE, N_ENTERPRISE_NUMBER_OF_PEOPLE, D_FOUND_DATE, N_ENTERPRISE_STATUS, POSTALCODE,
+      UPLOAD_BUSINESS_LICENCE_PICTUR, ORGANIZATION_CODE, ENTERPRISE_LEGAL_REPRESENTATIV,
+      ENTERPRISE_REALM_NAME, D_CREATE_DATE, N_CREATED, D_MODIFY_DATE, N_MODIFIED,
+      AUTHENTICATION_STATUS, BUSINESS_LICENCE_REGISTER, BUSINESS_TIME_LIMIT, REGISTER_BANKROLL,
+      BUSINESS_SCOPE, BANK_ACCOUNT_NAME, BANK_OF_DEPOSIT, BANK_OF_DEPOSIT_BRANCH_NAME,
+      COMPANY_ACCOUNT, N_CERTIFICATE_TYPE, CERTIFICATE_NUMBER, LOCATION, CERTIFICATE_PICTURE,
+      BUSINESS_LICENCE_LOCATION,SUPPLIER_ID,PROVINCE,CITY
+       from commercial_tenant_basic_info  left join SUPPLIERS_INFO  on n_commercial_tenant_id=merchant_id where supplier_id= #supplier_id:DECIMAL#
+  </select>
+  
+    <!--查询供应商类型是否自营  -->
+    <select id="ibatorgenerated_selectSuppliersInfo" resultMap="ibatorgenerated_suppliersInfoMap"
+		parameterClass="java.lang.Long" >
+    select supplier_id,merchant_id,sale_product_describe,settlement_cycle,settlement_way,supplier_type, status,describe 
+    from SUPPLIERS_INFO where supplier_id=#supplierId:DECIMAL#
+  </select>
+  
+    <!--查询供应商资质  -->
+    <select id="ibatorgenerated_selectCertificate" resultMap="ibatorgenerated_BaseResultCertificateMap"
+		parameterClass="java.lang.Long" >
+    select SC_ID, SUPPLIER_ID, DOC_TYPE, DOC_CODE, FILE_PATH, FILE_NAME
+    from SUPPLIERS_CERTIFICATE
+    where SUPPLIER_ID = #supplierId:DECIMAL#
+  </select>
+  
+  			
+  <select id="getSupplierByCloseStatus" resultMap="ibatorgenerated_suppliersBaseResultMap" >
+  select f.n_commercial_tenant_id,f.n_login_id,f.contacts_name,f.mobile,f.corporate_name,f.organization_code,f.d_create_date,f.business_licence_register
+    ,f.corporate_location,f.N_ENTERPRISE_STATUS,f.PROVINCE,f.CITY,f.AREA,s.supplier_id,s.sale_product_describe,s.supplier_type,s.status,s.LOGIN_STATUS,s.BUSINESS_STATUS,s.CLOSE_STATUS 
+   from commercial_tenant_basic_info f,suppliers_info s where f.n_commercial_tenant_id=s.merchant_id and s.status!=1 and s.CLOSE_STATUS!=1 
+   and s.Status=3 and f.N_ENTERPRISE_STATUS=1 ORDER BY f.n_commercial_tenant_id DESC  
+  </select>
+  
+  
+   
+
+   <!--查询店铺主表  -->
+    <select id="ibatorgenerated_selectShopMain" 
+    resultMap="ibatorgenerated_BaseResultShopMainMap" parameterClass="com.kmzyc.supplier.model.ShopMain" >
+    select  SHOP_ID, SUPPLIER_ID, SHOP_TYPE, SHOP_CODE, SHOP_NAME, SHOP_TITLE, LOGO_PATH,
+      PHYSHOP_IMAGE_PATH, FILE_PATH, CONTACT_INFO, INTRODUCE, SHOP_LEVEL, STATUS,
+      AUDIT_STATUS, DEFAULT_DOMAIN_URL, SHOP_SITE, SHOP_SEO_KEY, APPLY_USER, APPLY_TIME, AUDIT_TIME,
+      AUDIT_USER, REMARK, DESCRIBE,DESCRIBE,SERVICE_QQ,SERVICE_TYPE
+    from SHOP_MAIN
+    where SHOP_ID = #shopId:DECIMAL#
+  </select>
+  
+   <!--查询店铺主表  -->
+    <select id="ibatorgenerated_queryShopMainList" 
+    resultMap="ibatorgenerated_BaseResultShopMainMap"  >
+    select  SHOP_ID, SUPPLIER_ID, SHOP_TYPE, SHOP_CODE, SHOP_NAME, SHOP_TITLE, LOGO_PATH,
+      PHYSHOP_IMAGE_PATH, FILE_PATH, CONTACT_INFO, INTRODUCE, SHOP_LEVEL, STATUS,
+      AUDIT_STATUS, DEFAULT_DOMAIN_URL, SHOP_SITE, SHOP_SEO_KEY, APPLY_USER, APPLY_TIME, AUDIT_TIME,
+      AUDIT_USER, REMARK, DESCRIBE,DESCRIBE,SERVICE_QQ,SERVICE_TYPE
+    from SHOP_MAIN
+   
+  </select>
+  
+	
+   
+</sqlMap>

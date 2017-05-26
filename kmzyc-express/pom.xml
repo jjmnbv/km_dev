@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.kmzyc</groupId>
+	<artifactId>kmzyc-express</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>kmzyc-express</name>
+
+    <properties>
+        <jdk.version>1.8</jdk.version>
+        <km-container.version>1.0.1</km-container.version>
+        <km-communication.version>1.0.6</km-communication.version>
+        <km-web.version>1.0.7</km-web.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.version>3.2.14.RELEASE</spring.version>
+        <org.springframework.version>3.2.17.RELEASE</org.springframework.version>
+        <org.struts2.version>2.3.32</org.struts2.version>
+        <slf4j.version>1.7.21</slf4j.version>
+        <logback.version>1.1.6</logback.version>
+    </properties>
+
+	<modules>
+		<module>kmzyc-express-api</module>
+		<module>kmzyc-express-web</module>
+	</modules>
+	<distributionManagement>
+        <repository>
+            <id>Release</id>
+            <name>Release</name>
+            <url>http://10.1.6.144:8081/nexus/content/repositories/Release/</url>
+        </repository>
+        <snapshotRepository>
+            <id>Snapshots</id>
+            <name>Snapshots</name>
+            <url>http://10.1.6.144:8081/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+    <repositories>
+        <repository>
+            <id>Public</id>
+            <name>Public</name>
+            <url>http://10.1.6.144:8081/nexus/content/repositories/public/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>Snapshots</id>
+            <name>Snapshots</name>
+            <url>http://10.1.6.144:8081/nexus/content/repositories/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>central</id>
+            <name>Maven Repository Switchboard</name>
+            <layout>default</layout>
+            <url>http://repo1.maven.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

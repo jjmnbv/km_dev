@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="MOBLIE_EMAIL_VALIDATE" >
+  <resultMap id="mobileEmailValidateResult" class="com.pltfm.app.vobject.MoblieEmailValidate" >
+      <result column="N_LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+      <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+      <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+      <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+      <result column="N_CUSTOMER_TYPE_ID" property="customerTypeId" jdbcType="DECIMAL" />
+      <result column="N_STATUS" property="Status" jdbcType="DECIMAL" />
+      <result column="MOBILE_STATUS" property="mobileStatus" jdbcType="DECIMAL" />
+      <result column="EMAIL_STATUS" property="emailStatus" jdbcType="DECIMAL" />
+      <result column="D_CREATE_DATE" property="createDate"  />      
+  </resultMap>
+  
+ 
+  
+  <select id="selectListMoblieEmailCount" parameterClass="com.pltfm.app.vobject.MoblieEmailValidate"  resultClass="java.lang.Integer" >
+     	 select count(*) from LOGIN_INFO A , BNES_CUSTOMER_TYPE B  
+    <dynamic prepend="where">
+               A.N_STATUS=1
+             and B.customer_type_id=A.N_CUSTOMER_TYPE_ID
+             
+               <isNotEmpty property="loginAccount">
+								AND A.LOGIN_ACCOUNT like '%$loginAccount$%'
+							  </isNotEmpty>
+							    <isNotEmpty property="mobile">
+								AND A.MOBILE like '%$mobile$%'
+							  </isNotEmpty>  
+							    <isNotEmpty property="email">
+								AND A.EMAIL  like '%$email$%'
+							  </isNotEmpty>
+							    <isNotEmpty property="emailStatus">
+								AND A.EMAIL_STATUS =#emailStatus#
+							  </isNotEmpty>
+							      <isNotEmpty property="mobileStatus">
+								AND A.MOBILE_STATUS =#mobileStatus#
+							  </isNotEmpty>
+							   order by  A.N_LOGIN_ID desc 
+   </dynamic> 						  
+   
+  </select>
+  <select id="selectListMoblieEmail" resultMap="mobileEmailValidateResult" parameterClass="com.pltfm.app.vobject.MoblieEmailValidate">
+      select * FROM (select  ROW_NUMBER() OVER(order by  A.n_login_id desc) as view_row_number,
+     B.NAME CUSTOMER_NAME,
+      A.*
+     from LOGIN_INFO  A, BNES_CUSTOMER_TYPE B
+    <dynamic prepend="where">
+                 A.N_STATUS=1
+      and B.customer_type_id=A.N_CUSTOMER_TYPE_ID
+       <isNotEmpty property="loginAccount">
+								AND A.LOGIN_ACCOUNT like '%$loginAccount$%'
+							  </isNotEmpty>
+							    <isNotEmpty property="mobile">
+								AND A.MOBILE like '%$mobile$%'
+							  </isNotEmpty>  
+							    <isNotEmpty property="email">
+								AND A.EMAIL  like '%$email$%'
+							  </isNotEmpty>
+							    <isNotEmpty property="emailStatus">
+								AND A.EMAIL_STATUS =#emailStatus#
+							  </isNotEmpty>
+							      <isNotEmpty property="mobileStatus">
+								AND A.MOBILE_STATUS =#mobileStatus#
+							  </isNotEmpty>
+       </dynamic>
+						  ) <![CDATA[ where view_row_number <= #max# and view_row_number > #skip# ]]>
+	</select>
+
+    	  <update id="updateEmailValidate" parameterClass="com.pltfm.app.vobject.MoblieEmailValidate" >
+    update LOGIN_INFO
+    set  
+	     EMAIL_STATUS= #emailStatus:DECIMAL#
+    where N_LOGIN_ID= #loginId:DECIMAL# 
+           
+  </update> 
+      	  <update id="mobileValidate" parameterClass="com.pltfm.app.vobject.MoblieEmailValidate" >
+    update LOGIN_INFO
+    set  
+	     MOBILE_STATUS= #mobileStatus:DECIMAL#
+    where N_LOGIN_ID= #loginId:DECIMAL# 
+           
+  </update> 
+  
+  
+  
+</sqlMap>

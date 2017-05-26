@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="APPRAISE_ADDTO_CONTENT" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.kmzyc.b2b.model.AppraiseAddtoContent" >
+ 
+    <result column="ADD_CONTENT_ID" property="addContentId" jdbcType="DECIMAL" />
+    <result column="APPRAISE_ID" property="appraiseId" jdbcType="DECIMAL" />
+    <result column="ADD_CONTENT" property="addContent" jdbcType="VARCHAR" />
+    <result column="ADD_CONTENT_DATE" property="addContentDate" jdbcType="Date" />
+    <result column="CHECK_STATUS" property="checkStatus" jdbcType="DECIMAL" />
+    <result column="CHECK_MAN_ID" property="checkManId" jdbcType="DECIMAL" />
+  </resultMap>
+  
+    <resultMap id="resutlForCMS" class="com.kmzyc.b2b.model.AppraiseAddtoContent" >
+ 
+    <result column="ADD_CONTENT_ID" property="addContentId" jdbcType="DECIMAL" />
+    <result column="ADD_CONTENT" property="addContent" jdbcType="VARCHAR" />
+    <result column="ADD_CONTENT_DATE" property="addContentDate" jdbcType="Date" />
+   <result column="CHECK_STATUS" property="checkStatus" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  
+   <select id="selectAppraiseAddByOrder" parameterClass="com.kmzyc.b2b.model.AppraiseAddtoContent" resultMap="ibatorgenerated_BaseResultMap">
+
+        select a.add_content_id,
+        		a.appraise_id,
+        		a.add_content,
+        		a.add_content_date,
+        		a.check_status,
+        		a.check_man_id
+                from appraise_addto_content a
+                where  1=1                
+        <isNotEmpty property="appraiseId">
+            and a.appraise_id=#appraiseId:DECIMAL#
+        </isNotEmpty>
+    </select>
+    
+</sqlMap>

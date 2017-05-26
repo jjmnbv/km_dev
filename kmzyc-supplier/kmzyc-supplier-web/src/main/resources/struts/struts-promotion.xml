@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="promotion" extends="BasePackage">
+		<!-- 产品发布 -->
+		<action name="queryPromotionList" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="queryPromotionList">
+			<result name="success">/WEB-INF/jsp/promotion/promotionList.jsp</result>
+		</action>
+		<action name="queryPromotionListAudit" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="queryPromotionListAudit">
+			<result name="success">/WEB-INF/jsp/promotion/checkPromotionList.jsp
+			</result>
+		</action>
+		<action name="updatePromotionPriority" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="updatePromotionPriority" />
+		<action name="updateIssuePromotion" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="updateIssuePromotion" />
+		<action name="updatePromotionEndTime" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="updatePromotionEndTime" />
+		<action name="updateIssuePromotionProduct" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="updateIssuePromotionProduct" />
+		<action name="toPromotionInfo" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="toUpdataPromotionNew">
+			<result name="success">/WEB-INF/jsp/promotion/promotionDetail.jsp
+			</result>
+		</action>
+		<action name="toAddPromotion" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="toAddPromotionNew">
+			<result name="success">/WEB-INF/jsp/promotion/promotionAdd.jsp
+			</result>
+		</action>
+		<action name="toUpdataPromotionNew" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="toUpdataPromotionNew">
+			<result name="success">/WEB-INF/jsp/promotion/promotionUpdate.jsp
+			</result>
+			<result name="promotionList" type="redirect">queryPromotionList.action
+			</result>
+		</action>
+		<action name="addPromotionNew" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="addPromotionNew">
+		</action>
+		<action name="updatePromotion" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="updatePromotion">
+			<result name="success">/WEB-INF/jsp/app/success.jsp</result>
+		</action>
+		<action name="checkPromoitonTimeInCoupon" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="checkPromoitonTimeInCoupon" />
+		<action name="queryPromotionProductList" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="queryPromotionProductList">
+			<result name="success">/WEB-INF/jsp/promotion/promotionProductList.jsp
+			</result>
+			<result name="detail">/WEB-INF/jsp/promotion/promotionProductList.jsp
+			</result>
+		</action>
+		<action name="queryPromotionProductListDetail" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="queryPromotionProductListDetail">
+			<result name="success">/WEB-INF/jsp/promotion/promotionProductListDetail.jsp
+			</result>
+
+		</action>
+		<action name="updatePromotionProductPrice" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="updatePromotionProductPrice" />
+		<action name="updatePromotionProductForXianGou" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="updatePromotionProductForXianGou" />
+		<action name="addPromotionProduct" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="addPromotionProduct">
+			<result name="success" type="redirect">queryPromotionList.action
+			</result>
+
+		</action>
+		<action name="selectConflictPromotion" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="selectConflictPromotion">
+			<result name="success">/WEB-INF/jsp/promotion/conflictPromotionList.jsp
+			</result>
+		</action>
+
+
+		<action name="selectProductBrand" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="selectProductBrand">
+			<result name="success">/WEB-INF/jsp/promotion/selectProductBrand.jsp
+			</result>
+		</action>
+		<action name="deletePromotions" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="deletePromotion">
+			<result name="success">/WEB-INF/jsp/promotion/promotionList.jsp</result>
+		</action>
+		<action name="queryCategoryListByPromotion" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="queryCategoryList">
+			<result name="success">/WEB-INF/jsp/promotion/selectProductCategory.jsp
+			</result>
+		</action>
+		<action name="synPromotionCom" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="synPromotionCom" />
+		<action name="promotionIsLock" class="com.kmzyc.supplier.action.promotion.PromotionAction"
+			method="promotionIsLock" />
+	</package>
+</struts>

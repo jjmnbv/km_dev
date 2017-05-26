@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="OrderDictionary">
+<!-- 	<typeAlias alias="address" type="com.pltfm.app.vobject.Address" /> -->
+	<resultMap class="com.kmzyc.b2b.model.OrderDictionary" id="orderDictionaryResultMap">
+		 <result column="ORDER_DICTIONARY_ID" property="orderDictionaryId" jdbcType="DECIMAL" />
+    <result column="ORDER_DICTIONARY_TYPE" property="orderDictionaryType" jdbcType="VARCHAR" />
+    <result column="ORDER_DICTIONARY_KEY" property="orderDictionaryKey" jdbcType="DECIMAL" />
+    <result column="ORDER_DICTIONARY_CODE" property="orderDictionaryCode" jdbcType="VARCHAR" />
+    <result column="ORDER_DICTIONARY_VALUE" property="orderDictionaryValue" jdbcType="VARCHAR" />
+    <result column="ORDER_DICTIONARY_COMMENT" property="orderDictionaryComment" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<parameterMap class="com.kmzyc.b2b.model.OrderDictionary" id="orderDictionaryparameterMap">
+		<parameter property="orderDictionaryId" jdbcType="DECIMAL" javaType="Long"/>
+		<parameter  property="orderDictionaryType" jdbcType="VARCHAR" javaType="String"/>
+	    <parameter  property="orderDictionaryKey" jdbcType="DECIMAL" javaType="Long"/>
+	    <parameter property="orderDictionaryCode" jdbcType="VARCHAR" javaType="String"/>
+	    <parameter property="orderDictionaryValue" jdbcType="VARCHAR" javaType="String"/>
+	    <parameter property="orderDictionaryComment" jdbcType="VARCHAR" javaType="String"/>
+	</parameterMap>
+	 <sql id="byDictionaryTypeCondition">
+		<![CDATA[
+		   order_dictionary_type = #orderDictionaryType:VARCHAR#
+	    ]]>
+	</sql>
+	 <select id="findOrderDictionary"  resultClass="string" resultMap="orderDictionaryResultMap">
+		<![CDATA[
+			select * from ORDER_DICTIONARY 
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byDictionaryTypeCondition" />
+		</dynamic>
+	</select>
+
+
+	<select id="findPaymentModel"  resultMap="orderDictionaryResultMap">
+		<![CDATA[
+			select * from ORDER_DICTIONARY t WHERE t.order_dictionary_type = 'Pay_Method' and t.order_dictionary_code not in('Balance','Preferential')
+			and t.ORDER_DICTIONARY_KEY = 5
+		]]>
+	</select>
+	 
+	<select id="findByOrderDict" parameterMap="orderDictionaryparameterMap" resultMap="orderDictionaryResultMap">
+		select * from ORDER_DICTIONARY t  where 1=1
+		<dynamic>
+			<isNotEmpty property="orderDictionaryType" prepend="and">
+				t.order_dictionary_type = #orderDictionaryType#
+			</isNotEmpty>
+			<isNotEmpty property="orderDictionaryKey" prepend="and">
+				t.ORDER_DICTIONARY_KEY=#orderDictionaryKey#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+</sqlMap>

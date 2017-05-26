@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<settings cacheModelsEnabled="true" enhancementEnabled="true"
+		lazyLoadingEnabled="false" maxRequests="10" maxSessions="20"
+		maxTransactions="50" useStatementNamespaces="true"
+		defaultStatementTimeout="30" statementCachingEnabled="true"
+		classInfoCacheEnabled="true" errorTracingEnabled="true" />
+	
+    <sqlMap resource="com/pltfm/app/sqlmap/KMORDER_INVOICE_DICTIONARY_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/KMORDER_INVOICE_ITEM_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/KMORDER_INVOICE_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_CARRY_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_DICTIONARY_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_ITEM_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_MAIN_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_OPERATE_STATEMENT_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_PAY_STATEMENT_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_PREFERENTIAL_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/KMORDER_FARE_TYPE_SqlMap.xml" />
+	
+    <sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_ASSESS_INFO_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_ASSESS_INFO_REPLY_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_ASSESS_DETAIL_SqlMap.xml" />
+    
+    <sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_ALTER_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_ALTER_DETAIL_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_ALTER_OPERATE_STATEMENT_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_ALTER_PAY_STATEMENT_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_ALTER_PHOTO_SqlMap.xml" />
+    
+    <sqlMap resource="com/pltfm/app/sqlmap/KMORDER_COUPON_STATEMENT_SqlMap.xml" />
+    
+    <sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_HANDLE_SqlMap.xml" />
+    
+    <!-- cps -->
+    <sqlMap resource="com/pltfm/app/sqlmap/KMORDER_CPS_QUERY_SqlMap.xml" />
+    
+    <!-- 报表 -->
+    <sqlMap resource="com/pltfm/app/sqlmap/KMREPORT_SqlMap.xml" />
+  	
+  	<!-- 功能性sqlMap -->
+    <sqlMap resource="com/pltfm/app/sqlmap/KMUTILS_SqlMap.xml" />
+  	<!-- 退款sqlMap -->
+    <sqlMap resource="com/pltfm/app/sqlmap/KMORDER_REFUND_REQUEST_SqlMap.xml" />
+    <!-- 订单同步sqlMap -->
+    <sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_SYNC_SqlMap.xml" />
+	
+	<sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_CANCEL_SqlMap.xml" />
+	
+	
+	<sqlMap resource="com/pltfm/app/sqlmap/SELLER_SETTLEMENT_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/SETTMENT_OPERATE_STATEMENT_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/DIFF_ADJ_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/SETTLEMENT_REFUND_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/HURL_FARE_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/HURL_PRODUCT_SqlMap.xml" />
+	
+	<!-- 推广返利：推广效果 -->
+<!--删除微商业务 	<sqlMap resource="com/pltfm/app/sqlmap/SPREAD_EFFECT_SqlMap.xml" /> -->
+	
+	<!-- 物流信息管理-->
+	<sqlMap resource="com/pltfm/app/sqlmap/KMORDER_EXPRESS_COMPANY_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/KMORDER_EXPRESS_LOG_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/KMORDER_EXPRESS_SUBSCRIPTION_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/KMORDER_EXPRESS_TRACK_SqlMap.xml" />
+	<!-- 风控 -->
+	<sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_RISK_SCORE_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/app/sqlmap/KMORDER_ORDER_RISK_ROSTER_SqlMap.xml" />
+	
+</sqlMapConfig>
+

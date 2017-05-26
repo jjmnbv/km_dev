@@ -1,0 +1,1082 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="productmapper" >
+	<typeAlias alias="Product" type="com.kmzyc.promotion.app.vobject.Product"/>
+	<typeAlias alias="ProductSku" type="com.kmzyc.promotion.app.vobject.ProductSku"/>
+	<typeAlias alias="ProductImage" type="com.kmzyc.promotion.app.vobject.ProductImage"/>
+	<typeAlias alias="ProdBrand" type="com.kmzyc.promotion.app.vobject.ProdBrand"/>
+	<typeAlias alias="DrugCategory" type="com.kmzyc.promotion.app.vobject.DrugCategory"/>
+
+	<resultMap id="ProductImageResult" class="ProductImage" >
+	    <result column="IMAGE_ID" property="imageId" jdbcType="DECIMAL" />
+	    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+	    <result column="SKU_ID" property="skuId" jdbcType="DECIMAL" />
+	    <result column="IS_DEFAULT" property="isDefault" jdbcType="CHAR" />
+	    <result column="IMG_PATH" property="imgPath" jdbcType="VARCHAR" />
+	    <result column="IMG_PATH1" property="imgPath1" jdbcType="VARCHAR" />
+	    <result column="IMG_PATH2" property="imgPath2" jdbcType="VARCHAR" />
+	    <result column="IMG_PATH3" property="imgPath3" jdbcType="VARCHAR" />
+	    <result column="IMG_PATH4" property="imgPath4" jdbcType="VARCHAR" />
+	    <result column="SPC1" property="spc1" jdbcType="VARCHAR" />
+	    <result column="SPC2" property="spc2" jdbcType="VARCHAR" />
+	    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+	    <result column="IMG_PATH5" property="imgPath5" jdbcType="VARCHAR" />
+	    <result column="IMG_PATH6" property="imgPath6" jdbcType="VARCHAR" />
+	    <result column="IMG_PATH7" property="imgPath7" jdbcType="VARCHAR" />
+	    <result column="SORTNO" property="sortno" jdbcType="DECIMAL" />
+	  	<result column="IMG_PATH8" jdbcType="VARCHAR" property="imgPath8" />
+	    <result column="IMG_PATH9" jdbcType="VARCHAR" property="imgPath9" />
+	    <result column="IMG_PATH10" jdbcType="VARCHAR" property="imgPath10" />
+  	</resultMap>
+  	
+	 <resultMap id="DrugCategoryResult" class="com.kmzyc.promotion.app.vobject.DrugCategory" >
+	    <result column="DRUG_CATEGORY_ID" property="id" jdbcType="DECIMAL" />
+	    <result column="DRUG_CATEGORY_NAME" property="name" jdbcType="VARCHAR" />
+  	</resultMap>
+	<resultMap id="ProductBrandResult" class="ProdBrand" >
+	    <result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+	    <result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+  	</resultMap>
+
+  <resultMap class="ProductSku" id="ProductSkuResult">
+  	<result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+  	<result column="PRODUCT_SKU_ID" property="productSkuImages" select="productmapper.getImagesByskuId" />
+  	<result column="PRODUCT_SKU_CODE" property="productSkuCode" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL"/>
+    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+    <result column="UNIT_WEIGHT" property="unitWeight" jdbcType="DECIMAL" />
+	<result column="MARK_PRICE" property="markPrice" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ProductResult" class="Product" >
+    <result column="PRODUCT_ID" property="id" jdbcType="DECIMAL" />
+    <result column="PRODUCT_ID" property="productSkus" select="productmapper.getSkusByProdId"/>
+    <result column="PROCUCT_NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SUBTITLE" property="productSubtitle" jdbcType="VARCHAR" />
+    <result column="POSTIL" property="postil" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+    <result column="DRUG_CATE_ID" property="drugCateId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_TYPE" property="productType" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ProductResultMap" class="Product" >
+    <result column="PRODUCT_ID" property="id" jdbcType="DECIMAL" />
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_TYPE" property="productType" jdbcType="DECIMAL" />
+    <result column="PROCUCT_NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SUBTITLE" property="productSubtitle" jdbcType="VARCHAR" />
+    <result column="POSTIL" property="postil" jdbcType="VARCHAR" />
+    <result column="PRODUCT_DESC" property="productDesc" jdbcType="VARCHAR" />
+    <result column="PACK_LISTING" property="packListing" jdbcType="VARCHAR" />
+    <result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+    <result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="INTEGER" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="Date" />
+    <result column="PRODUCTHOT" property="productHot" jdbcType="DECIMAL" />
+    <result column="ARCHIVE_TIME" property="archiveTime" jdbcType="Date" />
+    <result column="CHECK_USER" property="checkUser" jdbcType="INTEGER" />
+    <result column="CHECK_USER_NAME" property="checkUserName" jdbcType="VARCHAR" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="Date" />
+    <result column="MODIF_TIME" property="modifTime" jdbcType="Date" />
+    <result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR" />
+    <result column="SHOP_CODE" property="merchantName" select="productmapper.getMerchantName" />
+    <result column="MODIF_USER" property="modifUser" jdbcType="INTEGER" />
+    <result column="UP_TIME" property="upTime" jdbcType="Date" />
+    <result column="MARKET_PRICE"  property="marketPrice" jdbcType="DECIMAL"/>
+    <result column="COST_PRICE"  property="costPrice" jdbcType="DECIMAL"/>
+    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+    <result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+    <result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+    <result column="APPROVAL_TYPE" property="approvalType" jdbcType="VARCHAR" />
+    <result column="APPROVAL_NO" property="approvalNo" jdbcType="VARCHAR" />
+    <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+    <result column="BRAND_ID" property="prodBrand" select="productmapper.getProdBrandName" />
+    <result column="DRUG_CATE_ID" property="drugCateId" jdbcType="DECIMAL" />
+    <result column="DRUG_CATE_CODE" property="drugCateCode" jdbcType="VARCHAR" />
+    <!--<result column="DRUG_CATE_ID" property="drugCategory" select="productmapper.getDrugCategoryName" />-->
+    <result column="ERP_PRODUCT_CODE" property="erpProductCode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ProductResultMapForPrice" class="Product" >
+    <result column="PRODUCT_ID" property="id" jdbcType="DECIMAL" />
+    <result column="PRODUCT_ID" property="productSkus" select="productmapper.getSkusByProdIdForPrice"/>
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_TYPE" property="productType" jdbcType="DECIMAL" />
+    <result column="PROCUCT_NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SUBTITLE" property="productSubtitle" jdbcType="VARCHAR" />
+    <result column="POSTIL" property="postil" jdbcType="VARCHAR" />
+    <result column="PRODUCT_DESC" property="productDesc" jdbcType="VARCHAR" />
+    <result column="PACK_LISTING" property="packListing" jdbcType="VARCHAR" />
+    <result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+    <result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="INTEGER" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="Date" />
+    <result column="PRODUCTHOT" property="productHot" jdbcType="DECIMAL" />
+    <result column="ARCHIVE_TIME" property="archiveTime" jdbcType="Date" />
+    <result column="CHECK_USER" property="checkUser" jdbcType="INTEGER" />
+    <result column="CHECK_USER_NAME" property="checkUserName" jdbcType="VARCHAR" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="Date" />
+    <result column="MODIF_TIME" property="modifTime" jdbcType="Date" />
+    <result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR" />
+    <result column="SHOP_CODE" property="merchantName" select="productmapper.getMerchantName" />
+    <result column="MODIF_USER" property="modifUser" jdbcType="INTEGER" />
+    <result column="UP_TIME" property="upTime" jdbcType="Date" />
+    <result column="MARKET_PRICE"  property="marketPrice" jdbcType="DECIMAL"/>
+    <result column="COST_PRICE"  property="costPrice" jdbcType="DECIMAL"/>
+    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+    <result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+    <result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+    <result column="APPROVAL_TYPE" property="approvalType" jdbcType="VARCHAR" />
+    <result column="APPROVAL_NO" property="approvalNo" jdbcType="VARCHAR" />
+    <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+    <result column="BRAND_ID" property="prodBrand" select="productmapper.getProdBrandName" />
+    <result column="DRUG_CATE_ID" property="drugCateId" jdbcType="DECIMAL" />
+    <result column="DRUG_CATE_CODE" property="drugCateCode" jdbcType="VARCHAR" />
+    <!--<result column="DRUG_CATE_ID" property="drugCategory" select="productmapper.getDrugCategoryName" />-->
+    <result column="ERP_PRODUCT_CODE" property="erpProductCode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <resultMap id="ProductResultMapForExport" class="Product" >
+    <result column="PRODUCT_ID" property="id" jdbcType="DECIMAL" />
+    <result column="PRODUCT_ID" property="productSkus" select="productmapper.getSkusByProdId"/>
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_TYPE" property="productType" jdbcType="DECIMAL" />
+    <result column="PROCUCT_NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SUBTITLE" property="productSubtitle" jdbcType="VARCHAR" />
+    <result column="POSTIL" property="postil" jdbcType="VARCHAR" />
+    <result column="PRODUCT_DESC" property="productDesc" jdbcType="VARCHAR" />
+    <result column="PACK_LISTING" property="packListing" jdbcType="VARCHAR" />
+    <result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+    <result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="INTEGER" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="Date" />
+    <result column="PRODUCTHOT" property="productHot" jdbcType="DECIMAL" />
+    <result column="ARCHIVE_TIME" property="archiveTime" jdbcType="Date" />
+    <result column="CHECK_USER" property="checkUser" jdbcType="INTEGER" />
+    <result column="CHECK_USER_NAME" property="checkUserName" jdbcType="VARCHAR" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="Date" />
+    <result column="MODIF_TIME" property="modifTime" jdbcType="Date" />
+    <result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR" />
+    <result column="SHOP_CODE" property="merchantName" select="productmapper.getMerchantName" />
+    <result column="MODIF_USER" property="modifUser" jdbcType="INTEGER" />
+    <result column="UP_TIME" property="upTime" jdbcType="Date" />
+    <result column="MARKET_PRICE"  property="marketPrice" jdbcType="DECIMAL"/>
+    <result column="COST_PRICE"  property="costPrice" jdbcType="DECIMAL"/>
+    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+    <result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+    <result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+    <result column="APPROVAL_TYPE" property="approvalType" jdbcType="VARCHAR" />
+    <result column="APPROVAL_NO" property="approvalNo" jdbcType="VARCHAR" />
+    <result column="CATEGORY_ID" property="categoryName" select="productmapper.getCategoryName" />
+    <result column="BRAND_ID" property="prodBrand" select="productmapper.getProdBrandName" />
+    <result column="DRUG_CATE_ID" property="drugCateId" jdbcType="DECIMAL" />
+    <result column="DRUG_CATE_CODE" property="drugCateCode" jdbcType="VARCHAR" />
+    <!--<result column="DRUG_CATE_ID" property="drugCategory" select="productmapper.getDrugCategoryName" />-->
+    <result column="ERP_PRODUCT_CODE" property="erpProductCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ProductResultMap2" class="com.kmzyc.promotion.app.vobject.Product" >
+    <result column="PRODUCT_ID" property="id" jdbcType="DECIMAL" />
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_TYPE" property="productType" jdbcType="DECIMAL" />
+    <result column="PROCUCT_NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SUBTITLE" property="productSubtitle" jdbcType="VARCHAR" />
+    <result column="POSTIL" property="postil" jdbcType="VARCHAR" />
+    <result column="PRODUCT_DESC" property="productDesc" jdbcType="VARCHAR" />
+    <result column="PACK_LISTING" property="packListing" jdbcType="VARCHAR" />
+    <result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+    <result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="INTEGER" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="Date" />
+    <result column="PRODUCTHOT" property="productHot" jdbcType="DECIMAL" />
+    <result column="ARCHIVE_TIME" property="archiveTime" jdbcType="Date" />
+    <result column="CHECK_USER" property="checkUser" jdbcType="INTEGER" />
+    <result column="CHECK_USER_NAME" property="checkUserName" jdbcType="VARCHAR" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="Date" />
+    <result column="MODIF_TIME" property="modifTime" jdbcType="Date" />
+    <result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR" />
+    <result column="SHOP_CODE" property="merchantName" select="productmapper.getMerchantName" />
+    <result column="MODIF_USER" property="modifUser" jdbcType="INTEGER" />
+    <result column="UP_TIME" property="upTime" jdbcType="Date" />
+    <result column="MARKET_PRICE"  property="marketPrice" jdbcType="DECIMAL"/>
+    <result column="COST_PRICE"  property="costPrice" jdbcType="DECIMAL"/>
+    <result column="INTRODUCE" property="introduce" jdbcType="CLOB" />
+    <result column="INTRODUCE_LAZY" property="introduceLazy" jdbcType="CLOB" />
+    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+    <result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+    <result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+    <result column="APPROVAL_TYPE" property="approvalType" jdbcType="VARCHAR" />
+    <result column="APPROVAL_NO" property="approvalNo" jdbcType="VARCHAR" />
+    <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+    <result column="DRUG_CATE_ID" property="drugCateId" jdbcType="DECIMAL" />
+    <result column="DRUG_CATE_CODE" property="drugCateCode" jdbcType="VARCHAR" />
+    <result column="DRUG_CATE_ID" property="drugCategory" select="productmapper.getDrugCategoryName" />
+    <result column="BRAND_ID" property="prodBrand" select="productmapper.getProdBrandName" />
+    <result column="ERP_PRODUCT_CODE" property="erpProductCode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ProductResultMap3" class="com.kmzyc.promotion.app.fobject.ProductResultMap" >
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+    <result column="PROCUCT_NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SUBTITLE" property="productSubtitle" jdbcType="VARCHAR" />
+    <result column="PRODUCT_DESC" property="productDesc" jdbcType="VARCHAR" />
+    <result column="PACK_LISTING" property="packListing" jdbcType="VARCHAR" />
+    <result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+    <result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="INTEGER" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="Date" />
+    <result column="PRODUCTHOT" property="productHot" jdbcType="DECIMAL" />
+    <result column="ARCHIVE_TIME" property="archiveTime" jdbcType="Date" />
+    <result column="CHECK_USER" property="checkUser" jdbcType="INTEGER" />
+    <result column="CHECK_USER_NAME" property="checkUserName" jdbcType="VARCHAR" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="Date" />
+    <result column="MODIF_TIME" property="modifTime" jdbcType="Date" />
+    <result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR" />
+    <result column="MODIF_USER" property="modifUser" jdbcType="INTEGER" />
+    <result column="UP_TIME" property="upTime" jdbcType="Date" />
+    <result column="MARKET_PRICE"  property="marketPrice" jdbcType="DECIMAL"/>
+    <result column="COST_PRICE"  property="costPrice" jdbcType="DECIMAL"/>
+    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+    <result column="BRAND_ID" property="brandId" jdbcType="DECIMAL" />
+    <result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+    <result column="APPROVAL_TYPE" property="approvalType" jdbcType="VARCHAR" />
+    <result column="APPROVAL_NO" property="approvalNo" jdbcType="VARCHAR" />
+    <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+    <result column="DRUG_CATE_ID" property="drugCateId" jdbcType="DECIMAL" />
+    <result column="DRUG_CATE_CODE" property="drugCateCode" jdbcType="VARCHAR" />
+    <result column="DRUG_CATE_ID" property="drugCategory" select="productmapper.getDrugCategoryName" />
+    <result column="ERP_PRODUCT_CODE" property="erpProductCode" jdbcType="VARCHAR" />
+    <result column="PRODUCT_SKU_ID" property="productskuId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_SKU_CODE" property="productSkuCode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="ProductResultMap4" class="com.kmzyc.promotion.app.vobject.Product" >
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="DECIMAL" />
+    <result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap class="Product" id="ProductResultMapForCertificate" extends="ProductResultMap">
+  	<result column="PRODUCT_ID" property="cerfificateList" select="productmapper.findCertificatesByProductId" />
+  </resultMap>
+
+  <resultMap class="com.kmzyc.promotion.app.vobject.ProductCertificate" id="certificateMap">
+  	<result column="PSC_ID" property="pscId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+    <result column="FILE_TYPE" property="fileType" jdbcType="DECIMAL" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+   <resultMap id="queryProductByProductNo" class="com.kmzyc.promotion.app.vobject.Product" >
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+    </resultMap>
+  
+   <select id="queryProductByProductNo"   parameterClass="java.lang.String"   resultMap="queryProductByProductNo" >
+  select  t.product_id,t.PRODUCT_NO  from PRODUCTMAIN t  where t.PRODUCT_NO=#name#
+   </select>
+  
+	<select id="findCertificatesByProductId" resultMap="certificateMap" parameterClass="java.lang.Long" >
+		select * from product_certificate t where t.product_id = #productId:DECIMAL# order by file_type 
+	</select>
+
+
+
+  
+  <!-- 不包含Clob字段 introduce-->
+	<sql id="Base_Column_List">
+		 PRODUCT_ID, CATEGORY_ID,PROCUCT_NAME,PRODUCT_NO,PRODUCT_DESC,PACK_LISTING,PRODUCT_TITLE,KEYWORD,STATUS,CREATE_USER,CREATE_TIME,ARCHIVE_TIME,CHECK_TIME,
+		MODIF_TIME,SHOP_CODE,MODIF_USER,UP_TIME,MARKET_PRICE,COST_PRICE,APPROVAL_TYPE,APPROVAL_NO,DRUG_CATE_ID,DRUG_CATE_CODE,POSTIL
+	</sql>
+	
+	<sql id="where_list">
+		<dynamic prepend="where ">
+		   <isNotNull prepend="and"  property="id">
+		         and PRODUCT_ID = #{id,jdbcType=DECIMAL}#
+		   </isNotNull>
+		   <isNotEmpty prepend="and" property="name"> 
+				 and PROCUCT_NAME = #{name,jdbcType=VARCHAR}#
+			</isNotEmpty>
+			<isNotNull prepend="and" property="status">
+			     and status = #{status,jdbcType=VARCHAR}#
+			</isNotNull>
+			<isNotNull prepend="and" property="createUser">
+			    and CREATE_USER = #{createUser,jdbcType=INTEGER}#
+			</isNotNull>
+		</dynamic>
+	</sql>
+	<select id="getProducts" resultMap="ProductResultMap" parameterClass="com.kmzyc.promotion.app.vobject.Product">
+		select 
+		*
+		from productmain 
+
+	</select>
+	
+	<select id="getDrugCategoryName" parameterClass="java.lang.Long" resultMap="DrugCategoryResult">
+		 select DRUG_CATEGORY_ID,DRUG_CATEGORY_NAME from DRUG_CATEGORY where DRUG_CATEGORY_ID = #drugCateId#
+  	</select>
+	
+	<select id="getMerchantName" parameterClass="java.lang.String" resultClass="java.lang.String">
+		select ct.CORPORATE_NAME from suppliers_info si 
+			inner join commercial_tenant_basic_info ct on ct.N_COMMERCIAL_TENANT_ID=si.merchant_id 
+				where to_char(si.supplier_id)=#shopCode:VARCHAR# 
+  	</select>
+  	
+	<select id="getCategoryName" parameterClass="java.lang.Long" resultClass="java.lang.String">
+		select CATEGORY_NAME from CATEGORYS where CATEGORY_ID=#categoryId:DECIMAL# 
+  	</select>
+	
+	<select id="getProdBrandName" parameterClass="java.lang.Long" resultMap="ProductBrandResult">
+		 select BRAND_ID,BRAND_NAME from PROD_BRAND where BRAND_ID = #brandId# 
+  	</select>
+
+	<!-- 产品基本信息保存 -->
+  <insert id="product_insert" parameterClass="com.kmzyc.promotion.app.vobject.Product" >
+	    <selectKey resultClass="java.lang.Long" keyProperty="id" >
+	      select seq_app_productmain.nextval from dual
+	    </selectKey>
+	     insert into productmain (PRODUCT_ID, 
+	                                          CATEGORY_ID,
+	                                          PRODUCT_SUBTITLE,
+	                                          PROCUCT_NAME,
+	                                          PRODUCT_DESC,
+	                                          PACK_LISTING,
+	                                          PRODUCT_TITLE,
+	                                          KEYWORD ,
+	                                          STATUS,
+	                                          CREATE_USER,
+	                                          CREATE_TIME,
+	                                          ARCHIVE_TIME,
+	                                          CHECK_TIME,
+			                                 MODIF_TIME,
+			                                 SHOP_CODE,
+			                                 MODIF_USER,
+			                                 UP_TIME,
+			                                 MARKET_PRICE,
+			                                 COST_PRICE,
+			                                 introduce,
+			                                 PRODUCT_NO,
+			                                 CREATE_USER_NAME,
+			                                 BRAND_ID,
+			                                 BRAND_NAME,
+			                                 APPROVAL_TYPE,
+			                                 APPROVAL_NO,
+			                                 CATEGORY_NAME,
+			                                 DRUG_CATE_ID,
+			                                 DRUG_CATE_CODE,
+			                                 ERP_PRODUCT_CODE,
+			                                 INTRODUCE_LAZY)
+	                             values(#id#, 
+	                                          #categoryId#,
+	                                          #productSubtitle#,
+	                                          #name#,
+	                                          #productDesc#,
+	                                          #packListing#,
+	                                          #productTitle#,
+	                                          #keyword#,
+	                                          #status#,
+	                                          #createUser#,	                                          
+	                                          #createTime#,
+	                                          #archiveTime#,
+	                                          #checkTime#,
+			                                  #modifTime#,
+			                                  #shopCode#,
+			                                  #modifUser#,
+			                                  #upTime#,
+			                                  #marketPrice#,
+			                                  #costPrice#,
+			                                  #introduce#,
+			                                  (substr((select t.category_code from Categorys t where t.Category_Id = #categoryId:DECIMAL#), 0, 2) || SEQ_APP_PRODUCT_CODE.Nextval),
+			                                  #createUserName#,
+			                                  #brandId#,
+			                                  #brandName#,
+			                                  #approvalType#,
+			                                  #approvalNo#,
+			                                  #categoryName#,
+			                                  #drugCateId#,
+			                                  #drugCateCode#,
+			                                  #erpProductCode#,
+			                                  #introduceLazy#)
+  </insert>
+  
+  <!-- 使用Example -->
+  
+  <sql id="product_Example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  
+  <sql id="product_Example_Where_Clause_User" >
+    <iterate property="oredCriteria" conjunction="or" prepend="and" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  
+  <!-- 查询sku条件 -->
+    <sql id="productSku_Example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  
+  <select id="product_selectById" resultMap="ProductResult" parameterClass="com.kmzyc.promotion.app.vobject.Product" >
+    <![CDATA[
+    select PRODUCT_ID,PROCUCT_NAME,STATUS,BRAND_ID,DRUG_CATE_ID,PRODUCT_SUBTITLE,POSTIL,PRODUCT_TYPE  
+    from PRODUCTMAIN
+    where PRODUCT_ID = #id:DECIMAL#
+     ]]>
+  </select>
+	<!-- STATUS为1，有效的SKU -->
+	<select id="productmapper.getSkusByProdId" parameterClass="java.lang.Long" resultMap="ProductSkuResult">
+	 <![CDATA[  
+	 select PRODUCT_SKU_ID,PRODUCT_SKU_CODE,PRODUCT_ID,PRICE,UNIT_WEIGHT,MARK_PRICE from PRODUCT_SKU where PRODUCT_ID = #value# and STATUS = '1' 
+	 ]]>
+  	</select> 
+	<select id="getSkusByProdIdForPrice" parameterClass="java.lang.Long" resultClass="com.kmzyc.promotion.app.vobject.ProductSku">
+	 <![CDATA[  
+	 select ps.PRODUCT_SKU_ID productSkuId,ps.PRODUCT_SKU_CODE productSkuCode,ps.PRODUCT_ID productId,ps.PRICE price,ps.COST_PRICE costPrice,ps.UNIT_WEIGHT unitWeight,ps.MARK_PRICE markPrice,ta_temp.col as skuAttrs
+		from product_sku ps
+		left join 
+		(select temp.product_sku_id, wm_concat(temp.CATEGORY_ATTR_VALUE) col from (select ps1.product_sku_id,cav.CATEGORY_ATTR_VALUE from product_sku ps1 
+		left join product_sku_attr psa on psa.product_sku_id = ps1.product_sku_id 
+		left join category_attr_value cav on cav.CATEGORY_ATTR_ID = psa.CATEGORY_ATTR_ID and psa.CATEGORY_ATTR_VALUE_ID=cav.CATEGORY_ATTR_VALUE_ID) temp  
+		group by temp.product_sku_id) ta_temp  on ps.product_sku_id=ta_temp.product_sku_id
+	 where ps.PRODUCT_ID = #value# and ps.status = '1'  
+	 ]]>
+  </select> 
+  	
+	<select id="getImagesByskuId" parameterClass="java.lang.Long" resultMap="ProductImageResult">
+	 <![CDATA[
+	 select * from PRODUCT_IMAGE where SKU_ID = #value#  
+	 ]]>
+  	</select> 
+  
+  <select id="product_countByExample" parameterClass="com.kmzyc.promotion.app.vobject.ProductExample" resultClass="java.lang.Integer" >
+    select count(PRODUCT_ID) from PRODUCTMAIN 
+    <include refid="product_Example_Where_Clause" />
+  </select>
+  <select id="product_countByExampleByUser" parameterClass="com.kmzyc.promotion.app.vobject.ProductExample" resultClass="java.lang.Integer" >
+    select count(PRODUCT_ID) from PRODUCTMAIN where 1 = 1
+    <isNotEmpty property="mCategoryId">
+    	and CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where PARENT_ID = #mCategoryId# )
+    </isNotEmpty>
+    <isNotEmpty property="bCategoryId">
+    	and CATEGORY_ID in (select sc.CATEGORY_ID from categorys sc
+			inner join categorys mc on sc.parent_id=mc.category_id 
+			inner join categorys bc on mc.parent_id=bc.category_id 
+			where bc.category_id = #bCategoryId# )
+    </isNotEmpty>
+    <isNotEmpty property="searchBrandName">
+    	and BRAND_ID in (select BRAND_ID from PROD_BRAND where BRAND_NAME like '%'||#searchBrandName#||'%' )
+    </isNotEmpty>
+    <isNotEmpty property="searchCategoryName">
+    	and CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where CATEGORY_NAME like '%'||#searchCategoryName#||'%' and IS_PHY = 1 ) 
+    </isNotEmpty>
+    <isNotEmpty property="mCategoryName">
+    	and CATEGORY_ID in (select distinct(sc.CATEGORY_ID) from categorys sc
+			inner join categorys mc on sc.parent_id=mc.category_id and mc.category_name like '%'||#mCategoryName#||'%' and mc.is_phy=1 )
+    </isNotEmpty>
+    <isNotEmpty property="bCategoryName">
+    	and CATEGORY_ID in (select distinct(sc.CATEGORY_ID) from categorys sc
+			inner join categorys mc on sc.parent_id=mc.category_id 
+			inner join categorys bc on mc.parent_id=bc.category_id and bc.category_name like '%'||#bCategoryName#||'%' and mc.is_phy=1 )
+    </isNotEmpty>
+    
+    <include refid="product_Example_Where_Clause_User" />
+  </select>
+  
+  <select id="product_countByExampleByUserForExport" parameterClass="com.kmzyc.promotion.app.vobject.ProductExample" resultClass="java.lang.Integer" >
+    select count(ps.product_sku_id)  
+	from product_sku ps 
+	inner join productmain p on ps.product_id=p.product_id 
+	inner join prod_brand pb on p.brand_id = pb.brand_id 
+	inner join categorys ca on p.category_id = ca.category_id  
+	inner join categorys mca on mca.category_id = ca.PARENT_ID  
+	inner join categorys bca on bca.category_id = mca.PARENT_ID 
+	inner join 
+	(select temp.product_sku_id, wm_concat(temp.CATEGORY_ATTR_VALUE) col from (select ps1.product_sku_id,cav.CATEGORY_ATTR_VALUE from product_sku ps1 
+	left join product_sku_attr psa on psa.product_sku_id = ps1.product_sku_id 
+	left join category_attr_value cav on cav.CATEGORY_ATTR_ID = psa.CATEGORY_ATTR_ID and psa.CATEGORY_ATTR_VALUE_ID=cav.CATEGORY_ATTR_VALUE_ID) temp  
+	group by temp.product_sku_id) ta_temp  on ps.product_sku_id=ta_temp.product_sku_id  where 1 = 1
+    <isNotEmpty property="mCategoryId">
+    	and mca.CATEGORY_ID  = #mCategoryId# 
+    </isNotEmpty>
+    <isNotEmpty property="bCategoryId">
+    	and bca.CATEGORY_ID = #bCategoryId# 
+    </isNotEmpty>
+    <isNotEmpty property="searchBrandName">
+    	and pb.BRAND_NAME like '%'||#searchBrandName#||'%' 
+    </isNotEmpty>
+    <isNotEmpty property="searchCategoryName">
+    	and ca.CATEGORY_NAME like '%'||#searchCategoryName#||'%' and ca.IS_PHY = 1  
+    </isNotEmpty>
+    <isNotEmpty property="mCategoryName">
+    	and mca.category_name like '%'||#mCategoryName#||'%' and mca.is_phy=1 
+    </isNotEmpty>
+    <isNotEmpty property="bCategoryName">
+    	and bca.category_name like '%'||#bCategoryName#||'%' and bca.is_phy=1 
+    </isNotEmpty>
+    
+    <include refid="product_Example_Where_Clause_User" />
+  </select>
+ 
+  <select id="product_countBySkuExample" parameterClass="com.kmzyc.promotion.app.vobject.ProductExample" resultClass="java.lang.Integer" >
+    select count(PRODUCT_ID) from view_productsku_sections where 1 = 1
+    <include refid="product_Example_Where_Clause_User" />
+  </select>
+  
+  <select id="selectProductByName" parameterClass="java.lang.String" resultClass="java.lang.Long" >
+    select count(PRODUCT_ID) from PRODUCTMAIN where PROCUCT_NAME = #productName:VARCHAR#
+  </select>
+  
+  <select id="product_selectByExample" resultMap="ProductResultMap" parameterClass="com.kmzyc.promotion.app.vobject.ProductExample" >
+    select PRODUCT_ID, CATEGORY_ID, PROCUCT_NAME, PRODUCT_DESC, PACK_LISTING, PRODUCT_TITLE,PRODUCT_SUBTITLE, POSTIL, PRODUCT_TYPE,
+      KEYWORD, STATUS, CREATE_USER,CREATE_USER_NAME, CREATE_TIME, PRODUCTHOT, ARCHIVE_TIME,CHECK_USER,CHECK_USER_NAME, CHECK_TIME, MODIF_TIME,
+      SHOP_CODE, MODIF_USER, UP_TIME, MARKET_PRICE, COST_PRICE, PRODUCT_NO, BRAND_ID, BRAND_NAME,APPROVAL_TYPE,APPROVAL_NO,CATEGORY_NAME,DRUG_CATE_ID,DRUG_CATE_CODE,ERP_PRODUCT_CODE     
+    from PRODUCTMAIN
+    <isParameterPresent >
+      <include refid="product_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  
+  <select id="product_selectByExampleByUser" resultMap="ProductResultMap" parameterClass="com.kmzyc.promotion.app.vobject.ProductExample" >
+    select PRODUCT_ID, CATEGORY_ID, PROCUCT_NAME, PRODUCT_DESC, PACK_LISTING, PRODUCT_TITLE,PRODUCT_SUBTITLE,POSTIL, PRODUCT_TYPE,
+      KEYWORD, STATUS, CREATE_USER,CREATE_USER_NAME, CREATE_TIME, PRODUCTHOT, ARCHIVE_TIME,CHECK_USER,CHECK_USER_NAME, CHECK_TIME, MODIF_TIME,
+      SHOP_CODE, MODIF_USER, UP_TIME, MARKET_PRICE, COST_PRICE, PRODUCT_NO, BRAND_ID, BRAND_NAME,APPROVAL_TYPE,APPROVAL_NO,CATEGORY_NAME,DRUG_CATE_ID,DRUG_CATE_CODE,ERP_PRODUCT_CODE     
+    from PRODUCTMAIN where 1 = 1
+    <isNotEmpty property="mCategoryId">
+    	and CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where PARENT_ID = #mCategoryId# )
+    </isNotEmpty>
+    <isNotEmpty property="bCategoryId">
+    	and CATEGORY_ID in (select sc.CATEGORY_ID from categorys sc
+			inner join categorys mc on sc.parent_id=mc.category_id 
+			inner join categorys bc on mc.parent_id=bc.category_id 
+			where bc.category_id = #bCategoryId# )
+    </isNotEmpty>
+    <isNotEmpty property="searchBrandName">
+    	and BRAND_ID in (select BRAND_ID from PROD_BRAND where BRAND_NAME like '%'||#searchBrandName#||'%' )
+    </isNotEmpty>
+    <isNotEmpty property="searchCategoryName">
+    	and CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where CATEGORY_NAME like '%'||#searchCategoryName#||'%' and IS_PHY = 1 ) 
+    </isNotEmpty>
+    <isNotEmpty property="mCategoryName">
+    	and CATEGORY_ID in (select distinct(sc.CATEGORY_ID) from categorys sc
+			inner join categorys mc on sc.parent_id=mc.category_id and mc.category_name like '%'||#mCategoryName#||'%' and mc.is_phy=1 )
+    </isNotEmpty>
+    <isNotEmpty property="bCategoryName">
+    	and CATEGORY_ID in (select distinct(sc.CATEGORY_ID) from categorys sc
+			inner join categorys mc on sc.parent_id=mc.category_id 
+			inner join categorys bc on mc.parent_id=bc.category_id and bc.category_name like '%'||#bCategoryName#||'%' and mc.is_phy=1 )
+    </isNotEmpty>
+    
+    <isParameterPresent >
+      <include refid="product_Example_Where_Clause_User" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  
+  <select id="product_selectByExampleByUserForPrice" resultMap="ProductResultMapForPrice" parameterClass="com.kmzyc.promotion.app.vobject.ProductExample" >
+  
+    select PRODUCT_ID, CATEGORY_ID, PROCUCT_NAME, PRODUCT_DESC, PACK_LISTING, PRODUCT_TITLE,PRODUCT_SUBTITLE,POSTIL, PRODUCT_TYPE,
+      KEYWORD, STATUS, CREATE_USER,CREATE_USER_NAME, CREATE_TIME, PRODUCTHOT, ARCHIVE_TIME,CHECK_USER,CHECK_USER_NAME, CHECK_TIME, MODIF_TIME,
+      SHOP_CODE, MODIF_USER, UP_TIME, MARKET_PRICE, COST_PRICE, PRODUCT_NO, BRAND_ID, BRAND_NAME,APPROVAL_TYPE,APPROVAL_NO,CATEGORY_NAME,DRUG_CATE_ID,DRUG_CATE_CODE,ERP_PRODUCT_CODE     
+    from PRODUCTMAIN where 1 = 1
+    <isNotEmpty property="mCategoryId">
+    	and CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where PARENT_ID = #mCategoryId# )
+    </isNotEmpty>
+    <isNotEmpty property="bCategoryId">
+    	and CATEGORY_ID in (select sc.CATEGORY_ID from categorys sc
+			inner join categorys mc on sc.parent_id=mc.category_id 
+			inner join categorys bc on mc.parent_id=bc.category_id 
+			where bc.category_id = #bCategoryId# )
+    </isNotEmpty>
+    <isNotEmpty property="searchBrandName">
+    	and BRAND_ID in (select BRAND_ID from PROD_BRAND where BRAND_NAME like '%'||#searchBrandName#||'%' )
+    </isNotEmpty>
+    <isNotEmpty property="searchCategoryName">
+    	and CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where CATEGORY_NAME like '%'||#searchCategoryName#||'%' and IS_PHY = 1 ) 
+    </isNotEmpty>
+    <isNotEmpty property="mCategoryName">
+    	and CATEGORY_ID in (select distinct(sc.CATEGORY_ID) from categorys sc
+			inner join categorys mc on sc.parent_id=mc.category_id and mc.category_name like '%'||#mCategoryName#||'%' and mc.is_phy=1 )
+    </isNotEmpty>
+    <isNotEmpty property="bCategoryName">
+    	and CATEGORY_ID in (select distinct(sc.CATEGORY_ID) from categorys sc
+			inner join categorys mc on sc.parent_id=mc.category_id 
+			inner join categorys bc on mc.parent_id=bc.category_id and bc.category_name like '%'||#bCategoryName#||'%' and mc.is_phy=1 )
+    </isNotEmpty>
+    
+    <isParameterPresent >
+      <include refid="product_Example_Where_Clause_User" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  
+  <select id="product_selectByExampleByUserForExport" resultClass="java.util.HashMap" remapResults="true" parameterClass="com.kmzyc.promotion.app.vobject.ProductExample" >
+     select pb.brand_name as brandName,p.procuct_name as productName,p.product_title as productTitle,ta_temp.col as skuDesc,
+	(case p.PRODUCT_TYPE when 1 then 'OTC药品' when 2 then '医疗器械' else '非药品' end) as productType,p.product_no as productNo,ps.product_sku_code as skuCode,ps.COST_PRICE as costPrice,ps.mark_price as markPrice,ps.price as price,
+	(case p.status when '3' then '上架' when '4' then '下架' else '其它' end) as status, 
+	bca.CATEGORY_NAME as bCategoryName,mca.CATEGORY_NAME as mCategoryName,ca.CATEGORY_NAME as sCategoryName,
+	(select f.CORPORATE_NAME 
+	   from commercial_tenant_basic_info f,suppliers_info s where f.n_commercial_tenant_id=s.merchant_id and to_char(s.supplier_id)=p.shop_code) as supplierName,
+	p.UP_TIME as upTime,p.ARCHIVE_TIME as archiveTime,p.POSTIL as postil,ps.product_sku_id as skuId 
+	from product_sku ps 
+	inner join productmain p on ps.product_id=p.product_id 
+	inner join prod_brand pb on p.brand_id = pb.brand_id 
+	inner join categorys ca on p.category_id = ca.category_id  
+	inner join categorys mca on mca.category_id = ca.PARENT_ID  
+	inner join categorys bca on bca.category_id = mca.PARENT_ID 
+	inner join 
+	(select temp.product_sku_id, wm_concat(temp.CATEGORY_ATTR_VALUE) col from (select ps1.product_sku_id,cav.CATEGORY_ATTR_VALUE from product_sku ps1 
+	left join product_sku_attr psa on psa.product_sku_id = ps1.product_sku_id 
+	left join category_attr_value cav on cav.CATEGORY_ATTR_ID = psa.CATEGORY_ATTR_ID and psa.CATEGORY_ATTR_VALUE_ID=cav.CATEGORY_ATTR_VALUE_ID) temp  
+	group by temp.product_sku_id) ta_temp  on ps.product_sku_id=ta_temp.product_sku_id  where 1 = 1
+    <isNotEmpty property="mCategoryId">
+    	and mca.CATEGORY_ID  = #mCategoryId# 
+    </isNotEmpty>
+    <isNotEmpty property="bCategoryId">
+    	and bca.CATEGORY_ID = #bCategoryId# 
+    </isNotEmpty>
+    <isNotEmpty property="searchBrandName">
+    	and pb.BRAND_NAME like '%'||#searchBrandName#||'%' 
+    </isNotEmpty>
+    <isNotEmpty property="searchCategoryName">
+    	and ca.CATEGORY_NAME like '%'||#searchCategoryName#||'%' and ca.IS_PHY = 1  
+    </isNotEmpty>
+    <isNotEmpty property="mCategoryName">
+    	and mca.category_name like '%'||#mCategoryName#||'%' and mca.is_phy=1 
+    </isNotEmpty>
+    <isNotEmpty property="bCategoryName">
+    	and bca.category_name like '%'||#bCategoryName#||'%' and bca.is_phy=1 
+    </isNotEmpty>
+    <isNotEmpty property="productTitle">
+    	and p.product_title like '%'||#productTitle#||'%' 
+    </isNotEmpty>
+    <isNotEmpty property="keyWord">
+    	and p.KEYWORD like '%'||#keyWord#||'%' 
+    </isNotEmpty>
+    <isNotEmpty property="productNo">
+    	and p.PRODUCT_NO like '%'||#productNo#||'%' 
+    </isNotEmpty>
+    <isNotEmpty property="categoryId">
+    	and p.CATEGORY_ID = #categoryId#  
+    </isNotEmpty>
+    <isNotEmpty property="status">
+    	and p.status = #status#  
+    </isNotEmpty>
+    <isNotEmpty property="brandId">
+    	and p.BRAND_ID = #brandId#  
+    </isNotEmpty>
+    
+    
+    ORDER BY P.PRODUCT_ID DESC 
+  </select>
+  
+  <select id="product_selectByExampleByUserForCertificate" resultMap="ProductResultMapForCertificate" parameterClass="com.kmzyc.promotion.app.vobject.ProductExample" >
+    select PRODUCT_ID, CATEGORY_ID, PROCUCT_NAME, PRODUCT_DESC, PACK_LISTING, PRODUCT_TITLE,PRODUCT_SUBTITLE,POSTIL, PRODUCT_TYPE,
+      KEYWORD, STATUS, CREATE_USER,CREATE_USER_NAME, CREATE_TIME, PRODUCTHOT, ARCHIVE_TIME,CHECK_USER,CHECK_USER_NAME, CHECK_TIME, MODIF_TIME,
+      SHOP_CODE, MODIF_USER, UP_TIME, MARKET_PRICE, COST_PRICE, PRODUCT_NO, BRAND_ID, BRAND_NAME,APPROVAL_TYPE,APPROVAL_NO,CATEGORY_NAME,DRUG_CATE_ID,DRUG_CATE_CODE,ERP_PRODUCT_CODE     
+    from PRODUCTMAIN where 1 = 1
+    <isNotEmpty property="mCategoryId">
+    	and CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where PARENT_ID = #mCategoryId# )
+    </isNotEmpty>
+    <isNotEmpty property="bCategoryId">
+    	and CATEGORY_ID in (select sc.CATEGORY_ID from categorys sc
+			inner join categorys mc on sc.parent_id=mc.category_id 
+			inner join categorys bc on mc.parent_id=bc.category_id 
+			where bc.category_id = #bCategoryId# )
+    </isNotEmpty>
+    <isNotEmpty property="searchBrandName">
+    	and BRAND_ID in (select BRAND_ID from PROD_BRAND where BRAND_NAME like '%'||#searchBrandName#||'%' )
+    </isNotEmpty>
+    <isNotEmpty property="searchCategoryName">
+    	and CATEGORY_ID in (select CATEGORY_ID from CATEGORYS where CATEGORY_NAME like '%'||#searchCategoryName#||'%' and IS_PHY = 1 ) 
+    </isNotEmpty>
+    <isNotEmpty property="mCategoryName">
+    	and CATEGORY_ID in (select distinct(sc.CATEGORY_ID) from categorys sc
+			inner join categorys mc on sc.parent_id=mc.category_id and mc.category_name like '%'||#mCategoryName#||'%' and mc.is_phy=1 )
+    </isNotEmpty>
+    <isNotEmpty property="bCategoryName">
+    	and CATEGORY_ID in (select distinct(sc.CATEGORY_ID) from categorys sc
+			inner join categorys mc on sc.parent_id=mc.category_id 
+			inner join categorys bc on mc.parent_id=bc.category_id and bc.category_name like '%'||#bCategoryName#||'%' and mc.is_phy=1 )
+    </isNotEmpty>
+    
+    <isParameterPresent >
+      <include refid="product_Example_Where_Clause_User" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  
+   <select id="product_selectBySkuExample" resultMap="ProductResultMap3" parameterClass="com.kmzyc.promotion.app.vobject.ProductExample" >
+     select * from view_productsku_sections where 1 = 1
+    <isParameterPresent >
+      <include refid="product_Example_Where_Clause_User" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  
+  
+  <!-- 查询能上架产品的个数 -->
+   <select id="product_selectCountByExample" resultClass="java.lang.Integer" parameterClass="com.kmzyc.promotion.app.vobject.ProductExample" >
+      select   count(*)  
+    from PRODUCTMAIN
+    <isParameterPresent >
+      <include refid="product_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  
+  <select id="product_selectByPrimaryKey" resultMap="ProductResultMap2" parameterClass="com.kmzyc.promotion.app.vobject.Product" >
+    select PRODUCT_ID, CATEGORY_ID, PROCUCT_NAME, PRODUCT_DESC,INTRODUCE ,PACK_LISTING, PRODUCT_TITLE,PRODUCT_SUBTITLE, PRODUCT_TYPE,
+      KEYWORD, STATUS, CREATE_USER, CREATE_TIME, PRODUCTHOT, ARCHIVE_TIME, CHECK_TIME, MODIF_TIME, POSTIL,
+      SHOP_CODE, MODIF_USER, UP_TIME, MARKET_PRICE, COST_PRICE, PRODUCT_NO ,CREATE_USER_NAME ,
+      CHECK_USER,CHECK_USER_NAME, BRAND_ID, BRAND_NAME,APPROVAL_TYPE,APPROVAL_NO,CATEGORY_NAME,DRUG_CATE_ID,DRUG_CATE_CODE,ERP_PRODUCT_CODE       
+    from PRODUCTMAIN
+    where PRODUCT_ID = #id:DECIMAL#
+  </select>
+  
+  <select id="product_selectByPrimaryKey2" resultMap="ProductResultMap2" parameterClass="com.kmzyc.promotion.app.vobject.Product" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Wed Jul 17 09:22:58 CST 2013.
+    -->
+    select PRODUCT_ID, CATEGORY_ID, PROCUCT_NAME, PRODUCT_DESC,INTRODUCE ,PACK_LISTING, PRODUCT_TITLE,PRODUCT_SUBTITLE, PRODUCT_TYPE,
+      KEYWORD, STATUS, CREATE_USER, CREATE_TIME, PRODUCTHOT, ARCHIVE_TIME, CHECK_TIME, MODIF_TIME, POSTIL,
+      SHOP_CODE, MODIF_USER, UP_TIME, MARKET_PRICE, COST_PRICE, PRODUCT_NO ,CREATE_USER_NAME ,
+      CHECK_USER,CHECK_USER_NAME, BRAND_ID, BRAND_NAME,APPROVAL_TYPE,APPROVAL_NO,CATEGORY_NAME,DRUG_CATE_ID,DRUG_CATE_CODE,ERP_PRODUCT_CODE ,INTRODUCE_LAZY     
+    from PRODUCTMAIN
+    where PRODUCT_ID = #id:DECIMAL#
+  </select>
+  
+  <update id="product_updateByExample">
+  	UPDATE PRODUCTMAIN
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.categoryId" >
+        CATEGORY_ID = #record.categoryId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.productType" >
+        PRODUCT_TYPE = #record.productType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.productSubtitle" >
+        PRODUCT_SUBTITLE = #record.productSubtitle:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.postil" >
+        POSTIL = #record.postil:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.procuctName" >
+        PROCUCT_NAME = #record.name:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.productDesc" >
+        PRODUCT_DESC = #record.productDesc:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.packListing" >
+        PACK_LISTING = #record.packListing:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.productTitle" >
+        PRODUCT_TITLE = #record.productTitle:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.keyword" >
+        KEYWORD = #record.keyword:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.status" >
+        STATUS = #record.status:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.producthot" >
+        PRODUCTHOT = #record.productHot:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.archiveTime" >
+        ARCHIVE_TIME = #record.archiveTime:Date#
+      </isNotNull>
+      <isNotNull prepend="," property="record.checkTime" >
+        CHECK_TIME = #record.checkTime:Date#
+      </isNotNull>
+      <isNotNull prepend="," property="record.modifTime" >
+        MODIF_TIME = #record.modifTime:Date#
+      </isNotNull>
+      <isNotNull prepend="," property="record.shopCode" >
+        SHOP_CODE = #record.shopCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.modifUser" >
+        MODIF_USER = #record.modifUser:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="record.upTime" >
+        UP_TIME = #record.upTime:Date#
+      </isNotNull>
+      <isNotNull prepend="," property="record.marketPrice" >
+        MARKET_PRICE = #record.marketPrice:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.costPrice" >
+        COST_PRICE = #record.costPrice:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.productNo" >
+        PRODUCT_NO = #record.productNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.brandId" >
+        BRAND_ID = #record.brandId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.brandName" >
+        BRAND_NAME = #record.brandName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.approvalType" >
+        APPROVAL_TYPE = #record.approvalType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.approvalNo" >
+        APPROVAL_NO = #record.approvalNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.categoryName" >
+        CATEGORY_NAME = #record.categoryName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.drugCateId" >
+        DRUG_CATE_ID = #record.drugCateId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.drugCateCode" >
+        DRUG_CATE_CODE = #record.drugCateCode:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="product_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  
+  <update id="product_updateByPrimaryKey" parameterClass="com.kmzyc.promotion.app.vobject.Product" >
+    <!--
+      WARNING - This element is automatically generated by Apache iBATIS ibator, do not modify.
+      This element was generated on Wed Jul 17 09:22:58 CST 2013.
+    -->
+    update PRODUCTMAIN
+     <dynamic prepend="set" >
+      <isNotNull prepend="," property="categoryId" >
+       	CATEGORY_ID = #categoryId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="productType" >
+       	PRODUCT_TYPE = #productType:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="productSubtitle" >
+        PRODUCT_SUBTITLE = #productSubtitle:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="postil" >
+        POSTIL = #postil:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="name" >
+       	PROCUCT_NAME = #name:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productDesc" >
+       	PRODUCT_DESC = #productDesc:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="packListing" >
+       	PACK_LISTING = #packListing:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productTitle" >
+       	PRODUCT_TITLE = #productTitle:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="keyword" >
+       	KEYWORD = #keyword:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+       	STATUS = #status:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productHot" >
+       	PRODUCTHOT = #productHot:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="modifTime" >
+       	MODIF_TIME = #modifTime:Date#
+      </isNotNull>
+      <isNotNull prepend="," property="shopCode" >
+       	SHOP_CODE = #shopCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="modifUser" >
+       	 MODIF_USER = #modifUser:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="marketPrice" >
+       	MARKET_PRICE = #marketPrice:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="costPrice" >
+       	COST_PRICE = #costPrice:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="productNo" >
+       	PRODUCT_NO = #productNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="introduce" >
+       	INTRODUCE = #introduce:CLOB#
+      </isNotNull>
+        <isNotNull prepend="," property="brandId" >
+        BRAND_ID = #brandId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="brandName" >
+        BRAND_NAME = #brandName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="drugCateId" >
+        DRUG_CATE_ID = #drugCateId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="drugCateCode" >
+        DRUG_CATE_CODE = #drugCateCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="approvalType" >
+        APPROVAL_TYPE = #approvalType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="approvalNo" >
+        APPROVAL_NO = #approvalNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="erpProductCode" >
+        ERP_PRODUCT_CODE = #erpProductCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="introduceLazy" >
+        INTRODUCE_LAZY = #introduceLazy:VARCHAR#
+      </isNotNull>
+     </dynamic>
+    where PRODUCT_ID = #id:DECIMAL#
+  </update>
+  
+  <update id="product_upShelfByIdList" parameterClass="com.kmzyc.promotion.app.vobject.Product" >
+    <!--
+      	只有已审核状态“2,4,5”才允许上架
+    -->
+    UPDATE PRODUCTMAIN
+       	SET STATUS = #status#,
+       	UP_TIME = #upTime# 
+    WHERE PRODUCT_ID = #id# and (STATUS='2' or STATUS='4' or STATUS='5')
+  </update>
+  
+  <!-- 手动下架 -->
+  <update id="product_downShelfByIdList" parameterClass="com.kmzyc.promotion.app.vobject.Product" >
+    <!--
+      	只有上架状态状态“3”才允许下架
+    -->
+    UPDATE PRODUCTMAIN
+       	SET STATUS = #status#,
+       	ARCHIVE_TIME = #archiveTime# 
+    WHERE PRODUCT_ID = #id# and STATUS='3'
+  </update>
+  <delete id="deleteObject" parameterClass="java.lang.Long">delete from PRODUCTMAIN where STATUS!='3' and PRODUCT_ID = #id# </delete>
+  
+  <!-- 单个产品上架 -->
+  <update id="product_updateShelfStatus" parameterClass="com.kmzyc.promotion.app.vobject.Product" >
+ UPDATE PRODUCTMAIN
+  SET STATUS =#status#,
+  UP_TIME=#upTime#,
+  MODIF_TIME=#modifTime#,
+  MODIF_USER=#modifUser# 
+  WHERE PRODUCT_ID=#id# and status in ('2','4','5')  
+  </update>
+  
+  <select id="product_queryMaxProductNo" resultClass="java.lang.String" parameterClass="java.lang.String" >
+  	select max(t.product_no) from PRODUCTMAIN t where t.product_no like '$inputCode$____'
+  </select>
+  
+    <update id="product_batchAuditProduct" parameterClass="java.lang.Long" >
+    <!--
+      	批量审核
+    -->
+    UPDATE PRODUCTMAIN
+       	SET STATUS = '2',
+       	UP_TIME = sysdate   
+    WHERE PRODUCT_ID = #id# and STATUS='1' 
+  </update>
+  <select id="product_queryInfo" resultMap="ProductResultMap4" parameterClass="java.lang.Long" >
+         select p.product_id,p.category_id,p.shop_code from productmain p where p.product_id=( select sku.product_id from product_sku sku where sku.product_sku_id=#productSkuId:DECIMAL#)
+  </select>
+  <select id="getProductIdByBrandId" parameterClass="java.lang.Long" resultClass="java.lang.Integer">
+  	SELECT PRODUCT_ID FROM PRODUCTMAIN WHERE BRAND_ID = #brandId:DECIMAL# AND STATUS = '3' 
+  </select>
+  
+  
+  	<!-- 查询用户信息 -->
+  	<select id="SQL_QUERY_USER_INFO" parameterClass="java.lang.Long" resultClass="com.pltfm.app.dataobject.UserInfoDO">
+		select ai.n_login_id    loginId,
+		       ai.mobile        mobile,
+		       ai.email         email,
+		       ai.account_login loginAccount
+		  from account_info ai
+		 where ai.n_login_id = #uid:DECIMAL#
+  	</select>
+</sqlMap>

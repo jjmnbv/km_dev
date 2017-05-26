@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="order" extends="BasePackage">
+		<action name="showAllOrderList" class="orderAction" method="showAllOrderList">
+			<result name="success">/WEB-INF/jsp/order/allOrderList.jsp</result>
+		</action>
+		<action name="showEffectiveOrderList" class="orderAction" method="showEffectiveOrderList">
+			<result name="success">/WEB-INF/jsp/order/allOrderList.jsp</result>
+		</action>
+		<action name="showOrderListForKMB2B" class="orderAction" method="showOrderListForKMB2B">
+			<result name="success">/WEB-INF/jsp/order/allOrderListForKMB2B.jsp</result>
+		</action>
+		<!-- 待结转,待配送,已配送订单列表 -->
+		<action name="showOrderListByStatus" class="orderAction" method="showOrderListByStatus">
+			<result name="success">/WEB-INF/jsp/order/orderListByCondition.jsp</result>
+		</action>
+		<action name="carryOver" class="orderAction" method="carryOver">
+			<result name="success">/WEB-INF/jsp/order/orderCarryOver.jsp</result>
+		</action>
+		<action name="toOrderCarryOver" class="orderAction" method="toOrderCarryOver">
+			<result name="success">/WEB-INF/jsp/order/orderCarryOver.jsp</result>
+		</action>
+		<action name="toOrderCarryOverList" class="orderAction" method="toOrderCarryOverList">
+			<result name="success">/WEB-INF/jsp/order/orderCarryOverList.jsp</result>
+		</action>
+		<action name="orderCarryOverList" class="orderAction" method="orderCarryOverList">
+			<result name="success">/WEB-INF/jsp/order/orderCarryOverList.jsp</result>
+		</action>
+		<action name="showOrderItemDetail" class="orderAction" method="showOrderItemDetail" >
+			<result name="success">/WEB-INF/jsp/order/orderItemDetail.jsp</result>
+		</action>
+		<action name="toEditOrderInfo" class="orderAction" method="toEditOrderInfo" >
+			<result name="success">/WEB-INF/jsp/order/orderEdite.jsp</result>
+		</action>
+		<action name="toViewOrderAssess" class="orderAction" method="toViewOrderAssess" >
+			<result name="success">/WEB-INF/jsp/order/orderAssessView.jsp</result>
+		</action>
+		<action name="editOrderRemark" class="orderAction" method="editOrderRemark" ></action>
+		<action name="editOrderLogisticsInfo" class="orderAction" method="editOrderLogisticsInfo" ></action>
+		<action name="modifyOrderInfo" class="orderAction" method="modifyOrderInfo" ></action>
+		<action name="sycOrderList" class="orderAction" method="sycOrderList"></action>
+		<action name="sycFailedOrder" class="orderAction" method="sycFailedOrder"></action>
+		<!-- 去修改运费 -->
+		<action name="toEditOrderYouFei" class="orderAction" method="toEditOrderYunFei" >
+			<result name="success">/WEB-INF/jsp/order/orderUpdateFare.jsp</result>
+		</action>
+		<action name="updateFare" class="orderAction" method="updateFare" >
+		</action>
+		<!-- ajax结转单个订单  -->
+		<action name="carryOverSingleByAjax" class="orderAction" method="carryOverSingleByAjax" ></action>
+		<!-- 订单导出 20151113 add-->
+		<action name="exportOrder" class="orderAction" method="exportOrder" ></action>
+	</package>
+</struts>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SUPPLIERS_RECHECK" >
+	<resultMap id="suppliersRecheckResult" class="com.pltfm.cms.vobject.SuppliersRecheck" >
+		<result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="APPLY_TIME" property="applyTime" jdbcType="DECIMAL" />
+		<result column="REASON" property="reason" jdbcType="VARCHAR" />
+		<result column="IS_CLOSE" property="isClose" jdbcType="DECIMAL" />
+		<result column="THREE_ID_TYPE" property="threeIdType" jdbcType="DECIMAL" />
+		<result column="SUPPLIER_TYPE" property="supplierType" jdbcType="DECIMAL" />
+		<result column="BUSINESS_TYPE" property="businessType" jdbcType="DECIMAL" />
+		<result column="CHECK_USER" property="checkUser" jdbcType="DECIMAL" />
+		<result column="CHECK_TIME" property="checkTime" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<select id="findListBySupplierId" resultMap="suppliersRecheckResult" parameterClass="java.lang.Long" >
+    	SELECT t.SUPPLIER_ID,
+		       t.STATUS,
+		       t.APPLY_TIME,
+		       t.REASON,
+		       t.IS_CLOSE,
+		       t.THREE_ID_TYPE,
+		       t.SUPPLIER_TYPE,
+		       t.BUSINESS_TYPE,
+		       t.CHECK_USER,
+		       t.CHECK_TIME
+		  FROM SUPPLIERS_RECHECK t
+		 WHERE t.SUPPLIER_ID = #supplierId:DECIMAL#
+    </select>
+    
+</sqlMap>

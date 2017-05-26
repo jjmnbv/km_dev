@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="BusinessFunctions" >
+
+  <typeAlias alias="businessFunctionsDO" type="com.pltfm.app.dataobject.BusinessFunctions" />
+  <typeAlias alias="businessFunctionsQuery" type="com.pltfm.app.vobject.BusinessFunctionsQuery" />
+
+  <resultMap id="businessFunctionsDOResultMap" class="businessFunctionsDO" >
+    <result property="nBusinessFunctionId" column="N_BUSINESS_FUNCTION_ID" />
+    <result property="functionName" column="FUNCTION_NAME" />
+    <result property="url" column="URL" />
+    <result property="description" column="DESCRIPTION" />
+    <result property="nFunctionParentId" column="N_FUNCTION_PARENT_ID" />
+    <result property="nIsParent" column="N_IS_PARENT" />
+  </resultMap>
+
+  <resultMap id="businessFunctionsQueryResultMap" class="businessFunctionsQuery" >
+    <result property="nBusinessFunctionId" column="N_BUSINESS_FUNCTION_ID" />
+    <result property="functionName" column="FUNCTION_NAME" />
+    <result property="url" column="URL" />
+    <result property="description" column="DESCRIPTION" />
+    <result property="nFunctionParentId" column="N_FUNCTION_PARENT_ID" />
+    <result property="nIsParent" column="N_IS_PARENT" />
+  </resultMap>
+
+  <sql id="businessFunctions_columns" >
+    a1.N_BUSINESS_FUNCTION_ID, a1.FUNCTION_NAME, a1.URL, a1.DESCRIPTION, a1.N_FUNCTION_PARENT_ID, 
+      a1.N_IS_PARENT
+  </sql>
+
+  <sql id="businessFunctions_do_columns" >
+    a1.N_BUSINESS_FUNCTION_ID, a1.FUNCTION_NAME, a1.URL, a1.DESCRIPTION, a1.N_FUNCTION_PARENT_ID, 
+      a1.N_IS_PARENT
+  </sql>
+
+  <sql id="businessFunctions_query_columns" >
+    a1.N_BUSINESS_FUNCTION_ID, a1.FUNCTION_NAME, a1.URL, a1.DESCRIPTION, a1.N_FUNCTION_PARENT_ID, 
+      a1.N_IS_PARENT
+  </sql>
+
+  <sql id="queryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="nBusinessFunctionId" prepend="AND" >
+        <![CDATA[  
+        N_BUSINESS_FUNCTION_ID = #nBusinessFunctionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="functionName" prepend="AND" >
+        <![CDATA[  
+        FUNCTION_NAME = #functionName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="url" prepend="AND" >
+        <![CDATA[  
+        URL = #url#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="description" prepend="AND" >
+        <![CDATA[  
+        DESCRIPTION = #description#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nFunctionParentId" prepend="AND" >
+        <![CDATA[  
+        N_FUNCTION_PARENT_ID = #nFunctionParentId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nIsParent" prepend="AND" >
+        <![CDATA[  
+        N_IS_PARENT = #nIsParent#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="doQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="nBusinessFunctionId" prepend="AND" >
+        <![CDATA[  
+        N_BUSINESS_FUNCTION_ID = #nBusinessFunctionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="functionName" prepend="AND" >
+        <![CDATA[  
+        FUNCTION_NAME = #functionName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="url" prepend="AND" >
+        <![CDATA[  
+        URL = #url#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="description" prepend="AND" >
+        <![CDATA[  
+        DESCRIPTION = #description#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nFunctionParentId" prepend="AND" >
+        <![CDATA[  
+        N_FUNCTION_PARENT_ID = #nFunctionParentId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nIsParent" prepend="AND" >
+        <![CDATA[  
+        N_IS_PARENT = #nIsParent#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="queryQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="nBusinessFunctionId" prepend="AND" >
+        <![CDATA[  
+        N_BUSINESS_FUNCTION_ID = #nBusinessFunctionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="functionName" prepend="AND" >
+        <![CDATA[  
+        FUNCTION_NAME = #functionName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="url" prepend="AND" >
+        <![CDATA[  
+        URL = #url#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="description" prepend="AND" >
+        <![CDATA[  
+        DESCRIPTION = #description#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nFunctionParentId" prepend="AND" >
+        <![CDATA[  
+        N_FUNCTION_PARENT_ID = #nFunctionParentId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nIsParent" prepend="AND" >
+        <![CDATA[  
+        N_IS_PARENT = #nIsParent#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <insert id="insert" parameterClass="businessFunctionsDO" >
+    INSERT INTO BUSINESS_FUNCTIONS( N_BUSINESS_FUNCTION_ID, FUNCTION_NAME, URL, DESCRIPTION, N_FUNCTION_PARENT_ID, 
+      N_IS_PARENT)
+     VALUES ( #nBusinessFunctionId#, #functionName#, #url#, #description#, #nFunctionParentId#, 
+      #nIsParent#)
+    <selectKey keyProperty="nBusinessFunctionId" resultClass="java.math.BigDecimal" >
+      SELECT LAST_INSERT_ID() AS value
+    </selectKey>
+  </insert>
+
+  <update id="update" parameterClass="businessFunctionsDO" >
+    UPDATE BUSINESS_FUNCTIONS   
+    <dynamic prepend="SET" >
+      <!--
+      <isNotNull property="nBusinessFunctionId" prepend="," >
+        <![CDATA[  
+        N_BUSINESS_FUNCTION_ID = #nBusinessFunctionId#  
+        ]]>  
+      </isNotNull>
+      -->
+      <isNotNull property="functionName" prepend="," >
+        <![CDATA[  
+        FUNCTION_NAME = #functionName#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="url" prepend="," >
+        <![CDATA[  
+        URL = #url#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="description" prepend="," >
+        <![CDATA[  
+        DESCRIPTION = #description#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nFunctionParentId" prepend="," >
+        <![CDATA[  
+        N_FUNCTION_PARENT_ID = #nFunctionParentId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="nIsParent" prepend="," >
+        <![CDATA[  
+        N_IS_PARENT = #nIsParent#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+     WHERE N_BUSINESS_FUNCTION_ID = #nBusinessFunctionId#  
+  </update>
+
+  <select id="findByPrimaryKey" parameterClass="java.math.BigDecimal" resultMap="businessFunctionsDOResultMap" >
+     SELECT 
+    <include refid="businessFunctions_do_columns" />
+    <![CDATA[  
+     FROM BUSINESS_FUNCTIONS a1 WHERE N_BUSINESS_FUNCTION_ID = #nBusinessFunctionId#
+    ]]>  
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterClass="java.math.BigDecimal" >
+    <![CDATA[  
+     DELETE FROM BUSINESS_FUNCTIONS WHERE N_BUSINESS_FUNCTION_ID = #nBusinessFunctionId#
+    ]]>  
+  </delete>
+
+  <select id="countByDOExample" parameterClass="businessFunctionsDO" resultClass="java.lang.Integer" >
+    SELECT COUNT(N_BUSINESS_FUNCTION_ID) AS num FROM BUSINESS_FUNCTIONS 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="findListByDO" resultMap="businessFunctionsDOResultMap" parameterClass="businessFunctionsDO" >
+     SELECT 
+    <include refid="businessFunctions_do_columns" />
+     FROM BUSINESS_FUNCTIONS a1 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="countByQueryExample" parameterClass="businessFunctionsQuery" resultClass="java.lang.Integer" >
+    SELECT COUNT(N_BUSINESS_FUNCTION_ID) AS num FROM BUSINESS_FUNCTIONS 
+    <include refid="queryQueryParams" />
+  </select>
+
+  <select id="findListByQuery" resultMap="businessFunctionsQueryResultMap" parameterClass="businessFunctionsQuery" >
+     SELECT 
+    <include refid="businessFunctions_query_columns" />
+     FROM BUSINESS_FUNCTIONS a1 
+    <include refid="queryQueryParams" />
+  </select>
+</sqlMap>

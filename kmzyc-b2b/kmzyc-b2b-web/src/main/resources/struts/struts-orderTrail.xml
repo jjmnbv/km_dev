@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="ordertrail" extends="BasePackage">
+        <action name="showOrderTrail" class="orderTrailAction" method="showOrderTrail">
+            <result name="success">/WEB-INF/jsp/ordertrail/orderTrail.jsp</result>
+        </action>
+        <action name="showExpressPath" class="orderTrailAction" method="showExpressPath">
+            <result name="success">/WEB-INF/jsp/ordertrail/orderTrailExpressPath.jsp</result>
+        </action>
+
+
+        <!-- 屏蔽订单跟踪
+        <action name="sendOrderTrailMobileVerifyCode" class="orderTrailAction"
+                method="sendOrderTrailMobileVerifyCode">
+            </action> -->
+
+        <!--  屏蔽订单跟踪订单详情
+           <action name="postOrderTrailStatus" class="orderTrailAction"
+                method="postOrderTrailStatus">
+                <result name="success">/WEB-INF/jsp/ordertrail/orderDetail.jsp</result>
+            </action> -->
+        <!-- 游客查看订单明细 -->
+        <action name="viewMyOrderDetail" class="orderTrailAction"
+                method="getOrderDetail">
+            <result name="success">/WEB-INF/jsp/ordertrail/orderDetail.jsp</result>
+        </action>
+
+        <action name="postQueryOrder" class="orderTrailAction" method="postQueryOrder">
+            <result name="success">/WEB-INF/jsp/ordertrail/orderList.jsp</result>
+        </action>
+        <action name="initOrderTrailLogistics" class="orderTrailAction"
+                method="initOrderTrailLogistics">
+            <result name="success">/WEB-INF/jsp/ordertrail/orderTrailExpressPath.jsp</result>
+        </action>
+        <!-- 屏蔽订单跟踪	查询会员的订单列表
+            <action name="queryTrailOrderList" class="orderTrailAction" method="queryTrailOrderList">
+                <result name="success">/WEB-INF/jsp/ordertrail/orderList.jsp</result>
+            </action> -->
+        <!-- 根据手机和邮箱查询 -->
+        <action name="orderTrailEmailServicess" class="orderTrailAction"
+                method="orderTrailEmailServicess">
+        </action>
+        <!-- 跟踪订单验证身份根据手机和订单号查询 -->
+        <action name="orderIdorMobile" class="orderTrailAction" method="orderIdorMobile">
+        </action>
+        <!-- 验证手机短信验证码是否输入正确 -->
+        <action name="mobileCode" class="orderTrailAction" method="mobileCode">
+        </action>
+        <action name="queryTrailOrderDetail" class="orderTrailAction"
+                method="queryTrailOrderDetail">
+            <result name="success">/WEB-INF/jsp/ordertrail/orderDetail.jsp</result>
+        </action>
+
+        <action name="sendmyTelVeriyCode" class="securityCentreAction"
+                method="sendmyTelVeriyCode">
+        </action>
+
+
+    </package>
+</struts>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SPREAD_RULES" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.SpreadRules" >
+    <result column="SRID" property="srid" jdbcType="DECIMAL" />
+    <result column="IS_APPLICATE_AUDIT" property="isApplicateAudit" jdbcType="DECIMAL" />
+    <result column="IS_ALTER_AUDIT" property="isAlterAudit" jdbcType="DECIMAL" />
+    <result column="IS_APP_VER_MOBILE" property="isAppVerMobile" jdbcType="DECIMAL" />
+    <result column="AMOUNT_SETTLE_WAIT_DAY" property="amountSettleWaitDay" jdbcType="DECIMAL" />
+    <result column="REBACK_RATE" property="rebackRate" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+  </resultMap>
+ 
+ <!-- 查询微商全局设置 -->
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.pltfm.app.vobject.SpreadRules" >
+    select SRID, IS_APPLICATE_AUDIT, IS_ALTER_AUDIT, IS_APP_VER_MOBILE, AMOUNT_SETTLE_WAIT_DAY,
+      REBACK_RATE, CREATE_DATE
+    from  SPREAD_RULES where 1=1
+    <isNotEmpty prepend="AND" property="srid">
+       <isNotNull property="srid">
+       		SRID = #srid:DECIMAL#
+       </isNotNull>
+    </isNotEmpty>
+  </select>
+  
+</sqlMap>

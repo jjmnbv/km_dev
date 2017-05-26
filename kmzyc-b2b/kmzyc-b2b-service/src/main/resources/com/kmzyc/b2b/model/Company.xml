@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Company">
+
+	<typeAlias alias="company" type="com.kmzyc.b2b.model.Company" />
+	<typeAlias alias="pagination" type="com.km.framework.page.Pagination"/>
+	<!-- 
+	<parameterMap class="company" id="pm_company">
+		<parameter property="companyName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="address" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="tellPhone" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="leader" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="mobilePhone" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="remark" javaType="string" jdbcType="VARCHAR" />
+	</parameterMap> -->
+	<sql id="byCompanyIdCondition">
+		<![CDATA[
+		   companyId = #companyId:NUMBER#
+	    ]]>
+	</sql>
+	
+	<sql id="byCompanyPropertyCondition">
+		<![CDATA[
+		   companyName = #companyName:VARCHAR#
+	    ]]>
+	</sql>
+	
+	<sql id="findCompanyByPageCondition">
+
+		<isNotEmpty property="objCondition.address" prepend="Or">
+			address LIKE '%$objCondition.address$%'
+		</isNotEmpty>
+		<isNotEmpty property="objCondition.companyName" prepend="Or">
+			companyName LIKE '%$objCondition.companyName$%'
+		</isNotEmpty>
+	</sql>
+	<insert id="save" parameterClass="company">
+		<selectKey resultClass="int" keyProperty="companyId">
+			select SEQ_BIZ_COMPANY.nextVal from dual
+		</selectKey>
+		<![CDATA[
+
+			INSERT INTO company 
+						(companyId,companyName,address,tellPhone,leader,mobilePhone,remark) 
+				 VALUES (#companyId#,#companyName#,#address#,#tellPhone#,#leader#,#mobilePhone#,#remark#)
+		]]>
+
+	</insert>
+
+	<select id="findById" parameterClass="integer" resultClass="company">
+		<![CDATA[
+			SELECT * FROM company
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byCompanyIdCondition" />
+		</dynamic>
+	</select>
+	
+	<select id="findByProperty" parameterClass="String" resultClass="company">
+		<![CDATA[
+			SELECT * FROM company
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byCompanyPropertyCondition" />
+		</dynamic>
+	</select>
+	
+	<delete id="deleteById" parameterClass="integer">
+		<![CDATA[
+			delete company
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byCompanyIdCondition"/>
+		</dynamic>
+	</delete>
+	
+	<delete id="deleteByIds">
+		delete from company　where companyId in ( 
+        <iterate conjunction=",">#[]#</iterate>) 
+	</delete>
+
+	<select id="findAll" resultClass="company">
+		<![CDATA[
+			SELECT * FROM company
+		]]>
+	</select>
+	
+	<update id="update" parameterClass="company">
+		<![CDATA[
+			UPDATE company
+		]]>
+		<dynamic prepend="SET">
+			<isNotNull property="companyId" prepend=",">
+				<![CDATA[
+					companyId = #companyId:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="companyName" prepend=",">
+				<![CDATA[
+					companyName = #companyName:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="address" prepend=",">
+				<![CDATA[
+					address = #address:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="tellPhone" prepend=",">
+				<![CDATA[
+					tellPhone = #tellPhone:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="leader" prepend=",">
+				<![CDATA[
+					leader = #leader:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="mobilePhone" prepend=",">
+				<![CDATA[
+					mobilePhone = #mobilePhone:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="remark" prepend=",">
+				<![CDATA[
+					remark = #remark:VARCHAR#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="WHERE">
+			<include refid="byCompanyIdCondition"/>
+		</dynamic>
+	</update>
+	 
+
+	<select id="findByPage" parameterClass="pagination" resultClass="company">
+		<![CDATA[
+		SELECT * FROM (SELECT C.*, ROWNUM RN FROM (SELECT * FROM company
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="findCompanyByPageCondition"/>
+		</dynamic> ORDER BY companyId DESC
+		<![CDATA[
+		) C WHERE ROWNUM <= #endindex#)WHERE RN >= #startindex#
+		]]>
+	</select>
+	
+	<select id="findByCount" parameterClass="pagination" resultClass="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM company
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="findCompanyByPageCondition"/>
+		</dynamic>
+	</select>
+
+</sqlMap>

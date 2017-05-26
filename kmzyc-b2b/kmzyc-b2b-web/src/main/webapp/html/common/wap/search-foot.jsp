@@ -1,0 +1,44 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@page import="com.kmzyc.zkconfig.ConfigurationUtil" %>
+<!--底部-->
+    <footer class="footer" data="你好" data2="wwwwwwwwww">
+        <div class="foot-content">
+            <h2 class="fn-t5"><a href="tel:4006600518">客服热线：400-6600-518<i class="crow-arrow icon-phone"></i></a></h2>
+            <!--搜索-->
+            <div class="search fn-p10">
+                
+                    <div class="search-con" id="main-search2" data-surl="<%=ConfigurationUtil.getString("searchPath_WAP")%>/app/suggest?c=b2b&q=">
+                    <form action="<%=ConfigurationUtil.getString("searchPath_WAP")%>/wap/kwsearch" method="get">
+                        <div class="textinput">
+                            <span class="clear icon-cross"></span>
+                            <input class="sub" type="submit" value="搜索">
+                            <input autocomplete="off" class="text" name="kw" type="search" value="">
+                            <div class="search-list result">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="user-panel">
+                <p class="member" id="loginbar">
+                 
+					 您好，欢迎来到康美中药城！
+                </p>
+
+
+                <a class="fb-top" href="javascript:scroll(0,0)"><i class="icon-arrow-up"></i>top</a>
+            </div>
+        </div>
+        <div class="foot-copy">
+            <!--<p class="version"><a href="http://www.kmb2b.com/index.html">电脑版</a>
+                <a href="javascript:void(0)" class="green">触屏版</a>
+            </p>-->
+            <p class="copyright">
+			     互联网B2B药品交易资格证 粤C20140003</br>
+                Copyrights © 2013-2017 康美中药材数据信息服务有限公司 版权所有
+                经营性备案/许可证号：粤ICP备13080572号-1
+            </p>
+        </div>
+    </footer>
+    <!--底部 end-->

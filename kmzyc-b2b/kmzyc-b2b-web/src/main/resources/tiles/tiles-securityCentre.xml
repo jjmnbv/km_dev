@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    <definition name="securityCentreContent"
+                template="/WEB-INF/jsp/securitycentre/template/securityCentreContent.jsp"></definition>
+
+
+    <definition name="changePasswordContent"
+                template="/WEB-INF/jsp/securitycentre/template/changePasswordContent.jsp"></definition>
+    <definition name="postChangePasswordContent"
+                template="/WEB-INF/jsp/securitycentre/template/postChangePasswordContent.jsp"></definition>
+
+
+    <definition name="goMobileVerifyPasswordContent"
+                template="/WEB-INF/jsp/securitycentre/template/goMobileVerifyPasswordContent.jsp"></definition>
+
+    <definition name="goMobileVerifyContent"
+                template="/WEB-INF/jsp/securitycentre/template/goVerifyMobileContent.jsp"></definition>
+
+    <definition name="postVerifyMobileContent"
+                template="/WEB-INF/jsp/securitycentre/template/postVerifyMobileContent.jsp"></definition>
+
+
+    <definition name="goEmailVerifyPasswordContent"
+                template="/WEB-INF/jsp/securitycentre/template/goEmailVerifyPasswordContent.jsp"></definition>
+    <definition name="goVerifyEmailContent"
+                template="/WEB-INF/jsp/securitycentre/template/goVerifyEmailContent.jsp"></definition>
+    <definition name="postVerifyEmailContent"
+                template="/WEB-INF/jsp/securitycentre/template/postVerifyEmailContent.jsp"></definition>
+    <definition name="doVerifyEmailContent"
+                template="/WEB-INF/jsp/securitycentre/template/doVerifyEmailContent.jsp"></definition>
+
+
+    <definition name="goPayVerifyPasswordContent"
+                template="/WEB-INF/jsp/securitycentre/template/goPayVerifyPasswordContent.jsp"></definition>
+    <definition name="goModifyPayPasswordContent"
+                template="/WEB-INF/jsp/securitycentre/template/goModifyPayPasswordContent.jsp"></definition>
+    <definition name="postModifyPayPasswordContent"
+                template="/WEB-INF/jsp/securitycentre/template/postModifyPayPasswordContent.jsp"></definition>
+
+
+    <definition name="goPaySettingContent"
+                template="/WEB-INF/jsp/securitycentre/template/goPaySettingContent.jsp"></definition>
+    <definition name="postPaySettingContent"
+                template="/WEB-INF/jsp/securitycentre/template/postPaySettingContent.jsp"></definition>
+    <!-- wap3 修改密码 -->
+    <definition name="wapChangePasswordContent"
+                template="/WEB-INF/jsp/securitycentre/template/wapChangePasswordContent.jsp"></definition>
+    <!-- wap3 验证手机 -->
+    <definition name="goWapVerifyMobileContent"
+                template="/WEB-INF/jsp/securitycentre/template/goWapVerifyMobileContent.jsp"></definition>
+    <!-- wap3 验证手机密码 -->
+    <definition name="goWapMobileVerifyPasswordContent"
+                template="/WEB-INF/jsp/securitycentre/template/goWapMobileVerifyPasswordContent.jsp"></definition>
+    <!-- wap3支付密码启用身份验证 -->
+    <definition name="goWapPayVerifyPasswordContent"
+                template="/WEB-INF/jsp/securitycentre/template/goWapPayVerifyPasswordContent.jsp"></definition>
+    <!-- wap3支付密码启用身份验证 -->
+    <definition name="postWapPayVerifyPasswordContent"
+                template="/WEB-INF/jsp/securitycentre/template/postWapPayVerifyPasswordContent.jsp"></definition>
+    <definition name="wapModifyPayPasswordDoneContent"
+                template="/WEB-INF/jsp/securitycentre/template/wapModifyPayPasswordDoneContent.jsp"></definition>
+    <definition name="wapVerifyMobileDoneContent"
+                template="/WEB-INF/jsp/securitycentre/template/wapVerifyMobileDoneContent.jsp"></definition>
+    <definition name="wapChangePasswordDoneContent"
+                template="/WEB-INF/jsp/securitycentre/template/wapChangePasswordDoneContent.jsp"></definition>
+    <definition name="accountManageContent"
+                template="/WEB-INF/jsp/securitycentre/template/accountManageContent.jsp"></definition>
+
+    <definition name="goWapPaySettingContent"
+                template="/WEB-INF/jsp/securitycentre/template/goWapPaySettingContent.jsp"></definition>
+
+    <definition name="postWapPaySettingContent"
+                template="/WEB-INF/jsp/securitycentre/template/postWapPaySettingContent.jsp"></definition>
+
+
+</tiles-definitions>
+

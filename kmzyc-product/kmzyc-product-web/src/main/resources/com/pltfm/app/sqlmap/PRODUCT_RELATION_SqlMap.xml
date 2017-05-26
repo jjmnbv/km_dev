@@ -1,0 +1,927 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PRODUCT_RELATION">
+
+	<typeAlias alias="Product" type="com.pltfm.app.vobject.Product"/>
+	<typeAlias alias="ProductSku" type="com.pltfm.app.vobject.ProductSku"/>
+	<typeAlias alias="ProductImage" type="com.pltfm.app.vobject.ProductImage"/>
+	<typeAlias alias="ProductRelationDetail" type="com.pltfm.app.vobject.ProductRelationDetail" />
+	<typeAlias alias="ProductRelation" type="com.pltfm.app.vobject.ProductRelation" />
+
+	<resultMap id="ProductImageResult" class="ProductImage" >
+	    <result column="IMAGE_ID" property="imageId" jdbcType="DECIMAL" />
+	    <result column="SKU_ID" property="skuId" jdbcType="DECIMAL" />
+	    <result column="IMG_PATH6" property="imgPath6" jdbcType="VARCHAR" />
+  	</resultMap>
+	  <!--<resultMap class="ProductSku" id="ProductSkuResult">
+	  	<result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL" />
+	  	<result column="PRODUCT_SKU_ID" property="productSkuImages" select="PRODUCT_RELATION.getImagesByskuId" />
+	    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL"/>
+	    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+	    <result column="UNIT_WEIGHT" property="unitWeight" jdbcType="DECIMAL" />
+		<result column="MARK_PRICE" property="markPrice" jdbcType="DECIMAL" />
+		<result column="PROCUCT_NAME" property="productName" jdbcType="VARCHAR"/>
+	   	<result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR"/>
+	  </resultMap> -->
+	  
+	 <resultMap id="productRelationDetailMap" class="com.pltfm.app.vobject.ProductRelationDetail" >
+	    <result column="RELATION_DETAIL_ID" property="relationDetailId" jdbcType="LONG" />
+	    <result column="RELATION_ID" property="relationId" jdbcType="LONG" />
+	    <result column="RELATION_SKU_ID" property="relationSkuId" jdbcType="LONG" />
+	    <result column="RELATION_SKU_ID" property="productSku" select="PRODUCT_RELATION.getProductSkus" />
+	    <result column="RELATION_SKU_PRICE" property="relationSkuPrice" jdbcType="DECIMAL" />
+	    <result column="RELATION_DETAIL_TYPE" property="relationDetailType" jdbcType="DECIMAL" />
+	    <result column="PRODUCT_COUNT" property="productCount" jdbcType="DECIMAL" />
+	  </resultMap>
+
+	<resultMap id="ProductResultMap" class="Product" >
+    	<result column="PRODUCT_ID" property="id" jdbcType="DECIMAL" />
+  	</resultMap>
+
+
+	<resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.ProductRelation">
+		<result column="RELATION_ID" property="relationId" jdbcType="DECIMAL" />
+		<result column="RELATION_NAME" property="relationName" jdbcType="VARCHAR" />
+		<result column="MAIN_SKU_ID" property="mainSkuId" jdbcType="DECIMAL" />
+		<result column="MAIN_SKU_PRICE" property="mainSkuPrice" jdbcType="DECIMAL" />
+		<result column="TOTAL_RELATION_PRICE" property="totalRelationPrice" jdbcType="DECIMAL" />
+		<result column="RELATION_TYPE" property="relationType" jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="EDITABLE" property="editable" jdbcType="DECIMAL" />
+	</resultMap>
+
+    <resultMap id="RecommendMap" class="ProductRelation" extends="ibatorgenerated_BaseResultMap" groupBy="relationId">
+        <result property="productRelationDetails" resultMap="PRODUCT_RELATION.productRelationDetailMap"/>
+        <result column="MARK_PRICE" property="skuMarkPrice" jdbcType="DECIMAL" />
+    </resultMap>
+    <resultMap id="packageMap" class="ProductRelation" extends="ibatorgenerated_BaseResultMap" groupBy="relationId">
+        <result property="productRelationDetails" resultMap="PRODUCT_RELATION.productRelationDetailMap"/>
+    </resultMap>
+
+    <resultMap id="productRelationDetailMap" class="ProductRelationDetail">
+        <result column="RELATION_DETAIL_ID" property="relationDetailId" jdbcType="LONG" />
+        <result column="RELATION_ID" property="relationId" jdbcType="LONG" />
+        <result column="RELATION_SKU_ID" property="relationSkuId" jdbcType="LONG" />
+        <result column="RELATION_SKU_PRICE" property="relationSkuPrice" jdbcType="DECIMAL" />
+        <result column="RELATION_DETAIL_TYPE" property="relationDetailType" jdbcType="DECIMAL" />
+        <result column="PRODUCT_COUNT" property="productCount" jdbcType="DECIMAL" />
+
+        <result column="SKU_PRICE" property="skuPrice" jdbcType="DECIMAL" />
+        <result column="SKU_MARK_PRICE" property="skuMarkPrice" jdbcType="DECIMAL" />
+        <result column="SKU_STATUS" property="skuStatus" jdbcType="LONG" />
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+        <result column="PRODUCT_TITLE" property="productTitle" jdbcType="VARCHAR" />
+        <result column="PRODUCT_STATUS" property="productStatus" jdbcType="LONG" />
+    </resultMap>
+
+
+    <resultMap class="com.pltfm.app.vobject.ProductRelation" id="productRelationMap">
+		<result column="RELATION_ID" property="relationId" jdbcType="DECIMAL" />
+		<result column="RELATION_ID" property="productRelationDetails" select="PRODUCT_RELATION.getProductRelationDetails" />
+		<result column="RELATION_NAME" property="relationName" jdbcType="VARCHAR" />
+		<result column="MAIN_SKU_ID" property="mainSkuId" jdbcType="DECIMAL" />
+		<result column="MAIN_SKU_PRICE" property="mainSkuPrice" jdbcType="DECIMAL" />
+		<result column="TOTAL_RELATION_PRICE" property="totalRelationPrice" jdbcType="DECIMAL" />
+		<result column="RELATION_TYPE" property="relationType" jdbcType="DECIMAL" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
+  	</resultMap>
+
+	<resultMap id="ibatorgenerated_BaseResultMap1" class="com.pltfm.app.vobject.ProductRelation">
+		<result column="RELATION_ID" property="relationId" jdbcType="DECIMAL" />
+		<result column="RELATION_NAME" property="relationName"
+			jdbcType="VARCHAR" />
+		<result column="MAIN_SKU_ID" property="mainSkuId" jdbcType="DECIMAL" />
+		<result column="MAIN_SKU_PRICE" property="mainSkuPrice"
+			jdbcType="DECIMAL" />
+		<result column="TOTAL_RELATION_PRICE" property="totalRelationPrice"
+			jdbcType="DECIMAL" />
+		<result column="RELATION_TYPE" property="relationType"
+			jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="WEB_SITE" property="webSite" jdbcType="VARCHAR" />
+		<result column="supplier_TYPE" property="supplierType" jdbcType="DECIMAL" />
+		<result column="supplier_ID" property="supplierId" jdbcType="DECIMAL" />
+		<result column="SUPPLIER_name" property="supplierName" jdbcType="VARCHAR" />
+		<result column="temp_sum" property="allProCount" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<resultMap id="ibatorgenerated_BaseResultMap2" class="com.pltfm.app.vobject.ProductRelation">
+		<!-- WARNING - This element is automatically generated by Apache iBATIS 
+			ibator, do not modify. This element was generated on Mon Nov 11 12:20:08 
+			CST 2013. -->
+		<result column="RELATION_ID" property="relationId" jdbcType="DECIMAL" />
+		<result column="RELATION_NAME" property="relationName"
+			jdbcType="VARCHAR" />
+		<result column="MAIN_SKU_ID" property="mainSkuId" jdbcType="DECIMAL" />
+		<result column="MAIN_SKU_PRICE" property="mainSkuPrice"
+			jdbcType="DECIMAL" />
+		<result column="TOTAL_RELATION_PRICE" property="totalRelationPrice"
+			jdbcType="DECIMAL" />
+		<result column="RELATION_TYPE" property="relationType"
+			jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="EDITABLE" property="editable" jdbcType="DECIMAL" />
+		<result column="WEB_SITE" property="webSite" jdbcType="VARCHAR" />
+		<result column="supplier_TYPE" property="supplierType" jdbcType="DECIMAL" />
+		<result column="supplier_ID" property="supplierId" jdbcType="DECIMAL" />
+		<result column="SUPPLIER_name" property="supplierName" jdbcType="VARCHAR" />
+		<result column="PV_VALUE" property="pvValue" jdbcType="DECIMAL" />
+		<result column="COST_INCOME_RATIO" property="costIncomeRatio" jdbcType="DECIMAL" />
+	</resultMap>
+
+  <resultMap id="ibatorgenerated_BaseResultMap_New" class="com.pltfm.app.vobject.ProductRelation">
+		<result column="RELATION_ID" property="relationId" jdbcType="DECIMAL" />
+		<result column="RELATION_NAME" property="relationName"
+			jdbcType="VARCHAR" />
+		<result column="MAIN_SKU_ID" property="mainSkuId" jdbcType="DECIMAL" />
+		<result column="MAIN_SKU_PRICE" property="mainSkuPrice"
+			jdbcType="DECIMAL" />
+		<result column="TOTAL_RELATION_PRICE" property="totalRelationPrice"
+			jdbcType="DECIMAL" />
+		<result column="RELATION_TYPE" property="relationType"
+			jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="EDITABLE" property="editable" jdbcType="DECIMAL" />
+		
+		<result column="RELATION_INTRODUCE" property="relationIntroduce" jdbcType="CLOB" />
+		<result column="RELATION_VIDEO" property="relationVideo" jdbcType="VARCHAR" />
+		<result column="RELATION_INTRO" property="relationIntro" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="selectProductAndDeatail"
+		class="com.pltfm.app.vobject.ProductRelationAndDetail">
+		<result column="RELATION_ID" property="relationId" jdbcType="LONG" />
+		<result column="RELATION_NAME" property="relationName"
+			jdbcType="VARCHAR" />
+		<result column="MAIN_SKU_ID" property="mainSkuId" jdbcType="LONG" />
+		<result column="MAIN_SKU_PRICE" property="mainSkuPrice"
+			jdbcType="DECIMAL" />
+		<result column="TOTAL_RELATION_PRICE" property="totalRelationPrice"
+			jdbcType="DECIMAL" />
+		<result column="RELATION_TYPE" property="relationType"
+			jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="RELATION_DETAIL_ID" property="relationDetailId"
+			jdbcType="LONG" />
+		<result column="RELATION_SKU_ID" property="relationSkuId"
+			jdbcType="LONG" />
+		<result column="RELATION_SKU_PRICE" property="relationSkuPrice"
+			jdbcType="DECIMAL" />
+		<result column="RELATION_DETAIL_TYPE" property="relationDetailType"
+			jdbcType="DECIMAL" />
+		<result column="PRODUCT_COUNT" property="productCount"
+			jdbcType="DECIMAL" />
+	</resultMap>
+
+	 <resultMap id="prodDeMap" class="com.pltfm.app.vobject.ProductRelationAndDetail" >
+     <result column="prodCount" property="productCount"
+			jdbcType="DECIMAL" />
+  </resultMap>
+
+	
+	<sql id="ibatorgenerated_Example_Where_Clause">
+		<!-- WARNING - This element is automatically generated by Apache iBATIS 
+			ibator, do not modify. This element was generated on Mon Nov 11 12:20:08 
+			CST 2013. -->
+		<iterate property="oredCriteria" conjunction="or" prepend="where"
+			removeFirstPrepend="iterate">
+			<isEqual property="oredCriteria[].valid" compareValue="true">
+				(
+				<iterate prepend="and" property="oredCriteria[].criteriaWithoutValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithoutValue[]$
+				</iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithSingleValue[].condition$
+					#oredCriteria[].criteriaWithSingleValue[].value#
+				</iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithListValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithListValue[].condition$
+					<iterate property="oredCriteria[].criteriaWithListValue[].values"
+						open="(" close=")" conjunction=",">
+						#oredCriteria[].criteriaWithListValue[].values[]#
+					</iterate>
+				</iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithBetweenValue[].condition$
+					#oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+					#oredCriteria[].criteriaWithBetweenValue[].values[1]#
+				</iterate>
+				)
+			</isEqual>
+		</iterate>
+	</sql>
+	<sql id="ibatorgenerated_Example_Where_Clause1">
+		<!-- WARNING - This element is automatically generated by Apache iBATIS 
+			ibator, do not modify. This element was generated on Mon Nov 11 12:20:08 
+			CST 2013. -->
+		<iterate property="oredCriteria" conjunction="or" prepend="and"
+			removeFirstPrepend="iterate">
+			<isEqual property="oredCriteria[].valid" compareValue="true">
+				(
+				<iterate prepend="and" property="oredCriteria[].criteriaWithoutValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithoutValue[]$
+				</iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithSingleValue[].condition$
+					#oredCriteria[].criteriaWithSingleValue[].value#
+				</iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithListValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithListValue[].condition$
+					<iterate property="oredCriteria[].criteriaWithListValue[].values"
+						open="(" close=")" conjunction=",">
+						#oredCriteria[].criteriaWithListValue[].values[]#
+					</iterate>
+				</iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithBetweenValue[].condition$
+					#oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+					#oredCriteria[].criteriaWithBetweenValue[].values[1]#
+				</iterate>
+				)
+			</isEqual>
+		</iterate>
+	</sql>
+	<select id="ibatorgenerated_selectByExample" resultMap="ibatorgenerated_BaseResultMap_New"
+		parameterClass="com.pltfm.app.vobject.ProductRelationExample">
+		<!-- WARNING - This element is automatically generated by Apache iBATIS 
+			ibator, do not modify. This element was generated on Mon Nov 11 12:20:08 
+			CST 2013. -->
+		select RELATION_ID, RELATION_NAME, MAIN_SKU_ID,MAIN_SKU_PRICE,
+		TOTAL_RELATION_PRICE, RELATION_TYPE,REMARK,STATUS,
+		DEL_STATUS, CREATE_DATE,EDITABLE,RELATION_INTRODUCE,RELATION_VIDEO,RELATION_INTRO 
+		from PRODUCT_RELATION
+		<isParameterPresent>
+			<include refid="PRODUCT_RELATION.ibatorgenerated_Example_Where_Clause" />
+			<isNotNull property="orderByClause">
+				order by $orderByClause$
+			</isNotNull>
+		</isParameterPresent>
+	</select>
+	<!-- 套餐列表 -->
+	<select id="ibatorgenerated_selectByExampleTaoCan" resultMap="ibatorgenerated_BaseResultMap1"
+		parameterClass="com.pltfm.app.vobject.ProductRelationExample">
+		<!-- WARNING - This element is automatically generated by Apache iBATIS 
+			ibator, do not modify. This element was generated on Mon Nov 11 12:20:08 
+			CST 2013. -->
+		<!--  select RELATION_ID, RELATION_NAME, MAIN_SKU_ID,MAIN_SKU_PRICE,
+		TOTAL_RELATION_PRICE, RELATION_TYPE,REMARK,STATUS,
+		DEL_STATUS, CREATE_DATE,EDITABLE,WEB_SITE,SUPPLIER_TYPE,SUPPLIER_ID,ALLPRO_COUNT
+		from PRODUCT_RELATION-->
+		select pr.RELATION_ID,pr.RELATION_NAME,pr.main_sku_id,pr.main_sku_price,pr.total_relation_price,pr.relation_type,pr.remark,pr.status,pr.del_status,pr.create_date,pr.editable,pr.web_site,pr.supplier_type,pr.supplier_id,pr.SUPPLIER_name,t.temp_sum from product_relation pr, 
+       (select prd.RELATION_ID,sum(prd.PRODUCT_COUNT) temp_sum  from product_relation_detail prd,product_relation pr where prd.RELATION_ID=pr.RELATION_ID group by prd.RELATION_ID) t
+        where t.RELATION_ID=pr.RELATION_ID
+      <isNotEmpty property="productSkuCode" prepend="and">
+            pr.relation_id in(select de.relation_id from PRODUCT_RELATION_DETAIL de where de.relation_sku_id=(select proSku.Product_Sku_Id from product_sku proSku where proSku.Product_Sku_Code=#productSkuCode#))
+    </isNotEmpty>
+		<isParameterPresent>
+			<include refid="PRODUCT_RELATION.ibatorgenerated_Example_Where_Clause1" />
+			<isNotNull property="orderByClause">
+				order by $orderByClause$
+			</isNotNull>
+		</isParameterPresent>
+	</select>
+	<select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap2"
+		parameterClass="com.pltfm.app.vobject.ProductRelation">
+		<!-- WARNING - This element is automatically generated by Apache iBATIS 
+			ibator, do not modify. This element was generated on Mon Nov 11 12:20:08 
+			CST 2013. -->
+		select RELATION_ID, RELATION_NAME, MAIN_SKU_ID,MAIN_SKU_PRICE,
+		TOTAL_RELATION_PRICE, RELATION_TYPE,REMARK,STATUS,
+		DEL_STATUS, CREATE_DATE,EDITABLE,WEB_SITE,supplier_TYPE,supplier_ID,SUPPLIER_name,PV_VALUE,COST_INCOME_RATIO
+		from PRODUCT_RELATION
+		where RELATION_ID = #relationId:DECIMAL#
+	</select>
+	<delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="com.pltfm.app.vobject.ProductRelation">
+		<!-- WARNING - This element is automatically generated by Apache iBATIS 
+			ibator, do not modify. This element was generated on Mon Nov 11 12:20:08 
+			CST 2013. -->
+		delete from PRODUCT_RELATION
+		where RELATION_ID = #relationId:DECIMAL#
+	</delete>
+	<delete id="ibatorgenerated_deleteByExample" parameterClass="com.pltfm.app.vobject.ProductRelationExample">
+		<!-- WARNING - This element is automatically generated by Apache iBATIS 
+			ibator, do not modify. This element was generated on Mon Nov 11 12:20:08 
+			CST 2013. -->
+		delete from PRODUCT_RELATION
+		<include refid="PRODUCT_RELATION.ibatorgenerated_Example_Where_Clause" />
+	</delete>
+	<insert id="ibatorgenerated_insert" parameterClass="com.pltfm.app.vobject.ProductRelation">
+
+		<selectKey keyProperty="relationId" resultClass="java.lang.Long">
+			select
+			SEQ_PRODUCT_RELATION.nextval from dual
+		</selectKey>
+
+
+		insert into PRODUCT_RELATION (RELATION_ID, RELATION_NAME, MAIN_SKU_ID,
+		MAIN_SKU_PRICE,
+		TOTAL_RELATION_PRICE, RELATION_TYPE, REMARK, STATUS, DEL_STATUS, CREATE_DATE, EDITABLE)
+		values (#relationId:DECIMAL#, #relationName:VARCHAR#,
+		#mainSkuId:DECIMAL#,
+		#mainSkuPrice:DECIMAL#, #totalRelationPrice:DECIMAL#, #relationType:DECIMAL#,
+		#remark:VARCHAR#, #status:DECIMAL#, #delStatus:DECIMAL#,
+		#createDate:timestamp#,
+		#editable:DECIMAL#)
+	</insert>
+	<insert id="ibatorgenerated_insertSelective" parameterClass="com.pltfm.app.vobject.ProductRelation">
+
+		<selectKey keyProperty="relationId" resultClass="java.lang.Long">
+			select
+			SEQ_PRODUCT_RELATION.nextval from dual
+		</selectKey>
+		insert into PRODUCT_RELATION
+		<dynamic prepend="(">
+			<isNotNull prepend="," property="relationId">
+				RELATION_ID
+			</isNotNull>
+			<isNotNull prepend="," property="relationName">
+				RELATION_NAME
+			</isNotNull>
+			<isNotNull prepend="," property="mainSkuId">
+				MAIN_SKU_ID
+			</isNotNull>
+			<isNotNull prepend="," property="mainSkuPrice">
+				MAIN_SKU_PRICE
+			</isNotNull>
+			<isNotNull prepend="," property="totalRelationPrice">
+				TOTAL_RELATION_PRICE
+			</isNotNull>
+			<isNotNull prepend="," property="relationType">
+				RELATION_TYPE
+			</isNotNull>
+			<isNotNull prepend="," property="remark">
+				REMARK
+			</isNotNull>
+			<isNotNull prepend="," property="status">
+				STATUS
+			</isNotNull>
+			<isNotNull prepend="," property="delStatus">
+				DEL_STATUS
+			</isNotNull>
+			<isNotNull prepend="," property="createDate">
+				CREATE_DATE
+			</isNotNull>
+			<isNotNull prepend="," property="editable">
+				EDITABLE
+			</isNotNull>
+			<isNotNull prepend="," property="webSite">
+				WEB_SITE
+			</isNotNull>
+			<isNotNull prepend="," property="supplierType">
+				supplier_Type
+			</isNotNull>
+			<isNotNull prepend="," property="supplierId">
+				supplier_Id
+			</isNotNull>
+			<isNotNull prepend="," property="supplierName">
+				supplier_Name
+			</isNotNull>
+			<isNotNull prepend="," property="pvValue">
+				PV_VALUE
+			</isNotNull>
+			<isNotNull prepend="," property="costIncomeRatio">
+				COST_INCOME_RATIO
+			</isNotNull>
+			<isNotNull prepend="," property="relationIntroduce">
+				RELATION_INTRODUCE
+			</isNotNull>
+			<isNotNull prepend="," property="relationVideo">
+				RELATION_VIDEO
+			</isNotNull>
+			<isNotNull prepend="," property="relationIntro">
+				RELATION_INTRO
+			</isNotNull>
+			<isNotNull prepend="," property="relationIntroduceLazy">
+				RELATION_INTRODUCE_LAZY
+			</isNotNull>
+			)
+		</dynamic>
+		values
+		<dynamic prepend="(">
+			<isNotNull prepend="," property="relationId">
+				#relationId:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="relationName">
+				#relationName:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="mainSkuId">
+				#mainSkuId:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="mainSkuPrice">
+				#mainSkuPrice:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="totalRelationPrice">
+				#totalRelationPrice:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="relationType">
+				#relationType:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="remark">
+				#remark:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="status">
+				#status:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="delStatus">
+				#delStatus:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="createDate">
+				#createDate:timestamp#
+			</isNotNull>
+			<isNotNull prepend="," property="editable">
+				#editable:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="webSite">
+				#webSite:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="supplierType">
+				#supplierType:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="supplierId">
+				#supplierId:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="supplierName">
+				#supplierName:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="pvValue">
+				#pvValue:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="costIncomeRatio">
+				#costIncomeRatio:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="relationIntroduce">
+				#relationIntroduce:CLOB#
+			</isNotNull>
+			
+			<isNotNull prepend="," property="relationVideo">
+				#relationVideo:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="relationIntro">
+				#relationIntro:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="relationIntroduceLazy">
+				#relationIntroduceLazy:CLOB#
+			</isNotNull>
+			)
+		</dynamic>
+	</insert>
+	<select id="ibatorgenerated_countByExample" parameterClass="com.pltfm.app.vobject.ProductRelationExample"
+		resultClass="java.lang.Integer">
+		<!-- WARNING - This element is automatically generated by Apache iBATIS 
+			ibator, do not modify. This element was generated on Mon Nov 11 12:20:08 
+			CST 2013. -->
+		select count(1) from PRODUCT_RELATION
+		<include refid="PRODUCT_RELATION.ibatorgenerated_Example_Where_Clause" />
+	</select>
+	<!-- 套餐列表统计 -->
+	<select id="ibatorgenerated_countByExampleTaoCan" parameterClass="com.pltfm.app.vobject.ProductRelationExample"
+		resultClass="java.lang.Integer">
+		<!-- WARNING - This element is automatically generated by Apache iBATIS 
+			ibator, do not modify. This element was generated on Mon Nov 11 12:20:08 
+			CST 2013. -->
+		   select count(1) from PRODUCT_RELATION pr,(select prd.RELATION_ID,sum(prd.PRODUCT_COUNT) temp_sum  from product_relation_detail prd,product_relation pr where prd.RELATION_ID=pr.RELATION_ID group by prd.RELATION_ID) t where t.RELATION_ID=pr.RELATION_ID
+		   <isNotEmpty property="productSkuCode" prepend="and">
+            pr.relation_id in(select de.relation_id from PRODUCT_RELATION_DETAIL de where de.relation_sku_id=(select proSku.Product_Sku_Id from product_sku proSku where proSku.Product_Sku_Code=#productSkuCode#))
+    </isNotEmpty>
+		<include refid="PRODUCT_RELATION.ibatorgenerated_Example_Where_Clause1" />
+	</select>
+	<update id="ibatorgenerated_updateByExampleSelective">
+		<!-- WARNING - This element is automatically generated by Apache iBATIS 
+			ibator, do not modify. This element was generated on Mon Nov 11 12:20:08 
+			CST 2013. -->
+		update PRODUCT_RELATION
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="record.relationId">
+				RELATION_ID = #record.relationId:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="record.relationName">
+				RELATION_NAME = #record.relationName:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="record.mainSkuId">
+				MAIN_SKU_ID = #record.mainSkuId:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="record.mainSkuPrice">
+				MAIN_SKU_PRICE = #record.mainSkuPrice:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="record.totalRelationPrice">
+				TOTAL_RELATION_PRICE = #record.totalRelationPrice:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="record.relationType">
+				RELATION_TYPE = #record.relationType:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="record.remark">
+				REMARK = #record.remark:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="record.status">
+				STATUS = #record.status:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="record.delStatus">
+				DEL_STATUS = #record.delStatus:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="record.createDate">
+				CREATE_DATE = #record.createDate:timestamp#
+			</isNotNull>
+			<isNotNull prepend="," property="record.editable">
+				EDITABLE = #record.editable:DECIMAL#
+			</isNotNull>
+		</dynamic>
+		<isParameterPresent>
+			<include refid="PRODUCT_RELATION.ibatorgenerated_Example_Where_Clause" />
+		</isParameterPresent>
+	</update>
+	<update id="ibatorgenerated_updateByExample">
+		<!-- WARNING - This element is automatically generated by Apache iBATIS 
+			ibator, do not modify. This element was generated on Mon Nov 11 12:20:08 
+			CST 2013. -->
+		update PRODUCT_RELATION
+		set RELATION_ID = #record.relationId:DECIMAL#,
+		RELATION_NAME = #record.relationName:VARCHAR#,
+		MAIN_SKU_ID = #record.mainSkuId:DECIMAL#,
+		MAIN_SKU_PRICE = #record.mainSkuPrice:DECIMAL#,
+		TOTAL_RELATION_PRICE = #record.totalRelationPrice:DECIMAL#,
+		RELATION_TYPE = #record.relationType:DECIMAL#,
+		REMARK = #record.remark:VARCHAR#,
+		STATUS = #record.status:DECIMAL#,
+		DEL_STATUS = #record.delStatus:DECIMAL#,
+		CREATE_DATE = #record.createDate:timestamp#,
+		EDITABLE = #record.editable:DECIMAL#
+		<isParameterPresent>
+			<include refid="PRODUCT_RELATION.ibatorgenerated_Example_Where_Clause" />
+		</isParameterPresent>
+	</update>
+	<update id="ibatorgenerated_updateByPrimaryKeySelective"
+		parameterClass="com.pltfm.app.vobject.ProductRelation">
+		<!-- WARNING - This element is automatically generated by Apache iBATIS 
+			ibator, do not modify. This element was generated on Mon Nov 11 12:20:08 
+			CST 2013. -->
+		update PRODUCT_RELATION
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="relationName">
+				RELATION_NAME = #relationName:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="mainSkuId">
+				MAIN_SKU_ID = #mainSkuId:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="mainSkuPrice">
+				MAIN_SKU_PRICE = #mainSkuPrice:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="totalRelationPrice">
+				TOTAL_RELATION_PRICE = #totalRelationPrice:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="relationType">
+				RELATION_TYPE = #relationType:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="remark">
+				REMARK = #remark:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="status">
+				STATUS = #status:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="delStatus">
+				DEL_STATUS = #delStatus:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="createDate">
+				CREATE_DATE = #createDate:timestamp#
+			</isNotNull>
+			<isNotNull prepend="," property="editable">
+				EDITABLE = #editable:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="pvValue">
+				PV_VALUE = #pvValue:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="costIncomeRatio">
+				COST_INCOME_RATIO = #costIncomeRatio:DECIMAL#
+			</isNotNull>
+			
+			<isNotNull prepend="," property="relationIntroduce">
+				RELATION_INTRODUCE = #relationIntroduce:CLOB#
+			</isNotNull>
+			<isNotNull prepend="," property="relationVideo">
+				RELATION_VIDEO = #relationVideo:VARCHAR# 
+			</isNotNull>
+			<isNotNull prepend="," property="relationIntro">
+				RELATION_INTRO = #relationIntro:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="relationIntroduceLazy">
+				RELATION_INTRODUCE_LAZY = #relationIntroduceLazy:CLOB#
+			</isNotNull>
+		</dynamic>
+		where RELATION_ID = #relationId:DECIMAL#
+	</update>
+	<update id="ibatorgenerated_updateByPrimaryKey" parameterClass="com.pltfm.app.vobject.ProductRelation">
+		<!-- WARNING - This element is automatically generated by Apache iBATIS 
+			ibator, do not modify. This element was generated on Mon Nov 11 12:20:08 
+			CST 2013. -->
+		update PRODUCT_RELATION
+		set RELATION_NAME = #relationName:VARCHAR#,
+		MAIN_SKU_ID = #mainSkuId:DECIMAL#,
+		MAIN_SKU_PRICE = #mainSkuPrice:DECIMAL#,
+		TOTAL_RELATION_PRICE = #totalRelationPrice:DECIMAL#,
+		RELATION_TYPE = #relationType:DECIMAL#,
+		REMARK = #remark:VARCHAR#,
+		STATUS = #status:DECIMAL#,
+		DEL_STATUS = #delStatus:DECIMAL#,
+		CREATE_DATE = #createDate:timestamp#,
+		EDITABLE = #editable:DECIMAL#
+		where RELATION_ID = #relationId:DECIMAL#
+	</update>
+
+
+
+	<delete id="deleteProductRelationByDeatilId" parameterClass="java.lang.Long">
+		DELETE FROM PRODUCT_RELATION WHERE relation_id=#id#
+	</delete>
+
+
+	<select id="selectProductAndDetailPackage" parameterClass="java.lang.Long"
+		resultMap="selectProductAndDeatail">
+		select p.RELATION_ID, p.RELATION_NAME, p.MAIN_SKU_ID, p.MAIN_SKU_PRICE,
+		p.TOTAL_RELATION_PRICE,
+		p.RELATION_TYPE,p.REMARK , d.RELATION_DETAIL_ID, d.RELATION_ID, d.RELATION_SKU_ID,
+		d.RELATION_SKU_PRICE,d.RELATION_DETAIL_TYPE from PRODUCT_RELATION p
+		,PRODUCT_RELATION_DETAIL d where
+		p.relation_id=d.relation_id and p.main_sku_id=#id# and p.RELATION_TYPE=0
+	</select>
+
+
+
+
+	<select id="selectProductAndDetailRecommend" parameterClass="java.lang.Long"
+		resultMap="selectProductAndDeatail">
+		select p.RELATION_ID, p.RELATION_NAME, p.MAIN_SKU_ID, p.MAIN_SKU_PRICE,
+		p.TOTAL_RELATION_PRICE,
+		p.RELATION_TYPE,p.REMARK , d.RELATION_DETAIL_ID, d.RELATION_ID, d.RELATION_SKU_ID,
+		d.RELATION_SKU_PRICE ,d.RELATION_DETAIL_TYPE from PRODUCT_RELATION p
+		,PRODUCT_RELATION_DETAIL d where
+		p.relation_id=d.relation_id and p.main_sku_id=#id# and p.RELATION_TYPE=1
+	</select>
+
+
+	<select id="selectProductDetailPackageBySkuId" parameterClass="java.lang.Long"
+		resultMap="ibatorgenerated_BaseResultMap">
+		select RELATION_ID, RELATION_NAME, MAIN_SKU_ID,MAIN_SKU_PRICE,
+		TOTAL_RELATION_PRICE, RELATION_TYPE,REMARK,STATUS,
+		DEL_STATUS, CREATE_DATE,EDITABLE
+		from PRODUCT_RELATION where RELATION_TYPE=0 and status=3 and del_status=0
+		 and MAIN_SKU_ID=#skuId#
+
+	</select>
+
+
+
+	<select id="selectProductDetailRecommendBySkuId" parameterClass="java.lang.Long"
+		resultMap="ibatorgenerated_BaseResultMap">
+		select RELATION_ID, RELATION_NAME, MAIN_SKU_ID,MAIN_SKU_PRICE,
+		TOTAL_RELATION_PRICE, RELATION_TYPE,REMARK,STATUS,
+		DEL_STATUS, CREATE_DATE,EDITABLE
+		from PRODUCT_RELATION where RELATION_TYPE=1 and status=1 and del_status=0
+		and editable=1 and MAIN_SKU_ID=#skuId# ORDER BY RELATION_ID DESC
+	</select>
+
+
+
+	<select id="selectProductDetailGlanceBySkuId" parameterClass="java.lang.Long"
+		resultMap="ibatorgenerated_BaseResultMap">
+		select RELATION_ID, RELATION_NAME, MAIN_SKU_ID,MAIN_SKU_PRICE,
+		TOTAL_RELATION_PRICE, RELATION_TYPE,REMARK,STATUS,
+		DEL_STATUS, CREATE_DATE,EDITABLE
+		from PRODUCT_RELATION where RELATION_TYPE=2 and MAIN_SKU_ID=#skuId#
+	</select>
+
+
+
+	<select id="selectProductDetailPurchaseBySkuId" parameterClass="java.lang.Long"
+		resultMap="ibatorgenerated_BaseResultMap">
+		select RELATION_ID, RELATION_NAME, MAIN_SKU_ID,MAIN_SKU_PRICE,
+		TOTAL_RELATION_PRICE, RELATION_TYPE,REMARK,STATUS,
+		DEL_STATUS, CREATE_DATE,EDITABLE
+		from PRODUCT_RELATION where RELATION_TYPE=3 and MAIN_SKU_ID=#skuId#
+	</select>
+
+	<select id="selectProductRelationAndDetailBySkuId"
+		parameterClass="java.lang.Long" resultMap="selectProductAndDeatail">
+		select * from PRODUCT_RELATION pr,PRODUCT_RELATION_DETAIL pd where
+		pr.RELATION_ID = pd.RELATION_ID
+		and (pr.MAIN_SKU_ID=#skuId# or pd.RELATION_SKU_ID=#skuId#)
+	</select>
+	
+	
+	<select id="selectProductRelationAndDetailByRelationSkuId"
+		parameterClass="java.lang.Long" resultMap="selectProductAndDeatail">
+		select * from PRODUCT_RELATION pr,PRODUCT_RELATION_DETAIL pd where
+		pr.RELATION_ID = pd.RELATION_ID
+		and  pd.RELATION_SKU_ID=#skuId#  and pr.del_status=0 and pr.editable=1
+	</select>
+	
+	
+
+	<update id="batchUpdateStatus" parameterClass="java.lang.Long">
+		update PRODUCT_RELATION set DEL_STATUS=1 where relation_id=#id:LONG#
+	</update>
+
+	<update id="updateProductRelationStatus" parameterClass="java.util.Map">
+		update PRODUCT_RELATION set status=#status:VARCHAR# where relation_id=#relationId:VARCHAR#
+	</update>
+	
+	<update id="updateProductRelationEdible" parameterClass="com.pltfm.app.vobject.ProductRelation">
+		update Product_Relation set editable=1 where relation_id=#relationId#
+	</update>
+
+   <select id="selectProductRelationAndDetailByProductId" parameterClass="java.util.List" resultMap="ProductResultMap">
+  	select pm.PRODUCT_ID from PRODUCT_RELATION pr,PRODUCT_RELATION_DETAIL pd,PRODUCTMAIN pm,PRODUCT_SKU ps where pr.RELATION_ID = pd.RELATION_ID 
+  	and pm.PRODUCT_ID=ps.PRODUCT_ID and (ps.PRODUCT_SKU_ID=pr.MAIN_SKU_ID or pd.RELATION_SKU_ID=ps.PRODUCT_SKU_ID) 
+  	<dynamic prepend="AND">
+   		<iterate open="(" close=")" conjunction=" OR ">
+   			pm.PRODUCT_ID = #productIdList[]# 
+   		</iterate>
+   	</dynamic>
+  </select>
+  
+  <update id="updateEditableByRelationId"  parameterClass="java.lang.Long"  >
+   update product_relation set editable=1  where relation_id=#realtionId#
+  
+  </update>
+  <update id="updateUnEditableByRelationId"  parameterClass="java.lang.Long"  >
+   update product_relation set editable=0 where relation_id=#realtionId#
+  
+  </update>
+
+	<select id="selectProductIdByRelationId" parameterClass="java.util.List" resultClass="java.lang.Integer">
+		select distinct(pm.product_id) from productmain pm 
+			left join product_sku ps on pm.product_id = ps.product_id 
+			left join PRODUCT_RELATION_DETAIL prd on prd.RELATION_SKU_ID = ps.product_sku_id 
+			left join PRODUCT_RELATION pr on pr.RELATION_ID = prd.RELATION_ID 
+			where 1=1 
+			<dynamic prepend="AND">
+		   		<iterate open="(" close=")" conjunction=" OR ">
+		   			pr.RELATION_ID = #operateList[]# 
+		   		</iterate>
+		   	</dynamic>
+	</select>
+
+	<!--BEGIN 关联接口修改 -->
+
+	<select id="getImagesByskuId" parameterClass="java.lang.Long" resultMap="ProductImageResult">
+	 <![CDATA[
+	 select * from PRODUCT_IMAGE where SKU_ID = #value#  
+	 ]]>
+  	</select>
+  	
+  	<select id="getProductSkus" parameterClass="java.lang.Long" resultClass="ProductSku">
+	 <![CDATA[  
+	 select PS.PRODUCT_SKU_ID,PS.PRODUCT_ID,PS.PRICE,PS.UNIT_WEIGHT,PS.MARK_PRICE
+	 ,P.PROCUCT_NAME productName,P.PRODUCT_TITLE productTitle from PRODUCT_SKU PS
+	  left join PRODUCTMAIN P on P.product_id = PS.product_id 
+	  left join PRODUCT_IMAGE PI on PI.SKU_ID = PS.PRODUCT_SKU_ID AND IS_DEFAULT='0' AND ROWNUM=1 
+	  where PS.PRODUCT_SKU_ID = #value# and PS.STATUS = '1' 
+	 ]]>
+  	</select> 
+
+	<select id="getProductRelationDetails" parameterClass="java.lang.Long" resultMap="productRelationDetailMap">
+	 <![CDATA[
+	 select * from PRODUCT_RELATION_DETAIL where RELATION_ID = #value#  
+	 ]]>
+  	</select>
+
+	<select id="getProductRelationList" parameterClass="java.lang.Long" resultMap="productRelationMap">
+		<![CDATA[
+		select RELATION_ID, RELATION_NAME, MAIN_SKU_ID,MAIN_SKU_PRICE,
+		TOTAL_RELATION_PRICE, RELATION_TYPE,STATUS,
+		DEL_STATUS 
+		 from PRODUCT_RELATION where RELATION_TYPE=0 AND status=3 AND MAIN_SKU_ID = #productSkuId#  
+		]]>
+	</select>
+	
+	<!--END 关联接口修改 -->
+	
+	<!-- 组方过滤条件 -->
+	<sql id="ibatorgenerated_Example_ZF_Where">
+		<iterate property="oredCriteria" conjunction="or" prepend="and"
+			removeFirstPrepend="iterate">
+			<isEqual property="oredCriteria[].valid" compareValue="true">
+				(
+				<iterate prepend="and" property="oredCriteria[].criteriaWithoutValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithoutValue[]$
+				</iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithSingleValue[].condition$
+					#oredCriteria[].criteriaWithSingleValue[].value#
+				</iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithListValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithListValue[].condition$
+					<iterate property="oredCriteria[].criteriaWithListValue[].values"
+						open="(" close=")" conjunction=",">
+						#oredCriteria[].criteriaWithListValue[].values[]#
+					</iterate>
+				</iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithBetweenValue[].condition$
+					#oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+					#oredCriteria[].criteriaWithBetweenValue[].values[1]#
+				</iterate>
+				)
+			</isEqual>
+		</iterate>
+	</sql>
+	<!-- 组方map -->
+	<resultMap id="ibatorgenerated_ZFResultMap" class="com.pltfm.app.vobject.ProductRelation">
+		<result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+		<result column="PRODUCT_SKU_CODE" property="productSkuCode" jdbcType="VARCHAR" />
+		<result column="PROCUCT_NAME" property="productName" jdbcType="VARCHAR" />
+		<result column="RELATION_NAME" property="relationName" jdbcType="VARCHAR" />
+		<result column="WEB_SITE" property="webSite" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="VARCHAR" />
+		<result column="RELATION_ID" property="relationId" jdbcType="DECIMAL" />
+		<result column="MAIN_SKU_ID" property="mainSkuId" jdbcType="DECIMAL" />
+		<result column="RELATION_TYPE" property="relationType" jdbcType="DECIMAL" />
+		<result column="MAIN_SKU_ID" property="mainSkuId" jdbcType="DECIMAL" />
+	</resultMap>
+	<!-- 组方列表 -->
+	<select id="ibatorgenerated_selectByExampleZF" resultMap="ibatorgenerated_ZFResultMap"
+		parameterClass="com.pltfm.app.vobject.ProductRelationExample">
+			SELECT PM.PRODUCT_NO       PRODUCT_NO,
+			       PS.PRODUCT_SKU_CODE PRODUCT_SKU_CODE,
+			       PM.PROCUCT_NAME     PROCUCT_NAME,
+			       PR.RELATION_NAME    RELATION_NAME,
+			       PR.WEB_SITE         WEB_SITE,
+			       PR.STATUS           STATUS,
+			       PR.CREATE_DATE      CREATE_DATE,
+			       PR.RELATION_ID      RELATION_ID,
+			       PR.MAIN_SKU_ID	   MAIN_SKU_ID,
+			       PR.RELATION_TYPE	   RELATION_TYPE,
+       			   PR.MAIN_SKU_ID      MAIN_SKU_ID
+			  FROM PRODUCT_RELATION PR, PRODUCTMAIN PM, PRODUCT_SKU PS
+			 WHERE PR.MAIN_SKU_ID = PS.PRODUCT_SKU_ID
+			   AND PS.PRODUCT_ID = PM.PRODUCT_ID
+		<isParameterPresent>
+			<include refid="PRODUCT_RELATION.ibatorgenerated_Example_ZF_Where" />
+			<isNotNull property="orderByClause">
+				order by $orderByClause$
+			</isNotNull>
+		</isParameterPresent>
+	</select>
+	<!-- 组方列表统计 -->
+	<select id="ibatorgenerated_countByExampleZF" parameterClass="com.pltfm.app.vobject.ProductRelationExample"
+		resultClass="java.lang.Integer">
+		   SELECT COUNT(1) FROM PRODUCT_RELATION PR, PRODUCTMAIN PM, PRODUCT_SKU PS
+			 WHERE PR.MAIN_SKU_ID = PS.PRODUCT_SKU_ID
+			   AND PS.PRODUCT_ID = PM.PRODUCT_ID
+			<include refid="PRODUCT_RELATION.ibatorgenerated_Example_ZF_Where" />
+	</select>
+
+    <select id="getRecommendListBySkuId" parameterClass="java.lang.Long" resultMap="RecommendMap">
+        SELECT PR.RELATION_ID, PR.RELATION_NAME, PR.MAIN_SKU_ID,PR.MAIN_SKU_PRICE, PR.TOTAL_RELATION_PRICE, PR.RELATION_TYPE,
+             PR.REMARK, PR.STATUS,PR.DEL_STATUS, PR.CREATE_DATE,PR.EDITABLE,PS.MARK_PRICE,
+             PRE.RELATION_DETAIL_ID, PRE.RELATION_SKU_ID, PRE.RELATION_SKU_PRICE, PRE.RELATION_DETAIL_TYPE, PRE.PRODUCT_COUNT,
+             PS2.PRICE SKU_PRICE, PS2.MARK_PRICE SKU_MARK_PRICE,PS2.STATUS SKU_STATUS,
+             PM.PROCUCT_NAME PRODUCT_NAME, PM.PRODUCT_TITLE, PM.STATUS PRODUCT_STATUS
+            FROM PRODUCT_RELATION PR
+            INNER JOIN PRODUCT_SKU PS ON PR.MAIN_SKU_ID=PS.PRODUCT_SKU_ID
+            LEFT JOIN PRODUCT_RELATION_DETAIL PRE ON PRE.RELATION_ID=PR.RELATION_ID
+            LEFT JOIN PRODUCT_SKU PS2 ON PS2.PRODUCT_SKU_ID=PRE.RELATION_SKU_ID
+            LEFT JOIN PRODUCTMAIN PM ON PM.PRODUCT_ID=PS2.PRODUCT_ID
+            WHERE PR.RELATION_TYPE=1 AND PR.STATUS=1 AND PR.DEL_STATUS=0  AND PR.EDITABLE=1 AND PR.MAIN_SKU_ID=#skuId#
+            ORDER BY PR.RELATION_ID DESC,PRE.RELATION_DETAIL_ID DESC
+    </select>
+
+    <select id="getPackageListBySkuId" parameterClass="java.lang.Long" resultMap="packageMap">
+        SELECT PR.RELATION_ID, PR.RELATION_NAME, PR.MAIN_SKU_ID,PR.MAIN_SKU_PRICE, PR.TOTAL_RELATION_PRICE, PR.RELATION_TYPE,
+             PR.REMARK, PR.STATUS,PR.DEL_STATUS, PR.CREATE_DATE,PR.EDITABLE,
+             PRE.RELATION_DETAIL_ID, PRE.RELATION_SKU_ID, PRE.RELATION_SKU_PRICE, PRE.RELATION_DETAIL_TYPE, PRE.PRODUCT_COUNT,
+             PS.PRICE SKU_PRICE, PS.MARK_PRICE SKU_MARK_PRICE,PS.STATUS SKU_STATUS,
+             PM.PROCUCT_NAME PRODUCT_NAME, PM.PRODUCT_TITLE, PM.STATUS PRODUCT_STATUS
+        FROM PRODUCT_RELATION PR
+        LEFT JOIN PRODUCT_RELATION_DETAIL PRE ON PRE.RELATION_ID=PR.RELATION_ID
+        LEFT JOIN PRODUCT_SKU PS ON PS.PRODUCT_SKU_ID=PRE.RELATION_SKU_ID
+        LEFT JOIN PRODUCTMAIN PM ON PM.PRODUCT_ID=PS.PRODUCT_ID
+        WHERE PR.RELATION_TYPE=0 AND PR.STATUS=3 AND PR.DEL_STATUS=0 AND PR.MAIN_SKU_ID=#skuId#
+        ORDER BY PR.RELATION_ID DESC, PRE.RELATION_DETAIL_ID DESC
+    </select>
+
+</sqlMap>

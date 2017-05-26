@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PROM_MEMBERS_INVITATION_LIST" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.PromMembersInvitationList" >
+    <result column="MEMBERS_INVITATION_LIST_ID" property="membersInvitationListId" jdbcType="DECIMAL" />
+    <result column="INVITED_ORGANIZATIONS_ID" property="invitedOrganizationsId" jdbcType="DECIMAL" />
+    <result column="INVITATION_ID" property="invitationId" jdbcType="DECIMAL" />
+    <result column="INVITEES_ID" property="inviteesId" jdbcType="DECIMAL" />
+    <result column="VERIFICATION_MOBILE" property="verificationMobile" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate"  />
+  </resultMap>
+  
+  <!-- 查询 -->
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.pltfm.app.vobject.PromMembersInvitationList" >
+    select MEMBERS_INVITATION_LIST_ID, INVITED_ORGANIZATIONS_ID, INVITATION_ID, INVITEES_ID,
+      VERIFICATION_MOBILE, CREATE_DATE
+    from PROM_MEMBERS_INVITATION_LIST where 1=1
+    <isNotEmpty property="membersInvitationListId">
+    	<isNotNull prepend="AND" property="membersInvitationListId">
+    		MEMBERS_INVITATION_LIST_ID = #membersInvitationListId:DECIMAL#
+    	</isNotNull>
+    </isNotEmpty>
+    <isNotEmpty property="invitationId">
+    	<isNotNull prepend="AND" property="invitationId">
+    		INVITATION_ID = #invitationId#
+    	</isNotNull>
+    </isNotEmpty>
+    <isNotEmpty property="inviteesId">
+    	<isNotNull prepend="AND" property="inviteesId">
+    		INVITEES_ID = #inviteesId#
+    	</isNotNull>
+    </isNotEmpty>
+  </select>
+  
+  <!-- 删除 -->
+  <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="com.pltfm.app.vobject.PromMembersInvitationList" >
+    delete from PROM_MEMBERS_INVITATION_LIST
+    where MEMBERS_INVITATION_LIST_ID = #membersInvitationListId:DECIMAL#
+  </delete>
+  
+  <!-- 添加 -->
+  <insert id="ibatorgenerated_insert" parameterClass="com.pltfm.app.vobject.PromMembersInvitationList" >
+     <selectKey resultClass="java.math.BigDecimal" keyProperty="membersInvitationListId" >
+           select SEQ_MEMBERS_INVITATION_LIST.nextval from dual
+      </selectKey>
+      <![CDATA[
+	    insert into PROM_MEMBERS_INVITATION_LIST (MEMBERS_INVITATION_LIST_ID, INVITED_ORGANIZATIONS_ID,
+	      INVITATION_ID, INVITEES_ID, VERIFICATION_MOBILE, CREATE_DATE)
+	    values (#membersInvitationListId:DECIMAL#, #invitedOrganizationsId:DECIMAL#,
+	      #invitationId:DECIMAL#, #inviteesId:DECIMAL#, #verificationMobile:VARCHAR#, #createDate#)
+  	 ]]>
+  </insert>
+  
+  <!-- 修改 -->
+  <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="com.pltfm.app.vobject.PromMembersInvitationList" >
+    update PROM_MEMBERS_INVITATION_LIST
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="invitedOrganizationsId" >
+        INVITED_ORGANIZATIONS_ID = #invitedOrganizationsId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="invitationId" >
+        INVITATION_ID = #invitationId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="inviteesId" >
+        INVITEES_ID = #inviteesId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="verificationMobile" >
+        VERIFICATION_MOBILE = #verificationMobile:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE = #createDate#
+      </isNotNull>
+    </dynamic>
+    where MEMBERS_INVITATION_LIST_ID = #membersInvitationListId:DECIMAL#
+  </update>
+</sqlMap>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="PersonalityInfo">
+
+    <resultMap id="personalityInfoResultMap" class="com.kmzyc.b2b.model.PersonalityInfo" >
+        <result column="N_PERSONALITY_ID" property="personalityId" jdbcType="DECIMAL" />
+        <result column="N_LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+        <result column="N_RANK_ID" property="rankId" jdbcType="DECIMAL" />
+        <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+        <result column="PERSONALITY_AUTOGRAPH" property="personalityAutograph" jdbcType="VARCHAR" />
+        <result column="CHARACTER" property="character" jdbcType="VARCHAR" />
+        <result column="HEAD_SCULPTURE" property="headSculpture" jdbcType="VARCHAR" />
+        <result column="INTEREST" property="interest" jdbcType="VARCHAR" />
+        <result column="MICROBLOG_ADDRESS" property="microblogAddress" jdbcType="VARCHAR" />
+        <result column="QQ_NUMBER" property="qqNumber" jdbcType="VARCHAR" />
+        <result column="N_INDIVIDUAL_CREDIT_VALUE" property="individualCreditValue" jdbcType="DECIMAL" />
+        <result column="N_EMPIRICAL_VALUE" property="empiricalValue" jdbcType="DECIMAL" />
+        <result column="D_CREATE_DATE" property="createDate" jdbcType="DATE" />
+        <result column="N_CREATED" property="created" jdbcType="DECIMAL" />
+        <result column="D_MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+        <result column="N_MODIFIED" property="modified" jdbcType="DECIMAL" />
+        <result column="AMOUNT_CONSUME" property="amountConsume" jdbcType="DECIMAL" />
+        <result column="N_TOTAL_INTEGRAL" property="totalIntegral" jdbcType="DECIMAL" />
+        <result column="LASTYEAR_AMOUNT" property="lastYearAmount" jdbcType="DECIMAL" />
+        <result column="N_AVAILABLE_INTEGRAL" property="availableIntegral" jdbcType="DECIMAL" nullValue="0"/>
+    </resultMap>
+
+	<select id="queryAvailableIntegralByUserId" parameterClass="long" resultMap="personalityInfoResultMap">
+		<![CDATA[
+			select * from personality_info
+			 where n_login_id = #userId:NUMBER#
+		]]>
+	</select>
+
+    <update id="updateUserImg" parameterClass="java.util.HashMap">
+        <![CDATA[
+			update personality_info t set t.head_sculpture=#imgFileName:VARCHAR# where t.n_login_id=#userId:DECIMAL#
+		]]>
+    </update>
+    
+    <select id="queryImageByUserId" parameterClass="java.util.HashMap" resultMap="personalityInfoResultMap">
+		<![CDATA[
+			select * from personality_info
+			 where n_login_id = #userId:NUMBER#
+		]]>
+	</select>
+    
+	
+	<select id="quaryPersonImageByLoginId" parameterClass="long" resultClass="com.kmzyc.b2b.model.PersonalityInfo">
+		<![CDATA[
+			   select t.N_PERSONALITY_ID,
+        t.N_LOGIN_ID as n_LoginId,
+        t.N_RANK_ID ,
+        t.NICKNAME,
+        t.PERSONALITY_AUTOGRAPH,
+        t.CHARACTER,
+        t.N_TOTAL_INTEGRAL,
+        t.N_AVAILABLE_INTEGRAL,
+        t.HEAD_SCULPTURE headSculpture,
+        t.INTEREST,
+        t.MICROBLOG_ADDRESS,
+        t.QQ_NUMBER,
+        t.N_INDIVIDUAL_CREDIT_VALUE,
+        t.N_EMPIRICAL_VALUE,
+        t.D_CREATE_DATE,
+        t.N_CREATED,
+        t.D_MODIFY_DATE,
+        t.N_MODIFIED
+   from PERSONALITY_INFO t 
+			 where t.n_login_id = #userId:NUMBER#
+		]]>
+	</select>
+	<!-- 更新用户积分 -->
+  	<update id="SQL_UPDATE_USER_SCORE" parameterClass="java.util.Map" >
+  	<![CDATA[
+		update personality_info pi
+		   set pi.n_total_integral     = pi.n_total_integral + #scoreNumber:DECIMAL#,
+		       pi.n_available_integral = pi.n_available_integral + #scoreNumber:DECIMAL#
+		 where pi.n_login_id = #loginId:DECIMAL#
+		   and not exists (select 1 from era_info ei where ei.n_login_id = #loginId:DECIMAL#)
+		   and exists
+		 (select 1
+		          from score_rule sr
+		         where sr.code = #ruleCode:VARCHAR#
+		           and (sr.day_max is null or
+		               (sr.day_max > 0 and
+		               (select nvl(count(1), 0)
+		                    from score_info si
+		                   where trunc(si.d_create_date, 'dd') = trunc(sysdate, 'dd')
+		                     and si.n_score_rule_id = sr.n_score_rule_id
+		                     and si.n_login_id = #loginId:DECIMAL#) < sr.day_max)))
+	]]>		                     
+  	</update>
+</sqlMap>

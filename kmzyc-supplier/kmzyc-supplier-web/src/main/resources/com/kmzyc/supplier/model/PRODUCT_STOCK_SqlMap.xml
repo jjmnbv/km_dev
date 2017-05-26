@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PRODUCT_STOCK" >
+	<typeAlias alias="ProductStock" type="com.pltfm.app.vobject.ProductStock"/>
+	<typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+	
+  <!-- 库存列表查询结果map -->
+  <resultMap id="productStockBaseResultMap" class="com.pltfm.app.vobject.ProductStock" >
+    <result column="stock_id" property="stockId" jdbcType="DECIMAL" />
+    <result column="warehouse_id" property="warehouseId" jdbcType="DECIMAL" />
+    <result column="product_id" property="productId" jdbcType="DECIMAL" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_title" property="product.productTitle" jdbcType="VARCHAR" />
+    <result column="product_no" property="productNo" jdbcType="VARCHAR" />
+    <result column="sku_attribute_id" property="skuAttributeId" jdbcType="DECIMAL" />
+    <result column="sku_att_value" property="skuAttValue" jdbcType="VARCHAR" />
+    <result column="stock_quality" property="stockQuality" jdbcType="DECIMAL" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" /> 
+  </resultMap>
+  
+  
+  <resultMap class="com.pltfm.app.vobject.ProductStock" id="productStockResultMapForList" extends="productStockBaseResultMap">
+  <result column="{brandId=brand_id}" property="product.brandName" select="PRODUCT_STOCK.queryBrandName" />
+    <result column="status" property="product.status" jdbcType="VARCHAR" />
+    <result column="up_time" property="product.upTime" jdbcType="Date" />
+    <result column="sku_att_value" property="skuAttrList" select="PRODUCT_STOCK.querySkuAttr"/>
+    <result column="sku_att_value" property="product.sellerSkuCode" select="PRODUCT_STOCK.querySkuSellerCode"/>
+  </resultMap>
+
+
+	<!-- 按条件查询库存分页  -->  
+  <select id="queryProductStockCountByCondition" parameterClass="pagination" resultClass="java.lang.Integer" >
+    select count(stock_id) from product_stock ps, productmain p where (p.status between 3 and 5) and  ps.product_id=p.product_id and p.shop_code = #objCondition.shopCode:VARCHAR#
+    <isNotEmpty property="objCondition.skuAttValue" prepend="and">
+            ps.sku_att_value like '%'||#objCondition.skuAttValue:VARCHAR#||'%'
+    </isNotEmpty>
+    <isNotEmpty property="objCondition.productTitle" prepend="and">
+            p.product_title like '%'||#objCondition.productTitle:VARCHAR#||'%'
+    </isNotEmpty>
+    <isNotEmpty property="objCondition.productNo" prepend="and">
+            ps.product_no like '%'||#objCondition.productNo:VARCHAR#||'%'
+    </isNotEmpty>
+    <!-- 20150730 商家大改版 add 增加库存<=10的判断  &lt; -->
+    <isNotEmpty property="objCondition.endQuantity" prepend="and">
+            ps.stock_quality &lt;=#objCondition.endQuantity:DECIMAL#
+    </isNotEmpty>
+
+  </select>
+  
+  <!-- 按条件查询库存列表 -->
+  <select id="queryProductStockListByCondition" resultMap="productStockResultMapForList" parameterClass="pagination" >
+    select stock_id,warehouse_id,product_id,product_name,product_title,product_no,sku_attribute_id,sku_att_value,stock_quality,remark,brand_id,status,up_time from (select t.*, rownum rn from (select ps.stock_id, ps.warehouse_id, ps.product_id,p.brand_id,p.product_title, ps.product_name, ps.product_no, ps.sku_attribute_id,
+      ps.sku_att_value, ps.stock_quality, ps.order_quality, ps.in_transit_quality,ps.remark,p.brand_name,p.status,p.up_time  
+    from product_stock ps , productmain p where (p.status between 3 and 5) and  ps.product_id=p.product_id and p.shop_code = #objCondition.shopCode:VARCHAR#
+    <isNotEmpty property="objCondition.skuAttValue" prepend="and">
+            ps.sku_att_value like '%'||#objCondition.skuAttValue:VARCHAR#||'%'
+    </isNotEmpty>
+    <isNotEmpty property="objCondition.productTitle" prepend="and">
+            p.product_title like '%'||#objCondition.productTitle:VARCHAR#||'%'
+    </isNotEmpty>
+    <isNotEmpty property="objCondition.productNo" prepend="and">
+            ps.product_no like '%'||#objCondition.productNo:VARCHAR#||'%'
+    </isNotEmpty>
+     <!-- 20150730 商家大改版 add 增加库存<=10的判断  &lt; -->
+    <isNotEmpty property="objCondition.endQuantity" prepend="and">
+            ps.stock_quality &lt;=#objCondition.endQuantity:DECIMAL#
+    </isNotEmpty>
+    <![CDATA[
+		 order by ps.stock_id desc) t 
+		where  rownum <= $endindex$ ) where rn >= #startindex# 
+		]]>
+  </select>
+  
+  <!-- 按库存Id查询库存实体 -->
+  <select id="queryProductStockByStockId" parameterClass="java.lang.String" resultMap="productStockBaseResultMap">
+  	<![CDATA[	
+  		select ps.stock_id, ps.warehouse_id, ps.product_id,p.product_title, ps.product_name, ps.product_no, ps.sku_attribute_id,
+      ps.sku_att_value, ps.stock_quality, ps.order_quality, ps.in_transit_quality,ps.remark  
+    from product_stock ps , productmain p where ps.product_id=p.product_id and ps.stock_id=#stockId:VARCHAR#
+  	]]>
+  </select>
+  
+  <!-- 按仓库id和sku查询-->
+  <select id="queryProductStockIsExist" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+  		select count(stock_id) from product_stock where warehouse_id=#warehouseId:VARCHAR# and sku_att_value=#skuAttValue:VARCHAR#
+  </select>
+  
+  <!-- 插入库存记录 -->
+  <insert id="insertProductStock" parameterClass="com.pltfm.app.vobject.ProductStock" >
+    <selectKey resultClass="java.lang.Long" keyProperty="stockId" >
+	      select seq_app_productstock.nextval from dual
+	</selectKey>
+    insert into product_stock
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="stockId" >
+        stock_id
+      </isNotNull>
+      <isNotNull prepend="," property="warehouseId" >
+        warehouse_id
+      </isNotNull>
+      <isNotNull prepend="," property="productId" >
+        product_id
+      </isNotNull>
+      <isNotNull prepend="," property="productName" >
+        product_name
+      </isNotNull>
+      <isNotNull prepend="," property="productNo" >
+        product_no
+      </isNotNull>
+      <isNotNull prepend="," property="skuAttributeId" >
+        sku_attribute_id
+      </isNotNull>
+      <isNotNull prepend="," property="skuAttValue" >
+        sku_att_value
+      </isNotNull>
+      <isNotNull prepend="," property="stockQuality" >
+        stock_quality
+      </isNotNull>
+      <isNotNull prepend="," property="orderQuality" >
+        order_quality
+      </isNotNull>
+      <isNotNull prepend="," property="inTransitQuality" >
+        in_transit_quality
+      </isNotNull>
+      <isNotNull prepend="," property="alarmQuality" >
+        alarm_quality
+      </isNotNull>
+      <isNotNull prepend="," property="totalSales" >
+        total_sales
+      </isNotNull>
+      <isNotNull prepend="," property="price" >
+        price
+      </isNotNull>
+      <isNotNull prepend="," property="minDay" >
+        min_day
+      </isNotNull>
+      <isNotNull prepend="," property="maxDay" >
+        max_day
+      </isNotNull>
+      <isNotNull prepend="," property="adjust" >
+        adjust
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        remark
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="stockId" >
+        #stockId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="warehouseId" >
+        #warehouseId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="productId" >
+        #productId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="productName" >
+        #productName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="productNo" >
+        #productNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="skuAttributeId" >
+        #skuAttributeId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="skuAttValue" >
+        #skuAttValue:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="stockQuality" >
+        #stockQuality:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="orderQuality" >
+        #orderQuality:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="inTransitQuality" >
+        #inTransitQuality:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="alarmQuality" >
+        #alarmQuality:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="totalSales" >
+        #totalSales:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="price" >
+        #price:BIGDECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="minDay" >
+        #minDay:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="maxDay" >
+        #maxDay:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="adjust" >
+        #adjust:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        #remark:VARCHAR#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>  
+  
+    <!-- 更新库存记录 -->
+ 	<update id="updateProductStock" parameterClass="com.pltfm.app.vobject.ProductStock" >
+	    update product_stock
+	    <dynamic prepend="set" >
+	      <isNotNull prepend="," property="warehouseId" >
+	        warehouse_id = #warehouseId:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="productId" >
+	        product_id = #productId:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="productName" >
+	        product_name = #productName:VARCHAR#
+	      </isNotNull>
+	      <isNotNull prepend="," property="productNo" >
+	        product_no = #productNo:VARCHAR#
+	      </isNotNull>
+	      <isNotNull prepend="," property="skuAttributeId" >
+	        sku_attribute_id = #skuAttributeId:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="skuAttValue" >
+	        sku_att_value = #skuAttValue:VARCHAR#
+	      </isNotNull>
+	      <isNotNull prepend="," property="stockQuality" >
+	        stock_quality = #stockQuality:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="inTransitQuality" >
+	        in_transit_quality = #inTransitQuality:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="alarmQuality" >
+	        alarm_quality = #alarmQuality:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="totalSales" >
+	        total_sales = #totalSales:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="price" >
+	        price = #price:BIGDECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="minDay" >
+	        min_day = #minDay:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="maxDay" >
+	        max_day = #maxDay:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="adjust" >
+	        adjust = #adjust:DECIMAL#
+	      </isNotNull>
+	      <isNotNull prepend="," property="remark" >
+	        remark = #remark:VARCHAR#
+	      </isNotNull>
+	    </dynamic>
+	    where stock_id = #stockId:VARCHAR#
+        <isNotNull prepend="AND" property="stockQuality" >
+            <![CDATA[
+              order_quality <= #stockQuality:DECIMAL#
+            ]]>
+        </isNotNull>
+ 	</update>
+ 	
+ 	
+ 	<!-- 查询品牌 20151010 -->
+   <select id="queryBrandName" parameterClass="java.util.HashMap" resultClass="java.lang.String">  
+   		select distinct brand_name from prod_brand a where a.brand_id=#brandId#
+  </select>
+  
+  <!-- 查询SKU信息 20151013 mlq add -->
+  <select id="querySkuAttr" parameterClass="java.lang.String" resultClass="com.pltfm.app.vobject.ProductSkuAttr">  
+    select category_attr_name categoryAttrName, category_attr_value categoryAttrValue
+  	from view_sku_attr where product_sku_id = (select product_sku_id from product_sku where product_sku_code=#productSkuCode#)
+  </select> 
+  
+ <!-- 查询商家货号 20151013 mlq add -->
+ <select id="querySkuSellerCode" parameterClass="java.lang.String" resultClass="java.lang.String">  
+    select seller_sku_code from product_sku where product_sku_code=#productSkuCode#
+  </select> 
+ 
+ 
+</sqlMap>

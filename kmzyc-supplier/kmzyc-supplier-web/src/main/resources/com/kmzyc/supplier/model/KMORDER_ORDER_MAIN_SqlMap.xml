@@ -1,0 +1,1179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="KMORDER_ORDER_MAIN" >
+
+	<!-- ibatorgenerated_BaseResultMap 是包含com.pltfm.app.entities.OrderMain 里面所有的属性的-->
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.entities.OrderMain" >
+    <result column="order_id" property="orderId" jdbcType="DECIMAL" />
+    <result column="customer_account" property="customerAccount" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="customer_mobile" property="customerMobile" jdbcType="VARCHAR" />
+    <result column="order_purchaser_name" property="orderPurchaserName" jdbcType="VARCHAR" />
+    <result column="order_purchaser_mobile" property="orderPurchaserMobile" jdbcType="VARCHAR" />
+    <result column="order_purchaser_tel" property="orderPurchaserTel" jdbcType="VARCHAR" />
+    <result column="order_purchaser_addr" property="orderPurchaserAddr" jdbcType="VARCHAR" />
+    <result column="order_purchaser_type" property="orderPurchaserType" jdbcType="DECIMAL" />
+    <result column="consignee_name" property="consigneeName" jdbcType="VARCHAR" />
+    <result column="consignee_mobile" property="consigneeMobile" jdbcType="VARCHAR" />
+    <result column="consignee_tel" property="consigneeTel" jdbcType="VARCHAR" />
+    <result column="consignee_addr" property="consigneeAddr" jdbcType="VARCHAR" />
+    <result column="pay_method" property="payMethod" jdbcType="DECIMAL" />
+    <result column="fare" property="fare" jdbcType="DECIMAL" />
+    <result column="delivery_date_type" property="deliveryDateType" jdbcType="DECIMAL" />
+    <result column="commodity_sum" property="commoditySum" jdbcType="DECIMAL" />
+    <result column="discount_amount" property="discountAmount" jdbcType="DECIMAL" />
+    <result column="account_balance" property="accountBalance" jdbcType="DECIMAL" />
+    <result column="amount_payable" property="amountPayable" jdbcType="DECIMAL" />
+    <result column="pay_date" property="payDate" jdbcType="date" />
+    <result column="create_date" property="createDate" jdbcType="date" />
+    <result column="agency_number" property="agencyNumber" jdbcType="VARCHAR" />
+    <result column="settlement_no" property="settlementNo" jdbcType="DECIMAL" />
+    <result column="stock_out_id" property="stockOutId" jdbcType="DECIMAL" />
+    <result column="distribution_id" property="distributionId" jdbcType="DECIMAL" />
+    <result column="logistics_order_no" property="logisticsOrderNo" jdbcType="VARCHAR" />
+    <result column="order_source" property="orderSource" jdbcType="VARCHAR" />
+    <result column="invoice_id" property="invoiceId" jdbcType="DECIMAL" />
+    <result column="parent_order_code" property="parentOrderCode" jdbcType="VARCHAR" />
+    <result column="son_order_code" property="sonOrderCode" jdbcType="VARCHAR" />
+    <result column="order_description" property="orderDescription" jdbcType="VARCHAR" />
+    <result column="order_status" property="orderStatus" jdbcType="DECIMAL" />
+    <result column="order_code" property="orderCode" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="DECIMAL" />
+    <result column="disabled" property="disabled" jdbcType="DECIMAL" />
+    <result column="confirm_delivery" property="confirmDelivery" jdbcType="DECIMAL" />
+    <result column="logistics_code" property="logisticsCode" jdbcType="VARCHAR" />
+    <result column="address_id" property="addressId" jdbcType="DECIMAL" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="DECIMAL" />
+    <result column="assess_status" property="assessStatus" jdbcType="DECIMAL" />
+    <result column="finish_date" property="finishDate" jdbcType="date" />
+    <result column="invoice_info_type" property="invoiceInfoType" jdbcType="VARCHAR" />
+    <result column="INVOICE_INFO_TITLE" property="invoiceInfoTitle" jdbcType="VARCHAR" />
+    <result column="invoice_info_content" property="invoiceInfoContent" jdbcType="VARCHAR" />  
+    <result column="total_credit" property="totalCredit" jdbcType="DECIMAL" />  
+    <result column="logistics_name" property="logisticsName" jdbcType="VARCHAR" />
+    <result column="original_order_sum" property="originalOrderSum" jdbcType="DECIMAL" />  
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="zipcode" jdbcType="DECIMAL" property="zipcode" />
+    <result column="order_type" property="orderType" jdbcType="DECIMAL" />
+    <result column="order_operation_remark" property="orderOperationRemark" jdbcType="VARCHAR" />
+    <result column="commerce_id" property="commerceId" jdbcType="VARCHAR" />
+    <result column="prize_numbers" property="prizeNumbers" jdbcType="VARCHAR" />
+    <result column="prescription_attachment" property="prescriptionAttachment" jdbcType="VARCHAR" />
+    <result column="check_flag" property="checkFlag" jdbcType="DECIMAL" />
+    <result column="medic_flag" property="medicFlag" jdbcType="DECIMAL" />
+    <result column="deposit_sum" jdbcType="DECIMAL" property="depositSum" />
+  </resultMap>
+  
+  
+
+  <!-- ordermainVo中的扩展属性,支付字符串,配送方式字符串,订单状态字符串,处理状态,处理人-->
+  <resultMap class="com.pltfm.app.vobject.OrderMainVo" id="ibatorgenerated_ExtendsResultMap"
+  		  extends="ibatorgenerated_BaseResultMap">
+  	<!-- 附加 -->
+    <result column="paymethodstr" jdbcType="VARCHAR" property="payMethodStr" />
+    <result column="deliverydatetypestr" jdbcType="VARCHAR" property="deliveryDateTypeStr" />
+    <result column="orderstatusstr" jdbcType="VARCHAR" property="orderStatusStr" />
+    <result column="handlestate" jdbcType="VARCHAR" property="handleState" />
+    <result column="handleaccount" jdbcType="VARCHAR" property="handleAccount" />
+    <!--  -->
+  </resultMap>
+  
+  
+  <!-- 查询根订单那里的具体查询接收map -->
+   <resultMap class="com.kmzyc.supplier.model.OrderMain" id="extendsOrderSourceWithItem" extends="ibatorgenerated_ExtendsResultMap">
+    <result property="orderItemList" column="order_code" select="KMORDER_ORDER_MAIN.queryItemListByOrderCode"/>
+     <result column="paiddeposit" property="paidDeposit" jdbcType="DECIMAL" />
+     <result column="nofinalpayment" property="noFinalPayment" jdbcType="DECIMAL" />
+     <result column="informpay_tel" property="informPayTel" jdbcType="VARCHAR" />
+  </resultMap>
+  
+    <resultMap class="com.pltfm.app.vobject.OrderMainVo" id="ibatorgenerated_ExtendsBaseResultMap" extends="ibatorgenerated_BaseResultMap">
+  	<!-- 附加 -->
+    <result column="paymethodstr" jdbcType="VARCHAR" property="payMethodStr" />
+    <result column="deliverydatetypestr" jdbcType="VARCHAR" property="deliveryDateTypeStr" />
+    <result column="orderstatusstr" jdbcType="VARCHAR" property="orderStatusStr" />
+    <result column="handlestate" jdbcType="VARCHAR" property="handleState" />
+    <result column="handleaccount" jdbcType="VARCHAR" property="handleAccount" />
+    <result column="commerce_name" jdbcType="VARCHAR" property="commerceName" />
+    <result column="order_discount" jdbcType="DECIMAL" property="orderDiscount" />
+    <!--  -->
+  </resultMap>
+
+  
+  <!-- 包含基本属性以及根订单号的 -->
+   <resultMap class="com.pltfm.app.vobject.OrderMainVo" id="WithRoot_ResultMap" extends="ibatorgenerated_ExtendsResultMap">
+  	<!-- 附加 -->
+	<result property="rootOrderCode" column="root_order_code"/>   
+  </resultMap> 
+  
+  
+   <!-- 有包含基本属性以及扩展属性的还包含订单详情相关信息的resultMap -->
+   <resultMap class="com.kmzyc.supplier.model.OrderMain" id="extWithOrderItem" extends="ibatorgenerated_ExtendsBaseResultMap">
+	<result property="orderItemList" column="order_code" select="KMORDER_ORDER_MAIN.queryItemListByOrderCode"/>
+     <result column="paiddeposit" property="paidDeposit" jdbcType="DECIMAL" />
+     <result column="nofinalpayment" property="noFinalPayment" jdbcType="DECIMAL" />
+     <result column="informpay_tel" property="informPayTel" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <!-- 包含根订单的还包含订单详情相关的 -->
+  <resultMap class="com.kmzyc.supplier.model.OrderMain" id="extWithRootMap" extends="WithRoot_ResultMap">
+	<result property="orderItemList" column="order_code" select="KMORDER_ORDER_MAIN.queryItemListByOrderCode"/>
+    <result column="informpay_tel" property="informPayTel" jdbcType="VARCHAR" />
+    <result column="paiddeposit" property="paidDeposit" jdbcType="DECIMAL" />
+    <result column="nofinalpayment" property="noFinalPayment" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  
+
+  
+  <!-- 封装sku属性的相关map -->
+  <resultMap id="skuAttrValue" class="com.pltfm.app.vobject.ViewSkuAttr" >
+    <result column="category_attr_name" property="categoryAttrName" jdbcType="VARCHAR" />
+    <result column="category_attr_value" property="categoryAttrValue" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 订单商品的封装实体 20150730 add 由订单系统移植过来 maliqun begin -->
+  <resultMap id="baseResultMapForItem" class="com.pltfm.app.entities.OrderItem" >
+	    <result column="order_item_id" property="orderItemId" jdbcType="DECIMAL" />
+	    <result column="order_code" property="orderCode" jdbcType="VARCHAR" />
+	    <result column="commodity_name" property="commodityName" jdbcType="VARCHAR" />
+	    <result column="commodity_code" property="commodityCode" jdbcType="VARCHAR" />
+	    <result column="commodity_sku" property="commoditySku" jdbcType="VARCHAR" />
+	    <result column="commodity_batch_number" property="commodityBatchNumber" jdbcType="VARCHAR" />
+	    <result column="commodity_called_price" property="commodityCalledPrice" jdbcType="DECIMAL" />
+	    <result column="commodity_unit_price" property="commodityUnitPrice" jdbcType="DECIMAL" />
+	    <result column="commodity_number" property="commodityNumber" jdbcType="DECIMAL" />
+	    <result column="commodity_sum" property="commoditySum" jdbcType="DECIMAL" />
+	    <result column="commodity_called_sum" property="commodityCalledSum" jdbcType="DECIMAL" />
+	    <result column="commodity_description" property="commoditySkuDescription" jdbcType="VARCHAR" />
+	    <result column="warehouse_id" property="warehouseId" jdbcType="DECIMAL" />
+	    <result column="credits" property="credits" jdbcType="DECIMAL" />
+	    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+	    <result column="commodity_unit_weight" property="commodityUnitWeight" jdbcType="DECIMAL" />
+	    <result column="suit_id" property="suitId" jdbcType="DECIMAL" />
+	    <result column="commodity_type" property="commodityType" jdbcType="DECIMAL" />
+	    <result column="commodity_sku_description" property="commoditySkuDescription" jdbcType="VARCHAR" />
+	    <result column="commodity_title" property="commodityTitle" jdbcType="VARCHAR" />
+	    <result column="supplier" property="supplier" jdbcType="VARCHAR" />
+	    <result column="commodity_cost_price" property="commodityCostPrice" jdbcType="DECIMAL" />
+	    <result column="commodity_brand" property="commodityBrand" jdbcType="VARCHAR" />
+	    <result column="commodity_unit_incoming" property="commodityUnitIncoming" jdbcType="DECIMAL" />
+	    <result column="commission_rate" property="commissionRate" jdbcType="DECIMAL" />
+	    <result column="supplier_type" property="supplierType" jdbcType="DECIMAL" />
+	    <result column="ext_attr_type" property="extAttrType" jdbcType="DECIMAL" />
+	    <result column="settlement_loan" property="settlementLoan" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	
+	<!-- 只供订单首页查询,后续可做优化 -->
+	<resultMap id="simpleResultMapForItem" class="com.pltfm.app.vobject.OrderItemVo" >
+	    <result column="order_item_id" property="orderItemId" jdbcType="DECIMAL" />
+	    <result column="order_code" property="orderCode" jdbcType="VARCHAR" />	    
+	    <result column="commodity_unit_price" property="commodityUnitPrice" jdbcType="DECIMAL" />
+	    <result column="commodity_number" property="commodityNumber" jdbcType="DECIMAL" />
+	    <result column="commodity_sum" property="commoditySum" jdbcType="DECIMAL" />
+	    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+	    <result column="commodity_sku_description" property="commoditySkuDescription" jdbcType="VARCHAR" />
+	    <result column="commodity_title" property="commodityTitle" jdbcType="VARCHAR" />
+	    <result column="product_sku_id" property="productSkuId" jdbcType="DECIMAL"/>
+	</resultMap>
+	
+	
+	<resultMap class="com.pltfm.app.vobject.OrderItemVo" id="extendsResultMapForItem" extends="baseResultMapForItem">
+	    <result column="ISRETURNING" jdbcType="DECIMAL" property="isReturning" />
+	    <result column="PRODUCT_SKU_ID" property="productSkuId" jdbcType="DECIMAL"/>
+	    <result column="COMMODITY_PV" property="commodityPv" jdbcType="DECIMAL"/>
+	    <result column="COST_INCOME_RATIO" property="costIncomeRatio" jdbcType="DECIMAL"/>
+	    <result column="COST_INCOME_MONEY" property="costIncomeMoney" jdbcType="DECIMAL"/>
+	</resultMap>
+  
+  	<!-- 查询订单详情时订单的商品需要查询参与的优惠活动 20150901 add  -->
+  	<resultMap class="com.kmzyc.supplier.model.OrderItems" id="extendsResultForItem" extends="extendsResultMapForItem">
+  			<result column="order_item_id" property="preferentialList" select="KMORDER_ORDER_MAIN.queryPreferentialForSingleProduct"/>
+  			<result column="product_sku_id" property="sellerSkuCode" select="KMORDER_ORDER_MAIN.querySkuSellerCode"/>
+  	</resultMap>
+  
+  <!-- 订单商品的封装实体 20150730 add 由订单系统移植过来 maliqun end-->
+  
+  <!-- 订单操作流水封装实体 20150730 add 由订单系统移植过来 maliqun begin -->
+  <resultMap id="baseResultMapForOrderOpStatement" class="com.pltfm.app.entities.OrderOperateStatement" >
+    <result column="statement_id" property="statementId" jdbcType="DECIMAL" />
+    <!--result column="ORDER_ID" property="orderId" jdbcType="DECIMAL" /-->
+    <result column="order_code" property="orderCode" jdbcType="VARCHAR" />
+    <result column="order_item_id" property="orderItemId" jdbcType="DECIMAL" />
+    <result column="previous_order_status" property="previousOrderStatus" jdbcType="DECIMAL" />
+    <result column="now_order_status" property="nowOrderStatus" jdbcType="DECIMAL" />
+    <result column="previous_operator" property="previousOperator" jdbcType="VARCHAR" />
+    <result column="now_operator" property="nowOperator" jdbcType="VARCHAR" />
+    <result column="previous_operate_date" property="previousOperateDate" jdbcType="date" />
+    <result column="now_operate_date" property="nowOperateDate" jdbcType="date" />
+    <result column="previous_operate_type" property="previousOperateType" jdbcType="DECIMAL" />
+    <result column="now_operate_type" property="nowOperateType" jdbcType="DECIMAL" />
+    <result column="previous_order_sum" property="previousOrderSum" jdbcType="DECIMAL" />
+    <result column="now_order_sum" property="nowOrderSum" jdbcType="DECIMAL" />
+    <result column="operate_info" property="operateInfo" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap class="com.pltfm.app.vobject.OrderOperateStatementVo" id="extendsResultMapForOpStatement"
+  		  extends="baseResultMapForOrderOpStatement">
+  	<!-- 附加 -->
+    <result column="noworderstatusstr" jdbcType="VARCHAR" property="nowOrderStatusStr" />
+    <result column="nowoperatetypestr" jdbcType="VARCHAR" property="nowOperateTypeStr" />
+  </resultMap>
+  
+  <!-- 订单操作流水封装实体 20150730 add 由订单系统移植过来 maliqun end -->
+  
+  
+  
+   <!-- 订单支付操作流水封装实体 20150730 add 由订单系统移植过来 maliqun begin -->
+    <resultMap id="baseResultMapForOrderPayStatment" class="com.pltfm.app.entities.OrderPayStatement" >
+    <result column="pay_statement_no" property="payStatementNo" jdbcType="DECIMAL" />
+    <result column="payment_way" property="paymentWay" jdbcType="DECIMAL" />
+    <result column="state" property="state" jdbcType="DECIMAL" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <!-- result column="ORDER_ID" property="orderId" jdbcType="VARCHAR" /-->
+    <result column="order_code" property="orderCode" jdbcType="VARCHAR" />
+    <result column="order_money" property="orderMoney" jdbcType="DECIMAL" />
+    <result column="create_date" property="createDate" jdbcType="date" />
+    <result column="end_date" property="endDate" jdbcType="date" />
+    <result column="outside_pay_statement_no" property="outsidePayStatementNo" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="DECIMAL" />
+    <result column="preferential_no" property="preferentialNo" jdbcType="DECIMAL" />
+    <result column="preferential_name" property="preferentialName" jdbcType="VARCHAR" />
+    <result column="bank_code" property="bankCode" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="platform_code" property="platFormCode" jdbcType="VARCHAR" />
+    <result column="platform_name" property="platFormName" jdbcType="VARCHAR" />
+    <result column="preferential_grant_id" property="preferentialGrantId" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap class="com.pltfm.app.vobject.OrderPayStatementVo" id="extendsResultMapForPayStatement"
+  		  extends="baseResultMapForOrderPayStatment">
+  	<!-- 附加 -->
+    <result column="paymethodstr" jdbcType="VARCHAR" property="paymentWayStr" />
+    <result column="statestr" jdbcType="VARCHAR" property="stateStr" />
+    <result column="flagstr" jdbcType="VARCHAR" property="flagStr" />
+    <!--  -->
+  </resultMap>
+   <!-- 订单支付操作封装实体 20150730 add 由订单系统移植过来 maliqun end -->
+  
+  
+  <!-- 订单优惠封装实体 20150730 add 由订单系统移植过来 maliqun begin -->
+  <resultMap id="baseResultMapForOrderPreferential" class="com.pltfm.app.entities.OrderPreferential" >
+    <result column="order_preferential_id" property="order_preferential_id" jdbcType="NUMBER" />
+    <result column="order_code" property="orderCode" jdbcType="VARCHAR" />
+    <result column="order_item_id" property="orderItemId" jdbcType="DECIMAL" />
+    <result column="order_preferential_type" property="orderPreferentialType" jdbcType="DECIMAL" />
+    <result column="order_preferential_code" property="orderPreferentialCode" jdbcType="VARCHAR" />
+    <result column="order_preferential_source" property="orderPreferentialSource" jdbcType="DECIMAL" /> 
+    <result column="order_preferential_sum" property="orderPreferentialSum" jdbcType="DECIMAL" />
+    <!-- 20151012 mlq update 该字段 coupon_id 尚未启用,用来做订单参加优惠的描述信息,单品级打折,则表示的是折扣字段 -->
+    <result column="{promotionId=order_preferential_code,orderItemId=order_item_id}" property="couponId" select="KMORDER_ORDER_MAIN.queryPromotionInfo" />
+    <!--<result column="coupon_id" property="couponId" jdbcType="VARCHAR" />
+    --><result column="grant_id" property="grantId" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap class="com.pltfm.app.vobject.OrderPreferentialEVO" id="extendsResultMapForOrderPreferential"
+  		  extends="baseResultMapForOrderPreferential">
+  	<!-- 附加 -->
+    <result column="order_preferential_type_str" jdbcType="VARCHAR" property="orderPreferentialTypeStr" />
+    <!--  -->
+  </resultMap>
+  <!-- 订单优惠封装实体 20150730 add 由订单系统移植过来 maliqun end -->
+  
+  
+  <!-- 订单发票信息封装实体 20150730 add 由订单系统移植过来 maliqun begin -->
+  <resultMap id="baseResultMapForInvoice" class="com.pltfm.app.entities.Invoice" >
+    <result column="invoice_id" property="invoiceId" jdbcType="DECIMAL" />
+    <result column="invoice_code" property="invoiceCode" jdbcType="DECIMAL" />
+    <result column="invoice_no" property="invoiceNo" jdbcType="DECIMAL" />
+    <result column="machine_code" property="machineCode" jdbcType="DECIMAL" />
+    <result column="machine_no" property="machineNo" jdbcType="DECIMAL" />
+    <result column="create_date" property="createDate" jdbcType="date" />
+    <result column="create_type" property="createType" jdbcType="DECIMAL" />
+    <result column="business_type_code" property="businessTypeCode" jdbcType="VARCHAR" />
+    <result column="business_type_name" property="businessTypeName" jdbcType="VARCHAR" />
+    <result column="profession_type_code" property="professionTypeCode" jdbcType="VARCHAR" />
+    <result column="profession_type_name" property="professionTypeName" jdbcType="VARCHAR" />
+    <result column="payer_identifier" property="payerIdentifier" jdbcType="VARCHAR" />
+    <result column="payer_name" property="payerName" jdbcType="VARCHAR" />
+    <result column="payee_identifier" property="payeeIdentifier" jdbcType="VARCHAR" />
+    <result column="payee_name" property="payeeName" jdbcType="VARCHAR" />
+    <result column="invoice_sum" property="invoiceSum" jdbcType="DECIMAL" />
+    <result column="invoice_comment" property="invoiceComment" jdbcType="VARCHAR" />
+    <result column="invoice_party_identifier" property="invoicePartyIdentifier" jdbcType="VARCHAR" />
+    <result column="invoice_party_name" property="invoicePartyName" jdbcType="VARCHAR" />
+    <result column="drawer_name" property="drawerName" jdbcType="VARCHAR" />
+    <result column="print_way" property="printWay" jdbcType="DECIMAL" />
+    <result column="tax_payment_receipts_no" property="taxPaymentReceiptsNo" jdbcType="VARCHAR" />
+    <result column="tax" property="tax" jdbcType="DECIMAL" />
+    <result column="one_dimensional_code" property="oneDimensionalCode" jdbcType="VARCHAR" />
+    <result column="invoice_status" property="invoiceStatus" jdbcType="DECIMAL" />
+    <result column="invalid_code" property="invalidCode" jdbcType="VARCHAR" />
+    <result column="invalid_name" property="invalidName" jdbcType="VARCHAR" />
+    <result column="invalid_date" property="invalidDate" jdbcType="date" />
+    <result column="original_invoice_code" property="originalInvoiceCode" jdbcType="DECIMAL" />
+    <result column="original_invoice_no" property="originalInvoiceNo" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap class="com.pltfm.app.vobject.InvoiceVo" id="extendsResultMapForInvoice"
+  		  extends="baseResultMapForInvoice">
+  	<!-- 附加 -->
+    <result column="createtypestr" jdbcType="VARCHAR" property="createTypeStr" />
+    <!--  -->
+  </resultMap>
+  <!-- 订单发票信息封装实体 20150730 add 由订单系统移植过来 maliqun end -->
+  
+  <!-- 订单发票明细封装实体 20150730 add 由订单系统移植过来 maliqun begin -->
+   <resultMap id="baseResultMapForInvoiceItem" class="com.pltfm.app.entities.InvoiceItem" >
+    <result column="invoice_item_id" property="invoiceItemId" jdbcType="DECIMAL" />
+    <result column="invoice_id" property="invoiceId" jdbcType="DECIMAL" />
+    <result column="invoice_item_code" property="invoiceItemCode" jdbcType="VARCHAR" />
+    <result column="invoice_item_name" property="invoiceItemName" jdbcType="VARCHAR" />
+    <result column="unit_price" property="unitPrice" jdbcType="DECIMAL" />
+    <result column="invoice_item_number" property="invoiceItemNumber" jdbcType="DECIMAL" />
+    <result column="discount_amount" property="discountAmount" jdbcType="DECIMAL" />
+    <result column="line_sum" property="lineSum" jdbcType="DECIMAL" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="deduction_flag" property="deductionFlag" jdbcType="DECIMAL" />
+  </resultMap>
+  <!-- 订单发票明细封装实体 20150730 add 由订单系统移植过来 maliqun end -->
+  
+  
+  <!-- 是否需要补单 20150730 add 由订单系统移植过来 maliqun end -->
+  <sql id="Additional_Where_Clause" >
+	 from order_pay_statement t
+			 where t.order_code = #orderCode#
+			   and t.state in(3,4)
+			   and t.flag = #flag#
+			   and not exists (select *
+			          from order_pay_statement
+			         where order_code = t.order_code
+			           and payment_way = t.payment_way
+			           and flag = t.flag
+			           and state in (1, 2))
+  </sql>
+  
+  <sql id="ibatorgenerated_Example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  
+  
+  <!-- 根据order_code查询 订单信息 20150730 update annotation-->
+  <select id="ibatorgenerated_selectByOrderCode" parameterClass="com.kmzyc.supplier.model.OrderMain" resultMap="extWithOrderItem">
+    select t.order_id, t.customer_account, t.customer_name, t.customer_mobile, t.order_purchaser_name,
+      t.order_purchaser_mobile, t.order_purchaser_tel, t.order_purchaser_addr, t.order_purchaser_type,
+      t.consignee_name, t.consignee_mobile, t.consignee_tel, t.consignee_addr, t.pay_method, t.fare,nvl(t.order_discount,0) order_discount,
+      t.delivery_date_type, t.commodity_sum, t.discount_amount, t.account_balance, t.amount_payable, t.pay_date,
+      t.create_date, t.agency_number, t.settlement_no, t.stock_out_id, t.distribution_id, t.logistics_order_no,
+      t.order_source, t.invoice_id, t.parent_order_code, t.son_order_code, t.order_description,t.order_status, t.order_code,
+      t.customer_id,t.disabled,t.confirm_delivery,t.logistics_code,t.address_id,t.email, t.weight, t.assess_status, t.finish_date,
+      t.invoice_info_type,t.invoice_info_title,t.invoice_info_content,t.total_credit,t.logistics_name,t.original_order_sum, t.province, t.city, t.area,
+      t.zipcode,t.order_type,t.order_operation_remark,commerce_id,prize_numbers,prescription_attachment,
+      check_flag,medic_flag,t.deposit_sum,informpay_tel,
+(SELECT OPS.ORDER_MONEY FROM ORDER_PAY_STATEMENT OPS
+    WHERE OPS.ORDER_CODE = T.ORDER_CODE AND OPS.STATE = 1 AND OPS.YSFLAGE = 1) AS paiddeposit
+    ,(SELECT OPS.ORDER_MONEY FROM ORDER_PAY_STATEMENT OPS
+    WHERE OPS.ORDER_CODE = T.ORDER_CODE AND OPS.STATE = 1 AND OPS.YSFLAGE = 2) AS nofinalpayment
+       ,
+      (select d.order_dictionary_value from order_dictionary d where d.order_dictionary_type = 'Pay_Method' and d.order_dictionary_key = t.pay_method) paymethodstr
+      ,(select d.order_dictionary_value from order_dictionary d where d.order_dictionary_type = 'Delivery_Date_Type' and d.order_dictionary_key = t.delivery_date_type) deliverydatetypestr
+      ,(select d.order_dictionary_value from order_dictionary d where d.order_dictionary_type = 'Order_Status' and d.order_dictionary_key = t.order_status) orderstatusstr
+      ,(select handle_state from order_handle where order_code = t.order_code) handlestate
+	  ,(select handle_account from order_handle where order_code = t.order_code) handleaccount	 
+	  ,t.commerce_name            
+    from order_main T
+    where order_code = #orderCode:VARCHAR#
+  </select> 
+  
+ 
+  <!-- map方式查询订单列表  20160307 加入条件order_status为-3的,商家平台过滤掉异常订单的显示   -->
+  <sql id="Map_Where_Clause">
+		from order_main om where 1=1 and om.order_status !=-3
+		<isEmpty prepend="AND" property="orderCode">
+			om.order_status != 16
+		</isEmpty>
+		<!-- 订单状态  -->
+		<isNotEmpty prepend="AND" property="status">
+			om.order_status = #status#
+		</isNotEmpty>
+		<isNotEmpty  prepend="AND" property="statusArr">
+			om.order_status in
+			<iterate open="(" close=")" conjunction="," property="statusArr">  
+ 				<![CDATA[#statusArr[]#]]>
+			</iterate> 
+		</isNotEmpty>
+		<!-- 非这个状态里的 -->
+		<isNotEmpty prepend="AND" property="nstatus">
+		<![CDATA[ om.order_status not in ]]>
+		    <iterate open="(" close=")" conjunction="," property="nstatus">  
+					<![CDATA[#nstatus[]#]]>
+			</iterate>  
+		</isNotEmpty>
+		<isNotEmpty prepend="AND"  property="commodityName">
+			exists (select 1 from order_item oi where om.order_code = oi.order_code
+				and oi.commodity_name = #commodityName#
+			<isNotEmpty prepend="AND"  property="commodityCode">
+			 	oi.commodity_code = #commodityCode#
+			</isNotEmpty>
+			 )
+		</isNotEmpty>
+		<isEmpty property="commodityName">
+			<isNotEmpty property="commodityCode">
+			and exists (select 1 from order_item oi where om.order_code = oi.order_code
+				and oi.commodity_code = #commodityCode# )
+			</isNotEmpty>
+		</isEmpty>			
+		<!-- 下单账号 -->
+		<isNotEmpty prepend="AND" property="customerAccount">
+			om.customer_account like '%'||#customerAccount#||'%'
+		</isNotEmpty>
+		<!-- 下单人姓名 -->
+		<isNotEmpty prepend="AND" property="customerName">
+			om.customer_name like '%'||#customerName#||'%'
+		</isNotEmpty>
+		<!-- 下单人电话 -->
+		<isNotEmpty prepend="AND" property="customerMobile">
+			om.customer_mobile like '%'||#customerMobile#||'%'
+		</isNotEmpty>
+		<!-- 收货人 -->
+		<isNotEmpty prepend="AND" property="consigneeName">
+			om.consignee_name like '%'||#consigneeName#||'%'
+		</isNotEmpty>
+		<!-- 收货人电话 -->
+		<isNotEmpty prepend="AND" property="consigneeMobile">
+			om.consignee_mobile like '%'||#consigneeMobile#||'%'
+		</isNotEmpty>
+		<!-- 下单类型 -->
+		<isNotEmpty prepend="AND" property="orderPurchaserType">
+			om.order_purchaser_type = #orderPurchaserType#
+		</isNotEmpty>
+		<!-- 客服账户 -->
+		<isNotEmpty prepend="AND" property="agencyNumber">
+			om.agency_number=#agencyNumber#
+		</isNotEmpty>
+		<!-- 出库单号 -->
+		<isNotEmpty prepend="AND" property="stockOutID">
+			om.stock_out_id=#stockOutID#
+		</isNotEmpty>
+		<!-- 结转单号 -->
+		<isNotEmpty prepend="AND" property="settlementNo">
+			om.settlement_no=#settlementNo#
+		</isNotEmpty>
+		<!-- 配送单号 -->
+		<isNotEmpty prepend="AND" property="distributionId">
+			om.distribution_id=#distributionId#
+		</isNotEmpty>
+		<!-- 可见性 -->
+		<isNotEmpty prepend="AND" property="disabled">
+			om.disabled = #disabled#
+		</isNotEmpty>
+		<!-- 是否已评价 -->
+		<isEqual prepend="AND" property="assess" compareValue="true">
+			om.assess_status IN (2,3)
+		</isEqual>
+		<!-- 处理标记 -->
+		<isNotEmpty  prepend="AND" property="handle">
+			exists (select 1 from order_handle oh where om.order_code = oh.order_code and (
+				oh.handle_state = #handle#
+			<isEqual property="handle" compareValue="1">
+				or oh.handle_state is null
+			</isEqual>
+			) )
+		</isNotEmpty>
+		<!-- 支付时间  -->
+		<isNotEmpty prepend="AND" property="payDateStart">
+		<![CDATA[
+			trunc(om.pay_date,'mi')>=to_date(#payDateStart#,'yyyy-MM-dd HH24:mi:ss')
+			and trunc(om.pay_date,'mi')<=to_date(#payDateEnd#,'yyyy-MM-dd HH24:mi:ss')
+		]]>
+		</isNotEmpty>
+		<isEmpty property="payDateStart">
+		<!-- 支付时间范围 -->
+		<isNotEmpty prepend="AND" property="payDateRange">
+			<isEqual property="payDateRange" compareValue="today">
+				to_char(om.pay_date, 'yyyyMMdd') = to_char(sysdate, 'yyyyMMdd')
+			</isEqual>
+			<isEqual property="payDateRange" compareValue="ysday">
+				to_char(om.pay_date, 'yyyyMMdd') = to_char(sysdate-1, 'yyyyMMdd')
+			</isEqual>
+			<isEqual property="payDateRange" compareValue="tsweek">
+				om.pay_date between trunc(sysdate,'IW') and trunc(sysdate,'IW') + 6
+			</isEqual>
+			<isEqual property="payDateRange" compareValue="lsweek">
+				om.pay_date between trunc(sysdate-7,'IW') and trunc(sysdate-7,'IW') + 6 
+			</isEqual>
+			<isEqual property="payDateRange" compareValue="tsmonth">
+				to_char(om.pay_date, 'yyyyMM') = to_char(sysdate, 'yyyyMM')
+			</isEqual>
+			<isEqual property="payDateRange" compareValue="lsmonth">
+				to_char(add_months(om.pay_date,1), 'yyyyMM') = to_char(sysdate, 'yyyyMM')
+			</isEqual>
+		</isNotEmpty>
+		</isEmpty>
+		<!-- 下单时间开始时间  -->
+		<isNotEmpty prepend="AND" property="createDateStart">
+		<![CDATA[
+			trunc(om.create_date,'mi')>=to_date(#createDateStart#,'yyyy-MM-dd HH24:mi:ss')
+		]]>
+		</isNotEmpty>
+		<!-- 下单结束时间 -->
+		<isNotEmpty prepend="AND" property="createDateEnd">
+		<![CDATA[
+			 trunc(om.create_date,'mi')<=to_date(#createDateEnd#,'yyyy-MM-dd HH24:mi:ss')
+		]]>
+		</isNotEmpty>
+		<!-- 完成时间 开始时间 -->
+		<isNotEmpty prepend="AND" property="finishBeginDate">
+		<![CDATA[
+			trunc(om.finish_date,'mi')>=to_date(#finishBeginDate#,'yyyy-MM-dd HH24:mi:ss')
+		]]>
+		</isNotEmpty>
+		<!-- 完成时间结束时间 -->
+		<isNotEmpty prepend="AND" property="finishEndDate">
+		<![CDATA[
+			 trunc(om.finish_date,'mi')<=to_date(#finishEndDate#,'yyyy-MM-dd HH24:mi:ss')
+		]]>
+		</isNotEmpty>
+		
+		<isEmpty property="createDateStart">
+		<!-- 下单时间范围 -->
+			<isNotEmpty prepend="AND" property="createDateRange">
+				<isEqual property="createDateRange" compareValue="today">
+					to_char(om.create_date, 'yyyyMMdd') = to_char(sysdate, 'yyyyMMdd')
+				</isEqual>
+				<isEqual property="createDateRange" compareValue="ysday">
+					to_char(om.create_date, 'yyyyMMdd') = to_char(sysdate-1, 'yyyyMMdd')
+				</isEqual>
+				<isEqual property="createDateRange" compareValue="tsweek">
+					om.create_date between trunc(sysdate,'IW') and trunc(sysdate,'IW') + 6
+				</isEqual>
+				<isEqual property="createDateRange" compareValue="lsweek">
+					om.create_date between trunc(sysdate-7,'IW') and trunc(sysdate-7,'IW') + 6 
+				</isEqual>
+				<isEqual property="createDateRange" compareValue="tsmonth">
+					to_char(om.create_date, 'yyyyMM') = to_char(sysdate, 'yyyyMM')
+				</isEqual>
+				<isEqual property="createDateRange" compareValue="lsmonth">
+					to_char(add_months(om.create_date,1), 'yyyyMM') = to_char(sysdate, 'yyyyMM')
+				</isEqual>
+			</isNotEmpty>
+		</isEmpty>
+		<!-- 供应商 -->
+		<isNotEmpty prepend="AND" property="commerceId">
+			om.commerce_id = #commerceId# 
+		</isNotEmpty>
+		<!-- 订单号 -->
+		<isNotEmpty prepend="AND" property="orderCode">
+			om.order_code = #orderCode# 
+		</isNotEmpty>
+  </sql>  
+ 
+ <!-- 根据map条件查询出来符合条件的订单列表,主要用于几个订单列表查询 20150730 update annotation -->
+  <select id="selectByMap"  parameterClass="java.util.Map"  resultMap="extWithRootMap">
+		select tt.order_id,
+       tt.customer_account,
+       tt.customer_name,
+       tt.customer_mobile,
+       tt.order_purchaser_name,
+       tt.order_purchaser_mobile,
+       tt.order_purchaser_tel,
+       tt.order_purchaser_addr,
+       tt.order_purchaser_type,
+       tt.consignee_name,
+       tt.consignee_mobile,
+       tt.consignee_tel,
+       tt.consignee_addr,
+       tt.pay_method,
+       tt.fare,
+       tt.delivery_date_type,
+       tt.commodity_sum,
+       tt.discount_amount,
+       tt.account_balance,
+       tt.amount_payable,
+       tt.pay_date,
+       tt.create_date,
+       tt.agency_number,
+       tt.settlement_no,
+       tt.stock_out_id,
+       tt.distribution_id,
+       tt.logistics_order_no,
+       tt.order_source,
+       tt.invoice_id,
+       tt.parent_order_code,
+       tt.son_order_code,
+       tt.order_description,
+       tt.order_status,
+       tt.order_code,
+       tt.customer_id,
+       tt.disabled,
+       tt.confirm_delivery,
+       tt.logistics_code,
+       tt.address_id,
+       tt.email,
+       tt.weight,
+       tt.assess_status,
+       tt.finish_date,
+       tt.invoice_info_type,
+       tt.invoice_info_title,
+       tt.invoice_info_content,
+       tt.total_credit,
+       tt.logistics_name,
+       tt.original_order_sum,
+       tt.province,
+       tt.city,
+       tt.area,
+       tt.zipcode,
+       tt.order_type,
+       tt.order_operation_remark,
+       tt.commerce_id,
+       tt.prize_numbers,
+       tt.prescription_attachment,
+       tt.check_flag,
+       tt.medic_flag,
+       tt.deposit_sum,
+       tt.informpay_tel,
+    (SELECT OPS.ORDER_MONEY FROM ORDER_PAY_STATEMENT OPS
+    WHERE OPS.ORDER_CODE = tt.ORDER_CODE AND OPS.STATE = 1 AND OPS.YSFLAGE = 1) AS paiddeposit
+    ,(SELECT OPS.ORDER_MONEY FROM ORDER_PAY_STATEMENT OPS
+    WHERE OPS.ORDER_CODE = tt.ORDER_CODE AND OPS.STATE = 1 AND OPS.YSFLAGE = 2) AS nofinalpayment
+       ,(select d.order_dictionary_value
+          from order_dictionary d
+         where d.order_dictionary_type = 'Pay_Method'
+           and d.order_dictionary_key = tt.pay_method) paymethodstr,
+       (select d.order_dictionary_value
+          from order_dictionary d
+         where d.order_dictionary_type = 'Delivery_Date_Type'
+           and d.order_dictionary_key = tt.delivery_date_type) deliverydatetypestr,
+       (select d.order_dictionary_value
+          from order_dictionary d
+         where d.order_dictionary_type = 'Order_Status'
+           and d.order_dictionary_key = tt.order_status) orderstatusstr,
+       (case
+         when tt.parent_order_code is null then
+          null
+         else
+          (select order_code
+             from order_main e
+            where connect_by_isleaf = 1
+            start with e.order_code = tt.order_code
+           connect by e.order_code = prior e.parent_order_code)
+       end) root_order_code,
+       (select handle_state
+          from order_handle
+         where order_code = tt.order_code) handlestate,
+       (select handle_account
+          from order_handle
+         where order_code = tt.order_code) handleaccount
+  from (select t.order_id,
+               t.customer_account,
+               t.customer_name,
+               t.customer_mobile,
+               t.order_purchaser_name,
+               t.order_purchaser_mobile,
+               t.order_purchaser_tel,
+               t.order_purchaser_addr,
+               t.order_purchaser_type,
+               t.consignee_name,
+               t.consignee_mobile,
+               t.consignee_tel,
+               t.consignee_addr,
+               t.pay_method,
+               t.fare,
+               t.delivery_date_type,
+               t.commodity_sum,
+               t.discount_amount,
+               t.account_balance,
+               t.amount_payable,
+               t.pay_date,
+               t.create_date,
+               t.agency_number,
+               t.settlement_no,
+               t.stock_out_id,
+               t.distribution_id,
+               t.logistics_order_no,
+               t.order_source,
+               t.invoice_id,
+               t.parent_order_code,
+               t.son_order_code,
+               t.order_description,
+               t.order_status,
+               t.order_code,
+               t.customer_id,
+               t.disabled,
+               t.confirm_delivery,
+               t.logistics_code,
+               t.address_id,
+               t.email,
+               t.weight,
+               t.assess_status,
+               t.finish_date,
+               t.invoice_info_type,
+               t.invoice_info_title,
+               t.invoice_info_content,
+               t.total_credit,
+               t.logistics_name,
+               t.original_order_sum,
+               t.province,
+               t.city,
+               t.area,
+               t.zipcode,
+               t.order_type,
+               t.order_operation_remark,
+               t.commerce_id,
+               t.prize_numbers,
+               t.prescription_attachment,
+               t.check_flag,
+               t.medic_flag,
+               t.deposit_sum,
+               t.informpay_tel,
+               rownum rn
+          from (select distinct om.order_id,
+                                om.customer_account,
+                                om.customer_name,
+                                om.customer_mobile,
+                                om.order_purchaser_name,
+                                om.order_purchaser_mobile,
+                                om.order_purchaser_tel,
+                                om.order_purchaser_addr,
+                                om.order_purchaser_type,
+                                om.consignee_name,
+                                om.consignee_mobile,
+                                om.consignee_tel,
+                                om.consignee_addr,
+                                om.pay_method,
+                                om.fare,
+                                om.delivery_date_type,
+                                om.commodity_sum,
+                                om.discount_amount,
+                                om.account_balance,
+                                om.amount_payable,
+                                om.pay_date,
+                                om.create_date,
+                                om.agency_number,
+                                om.settlement_no,
+                                om.stock_out_id,
+                                om.distribution_id,
+                                om.logistics_order_no,
+                                om.order_source,
+                                om.invoice_id,
+                                om.parent_order_code,
+                                om.son_order_code,
+                                om.order_description,
+                                om.order_status,
+                                om.order_code,
+                                om.customer_id,
+                                om.disabled,
+                                om.confirm_delivery,
+                                om.logistics_code,
+                                om.address_id,
+                                om.email,
+                                om.weight,
+                                om.assess_status,
+                                om.finish_date,
+                                om.invoice_info_type,
+                                om.invoice_info_title,
+                                om.invoice_info_content,
+                                om.total_credit,
+                                logistics_name,
+                                original_order_sum,
+                                om.province,
+                                om.city,
+                                om.area,
+                                om.zipcode,
+                                om.order_type,
+                                om.order_operation_remark,
+                                om.commerce_id,
+                                om.prize_numbers,
+                                om.prescription_attachment,
+                                om.check_flag,
+                                om.medic_flag,
+                                om.deposit_sum,
+                                om.informpay_tel
+  		<include refid="Map_Where_Clause"/>
+  		order by om.create_date desc) t
+        where rownum  &lt;= #end#) tt  
+		where tt.rn  &gt;= #start# 
+  </select>
+  
+  <!-- 根据订单号查询出主订单以及主订单下面的子订单 20150730 update annotation-->
+  <select id="selectRootAndLeafsByOrderCode" parameterClass="java.lang.String" resultMap="extendsOrderSourceWithItem">
+       select e.order_id,
+              e.customer_account,
+              e.customer_name,
+              e.customer_mobile,
+              e.order_purchaser_name,
+              e.order_purchaser_mobile,
+              e.order_purchaser_tel,
+              e.order_purchaser_addr,
+              e.order_purchaser_type,
+              e.consignee_name,
+              e.consignee_mobile,
+              e.consignee_tel,
+              e.consignee_addr,
+              e.pay_method,
+              e.fare,
+              e.delivery_date_type,
+              e.commodity_sum,
+              e.discount_amount,
+              e.account_balance,
+              e.amount_payable,
+              e.pay_date,
+              e.create_date,
+              e.agency_number,
+              e.settlement_no,
+              e.stock_out_id,
+              e.distribution_id,
+              e.logistics_order_no,
+              e.order_source,
+              e.invoice_id,
+              e.parent_order_code,
+              e.son_order_code,
+              e.order_description,
+              e.order_status,
+              e.order_code,
+              e.customer_id,
+              e.disabled,
+              e.confirm_delivery,
+              e.logistics_code,
+              e.address_id,
+              e.email,
+              e.weight,
+              e.assess_status,
+              e.finish_date,
+              e.invoice_info_type,
+              e.invoice_info_title,
+              e.invoice_info_content,
+              e.total_credit,
+              e.logistics_name,
+              e.original_order_sum,
+              e.province,
+              e.city,
+              e.area,
+              e.zipcode,
+              e.order_type,
+              e.order_operation_remark,
+              e.commerce_id,
+              e.prize_numbers,
+              e.prescription_attachment,
+              e.check_flag,
+              e.medic_flag,
+              e.deposit_sum,
+              e.informpay_tel,
+              (SELECT OPS.ORDER_MONEY FROM ORDER_PAY_STATEMENT OPS
+              WHERE OPS.ORDER_CODE = E.ORDER_CODE AND OPS.STATE = 1 AND OPS.YSFLAGE = 1) AS paiddeposit
+		      ,(SELECT OPS.ORDER_MONEY FROM ORDER_PAY_STATEMENT OPS
+		       WHERE OPS.ORDER_CODE = E.ORDER_CODE AND OPS.STATE = 1 AND OPS.YSFLAGE = 2) AS nofinalpayment
+              ,(select d.order_dictionary_value
+                 from order_dictionary d
+                where d.order_dictionary_type = 'Pay_Method'
+                  and d.order_dictionary_key = e.pay_method) paymethodstr,
+              (select d.order_dictionary_value
+                 from order_dictionary d
+                where d.order_dictionary_type = 'Delivery_Date_Type'
+                  and d.order_dictionary_key = e.delivery_date_type) deliverydatetypestr,
+              (select d.order_dictionary_value
+                 from order_dictionary d
+                where d.order_dictionary_type = 'Order_Status'
+                  and d.order_dictionary_key = e.order_status) orderstatusstr,
+              (select d.order_dictionary_value
+                 from order_dictionary d
+                where d.order_dictionary_type = 'Order_Source'
+                  and d.order_dictionary_key = e.order_source) ordersourcestr,
+              (select handle_state
+                 from order_handle
+                where order_code = e.order_code) handlestate,
+              (select handle_account
+                 from order_handle
+                where order_code = e.order_code) handleaccount
+         from order_main e
+        where level = 1
+           or connect_by_isleaf = 1
+        start with e.order_code =
+                   (select order_code
+                      from order_main e
+                     where connect_by_isleaf = 1
+                     start with e.order_code = #value#
+                    connect by e.order_code = prior e.parent_order_code)
+       connect by prior e.order_code = e.parent_order_code
+  </select>
+
+  <select id="countByMap"  parameterClass="java.util.Map"  resultClass="java.lang.Integer">
+  		select count(1) from (
+  		select distinct 
+			 om.order_id
+    	<include refid="Map_Where_Clause"/>)
+  </select>
+  
+  
+  	<!-- 批量根据订单号查询订单信息 -->
+  	<select id="SQL_QUERY_ORDER_MAIN_BY_ORDER_CODES" parameterClass="java.util.List" resultClass="com.pltfm.app.entities.OrderMain">
+  	<![CDATA[
+  		select om.order_code       orderCode,
+		       om.consignee_addr   consigneeAddr,
+		       om.consignee_name   consigneeName,
+		       om.consignee_mobile consigneeMobile,
+		       om.create_date      createDate,
+		       om.pay_date         payDate
+		  from order_main om
+		 where om.order_code in 
+  	]]>
+  		<iterate open="(" close=")" conjunction=","> #[]# </iterate>
+  	</select>
+  	
+  <!-- 各种方式已支付金额  20150730 add 由订单系统移植过来 maliqun-->
+  <select id="getOrderPay" resultClass="java.math.BigDecimal" parameterClass="java.util.Map" >
+  		select nvl(sum(order_money),0) from order_pay_statement where order_code = #orderCode# 
+		<isNotEmpty property="payway">
+			<isEqual property="payway" compareValue="2">
+					and state = 3
+			</isEqual>
+			<isNotEqual property="payway" compareValue="2">
+					and state = 1
+			</isNotEqual>
+			and payment_way = #payway#
+		</isNotEmpty>
+		<isEmpty property="payway">
+				and ((payment_way != 2 and state = 1 ) or (payment_way = 2 and state = 3))
+		</isEmpty>
+  </select>
+  
+  <!-- 查询订单下面的商品 20150730 add 由订单系统移植过来 maliqun -->
+  <select id="selectByExampleForItem" resultMap="extendsResultForItem" parameterClass="com.pltfm.app.entities.OrderItemExample" >
+    select order_item_id, order_code, commodity_name, commodity_code, commodity_sku,t.cost_income_ratio, t.commodity_pv,t.cost_income_money,
+      commodity_batch_number, commodity_called_price, commodity_unit_price, commodity_number,
+      commodity_sum, commodity_called_sum, commodity_description, warehouse_id, credits, image_url, 
+      commodity_unit_weight,suit_id,commodity_type,commodity_sku_description,commodity_title,supplier,
+      commodity_cost_price,commodity_brand,commodity_unit_incoming,commission_rate,
+      supplier_type,ext_attr_type,settlement_loan,commodity_pv,
+		(case
+	         when exists (select *
+	                 from order_alter
+	                where order_item_id = t.order_item_id
+	                  and propose_status not in (-2, -1, 7)
+	                  and rownum = 1) then
+	          1
+	         else
+	          (case
+	            when (select t.commodity_number - sum(alter_num)
+	                    from order_alter
+	                   where alter_type = 1
+	                     and propose_status = 7
+	                     and order_item_id = t.order_item_id) = 0 then
+	             1
+	            else
+	             0
+	          end)
+	    end) isreturning,
+	    (select sku.product_sku_id from product_sku sku where sku.product_sku_code = t.commodity_sku) product_sku_id
+    from order_item t
+    <isParameterPresent >
+      <include refid="KMORDER_ORDER_MAIN.ibatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  
+  
+  <!-- 依据订单号查询订单item -->
+  <select id="queryItemListByOrderCode" resultMap="simpleResultMapForItem" parameterClass="java.lang.String" >
+  	 <![CDATA[ select order_item_id, order_code, commodity_unit_price, commodity_number,commodity_sum,image_url,
+                      commodity_sku_description,commodity_title,
+                      (select sku.product_sku_id
+                          from product_sku sku
+                          where sku.product_sku_code = t.commodity_sku) product_sku_id
+                from order_item t
+                 where order_code=#orderCode#
+  	 ]]>
+  </select>
+  
+  
+  
+  <!-- 依据订单明细号当中的商品查询所参加的优惠活动 20150901 maliqun add 单品层级的只能是特价或者打折 -->
+  <select id="queryPreferentialForSingleProduct" resultClass="com.pltfm.app.vobject.OrderPreferentialEVO" parameterClass="java.lang.Long">  	
+  	<![CDATA[
+  		select DECODE(a.order_preferential_type,
+              4,
+              '送券',
+              10,
+              '特价',
+              8,
+              '打折',
+              6,
+              '满减',
+              5,
+              '加价购',
+              3,
+              '满赠',
+              '其它') orderPreferentialTypeStr,a.order_preferential_type orderPreferentialType,a.order_preferential_sum orderPreferentialSum, to_char((select distinct promotion_data from promotion where promotion_id=order_preferential_code),'fm9990.099') couponId from order_preferential a where a.order_item_id=#orderItemId#
+  	]]>
+  </select>
+  
+  
+  <!-- 查询订单的操作流水 20150730 add 由订单系统移植过来 maliqun -->
+  <select id="selectByExampleForOrderOpStatement" resultMap="extendsResultMapForOpStatement" parameterClass="com.pltfm.app.entities.OrderOperateStatementExample" >
+    select statement_id, order_code, order_item_id, previous_order_status, now_order_status,
+      previous_operator, now_operator, previous_operate_date, now_operate_date,
+      previous_operate_type, now_operate_type, previous_order_sum, now_order_sum, operate_info
+       <!-- 附加 -->
+      ,(select d.order_dictionary_value from order_dictionary d where d.order_dictionary_type = 'Order_Status' and d.order_dictionary_key = t.now_order_status) noworderstatusstr
+      ,(select d.order_dictionary_value from order_dictionary d where d.order_dictionary_type = 'Order_Operate_Type' and d.order_dictionary_key = t.now_operate_type) nowoperatetypestr
+      <!--  -->
+    from order_operate_statement t
+    <isParameterPresent >
+      <include refid="KMORDER_ORDER_MAIN.ibatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  
+  <!-- 查询订单的支付操作流水 20150730 add 由订单系统移植过来 maliqun -->
+  <select id="selectByExampleForOrderPayStatement" resultMap="extendsResultMapForPayStatement" parameterClass="com.pltfm.app.entities.OrderPayStatementExample" >
+    select pay_statement_no, payment_way, state, account, order_code, order_money, create_date,
+      end_date, outside_pay_statement_no, flag, preferential_no ,preferential_name,bank_code,
+      bank_name,platform_code,platform_name,preferential_grant_id
+       <!-- 附加 -->
+      ,(select d.order_dictionary_value from order_dictionary d where d.order_dictionary_type = 'Pay_Method' and d.order_dictionary_key = t.payment_way) paymethodstr
+      ,(select d.order_dictionary_value from order_dictionary d where d.order_dictionary_type = 'Order_Pay_State' and d.order_dictionary_key = t.state) statestr
+      ,(select d.order_dictionary_value from order_dictionary d where d.order_dictionary_type = 'Order_Pay_Flag' and d.order_dictionary_key = t.flag) flagstr
+      <!--  -->
+    from order_pay_statement t
+    <isParameterPresent >
+      <include refid="KMORDER_ORDER_MAIN.ibatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  
+  <!-- 查询订单优惠信息  20150730 add 由订单系统移植过来  maliqun -->
+  <select id="selectByExampleForOrderPreferential" resultMap="extendsResultMapForOrderPreferential" parameterClass="com.pltfm.app.entities.OrderPreferentialExample" >
+    select order_preferential_id, order_code, order_item_id, order_preferential_type,
+      order_preferential_source, order_preferential_code, order_preferential_sum,
+      coupon_id,grant_id
+      <!-- 附加 -->
+      ,(select d.order_dictionary_value from order_dictionary d where d.order_dictionary_type = 'Order_Preferential_Type' and d.order_dictionary_key = t.order_preferential_type) order_preferential_type_str
+      <!--  -->
+    from order_preferential t
+    <isParameterPresent >
+       <include refid="KMORDER_ORDER_MAIN.ibatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  
+  
+  <!-- 查询订单层级的优惠信息 20151019 update -->
+  <select id="queryOrderLevelPReferential" resultMap="extendsResultMapForOrderPreferential" parameterClass="java.lang.String" >
+    select order_preferential_id, order_code, order_item_id, order_preferential_type,
+      order_preferential_source, order_preferential_code, order_preferential_sum,
+      coupon_id,grant_id
+      ,(select d.order_dictionary_value from order_dictionary d where d.order_dictionary_type = 'Order_Preferential_Type' and d.order_dictionary_key = t.order_preferential_type) order_preferential_type_str
+    from order_preferential t where order_code=#orderCode# and order_item_id is null
+  </select>
+  
+  
+  
+  <!-- 根据id查询发票信息  20150730 add 由订单系统移植过来  maliqun-->
+  <select id="selectByPrimaryKeyForInvoice" parameterClass="com.pltfm.app.entities.Invoice" resultMap="extendsResultMapForInvoice">
+    select invoice_id, invoice_code, invoice_no, machine_code, machine_no, create_date, create_type,
+      business_type_code, business_type_name, profession_type_code, profession_type_name,
+      payer_identifier, payer_name, payee_identifier, payee_name, invoice_sum, invoice_comment,
+      invoice_party_identifier, invoice_party_name, drawer_name, print_way, tax_payment_receipts_no,
+      tax, one_dimensional_code, invoice_status, invalid_code, invalid_name, invalid_date,
+      original_invoice_code, original_invoice_no
+      <!-- 附加 -->
+      ,(select d.order_dictionary_value from order_dictionary d where d.order_dictionary_type = 'Invoice_Create_Type' and d.order_dictionary_key = t.create_type) createtypestr
+      <!--  -->
+    from invoice t
+    where invoice_id = #invoiceId:DECIMAL#
+  </select>
+  
+  
+  <!--查询发票明细  20150730 add 由订单系统移植过来  maliqun  -->
+   <select id="selectByExampleForInvoiceItem" resultMap="baseResultMapForInvoiceItem" parameterClass="com.pltfm.app.entities.InvoiceItemExample" >
+    select invoice_item_id, invoice_id, invoice_item_code, invoice_item_name, unit_price,
+      invoice_item_number, discount_amount, line_sum, note, deduction_flag
+    from invoice_item
+    <isParameterPresent >
+      <include refid="KMORDER_ORDER_MAIN.ibatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  
+  
+  <!-- 检查是否需要补单  20150730 add 由订单系统移植过来  maliqun -->
+  <select id="checkIsAdditional" resultClass="java.lang.Integer" parameterClass="java.util.Map" >
+		select count(t.pay_statement_no)
+		<include refid="KMORDER_ORDER_MAIN.Additional_Where_Clause" />
+  </select>
+
+	<!-- 获取订单物流信息修改次数 20150730 add 由订单系统移植过来  maliqun -->
+	<select id="queryUpdateLogisticCount" parameterClass="java.lang.String" resultClass="int">
+		  	<![CDATA[
+		  		select count(1)
+				  from order_operate_statement ops
+				 where ops.now_operate_type = 7
+				   and ops.order_code = #orderCode:VARCHAR#
+		  	]]>
+	 </select>
+  
+  <!-- 查询sku属性基本信息 -->
+   <select id="querySkuAttrInfo" parameterClass="int" resultMap="skuAttrValue">  
+    select category_attr_name, category_attr_value
+  	from view_sku_attr where product_sku_id = #productSkuId#
+  </select>
+  
+  
+  <!-- 20151012 mlq 查询订单促销优惠信息  借助 couponId空闲字段作为显示载体 -->
+  <select id="queryPromotionInfo" parameterClass="java.util.HashMap" resultClass="java.lang.String"> 
+  	<isNotEmpty property="orderItemId">
+  		select promotion_data couponId from promotion where promotion_id=#promotionId#
+  	</isNotEmpty>
+  	<isEmpty property="orderItemId">
+  		select promotion_name couponId from promotion where promotion_id=#promotionId#
+  	</isEmpty>
+  	
+  </select>
+  
+  <!-- 20151013 mlq 新增显示列,商家货号 -->
+  <select id="querySkuSellerCode" parameterClass="java.lang.Long" resultClass="java.lang.String">
+  	 select seller_sku_code from product_sku where product_sku_id=#productSkuId#
+  </select>
+
+  <select id="getFinallyPayEndTime" parameterClass="java.lang.String" resultClass="java.lang.String">
+    SELECT TO_CHAR(FINALPAY_END_TIME, 'yyyy-mm-dd HH24:mi:ss')
+    FROM PROMOTION_PRESELL P, ORDER_ITEM I
+    WHERE P.PRESELL_ID =  I.PRESELL_ID and I.ORDER_CODE=#orderCode#
+  </select>
+  
+</sqlMap>

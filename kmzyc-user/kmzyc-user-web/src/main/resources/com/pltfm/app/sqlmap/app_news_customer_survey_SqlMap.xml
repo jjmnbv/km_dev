@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+
+"http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="NEWS_CUSTOMER_SURVEY">
+	<resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.NewsCustomerSurvey">
+		<result column="CUSTOMER_SURVEY_ID" property="customerSurveyId"
+			jdbcType="DECIMAL" />
+		<result column="LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="CUSTOMER_TYPE_ID" property="customerTypeId"
+			jdbcType="DECIMAL" />
+		<result column="CONTENT" property="content" jdbcType="VARCHAR" />
+		<result column="CONDITION" property="condition" jdbcType="VARCHAR" />
+		<result column="RECORD_DATE" property="recordDate" jdbcType="DATE" />
+		<result column="CREATED" property="created" jdbcType="DECIMAL" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="MODIFIED" property="modified" jdbcType="DECIMAL" />
+		<result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+	</resultMap>
+	
+	<resultMap id="ibatorgenerated_BaseResultMaprResult" class="com.pltfm.app.vobject.NewsCustomerSurvey">
+		<result column="CUSTOMER_SURVEY_ID" property="customerSurveyId"
+			jdbcType="DECIMAL" />
+		<result column="LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+		 <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />   
+		<result column="CSNAME" property="name" jdbcType="VARCHAR" />
+		<result column="CUSTOMERNAME" property="customerName" jdbcType="VARCHAR" />
+		<result column="CUSTOMER_TYPE_ID" property="customerTypeId"
+			jdbcType="DECIMAL" />
+		<result column="CONTENT" property="content" jdbcType="VARCHAR" />
+		<result column="CONDITION" property="condition" jdbcType="VARCHAR" />
+		<result column="RECORD_DATE" property="recordDate" jdbcType="DATE" />
+		<result column="CREATED" property="created" jdbcType="DECIMAL" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="MODIFIED" property="modified" jdbcType="DECIMAL" />
+		<result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+	</resultMap>
+	<resultMap id="ibatorgenerated_CountResult" class="com.pltfm.sys.model.SysModelUtil">
+		<result column="the_count" property="theCount" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<!-- 跟据id删除调查记录修改 -->
+	<delete id="ibatorgenerated_delete" parameterClass="com.pltfm.app.vobject.NewsCustomerSurvey">
+		delete from NEWS_CUSTOMER_SURVEY
+		where CUSTOMER_SURVEY_ID = #customerSurveyId:DECIMAL#
+  </delete>
+
+	<!-- 添加调查记录 -->
+	<insert id="ibatorgenerated_insertSelective" parameterClass="com.pltfm.app.vobject.NewsCustomerSurvey">
+		<selectKey resultClass="java.lang.Integer" keyProperty="customerSurveyId">
+			select seq_app_account.nextval from dual
+      </selectKey>
+		insert into NEWS_CUSTOMER_SURVEY
+		<dynamic prepend="(">
+			<isNotNull prepend="," property="customerSurveyId">
+				CUSTOMER_SURVEY_ID
+      </isNotNull>
+			<isNotNull prepend="," property="loginId">
+				LOGIN_ID
+      </isNotNull>
+			<isNotNull prepend="," property="name">
+				NAME
+      </isNotNull>
+			<isNotNull prepend="," property="customerTypeId">
+				CUSTOMER_TYPE_ID
+      </isNotNull>
+			<isNotNull prepend="," property="content">
+				CONTENT
+      </isNotNull>
+			<isNotNull prepend="," property="condition">
+				CONDITION
+      </isNotNull>
+			<isNotNull prepend="," property="recordDate">
+				RECORD_DATE
+      </isNotNull>
+			<isNotNull prepend="," property="created">
+				CREATED
+      </isNotNull>
+			<isNotNull prepend="," property="createDate">
+				CREATE_DATE
+      </isNotNull>
+			<isNotNull prepend="," property="modified">
+				MODIFIED
+      </isNotNull>
+			<isNotNull prepend="," property="modifyDate">
+				MODIFY_DATE
+      </isNotNull>
+			)
+		</dynamic>
+		values
+		<dynamic prepend="(">
+			<isNotNull prepend="," property="customerSurveyId">
+				#customerSurveyId:DECIMAL#
+      </isNotNull>
+			<isNotNull prepend="," property="loginId">
+				#loginId:DECIMAL#
+      </isNotNull>
+			<isNotNull prepend="," property="name">
+				#name:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="customerTypeId">
+				#customerTypeId:DECIMAL#
+      </isNotNull>
+			<isNotNull prepend="," property="content">
+				#content:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="condition">
+				#condition:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="recordDate">
+				#recordDate:DATE#
+      </isNotNull>
+			<isNotNull prepend="," property="created">
+				#created:DECIMAL#
+      </isNotNull>
+			<isNotNull prepend="," property="createDate">
+				#createDate:DATE#
+      </isNotNull>
+			<isNotNull prepend="," property="modified">
+				#modified:DECIMAL#
+      </isNotNull>
+			<isNotNull prepend="," property="modifyDate">
+				#modifyDate:DATE#
+      </isNotNull>
+			)
+		</dynamic>
+	</insert>
+	<!-- 修改调查记录 -->
+	<update id="ibatorgenerated_update" parameterClass="com.pltfm.app.vobject.NewsCustomerSurvey">
+		update NEWS_CUSTOMER_SURVEY
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="loginId">
+				LOGIN_ID = #loginId:DECIMAL#
+      </isNotNull>
+			<isNotNull prepend="," property="name">
+				NAME = #name:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="customerTypeId">
+				CUSTOMER_TYPE_ID = #customerTypeId:DECIMAL#
+      </isNotNull>
+			<isNotNull prepend="," property="content">
+				CONTENT = #content:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="condition">
+				CONDITION = #condition:VARCHAR#
+      </isNotNull>
+			<isNotNull prepend="," property="recordDate">
+				RECORD_DATE = #recordDate:DATE#
+      </isNotNull>
+			<isNotNull prepend="," property="created">
+				CREATED = #created:DECIMAL#
+      </isNotNull>
+			<isNotNull prepend="," property="createDate">
+				CREATE_DATE = #createDate:DATE#
+      </isNotNull>
+			<isNotNull prepend="," property="modified">
+				MODIFIED = #modified:DECIMAL#
+      </isNotNull>
+			<isNotNull prepend="," property="modifyDate">
+				MODIFY_DATE = #modifyDate:DATE#
+      </isNotNull>
+		</dynamic>
+		where CUSTOMER_SURVEY_ID = #customerSurveyId:DECIMAL#
+	</update>
+
+	<!-- 跟据id查询修改调查记录 -->
+<select id="getCustomerTypeId" resultMap="ibatorgenerated_BaseResultMap"
+		parameterClass="java.lang.Integer">
+		select CUSTOMER_SURVEY_ID, LOGIN_ID, NAME, CUSTOMER_TYPE_ID, CONTENT,
+		CONDITION, RECORD_DATE,
+		CREATED, CREATE_DATE, MODIFIED, MODIFY_DATE
+		FROM  NEWS_CUSTOMER_SURVEY WHERE CUSTOMER_SURVEY_ID=#customerSurveyId:DECIMAL#
+	</select>
+
+	<!-- 分页 -->
+	<!--  ****************  search page by vo  ****************  -->
+	<select id="searchPageByVo" resultMap="ibatorgenerated_BaseResultMaprResult"
+		parameterClass="com.pltfm.app.vobject.NewsCustomerSurvey">
+		 select CUSTOMER_SURVEY_ID,LOGIN_ID,USER_NAME,CSNAME,CUSTOMERNAME, CUSTOMER_TYPE_ID, CONTENT,
+        CONDITION, RECORD_DATE,CREATED, CREATE_DATE, MODIFIED, MODIFY_DATE  FROM (
+       select  ROW_NUMBER() OVER(order by CUSTOMER_SURVEY_ID desc) as view_row_number, 
+       tt.*,tt.NAME CSNAME,com.NAME CUSTOMERNAME,uu.user_name  from NEWS_CUSTOMER_SURVEY tt,BNES_CUSTOMER_TYPE com,
+       sys_user uu where  tt.CUSTOMER_TYPE_ID = com.CUSTOMER_TYPE_ID  and tt.login_id=uu.user_id 
+			<isNotNull property="customerTypeId">
+				<isNotEmpty prepend="and" property="customerTypeId">
+					tt.CUSTOMER_TYPE_ID =#customerTypeId:Integer#
+			  </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="name">
+				<isNotEmpty prepend="and" property="name">
+					tt.NAME like '%$name$%'
+			  </isNotEmpty>
+			</isNotNull>
+		)
+    <![CDATA[ where view_row_number <= #max# and view_row_number > #skip# ]]>
+	</select>
+
+	<!--
+		**************** search user's roleList by vo ****************
+	-->
+	<select id="selectCountByVo" parameterClass="com.pltfm.app.vobject.NewsCustomerSurvey"
+		resultMap="ibatorgenerated_CountResult">
+		select count(1) the_count from NEWS_CUSTOMER_SURVEY tt,BNES_CUSTOMER_TYPE com,
+       sys_user uu where  tt.CUSTOMER_TYPE_ID = com.CUSTOMER_TYPE_ID  and tt.login_id=uu.user_id 
+			<isNotNull property="customerTypeId">
+				<isNotEmpty prepend="and" property="customerTypeId">
+					tt.CUSTOMER_TYPE_ID=#customerTypeId:Integer#
+			  </isNotEmpty>
+			</isNotNull>
+			<isNotNull property="name">
+				<isNotEmpty prepend="and" property="name">
+					tt.NAME like '%$name$%'
+			  </isNotEmpty>
+			</isNotNull>
+		
+	</select>
+</sqlMap>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--<bean id="jedisCluster" class="com.kmzyc.redis.jedisClusterFactoryBean">-->
+    <!--<constructor-arg>-->
+    <!--<list>-->
+    <!--<bean class="redis.clients.jedis.JedisShardInfo">-->
+    <!--<constructor-arg name="host" value="${server_write_1}"/>-->
+    <!--<constructor-arg name="port" value="${port_write_1}"/>-->
+    <!--</bean>-->
+    <!--<bean class="redis.clients.jedis.JedisShardInfo">-->
+    <!--<constructor-arg name="host" value="${server_write_1}"/>-->
+    <!--<constructor-arg name="port" value="${port_write_1}"/>-->
+    <!--</bean>-->
+    <!--</list>-->
+    <!--</constructor-arg>-->
+    <!--</bean>-->
+    <bean id="jedisCluster" class="redis.clients.jedis.JedisCluster">
+        <constructor-arg name="nodes">
+            <set>
+                <bean class="redis.clients.jedis.HostAndPort">
+                    <constructor-arg name="host" value="${redis.host_1}"/>
+                    <constructor-arg name="port" value="${redis.port_1}"/>
+                </bean>
+                <bean class="redis.clients.jedis.HostAndPort">
+                    <constructor-arg name="host" value="${redis.host_2}"/>
+                    <constructor-arg name="port" value="${redis.port_2}"/>
+                </bean>
+                <bean class="redis.clients.jedis.HostAndPort">
+                    <constructor-arg name="host" value="${redis.host_3}"/>
+                    <constructor-arg name="port" value="${redis.port_3}"/>
+                </bean>
+            </set>
+        </constructor-arg>
+        <constructor-arg name="poolConfig">
+            <bean class="redis.clients.jedis.JedisPoolConfig">
+                <property name="maxIdle" value="${redis.maxIdle}"/>
+                <property name="minIdle" value="${redis.minIdle}"/>
+                <property name="maxTotal" value="${redis.maxTotal}"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+</beans>

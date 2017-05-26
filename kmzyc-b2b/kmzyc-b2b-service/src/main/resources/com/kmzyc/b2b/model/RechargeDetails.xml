@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="RechargeDetails">
+	<typeAlias alias="rechargeDetails" type="com.kmzyc.b2b.model.RechargeDetails" />
+	<typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+
+	<resultMap class="rechargeDetails" id="reMap">
+		<result jdbcType="DECIMAL" property="accountId" column="n_account_id" />
+		<result jdbcType="DECIMAL" property="loginId" column="n_login_id" />
+		<result jdbcType="DECIMAL" property="amountAvlibal" column="amount_avlibal" />
+		<result jdbcType="DECIMAL" property="accountStatus" column="n_status" />
+		<result jdbcType="DATE" property="createDate" column="create_date" />
+		<result jdbcType="VARCHAR" property="accountNumber" column="account_number" />
+		<result jdbcType="DECIMAL" property="amount" column="amount" />
+		<result jdbcType="DECIMAL" property="status" column="status" />
+		<result jdbcType="VARCHAR" property="tranBank" column="tran_bank" />
+	</resultMap>
+	
+	<resultMap class="rechargeDetails" id="reM">
+		<result jdbcType="DECIMAL" property="amountAvlibal" column="amount_avlibal" />
+		<result jdbcType="DECIMAL" property="accountStatus" column="n_status" />
+	</resultMap>
+
+    <!--账号信息获取  -->
+	<select id="queryRechargeDetails" resultMap="reM" parameterClass="pagination">
+           <![CDATA[
+			select amount_avlibal,n_status from account_info   
+		]]>
+		<dynamic prepend="WHERE">
+			 <![CDATA[
+					  n_login_id = #objCondition.loginId:NUMBER#
+				]]>
+		</dynamic>
+	</select>
+	
+	<!-- 充值明细获取 -->
+	<select id="searchRechargeDetailsPage" resultMap="reMap"
+		parameterClass="pagination">
+           <![CDATA[
+          SELECT * FROM (SELECT t.*, ROWNUM RN FROM (select * from acct_transaction_info  	
+		]]>
+	    <dynamic prepend="WHERE">
+			 <![CDATA[
+					  n_login_id = #objCondition.loginId:NUMBER#
+				]]>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="objCondition.beginCreateDate">
+            <![CDATA[
+					create_date >= #objCondition.beginCreateDate:Date#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="objCondition.endCreateDate">
+             <![CDATA[
+					 create_date <= #objCondition.endCreateDate:Date#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<![CDATA[
+		) t WHERE ROWNUM <= #endindex#) WHERE RN >= #startindex#
+		]]>
+	</select>
+
+	<select id="searchCountPageById" resultClass="java.lang.Integer"
+		parameterClass="pagination">
+           <![CDATA[
+			select count(*) from acct_transaction_info
+		]]>
+		<dynamic prepend="WHERE">
+			 <![CDATA[
+					  n_login_id = #objCondition.loginId:NUMBER#
+				]]>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="objCondition.beginCreateDate">
+            <![CDATA[
+					create_date >= #objCondition.beginCreateDate:Date#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="objCondition.endCreateDate">
+             <![CDATA[
+					  create_date <= #objCondition.endCreateDate:Date#
+				]]>
+			</isNotNull>
+		</dynamic>
+	</select>
+	
+</sqlMap>

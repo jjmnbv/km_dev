@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<package name="sdefault" namespace="/cms" extends="struts">
+		<action name="GotoPromotion">
+			<result>/WEB-INF/jsp/cms/promotionAttr/promotionImageAdd.jsp</result>
+		</action>
+		
+		<action name="PromotionAttr_*" class="cmsPromotionAttrAction" method="{1}">
+			<result name="Success">/WEB-INF/jsp/cms/promotionAttr/promotionImageList.jsp
+			</result>
+			<result name="ByidSuccess">/WEB-INF/jsp/cms/promotionAttr/promotionImageUpdate.jsp
+			</result>
+		
+		</action>
+		
+		<action name="cmsPromotion_*" class="cmsPromotionAction" method="{1}">
+		    <result name="goto">/WEB-INF/jsp/cms/promotion/cmsPromotionAdd.jsp</result>
+			<result name="promotionList">/WEB-INF/jsp/cms/promotion/cmsPromotionList.jsp</result>
+			<result name="viewPromotionSccuess">/WEB-INF/jsp/cms/promotion/proPromotionList.jsp</result>
+			
+			<result name="queryByPromotion">/WEB-INF/jsp/cms/promotion/proCmsPromotionList.jsp</result>
+			<result name="openPomotionList">/WEB-INF/jsp/cms/promotion/promotionListData.jsp</result>
+			
+			<result name="ByidSuccess">/WEB-INF/jsp/cms/promotion/cmsPromotionUpdate.jsp
+			</result>
+		</action> 	
+		<action name="cmsPromotionAdd">
+			<result>/WEB-INF/jsp/cms/promotion/cmsPromotionAdd.jsp</result>
+		</action> 	
+		
+	</package>
+</struts>

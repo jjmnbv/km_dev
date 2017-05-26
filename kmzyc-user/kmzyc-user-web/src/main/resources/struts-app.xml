@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+<!--  专家信息 -->
+	<package name="personalbasic" namespace="/personalbasic"  extends="struts">
+		      <action name="personalbasic_*"  class="personalBasicAction" method="{1}">
+		      <result name="pageSuccess"  type="dispatcher">/WEB-INF/jsp/app/personalbasic/personalbasicinfoList.jsp</result>	
+		        <result name="queryFail"  type="dispatcher">/WEB-INF/jsp/app/personalbasic/personalbasicinfoList.jsp</result>		        	        
+		      <result name="preAddSuccess"  type="dispatcher">/WEB-INF/jsp/app/personalbasic/personalbasicinfoAdd.jsp</result>
+		      <result name="updateSuccess"  type="dispatcher">/WEB-INF/jsp/app/personalbasic/personalbasicinfoUpdate.jsp</result>
+		       <result name="preDetailSuccess"  type="dispatcher">/WEB-INF/jsp/app/personalbasic/personalBasicInfoDetail.jsp</result>
+		      <result name="delSuccess"  type="redirectAction">
+		                 personalbasic_pageList
+		       </result>
+		       <result name="saveSuccess"  type="redirectAction">
+		                 personalbasic_pageList
+		        </result>
+		         <result name="invalid.token" type="redirectAction">
+		         personalbasic_pageList
+		         </result>
+		  </action> 	
+	</package>
+	 <!--  消息信息 -->
+	<package name="messageCenter" namespace="/messageCenter"  extends="struts">
+		      <action name="messageCenter_*"  class="bnesMessageCenterAction" method="{1}">
+		      <result name="pageSuccess"  type="dispatcher">/WEB-INF/jsp/app/messageCenter/messageCenterList.jsp</result>		        
+		      <result name="preAddSuccess"  type="dispatcher">/WEB-INF/jsp/app/messageCenter/messageCenterAdd.jsp</result>
+		      <result name="updateSuccess"  type="dispatcher">/WEB-INF/jsp/app/messageCenter/messageCenterUpdate.jsp</result>
+		       <result name="queryFail"  type="dispatcher">/WEB-INF/jsp/app/messageCenter/messageCenterList.jsp</result>	
+		        <result name="homePage"  type="dispatcher">/WEB-INF/jsp/app/messageCenter/messageCenterDialog.jsp</result>
+		       <result name="invalid.token" type="redirectAction">
+		       messageCenter_pageList
+		       </result>
+		  </action> 	
+		  
+		
+	</package>
+    <!--  登录帐户冻结信息 -->
+	<package name="loginfrozenRecord" namespace="/loginfrozenRecord"  extends="struts">
+		      <action name="frozenRecord_*"  class="bnesFrozenRecordAction" method="{1}">
+		      <result name="pageSuccess"  type="dispatcher">/WEB-INF/jsp/app/loginfrozenRecord/thawRecordList.jsp</result>		        
+		      <result name="preAddSuccess"  type="dispatcher">/WEB-INF/jsp/app/loginfrozenRecord/frozenRecordAdd.jsp</result>
+		      <result name="frozenSuccess"  type="dispatcher">/WEB-INF/jsp/app/loginfrozenRecord/frozenRecordOperate.jsp</result>
+		      <result name="queryFail"  type="dispatcher">/WEB-INF/jsp/app/loginfrozenRecord/thawRecordList.jsp</result>	
+		       <result name="saveSuccess"  type="redirectAction">
+		                 frozenRecord_pageList
+		        </result>
+		         <result name="invalid.token" type="redirectAction">
+		                 frozenRecord_pageList
+		          </result> 
+		  </action> 
+		  
+		  <action name="defrostingRecord_*"  class="bnesDefrostingRecordAction" method="{1}">
+		      <result name="pageThawList"  type="dispatcher">/WEB-INF/jsp/app/loginfrozenRecord/thawRecordList.jsp</result>
+		      <result name="pageThawListMenu"  type="dispatcher">/WEB-INF/jsp/app/loginfrozenRecord/thawRecordListMenu.jsp</result>
+		      <result name="queryThawFail"  type="dispatcher">/WEB-INF/jsp/app/loginfrozenRecord/thawRecordList.jsp</result>
+		      <result name="delSuccess"  type="redirectAction">
+		                 defrostingRecord_pageThawList
+		       </result>
+		       <result name="invalid.token" type="redirectAction">
+		                 defrostingRecord_pageThawList
+		          </result>
+		  </action> 	
+	</package>	
+	  <!--  调查记录信息 -->
+	<package name="newsCustomerSurvey" namespace="/newsCustomerSurvey"  extends="struts">
+		      <action name="customerSurvey_*"  class="newsCustomerSurveyAction" method="{1}">
+		      <result name="pageSuccess"  type="dispatcher">/WEB-INF/jsp/app/newsCustomerSurvey/newsCustomerSurveyList.jsp</result>		        
+		      <result name="preAddSuccess"  type="dispatcher">/WEB-INF/jsp/app/newsCustomerSurvey/newsCustomerSurveyAdd.jsp</result>
+		      <result name="queryFail"  type="dispatcher">/WEB-INF/jsp/app/newsCustomerSurvey/newsCustomerSurveyList.jsp</result>	
+		       <result name="preDetailSuccess"  type="dispatcher">/WEB-INF/jsp/app/newsCustomerSurvey/newsCustomerSurveyDetail.jsp</result>
+		       <result name="delSuccess"  type="redirectAction">
+		                 customerSurvey_pageList
+		       </result>
+		       <result name="saveSuccess"  type="redirectAction">
+		                 customerSurvey_pageList
+		        </result>
+		        <result name="invalid.token" type="redirectAction">
+		        customerSurvey_pageList
+		        </result>
+		  </action> 	
+	</package>
+	
+		  <!--  拜访记录信息 -->
+	<package name="nwesVisting" namespace="/nwesVisting"  extends="struts">
+		      <action name="visting_*"  class="nwesVistingAction" method="{1}">
+		      <result name="pageSuccess"  type="dispatcher">/WEB-INF/jsp/app/nwesVisting/nwesVistingList.jsp</result>		        
+		      <result name="preAddSuccess"  type="dispatcher">/WEB-INF/jsp/app/nwesVisting/nwesVistingAdd.jsp</result>
+		      <result name="queryFail"  type="dispatcher">/WEB-INF/jsp/app/nwesVisting/nwesVistingList.jsp</result>
+		       <result name="preDetailSuccess"  type="dispatcher">/WEB-INF/jsp/app/nwesVisting/nwesVistingDetail.jsp</result>		        		        
+		       <result name="delSuccess"  type="redirectAction">
+		                 visting_pageList
+		       </result>
+		       <result name="saveSuccess"  type="redirectAction">
+		                 visting_pageList
+		        </result>
+		        <result name="invalid.token" type="redirectAction">
+                 visting_pageList
+                   </result>
+		  </action> 	
+	</package>
+	
+	
+		  <!--  维护记录信息 -->
+	<package name="nwesMaintenace" namespace="/nwesMaintenace"  extends="struts">
+		      <action name="maintenace_*"  class="nwesMaintenaceAction" method="{1}">
+		      <result name="pageSuccess"  type="dispatcher">/WEB-INF/jsp/app/nwesMaintenace/nwesMaintenaceList.jsp</result>		        
+		      <result name="preAddSuccess"  type="dispatcher">/WEB-INF/jsp/app/nwesMaintenace/nwesMaintenaceAdd.jsp</result>
+		        <result name="queryFail"  type="dispatcher">/WEB-INF/jsp/app/nwesMaintenace/nwesMaintenaceList.jsp</result>
+		      	<result name="preDetailSuccess"  type="dispatcher">/WEB-INF/jsp/app/nwesMaintenace/nwesMaintenaceDetail.jsp</result>	
+		       <result name="delSuccess"  type="redirectAction">
+		                 maintenace_pageList
+		       </result>
+		       <result name="saveSuccess"  type="redirectAction">
+		                 maintenace_pageList
+		        </result>
+		        <result name="invalid.token" type="redirectAction">
+		         maintenace_pageList
+		        </result>
+		  </action> 	
+	</package>
+	
+	<!--  服务信息 -->
+	<package name="nwesCustomService" namespace="/nwesCustomService"  extends="struts">
+		      <action name="customService_*"  class="nwesCustomServiceAction" method="{1}">
+		      <result name="pageSuccess"  type="dispatcher">/WEB-INF/jsp/app/nwesCustomService/nwesCustomServiceList.jsp</result>		        
+		      <result name="preAddSuccess"  type="dispatcher">/WEB-INF/jsp/app/nwesCustomService/nwesCustomServiceAdd.jsp</result>
+		      <result name="preaddReply"  type="dispatcher">/WEB-INF/jsp/app/nwesCustomService/nwesCsReplyAdd.jsp</result>
+		      <result name="preDetailSuccess"  type="dispatcher">/WEB-INF/jsp/app/nwesCustomService/nwesCustomServiceDetail.jsp</result>
+		      <result name="queryFail"  type="dispatcher">/WEB-INF/jsp/app/nwesCustomService/nwesCustomServiceList.jsp</result>
+		 	
+		      <result name="delSuccess"  type="redirectAction">
+		                customService_pageList
+		       </result>
+		       <result name="saveSuccess"  type="redirectAction">
+		                 customService_pageList
+		        </result>
+		        <result name="invalid.token" type="redirectAction">
+		         customService_pageList
+		        </result>
+		  </action> 	
+	</package>
+	<!-- 经验规则 -->
+	<package name="bloodIntegralRule" namespace="/bloodIntegralRule"  extends="struts">
+		      <action name="integralRule_*"  class="bloodIntegralRuleAction" method="{1}">
+		      <result name="pageSuccess"  type="dispatcher">/WEB-INF/jsp/app/bloodIntegralRule/bloodIntegralRuleList.jsp</result>		        
+		      <result name="preAddSuccess"  type="dispatcher">/WEB-INF/jsp/app/bloodIntegralRule/bloodIntegralRuleAdd.jsp</result>
+		      <result name="queryFail"  type="dispatcher">/WEB-INF/jsp/app/bloodIntegralRule/bloodIntegralRuleList.jsp</result>
+		      <result name="delSuccess"  type="redirectAction">
+		                integralRule_queryPageList
+		       </result>
+		       <result name="saveSuccess"  type="redirectAction">
+		                 integralRule_queryPageList
+		        </result>
+		         <result name="invalid.token" type="redirectAction">
+		         integralRule_queryPageList
+		         </result>
+		  </action> 	
+	</package>
+	
+		<!-- 经验明细 -->
+	<package name="bloodIntegralInfo" namespace="/bloodIntegralInfo"  extends="struts">
+		      <action name="integralInfo_*"  class="bloodIntegralInfoAction" method="{1}">
+		      <result name="pageSuccess"  type="dispatcher">/WEB-INF/jsp/app/bloodIntegralInfo/bloodIntegralInfoList.jsp</result>		        
+		       <result name="queryFail"  type="dispatcher">/WEB-INF/jsp/app/bloodIntegralInfo/bloodIntegralInfoList.jsp</result>	
+		     <result name="invalid.token" type="redirectAction">
+		         integralInfo_pageList
+		         </result>
+		  </action> 	
+	</package>
+	
+    <!--  登录信息 -->
+	<package name="logininfo" namespace="/logininfo"  extends="struts">
+		      <action name="logininfo_*"  class="loginInfoAction" method="{1}">
+		      <result name="pageSuccess"  type="dispatcher">/WEB-INF/jsp/app/logininfo/loginInfoList.jsp</result>		        
+		      <result name="preAddSuccess"  type="dispatcher">/WEB-INF/jsp/app/logininfo/loginInfoAdd.jsp</result>
+		      <result name="updateSuccess"  type="dispatcher">/WEB-INF/jsp/app/logininfo/loginInfoUpdate.jsp</result>
+		       <result name="delSuccess"  type="redirectAction">
+		                 logininfo_pageList
+		       </result>
+		       <result name="saveSuccess"  type="redirectAction">
+		                 logininfo_pageList
+		        </result>
+		        <result name="userInfo">/WEB-INF/jsp/app/logininfo/popUpUserInfo.jsp</result>
+		        <result name="boxInfoList">/WEB-INF/jsp/app/logininfo/checkboxInfoList.jsp</result>
+		  </action> 	
+	</package>	
+	
+	
+	    <!--  推广短信邮件 -->
+	<package name="emailsmspromotion" namespace="/emailsmspromotion"  extends="struts">
+		      <action name="emailsmspromotion_*"  class="emailSmsPromotionAction" method="{1}">
+		      <result name="pageList"  type="dispatcher">/WEB-INF/jsp/app/emailsmspromotion/promotionlist.jsp</result>
+		       <result name="add"  type="dispatcher">/WEB-INF/jsp/app/emailsmspromotion/promotionadd.jsp</result>		  
+		        <result name="edit"  type="dispatcher">/WEB-INF/jsp/app/emailsmspromotion/prmotionedit.jsp</result>    
+		        
+		        <result name="preSeach"  type="dispatcher">/WEB-INF/jsp/app/emailsmspromotion/prmotionseach.jsp</result>	
+		         <result name="invalid.token" type="redirectAction">
+		      emailsmspromotion_pageList
+		       </result>
+		         <result name="addPromotionSucc"  type="redirectAction">
+		                 emailsmspromotion_pageList
+		       </result>
+		         <result name="editSuccess"  type="redirectAction">
+		                   emailsmspromotion_pageList
+		       </result>
+		 </action> 	
+	</package>
+		    <!--  推广短信邮件记录 -->
+	<package name="emailsmslogs" namespace="/emailsmslogs"  extends="struts">
+		      <action name="emailsmslogs_*"  class="emailSmsLogsAction" method="{1}">
+		      <result name="smsLogsList"  type="dispatcher">/WEB-INF/jsp/app/emailsmspromotion/emailsmsLogsList.jsp</result>     
+		  </action> 	
+	</package>
+
+		    <!--  推广短信邮件审核 -->
+	<package name="emailsmsverify" namespace="/emailsmsverify"  extends="struts">
+		      <action name="emailsmsverify_*"  class="emailSmsPromotionVerifyAction" method="{1}">
+		      <result name="pageList"  type="dispatcher">/WEB-INF/jsp/app/emailsmspromotion/emailsmsVerifylist.jsp</result>     
+		        <result name="preVerify"  type="dispatcher">/WEB-INF/jsp/app/emailsmspromotion/emailsmsVerifyedit.jsp</result>   
+		           <result name="preSerch"  type="dispatcher">/WEB-INF/jsp/app/emailsmspromotion/emailsmsVerifyseach.jsp</result>   
+		              <result name="invalid.token" type="redirectAction">
+		      emailsmsverify_pageList
+		       </result>
+		  </action> 	
+	</package> 
+	
+	
+	
+			    <!--  资质文件管理 -->
+<!--删除采购商相关 	<package name="qualificaitonsFile" namespace="/qualificaitonsFile"  extends="struts">
+		      <action name="qualificaitonsFile_*"  class="qualificaitonsFileAction" method="{1}">
+		      <result name="pageList"  type="dispatcher">/WEB-INF/jsp/app/QualificaitonsFileBasicInfo/QualificaitonsFileList.jsp</result>      
+		      <result name="invalid.token" type="redirectAction">
+		      qualificaitonsFile_pageList
+		       </result>
+	   <result name="qualificaitonsFileUpdate"  type="dispatcher">/WEB-INF/jsp/app/QualificaitonsFileBasicInfo/QualificaitonsFileEdit.jsp</result> 
+	     <result name="qualificaitonsVerify"  type="dispatcher">/WEB-INF/jsp/app/QualificaitonsFileBasicInfo/QualificaitonsFileVerify.jsp</result> 
+	  <result name="qualificaitonsDetail"  type="dispatcher">/WEB-INF/jsp/app/QualificaitonsFileBasicInfo/QualificaitonsFileDetail.jsp</result> 
+		  </action> 	
+		  	</package>  -->
+		  
+		  			    <!--  采购资格申请管理 -->
+	<!--删除采购商相关  <package name="qualificaitonsApply" namespace="/qualificaitonsApply"  extends="struts">
+		      <action name="qualificaitonsApply_*"  class="qualificaitonsApplyAction" method="{1}">
+		      <result name="pageList"  type="dispatcher">/WEB-INF/jsp/app/QualificaitonsFileBasicInfo/QualificaitonsApplyList.jsp</result>      
+		      <result name="invalid.token" type="redirectAction">
+		     qualificaitonsApply_pageList
+		       </result>
+	     <result name="qualificaitonsApplyUpdate"  type="dispatcher">/WEB-INF/jsp/app/QualificaitonsFileBasicInfo/QualificaitonsApplyEdit.jsp</result>  
+		     	  <result name="qualificaitonsApplyDetail"  type="dispatcher">/WEB-INF/jsp/app/QualificaitonsFileBasicInfo/QualificaitonsApplyDetail.jsp</result>
+		       	     <result name="qualificaitonsApplyVerify"  type="dispatcher">/WEB-INF/jsp/app/QualificaitonsFileBasicInfo/QualificaitonsApplyVerify.jsp</result> 
+		       
+		  </action> 	
+	</package>  -->
+	
+	
+	
+		  			    <!--  采购资格管理 -->
+	<!--删除采购商相关  <package name="qualificaitons" namespace="/qualificaitons"  extends="struts">
+		      <action name="qualificaitons_*"  class="qualificaitonsAction" method="{1}">
+		      <result name="pageList"  type="dispatcher">/WEB-INF/jsp/app/QualificaitonsFileBasicInfo/QualificaitonsList.jsp</result>     
+		      <result name="qualificaitonsDetail"  type="dispatcher">/WEB-INF/jsp/app/QualificaitonsFileBasicInfo/QualificaitonsDetail.jsp</result>
+		   <result name="qualificaitonsUpdate"  type="dispatcher">/WEB-INF/jsp/app/QualificaitonsFileBasicInfo/QualificaitonsEdit.jsp</result>
+	 <result name="qualificaitonsAdd"  type="dispatcher">/WEB-INF/jsp/app/QualificaitonsFileBasicInfo/QualificaitonsAdd.jsp</result>
+	   <result name="invalid.token" type="redirectAction">
+		    qualificaitons_pageList
+		       </result>
+		       
+		       
+		       
+		 	 </action>
+	</package> -->
+	
+	
+	 <!--  手机邮箱验证 -->
+	
+		<package name="moblieEmailValidate" namespace="/moblieEmailValidate"  extends="struts">
+		      <action name="moblieEmailValidate_*"  class="moblieEmailValidateAction" method="{1}">
+		      <result name="pageList"  type="dispatcher">/WEB-INF/jsp/app/mobileEmailValidate/emailValidatelist.jsp</result> 
+		         <result name="mobilePageList"  type="dispatcher">/WEB-INF/jsp/app/mobileEmailValidate/mobileValidatelist.jsp</result>
+		                <result name="invalid.token" type="redirectAction">
+		     moblieEmailValidate_pageList
+		       </result>
+		                <result name="invalid.token" type="redirectAction">
+		     moblieEmailValidate_mobilePageList
+		       </result>
+		       
+		       
+		  </action> 	
+	</package>
+	
+	<!-- 短信邮件发信查询 -->
+	<package name="emailmsg" namespace="/emailmsg"  extends="struts">
+	  <action name="queryEmMsgChannelList"  class="emMsgChannelAction" method="queryEmMsgChannelList">
+	      <result name="success">/WEB-INF/jsp/app/emailmsg/queryEmMsgChannel.jsp</result>	
+	  </action> 
+	  
+	  <action name="queryEmMsgChannelDetail"  class="emMsgChannelAction" method="queryEmMsgChannelDetail">
+	      <result name="success">/WEB-INF/jsp/app/emailmsg/emMsgChannelEdit.jsp</result>	
+	  </action> 
+	  
+	  <action name="goToEmMsgChannelAdd"  class="emMsgChannelAction" method="goToEmMsgChannelAdd">
+	      <result name="success" >/WEB-INF/jsp/app/emailmsg/emMsgChannelAdd.jsp</result>	
+	  </action> 
+	  
+	  <action name="addEmMsgChannel"  class="emMsgChannelAction" method="addEmMsgChannel">
+	      <result name="success"  type="chain">queryEmMsgChannelList</result>	
+	  </action> 
+	  
+	  <action name="updateEmMsgChannel"  class="emMsgChannelAction" method="updateEmMsgChannel">
+	      <result name="success"  type="chain">queryEmMsgChannelList</result>	
+	  </action> 
+	  
+	  <action name="queryMsgSendList"  class="emailMsgCheckAction" method="queryMsgSendList">
+	      <result name="success">/WEB-INF/jsp/app/emailmsg/queryMsgSendList.jsp</result>	
+	  </action> 
+	 <!--删除邮件业务  <action name="queryMailSendList"  class="emailMsgCheckAction" method="queryEmailSendList">
+	      <result name="success">/WEB-INF/jsp/app/emailmsg/queryEmailSendList.jsp</result>	
+	  </action>  -->	
+	</package>
+	
+</struts>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

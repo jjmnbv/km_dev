@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="RelevanceSKU">
+
+  <resultMap id="ProductRelationID" class="com.kmzyc.b2b.model.ProductRelationDetail">
+  		<result column="relation_sku_id" property="productSkuId" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap class="com.kmzyc.b2b.model.ProductInfo" id="ProductInfoEntity">
+  		<result column="product_sku_id" property="SKUID" jdbcType="DECIMAL" />
+  		<result jdbcType="VARCHAR" property="productName" column="PROCUCT_NAME" />
+  		<result jdbcType="VARCHAR" property="categoryName" column="category_name" />
+  		<result jdbcType="VARCHAR" property="productTitle" column="PRODUCT_TITLE" />
+  		<result jdbcType="VARCHAR" property="productNo" column="PRODUCT_NO" />
+  		<result jdbcType="VARCHAR" property="brandName" column="brand_name" />
+  		<result jdbcType="VARCHAR" property="imgPath" column="img_path" />
+  		<result jdbcType="VARCHAR" property="imgPath1" column="img_path1" />
+  		<result jdbcType="VARCHAR" property="imgPath2" column="img_path2" />
+  		<result jdbcType="VARCHAR" property="imgPath3" column="img_path3" />
+  		<result jdbcType="VARCHAR" property="imgPath4" column="img_path4" />
+  		<result jdbcType="VARCHAR" property="imgPath5" column="img_path5" />
+  		
+  </resultMap>
+
+	<select id="findById" parameterClass="java.lang.Long"  resultMap="ProductRelationID">
+		<![CDATA[
+			select prd.relation_sku_id  from product_relation_detail prd where prd.relation_id=(select pr.relation_id 
+            from product_relation pr where pr.main_sku_id=#productSkuId:NUMBER#)
+                    ]]>
+    </select>
+    <select id="findInfoBySkuId" parameterClass="java.util.List" resultMap="ProductInfoEntity">
+		select p.product_sku_id, p.product_title PROCUCT_NAME,p.category_name,p.PRODUCT_TITLE,p.PRODUCT_NO,p.brand_name,
+        e.img_path,e.img_path1,e.img_path2 ,e.img_path3,e.img_path4,e.img_path5
+        from view_product_info p,product_image e  where
+          p.product_sku_id= e.sku_id
+         and
+         p.product_sku_id IN
+        <iterate open="(" close=")" conjunction=","> #[]# </iterate>
+    </select>
+  
+</sqlMap>

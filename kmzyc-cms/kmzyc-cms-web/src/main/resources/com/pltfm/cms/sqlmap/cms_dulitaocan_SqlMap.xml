@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="CMS_DULITAOCAN">
+	<resultMap id="ibatorgenerated_BaseRelation" class="com.pltfm.app.vobject.ProductRelation">
+		<result column="RELATION_ID" property="relationId" jdbcType="DECIMAL" />
+		<result column="RELATION_NAME" property="relationName"
+			jdbcType="VARCHAR" />
+		<result column="MAIN_SKU_ID" property="mainSkuId" jdbcType="DECIMAL" />
+		<result column="MAIN_SKU_PRICE" property="mainSkuPrice"
+			jdbcType="DECIMAL" />
+		<result column="TOTAL_RELATION_PRICE" property="totalRelationPrice"
+			jdbcType="DECIMAL" />
+		<result column="RELATION_TYPE" property="relationType"
+			jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="EDITABLE" property="editable" jdbcType="DECIMAL" />
+		<result column="WEB_SITE" property="webSite" jdbcType="VARCHAR" />
+		<result column="SUPPLIER_TYPE" property="supplierType"
+			jdbcType="DECIMAL" />
+		<result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL" />
+		<result column="SUPPLIER_NAME" property="supplierName"
+			jdbcType="VARCHAR" />
+			<result column="PV_VALUE" property="pvValue" jdbcType="DECIMAL" />
+			
+			<result column="RELATION_INTRODUCE" property="relationIntroduce" jdbcType="VARCHAR" />   
+			<result column="RELATION_VIDEO" property="relationVideo" jdbcType="VARCHAR" />
+			<result column="RELATION_INTRO" property="relationIntro" jdbcType="VARCHAR" />
+			<result column="RELATION_INTRODUCE_LAZY" property="relationIntroduceLazy" jdbcType="VARCHAR" />
+			
+			
+	</resultMap>
+	
+	<!-- CMS详细页套餐主表 -->
+		<resultMap id="ibatorgenerated_BaseCmsRelation" class="com.pltfm.cms.vobject.CmsProductRelation">
+		<result column="RELATION_ID" property="relationId" jdbcType="DECIMAL" />
+		<result column="RELATION_NAME" property="relationName"
+			jdbcType="VARCHAR" />
+		<result column="MAIN_SKU_ID" property="mainSkuId" jdbcType="DECIMAL" />
+		<result column="MAIN_SKU_PRICE" property="mainSkuPrice"
+			jdbcType="DECIMAL" />
+		<result column="TOTAL_RELATION_PRICE" property="totalRelationPrice"
+			jdbcType="DECIMAL" />
+		<result column="RELATION_TYPE" property="relationType"
+			jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="DEL_STATUS" property="delStatus" jdbcType="DECIMAL" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<result column="EDITABLE" property="editable" jdbcType="DECIMAL" />
+		<result column="WEB_SITE" property="webSite" jdbcType="VARCHAR" />
+		<result column="SUPPLIER_TYPE" property="supplierType"
+			jdbcType="DECIMAL" />
+		<result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL" />
+		<result column="SUPPLIER_NAME" property="supplierName"
+			jdbcType="VARCHAR" />
+			<result column="PV_VALUE" property="pvValue" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<resultMap id="ibatorgenerated_BaseRelationDetail" class="com.pltfm.cms.vobject.ProductRelationDetail">
+		<result column="RELATION_DETAIL_ID" property="relationDetailId"
+			jdbcType="DECIMAL" />
+		<result column="RELATION_ID" property="relationId" jdbcType="DECIMAL" />
+		<result column="RELATION_SKU_ID" property="relationSkuId"
+			jdbcType="DECIMAL" />
+		<result column="RELATION_SKU_PRICE" property="relationSkuPrice"
+			jdbcType="DECIMAL" />
+		<result column="RELATION_DETAIL_TYPE" property="relationDetailType"
+			jdbcType="DECIMAL" />
+		<result column="PRODUCT_COUNT" property="productCount"
+			jdbcType="DECIMAL" />
+	</resultMap>
+
+	<resultMap id="ibatorgenerated_BaseResultSku" class="com.pltfm.app.vobject.ViewSkuAttr">
+		<result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+		<result column="PRODUCT_SKU_ID" property="productSkuId"
+			jdbcType="DECIMAL" />
+		<result column="PRODUCT_SKU_CODE" property="productSkuCode"
+			jdbcType="VARCHAR" />
+		<result column="CATEGORY_ATTR_ID" property="categoryAttrId"
+			jdbcType="DECIMAL" />
+		<result column="CATEGORY_ATTR_NAME" property="categoryAttrName"
+			jdbcType="VARCHAR" />
+		<result column="CATEGORY_ATTR_VALUE_ID" property="categoryAttrValueId"
+			jdbcType="DECIMAL" />
+		<result column="CATEGORY_ATTR_VALUE" property="categoryAttrValue"
+			jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="CHAR" />
+		<result column="WAREHOUSE_ID" property="warehouseId" jdbcType="DECIMAL" />
+		<result column="WAREHOUSE_NAME" property="warehouseName"
+			jdbcType="VARCHAR" />
+		<result column="SKU_INTRODUCE" property="skuIntroduce"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="ibatorgenerated_BaseResultMapImg" class="com.pltfm.app.vobject.ProductImage" >
+    <result column="IMAGE_ID" property="imageId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_NO" property="productNo" jdbcType="VARCHAR" />
+    <result column="SKU_ID" property="skuId" jdbcType="DECIMAL" />
+    <result column="IS_DEFAULT" property="isDefault" jdbcType="CHAR" />
+    <result column="IMG_PATH" property="imgPath" jdbcType="VARCHAR" />
+    <result column="IMG_PATH1" property="imgPath1" jdbcType="VARCHAR" />
+    <result column="IMG_PATH2" property="imgPath2" jdbcType="VARCHAR" />
+    <result column="IMG_PATH3" property="imgPath3" jdbcType="VARCHAR" />
+    <result column="IMG_PATH4" property="imgPath4" jdbcType="VARCHAR" />
+    <result column="SPC1" property="spc1" jdbcType="VARCHAR" />
+    <result column="SPC2" property="spc2" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+    <result column="IMG_PATH5" property="imgPath5" jdbcType="VARCHAR" />
+    <result column="IMG_PATH6" property="imgPath6" jdbcType="VARCHAR" />
+    <result column="IMG_PATH7" property="imgPath7" jdbcType="VARCHAR" />
+    <result column="SORTNO" property="sortno" jdbcType="DECIMAL" />
+    <result column="IMG_PATH8" property="imgPath8" jdbcType="VARCHAR" />
+    <result column="IMG_PATH9" property="imgPath9" jdbcType="VARCHAR" />
+    <result column="IMG_PATH10" property="imgPath10" jdbcType="VARCHAR" />
+  </resultMap>
+
+	<resultMap id="attrAndValue" class="com.pltfm.app.vobject.ViewSkuAttr">
+		<result column="CATEGORY_ATTR_ID" property="categoryAttrId"
+			jdbcType="DECIMAL" />
+		<result column="CATEGORY_ATTR_VALUE_ID" property="categoryAttrValueId"
+			jdbcType="DECIMAL" />
+	</resultMap>
+	
+<!-- 套餐主表 -->
+	<select id="ibatorgenerated_selectRelation" resultMap="ibatorgenerated_BaseRelation"
+		parameterClass="com.pltfm.app.vobject.ProductRelation">
+		select A.RELATION_ID, A.RELATION_NAME, A.MAIN_SKU_ID, A.MAIN_SKU_PRICE,
+		A.TOTAL_RELATION_PRICE,
+		A.RELATION_TYPE, A.REMARK, A.STATUS, A.DEL_STATUS, A.CREATE_DATE, A.EDITABLE, A.WEB_SITE,
+		A.SUPPLIER_TYPE,
+		A.SUPPLIER_ID, A.SUPPLIER_NAME,
+		(select sum(C.PV_VALUE*B.PRODUCT_COUNT) from product_sku C inner JOIN PRODUCT_RELATION_DETAIL B on B.RELATION_SKU_ID = C.PRODUCT_SKU_ID WHERE b.relation_id=A.relation_id) PV_VALUE,
+		RELATION_INTRODUCE,RELATION_VIDEO,RELATION_INTRO,RELATION_INTRODUCE_LAZY
+		from PRODUCT_RELATION A
+		<dynamic prepend="where">
+	     <isNotNull property="relationId">
+			  <isNotEmpty prepend="and" property="relationId">
+				<![CDATA[ A.RELATION_ID >= #relationId:DECIMAL#]]>
+			  </isNotEmpty>
+	     </isNotNull>
+	        <isNotNull property="mainSkuId">
+			  <isNotEmpty prepend="and" property="mainSkuId">
+				
+				 <![CDATA[ A.RELATION_ID <= #mainSkuId:DECIMAL#]]>
+			  </isNotEmpty>
+	     </isNotNull>
+
+	     
+     </dynamic>
+  </select>
+  
+  <!-- CMS详细页套餐主表 -->
+	<select id="ibatorgenerated_selectCmsRelation" resultMap="ibatorgenerated_BaseCmsRelation"
+		parameterClass="com.pltfm.cms.vobject.CmsProductRelation">
+
+		select m.RELATION_ID, m.RELATION_NAME, m.MAIN_SKU_ID, m.MAIN_SKU_PRICE,
+		m.TOTAL_RELATION_PRICE,
+		m.RELATION_TYPE, m.REMARK, m.STATUS, m.DEL_STATUS, m.CREATE_DATE, m.EDITABLE, WEB_SITE,
+		m.SUPPLIER_TYPE,
+		m.SUPPLIER_ID, m.SUPPLIER_NAME,m.PV_VALUE
+		from PRODUCT_RELATION m, PRODUCT_RELATION_DETAIL d  where  d.relation_id =m.relation_id and  m.STATUS=3
+	     <isNotNull property="mainSkuId">
+			  <isNotEmpty prepend="and" property="mainSkuId">
+				d.RELATION_SKU_ID = #mainSkuId:DECIMAL#
+
+			  </isNotEmpty>
+	     </isNotNull>
+	     
+  </select>
+  
+<!-- 套餐子表 -->
+	<select id="ibatorgenerated_selectRelationDetail" resultMap="ibatorgenerated_BaseRelationDetail"
+		parameterClass="java.lang.Long">
+
+	
+		
+		
+		  select d.RELATION_DETAIL_ID, d.RELATION_ID, d.RELATION_SKU_ID,t.price as RELATION_SKU_PRICE,
+   d. RELATION_DETAIL_TYPE, d.PRODUCT_COUNT
+    from PRODUCT_RELATION_DETAIL d , product_sku  t 
+   
+    where  t.product_sku_id= d.RELATION_SKU_ID and  d.RELATION_ID = #relationId:DECIMAL#
+
+  </select>
+  
+  <!-- sku套餐子表 -->
+	<select id="ibatorgenerated_selectRelationDetailAll" resultMap="ibatorgenerated_BaseRelationDetail"
+		parameterClass="java.lang.Long">
+		select RELATION_DETAIL_ID, RELATION_ID, RELATION_SKU_ID, RELATION_SKU_PRICE,
+		RELATION_DETAIL_TYPE, PRODUCT_COUNT
+		from PRODUCT_RELATION_DETAIL
+		where  RELATION_SKU_ID = #relationSkuId:DECIMAL#
+				
+  </select>
+  
+
+<!-- SKU属性 -->
+	<select id="ibatorgenerated_selectSku" resultMap="ibatorgenerated_BaseResultSku"
+		parameterClass="java.lang.Long">
+		select PRODUCT_ID, PRODUCT_SKU_ID, PRODUCT_SKU_CODE, CATEGORY_ATTR_ID,
+		CATEGORY_ATTR_NAME,
+		CATEGORY_ATTR_VALUE_ID, CATEGORY_ATTR_VALUE, STATUS,WAREHOUSE_ID,WAREHOUSE_NAME,SKU_INTRODUCE
+		from VIEW_SKU_ATTR where PRODUCT_SKU_ID=#productSkuId:DECIMAL#
+	</select>
+	
+  <!-- SKU Img -->
+  <select id="ibatorgenerated_selectByImg" resultMap="ibatorgenerated_BaseResultMapImg" 
+  parameterClass="java.lang.Long" >
+    select IMAGE_ID, PRODUCT_NO, SKU_ID, IS_DEFAULT, IMG_PATH, IMG_PATH1, IMG_PATH2, IMG_PATH3,
+      IMG_PATH4, SPC1, SPC2, PRODUCT_ID, IMG_PATH5, IMG_PATH6, IMG_PATH7, SORTNO, IMG_PATH8,
+      IMG_PATH9, IMG_PATH10
+    from PRODUCT_IMAGE
+    where SKU_ID = #skuId:DECIMAL#
+  </select>
+</sqlMap>

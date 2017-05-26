@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="BnesResPermission" >
+
+  <typeAlias alias="bnesResPermissionDO" type="com.pltfm.app.dataobject.BnesResPermissionDO" />
+  <typeAlias alias="bnesResPermissionQuery" type="com.pltfm.app.vobject.BnesResPermissionQuery" />
+
+  <resultMap id="bnesResPermissionDOResultMap" class="bnesResPermissionDO" >
+    <result property="resPermissionId" column="RES_PERMISSION_ID" />
+    <result property="customerTypeId" column="CUSTOMER_TYPE_ID" />
+    <result property="binesFunctionId" column="BINES_FUNCTION_ID" />
+    <result property="createDate" column="CREATE_DATE" />
+    <result property="createdId" column="CREATED_ID" />
+    <result property="modifyDate" column="MODIFY_DATE" />
+    <result property="modifieId" column="MODIFIE_ID" />
+  </resultMap>
+
+  <resultMap id="bnesResPermissionQueryResultMap" class="bnesResPermissionQuery" >
+    <result property="resPermissionId" column="RES_PERMISSION_ID" />
+    <result property="customerTypeId" column="CUSTOMER_TYPE_ID" />
+    <result property="binesFunctionId" column="BINES_FUNCTION_ID" />
+    <result property="createDate" column="CREATE_DATE" />
+    <result property="createdId" column="CREATED_ID" />
+    <result property="modifyDate" column="MODIFY_DATE" />
+    <result property="modifieId" column="MODIFIE_ID" />
+  </resultMap>
+
+  <sql id="bnesResPermission_columns" >
+    a1.RES_PERMISSION_ID, a1.CUSTOMER_TYPE_ID, a1.BINES_FUNCTION_ID, a1.CREATE_DATE, 
+      a1.CREATED_ID, a1.MODIFY_DATE, a1.MODIFIE_ID
+  </sql>
+
+  <sql id="bnesResPermission_do_columns" >
+    a1.RES_PERMISSION_ID, a1.CUSTOMER_TYPE_ID, a1.BINES_FUNCTION_ID, a1.CREATE_DATE, 
+      a1.CREATED_ID, a1.MODIFY_DATE, a1.MODIFIE_ID
+  </sql>
+
+  <sql id="bnesResPermission_query_columns" >
+    a1.RES_PERMISSION_ID, a1.CUSTOMER_TYPE_ID, a1.BINES_FUNCTION_ID, a1.CREATE_DATE, 
+      a1.CREATED_ID, a1.MODIFY_DATE, a1.MODIFIE_ID
+  </sql>
+
+  <sql id="queryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="resPermissionId" prepend="AND" >
+        <![CDATA[  
+        RES_PERMISSION_ID = #resPermissionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="customerTypeId" prepend="AND" >
+        <![CDATA[  
+        CUSTOMER_TYPE_ID = #customerTypeId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="binesFunctionId" prepend="AND" >
+        <![CDATA[  
+        BINES_FUNCTION_ID = #binesFunctionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="doQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="resPermissionId" prepend="AND" >
+        <![CDATA[  
+        RES_PERMISSION_ID = #resPermissionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="customerTypeId" prepend="AND" >
+        <![CDATA[  
+        CUSTOMER_TYPE_ID = #customerTypeId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="binesFunctionId" prepend="AND" >
+        <![CDATA[  
+        BINES_FUNCTION_ID = #binesFunctionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="queryQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="resPermissionId" prepend="AND" >
+        <![CDATA[  
+        RES_PERMISSION_ID = #resPermissionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="customerTypeId" prepend="AND" >
+        <![CDATA[  
+        CUSTOMER_TYPE_ID = #customerTypeId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="binesFunctionId" prepend="AND" >
+        <![CDATA[  
+        BINES_FUNCTION_ID = #binesFunctionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+ 
+
+  <update id="update" parameterClass="bnesResPermissionDO" >
+    UPDATE BNES_RES_PERMISSION   
+    <dynamic prepend="SET" >
+      <!--
+      <isNotNull property="resPermissionId" prepend="," >
+        <![CDATA[  
+        RES_PERMISSION_ID = #resPermissionId#  
+        ]]>  
+      </isNotNull>
+      -->
+      <isNotNull property="customerTypeId" prepend="," >
+        <![CDATA[  
+        CUSTOMER_TYPE_ID = #customerTypeId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="binesFunctionId" prepend="," >
+        <![CDATA[  
+        BINES_FUNCTION_ID = #binesFunctionId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="," >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="," >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="," >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="," >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+     WHERE RES_PERMISSION_ID = #resPermissionId#  
+  </update>
+
+  <select id="findByPrimaryKey" parameterClass="java.math.BigDecimal" resultMap="bnesResPermissionDOResultMap" >
+     SELECT 
+    <include refid="bnesResPermission_do_columns" />
+    <![CDATA[  
+     FROM BNES_RES_PERMISSION a1 WHERE RES_PERMISSION_ID = #resPermissionId#
+    ]]>  
+  </select>
+
+  <select id="countByDOExample" parameterClass="bnesResPermissionDO" resultClass="java.lang.Integer" >
+    SELECT COUNT(RES_PERMISSION_ID) AS num FROM BNES_RES_PERMISSION 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="findListByDO" resultMap="bnesResPermissionDOResultMap" parameterClass="bnesResPermissionDO" >
+     SELECT 
+    <include refid="bnesResPermission_do_columns" />
+     FROM BNES_RES_PERMISSION a1 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="countByQueryExample" parameterClass="bnesResPermissionQuery" resultClass="java.lang.Integer" >
+    SELECT COUNT(RES_PERMISSION_ID) AS num FROM BNES_RES_PERMISSION 
+    <include refid="queryQueryParams" />
+  </select>
+  
+  <!-- start 增加记录 -->
+   <insert id="insert" parameterClass="com.pltfm.app.vobject.BnesResPermissionQuery" >
+   <selectKey keyProperty="resPermissionId" resultClass="java.lang.Integer" >
+      SELECT SEQ_APP_BUSINESS.NEXTVAL FROM DUAL
+  </selectKey>
+    INSERT INTO BNES_RES_PERMISSION( RES_PERMISSION_ID, CUSTOMER_TYPE_ID, BINES_FUNCTION_ID, CREATE_DATE, CREATED_ID, 
+      MODIFY_DATE, MODIFIE_ID)
+     VALUES ( #resPermissionId#, #customerTypeId#, #binesFunctionId#, #createDate#, #createdId#, 
+      #modifyDate#, #modifieId#)
+  </insert>
+  <!-- end 增加记录 -->
+   <!-- start删除记录 -->
+    <delete id="deleteByPrimaryKey" parameterClass="java.lang.Integer" >
+    <![CDATA[  
+     DELETE FROM BNES_RES_PERMISSION WHERE CUSTOMER_TYPE_ID = #customerTypeId#
+    ]]>  
+  </delete>
+    <!-- end 删除记录 -->
+    <!-- start 获取业务开通权限 -->
+      <select id="findListByQuery" resultMap="bnesResPermissionQueryResultMap" parameterClass="bnesResPermissionQuery" >
+     SELECT 
+    <include refid="bnesResPermission_query_columns" />
+     FROM BNES_RES_PERMISSION a1 
+    <include refid="queryQueryParams" />
+  </select>
+   <!-- start 获取业务开通权限 -->
+</sqlMap>

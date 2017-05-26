@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="COUPON">
+    <typeAlias alias="pagination" type="com.km.framework.page.Pagination"/>
+
+    <resultMap id="baseResultMap" class="com.kmzyc.promotion.app.vobject.Coupon">
+        <result column="COUPON_ID" property="couponId" jdbcType="DECIMAL"/>
+        <result column="COUPON_GIVETYPE_ID" property="couponGivetypeId" jdbcType="DECIMAL"/>
+        <result column="COUPON_NAME" property="couponName" jdbcType="VARCHAR"/>
+        <result column="COUPON_DESCRIBE" property="couponDescribe" jdbcType="VARCHAR"/>
+        <result column="COUPON_MONEY" property="couponMoney" jdbcType="DECIMAL"/>
+        <result column="STARTTIME" property="starttime" jdbcType="date"/>
+        <result column="ENDTIME" property="endtime" jdbcType="date"/>
+        <result column="CREATETIME" property="createtime" jdbcType="VARCHAR"/>
+        <result column="STATUS" property="status" jdbcType="DECIMAL"/>
+        <result column="CUSTOM_LEVEID" property="customLeveid" jdbcType="VARCHAR"/>
+        <result column="CUSTOM_REG_START" property="customRegStart" jdbcType="VARCHAR"/>
+        <result column="CUSTOM_REG_END" property="customRegEnd" jdbcType="VARCHAR"/>
+        <result column="PAY_LEAST_MONEY" property="payLeastMoney" jdbcType="DECIMAL"/>
+        <result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR"/>
+        <result column="CUSTOM_ID" property="customId" jdbcType="VARCHAR"/>
+        <result column="IS_GRANT" property="isGrant" jdbcType="VARCHAR"/>
+        <result column="COUPON_VALID_DAY" property="couponValidDay" jdbcType="DECIMAL"/>
+        <result column="IS_VALIDE" property="isValide" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 分页查询 -->
+    <select id="selectCouponList" resultMap="baseResultMap" parameterClass="pagination">
+        <![CDATA[
+          SELECT * FROM (SELECT t.*, ROWNUM RN FROM (select * from COUPON c   
+		]]>
+        <dynamic prepend="WHERE">
+            <![CDATA[
+			 		STATUS in (1,2) 
+				]]>
+        </dynamic>
+        <dynamic prepend="AND">
+            <isNotEmpty property="objCondition.couponName">
+                <![CDATA[
+					COUPON_NAME like '%'||#objCondition.couponName:VARCHAR#||'%'
+				]]>
+            </isNotEmpty>
+        </dynamic>
+
+        <dynamic prepend="AND">
+            <isNotEmpty property="objCondition.channel">
+                <![CDATA[
+					channel  = #objCondition.channel:VARCHAR#
+				]]>
+            </isNotEmpty>
+        </dynamic>
+        <dynamic prepend="AND">
+            <isNotEmpty property="objCondition.shopCode">
+                <![CDATA[
+					SHOP_CODE  = #objCondition.shopCode:VARCHAR#
+				]]>
+            </isNotEmpty>
+        </dynamic>
+        <![CDATA[
+		ORDER BY COUPON_ID DESC ) t 
+		WHERE  ROWNUM <= $endindex$ ) WHERE RN >= #startindex# 
+		]]>
+    </select>
+
+    <!-- 查询总条数 -->
+    <select id="selectCouponCount" parameterClass="pagination" resultClass="java.lang.Integer">
+        <![CDATA[
+          SELECT COUNT(COUPON_ID) FROM (SELECT t.*, ROWNUM RN FROM (select * from COUPON   
+		]]>
+        <dynamic prepend="WHERE">
+            <![CDATA[
+			 		STATUS in (1,2) 
+				]]>
+        </dynamic>
+        <dynamic prepend="AND">
+            <isNotEmpty property="objCondition.couponName">
+                <![CDATA[
+					COUPON_NAME like '%'||#objCondition.couponName:VARCHAR#||'%'
+				]]>
+            </isNotEmpty>
+        </dynamic>
+        <dynamic prepend="AND">
+            <isNotEmpty property="objCondition.shopCode">
+                <![CDATA[
+					SHOP_CODE  = #objCondition.shopCode:VARCHAR#
+				]]>
+            </isNotEmpty>
+        </dynamic>
+        <dynamic prepend="AND">
+            <isNotEmpty property="objCondition.channel">
+                <![CDATA[
+					channel  = #objCondition.channel:VARCHAR#
+				]]>
+            </isNotEmpty>
+        </dynamic>
+        <![CDATA[
+		ORDER BY COUPON_ID DESC ) t 
+		WHERE  	1= 1 ) WHERE 1= 1
+		]]>
+    </select>
+
+</sqlMap>

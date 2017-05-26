@@ -1,0 +1,26 @@
+#created on: 2011-11-23
+package ruls
+
+#list any import classes here.
+
+#import com.km.framework.mq.bean.KmMsg;
+#import com.pltfm.app.cmds.CompanyCmd;
+#declare any global variables here
+	#dialect "mvel"
+
+	#接收编码1000报文后保存入存
+	#rule "saveCompany" no-loop true
+	#when
+	#    $m : KmMsg(msgCode=="1000")
+	#then
+	#	System.out.println("====================");
+	#    CompanyCmd.addCompany($m);
+	#end
+
+	#编码为1001为回复消息
+	#rule "replysaveCompany" no-loop true
+	#when
+	#    $m : KmMsg(msgCode=="1001")
+	#then
+	#    CompanyCmd.replyaddCompany($m);
+	#end

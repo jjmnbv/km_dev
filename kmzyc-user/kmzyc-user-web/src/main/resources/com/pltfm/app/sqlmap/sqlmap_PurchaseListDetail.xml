@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="PurchaseListDetail" >
+
+  <typeAlias alias="purchaseListDetailDO" type="com.pltfm.app.vobject.PurchaseListDetailDO" />
+
+  <resultMap id="purchaseListDetailDOResultMap" class="purchaseListDetailDO" >
+    <result property="purchaseDetailId" column="PURCHASE_DETAIL_ID" />
+    <result property="purchaseId" column="PURCHASE_ID" />
+    <result property="skuCode" column="SKU_CODE" />
+     <result property="productTitle" column="PRODUCT_TITLE" />
+     <result property="channel" column="CHANNEL" />
+     <result property="frandName" column="BRAND_NAME" />
+     <result property="status" column="STATUS" />
+     <result property="col" column="COL" />
+    <result property="productCount" column="PRODUCT_COUNT" />
+    
+    <result property="productPrice" column="PRODUCT_PRICE" />
+    
+    <result property="amount" column="AMOUNT" />
+  </resultMap>
+  
+    <resultMap id="purchaseListDetailsResultMap" class="purchaseListDetailDO" >
+    <result property="categoryId" column="CATEGORY_ID" />
+    <result property="skuCode" column="SKU_CODE" />
+     <result property="productTitle" column="PRODUCT_TITLE" />
+     <result property="channel" column="CHANNEL" />
+     <result property="frandName" column="BRAND_NAME" />
+     <result property="status" column="STATUS" />
+     <result property="col" column="COL" />  
+    <result property="productPrice" column="PRODUCT_PRICE" />
+    
+    
+    
+  </resultMap>
+
+  <sql id="purchaseListDetail_columns" >
+    a1.PURCHASE_DETAIL_ID, a1.PURCHASE_ID, a1.SKU_CODE, a1.PRODUCT_PRICE, a1.PRODUCT_COUNT, 
+      a1.AMOUNT
+  </sql>
+
+  <sql id="purchaseListDetail_do_columns" >
+    a1.PURCHASE_DETAIL_ID, a1.PURCHASE_ID, a1.SKU_CODE, a1.PRODUCT_PRICE, a1.PRODUCT_COUNT, 
+      a1.AMOUNT
+  </sql>
+
+  <sql id="queryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="purchaseDetailId" prepend="AND" >
+        <![CDATA[  
+        PURCHASE_DETAIL_ID = #purchaseDetailId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="purchaseId" prepend="AND" >
+        <![CDATA[  
+        PURCHASE_ID = #purchaseId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="skuCode" prepend="AND" >
+        <![CDATA[  
+        SKU_CODE = #skuCode#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="productPrice" prepend="AND" >
+        <![CDATA[  
+        PRODUCT_PRICE = #productPrice#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="productCount" prepend="AND" >
+        <![CDATA[  
+        PRODUCT_COUNT = #productCount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="amount" prepend="AND" >
+        <![CDATA[  
+        AMOUNT = #amount#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="doQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="purchaseDetailId" prepend="AND" >
+        <![CDATA[  
+        PURCHASE_DETAIL_ID = #purchaseDetailId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="purchaseId" prepend="AND" >
+        <![CDATA[  
+        PURCHASE_ID = #purchaseId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="skuCode" prepend="AND" >
+        <![CDATA[  
+        SKU_CODE = #skuCode#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="productPrice" prepend="AND" >
+        <![CDATA[  
+        PRODUCT_PRICE = #productPrice#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="productCount" prepend="AND" >
+        <![CDATA[  
+        PRODUCT_COUNT = #productCount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="amount" prepend="AND" >
+        <![CDATA[  
+        AMOUNT = #amount#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <insert id="insert" parameterClass="purchaseListDetailDO" >
+    <selectKey resultClass="java.math.BigDecimal" keyProperty="purchaseDetailId" >
+           select SEQ_APP_PURCHASE_LIST_DETAIL.nextval from dual
+      </selectKey>
+    
+    INSERT INTO PURCHASE_LIST_DETAIL( PURCHASE_DETAIL_ID, PURCHASE_ID, SKU_CODE, PRODUCT_PRICE, PRODUCT_COUNT, 
+      AMOUNT)
+     VALUES ( #purchaseDetailId#, #purchaseId#, #skuCode#, #productPrice#, #productCount#, 
+      #amount#)
+  </insert>
+
+  <update id="update" parameterClass="purchaseListDetailDO" >
+    UPDATE PURCHASE_LIST_DETAIL   
+    <dynamic prepend="SET" >
+      <!--
+      <isNotNull property="purchaseDetailId" prepend="," >
+        <![CDATA[  
+        PURCHASE_DETAIL_ID = #purchaseDetailId#  
+        ]]>  
+      </isNotNull>
+      -->
+      <isNotNull property="purchaseId" prepend="," >
+        <![CDATA[  
+        PURCHASE_ID = #purchaseId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="skuCode" prepend="," >
+        <![CDATA[  
+        SKU_CODE = #skuCode#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="productPrice" prepend="," >
+        <![CDATA[  
+        PRODUCT_PRICE = #productPrice#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="productCount" prepend="," >
+        <![CDATA[  
+        PRODUCT_COUNT = #productCount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="amount" prepend="," >
+        <![CDATA[  
+        AMOUNT = #amount#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+     WHERE PURCHASE_DETAIL_ID = #purchaseDetailId#  
+  </update>
+
+  <select id="findByPrimaryKey" parameterClass="java.math.BigDecimal" resultMap="purchaseListDetailDOResultMap" >
+     SELECT 
+    <include refid="purchaseListDetail_do_columns" />
+    <![CDATA[  
+     FROM PURCHASE_LIST_DETAIL a1 WHERE PURCHASE_DETAIL_ID = #purchaseDetailId#
+    ]]>  
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterClass="java.math.BigDecimal" >
+    <![CDATA[  
+     DELETE FROM PURCHASE_LIST_DETAIL WHERE PURCHASE_DETAIL_ID = #purchaseDetailId#
+    ]]>  
+  </delete>
+  
+   <delete id="deleteByPurchaseIdKey" parameterClass="java.math.BigDecimal" >
+    <![CDATA[  
+     DELETE FROM PURCHASE_LIST_DETAIL WHERE PURCHASE_ID = #purchaseId#
+    ]]>  
+  </delete>
+
+  <select id="countByDOExample" parameterClass="purchaseListDetailDO" resultClass="java.lang.Integer" >
+    SELECT COUNT(PURCHASE_DETAIL_ID) AS num FROM PURCHASE_LIST_DETAIL 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="findListByDO" resultMap="purchaseListDetailDOResultMap" parameterClass="purchaseListDetailDO" >
+     select a1.PURCHASE_DETAIL_ID,
+       a1.PURCHASE_ID,
+       a1.SKU_CODE,
+       a1.PRODUCT_PRICE,
+       a1.PRODUCT_COUNT,
+        a1.PRODUCT_PRICE*a1.PRODUCT_COUNT as AMOUNT,
+       a1.PRODUCT_TITLE,
+       a1.CHANNEL,
+       a1.BRAND_NAME,
+       a1.STATUS,
+       a1.COL
+  from (select pd.PURCHASE_DETAIL_ID,
+               pd.PURCHASE_ID,
+               ps.product_sku_code   as SKU_CODE,
+               p.product_title       as product_title,
+               p.CHANNEL             CHANNEL,
+               p.brand_name          brand_name,
+               p.status,
+               ps.price              PRODUCT_PRICE,
+               pd.PRODUCT_COUNT,
+               ta_temp.col           as col,
+               pd.AMOUNT
+        
+          from  product_sku ps
+         inner join PURCHASE_LIST_DETAIL pd
+            on ps.product_sku_code = pd.sku_code
+        
+         inner join  productmain p
+            on ps.product_id = p.product_id
+         inner join (select temp.product_sku_id,
+                           wm_concat(temp.CATEGORY_ATTR_VALUE) col
+                      from (select ps1.product_sku_id,
+                                   cav.CATEGORY_ATTR_VALUE
+                              from  product_sku ps1
+                              left join  product_sku_attr psa
+                                on psa.product_sku_id = ps1.product_sku_id
+                              left join  category_attr_value cav
+                                on cav.CATEGORY_ATTR_ID =
+                                   psa.CATEGORY_ATTR_ID
+                               and psa.CATEGORY_ATTR_VALUE_ID =
+                                   cav.CATEGORY_ATTR_VALUE_ID) temp
+                     group by temp.product_sku_id) ta_temp
+            on ps.product_sku_id = ta_temp.product_sku_id
+         inner join (select ct.CORPORATE_NAME, si.supplier_id
+                      from  suppliers_info si
+                     inner join commercial_tenant_basic_info ct
+                        on ct.N_COMMERCIAL_TENANT_ID = si.merchant_id) mer
+            on to_char(mer.supplier_id) = p.shop_code) a1
+    <dynamic prepend="WHERE" >
+      <isNotNull property="purchaseDetailId" prepend="AND" >
+        <![CDATA[  
+        PURCHASE_DETAIL_ID = #purchaseDetailId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="purchaseId" prepend="AND" >
+        <![CDATA[  
+        PURCHASE_ID = #purchaseId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="skuCode" prepend="AND" >
+        <![CDATA[  
+        SKU_CODE = #skuCode#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="productPrice" prepend="AND" >
+        <![CDATA[  
+        PRODUCT_PRICE = #productPrice#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="productCount" prepend="AND" >
+        <![CDATA[  
+        PRODUCT_COUNT = #productCount#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="amount" prepend="AND" >
+        <![CDATA[  
+        AMOUNT = #amount#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </select>
+  
+    <select id="findListByPurchaseList" resultMap="purchaseListDetailsResultMap" parameterClass="purchaseListDetailDO" >
+ select CATEGORY_ID,
+        SKU_CODE,
+        PRODUCT_PRICE,
+        PRODUCT_TITLE,
+        CHANNEL,
+        BRAND_NAME,
+        STATUS,
+        COL,
+        SHOP_CODE,
+        supplier_type
+   from (select ROW_NUMBER() OVER(order by a1.CATEGORY_ID desc) as view_row_number,
+                a1.CATEGORY_ID,
+                a1.SKU_CODE,
+                a1.PRODUCT_PRICE,
+                a1.PRODUCT_TITLE,
+                a1.CHANNEL,
+                a1.BRAND_NAME,
+                a1.STATUS,
+                a1.COL,
+                a1.SHOP_CODE,
+                a1.supplier_type
+           from (select p.category_id,
+                        ps.product_sku_code as SKU_CODE,
+                        p.product_title     as product_title,
+                        p.CHANNEL           CHANNEL,
+                        p.brand_name        brand_name,
+                        p.status,
+                        ps.price            PRODUCT_PRICE,
+                        
+                        ta_temp.col as col,
+                        P.SHOP_CODE,
+                        mer.supplier_type
+                 
+                   from  product_sku ps
+                 
+                  inner join  productmain p
+                     on ps.product_id = p.product_id
+                  inner join (select temp.product_sku_id,
+                                    wm_concat(temp.CATEGORY_ATTR_VALUE) col
+                               from (select ps1.product_sku_id,
+                                            cav.CATEGORY_ATTR_VALUE
+                                       from  product_sku ps1
+                                       left join  product_sku_attr psa
+                                         on psa.product_sku_id =
+                                            ps1.product_sku_id
+                                       left join  category_attr_value cav
+                                         on cav.CATEGORY_ATTR_ID =
+                                            psa.CATEGORY_ATTR_ID
+                                        and psa.CATEGORY_ATTR_VALUE_ID =
+                                            cav.CATEGORY_ATTR_VALUE_ID) temp
+                              group by temp.product_sku_id) ta_temp
+                     on ps.product_sku_id = ta_temp.product_sku_id
+                  inner join (select ct.CORPORATE_NAME, si.supplier_id,si.supplier_type
+                               from  suppliers_info si
+                              inner join commercial_tenant_basic_info ct
+                                 on ct.N_COMMERCIAL_TENANT_ID =
+                                    si.merchant_id) mer
+                     on to_char(mer.supplier_id) = p.shop_code) a1
+                    <dynamic prepend="WHERE" >
+                <!--     <isNotNull property="categoryId" >
+                    <isNotEmpty property="categoryId" prepend="AND">
+        <![CDATA[  
+         a1.category_id in
+               (select tp.category_id
+                  from  categorys tp
+                 start with tp.category_id =#categoryId#
+                connect by prior tp.category_id = tp.parent_id)
+        ]]>  
+        </isNotEmpty>
+      </isNotNull> -->
+      
+      <isNotNull property="shopCode"  >
+        <isNotEmpty property="shopCode" prepend="AND">
+        <![CDATA[  
+         a1.SHOP_CODE in ($shopCode$) 
+        ]]>  
+        </isNotEmpty>
+      </isNotNull>
+       <isNotNull property="skuCode"  >
+        <isNotEmpty property="skuCode" prepend="AND">
+        <![CDATA[  
+         a1.SKU_CODE like '%$skuCode$%' 
+        ]]>  
+        </isNotEmpty>
+      </isNotNull>
+      
+      <isNotNull property="supplierType"  >
+        <isNotEmpty property="supplierType" prepend="AND">
+        <![CDATA[  
+         a1.supplier_type in ($supplierType$) 
+        ]]>  
+        </isNotEmpty>
+      </isNotNull>
+      
+      <isNotNull property="productTitle"  >
+        <isNotEmpty property="productTitle" prepend="AND">
+        <![CDATA[  
+         a1.PRODUCT_TITLE like '%$productTitle$%' 
+        ]]>  
+        </isNotEmpty>
+      </isNotNull>
+         
+                </dynamic>
+ )
+ <![CDATA[ where view_row_number <= #max# and view_row_number > #skip# ]]>
+    </select>
+    <select id="countListByPurchaseList" parameterClass="purchaseListDetailDO" resultClass="java.lang.Integer" > 
+    select count(1) as num
+  from (select ROW_NUMBER() OVER(order by a1.CATEGORY_ID desc) as view_row_number,
+               a1.CATEGORY_ID,
+               a1.SKU_CODE,
+               a1.PRODUCT_PRICE,
+               a1.PRODUCT_TITLE,
+               a1.CHANNEL,
+               a1.BRAND_NAME,
+               a1.STATUS,
+               a1.COL,
+       			a1.SHOP_CODE,
+                a1.supplier_type
+          from (select p.category_id,
+                       ps.product_sku_code as SKU_CODE,
+                       p.product_title     as product_title,
+                       p.CHANNEL           CHANNEL,
+                       p.brand_name        brand_name,
+                       p.status,
+                       ps.price            PRODUCT_PRICE,
+                       
+                       ta_temp.col as col,
+                       P.SHOP_CODE,
+                        mer.supplier_type
+                
+                  from  product_sku ps
+                
+                 inner join  productmain p
+                    on ps.product_id = p.product_id
+                 inner join (select temp.product_sku_id,
+                                   wm_concat(temp.CATEGORY_ATTR_VALUE) col
+                              from (select ps1.product_sku_id,
+                                           cav.CATEGORY_ATTR_VALUE
+                                      from  product_sku ps1
+                                      left join  product_sku_attr psa
+                                        on psa.product_sku_id =
+                                           ps1.product_sku_id
+                                      left join  category_attr_value cav
+                                        on cav.CATEGORY_ATTR_ID =
+                                           psa.CATEGORY_ATTR_ID
+                                       and psa.CATEGORY_ATTR_VALUE_ID =
+                                           cav.CATEGORY_ATTR_VALUE_ID) temp
+                             group by temp.product_sku_id) ta_temp
+                    on ps.product_sku_id = ta_temp.product_sku_id
+                 inner join (select ct.CORPORATE_NAME, si.supplier_id,si.supplier_type
+                              from  suppliers_info si
+                             inner join commercial_tenant_basic_info ct
+                                on ct.N_COMMERCIAL_TENANT_ID = si.merchant_id) mer
+                    on to_char(mer.supplier_id) = p.shop_code) a1
+                    <dynamic prepend="WHERE" >
+                 <!--    <isNotNull property="categoryId" >
+                    <isNotEmpty property="categoryId" prepend="AND">
+        <![CDATA[  
+         a1.category_id in
+               (select tp.category_id
+                  from  categorys tp
+                 start with tp.category_id =#categoryId#
+                connect by prior tp.category_id = tp.parent_id)
+        ]]>  
+        </isNotEmpty>
+      </isNotNull> -->
+        <isNotNull property="shopCode"  >
+        <isNotEmpty property="shopCode" prepend="AND">
+        <![CDATA[  
+         a1.SHOP_CODE in ($shopCode$) 
+        ]]>  
+        </isNotEmpty>
+      </isNotNull>
+      
+       <isNotNull property="supplierType"  >
+        <isNotEmpty property="supplierType" prepend="AND">
+        <![CDATA[  
+         a1.supplier_type in ($supplierType$) 
+        ]]>  
+        </isNotEmpty>
+      </isNotNull>
+      
+       <isNotNull property="skuCode"  >
+        <isNotEmpty property="skuCode" prepend="AND">
+        <![CDATA[  
+         a1.SKU_CODE like '%$skuCode$%' 
+        ]]>  
+        </isNotEmpty>
+      </isNotNull>
+      <isNotNull property="productTitle"  >
+        <isNotEmpty property="productTitle" prepend="AND">
+        <![CDATA[  
+         a1.PRODUCT_TITLE like '%$productTitle$%' 
+        ]]>  
+        </isNotEmpty>
+      </isNotNull>
+                </dynamic>
+ )
+    </select>
+    
+      <select id="findListByKey" resultMap="purchaseListDetailsResultMap" parameterClass="java.math.BigDecimal" >
+    select CATEGORY_ID,
+       SKU_CODE,
+       PRODUCT_PRICE,
+       PRODUCT_TITLE,
+       CHANNEL,
+       BRAND_NAME,
+       STATUS,
+       COL
+  from (select ROW_NUMBER() OVER(order by a1.CATEGORY_ID desc) as view_row_number,
+               a1.CATEGORY_ID,
+               a1.SKU_CODE,
+               a1.PRODUCT_PRICE,
+               a1.PRODUCT_TITLE,
+               a1.CHANNEL,
+               a1.BRAND_NAME,
+               a1.STATUS,
+               a1.COL,
+               a1.SHOP_CODE
+          from (select p.category_id,
+                       ps.product_sku_code as SKU_CODE,
+                       p.product_title     as product_title,
+                       p.CHANNEL           CHANNEL,
+                       p.brand_name        brand_name,
+                       p.status,
+                       ps.price            PRODUCT_PRICE,
+                       
+                       ta_temp.col as col,
+                       P.SHOP_CODE
+                  from  product_sku ps
+                
+                 inner join  productmain p
+                    on ps.product_id = p.product_id
+                 inner join (select temp.product_sku_id,
+                                   wm_concat(temp.CATEGORY_ATTR_VALUE) col
+                              from (select ps1.product_sku_id,
+                                           cav.CATEGORY_ATTR_VALUE
+                                      from  product_sku ps1
+                                      left join  product_sku_attr psa
+                                        on psa.product_sku_id =
+                                           ps1.product_sku_id
+                                      left join  category_attr_value cav
+                                        on cav.CATEGORY_ATTR_ID =
+                                           psa.CATEGORY_ATTR_ID
+                                       and psa.CATEGORY_ATTR_VALUE_ID =
+                                           cav.CATEGORY_ATTR_VALUE_ID) temp
+                             group by temp.product_sku_id) ta_temp
+                    on ps.product_sku_id = ta_temp.product_sku_id
+                 inner join (select ct.CORPORATE_NAME, si.supplier_id
+                              from  suppliers_info si
+                             inner join commercial_tenant_basic_info ct
+                                on ct.N_COMMERCIAL_TENANT_ID = si.merchant_id) mer
+                    on to_char(mer.supplier_id) = p.shop_code) a1
+                   
+          
+      
+        <![CDATA[  
+        where 
+         a1.SKU_CODE in (select ct.relate_code
+                                   from crule8_extent ct
+                                  where ct.crule8_id = #parameterDetailId#
+                                    and ct.type = 2)
+        ]]>  
+        
+      
+             
+ )
+ 
+    </select>
+</sqlMap>

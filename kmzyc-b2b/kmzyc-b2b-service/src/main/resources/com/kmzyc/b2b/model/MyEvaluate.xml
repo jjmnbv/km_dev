@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="myEvaluate">
+	<typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+	<resultMap id="orderInfo" class="com.kmzyc.b2b.vo.OrderInfo" groupBy="orderId" >
+	    <result column="ORDER_ID" property="orderId" jdbcType="DECIMAL" />
+	    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+	    <result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+	    <result column="ASSESS_STATUS" property="assessStatus" jdbcType="DECIMAL" />
+	    <result property="commodities" resultMap="myEvaluate.commodity"/>
+	</resultMap>
+	
+	<resultMap id="commodity" class="com.kmzyc.b2b.vo.Commodity" groupBy="skuId">
+		<result column="PRODUCT_SKU_ID" property="skuId" jdbcType="DECIMAL" />
+	    <result column="COMMODITY_TITLE" property="commodityName" jdbcType="VARCHAR" />
+	    <result column="IMG_PATH7" property="imgPath" jdbcType="VARCHAR" />
+	    <result column="POINT" property="point" jdbcType="DECIMAL" />
+   		<result column="APPRAISE_CONTENT" property="apprContent" jdbcType="VARCHAR" />
+   		<result column="ADDTO_CONTENT" property="addToContent" jdbcType="VARCHAR" />
+    	<result property="attrValues" resultMap="myEvaluate.attributeValue"/>
+    </resultMap>
+    
+    <resultMap id="attributeValue" class="com.kmzyc.b2b.vo.AttributeValue">
+	    <result column="CATEGORY_ATTR_NAME" property="attribute" jdbcType="VARCHAR" />
+	    <result column="CATEGORY_ATTR_VALUE" property="value" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="byCondition">
+		   om.customer_id = #objCondition.userId:DECIMAL#
+		   and om.assess_status = #objCondition.assessStatus#
+	</sql>
+    
+    
+    <select id="queryMyAppraise" resultMap="orderInfo" parameterClass="pagination" >
+    <![CDATA[
+    	select c.*,
+	       oi.commodity_title,
+	       ps.product_sku_id,
+	       pi.img_path7,
+	       psa.category_attr_name,
+	       cav.category_attr_value,
+	       pa.point,
+	       pa.appraise_content,
+	       pa.addto_content
+	  from (select b.order_id, b.order_code, b.create_date, b.assess_status
+	          from (select a.*, rownum rn
+	                  from (select om.order_id,
+	                               om.order_code,
+	                               om.create_date,
+	                               om.assess_status
+	                          from order_main om
+	                           ]]>
+	                           <dynamic prepend="where">
+	                           		<include refid="byCondition"/>
+	                           </dynamic>
+	                            <![CDATA[
+	                         and om.order_status = 6
+	                         order by om.create_date desc) a
+	                 where rownum <= #endindex:DECIMAL#) b
+	         where b.rn >= #startindex:DECIMAL#) c
+	  left join order_item oi
+	    on (c.order_code = oi.order_code)
+	  left join product_sku ps
+	    on (ps.product_sku_code = oi.commodity_sku)
+	  left join product_image pi
+	    on (ps.product_sku_id = pi.sku_id)
+	  left join product_sku_attr psa
+	    on (ps.product_sku_id = psa.product_sku_id)
+	  left join category_attr_value cav
+	    on (psa.category_attr_value_id = cav.category_attr_value_id)
+	  left join prod_appraise pa
+	    on (oi.order_item_id = pa.order_detail_id)
+	    where pi.is_default = 0 or pi.is_default is null
+	     order by c.create_date desc
+	    
+	  ]]>
+    </select>
+    
+    <select id="queryMyAppraiseCount" parameterClass="pagination" resultClass="java.lang.Integer" >
+    	select count(1)
+          from order_main om
+       <dynamic prepend="where">
+                <include refid="byCondition"/>
+       </dynamic>
+           and om.order_status = 6
+    </select>
+    
+</sqlMap>

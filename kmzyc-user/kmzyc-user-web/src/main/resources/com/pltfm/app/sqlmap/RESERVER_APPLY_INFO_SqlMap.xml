@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="RESERVER_APPLY_INFO" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.pltfm.app.vobject.ReserverApplyInfo" >
+    <result column="apply_notes_id" property="applyNotesId" jdbcType="DECIMAL" />
+    <result column="reserve_id" property="reserveId" jdbcType="DECIMAL" />
+    <result column="login_Id" property="loginId" jdbcType="DECIMAL" />
+    <result column="apply_type" property="applyType" jdbcType="DECIMAL" />
+    <result column="apply_limit" property="applyLimit" jdbcType="DECIMAL" />
+    <result column="original_limit" property="originalLimit" jdbcType="DECIMAL" />
+    <result column="settlement_type" property="settlementType" jdbcType="DECIMAL" />
+    <result column="contact" property="contact" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="apply_date" property="applyDate"  />
+    <result column="auditing_date" property="auditingDate"  />
+    <result column="status" property="status" jdbcType="DECIMAL" />
+    <result column="auditing_id" property="auditingId" jdbcType="DECIMAL" />
+    <result column="auditing_remark" property="auditingRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ibatorgenerated_BaseResultMapObj" class="com.pltfm.app.vobject.ReserverApplyInfo" extends="ibatorgenerated_BaseResultMap">
+  	<result column="account_login" property="accountLogin" jdbcType="VARCHAR" />
+  	<result column="corporate_name" property="corporateName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 分页条件查询预备金审核列表 -->
+  <select id="ibatorgenerated_selectByApplyInfo" resultMap="ibatorgenerated_BaseResultMapObj" parameterClass="com.pltfm.app.vobject.ReserverApplyInfo">
+  	<![CDATA[
+  	select * from (select ROW_NUMBER() OVER(order by apply_notes_id desc) as view_row_number,i.apply_notes_id,i.reserve_id,
+    i.login_Id,i.apply_type,i.apply_limit,i.original_limit,i.settlement_type,i.contact,i.phone,i.description,
+    i.apply_date,i.auditing_date,i.status,i.auditing_id,i.auditing_remark,a.account_login,c.corporate_name from 
+    reserver_apply_info i,account_info a,COMMERCIAL_TENANT_BASIC_INFO c,login_rose_rel l 
+    where i.login_id=a.n_login_id and i.login_id=c.n_login_id and c.n_commercial_tenant_id=l.n_commercial_id and l.n_customer_type_id=4
+  	]]>
+    <isNotNull property="accountLogin">
+	     <isNotEmpty prepend="AND" property="accountLogin"> 
+		    <![CDATA[
+		          a.account_login like '%$accountLogin$%'
+		    ]]>
+	    </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="applyType">
+	    <isNotEmpty prepend="AND" property="applyType"> 
+		    <![CDATA[
+		           i.apply_type like '%$applyType$%'
+		    ]]>
+	    </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="phone">
+	    <isNotEmpty prepend="AND" property="phone"> 
+		    <![CDATA[
+		           i.phone like '%$phone$%'
+		    ]]>
+	    </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="startDate">
+	    <isNotEmpty prepend="AND" property="startDate"> 
+		    <![CDATA[
+		           i.apply_date >= #startDate#
+		     ]]>
+		 </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="endDate">
+    	<isNotEmpty prepend="AND" property="endDate"> 
+		    <![CDATA[
+		           i.apply_date <= #endDate#
+		           ]]>
+		 </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="status">
+	    <isNotEmpty prepend="AND" property="status"> 
+		    <![CDATA[
+		          i.status = #status#
+		           ]]>
+        </isNotEmpty>
+    </isNotNull>
+  	) 
+	<![CDATA[where view_row_number > #minNum# and view_row_number <= #maxNum#]]>
+  </select>
+  
+  <!-- 预备金审核列表总数 -->
+  <select id="ibatorgenerated_selectCountByApplyInfo" parameterClass="com.pltfm.app.vobject.ReserverApplyInfo" resultClass="java.lang.Integer">
+  	<![CDATA[
+  	select count(*) from  reserver_apply_info i,account_info a,COMMERCIAL_TENANT_BASIC_INFO c,login_rose_rel l 
+  	 where i.login_id=a.n_login_id and i.login_id=c.n_login_id and c.n_commercial_tenant_id=l.n_commercial_id and l.n_customer_type_id=4
+  	 ]]>
+    <isNotNull property="accountLogin">
+	     <isNotEmpty prepend="AND" property="accountLogin"> 
+		    <![CDATA[
+		           a.account_login like '%$accountLogin$%'
+		    ]]>
+	    </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="applyType">
+	    <isNotEmpty prepend="AND" property="applyType"> 
+		    <![CDATA[
+		           i.apply_type like '%$applyType$%'
+		    ]]>
+	    </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="phone">
+	    <isNotEmpty prepend="AND" property="phone"> 
+		    <![CDATA[
+		           i.phone like '%$phone$%'
+		    ]]>
+	    </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="startDate">
+	    <isNotEmpty prepend="AND" property="startDate"> 
+		    <![CDATA[
+		           i.apply_date >= #startDate#
+		     ]]>
+		 </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="endDate">
+    	<isNotEmpty prepend="AND" property="endDate"> 
+		    <![CDATA[
+		           i.apply_date <= #endDate#
+		           ]]>
+		 </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="status">
+	    <isNotEmpty prepend="AND" property="status"> 
+		    <![CDATA[
+		          i.status = #status#
+		           ]]>
+        </isNotEmpty>
+    </isNotNull>
+  </select>
+  
+  <!-- 根据预备金申请id查询申请列表 -->
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMapObj" parameterClass="com.pltfm.app.vobject.ReserverApplyInfo" >
+    select i.apply_notes_id,i.reserve_id,
+    i.login_Id,i.apply_type,i.apply_limit,i.original_limit,i.settlement_type,i.contact,i.phone,i.description,
+    i.apply_date,i.auditing_date,i.status,i.auditing_id,i.auditing_remark,a.account_login,c.corporate_name from 
+    reserver_apply_info i,account_info a,COMMERCIAL_TENANT_BASIC_INFO c,login_rose_rel l 
+    where i.login_id=a.n_login_id and i.login_id=c.n_login_id and c.n_commercial_tenant_id=l.n_commercial_id and l.n_customer_type_id=4
+     <isNotNull property="applyNotesId">
+	    <isNotEmpty prepend="AND" property="applyNotesId"> 
+		    <![CDATA[
+		         apply_notes_id = #applyNotesId:DECIMAL#
+		           ]]>
+        </isNotEmpty>
+    </isNotNull>
+    <isNotNull property="loginId">
+	    <isNotEmpty prepend="AND" property="loginId"> 
+		    <![CDATA[
+		         login_Id = #loginId:DECIMAL#
+		           ]]>
+        </isNotEmpty>
+    </isNotNull>
+  </select>
+  <!-- 根据预备金申请Id删除申请记录 -->
+  <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="com.pltfm.app.vobject.ReserverApplyInfo" >
+    delete from RESERVER_APPLY_INFO
+    where apply_notes_id = #applyNotesId:DECIMAL#
+  </delete>
+ <!-- 添加预备金申请记录 -->
+  <insert id="ibatorgenerated_insertSelective" parameterClass="com.pltfm.app.vobject.ReserverApplyInfo" > 
+   	 <selectKey resultClass="java.math.BigDecimal" keyProperty="applyNotesId" >
+           select RESEVER_APPLYNOTES.nextval from dual
+      </selectKey>
+     insert into RESERVER_APPLY_INFO (APPLY_NOTES_ID, RESERVE_ID, LOGIN_ID, APPLY_TYPE, APPLY_LIMIT,
+      ORIGINAL_LIMIT, SETTLEMENT_TYPE, CONTACT, PHONE, DESCRIPTION, APPLY_DATE, AUDITING_DATE,
+      STATUS, AUDITING_ID, AUDITING_REMARK)
+    values (#applyNotesId:DECIMAL#, #reserveId:DECIMAL#, #loginId:DECIMAL#, #applyType:DECIMAL#,
+      #applyLimit:DECIMAL#, #originalLimit:DECIMAL#, #settlementType:DECIMAL#, #contact:VARCHAR#,
+      #phone:VARCHAR#, #description:VARCHAR#, #applyDate#, #auditingDate#,
+      #status:DECIMAL#, #auditingId:DECIMAL#, #auditingRemark:VARCHAR#)
+  </insert>
+  <!-- 根据预备金申请id修改申请记录 -->
+  <update id="ibatorgenerated_updateByPrimaryKey" parameterClass="com.pltfm.app.vobject.ReserverApplyInfo" >
+    update RESERVER_APPLY_INFO
+    <dynamic prepend="set">
+    <isNotEmpty property="reserveId"> 
+	      <isNotNull prepend="," property="reserveId">
+	        RESERVE_ID = #reserveId:DECIMAL#
+	      </isNotNull>
+    </isNotEmpty>
+    <isNotEmpty property="loginId"> 
+	      <isNotNull prepend="," property="loginId">
+	        LOGIN_ID = #loginId:DECIMAL#
+	      </isNotNull>
+    </isNotEmpty>
+    <isNotEmpty property="applyType"> 
+	      <isNotNull prepend="," property="applyType">
+	        APPLY_TYPE = #applyType:DECIMAL#
+	      </isNotNull>
+    </isNotEmpty>
+    <isNotEmpty property="applyLimit"> 
+	      <isNotNull prepend="," property="applyLimit">
+	        APPLY_LIMIT = #applyLimit:DECIMAL#
+	      </isNotNull>
+    </isNotEmpty>
+    <isNotEmpty property="originalLimit"> 
+	      <isNotNull prepend="," property="originalLimit">
+	        ORIGINAL_LIMIT = #originalLimit:DECIMAL#
+	      </isNotNull>
+    </isNotEmpty>
+    <isNotEmpty property="settlementType"> 
+	      <isNotNull prepend="," property="settlementType">
+	        SETTLEMENT_TYPE = #settlementType:DECIMAL#
+	      </isNotNull>
+    </isNotEmpty>
+      <isNotEmpty property="contact"> 
+	      <isNotNull prepend="," property="contact">
+	        CONTACT = #contact:VARCHAR#
+	      </isNotNull>
+      </isNotEmpty>
+      <isNotEmpty property="phone"> 
+	      <isNotNull prepend="," property="phone">
+	        PHONE = #phone:VARCHAR#
+	      </isNotNull>
+      </isNotEmpty>
+      <isNotEmpty property="description"> 
+	      <isNotNull prepend="," property="description">
+	        DESCRIPTION = #description:VARCHAR#
+	      </isNotNull>
+      </isNotEmpty>
+      <isNotEmpty property="applyDate"> 
+	      <isNotNull prepend="," property="applyDate">
+	        APPLY_DATE = #applyDate:DATE#
+	      </isNotNull>
+      </isNotEmpty>
+      <isNotEmpty property="auditingDate"> 
+	      <isNotNull prepend="," property="auditingDate">
+	        AUDITING_DATE = #auditingDate:DATE#
+	      </isNotNull>
+      </isNotEmpty>
+      <isNotEmpty property="status"> 
+	      <isNotNull prepend="," property="status">
+	        STATUS = #status:DECIMAL#
+	      </isNotNull>
+      </isNotEmpty>
+      <isNotEmpty property="auditingId"> 
+	      <isNotNull prepend="," property="auditingId">
+	        AUDITING_ID = #auditingId:DECIMAL#
+	      </isNotNull>
+      </isNotEmpty>
+      <isNotEmpty property="auditingRemark"> 
+	      <isNotNull prepend="," property="auditingRemark">
+	        AUDITING_REMARK = #auditingRemark:VARCHAR#
+	      </isNotNull>
+      </isNotEmpty>
+    </dynamic>
+    where APPLY_NOTES_ID = #applyNotesId:DECIMAL#
+  </update>
+</sqlMap>

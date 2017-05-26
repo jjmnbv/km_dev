@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="cms" namespace="/cms"  extends="struts">
+    <!-- 供应商可视化编辑权限 -->
+    <action name="authenSupplyAction_*"  class="authenSupplyAction" method="{1}">
+		      <result name="success" type="redirect">${supplyUrl}</result>
+		      <result name="error" type="redirect">${supplyUrl}</result>
+	 </action> 
+    
+    <!-- 手机端应用管理 -->
+     <action name="cmsAppManageAction_*"  class="cmsAppManageAction" method="{1}">
+		      <result name="querySuccess">/WEB-INF/jsp/cms/cmsAppManage/cmsAppManageList.jsp</result>
+		      <result name="gotoAddAppManage">/WEB-INF/jsp/cms/cmsAppManage/cmsAppManageAdd.jsp</result>
+		      <result name="gotoEditAppManage">/WEB-INF/jsp/cms/cmsAppManage/cmsAppManageEdit.jsp</result>
+		      <result name="gotoDetailAppManage">/WEB-INF/jsp/cms/cmsAppManage/cmsAppManageDetail.jsp</result>
+	 </action> 
+	 
+	 <!--主题管理 -->
+	   <action name="cmsThemeAction_*"  class="cmsThemeAction" method="{1}">
+		      <result name="queryList">/WEB-INF/jsp/cms/theme/themeList.jsp</result>
+		      <result name="gotoAdd">/WEB-INF/jsp/cms/theme/themeEdit.jsp</result>
+		      <result name="gotoEidt">/WEB-INF/jsp/cms/theme/themeEdit.jsp</result>
+		      <result name="gotoBandList">/WEB-INF/jsp/cms/theme/themeBandList.jsp</result>
+		      <result name="gotoWindowList">/WEB-INF/jsp/cms/theme/themeWindowList.jsp</result>
+		      <result name="gotoPageList">/WEB-INF/jsp/cms/theme/themePageList.jsp</result>
+		      <result name="gotoConfirmBandList">/WEB-INF/jsp/cms/theme/themeConfirmBandList.jsp</result>
+		       <result name="staticHolidayList">/WEB-INF/jsp/cms/theme/staticHolidayList.jsp</result>
+		         <result name="gotoStaticHolidayEdit">/WEB-INF/jsp/cms/theme/staticHolidayEdit.jsp</result>
+		       
+		       
+		      
+		     
+		      
+		      
+		      
+		      
+		     
+	 </action> 
+	 
+    <!-- 页面解析 -->
+		   <action name="pagePublish_*"  class="pagePublish" method="{1}">
+		       <result name="succ" type="chain">cmsPageAction_queryForPage</result>
+		      <result name="preDetail">/WEB-INF/jsp/cms/publish/publishDetail.jsp</result>
+		  </action>  
+		   <!-- 广告发布-->
+		  <action name="advPublish_*"  class="advPublish" method="{1}">
+		  
+		
+		  <result name="advPublish">/WEB-INF/jsp/cms/Adv/AdvList.jsp</result>
+		  </action>  
+		  
+		  <action name="runDetailPubilsh_*"  class="runDetailPubilsh" method="{1}">
+		    <result name="runnableDetailPubilsh">/WEB-INF/jsp/cms/publish/publishDetail.jsp</result>
+		  </action>  
+		  
+		  
+		  <action name="productIdUpholdAction_*" class="productIdUpholdAction" method="{1}">
+		  	<result name="queryUphold">/WEB-INF/jsp/cms/productIdUphold/productIdUpholdList.jsp</result>
+		  	<result name="toAddUphold">/WEB-INF/jsp/cms/productIdUphold/productIdUpholdAdd.jsp</result>
+		  </action>
+		  
+		  
+		  <action name="cmsPageVisualizationAction_*" class="cmsPageVisualizationAction" method="{1}">
+		  	<result name="queryForPage">/WEB-INF/jsp/cms/visualizatio/cmsPageVisualizationList.jsp</result>
+		  	<result name="gotoAddVisualization">/WEB-INF/jsp/cms/visualizatio/cmsAddVisualization.jsp</result>
+		  	<result name="gotoBindWindow">/WEB-INF/jsp/cms/visualizatio/cmsPageWindowList.jsp</result>
+		  </action>
+		  
+		  <action name="cmsStylesAction_*" class="cmsStylesAction" method="{1}">
+		  	<result name="queryForPage">/WEB-INF/jsp/cms/styles/cmsStylesList.jsp</result>
+		  	<result name="gotoStylesAdd">/WEB-INF/jsp/cms/styles/cmsStylesAdd.jsp</result>
+		  	<result name="gotoStylesUpdate">/WEB-INF/jsp/cms/styles/cmsStylesEdit.jsp</result>
+		  </action>
+		  
+		
+    </package>
+</struts>
+
+

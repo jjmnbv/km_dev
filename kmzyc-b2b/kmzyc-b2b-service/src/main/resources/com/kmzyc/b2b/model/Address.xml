@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+ <sqlMap namespace="Address">
+    <typeAlias alias="Address" type="com.kmzyc.b2b.model.Address" />
+    
+    <resultMap class="Address" id="adressMapEsay">
+		<result column="n_address_id" property="addressId" jdbcType="DECIMAL" />
+		<result column="n_account_id" property="accountId" jdbcType="DECIMAL" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="province" property="province" jdbcType="VARCHAR" />
+		<result column="city" property="city" jdbcType="VARCHAR" />
+		<result column="detailedaddress" property="detailedAddress" jdbcType="VARCHAR" />
+		<result column="postalcode" property="postalcode" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="DECIMAL" />
+		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
+		<result column="cellphone" property="cellphone" jdbcType="VARCHAR" />
+		<result column="area" property="area" jdbcType="VARCHAR" />
+	</resultMap>
+    
+	<resultMap class="Address" id="adressMap" extends="adressMapEsay">
+		<result column="add_name" property="addName" jdbcType="VARCHAR" />
+		<result column="d_createdate" property="createdate" jdbcType="DATE" />
+		<result column="d_lastupdate" property="lastupdate" jdbcType="DATE" />
+	</resultMap>
+
+	<sql id="byAccountIdCondition">
+        <![CDATA[
+		   n_account_id = #accountId:NUMBER#
+	    ]]>
+	</sql>
+	<sql id="byAddressIdCondition">
+        <![CDATA[
+		   n_address_id = #addressId:NUMBER# 
+	    ]]>
+	</sql>
+	
+	<sql id="byDefaultAddressIdCondition">
+        <![CDATA[
+		   n_address_id = #addressId:NUMBER#  and status=0
+	    ]]>
+	</sql>
+	
+	<!-- 根据addressId获取loginId -->
+       <select id="queryLoginIdByAddressId" parameterClass="Integer" resultClass="Integer">
+            select h.n_login_id from account_info h,address a where h.n_account_id=a.n_account_id and a.n_address_id=#addressId:NUMBER#
+        </select>
+        
+     <!-- 初次添加收获地址获取accountId -->
+    <select id="findAccountId" parameterClass="Integer" resultClass="Integer">
+         select n_account_id from account_info where n_login_id=#loginId:NUMBER#
+    </select>
+      
+    <!-- 根据用户id查询相关的收货地址信息 -->
+	<select id="findById" parameterClass="integer" resultMap="adressMapEsay">
+		<![CDATA[
+			select rownum, ad.*
+		      from (select a.n_address_id,
+		                   a.n_account_id,
+		                   a.name,
+		                   a.province,
+		                   a.city,
+		                   a.detailedaddress,
+		                   a.postalcode,
+		                   a.status,
+		                   a.telephone,
+		                   a.cellphone,
+		                   a.area
+		              from address a, account_info i
+		             where a.n_account_id = i.n_account_id
+		               and i.n_login_id = #loginId:NUMBER#
+		             ORDER BY status, n_address_id DESC) ad
+		     where rownum <= 10
+		]]>
+	</select>
+	
+	<!-- 根据收货地址id查询单个收货地址信息 -->
+	<select id="findAddressById" parameterClass="integer" resultMap="adressMapEsay">
+		<![CDATA[
+			SELECT a.n_address_id,a.n_account_id,a.name,a.province,a.city,a.detailedaddress, 
+                   a.postalcode,a.status,a.telephone,a.cellphone,a.area
+			 FROM address a
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byAddressIdCondition" />
+		</dynamic>
+	</select>
+	
+	<!-- 根据收货地址id查询收货地址信息的数量 -->
+	<!-- 该sql不在使用，相关dao方面已设置过期 -->
+	<select id="findCountById" parameterClass="integer" resultClass="integer">
+		<![CDATA[
+			select count(a.n_account_id) from address a,account_info i where a.n_account_id=i.n_account_id 
+		]]>
+		<dynamic prepend="AND">
+			i.n_login_id=#loginId:NUMBER# 
+		</dynamic>
+	</select>
+	
+	<!-- 获取默认收货地址 -->
+ 	<select id="findDefaultAddress" parameterClass="integer" resultMap="adressMap">
+ 		<![CDATA[
+			SELECT a.n_address_id,a.n_account_id,a.name,a.province,a.city,a.detailedaddress, 
+                   a.postalcode,a.add_name,a.d_createdate,a.d_lastupdate,a.status,a.telephone, 
+                   a.cellphone,a.area,a.email 
+			 FROM address a
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byDefaultAddressIdCondition" />
+		</dynamic>
+ 	</select>
+ 	
+ 	
+ 	<!-- 查询非某类型的用户收货地址 -->
+	<select id="SQL_QUERY_USER_ADDRESS" resultClass="com.kmzyc.b2b.model.Address" parameterClass="java.util.Map">
+	<![CDATA[
+		select a.n_address_id    addressId,
+		       a.n_account_id    accountId,
+		       a.name            name,
+		       a.province        province,
+		       a.city            city,
+		       a.detailedaddress detailedAddress,
+		       a.postalcode      postalcode,
+		       a.add_name        addName,
+		       a.d_createdate    createdate,
+		       a.d_lastupdate    lastupdate,
+		       a.status          status,
+		       a.telephone       telephone,
+		       a.cellphone       cellphone,
+		       a.area            area,
+		       a.email           email
+		  from address a
+		 where exists (select 1
+		          from account_info ai
+		         where ai.n_customer_type_id <> #tourist:NUMBER#
+		           and ai.n_account_id = a.n_account_id
+		           and ai.n_login_id = #uid:NUMBER#)
+		           
+		 order by a.status asc
+	]]>
+	</select>
+	
+	
+	<!-- 20151214 add 返利对接需求,将返利网用户过来的地址存入用户表中 -->
+	<insert id="sql_addOrUpdate_outAddress" parameterClass="com.kmzyc.b2b.model.Address">
+	<![CDATA[
+		merge into address addr
+    using (select #addressSource:DECIMAL# addressSource,#accountId:DECIMAL# accountId from dual) addr_temp
+    on (addr.address_source=addr_temp.addressSource and addr.n_account_id=addr_temp.accountId)
+    when not matched then
+      insert
+        (n_address_id,n_account_id,name,province,city,detailedaddress,postalcode,add_name,d_createDate,status,telephone,cellphone,area,email,address_source)
+      values
+        (seq_app_account.nextval,#accountId:DECIMAL#,#name:VARCHAR#,#province:VARCHAR#,#city:VARCHAR#,#detailedAddress:VARCHAR#,#postalcode:VARCHAR#, #addName:VARCHAR#, sysdate,#status:DECIMAL#,#telephone:VARCHAR#, #cellphone:VARCHAR#,#area:VARCHAR#,#email:VARCHAR#,#addressSource:DECIMAL#)
+    when matched then
+        update set addr.province = #province:VARCHAR#,addr.city= #city:VARCHAR#,addr.detailedaddress=#detailedAddress:VARCHAR#,addr.postalcode=#postalcode:VARCHAR#,addr.telephone=#telephone:VARCHAR#,addr.cellphone= #cellphone:VARCHAR#,addr.d_lastupdate=sysdate,addr.area=#area:VARCHAR#,addr.name=#name:VARCHAR#
+	]]>
+	</insert>
+	
+	
+ </sqlMap>

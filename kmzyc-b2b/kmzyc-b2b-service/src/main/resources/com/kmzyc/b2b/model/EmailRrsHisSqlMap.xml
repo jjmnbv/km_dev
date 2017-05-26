@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="EMAIL_RRS_HIS" >
+  <resultMap id="BaseResultMap" class="com.kmzyc.b2b.model.EmailRrsHis" >
+    <result column="EMAIL_RRS_HIS_ID" property="emailRrsHisId" jdbcType="Long" />
+    <result column="EMAIL_RRS_ID" property="emailRrsId" jdbcType="Long" />
+    <result column="N_LOGIN_ID" property="nLoginId" jdbcType="Long" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="CREATED_ID" property="createdId" jdbcType="Long" />
+    <result column="MODIFY_DATE" property="modifyDate" jdbcType="DATE" />
+    <result column="MODIFIE_ID" property="modifieId" jdbcType="Long" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$ #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  <sql id="Base_Column_List" >
+    EMAIL_RRS_HIS_ID, EMAIL_RRS_ID, N_LOGIN_ID, CREATE_DATE, CREATED_ID, MODIFY_DATE, 
+    MODIFIE_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterClass="com.kmzyc.b2b.model.EmailRrsHisExample" >
+    select
+    <isParameterPresent >
+      <isEqual property="distinct" compareValue="true" >
+        distinct
+      </isEqual>
+    </isParameterPresent>
+    <include refid="EMAIL_RRS_HIS.Base_Column_List" />
+    from EMAIL_RRS_HIS
+    <isParameterPresent >
+      <include refid="EMAIL_RRS_HIS.Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterClass="com.kmzyc.b2b.model.EmailRrsHis" >
+    select 
+    <include refid="EMAIL_RRS_HIS.Base_Column_List" />
+    from EMAIL_RRS_HIS
+    where EMAIL_RRS_HIS_ID = #emailRrsHisId:Long#
+  </select>
+  <delete id="deleteByPrimaryKey" parameterClass="com.kmzyc.b2b.model.EmailRrsHis" >
+    delete from EMAIL_RRS_HIS
+    where EMAIL_RRS_HIS_ID = #emailRrsHisId:Long#
+  </delete>
+  <delete id="deleteByExample" parameterClass="com.kmzyc.b2b.model.EmailRrsHisExample" >
+    delete from EMAIL_RRS_HIS
+    <include refid="EMAIL_RRS_HIS.Example_Where_Clause" />
+  </delete>
+  <insert id="insert" parameterClass="com.kmzyc.b2b.model.EmailRrsHis" >
+ 	 <selectKey keyProperty="emailRrsHisId" resultClass="java.lang.Long">
+  		SELECT SEQ_EMAIL_RRS.nextval FROM DUAL;
+  	</selectKey>
+  	
+    insert into EMAIL_RRS_HIS (EMAIL_RRS_HIS_ID, EMAIL_RRS_ID, N_LOGIN_ID, CREATE_DATE, 
+      CREATED_ID, MODIFY_DATE, MODIFIE_ID)
+    values (#emailRrsHisId:Long#, #emailRrsId:Long#, #nLoginId:Long#, #createDate:DATE#, 
+      #createdId:Long#, #modifyDate:DATE#, #modifieId:Long#)
+  </insert>
+  <insert id="insertSelective" parameterClass="com.kmzyc.b2b.model.EmailRrsHis" >
+  	<selectKey keyProperty="emailRrsHisId" resultClass="java.lang.Long">
+			select SEQ_EMAIL_RRS.nextval from dual
+  		</selectKey>
+  	
+    INSERT INTO EMAIL_RRS_HIS
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="emailRrsHisId" >
+        EMAIL_RRS_HIS_ID
+      </isNotNull>
+      <isNotNull prepend="," property="emailRrsId" >
+        EMAIL_RRS_ID
+      </isNotNull>
+      <isNotNull prepend="," property="nLoginId" >
+        N_LOGIN_ID
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="createdId" >
+        CREATED_ID
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        MODIFY_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="modifieId" >
+        MODIFIE_ID
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="emailRrsHisId" >
+        #emailRrsHisId:Long#
+      </isNotNull>
+      <isNotNull prepend="," property="emailRrsId" >
+        #emailRrsId:Long#
+      </isNotNull>
+      <isNotNull prepend="," property="nLoginId" >
+        #nLoginId:Long#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        #createDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="createdId" >
+        #createdId:Long#
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        #modifyDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="modifieId" >
+        #modifieId:Long#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  <select id="countByExample" parameterClass="com.kmzyc.b2b.model.EmailRrsHisExample" resultClass="java.lang.Long" >
+    select count(*) from EMAIL_RRS_HIS
+    <include refid="EMAIL_RRS_HIS.Example_Where_Clause" />
+  </select>
+  <update id="updateByExampleSelective" >
+    update EMAIL_RRS_HIS
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.emailRrsHisId" >
+        EMAIL_RRS_HIS_ID = #record.emailRrsHisId:Long#
+      </isNotNull>
+      <isNotNull prepend="," property="record.emailRrsId" >
+        EMAIL_RRS_ID = #record.emailRrsId:Long#
+      </isNotNull>
+      <isNotNull prepend="," property="record.nLoginId" >
+        N_LOGIN_ID = #record.nLoginId:Long#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createDate" >
+        CREATE_DATE = #record.createDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createdId" >
+        CREATED_ID = #record.createdId:Long#
+      </isNotNull>
+      <isNotNull prepend="," property="record.modifyDate" >
+        MODIFY_DATE = #record.modifyDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="record.modifieId" >
+        MODIFIE_ID = #record.modifieId:Long#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="EMAIL_RRS_HIS.Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="updateByExample" >
+    update EMAIL_RRS_HIS
+    set EMAIL_RRS_HIS_ID = #record.emailRrsHisId:Long#,
+      EMAIL_RRS_ID = #record.emailRrsId:Long#,
+      N_LOGIN_ID = #record.nLoginId:Long#,
+      CREATE_DATE = #record.createDate:DATE#,
+      CREATED_ID = #record.createdId:Long#,
+      MODIFY_DATE = #record.modifyDate:DATE#,
+      MODIFIE_ID = #record.modifieId:Long#
+    <isParameterPresent >
+      <include refid="EMAIL_RRS_HIS.Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterClass="com.kmzyc.b2b.model.EmailRrsHis" >
+    update EMAIL_RRS_HIS
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="emailRrsId" >
+        EMAIL_RRS_ID = #emailRrsId:Long#
+      </isNotNull>
+      <isNotNull prepend="," property="nLoginId" >
+        N_LOGIN_ID = #nLoginId:Long#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE = #createDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="createdId" >
+        CREATED_ID = #createdId:Long#
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        MODIFY_DATE = #modifyDate:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="modifieId" >
+        MODIFIE_ID = #modifieId:Long#
+      </isNotNull>
+    </dynamic>
+    where EMAIL_RRS_HIS_ID = #emailRrsHisId:Long#
+  </update>
+  <update id="updateByPrimaryKey" parameterClass="com.kmzyc.b2b.model.EmailRrsHis" >
+    update EMAIL_RRS_HIS
+    set EMAIL_RRS_ID = #emailRrsId:Long#,
+      N_LOGIN_ID = #nLoginId:Long#,
+      CREATE_DATE = #createDate:DATE#,
+      CREATED_ID = #createdId:Long#,
+      MODIFY_DATE = #modifyDate:DATE#,
+      MODIFIE_ID = #modifieId:Long#
+    where EMAIL_RRS_HIS_ID = #emailRrsHisId:Long#
+  </update>
+</sqlMap>

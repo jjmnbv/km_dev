@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<settings cacheModelsEnabled="true" enhancementEnabled="true"
+		lazyLoadingEnabled="true" maxRequests="10" maxSessions="20"
+		maxTransactions="50" useStatementNamespaces="true"
+		defaultStatementTimeout="30" statementCachingEnabled="true"
+		classInfoCacheEnabled="true" errorTracingEnabled="true" />
+		
+		<!---->
+    <!--<transactionManager type="JDBC">-->
+    <!--<dataSource type="SIMPLE">-->
+      <!--<property name="JDBC.Driver" value="oracle.jdbc.driver.OracleDriver"/>-->
+      <!--<property name="JDBC.ConnectionURL" value="jdbc:oracle:thin:@10.1.6.116:1521:ORCL"/>-->
+      <!--<property name="JDBC.Username" value="KMUSER"/>-->
+      <!--<property name="JDBC.Password" value="KMUSER"/>-->
+      <!--<property name="Pool.MaximumActiveConnections" value="10"/>-->
+      <!--<property name="Pool.MaximumIdleConnections" value="5"/>-->
+      <!--<property name="Pool.MaximumCheckoutTime" value="120000"/>-->
+      <!--<property name="Pool.TimeToWait" value="500"/>-->
+      <!--<property name="Pool.PingQuery" value="select 1 from dual"/>-->
+      <!--<property name="Pool.PingEnabled" value="false"/>-->
+      <!--<property name="Pool.PingConnectionsOlderThan" value="1"/>-->
+      <!--<property name="Pool.PingConnectionsNotUsedFor" value="1"/>-->
+    <!--</dataSource>
+  </transactionManager> -->
+
+    <!-- sys  -->
+	<sqlMap resource="com/pltfm/sys/sqlmap/sys_param_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/sys/sqlmap/sys_upload_file_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/sys/sqlmap/sys_log_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/sys/sqlmap/sys_user_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/sys/sqlmap/sys_dept_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/sys/sqlmap/sys_menu_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/sys/sqlmap/sys_role_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/sys/sqlmap/sys_role_menu_SqlMap.xml" />
+    <sqlMap resource="com/pltfm/sys/sqlmap/sys_user_role_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/sys/sqlmap/sys_notice_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/sys/sqlmap/sys_notice_send_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/sys/sqlmap/report_main_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/sys/sqlmap/report_column_setting_SqlMap.xml" />
+	<sqlMap resource="com/pltfm/sys/sqlmap/report_param_SqlMap.xml" />
+	<!--<sqlMap resource="com/pltfm/sys/sqlmap/sys_userChannel_SqlMap.xml" />-->
+
+
+</sqlMapConfig>

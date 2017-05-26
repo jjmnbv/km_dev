@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SCORE_RULE" >
+   <!-- 查询集合 -->
+  <resultMap id="abatorgenerated_ScoreRuleResult" class="com.pltfm.app.vobject.ScoreRule" >
+    <result column="N_SCORE_RULE_ID" property="n_scoreRuleId" jdbcType="INTEGER" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="DISCRIBE" property="discribe" jdbcType="VARCHAR" />
+    <result column="CLIENT_TYPE" property="clientType" jdbcType="INTEGER" />
+      <result column="NAME" property="customerName" jdbcType="VARCHAR" />
+    <result column="SCOREEXPRESS" property="scoreExpress" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="D_CREATE_DATE" property="d_createDate" />
+    <result column="N_CREATED" property="n_created" jdbcType="INTEGER" />
+    <result column="D_MODIFY_DATE" property="d_modifyDate"  />
+    <result column="N_MODIFIED" property="n_modified" jdbcType="INTEGER" />
+    <result column="DAY_MAX" property="dayMax" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="RULE_ORDER" property="ruleOrder" jdbcType="INTEGER" />
+    <result column="EXPIRE_LIMIT" property="expireLimit" jdbcType="INTEGER" />
+    <result column="EXPIRE_START_DATE" property="expireStartDate" jdbcType="VARCHAR" />
+    <result column="EXPIRE_END_DATE" property="expireEndDate" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <!-- 查询条件组装 -->
+  <sql id="abatorgenerated_Example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  <!-- 通过主键查询客户积分规则 -->
+  <select id="abatorgenerated_selectByPrimaryKey" resultMap="abatorgenerated_ScoreRuleResult" parameterClass="com.pltfm.app.vobject.ScoreRule" >
+    select N_SCORE_RULE_ID, CODE, DISCRIBE, CLIENT_TYPE, SCOREEXPRESS, REMARK,
+      D_CREATE_DATE, N_CREATED, D_MODIFY_DATE, N_MODIFIED,com.NAME NAME,DAY_MAX,SCORE_VALUE,STATUS,RULE_ORDER,EXPIRE_LIMIT,EXPIRE_START_DATE,EXPIRE_END_DATE
+    from SCORE_RULE rule,BNES_CUSTOMER_TYPE com
+	 where  rule.CLIENT_TYPE = com.CUSTOMER_TYPE_ID    and  N_SCORE_RULE_ID = #n_scoreRuleId:INTEGER#
+  </select>
+  <!-- 多条件查询客户积分规则 -->
+  <select id="abatorgenerated_selectByExample" resultMap="abatorgenerated_ScoreRuleResult" parameterClass="com.pltfm.app.vobject.ScoreRuleExample" >
+    select N_SCORE_RULE_ID, CODE, DISCRIBE, CLIENT_TYPE,SCOREEXPRESS, REMARK,
+      D_CREATE_DATE, N_CREATED, D_MODIFY_DATE, N_MODIFIED,com.NAME NAME,DAY_MAX,SCORE_VALUE,STATUS,RULE_ORDER,EXPIRE_LIMIT,EXPIRE_START_DATE,EXPIRE_END_DATE
+    from SCORE_RULE r inner join BNES_CUSTOMER_TYPE com on r.CLIENT_TYPE = com.CUSTOMER_TYPE_ID
+    <isParameterPresent >
+      <include refid="SCORE_RULE.abatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <!-- 通过主键删除客户规则信息 -->
+  <delete id="abatorgenerated_deleteByPrimaryKey" parameterClass="com.pltfm.app.vobject.ScoreRule" >
+    delete from SCORE_RULE
+    where N_SCORE_RULE_ID = #n_scoreRuleId:INTEGER#
+  </delete>
+  <!-- 通过多条件查询删除客户规则信息 -->
+  <delete id="abatorgenerated_deleteByExample" parameterClass="com.pltfm.app.vobject.ScoreRuleExample" >
+    delete from SCORE_RULE
+    <include refid="SCORE_RULE.abatorgenerated_Example_Where_Clause" />
+  </delete>
+  <!-- 添加客户规则信息 -->
+  <insert id="abatorgenerated_insert" parameterClass="com.pltfm.app.vobject.ScoreRule" >
+     <selectKey resultClass="java.lang.Integer" keyProperty="n_scoreRuleId" >
+           select seq_app_score.nextval from dual
+      </selectKey>
+    insert into SCORE_RULE (N_SCORE_RULE_ID,CODE, DISCRIBE, CLIENT_TYPE, SCOREEXPRESS, REMARK, D_CREATE_DATE, N_CREATED, D_MODIFY_DATE, N_MODIFIED,DAY_MAX,SCORE_VALUE
+    ,STATUS,RULE_ORDER,EXPIRE_LIMIT,EXPIRE_START_DATE,EXPIRE_END_DATE)
+    values (#n_scoreRuleId:INTGER#, #code:VARCHAR#, #discribe:VARCHAR#,
+      #clientType:INTEGER#, #scoreExpress:VARCHAR#, #remark:VARCHAR#, #d_createDate#,
+      #n_created:INTEGER#, #d_modifyDate#, #n_modified:INTEGER#, #dayMax:INTEGER#,#scoreValue:VARCHAR#,
+      #status:INTEGER#,#ruleOrder:INTEGER#,#expireLimit:INTEGER#,#expireStartDate:VARCHAR#,#expireEndDate:VARCHAR#)
+      
+  </insert>
+  <!-- 通过主键更新客户规则信息 -->
+  <update id="abatorgenerated_updateByPrimaryKey" parameterClass="com.pltfm.app.vobject.ScoreRule" >
+    update SCORE_RULE
+    set    CODE = #code:VARCHAR#,
+      DISCRIBE = #discribe:VARCHAR#,
+      CLIENT_TYPE = #clientType:INTEGER#,
+      SCOREEXPRESS = #scoreExpress:VARCHAR#,
+      REMARK = #remark:VARCHAR#,
+      D_CREATE_DATE = #d_createDate#,
+      N_CREATED = #n_created:INTEGER#,
+      D_MODIFY_DATE = #d_modifyDate#,
+      N_MODIFIED = #n_modified:INTEGER#,
+      DAY_MAX=#dayMax:INTEGER#,
+      SCORE_VALUE=#scoreValue:VARCHAR#,
+      STATUS=#status:INTEGER#,
+      RULE_ORDER=#ruleOrder:INTEGER#,
+      EXPIRE_LIMIT=#expireLimit:INTEGER#,
+      EXPIRE_START_DATE=#expireStartDate:VARCHAR#,
+      EXPIRE_END_DATE=#expireEndDate:VARCHAR#
+    where N_SCORE_RULE_ID = #n_scoreRuleId:INTEGER#
+  </update>
+  <!-- 通过多条件查询统计客户积分规则条数 -->
+  <select id="abatorgenerated_countByRule" parameterClass="com.pltfm.app.vobject.ScoreRule" resultClass="java.lang.Integer" >
+    select count(*) from SCORE_RULE aa,BNES_CUSTOMER_TYPE com
+		 where  aa.CLIENT_TYPE = com.CUSTOMER_TYPE_ID AND aa.STATUS=0
+            <isNotNull property="discribe">
+			  <isNotEmpty prepend="and" property="discribe">
+				DISCRIBE  like '%$discribe$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="clientType">
+			  <isNotEmpty prepend="and" property="clientType">
+				CLIENT_TYPE = #clientType:INTEGER#
+			  </isNotEmpty>
+		  </isNotNull>
+  </select>
+  <!-- 分页查询客户积分规则 -->
+  <select id="abatorgenerated_pageByRule" resultMap="abatorgenerated_ScoreRuleResult"  parameterClass="com.pltfm.app.vobject.ScoreRule" >
+    select N_SCORE_RULE_ID, CODE, DISCRIBE,NAME,CLIENT_TYPE, SCOREEXPRESS, REMARK,
+      D_CREATE_DATE, N_CREATED, D_MODIFY_DATE, N_MODIFIED,DAY_MAX,SCORE_VALUE,STATUS,RULE_ORDER,EXPIRE_LIMIT,EXPIRE_START_DATE,EXPIRE_END_DATE  from(
+          select  ROW_NUMBER() OVER(order by RULE_ORDER ASC) as view_row_number, aa.*,com.NAME from SCORE_RULE aa,BNES_CUSTOMER_TYPE com
+		 where aa.CLIENT_TYPE = com.CUSTOMER_TYPE_ID AND aa.STATUS=0
+            <isNotNull property="discribe">
+			  <isNotEmpty prepend="and" property="discribe">
+				DISCRIBE like '%$discribe$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="clientType">
+			  <isNotEmpty prepend="and" property="clientType">
+				CLIENT_TYPE = #clientType:INTEGER#
+			  </isNotEmpty>
+		  </isNotNull>
+      ) 
+       <![CDATA[ where view_row_number <= #endIndex# and view_row_number > #startIndex# ]]>
+    </select>
+    
+    <!-- 根据编码查询规则 -->
+    <select id="SQL_QUERY_SCORE_RULE_BY_RULE_CODE" resultMap="abatorgenerated_ScoreRuleResult" parameterClass="string">
+    	select n_score_rule_id,
+		       code,
+		       discribe,
+		       client_type,
+		       scoreexpress,
+		       remark,
+		       d_create_date,
+		       n_created,
+		       d_modify_date,
+		       n_modified,
+		       '' name,
+		       day_max,
+		       score_value,
+		       status,rule_order,expire_limit,expire_start_date,expire_end_date
+		  from score_rule sr
+		 where sr.code = #ruleCode:VARCHAR#
+    </select>
+</sqlMap>

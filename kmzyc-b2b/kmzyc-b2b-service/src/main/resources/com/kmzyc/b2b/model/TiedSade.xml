@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TiedSade">
+
+	<typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+
+	<resultMap id="tiedSadeResultMap" class="com.kmzyc.b2b.model.TiedSade">
+		<result column="TIED_SADE_ID" property="tiedSadeId" jdbcType="DECIMAL" />
+		<result column="MAIN_SKU" property="mainSku" jdbcType="DECIMAL" />
+		<result column="TIED_SADE_SKU" property="tiedSadeSku" jdbcType="DECIMAL" />
+		<result column="TIED_SADE_SKU_PRICE" property="tiedSadeSkuPrice"
+			jdbcType="DECIMAL" />
+		<result column="TIED_SADE_TYPE" property="tiedSadeType"
+			jdbcType="DECIMAL" />
+	</resultMap>
+
+	<sql id="byTiedSadeIdCondition">
+		<![CDATA[
+		   TIED_SADE_ID = #tiedSadeId:NUMBER#
+	    ]]>
+	</sql>
+
+
+	<select id="findById" parameterClass="integer" resultMap="tiedSadeResultMap">
+		<![CDATA[
+			SELECT * FROM TIED_SADE
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byTiedSadeIdCondition" />
+		</dynamic>
+	</select>
+
+
+</sqlMap>

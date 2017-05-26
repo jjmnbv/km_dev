@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ERA_INFO" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.kmzyc.b2b.vo.EraInfo" >
+    <result column="ERA_INFO_ID" property="eraInfoId" jdbcType="DECIMAL" />
+    <result column="N_LOGIN_ID" property="loginId" jdbcType="DECIMAL" />
+    <result column="ERA_ID" property="eraId" jdbcType="DECIMAL" />
+    <result column="ERA_NO" property="eraNo" jdbcType="VARCHAR" />
+    <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+    <result column="CONTACT_INFORMATION" property="contactInformation" jdbcType="VARCHAR" />
+    <result column="EXP_INTEGRAL_VALUE" property="expIntegralValue" jdbcType="DECIMAL" />
+    <result column="ERA_GRADE_ID" property="eraGradeId" jdbcType="DECIMAL" />
+    <result column="ERA_GRADE_NAME" property="eraGradeName" jdbcType="VARCHAR" />
+    <result column="ERA_GRADE_RATE" property="eraGradeRate" jdbcType="DECIMAL" />
+    <result column="RECOMMENDED_NO" property="recommendedNo" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday"  />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+    <result column="CERTIFICATE_NUMBER" property="certificateNumber" jdbcType="VARCHAR" />
+    <result column="D_CREATE_DATE" property="createDate"  />
+    <result column="D_MODIFY_DATE" property="modifyDate" />
+     <result column="PERSONAL_ID" property="personalId" jdbcType="DECIMAL" />
+     <result column="PAPERTYPE" property="papertype" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 分页模糊查询康美中药城会员 -->
+  <select id="selectEraInfoList" parameterClass="com.kmzyc.b2b.vo.EraInfo" resultMap="ibatorgenerated_BaseResultMap">
+  	select * from (
+SELECT ROW_NUMBER() OVER(order by e.era_info_id desc) as view_row_number,
+e.ERA_INFO_ID,e.n_login_id,e.era_id,e.era_no,e.contact_information,e.exp_integral_value,e.era_grade_id,e.era_grade_name,e.era_grade_rate
+,e.recommended_no,e.sex,e.birthday,e.name,e.nickname,e.certificate_number,e.d_create_date,e.d_modify_date,e.personal_id,e.papertype,i.login_account from era_info e ,login_info i where e.n_login_id=i.n_login_id
+  		 <isNotNull property="eraNo">
+			  <isNotEmpty prepend="and" property="eraNo">
+				e.ERA_NO like '%$eraNo$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="loginAccount">
+			  <isNotEmpty prepend="and" property="loginAccount">
+				i.LOGIN_ACCOUNT like '%$loginAccount$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="recommendedNo">
+			  <isNotEmpty prepend="and" property="recommendedNo">
+				e.RECOMMENDED_NO like '%$recommendedNo$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="name">
+			  <isNotEmpty prepend="and" property="name">
+				e.NAME like '%$name$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="eraGradeName">
+			  <isNotEmpty prepend="and" property="eraGradeName">
+				e.ERA_GRADE_NAME = #eraGradeName#
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotEmpty prepend="and" property="createStartDate">
+		  		e.D_CREATE_DATE &gt;= #createStartDate#
+		  </isNotEmpty>
+		  <isNotEmpty prepend="and" property="createEndDate">
+		  		e.D_CREATE_DATE &lt;= #createEndDate#
+		  </isNotEmpty>
+  		<![CDATA[)where view_row_number <= #endIndex# and view_row_number > #startIndex# ]]>
+  
+  </select>
+  
+  <!-- 查询时代会员总数 -->
+  <select id="selectEraInfoCount" parameterClass="com.kmzyc.b2b.vo.EraInfo" resultClass="java.lang.Integer">
+      select count(era_info_id) from era_info e ,login_info i where e.n_login_id=i.n_login_id
+       <isNotNull property="eraNo">
+			  <isNotEmpty prepend="and" property="eraNo">
+				e.ERA_NO like '%$eraNo$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="loginAccount">
+			  <isNotEmpty prepend="and" property="loginAccount">
+				i.LOGIN_ACCOUNT like '%$loginAccount$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		   <isNotNull property="recommendedNo">
+			  <isNotEmpty prepend="and" property="recommendedNo">
+				e.RECOMMENDED_NO like '%$recommendedNo$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotNull property="name">
+			  <isNotEmpty prepend="and" property="name">
+				e.NAME like '%$name$%'
+			  </isNotEmpty>
+		  </isNotNull>
+		     <isNotNull property="eraGradeName">
+			  <isNotEmpty prepend="and" property="eraGradeName">
+				e.ERA_GRADE_NAME = #eraGradeName#
+			  </isNotEmpty>
+		  </isNotNull>
+		  <isNotEmpty prepend="and" property="createStartDate">
+		  		e.D_CREATE_DATE &gt;= #createStartDate#
+		  </isNotEmpty>
+		  <isNotEmpty prepend="and" property="createEndDate">
+		  		e.D_CREATE_DATE &lt;= #createEndDate#
+		  </isNotEmpty>
+  </select>
+  
+  
+  <!-- 根据主键查询康美中药城会员信息 -->
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.kmzyc.b2b.vo.EraInfo" >
+    select ERA_INFO_ID, N_LOGIN_ID, ERA_ID, ERA_NO, LOGIN_ACCOUNT, CONTACT_INFORMATION,
+      EXP_INTEGRAL_VALUE, ERA_GRADE_ID, ERA_GRADE_NAME, ERA_GRADE_RATE, RECOMMENDED_NO, SEX,
+      BIRTHDAY, NAME, NICKNAME, CERTIFICATE_NUMBER, D_CREATE_DATE, D_MODIFY_DATE,PERSONAL_ID,PAPERTYPE
+    from ERA_INFO
+    where ERA_INFO_ID = #eraInfoId:DECIMAL#
+  </select>
+  
+  <select id="ibatorgenerated_selectByEraNo" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.kmzyc.b2b.vo.EraInfo" >
+    select ERA_INFO_ID, N_LOGIN_ID, ERA_ID, ERA_NO, LOGIN_ACCOUNT, CONTACT_INFORMATION,
+      EXP_INTEGRAL_VALUE, ERA_GRADE_ID, ERA_GRADE_NAME, ERA_GRADE_RATE, RECOMMENDED_NO, SEX,
+      BIRTHDAY, NAME, NICKNAME, CERTIFICATE_NUMBER, D_CREATE_DATE, D_MODIFY_DATE,PERSONAL_ID,PAPERTYPE
+    from ERA_INFO
+    where ERA_NO = #eraNo:VARCHAR#
+  </select>
+  
+  
+    <!-- 关联loginInfo 验证是否是时代用户 loginAccount -->
+  <select id="select_byLoginIdInLoginInfo" resultMap="ibatorgenerated_BaseResultMap" parameterClass="java.lang.String" >
+  	select *
+		  from era_info e
+		 where exists (select 1
+		          from login_info i
+		         where e.n_login_id = i.n_login_id
+		           and i.login_account = #loginAccount#)
+		   and rownum = 1
+  </select>
+  
+    <!-- 条件查询康美中药城会员信息 -->
+  <select id="ibatorgenerated_selectByPrimaryKeys" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.kmzyc.b2b.vo.EraInfo" >
+    select ERA_INFO_ID, N_LOGIN_ID, ERA_ID, ERA_NO, LOGIN_ACCOUNT, CONTACT_INFORMATION,
+      EXP_INTEGRAL_VALUE, ERA_GRADE_ID, ERA_GRADE_NAME, ERA_GRADE_RATE, RECOMMENDED_NO, SEX,
+      BIRTHDAY, NAME, NICKNAME, CERTIFICATE_NUMBER, D_CREATE_DATE, D_MODIFY_DATE,PERSONAL_ID,PAPERTYPE
+    from ERA_INFO
+    where 1=1
+	<isNotNull property="eraInfoId">
+		  <isNotEmpty prepend="and" property="eraInfoId">
+			ERA_INFO_ID = #eraInfoId#
+		  </isNotEmpty>
+	</isNotNull>
+	<isNotNull property="loginAccount">
+		  <isNotEmpty prepend="and" property="loginAccount">
+			LOGIN_ACCOUNT = #loginAccount#
+		  </isNotEmpty>
+	</isNotNull>
+	
+  </select>
+  <!-- 删除 -->
+  <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="com.kmzyc.b2b.vo.EraInfo" >
+    delete from ERA_INFO
+    where ERA_INFO_ID = #eraInfoId:DECIMAL#
+  </delete>
+ <!-- 添加 -->
+  <insert id="ibatorgenerated_insert" parameterClass="com.kmzyc.b2b.vo.EraInfo" >
+    <selectKey resultClass="java.math.BigDecimal" keyProperty="eraInfoId" >
+           select SEQ_ERA_INFO.NEXTVAL from dual
+      </selectKey>
+    insert into ERA_INFO (ERA_INFO_ID, N_LOGIN_ID, ERA_ID, ERA_NO, LOGIN_ACCOUNT,
+      CONTACT_INFORMATION, EXP_INTEGRAL_VALUE, ERA_GRADE_ID, ERA_GRADE_NAME, ERA_GRADE_RATE,
+      RECOMMENDED_NO, SEX, BIRTHDAY, NAME, NICKNAME, CERTIFICATE_NUMBER, D_CREATE_DATE,
+      D_MODIFY_DATE,PERSONAL_ID,PAPERTYPE)
+    values (#eraInfoId#, #loginId#, #eraId#, #eraNo#,
+      #loginAccount#, #contactInformation#, #expIntegralValue#,
+      #eraGradeId#, #eraGradeName#, #eraGradeRate#, #recommendedNo#,
+      #sex#, #birthday#, #name#, #nickname#,
+      #certificateNumber#, #createDate#, #modifyDate#,#personalId#,#papertype#)
+  </insert>
+ 
+  <!-- 修改 -->  
+  <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="com.kmzyc.b2b.vo.EraInfo" >
+   update ERA_INFO
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="loginId" >
+        N_LOGIN_ID = #loginId:DECIMAL#
+      </isNotNull>
+     <!--  <isNotNull prepend="," property="eraNo" >
+        ERA_NO = #eraNo:OTHER#
+      </isNotNull> -->
+      <isNotNull prepend="," property="loginAccount" >
+        LOGIN_ACCOUNT = #loginAccount:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="contactInformation" >
+        CONTACT_INFORMATION = #contactInformation:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="expIntegralValue" >
+        EXP_INTEGRAL_VALUE = #expIntegralValue:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="eraGradeId" >
+        ERA_GRADE_ID = #eraGradeId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="eraGradeName" >
+        ERA_GRADE_NAME = #eraGradeName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="eraGradeRate" >
+        ERA_GRADE_RATE = #eraGradeRate:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="recommendedNo" >
+        RECOMMENDED_NO = #recommendedNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="sex" >
+        SEX = #sex:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="birthday" >
+        BIRTHDAY = #birthday#
+      </isNotNull>
+      <isNotNull prepend="," property="name" >
+        NAME = #name:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="nickname" >
+        NICKNAME = #nickname:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="certificateNumber" >
+        CERTIFICATE_NUMBER = #certificateNumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        D_CREATE_DATE = #createDate#
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        D_MODIFY_DATE = #modifyDate#
+      </isNotNull>
+       <isNotNull prepend="," property="personalId" >
+        PERSONAL_ID = #personalId#
+      </isNotNull>
+       <isNotNull prepend="," property="papertype" >
+        PAPERTYPE = #papertype#
+      </isNotNull>
+    </dynamic>
+    where upper(ERA_NO) = upper(#eraNo#)
+  </update>
+    <!-- 修改 -->  
+  <update id="ibatorgenerated_updateByloginIdSelective" parameterClass="com.kmzyc.b2b.vo.EraInfo" >
+   update ERA_INFO
+    <dynamic prepend="set" >
+
+      <isNotNull prepend="," property="loginAccount" >
+        LOGIN_ACCOUNT = #loginAccount:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="contactInformation" >
+        CONTACT_INFORMATION = #contactInformation:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="expIntegralValue" >
+        EXP_INTEGRAL_VALUE = #expIntegralValue:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="eraGradeId" >
+        ERA_GRADE_ID = #eraGradeId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="eraGradeName" >
+        ERA_GRADE_NAME = #eraGradeName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="eraGradeRate" >
+        ERA_GRADE_RATE = #eraGradeRate:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="recommendedNo" >
+        RECOMMENDED_NO = #recommendedNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="sex" >
+        SEX = #sex:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="birthday" >
+        BIRTHDAY = #birthday#
+      </isNotNull>
+      <isNotNull prepend="," property="name" >
+        NAME = #name:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="nickname" >
+        NICKNAME = #nickname:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="certificateNumber" >
+        CERTIFICATE_NUMBER = #certificateNumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        D_CREATE_DATE = #createDate#
+      </isNotNull>
+      <isNotNull prepend="," property="modifyDate" >
+        D_MODIFY_DATE = #modifyDate#
+      </isNotNull>
+      
+    </dynamic>
+    where  N_LOGIN_ID = #loginId:DECIMAL#
+  </update>
+  
+  <insert id="insertorUpdateEraInfo" parameterClass="com.kmzyc.b2b.vo.EraInfo" >
+    <selectKey resultClass="java.math.BigDecimal" keyProperty="eraInfoId" >
+           select SEQ_ERA_INFO.NEXTVAL from dual
+      </selectKey>
+       MERGE INTO ERA_INFO ei
+   	 USING(select #eraNo# eraNo from dual) temp_ei
+   	 ON(ei.ERA_NO = temp_ei.eraNo)
+   	 WHEN NOT MATCHED THEN
+    insert (ERA_INFO_ID, N_LOGIN_ID, ERA_ID, ERA_NO, LOGIN_ACCOUNT,
+      CONTACT_INFORMATION, EXP_INTEGRAL_VALUE, ERA_GRADE_ID, ERA_GRADE_NAME, ERA_GRADE_RATE,
+      RECOMMENDED_NO, SEX, BIRTHDAY, NAME, NICKNAME, CERTIFICATE_NUMBER, D_CREATE_DATE,
+      D_MODIFY_DATE,PERSONAL_ID,PAPERTYPE)
+    values (#eraInfoId#, #loginId#, #eraId#, #eraNo#,
+      #loginAccount#, #contactInformation#, #expIntegralValue#,
+      #eraGradeId#, #eraGradeName#, #eraGradeRate#, #recommendedNo#,
+      #sex#, #birthday#, #name#, #nickname#,
+      #certificateNumber#, sysdate, #modifyDate#,#personalId#,#papertype#)
+      WHEN MATCHED THEN     
+       update
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="loginAccount" >
+        LOGIN_ACCOUNT = #loginAccount:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="contactInformation" >
+        CONTACT_INFORMATION = #contactInformation:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="expIntegralValue" >
+        EXP_INTEGRAL_VALUE = #expIntegralValue:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="eraGradeId" >
+        ERA_GRADE_ID = #eraGradeId:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="eraGradeName" >
+        ERA_GRADE_NAME = #eraGradeName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="eraGradeRate" >
+        ERA_GRADE_RATE = #eraGradeRate:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="recommendedNo" >
+        RECOMMENDED_NO = #recommendedNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="sex" >
+        SEX = #sex:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="birthday" >
+        BIRTHDAY = #birthday#
+      </isNotNull>
+      <isNotNull prepend="," property="name" >
+        NAME = #name:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="nickname" >
+        NICKNAME = #nickname:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="certificateNumber" >
+        CERTIFICATE_NUMBER = #certificateNumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        D_CREATE_DATE = #createDate#
+      </isNotNull>
+       <isNotNull prepend="," property="personalId" >
+        PERSONAL_ID = #personalId#
+      </isNotNull>
+       <isNotNull prepend="," property="papertype" >
+        PAPERTYPE = #papertype#
+      </isNotNull>
+
+        D_MODIFY_DATE = sysdate
+
+    </dynamic>
+    where upper(ERA_NO) = upper(#eraNo#)
+  </insert>
+  
+</sqlMap>

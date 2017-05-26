@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+        
+<struts>
+	<package name="crowd" namespace="/crowd" extends="struts">
+		<!-- 众包业务员管理 -->
+		<!--删除机构相关 <action name="listBagMans" class="crowdBagManAction" method="listBagMans">
+			<result name="success">/WEB-INF/jsp/crowd/bagman/listBagman.jsp</result>
+		</action>
+		
+		新增业务员
+		<action name="saveBagMan" class="crowdBagManAction" method="saveBagMan"/>
+		编辑业务员
+		<action name="editBagman" class="crowdBagManAction" method="editBagman">
+			<result name="success">
+				/WEB-INF/jsp/crowd/bagman/editBagman.jsp
+			</result>
+		</action>
+		保存修改
+		<action name="updateBagMan" class="crowdBagManAction" method="updateBagMan"/>
+		业务员信息是否已注册
+		<action name="isBmanExists" class="crowdBagManAction" method="isBmanExists"/>
+		
+		机构审核列表
+		<action name="listInsApp" class="insApplyAction" method="gotoInsAppList">
+			<result name="success">/WEB-INF/jsp/crowd/insApply/insApplyList.jsp</result>
+		</action>
+		
+		机构审核详情
+		<action name="getAuditInsAppDetail" class="insApplyAction" method="getAuditInsAppDetail">
+			<result name="success">/WEB-INF/jsp/crowd/insApply/insApplyDetail.jsp</result>
+		</action>
+		
+		机构审核提交
+		<action name="auditInsApp" class="insApplyAction" method="auditInsApp"/>
+		
+		获取审核记录相关的信息
+		<action name="getInsAppInfo" class="insApplyAction" method="getInsAppInfo"/>
+		
+		全局变量管理
+		<action name="goGlobalVariable" class="globalVariableAction" method="goGlobalVariable">
+			<result name="success">/WEB-INF/jsp/crowd/global/CrowdBagManGlobalSetting.jsp</result>
+		</action>
+		红包清理页面
+		<action name="goCleanRPPage" class="globalVariableAction" method="goCleanRPPage">
+			<result name="success">/WEB-INF/jsp/crowd/global/cleanRPPage.jsp</result>
+		</action>
+		红包清理方法
+		<action name="cleanMicroRP" class="globalVariableAction" method="cleanMicroRP">
+			<result name="success">/WEB-INF/jsp/crowd/global/cleanRPPageSuccess.jsp</result>
+			<result name="error">/WEB-INF/jsp/crowd/global/cleanRPPageError.jsp</result>
+			<result name="notyet">/WEB-INF/jsp/crowd/global/cleanRPPageNotyet.jsp</result>
+			<result name="doing">/WEB-INF/jsp/crowd/global/cleanRPPageDoing.jsp</result>
+		</action>
+		
+		设置全局变量管理
+		<action name="updateGlobalVariable" class="globalVariableAction" method="updateGlobalVariable">
+			<result name="success">/WEB-INF/jsp/crowd/global/CrowdBagManGlobalSetting.jsp</result>
+		</action>
+		
+		机构查询
+		<action name="queryInstitutionList" class="institutionAction" method="queryInstitutionList">
+			<result name="success">/WEB-INF/jsp/crowd/institution/institutionList.jsp</result>
+		</action>
+
+		机构修改
+		<action name="institutionUpdate" class="institutionAction" method="institutionUpdate">
+			<result name="success">/WEB-INF/jsp/crowd/institution/institutionUpdate.jsp</result>
+		</action>
+		<action name="institutionDetail" class="institutionAction" method="institutionDetail">
+			<result name="success">/WEB-INF/jsp/crowd/institution/institutionDetail.jsp</result>
+		</action>
+		<action name="updateInstitutionInfo" class="institutionAction" method="updateInstitutionInfo">
+			<result name="success"  type="redirectAction">
+		                queryInstitutionList
+		    </result>
+		</action>
+		
+		<action name="checkInsName" class="institutionAction" method="checkInsName">
+		</action>
+		
+         机构注册用户查询
+		<action name="queryInstitutionUserList" class="institutionUserAction" method="queryInstitutionUserList">
+			<result name="success">/WEB-INF/jsp/crowd/institution/institutionUserList.jsp</result>
+		</action>
+		<action name="disClear" class="institutionUserAction" method="disClear"></action>
+		申请机构码（多个） 
+		<action name="getCodes" class="codesManageAction" method="getCodes"/>
+		机构码管理列表
+		<action name="instCodesManage" class="codesManageAction" method="instCodesManage">
+			<result name="success">/WEB-INF/jsp/crowd/code/codeManage.jsp</result>
+		</action>
+		combox 异步加载业务员信息
+		<action name="ajaxBagManInfos" class="codesManageAction" method="ajaxBagManInfos"/>
+		异步加载申请记录对应的二维码组
+		<action name="ajaxQrcodes4Record" class="codesManageAction" method="ajaxQrcodes4Record"/>
+		<action name="showQrCodesPage" class="codesManageAction" method="showQrCodesPage">
+			<result name="success">/WEB-INF/jsp/crowd/code/showQrCodesPage.jsp</result>
+		</action> -->
+	</package>
+
+</struts>        

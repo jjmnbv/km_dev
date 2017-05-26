@@ -1,0 +1,2697 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="OrderMain">
+
+	<typeAlias alias="pagination" type="com.km.framework.page.Pagination" />
+	<typeAlias alias="orderItem" type="com.kmzyc.b2b.model.OrderItem" />
+	<typeAlias alias="orderPayStatement" type="com.kmzyc.b2b.model.OrderPayStatement" />
+
+	<resultMap class="com.kmzyc.b2b.model.OrderMain" id="SIMPLE_ORDER_INFO">
+		<result column="ORDER_ID" property="orderId" jdbcType="DECIMAL" />
+		<result column="CUSTOMER_ACCOUNT" property="customerAccount"
+			jdbcType="VARCHAR" />
+		<result column="CUSTOMER_NAME" property="customerName"
+			jdbcType="VARCHAR" />
+		<result column="CUSTOMER_MOBILE" property="customerMobile"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_NAME" property="orderPurchaserName"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_MOBILE" property="orderPurchaserMobile"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_TEL" property="orderPurchaserTel"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_ADDR" property="orderPurchaserAddr"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_TYPE" property="orderPurchaserType"
+			jdbcType="DECIMAL" />
+		<result column="PAY_METHOD" property="payMethod" jdbcType="DECIMAL" />
+		<result column="FARE" property="fare" jdbcType="DECIMAL" />
+		<result column="DELIVERY_DATE_TYPE" property="deliveryDateType"
+			jdbcType="DECIMAL" />
+		<result column="COMMODITY_SUM" property="commoditySum"
+			jdbcType="DECIMAL" />
+		<result column="DISCOUNT_AMOUNT" property="discountAmount"
+			jdbcType="DECIMAL" />
+		<result column="ACCOUNT_BALANCE" property="accountBalance"
+			jdbcType="DECIMAL" />
+		<result column="AMOUNT_PAYABLE" property="amountPayable"
+			jdbcType="DECIMAL" />
+		<result column="PAY_DATE" property="payDate" jdbcType="TIMESTAMP" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="AGENCY_NUMBER" property="agencyNumber"
+			jdbcType="VARCHAR" />
+		<result column="SETTLEMENT_NO" property="settlementNo"
+			jdbcType="DECIMAL" />
+		<result column="STOCK_OUT_ID" property="stockOutId" jdbcType="DECIMAL" />
+		<result column="DISTRIBUTION_ID" property="distributionId"
+			jdbcType="DECIMAL" />
+		<result column="LOGISTICS_ORDER_NO" property="logisticsOrderNo"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_SOURCE" property="orderSource" jdbcType="DECIMAL" />
+		<result column="INVOICE_ID" property="invoiceId" jdbcType="DECIMAL" />
+		<result column="PARENT_ORDER_CODE" property="parentOrderCode"
+			jdbcType="VARCHAR" />
+		<result column="SON_ORDER_CODE" property="sonOrderCode"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_DESCRIPTION" property="orderDescription"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_STATUS" property="orderStatus" jdbcType="DECIMAL" />
+		<result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+		<result column="CUSTOMER_ID" property="customerId" jdbcType="DECIMAL" />
+		<result column="LOGISTICS_CODE" property="logisticsCode"
+			jdbcType="DECIMAL" />
+		<result column="CONSIGNEE_NAME" property="consigneeName"
+			jdbcType="VARCHAR" />
+		<result column="CONSIGNEE_MOBILE" property="consigneeMobile"
+			jdbcType="VARCHAR" />
+		<result column="CONSIGNEE_TEL" property="consigneeTel"
+			jdbcType="VARCHAR" />
+		<result column="CONSIGNEE_ADDR" property="consigneeAddr"
+			jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="ADDRESS_ID" property="addressId" jdbcType="DECIMAL" />
+		<result column="ASSESS_STATUS" property="assessStatus"
+			jdbcType="DECIMAL" />
+		<result column="FINISH_DATE" property="finishDate" jdbcType="date" />
+		<result column="TOTAL_CREDIT" property="totalCredit" jdbcType="DECIMAL" />
+		<result column="INVOICE_INFO_TYPE" property="invoiceInfoType"
+			jdbcType="VARCHAR" />
+		<result column="INVOICE_INFO_TITLE" property="invoiceInfoTitle"
+			jdbcType="VARCHAR" />
+		<result column="INVOICE_INFO_CONTENT" property="invoiceInfoContent"
+			jdbcType="VARCHAR" />
+		<result column="CONFIRM_DELIVERY" property="confirmDelivery"
+			jdbcType="DECIMAL" />
+		<result column="LOGISTICS_NAME" property="logisticsName"
+			jdbcType="VARCHAR" />
+		<result column="ORIGINAL_ORDER_SUM" property="originalOrderSum"
+			jdbcType="DECIMAL" />
+		<result column="PROVINCE" jdbcType="VARCHAR" property="province" />
+		<result column="CITY" jdbcType="VARCHAR" property="city" />
+		<result column="AREA" jdbcType="VARCHAR" property="area" />
+		<result column="ZIPCODE" jdbcType="DECIMAL" property="zipcode" />
+		<result column="ORDER_Discount" jdbcType="DECIMAL" property="orderDisCount" />
+		<result column="ORDER_PV" jdbcType="DECIMAL" property="orderPv" />
+		<result column="COMMERCE_ID" property="commerceId" jdbcType="DECIMAL" />
+		<result column="ORDER_TYPE" jdbcType="DECIMAL" property="orderType" />
+	</resultMap>
+
+	<resultMap id="orderMain" class="com.kmzyc.b2b.model.OrderMain">
+		<result column="ORDER_ID" property="orderId" jdbcType="DECIMAL" />
+		<result column="CUSTOMER_ACCOUNT" property="customerAccount"
+			jdbcType="VARCHAR" />
+		<result column="CUSTOMER_NAME" property="customerName"
+			jdbcType="VARCHAR" />
+		<result column="CUSTOMER_MOBILE" property="customerMobile"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_NAME" property="orderPurchaserName"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_MOBILE" property="orderPurchaserMobile"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_TEL" property="orderPurchaserTel"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_ADDR" property="orderPurchaserAddr"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_TYPE" property="orderPurchaserType"
+			jdbcType="DECIMAL" />
+		<result column="PAY_METHOD" property="payMethod" jdbcType="DECIMAL" />
+		<result column="FARE" property="fare" jdbcType="DECIMAL" />
+		<result column="DELIVERY_DATE_TYPE" property="deliveryDateType"
+			jdbcType="DECIMAL" />
+		<result column="COMMODITY_SUM" property="commoditySum"
+			jdbcType="DECIMAL" />
+		<result column="DISCOUNT_AMOUNT" property="discountAmount"
+			jdbcType="DECIMAL" />
+		<result column="ACCOUNT_BALANCE" property="accountBalance"
+			jdbcType="DECIMAL" />
+		<result column="AMOUNT_PAYABLE" property="amountPayable"
+			jdbcType="DECIMAL" />
+		<result column="PAY_DATE" property="payDate" jdbcType="TIMESTAMP" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="AGENCY_NUMBER" property="agencyNumber"
+			jdbcType="VARCHAR" />
+		<result column="SETTLEMENT_NO" property="settlementNo"
+			jdbcType="DECIMAL" />
+		<result column="STOCK_OUT_ID" property="stockOutId" jdbcType="DECIMAL" />
+		<result column="DISTRIBUTION_ID" property="distributionId"
+			jdbcType="DECIMAL" />
+		<result column="LOGISTICS_ORDER_NO" property="logisticsOrderNo"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_SOURCE" property="orderSource" jdbcType="DECIMAL" />
+		<result column="INVOICE_ID" property="invoiceId" jdbcType="DECIMAL" />
+		<result column="PARENT_ORDER_CODE" property="parentOrderCode"
+			jdbcType="VARCHAR" />
+		<result column="SON_ORDER_CODE" property="sonOrderCode"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_DESCRIPTION" property="orderDescription"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_STATUS" property="orderStatus" jdbcType="DECIMAL" />
+		<result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+		<result column="CUSTOMER_ID" property="customerId" jdbcType="DECIMAL" />
+		<result column="LOGISTICS_CODE" property="logisticsCode"
+			jdbcType="DECIMAL" />
+		<result column="CONSIGNEE_NAME" property="consigneeName"
+			jdbcType="VARCHAR" />
+		<result column="CONSIGNEE_MOBILE" property="consigneeMobile"
+			jdbcType="VARCHAR" />
+		<result column="CONSIGNEE_TEL" property="consigneeTel"
+			jdbcType="VARCHAR" />
+		<result column="CONSIGNEE_ADDR" property="consigneeAddr"
+			jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="ADDRESS_ID" property="addressId" jdbcType="DECIMAL" />
+		<result column="ASSESS_STATUS" property="assessStatus"
+			jdbcType="DECIMAL" />
+		<result column="FINISH_DATE" property="finishDate" jdbcType="date" />
+		<result column="TOTAL_CREDIT" property="totalCredit" jdbcType="DECIMAL" />
+		<result column="INVOICE_INFO_TYPE" property="invoiceInfoType"
+			jdbcType="VARCHAR" />
+		<result column="INVOICE_INFO_TITLE" property="invoiceInfoTitle"
+			jdbcType="VARCHAR" />
+		<result column="INVOICE_INFO_CONTENT" property="invoiceInfoContent"
+			jdbcType="VARCHAR" />
+		<result column="CONFIRM_DELIVERY" property="confirmDelivery"
+			jdbcType="DECIMAL" />
+		<result column="LOGISTICS_NAME" property="logisticsName"
+			jdbcType="VARCHAR" />
+		<result column="ORIGINAL_ORDER_SUM" property="originalOrderSum"
+			jdbcType="DECIMAL" />
+		<result column="PROVINCE" jdbcType="VARCHAR" property="province" />
+		<result column="CITY" jdbcType="VARCHAR" property="city" />
+		<result column="AREA" jdbcType="VARCHAR" property="area" />
+		<result column="ZIPCODE" jdbcType="DECIMAL" property="zipcode" />
+		<result column="ORDER_Discount" jdbcType="DECIMAL" property="orderDisCount" />
+		<result column="ORDER_PV" jdbcType="DECIMAL" property="orderPv" />
+		<result column="COMMERCE_ID" property="commerceId" jdbcType="DECIMAL" />
+		<result column="ORDER_TYPE" jdbcType="DECIMAL" property="orderType" />
+		<result column="ORDER_CODE" property="discountSum"
+			select="OrderMain.getOrderPreferential" nullValue="0" />
+	</resultMap>
+	<resultMap id="orderMain2" class="com.kmzyc.b2b.model.OrderMain" extends="orderMain">
+		<result column="DEPOSIT_SUM" property="depositSum" jdbcType="DECIMAL" />
+		<result column="INFORMPAY_TEL" jdbcType="VARCHAR" property="informPayTel" />
+	</resultMap>
+	<resultMap id="orderMainLK" class="com.kmzyc.b2b.model.OrderMain">
+		<result column="ORDER_ID" property="orderId" jdbcType="DECIMAL" />
+		<result column="CUSTOMER_ACCOUNT" property="customerAccount"
+			jdbcType="VARCHAR" />
+		<result column="CUSTOMER_NAME" property="customerName"
+			jdbcType="VARCHAR" />
+		<result column="CUSTOMER_MOBILE" property="customerMobile"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_NAME" property="orderPurchaserName"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_MOBILE" property="orderPurchaserMobile"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_TEL" property="orderPurchaserTel"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_ADDR" property="orderPurchaserAddr"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_TYPE" property="orderPurchaserType"
+			jdbcType="DECIMAL" />
+		<result column="PAY_METHOD" property="payMethod" jdbcType="DECIMAL" />
+		<result column="FARE" property="fare" jdbcType="DECIMAL" />
+		<result column="DELIVERY_DATE_TYPE" property="deliveryDateType"
+			jdbcType="DECIMAL" />
+		<result column="COMMODITY_SUM" property="commoditySum"
+			jdbcType="DECIMAL" />
+		<result column="DISCOUNT_AMOUNT" property="discountAmount"
+			jdbcType="DECIMAL" />
+		<result column="ACCOUNT_BALANCE" property="accountBalance"
+			jdbcType="DECIMAL" />
+		<result column="AMOUNT_PAYABLE" property="amountPayable"
+			jdbcType="DECIMAL" />
+		<result column="PAY_DATE" property="payDate" jdbcType="TIMESTAMP" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="AGENCY_NUMBER" property="agencyNumber"
+			jdbcType="VARCHAR" />
+		<result column="SETTLEMENT_NO" property="settlementNo"
+			jdbcType="DECIMAL" />
+		<result column="STOCK_OUT_ID" property="stockOutId" jdbcType="DECIMAL" />
+		<result column="DISTRIBUTION_ID" property="distributionId"
+			jdbcType="DECIMAL" />
+		<result column="LOGISTICS_ORDER_NO" property="logisticsOrderNo"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_SOURCE" property="orderSource" jdbcType="DECIMAL" />
+		<result column="INVOICE_ID" property="invoiceId" jdbcType="DECIMAL" />
+		<result column="PARENT_ORDER_CODE" property="parentOrderCode"
+			jdbcType="VARCHAR" />
+		<result column="SON_ORDER_CODE" property="sonOrderCode"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_DESCRIPTION" property="orderDescription"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_STATUS" property="orderStatus" jdbcType="DECIMAL" />
+		<result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+		<result column="CUSTOMER_ID" property="customerId" jdbcType="DECIMAL" />
+		<result column="LOGISTICS_CODE" property="logisticsCode"
+			jdbcType="DECIMAL" />
+		<result column="CONSIGNEE_NAME" property="consigneeName"
+			jdbcType="VARCHAR" />
+		<result column="CONSIGNEE_MOBILE" property="consigneeMobile"
+			jdbcType="VARCHAR" />
+		<result column="CONSIGNEE_TEL" property="consigneeTel"
+			jdbcType="VARCHAR" />
+		<result column="CONSIGNEE_ADDR" property="consigneeAddr"
+			jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="ADDRESS_ID" property="addressId" jdbcType="DECIMAL" />
+		<result column="ASSESS_STATUS" property="assessStatus"
+			jdbcType="DECIMAL" />
+		<result column="FINISH_DATE" property="finishDate" jdbcType="date" />
+		<result column="TOTAL_CREDIT" property="totalCredit" jdbcType="DECIMAL" />
+		<result column="INVOICE_INFO_TYPE" property="invoiceInfoType"
+			jdbcType="VARCHAR" />
+		<result column="INVOICE_INFO_TITLE" property="invoiceInfoTitle"
+			jdbcType="VARCHAR" />
+		<result column="INVOICE_INFO_CONTENT" property="invoiceInfoContent"
+			jdbcType="VARCHAR" />
+		<result column="CONFIRM_DELIVERY" property="confirmDelivery"
+			jdbcType="DECIMAL" />
+		<result column="LOGISTICS_NAME" property="logisticsName"
+			jdbcType="VARCHAR" />
+		<result column="ORIGINAL_ORDER_SUM" property="originalOrderSum"
+			jdbcType="DECIMAL" />
+		<result column="PROVINCE" jdbcType="VARCHAR" property="province" />
+		<result column="CITY" jdbcType="VARCHAR" property="city" />
+		<result column="CAMPAIGNID" jdbcType="VARCHAR" property="area" />
+		<result column="ZIPCODE" jdbcType="DECIMAL" property="zipcode" />
+		<result column="ORDER_Discount" jdbcType="DECIMAL" property="orderDisCount" />
+		<result column="ORDER_PV" jdbcType="DECIMAL" property="orderPv" />
+		<result column="ORDER_TYPE" jdbcType="DECIMAL" property="orderType" />
+		<result column="ORDER_CODE" property="discountSum"
+			select="OrderMain.getOrderPreferential" nullValue="0" />
+	</resultMap>
+	<resultMap id="orderMainDM" class="com.kmzyc.b2b.model.OrderMain">
+		<result column="ORDER_ID" property="orderId" jdbcType="DECIMAL" />
+		<result column="CUSTOMER_ACCOUNT" property="customerAccount"
+			jdbcType="VARCHAR" />
+		<result column="CUSTOMER_NAME" property="customerName"
+			jdbcType="VARCHAR" />
+		<result column="CUSTOMER_MOBILE" property="customerMobile"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_NAME" property="orderPurchaserName"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_MOBILE" property="orderPurchaserMobile"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_TEL" property="orderPurchaserTel"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_ADDR" property="orderPurchaserAddr"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_PURCHASER_TYPE" property="orderPurchaserType"
+			jdbcType="DECIMAL" />
+		<result column="PAY_METHOD" property="payMethod" jdbcType="DECIMAL" />
+		<result column="FARE" property="fare" jdbcType="DECIMAL" />
+		<result column="DELIVERY_DATE_TYPE" property="deliveryDateType"
+			jdbcType="DECIMAL" />
+		<result column="COMMODITY_SUM" property="commoditySum"
+			jdbcType="DECIMAL" />
+		<result column="DISCOUNT_AMOUNT" property="discountAmount"
+			jdbcType="DECIMAL" />
+		<result column="ACCOUNT_BALANCE" property="accountBalance"
+			jdbcType="DECIMAL" />
+		<result column="AMOUNT_PAYABLE" property="amountPayable"
+			jdbcType="DECIMAL" />
+		<result column="click_date" property="payDate" jdbcType="TIMESTAMP" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="AGENCY_NUMBER" property="agencyNumber"
+			jdbcType="VARCHAR" />
+		<result column="SETTLEMENT_NO" property="settlementNo"
+			jdbcType="DECIMAL" />
+		<result column="STOCK_OUT_ID" property="stockOutId" jdbcType="DECIMAL" />
+		<result column="DISTRIBUTION_ID" property="distributionId"
+			jdbcType="DECIMAL" />
+		<result column="LOGISTICS_ORDER_NO" property="logisticsOrderNo"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_SOURCE" property="orderSource" jdbcType="DECIMAL" />
+		<result column="INVOICE_ID" property="invoiceId" jdbcType="DECIMAL" />
+		<result column="PARENT_ORDER_CODE" property="parentOrderCode"
+			jdbcType="VARCHAR" />
+		<result column="SON_ORDER_CODE" property="sonOrderCode"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_DESCRIPTION" property="orderDescription"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_STATUS" property="orderStatus" jdbcType="DECIMAL" />
+		<result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+		<result column="CUSTOMER_ID" property="customerId" jdbcType="DECIMAL" />
+		<result column="LOGISTICS_CODE" property="logisticsCode"
+			jdbcType="DECIMAL" />
+		<result column="CONSIGNEE_NAME" property="consigneeName"
+			jdbcType="VARCHAR" />
+		<result column="CONSIGNEE_MOBILE" property="consigneeMobile"
+			jdbcType="VARCHAR" />
+		<result column="CONSIGNEE_TEL" property="consigneeTel"
+			jdbcType="VARCHAR" />
+		<result column="CONSIGNEE_ADDR" property="consigneeAddr"
+			jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="ADDRESS_ID" property="addressId" jdbcType="DECIMAL" />
+		<result column="ASSESS_STATUS" property="assessStatus"
+			jdbcType="DECIMAL" />
+		<result column="FINISH_DATE" property="finishDate" jdbcType="date" />
+		<result column="TOTAL_CREDIT" property="totalCredit" jdbcType="DECIMAL" />
+		<result column="INVOICE_INFO_TYPE" property="invoiceInfoType"
+			jdbcType="VARCHAR" />
+		<result column="INVOICE_INFO_TITLE" property="invoiceInfoTitle"
+			jdbcType="VARCHAR" />
+		<result column="INVOICE_INFO_CONTENT" property="invoiceInfoContent"
+			jdbcType="VARCHAR" />
+		<result column="CONFIRM_DELIVERY" property="confirmDelivery"
+			jdbcType="DECIMAL" />
+		<result column="LOGISTICS_NAME" property="logisticsName"
+			jdbcType="VARCHAR" />
+		<result column="ORIGINAL_ORDER_SUM" property="originalOrderSum"
+			jdbcType="DECIMAL" />
+		<result column="PROVINCE" jdbcType="VARCHAR" property="province" />
+		<result column="CITY" jdbcType="VARCHAR" property="city" />
+		<result column="CAMPAIGNID" jdbcType="VARCHAR" property="area" />
+		<result column="ZIPCODE" jdbcType="DECIMAL" property="zipcode" />
+		<result column="ORDER_Discount" jdbcType="DECIMAL" property="orderDisCount" />
+		<result column="ORDER_PV" jdbcType="DECIMAL" property="orderPv" />
+		<result column="ORDER_TYPE" jdbcType="DECIMAL" property="orderType" />
+		<result column="ORDER_CODE" property="discountSum"
+			select="OrderMain.getOrderPreferential" nullValue="0" />
+	</resultMap>
+	<resultMap id="orderMainResultMap" extends="orderMain"
+		class="com.kmzyc.b2b.model.OrderMain" groupBy="orderId">
+		<result property="orderItemList" resultMap="OrderItem.orderItemResultMap" />
+	</resultMap>
+
+	<resultMap id="orderMainResultMap_second" extends="orderMain"
+		class="com.kmzyc.b2b.model.OrderMain" groupBy="orderId">
+		<result column="sum_consumption_amount" jdbcType="DECIMAL"
+			property="consumptionAmount" />
+		<result property="orderItemList" resultMap="OrderItem.orderItemResultMap_second" />
+
+	</resultMap>
+	
+	<resultMap id="orderMainResultMap_third" extends="orderMain"
+		class="com.kmzyc.b2b.model.OrderMain" groupBy="orderId">
+		<result column="sum_consumption_amount" jdbcType="DECIMAL"
+			property="consumptionAmount" />
+		<result property="orderItemList" resultMap="OrderItem.orderItemResultMap_third" />
+		<result property="depositSum" column="DEPOSIT_SUM" />
+	</resultMap>
+
+	<resultMap id="orderMainWithDefaultImageResultMap" extends="orderMain"
+		class="com.kmzyc.b2b.model.OrderMain" groupBy="orderId">
+		<result property="orderItemList" resultMap="OrderItem.orderItemWithDefaultImageResultMap" />
+	</resultMap>
+	<resultMap id="orderSonListWithDefaultImageResultMap"
+		extends="orderMain" class="com.kmzyc.b2b.model.OrderMain" groupBy="orderId">
+		<result property="orderItemList" resultMap="OrderItem.orderItemResultMap" />
+	</resultMap>
+
+
+	<resultMap id="byPageMapForReturnShop" extends="orderMain"
+		class="com.kmzyc.b2b.model.OrderMain" groupBy="orderId">
+		<result property="orderItemList" resultMap="OrderItem.orderItemWithImgRETURNING" />
+	</resultMap>
+
+	<resultMap id="byPageMap" extends="orderMainWithDefaultImageResultMap"
+		class="com.kmzyc.b2b.model.OrderMain" groupBy="orderId">
+		<result property="rootOrderCode" column="ROOT_ORDER_CODE" />
+	</resultMap>
+	<resultMap id="consumptionDetailResultMap" class="com.kmzyc.b2b.vo.ConsumptionDetail">
+		<result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+		<result column="PAY_DATE" property="payDate" jdbcType="TIMESTAMP" />
+		<result column="AMOUNT_PAYABLE" property="amountPayable"
+			jdbcType="DECIMAL" />
+		<result column="PREFERENTIAL_PAY" property="preferentialPay"
+			jdbcType="DECIMAL" />
+		<result column="BALANCE_PAY" property="balancePay" jdbcType="DECIMAL" />
+		<result column="OTHER_PAY" property="otherPay" jdbcType="DECIMAL" />
+		<result column="RETURN_SUM" property="returnSum" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<resultMap id="orderItemAppraise" class="com.kmzyc.b2b.model.OrderItem"
+		groupBy="orderItemId">
+		<result column="ORDER_ITEM_ID" property="orderItemId" jdbcType="DECIMAL" />
+		<result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+		<result column="COMMODITY_TITLE" property="commodityName"
+			jdbcType="VARCHAR" />
+		<result column="COMMODITY_CODE" property="commodityCode"
+			jdbcType="VARCHAR" />
+		<result column="COMMODITY_SKU" property="commoditySku"
+			jdbcType="VARCHAR" />
+		<result column="COMMODITY_BATCH_NUMBER" property="commodityBatchNumber"
+			jdbcType="DECIMAL" />
+		<result column="COMMODITY_CALLED_PRICE" property="commodityCalledPrice"
+			jdbcType="DECIMAL" />
+		<result column="COMMODITY_UNIT_PRICE" property="commodityUnitPrice"
+			jdbcType="DECIMAL" />
+		<result column="COMMODITY_NUMBER" property="commodityNumber"
+			jdbcType="DECIMAL" />
+		<result column="COMMODITY_SUM" property="commoditySum"
+			jdbcType="DECIMAL" />
+		<result column="COMMODITY_CALLED_SUM" property="commodityCalledSum"
+			jdbcType="DECIMAL" />
+		<result column="COMMODITY_DESCRIPTION" property="commodityDescription"
+			jdbcType="VARCHAR" />
+		<result column="WAREHOUSE_ID" property="warehouseId" jdbcType="DECIMAL" />
+		<result column="CREDITS" property="credits" jdbcType="DECIMAL" />
+		<result column="IMAGE_URL" property="imageUrl" jdbcType="VARCHAR" />
+		<result property="prodApraiseList" resultMap="ProdAppraise.prodAppraise_map" />
+		<result property="appraiseAdd"
+			resultMap="APPRAISE_ADDTO_CONTENT.ibatorgenerated_BaseResultMap" />
+		<result property="appraiseReplyList" resultMap="APPRAISE_REPLY.ApplyForAssess" />
+	</resultMap>
+
+	<!-- 支付信息map -->
+	<resultMap id="orderPayStatementMap" class="com.kmzyc.b2b.model.OrderPayStatement">
+		<result column="PAY_STATEMENT_NO" property="payStatementNo"
+			jdbcType="DECIMAL" />
+		<result column="PAYMENT_WAY" property="paymentWay" jdbcType="DECIMAL" />
+		<result column="STATE" property="state" jdbcType="DECIMAL" />
+		<result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+		<result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+		<result column="ORDER_MONEY" property="orderMoney" jdbcType="DECIMAL" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+		<result column="OUTSIDE_PAY_STATEMENT_NO" property="outsidePayStatementNo"
+			jdbcType="VARCHAR" />
+		<result column="FLAG" property="flag" jdbcType="DECIMAL" />
+		<result column="PREFERENTIAL_NO" property="preferentialNo"
+			jdbcType="DECIMAL" />
+		<result column="PREFERENTIAL_NAME" property="preferentialName"
+			jdbcType="VARCHAR" />
+		<result column="BANK_CODE" property="bankCode" jdbcType="VARCHAR" />
+		<result column="BANK_NAME" property="bankName" jdbcType="VARCHAR" />
+		<result column="PLATFORM_CODE" property="platformCode"
+			jdbcType="VARCHAR" />
+		<result column="PLATFORM_NAME" property="platformName"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 优惠券的可用范围的映射 -->
+	<resultMap id="couponAndPartPromotion" class="com.kmzyc.b2b.model.CouponAndPromotion">
+		<result column="COUPON_ID" property="couponId" jdbcType="DECIMAL" />
+		<result column="COUPON_GIVETYPE_ID" property="couponGivetypeId"
+			jdbcType="DECIMAL" />
+		<result column="COUPON_NAME" property="couponName" jdbcType="VARCHAR" />
+		<result column="COUPON_DESCRIBE" property="couponDescribe"
+			jdbcType="VARCHAR" />
+		<result column="COUPON_MONEY" property="couponMoney" jdbcType="DECIMAL" />
+		<result column="STARTTIME" property="starttime" jdbcType="DATE" />
+		<result column="ENDTIME" property="endtime" jdbcType="VARCHAR" />
+		<result column="CREATETIME" property="createtime" jdbcType="DATE" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="CUSTOM_LEVEID" property="customLeveid"
+			jdbcType="VARCHAR" />
+		<result column="CUSTOM_REG_START" property="customRegStart"
+			jdbcType="DATE" />
+		<result column="CUSTOM_REG_END" property="customRegEnd"
+			jdbcType="DATE" />
+		<result column="PAY_LEAST_MONEY" property="payLeastMoney"
+			jdbcType="DECIMAL" />
+		<result column="CUSTOM_ID" property="customId" jdbcType="VARCHAR" />
+		<result column="IS_GRANT" property="isGrant" jdbcType="VARCHAR" />
+		<result column="COUPON_VALID_DAY" property="couponValidDay"
+			jdbcType="DECIMAL" nullValue="0" />
+		<result column="product_Filter_Type" property="productFilterType"
+			jdbcType="DECIMAL" />
+		<result column="SHOP_CODE" property="shopCode" jdbcType="VARCHAR" />
+		<result column="TIME_TYPE" property="timeType" jdbcType="DECIMAL" />
+
+	</resultMap>
+
+	<sql id="byUserIdCondition">
+		<![CDATA[
+		   CUSTOMER_ID = #objCondition.userId:NUMBER#
+	    ]]>
+	</sql>
+	<sql id="byEmailCondition">
+		<![CDATA[
+		   EMAIL = #objCondition.email:VARCHAR#
+	    ]]>
+	</sql>
+
+	<sql id="byOrderCode">
+		<![CDATA[
+		  	om.order_code=#orderCode:VARCHAR#
+	    ]]>
+	</sql>
+
+	<sql id="byPageConditionCgw">
+		<isNotEmpty property="objCondition.customerMobile" prepend="and">
+			<![CDATA[
+			ORDER_PURCHASER_MOBILE = #objCondition.customerMobile:VARCHAR#
+			]]>
+		</isNotEmpty>
+		<isNotEmpty property="objCondition.orderCode" prepend="and">
+			<![CDATA[
+			t.order_code = #objCondition.orderCode:VARCHAR#
+			]]>
+		</isNotEmpty>
+		<isNotEmpty property="objCondition.createDateBegin"
+			prepend="and">
+			<![CDATA[
+			trunc(create_date, 'mi') >to_date(#objCondition.createDateBegin#, 'yyyy-MM-dd HH24:mi:ss')
+			]]>
+		</isNotEmpty>
+		<isNotEmpty property="objCondition.createDateEnd" prepend="and">
+			<![CDATA[
+			trunc(create_date, 'mi') <to_date(#objCondition.createDateEnd#, 'yyyy-MM-dd HH24:mi:ss')
+			]]>
+		</isNotEmpty>
+		<isNotEmpty property="objCondition.orderStatus" prepend="and">
+			<![CDATA[
+			ORDER_STATUS in ($objCondition.orderStatus$)
+			]]>
+		</isNotEmpty>
+		<isNotEmpty property="objCondition.keyword" prepend="and"
+			open="(" close=")">
+			<![CDATA[
+			order_code LIKE '%'||#objCondition.keyword#||'%' or exists
+ 			  (select * from order_item b where t.order_code=b.order_code 
+ 			   and (b.commodity_title like '%'||#objCondition.keyword#||'%'
+ 			        or b.COMMODITY_SKU like '%'||#objCondition.keyword#||'%'))
+			]]>
+		</isNotEmpty>
+	</sql>
+	<sql id="byPageCondition">
+		<isNotEmpty property="objCondition.customerMobile" prepend="and">
+			<![CDATA[
+			ORDER_PURCHASER_MOBILE = #objCondition.customerMobile:VARCHAR#
+			]]>
+		</isNotEmpty>
+		<isNotEmpty property="objCondition.orderCode" prepend="and">
+			<![CDATA[
+			t.order_code = #objCondition.orderCode:VARCHAR#
+			]]>
+		</isNotEmpty>
+		<isNotEmpty property="objCondition.createDateBegin"
+			prepend="and">
+			<![CDATA[
+			CREATE_DATE >= #objCondition.createDateBegin:DATE#
+			]]>
+		</isNotEmpty>
+		<isNotEmpty property="objCondition.createDateEnd" prepend="and">
+			<![CDATA[
+			CREATE_DATE < #objCondition.createDateEnd:DATE#
+			]]>
+		</isNotEmpty>
+		<isNotEmpty property="objCondition.createDateBeginDM"
+			prepend="and">
+			<![CDATA[
+			CREATE_DATE >= to_date(#objCondition.createDateBeginDM:VARCHAR#, 'yyyy-mm-dd,hh24:mi:ss') 
+			]]>
+		</isNotEmpty>
+		<isNotEmpty property="objCondition.createDateEndDM" prepend="and">
+			<![CDATA[
+			CREATE_DATE <to_date(#objCondition.createDateEndDM:VARCHAR#, 'yyyy-mm-dd,hh24:mi:ss') 
+			]]>
+		</isNotEmpty>
+		<isNotEmpty property="objCondition.orderStatus" prepend="and">
+			<![CDATA[
+			ORDER_STATUS in ($objCondition.orderStatus$)
+			]]>
+		</isNotEmpty>
+		<isNotEmpty property="objCondition.keyword" prepend="and"
+			open="(" close=")">
+			<![CDATA[
+			order_code LIKE '%'||#objCondition.keyword#||'%' or exists
+ 			  (select * from order_item b where t.order_code=b.order_code 
+ 			   and (b.commodity_title like '%'||#objCondition.keyword#||'%'
+ 			        or b.COMMODITY_SKU like '%'||#objCondition.keyword#||'%'))
+			]]>
+		</isNotEmpty>
+	</sql>
+
+	<select id="findOrderByPageCgw" parameterClass="pagination"
+		resultMap="orderMainLK">
+    <![CDATA[
+    select * from (
+			SELECT t.*,rownum rn,ose.CAMPAIGNID FROM ORDER_MAIN t,order_out_side_ext_info ose where t.ORDER_CODE=ose.order_code
+			and ose.source= 'chengguowang'  and rownum < #endindex#
+		]]>
+		<dynamic prepend="">
+			<include refid="byPageConditionCgw" />
+		</dynamic>
+		ORDER BY t.CREATE_DATE DESC
+		) rs where rs.rn >= #startindex#
+
+	</select>
+	<select id="findOrderByPageLK" parameterClass="pagination"
+		resultMap="orderMainLK">
+    <![CDATA[
+            SELECT t.*,ose.CAMPAIGNID FROM ORDER_MAIN t,order_out_side_ext_info ose where t.ORDER_CODE=ose.order_code
+			and ose.source like '%LTINFO%'
+		]]>
+		<dynamic prepend="AND">
+			<include refid="byPageCondition" />
+		</dynamic>
+		<isNotEmpty prepend="AND" property="objCondition.m_id">
+		<![CDATA[
+			ose.source=#objCondition.m_id:VARCHAR#
+			]]>
+	    </isNotEmpty>
+		ORDER BY t.CREATE_DATE DESC
+	</select>
+    <select id="findOrderByPageDM" parameterClass="pagination"
+		resultMap="orderMainDM">
+    <![CDATA[
+            SELECT t.*,ose.FEEDBACK as CAMPAIGNID,ose.CREATEDATE as click_date FROM ORDER_MAIN t,order_out_side_ext_info ose where t.ORDER_CODE=ose.order_code
+			and ose.source like '%duomai%'
+		]]>
+		<dynamic prepend="AND">
+			<include refid="byPageCondition" />
+		</dynamic>
+		<isNotEmpty prepend="AND" property="objCondition.m_id">
+		<![CDATA[
+			ose.source=#objCondition.m_id:VARCHAR#
+			]]>
+	    </isNotEmpty>
+		ORDER BY t.CREATE_DATE DESC
+	</select>
+	<select id="findOrderTrailByPage" parameterClass="pagination"
+		resultMap="byPageMap">
+		<![CDATA[
+			SELECT PT.*,ST.* FROM (SELECT * FROM (SELECT C.*,ROWNUM RN FROM 
+				(SELECT t.* 				
+				,(
+				CASE
+					WHEN T.PARENT_ORDER_CODE IS NULL THEN
+						NULL
+					ELSE
+						(
+							SELECT
+								ORDER_CODE
+							FROM
+								ORDER_MAIN E
+							WHERE
+								CONNECT_BY_ISLEAF = 1 START WITH E .ORDER_CODE = T.ORDER_CODE CONNECT BY E .ORDER_CODE = PRIOR E .PARENT_ORDER_CODE  
+						)
+					END
+			    ) ROOT_ORDER_CODE
+			    FROM ORDER_MAIN t
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byEmailCondition" />
+		</dynamic>
+		<dynamic prepend="AND">
+			<include refid="byPageCondition" />
+		</dynamic>
+		AND DISABLED=1  ORDER BY
+		CREATE_DATE DESC) C WHERE ROWNUM &lt;= #endindex#) WHERE RN &gt;=
+		#startindex#) PT,
+		(SELECT IT.*,M.*
+		FROM ORDER_ITEM IT,
+		(SELECT SKU.PRODUCT_SKU_CODE,SKU.PRODUCT_SKU_ID,IM.* FROM
+		PRODUCT_SKU SKU,PRODUCT_IMAGE IM
+		WHERE SKU.PRODUCT_SKU_ID=IM.SKU_ID AND IM.IS_DEFAULT=0) M
+		WHERE IT.COMMODITY_SKU=M.PRODUCT_SKU_CODE(+)) ST
+		WHERE PT.ORDER_CODE=ST.ORDER_CODE(+)
+		ORDER BY PT.CREATE_DATE DESC
+	</select>
+
+	<select id="findByPage" parameterClass="pagination" resultMap="byPageMap">
+		<![CDATA[
+			SELECT PT.*,ST.* FROM (SELECT * FROM (SELECT C.*,ROWNUM RN FROM 
+				(SELECT t.*
+				,(
+				CASE
+					WHEN T.PARENT_ORDER_CODE IS NULL THEN
+						NULL
+					ELSE
+						(
+							SELECT
+								ORDER_CODE
+							FROM
+								ORDER_MAIN E
+							WHERE
+								CONNECT_BY_ISLEAF = 1 START WITH E .ORDER_CODE = T.ORDER_CODE CONNECT BY E .ORDER_CODE = PRIOR E .PARENT_ORDER_CODE  
+						)
+					END
+			    ) ROOT_ORDER_CODE
+				 FROM ORDER_MAIN t
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byUserIdCondition" />
+		</dynamic>
+		<dynamic prepend="AND">
+			<include refid="byPageCondition" />
+		</dynamic>
+		AND DISABLED=1
+		ORDER BY t.CREATE_DATE DESC) C WHERE ROWNUM &lt;= #endindex#) WHERE RN
+		&gt;= #startindex#) PT,
+		(SELECT IT.*,M.*
+		FROM ORDER_ITEM IT,
+		(SELECT SKU.PRODUCT_SKU_CODE,SKU.PRODUCT_SKU_ID,IM.* FROM
+		PRODUCT_SKU SKU,PRODUCT_IMAGE IM
+		WHERE SKU.PRODUCT_SKU_ID=IM.SKU_ID AND IM.IS_DEFAULT=0) M
+		WHERE IT.COMMODITY_SKU=M.PRODUCT_SKU_CODE(+)) ST
+		WHERE PT.ORDER_CODE=ST.ORDER_CODE(+)
+		ORDER BY PT.CREATE_DATE DESC
+	</select>
+
+	<select id="findByPageForReturnShop" parameterClass="pagination"
+		resultMap="byPageMapForReturnShop">
+		<!-- SELECT PT.*,ST.* FROM (SELECT * FROM (SELECT C.*,ROWNUM RN FROM
+		(SELECT T.*
+		FROM ORDER_MAIN T
+		WHERE T.ORDER_STATUS = 6
+		<dynamic prepend="WHERE">
+			<include refid="byUserIdCondition" />
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.keyword" prepend="AND"
+				open="(" close=")">
+				ORDER_CODE LIKE '%'||#objCondition.keyword#||'%' OR
+				EXISTS
+				(SELECT * FROM ORDER_ITEM B WHERE T.ORDER_CODE=B.ORDER_CODE
+				AND (B.COMMODITY_TITLE LIKE '%'||#objCondition.keyword#||'%'
+				OR B.COMMODITY_SKU LIKE '%'||#objCondition.keyword#||'%'))
+			</isNotEmpty>
+		</dynamic>
+		AND DISABLED=1 AND order_channel = #objCondition.channel#
+		<isNotEmpty property="objCondition.overDate" prepend="AND"
+			open="(" close=")">
+			FINISH_DATE &gt;= #objCondition.overDate:DATE#
+		</isNotEmpty>
+		ORDER BY t.CREATE_DATE DESC) C WHERE ROWNUM &lt;= $endindex$) WHERE RN
+		&gt;= $startindex$) PT,
+		(SELECT IT.*,M.*
+		,(CASE
+		WHEN EXISTS (SELECT *
+		FROM ORDER_ALTER
+		WHERE ORDER_ITEM_ID = IT.ORDER_ITEM_ID
+		AND PROPOSE_STATUS NOT IN (-2, -1, 7)
+		AND ROWNUM = 1) THEN
+		1
+		ELSE
+		(CASE
+		WHEN (SELECT IT.COMMODITY_NUMBER - SUM(ALTER_NUM)
+		FROM ORDER_ALTER
+		WHERE ALTER_TYPE = 1
+		AND PROPOSE_STATUS = 7
+		AND ORDER_ITEM_ID = IT.ORDER_ITEM_ID) = 0 THEN
+		1
+		ELSE
+		0
+		END)
+		END) ISRETURNING
+		,(SELECT COUNT(*) FROM ORDER_MAIN WHERE ORDER_CODE = IT.ORDER_CODE 
+			AND FINISH_DATE &lt;= #objCondition.overDate:DATE# AND ROWNUM = 1) ISOVERDUE
+		FROM ORDER_ITEM IT,
+		(SELECT  IM.*
+                   FROM PRODUCT_IMAGE IM
+                  WHERE  IM.IS_DEFAULT = 0) M
+          WHERE IT.SKUID= M.SKU_ID(+)) ST
+		WHERE PT.ORDER_CODE=ST.ORDER_CODE(+)
+		ORDER BY PT.CREATE_DATE DESC -->
+		SELECT PT.*,
+       ST.*,
+       (CASE
+         WHEN EXISTS (SELECT 1
+                 FROM ORDER_ALTER
+                WHERE PROPOSE_STATUS NOT IN (-2, -1, 7)
+                  AND ROWNUM = 1
+                  AND ORDER_ITEM_ID = ST.ORDER_ITEM_ID) THEN
+          1
+         ELSE
+          (CASE
+            WHEN (SELECT ST.COMMODITY_NUMBER - SUM(ALTER_NUM)
+                    FROM ORDER_ALTER
+                   WHERE ALTER_TYPE in (1,4)
+                     AND PROPOSE_STATUS = 7
+                     AND ORDER_ITEM_ID = ST.ORDER_ITEM_ID) = 0 THEN
+             1
+            ELSE
+             0
+          END)
+       END) ISRETURNING
+  FROM (select order_item_id,
+               order_code,
+               commodity_name,
+               commodity_code,
+               commodity_sku,
+               commodity_batch_number,
+               commodity_called_price,
+               commodity_unit_price,
+               commodity_number,
+               commodity_sum,
+               commodity_called_sum,
+               commodity_description,
+               warehouse_id,
+               credits,
+               image_url,
+               commodity_unit_weight,
+               suit_id,
+               commodity_type,
+               commodity_sku_description,
+               commodity_title,
+               supplier,
+               commodity_channel,
+               commodity_cost_price,
+               commodity_brand,
+               commodity_unit_incoming,
+               commission_rate,
+               supplier_type,
+               ext_attr_type,
+               settlement_loan,
+               cost_income_ratio,
+               erp_pro_code,
+               erp_sys_code,
+               commodity_pv,
+               cost_income_money,
+               skuid,
+               IM.image_id,
+               IM.product_no,
+               IM.sku_id,
+               IM.is_default,
+               IM.img_path,
+               IM.img_path1,
+               IM.img_path2,
+               IM.img_path3,
+               IM.img_path4,
+               IM.spc1,
+               IM.spc2,
+               IM.product_id,
+               IM.img_path5,
+               IM.img_path6,
+               IM.img_path7,
+               IM.sortno,
+               IM.img_path8,
+               IM.img_path9,
+               IM.img_path10
+          from ORDER_ITEM IT
+          left join PRODUCT_IMAGE IM
+            on IT.SKUID = IM.SKU_ID WHERE IM.Is_Default = '0' ) ST,
+       (SELECT *
+          FROM (SELECT c.*,
+                       ROWNUM RN
+                  FROM (select * from ((SELECT t.order_id,
+                               t.customer_account,
+                               t.customer_name,
+                               t.customer_mobile,
+                               t.order_purchaser_name,
+                               t.order_purchaser_mobile,
+                               t.order_purchaser_tel,
+                               t.order_purchaser_addr,
+                               t.order_purchaser_type,
+                               t.consignee_name,
+                               t.consignee_mobile,
+                               t.consignee_tel,
+                               t.consignee_addr,
+                               t.pay_method,
+                               t.fare,
+                               t.delivery_date_type,
+                               t.commodity_sum,
+                               t.discount_amount,
+                               t.account_balance,
+                               t.amount_payable,
+                               t.pay_date,
+                               t.create_date,
+                               t.agency_number,
+                               t.settlement_no,
+                               t.stock_out_id,
+                               t.distribution_id,
+                               t.logistics_order_no,
+                               t.order_source,
+                               t.invoice_id,
+                               t.parent_order_code,
+                               t.son_order_code,
+                               t.order_description,
+                               t.order_status,
+                               t.order_code,
+                               t.customer_id,
+                               t.order_channel,
+                               t.disabled,
+                               t.confirm_delivery,
+                               t.logistics_code,
+                               t.address_id,
+                               t.email,
+                               t.weight,
+                               t.assess_status,
+                               t.finish_date,
+                               t.invoice_info_type,
+                               t.invoice_info_title,
+                               t.invoice_info_content,
+                               t.total_credit,
+                               t.logistics_name,
+                               t.original_order_sum,
+                               t.province,
+                               t.city,
+                               t.area,
+                               t.zipcode,
+                               t.order_type,
+                               t.order_operation_remark,
+                               t.commerce_id,
+                               t.prize_numbers,
+                               t.check_flag,
+                               t.medic_flag,
+                               t.prescription_attachment,
+                               t.commerce_name,
+                               t.order_pv,
+                               t.order_discount
+                          FROM ORDER_MAIN T
+                         WHERE DISABLED = 1
+						   	<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.keyword" prepend="AND"
+				open="(" close=")">
+				ORDER_CODE LIKE '%'||#objCondition.keyword#||'%' OR
+				EXISTS
+				(SELECT * FROM ORDER_ITEM B WHERE T.ORDER_CODE=B.ORDER_CODE
+				AND (B.COMMODITY_TITLE LIKE '%'||#objCondition.keyword#||'%'
+				OR B.COMMODITY_SKU LIKE '%'||#objCondition.keyword#||'%'))
+			</isNotEmpty>
+		</dynamic>
+		<isNotEmpty property="objCondition.overDate" prepend="AND"
+			open="(" close=")">
+			FINISH_DATE &gt;= #objCondition.overDate:DATE#
+		</isNotEmpty>
+                           AND 						
+			<include refid="byUserIdCondition" />
+		                         )
+		union
+		(SELECT t.order_id,
+               t.customer_account,
+               t.customer_name,
+               t.customer_mobile,
+               t.order_purchaser_name,
+               t.order_purchaser_mobile,
+               t.order_purchaser_tel,
+               t.order_purchaser_addr,
+               t.order_purchaser_type,
+               t.consignee_name,
+               t.consignee_mobile,
+               t.consignee_tel,
+               t.consignee_addr,
+               t.pay_method,
+               t.fare,
+               t.delivery_date_type,
+               t.commodity_sum,
+               t.discount_amount,
+               t.account_balance,
+               t.amount_payable,
+               t.pay_date,
+               t.create_date,
+               t.agency_number,
+               t.settlement_no,
+               t.stock_out_id,
+               t.distribution_id,
+               t.logistics_order_no,
+               t.order_source,
+               t.invoice_id,
+               t.parent_order_code,
+               t.son_order_code,
+               t.order_description,
+               t.order_status,
+               t.order_code,
+               t.customer_id,
+               t.order_channel,
+               t.disabled,
+               t.confirm_delivery,
+               t.logistics_code,
+               t.address_id,
+               t.email,
+               t.weight,
+               t.assess_status,
+               t.finish_date,
+               t.invoice_info_type,
+               t.invoice_info_title,
+               t.invoice_info_content,
+               t.total_credit,
+               t.logistics_name,
+               t.original_order_sum,
+               t.province,
+               t.city,
+               t.area,
+               t.zipcode,
+               t.order_type,
+               t.order_operation_remark,
+               t.commerce_id,
+               t.prize_numbers,
+               t.check_flag,
+               t.medic_flag,
+               t.prescription_attachment,
+               t.commerce_name,
+               t.order_pv,
+               t.order_discount
+      from order_item item
+		 inner join promotion_presell sell
+		    on sell.presell_id = item.presell_id
+		 inner join order_main t
+			on item.order_code=t.order_code
+		 where   t.DISABLED = 1
+		 <dynamic prepend="AND">
+			<isNotEmpty property="objCondition.keyword" prepend="AND"
+				open="(" close=")">
+				t.ORDER_CODE LIKE '%'||#objCondition.keyword#||'%' OR
+				EXISTS
+				(SELECT * FROM ORDER_ITEM B WHERE T.ORDER_CODE=B.ORDER_CODE
+				AND (B.COMMODITY_TITLE LIKE '%'||#objCondition.keyword#||'%'
+				OR B.COMMODITY_SKU LIKE '%'||#objCondition.keyword#||'%'))
+			</isNotEmpty>
+		</dynamic>
+		 <isNotEmpty prepend="AND" property="objCondition.orderType">
+		 	t.order_type=#objCondition.orderType#
+		 </isNotEmpty>
+		 <isNotEmpty prepend="AND" property="objCondition.userId">	
+		  	t.customer_id=#objCondition.userId#
+		 </isNotEmpty>
+		 and t.order_status in (2,3,4,15,20,21,22)
+		 AND sell.delivery_end_time between sysdate-10 and sysdate  
+		  )) order by order_id desc ) C
+                 WHERE ROWNUM &lt;= #endindex#)
+         WHERE RN &gt;= #startindex#) PT
+ WHERE PT.ORDER_CODE = ST.ORDER_CODE
+	</select>
+	<select id="countByPageForReturnShop" parameterClass="pagination"
+		resultClass="int">
+		SELECT NVL(COUNT(1),0)
+		FROM (select t.order_id FROM ORDER_MAIN T
+		<!-- WHERE T.ORDER_STATUS = 6 -->
+		<dynamic prepend="WHERE">
+			<include refid="byUserIdCondition" />
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotEmpty property="objCondition.keyword" prepend="AND"
+				open="(" close=")">
+				ORDER_CODE LIKE '%'||#objCondition.keyword#||'%' OR
+				EXISTS
+				(SELECT * FROM ORDER_ITEM B WHERE T.ORDER_CODE=B.ORDER_CODE
+				AND (B.COMMODITY_TITLE LIKE '%'||#objCondition.keyword#||'%'
+				OR B.COMMODITY_SKU LIKE '%'||#objCondition.keyword#||'%'))
+			</isNotEmpty>
+		</dynamic>
+		AND DISABLED=1
+		<isNotEmpty property="objCondition.overDate" prepend="AND"
+			open="(" close=")">
+			FINISH_DATE &gt;= #objCondition.overDate:DATE#
+		</isNotEmpty>
+		union
+		select t.order_id 
+		 from order_item item
+		 inner join promotion_presell sell
+		    on sell.presell_id = item.presell_id
+		 inner join order_main t
+			on item.order_code=t.order_code
+		 where   t.DISABLED = 1
+		 <dynamic prepend="AND">
+			<isNotEmpty property="objCondition.keyword" prepend="AND"
+				open="(" close=")">
+				t.ORDER_CODE LIKE '%'||#objCondition.keyword#||'%' OR
+				EXISTS
+				(SELECT * FROM ORDER_ITEM B WHERE T.ORDER_CODE=B.ORDER_CODE
+				AND (B.COMMODITY_TITLE LIKE '%'||#objCondition.keyword#||'%'
+				OR B.COMMODITY_SKU LIKE '%'||#objCondition.keyword#||'%'))
+			</isNotEmpty>
+		</dynamic>
+		 <isNotEmpty prepend="AND" property="objCondition.orderType">
+		 	t.order_type=#objCondition.orderType#
+		 </isNotEmpty>
+		 <isNotEmpty prepend="AND" property="objCondition.userId">	
+		  	t.customer_id=#objCondition.userId#
+		 </isNotEmpty>
+		 and t.order_status in (2,3,4,15,20,21,22)
+		  AND sell.delivery_end_time between (sysdate-10) and (sysdate) 
+		  )
+	</select>
+	<sql id="orderItemImage">
+		im.IMAGE_ID,
+		im.PRODUCT_NO,
+		im.IS_DEFAULT,
+		im.IMG_PATH,
+		im.IMG_PATH1,
+		im.IMG_PATH2,
+		im.IMG_PATH3,
+		im.IMG_PATH4,
+		im.SPC1,
+		im.SPC2,
+		im.PRODUCT_ID,
+		im.IMG_PATH5,
+		im.IMG_PATH6,
+		im.IMG_PATH7,
+		im.SORTNO,
+		im.IMG_PATH8,
+		im.IMG_PATH9,
+		im.IMG_PATH10
+	</sql>
+	<sql id="orderItemColunm">
+		OT.order_item_id,
+		OT.order_code,
+		OT.SKUID SKU_ID,
+		OT.commodity_title,
+		OT.commodity_code,
+		OT.commodity_sku,
+		OT.commodity_batch_number,
+		OT.commodity_called_price,
+		OT.commodity_unit_price,
+		OT.commodity_number,
+		OT.commodity_sum commodity_sum_item,
+		OT.commodity_called_sum,
+		OT.commodity_description,
+		OT.warehouse_id,
+		OT.credits,
+		OT.image_url,
+		OT.commodity_unit_weight,
+		OT.suit_id,
+		OT.commodity_type,
+		OT.COMMODITY_UNIT_INCOMING
+	</sql>
+	
+	 <sql id="orderItemColunm2">
+		OT.order_item_id,
+		OT.order_code,
+		OT.SKUID SKU_ID,
+		OT.commodity_title,
+		OT.commodity_code,
+		OT.commodity_sku,
+		OT.commodity_batch_number,
+		OT.commodity_called_price,
+		OT.commodity_unit_price,
+		OT.commodity_number,
+		OT.commodity_sum commodity_sum_item,
+		OT.commodity_called_sum,
+		OT.commodity_description,
+		OT.warehouse_id,
+		OT.credits,
+		OT.image_url,
+		OT.commodity_unit_weight,
+		OT.suit_id,
+		OT.commodity_type,
+		OT.COMMODITY_UNIT_INCOMING,
+		OT.supplier_type
+	</sql>
+
+	<sql id="orderItemSpread">
+		<!-- se.seid, se.spread_id, se.consumer_id, se.recommenders, se.order_code, 
+			se.order_item_id, se.commodity_sku, se.suit_id, se.commodity_number, se.commodity_unit_incoming, -->
+		nvl(se.CONSUMPTION_RATE,0) CONSUMPTION_RATE,
+		nvl(se.consumption_amount,0)consumption_amount
+		
+		<!--se.sale_rebate_rate, se.distri_reback_rate, se.srid, se.pay_time, se.finish_time, 
+			se.sett_time, se.sett_amount, se.consumption_amount, se.sale_rebate_amount, 
+			se.distri_reback_amount, se.status -->
+	</sql>
+
+
+
+	<select id="findByOrderMainId" parameterClass="int"
+		resultMap="orderMainResultMap_second">
+
+		SELECT OM.*,
+		<include refid="orderItemColunm" />
+		<![CDATA[
+			 FROM ORDER_MAIN OM, ORDER_ITEM OT
+			WHERE OM.ORDER_CODE=OT.ORDER_CODE(+) AND OM.ORDER_ID = #orderMainId:NUMBER#
+		]]>
+	</select>
+	<select id="findByorderEmailorMobile" parameterClass="java.util.HashMap"
+		resultClass="Integer">
+		SELECT COUNT(*) FROM ORDER_MAIN O WHERE
+		O.ORDER_PURCHASER_MOBILE=#customerMobile:VARCHAR# AND
+		O.EMAIL=#email:VARCHAR# AND O.DISABLED=1
+	</select>
+	<select id="findByorderNoOrMobile" parameterClass="java.util.HashMap"
+		resultClass="Integer">
+		SELECT COUNT(*) FROM ORDER_MAIN O WHERE
+		O.ORDER_PURCHASER_MOBILE=#orderPurchaserMobile:VARCHAR# AND
+		O.ORDER_CODE=#orderCode:VARCHAR# AND O.DISABLED=1
+	</select>
+	<select id="countByPage" parameterClass="pagination"
+		resultClass="int">
+		<![CDATA[
+			SELECT nvl(count(1),0) FROM ORDER_MAIN t
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byUserIdCondition" />
+		</dynamic>
+		<dynamic prepend="AND">
+			<include refid="byPageCondition" />
+		</dynamic>
+		AND DISABLED=1
+	</select>
+
+	<select id="countOrderTrailByPage" parameterClass="pagination"
+		resultClass="int">
+		<![CDATA[
+			SELECT nvl(count(1),0) FROM ORDER_MAIN t
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byEmailCondition" />
+		</dynamic>
+		<dynamic prepend="AND">
+			<include refid="byPageCondition" />
+		</dynamic>
+		<isNotEmpty prepend="AND" property="objCondition.m_id">
+		<![CDATA[
+			ose.source=#objCondition.m_id:VARCHAR#
+			]]>
+	    </isNotEmpty>
+		AND DISABLED=1
+	</select>
+	<select id="countOrderTrailByPageCgw" parameterClass="pagination"
+		resultClass="int">
+		<![CDATA[
+			SELECT nvl(count(1),0) FROM ORDER_MAIN t,order_out_side_ext_info ose where t.ORDER_CODE=ose.order_code
+			and ose.source= 'chengguowang'  
+		]]>
+
+		<dynamic prepend="AND">
+			<include refid="byPageConditionCgw" />
+		</dynamic>
+
+	</select>
+	<select id="countByUserId" parameterClass="java.util.HashMap"
+		resultClass="int">
+        <![CDATA[
+			SELECT nvl(count(1),0) FROM ORDER_MAIN t
+			 WHERE CUSTOMER_ID = #userId:NUMBER#
+		]]>
+		<isNotEmpty property="orderStatus" prepend="and">
+            <![CDATA[
+			ORDER_STATUS in ($orderStatus$)
+			]]>
+		</isNotEmpty>
+		<isNotEmpty property="assessStatus" prepend="and">
+            <![CDATA[
+			ASSESS_STATUS in ($assessStatus$)
+			]]>
+		</isNotEmpty>
+		AND DISABLED=1
+	</select>
+
+	<select id="countAmountPayable" parameterClass="java.util.HashMap"
+		resultClass="java.math.BigDecimal">
+		<![CDATA[
+			select nvl(sum(t.amount_payable),0) from order_main T
+			where customer_id = #userId:NUMBER# AND T.ORDER_STATUS NOT IN (-1,-2,1,16)
+		]]>
+		<isNotEmpty property="beginDate" prepend="and">
+			<![CDATA[
+				T.pay_date >= #beginDate:DATE#
+			]]>
+		</isNotEmpty>
+		<isNotEmpty property="endDate" prepend="and">
+			<![CDATA[
+				T.pay_date < #endDate:DATE#
+			]]>
+		</isNotEmpty>
+	</select>
+
+
+	<select id="countAmountCompleteAble" parameterClass="java.util.HashMap"
+		resultClass="java.math.BigDecimal">
+		<![CDATA[
+	      select nvl(sum(o.order_money), 0)
+            from (select t.order_code,t.pay_date
+                  from order_main t
+                 where t.Customer_Id = #userId:NUMBER#
+                   AND T.ORDER_STATUS = 6
+                   and t.parent_order_code is null
+
+                union all (select t.order_code,t.pay_date
+                            from order_main t
+                           where t.Customer_Id = #userId:NUMBER#
+                             AND T.ORDER_STATUS = 16
+                             and t.parent_order_code is null
+
+                             and not exists
+                           (select 1
+                                    from order_main a
+                                   WHERE CONNECT_BY_ISLEAF = 1
+                                     and a.order_status != 6
+                                  connect by prior a.order_code = a.parent_order_code
+                                   start with a.order_code = t.order_code))) b,
+               order_pay_statement o
+         where b.order_code = o.order_code
+           and o.payment_way != 2
+           and o.flag = 1
+           and o.state = 1
+		]]>
+		<isNotEmpty property="beginDate" prepend="and">
+			<![CDATA[
+				b.pay_date >= #beginDate:VARCHAR#
+			]]>
+		</isNotEmpty>
+		<isNotEmpty property="endDate" prepend="and">
+			<![CDATA[
+				b.pay_date < #endDate:VARCHAR#
+			]]>
+		</isNotEmpty>
+	</select>
+
+	<select id="countReturnAmount" parameterClass="java.util.HashMap"
+		resultClass="java.math.BigDecimal">
+		<![CDATA[
+			select nvl(sum(o.ruturn_sum),0) from order_alter o
+			 where exists 
+			       (select 1 from order_main t 
+			         where t.customer_id=#userId:NUMBER#
+		]]>
+		<isNotEmpty property="beginDate" prepend="and">
+			<![CDATA[
+				pay_date >= #beginDate:DATE#
+			]]>
+		</isNotEmpty>
+		<isNotEmpty property="endDate" prepend="and">
+			<![CDATA[
+				pay_date < #endDate:DATE#
+			]]>
+		</isNotEmpty>
+		and t.order_code=o.order_code)
+		and o.propose_status in (61,62,7)
+		and o.alter_type in (1,3)
+	</select>
+
+
+
+	<select id="findConsumptionDetail" parameterClass="pagination"
+		resultMap="consumptionDetailResultMap">
+		<![CDATA[
+		SELECT * FROM (SELECT C.*,ROWNUM RN FROM 
+					(select a.order_code,a.amount_payable,a.pay_date,
+						   nvl(f.ruturn_sum,0) return_sum,sum(nvl(b.order_money,0)) preferential_pay,
+					       sum(nvl(c.order_money,0)) balance_pay, 
+					       sum(nvl(d.order_money,0))+sum(nvl(e.order_money,0))+sum(nvl(g.order_money,0)) other_pay
+					 from order_main a,
+					     (select * from order_pay_statement where payment_way=2 and state=1 and flag = 1) b,
+					     (select * from order_pay_statement where payment_way=1 and state=1 and flag = 1) c,
+					     (select * from order_pay_statement where payment_way=3 and state=1 and flag = 1) d,
+					     (select * from order_pay_statement where payment_way=4 and state=1 and flag = 1) e,
+					     (select * from order_pay_statement where payment_way=5 and state=1 and flag = 1) g,
+					     (select * from order_alter where propose_status not in (-2,-1,1)) f
+					 where a.customer_id=#objCondition.userId:NUMBER# 
+		]]>
+		<isNotEmpty property="objCondition.startDate" prepend="and">
+			<![CDATA[
+			a.pay_date >= #objCondition.startDate:DATE#
+			]]>
+		</isNotEmpty>
+		<isNotEmpty property="objCondition.endDate" prepend="and">
+			<![CDATA[
+			a.pay_date < #objCondition.endDate:DATE#
+			]]>
+		</isNotEmpty>
+		
+		<![CDATA[
+			and a.order_status not in (-1,-2,1)
+		    and a.parent_order_code is null
+		    and a.order_code=b.order_code(+)
+		    and a.order_code=c.order_code(+)
+		    and a.order_code=d.order_code(+)
+		    and a.order_code=e.order_code(+)
+		    and a.order_code=f.order_code(+)
+		    and a.order_code=g.order_code(+)
+		    group by a.order_code,a.amount_payable,a.pay_date,f.ruturn_sum
+		    order by a.order_code desc) C
+		WHERE ROWNUM <= #endindex#) WHERE RN >= #startindex#
+		]]>
+	</select>
+
+	<select id="countConsumptionDetailByPage" parameterClass="pagination"
+		resultClass="int">
+		<![CDATA[
+			select count(1) from order_main 
+			 where customer_id=#objCondition.userId:NUMBER#
+			   and order_status not in (-1,-2,1) 
+			   and parent_order_code is null
+		]]>
+		<isNotEmpty property="objCondition.startDate" prepend="and">
+			<![CDATA[
+			pay_date >= #objCondition.startDate:DATE#
+			]]>
+		</isNotEmpty>
+		<isNotEmpty property="objCondition.endDate" prepend="and">
+			<![CDATA[
+			pay_date < #objCondition.endDate:DATE#
+			]]>
+		</isNotEmpty>
+	</select>
+
+
+	<!-- <select id="findByOrderCode" parameterClass="string" resultMap="orderMain"> -->
+	<!-- select * from order_main where ORDER_STATUS=1 and ORDER_CODE=#orderCode:VARCHAR# -->
+	<!-- </select> -->
+	<select id="findByOrderCode" parameterClass="java.util.Map"
+		resultMap="orderMain2">
+		select * from order_main
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="orderCode">
+				ORDER_CODE=#orderCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="orderStatus">
+				ORDER_STATUS=#orderStatus#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="findPaySuccessLaterStages" parameterClass="java.util.Map"
+		resultMap="orderMain">
+
+		select * from order_main
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="orderCode">
+				ORDER_CODE=#orderCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="orderStatus">
+			<![CDATA[
+				ORDER_STATUS>=#orderStatus# 
+			]]>
+			</isNotEmpty>
+
+		</dynamic>
+	</select>
+
+	<!-- 根据ordercode查询根订单 -->
+	<select id="findRootOrder" parameterClass="java.lang.String"
+		resultClass="java.lang.String">
+		SELECT NVL(PARENT_ORDER_CODE, 0) FROM ORDER_MAIN E
+		WHERE LEVEL = 1
+		START WITH E.ORDER_CODE = #orderCode#
+		CONNECT BY PRIOR E.ORDER_CODE = E.PARENT_ORDER_CODE
+	</select>
+	<!-- 根据orderCode默认查询 -->
+	<!-- <select id="findByOrderCode1" parameterClass="String" resultMap="orderMainResultMap" 
+		> <![CDATA[ select * from ORDER_ITEM oi , order_main om where 
+		oi.order_code=om.order_code ]]> <dynamic prepend="and" > <include refid="byOrderCode" 
+		/> </dynamic> order by oi.order_item_id </select> -->
+	<select id="findByOrderCode1" parameterClass="String"
+		resultMap="orderMainResultMap_second">
+		SELECT
+		OM.ORDER_ID,OM.CUSTOMER_ACCOUNT,OM.CUSTOMER_NAME,OM.CUSTOMER_MOBILE,OM.ORDER_PURCHASER_NAME,
+		ORDER_PURCHASER_MOBILE,OM.ORDER_PURCHASER_TEL,OM.ORDER_PURCHASER_ADDR,OM.ORDER_PURCHASER_TYPE,
+		OM.CONSIGNEE_NAME,OM.CONSIGNEE_MOBILE,OM.CONSIGNEE_TEL,OM.CONSIGNEE_ADDR,OM.PAY_METHOD,OM.FARE,
+		OM.DELIVERY_DATE_TYPE,OM.COMMODITY_SUM,ABS(OM.DISCOUNT_AMOUNT)
+		DISCOUNT_AMOUNT,OM.ACCOUNT_BALANCE,
+		OM.AMOUNT_PAYABLE,OM.PAY_DATE,OM.CREATE_DATE,OM.AGENCY_NUMBER,
+		OM.SETTLEMENT_NO,OM.STOCK_OUT_ID,OM.DISTRIBUTION_ID,OM.LOGISTICS_ORDER_NO,
+		OM.ORDER_SOURCE,OM.INVOICE_ID,OM.PARENT_ORDER_CODE,OM.SON_ORDER_CODE,OM.ORDER_DESCRIPTION,OM.ORDER_STATUS,
+		OM.ORDER_CODE,OM.CUSTOMER_ID,OM.ORDER_CHANNEL,OM.DISABLED,OM.CONFIRM_DELIVERY,OM.LOGISTICS_CODE,
+		OM.ADDRESS_ID,OM.EMAIL,OM.WEIGHT,OM.ASSESS_STATUS,OM.FINISH_DATE,OM.INVOICE_INFO_TYPE
+		,OM.INVOICE_INFO_TITLE,OM.INVOICE_INFO_CONTENT,OM.TOTAL_CREDIT,OM.LOGISTICS_NAME,OM.ORIGINAL_ORDER_SUM
+		,OM.PROVINCE, OM.CITY, OM.AREA,
+		OM.ZIPCODE,OM.ORDER_TYPE,OM.order_discount,ORDER_PV
+		,
+		<include refid="orderItemColunm" />
+        <![CDATA[		 
+		FROM  ORDER_ITEM  ot ,order_main  om 
+		WHERE ot.order_code=om.order_code 
+		]]>
+		<dynamic prepend="and">
+			<include refid="byOrderCode" />
+		</dynamic>
+		order by ot.order_item_id
+	</select>
+	<select id="findByOrderCode2" parameterClass="String"
+		resultMap="orderMainResultMap_third">
+		SELECT
+		OM.ORDER_ID,OM.CUSTOMER_ACCOUNT,OM.CUSTOMER_NAME,OM.CUSTOMER_MOBILE,OM.ORDER_PURCHASER_NAME,
+		ORDER_PURCHASER_MOBILE,OM.ORDER_PURCHASER_TEL,OM.ORDER_PURCHASER_ADDR,OM.ORDER_PURCHASER_TYPE,
+		OM.CONSIGNEE_NAME,OM.CONSIGNEE_MOBILE,OM.CONSIGNEE_TEL,OM.CONSIGNEE_ADDR,OM.PAY_METHOD,OM.FARE,
+		OM.DELIVERY_DATE_TYPE,OM.COMMODITY_SUM,ABS(OM.DISCOUNT_AMOUNT)
+		DISCOUNT_AMOUNT,OM.ACCOUNT_BALANCE,
+		OM.AMOUNT_PAYABLE,OM.PAY_DATE,OM.CREATE_DATE,OM.AGENCY_NUMBER,
+		OM.SETTLEMENT_NO,OM.STOCK_OUT_ID,OM.DISTRIBUTION_ID,OM.LOGISTICS_ORDER_NO,
+		OM.ORDER_SOURCE,OM.INVOICE_ID,OM.PARENT_ORDER_CODE,OM.SON_ORDER_CODE,OM.ORDER_DESCRIPTION,OM.ORDER_STATUS,
+		OM.ORDER_CODE,OM.CUSTOMER_ID,OM.ORDER_CHANNEL,OM.DISABLED,OM.CONFIRM_DELIVERY,OM.LOGISTICS_CODE,
+		OM.ADDRESS_ID,OM.EMAIL,OM.WEIGHT,OM.ASSESS_STATUS,OM.FINISH_DATE,OM.INVOICE_INFO_TYPE
+		,OM.INVOICE_INFO_TITLE,OM.INVOICE_INFO_CONTENT,OM.TOTAL_CREDIT,OM.LOGISTICS_NAME,OM.ORIGINAL_ORDER_SUM
+		,OM.PROVINCE, OM.CITY, OM.AREA,
+		OM.ZIPCODE,OM.ORDER_TYPE,OM.order_discount, OM.COMMERCE_ID,ORDER_PV,OM.DEPOSIT_SUM
+		,
+		<include refid="orderItemColunm" />
+		,
+		<include refid="orderItemImage" />
+		,
+		<include refid="orderItemSpread" />
+		,nvl((select sum(se.consumption_amount) from spread_effect se
+		where om.order_code=se.order_code(+)),0) sum_consumption_amount,
+		(select pa.appraise_id from  prod_appraise pa where pa.order_detail_id = ot.order_item_id and rownum =1) APPRAISE_ID
+        <![CDATA[		 
+		FROM ORDER_ITEM  ot
+		 left join product_image  im on (im.is_default=0 and im.sku_id=ot.skuId) 
+		 left join spread_effect se on (ot.order_item_id = se.order_item_id),
+		 order_main  om
+		WHERE ot.order_code=om.order_code 
+		]]>
+		<dynamic prepend="and">
+			<include refid="byOrderCode" />
+		</dynamic>
+		order by ot.order_item_id
+	</select>
+
+	<select id="findAppriaseBycode" parameterClass="String"
+		resultMap="orderItemAppraise">
+		select oi.*,om.*,op.*
+		from ORDER_ITEM oi, order_main om,
+		(select p.appraise_id,
+		p.order_detail_id,
+		p.product_sku_id,
+		p.appraise_content,
+		p.point,
+		a.appraise_id as appraiseId,
+		a.add_content_id,
+		a.add_content,
+		a.add_content_date,
+		a.check_status,
+		a.check_man_id ,
+		r.reply_person,
+		r.reply_content,
+		r.reply_date ,
+		r.reply_status
+		from prod_appraise p, appraise_addto_content a ,appraise_reply r
+		where p.appraise_id = a.appraise_id(+)
+		and p.appraise_id = r.appraise_id (+)
+		) op
+		where oi.order_code = om.order_code
+		and oi.order_item_id = op.order_detail_id(+)
+		and om.order_code = #orderCode:VARCHAR#
+		order by oi.order_item_id
+	</select>
+
+	<select id="findNeedToPayMoney" parameterClass="String"
+		resultClass="java.math.BigDecimal">
+		select om.amount_payable - nvl((select
+		sum(ops.order_money)
+		from order_pay_statement ops
+		where payment_way in (1, 2)
+		and ops.order_code = om.order_code),
+		0)
+		from order_main om
+		where om.order_code = #orderCode:VARCHAR#
+	</select>
+	
+	<select id="findNeedToPayDeposit" parameterClass="String"
+		resultClass="java.math.BigDecimal">
+		select
+		om.deposit_sum
+		from
+		order_main om
+		where
+		om.order_code = #orderCode:VARCHAR#
+	</select>
+
+	<select id="findPaiedMoney" parameterClass="String"
+		resultClass=" java.math.BigDecimal">
+		select nvl(order_money,0) from ORDER_PAY_STATEMENT where ORDER_CODE =
+		#orderCode:VARCHAR# and payment_way=4 and state=4
+	</select>
+	<!-- -查询当前订单是不是主订单 -->
+	<select id="findIsMainOrder" parameterClass="String"
+		resultClass=" java.math.BigDecimal">
+		select count(1) from order_main om where om.parent_order_code =
+		#orderCode:VARCHAR#
+	</select>
+	<!-- 根据父单的code查询子单集合 -->
+	<select id="findSonListByParendOrderCode" parameterClass="java.lang.String"
+		resultMap="orderMain">
+		SELECT t.*
+		FROM ORDER_MAIN t
+		WHERE CONNECT_BY_ISLEAF = 1
+		CONNECT BY PRIOR t.ORDER_CODE = t.PARENT_ORDER_CODE
+		START WITH t.ORDER_CODE = #orderCode:VARCHAR#
+	</select>
+	<!-- 根据发票id查询发票信息 -->
+	<select id="findInvoiceInfoById" parameterClass="java.lang.Integer"
+		resultClass="com.kmzyc.b2b.model.InvoiceInfo">
+		SELECT * FROM invoice
+		WHERE invoice_id =
+		#invoiceId:Integer#
+	</select>
+
+	<!-- 根据订单code查询支付信息 state 1＝成功 ,flag1=付款 -->
+	<select id="findConsumptionDetailByOrderCode" parameterClass="java.util.Map"
+		resultMap="orderPayStatementMap">
+		SELECT
+		PAY_STATEMENT_NO,PAYMENT_WAY,STATE,ACCOUNT,ORDER_CODE,ORDER_MONEY
+		,CREATE_DATE,END_DATE,OUTSIDE_PAY_STATEMENT_NO,FLAG,PREFERENTIAL_NO
+		,PREFERENTIAL_NAME,BANK_CODE,BANK_NAME,PLATFORM_CODE,PLATFORM_NAME
+		FROM ORDER_PAY_STATEMENT
+		WHERE
+		((PAYMENT_WAY != 2 AND STATE = 1 ) OR
+		(PAYMENT_WAY = 2 AND STATE = 3))
+		AND FLAG = 1
+		AND ORDER_CODE =
+		#orderCode#
+	</select>
+
+	<!-- 根据订单code查询所获得购物满额送券的优惠券信息 order_preferential_type:4=满额送券 STATUS已发放了的 -->
+	<select id="findCouponInfoByOrderCode" parameterClass="java.lang.String"
+		resultMap="couponAndPartPromotion">
+
+		select c.coupon_id,
+		c.coupon_givetype_id,
+		c.coupon_name,
+		c.coupon_describe,
+		c.coupon_money,
+		c.starttime,
+		c.endtime,
+		c.createtime,
+		c.status,
+		c.custom_leveid,
+		c.custom_reg_start,
+		c.custom_reg_end,
+		c.pay_least_money,
+		c.custom_id,
+		c.is_grant,
+		c.coupon_valid_day,
+		p.product_filter_type,
+		c.shop_code,
+		c.time_type
+
+
+		from coupon c,
+		promotion p,
+		order_preferential op
+		where p.promotion_id = op.order_preferential_code
+		and c.coupon_id = op.coupon_id
+		and op.order_preferential_type = 4
+		and op.order_code = #orderCode#
+	</select>
+
+	<!-- 根据订单手机号和订单code查询所获得购物满额送券的优惠券信息 order_preferential_type:4=满额送券 STATUS已发放了的 -->
+	<select id="findOrderMainByPhone" parameterClass="java.util.Map"
+		resultMap="orderMainResultMap_second">
+		SELECT
+		OM.ORDER_ID,OM.CUSTOMER_ACCOUNT,OM.CUSTOMER_NAME,OM.CUSTOMER_MOBILE,OM.ORDER_PURCHASER_NAME,
+		ORDER_PURCHASER_MOBILE,OM.ORDER_PURCHASER_TEL,OM.ORDER_PURCHASER_ADDR,OM.ORDER_PURCHASER_TYPE,
+		OM.CONSIGNEE_NAME,OM.CONSIGNEE_MOBILE,OM.CONSIGNEE_TEL,OM.CONSIGNEE_ADDR,OM.PAY_METHOD,OM.FARE,
+		OM.DELIVERY_DATE_TYPE,OM.COMMODITY_SUM,ABS(OM.DISCOUNT_AMOUNT)
+		DISCOUNT_AMOUNT,OM.ACCOUNT_BALANCE,
+		OM.AMOUNT_PAYABLE,OM.PAY_DATE,OM.CREATE_DATE,OM.AGENCY_NUMBER,
+		OM.SETTLEMENT_NO,OM.STOCK_OUT_ID,OM.DISTRIBUTION_ID,OM.LOGISTICS_ORDER_NO,
+		OM.ORDER_SOURCE,OM.INVOICE_ID,OM.PARENT_ORDER_CODE,OM.SON_ORDER_CODE,OM.ORDER_DESCRIPTION,OM.ORDER_STATUS,
+		OM.ORDER_CODE,OM.CUSTOMER_ID,OM.ORDER_CHANNEL,OM.DISABLED,OM.CONFIRM_DELIVERY,OM.LOGISTICS_CODE,
+		OM.ADDRESS_ID,OM.EMAIL,OM.WEIGHT,OM.ASSESS_STATUS,OM.FINISH_DATE,OM.INVOICE_INFO_TYPE
+		,OM.INVOICE_INFO_TITLE,OM.INVOICE_INFO_CONTENT,OM.TOTAL_CREDIT,OM.LOGISTICS_NAME,OM.ORIGINAL_ORDER_SUM
+		,OM.PROVINCE, OM.CITY, OM.AREA, OM.ZIPCODE,OM.ORDER_TYPE
+		,
+		<include refid="orderItemColunm" />
+        <![CDATA[		 
+		FROM  ORDER_ITEM  ot ,order_main  om 
+		WHERE ot.order_code=om.order_code 
+		AND OM.ORDER_PURCHASER_MOBILE = #orderPurchaserMobile#
+		]]>
+		<dynamic prepend="and">
+			<include refid="byOrderCode" />
+		</dynamic>
+		order by ot.order_item_id
+	</select>
+
+	<!-- 子查询订单满减的优惠总金额语句 -->
+	<select id="OrderMain.getOrderPreferential" parameterClass="java.lang.String"
+		resultClass="java.math.BigDecimal">
+	 <![CDATA[
+		 SELECT SUM(ORDER_PREFERENTIAL_SUM) discountSum 
+		 FROM order_preferential
+		WHERE ORDER_PREFERENTIAL_TYPE=6 AND order_code = #order_code:varchar#
+	 ]]>
+	</select>
+	<select id="countOrderTrailByPageLk" parameterClass="pagination"
+		resultClass="int">
+		<![CDATA[
+			SELECT nvl(count(1),0) FROM ORDER_MAIN t where 1=0
+		]]>
+
+	</select>
+	<select id="queryPayMoney" parameterClass="String" resultClass="java.math.BigDecimal">
+		select m.AMOUNT_PAYABLE -
+		(SELECT case when sum(order_money) is null then 0 else sum(order_money) end
+		FROM ORDER_PAY_STATEMENT
+		WHERE
+		((PAYMENT_WAY != 2 AND STATE = 1 ) OR (PAYMENT_WAY = 2 AND STATE = 3))
+		AND FLAG = 1
+		AND ORDER_CODE = #orderCode#)
+		from order_main m
+		where ORDER_CODE = #orderCode#
+	</select>
+
+	<!-- 查询活动期间某用户购买指定产品数量 -->
+	<select id="querySumUserBuySKUNum" parameterClass="java.util.Map"
+		resultClass="java.math.BigDecimal">
+	<![CDATA[
+		select sum(oir.commodity_number) - nvl(sum(oar.alter_num), 0)
+			  from (select nvl(sum(oi.commodity_number), 0) commodity_number,
+			               oi.order_item_id
+			          from order_item oi
+			         where oi.commodity_type in (1, 2)
+			           and exists
+			         (select 1
+			                  from order_main om
+			                 where oi.order_code = om.order_code
+			                   and om.parent_order_code is null
+			                   and om.order_status not in (1, -1,-2)
+	]]>
+		<isNotEmpty prepend="AND" property="startDate">
+	<![CDATA[
+				trunc(om.pay_date,'mi')>=to_date(#startDate#,'yyyy-MM-dd HH24:mi:ss')
+	]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="endDate">
+		<![CDATA[
+				trunc(om.pay_date,'mi')<=to_date(#endDate#,'yyyy-MM-dd HH24:mi:ss')
+		]]>
+		</isNotEmpty>
+	<![CDATA[
+			                   and om.customer_id =  #userId:NUMBER#)
+	]]>
+		<isNotEmpty prepend="and" property="skuId">
+			exists (select 1
+			from product_sku ps
+			where ps.product_sku_code = oi.commodity_sku
+			and ps.product_sku_id = #skuId:NUMBER#)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="skuCode">
+			oi.commodity_sku=#skuCode:VARCHAR#
+		</isNotEmpty>      
+	<![CDATA[        
+			         group by oi.order_item_id) oir,
+			       (select nvl(sum(oa.alter_num), 0) alter_num, oa.order_item_id
+			          from order_alter oa
+			         where oa.alter_type = 1
+			           and oa.propose_status = 7
+			         group by oa.order_item_id) oar
+			 where oir.order_item_id = oar.order_item_id(+)
+	]]>
+	</select>
+
+	<select id="queryUserBuyProductAccount" parameterClass="java.util.Map"
+		resultClass="java.lang.Integer">
+		select sum(i.COMMODITY_NUMBER)
+		from order_main m, ORDER_ITEM i
+		where m.ORDER_CODE = i.ORDER_CODE
+		and i.COMMODITY_TYPE not in (4, 5) and m.ORDER_STATUS>=2
+		and m.PAY_DATE BETWEEN to_Date(#startDate#,'yyyy-mm-dd hh24:mi:ss') and
+		to_Date(#endDate#,'yyyy-mm-dd hh24:mi:ss') and
+		m.CUSTOMER_ACCOUNT=#accountName#
+		and i.COMMODITY_SKU = #skuId#
+	</select>
+	<select id="findByCouponCount" parameterClass="pagination"
+		resultClass="Integer">
+		SELECT COUNT(*) FROM coupon_product WHERE COUPON_ID=#objCondition#
+	</select>
+
+	<select id="findByPrizeNumbers" parameterClass="com.kmzyc.b2b.model.OrderMain"
+		resultClass="Integer">
+		SELECT COUNT(*) FROM ORDER_MAIN O WHERE prize_numbers=#prizeNumbers#
+	</select>
+
+	<!-- 查询自营邮费信息 -->
+	<select id="SQL_QUERY_SELF_FREE_FARE" parameterClass="string"
+		resultClass="com.kmzyc.supplier.model.SupplierFare">
+		select ft.type_id fareId,
+		ft.name name,
+		ft.free_price freePrice,
+		ft.first_heavy_freight firstHeavyFreight,
+		1 supplierId
+		from fare_type ft
+
+	</select>
+	<!-- 查询商品销量 -->
+	<select id="getSaleVolume" parameterClass="string" resultClass="Long">
+		select sum(t.commodity_number) from order_item t where
+		t.commodity_code=#skuId#
+		and t.order_code in
+		(select m.order_code from order_main m where m.order_status in
+		(2,3,4,5,6,12,16) and m.parent_order_code is null)
+
+
+	</select>
+
+	<!-- 查询用户购买次数 -->
+	<select id="SQL_QUERY_USER_BUY_NUM" parameterClass="java.lang.Long"
+		resultClass="Integer">
+  	<![CDATA[
+  		select count(1)
+		  from order_main om
+		 where om.order_type <> 2
+		   and om.pay_date is not null
+		   and om.customer_id = #loginId:NUMBER#
+  	]]>
+	</select>
+
+
+
+	<select id="wapFindByPage" parameterClass="pagination"
+		resultMap="orderMainWithDefaultImageResultMap">
+		SELECT PT.*, ST.*
+		FROM (SELECT *
+		FROM (SELECT C.*, ROWNUM RN
+		FROM (SELECT t.*
+		FROM ORDER_MAIN t
+		<dynamic prepend="WHERE">
+			<include refid="byUserIdCondition" />
+		</dynamic>
+		AND PARENT_ORDER_CODE IS NULL
+		<dynamic prepend="AND">
+			<include refid="byPageCondition" />
+		</dynamic>
+		AND DISABLED = 1
+
+		ORDER BY t.CREATE_DATE DESC) C
+		WHERE<![CDATA[ ROWNUM <=#endindex#]]>
+		)
+		WHERE <![CDATA[ RN >=  #startindex#]]>
+
+		) PT,
+		(SELECT IT.*, M.*
+		FROM ORDER_ITEM IT,
+		(SELECT SKU.PRODUCT_SKU_CODE, SKU.PRODUCT_SKU_ID, IM.*
+		FROM PRODUCT_SKU SKU, PRODUCT_IMAGE IM
+		WHERE SKU.PRODUCT_SKU_ID = IM.SKU_ID
+		AND IM.IS_DEFAULT = 0) M
+		WHERE IT.COMMODITY_SKU = M.PRODUCT_SKU_CODE(+)) ST
+		WHERE PT.ORDER_CODE = ST.ORDER_CODE(+)
+		ORDER BY PT.CREATE_DATE DESC
+	</select>
+
+	<select id="wapCountByPage" parameterClass="pagination"
+		resultClass="int">
+		<![CDATA[
+			SELECT nvl(count(1),0) FROM ORDER_MAIN t
+		]]>
+		<dynamic prepend="WHERE">
+			<include refid="byUserIdCondition" />
+		</dynamic>
+		AND PARENT_ORDER_CODE IS NULL
+		<dynamic prepend="AND">
+			<include refid="byPageCondition" />
+		</dynamic>
+		AND DISABLED=1
+	</select>
+
+	<!-- 根据父单的code查询子单集合 -->
+	<select id="wapFindSonListByParendOrderCode" parameterClass="java.lang.String"
+		resultMap="orderSonListWithDefaultImageResultMap">
+		select * from ( SELECT t.*
+		FROM ORDER_MAIN t
+		WHERE CONNECT_BY_ISLEAF = 1 CONNECT BY PRIOR t.ORDER_CODE =
+		t.PARENT_ORDER_CODE
+		START WITH t.ORDER_CODE =#orderCode:VARCHAR#) a,order_item oi where
+		a.order_code=oi.order_code
+	</select>
+
+	<!-- 查询我的订单 -->
+	<resultMap class="com.kmzyc.b2b.model.OrderMain" id="MyOrderresultMap"
+		groupBy="orderId">
+		<result column="ORDER_ID" property="orderId" jdbcType="DECIMAL" />
+		<result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+		<result column="PARENT_ORDER_CODE" property="parentOrderCode"
+			jdbcType="VARCHAR" />
+		<result column="ORDER_TYPE" property="orderType" jdbcType="DECIMAL" />
+		<result column="CUSTOMER_ACCOUNT" property="customerAccount"
+			jdbcType="VARCHAR" />
+		<result column="CUSTOMER_ID" property="customerId" jdbcType="DECIMAL" />
+		<result column="CONSIGNEE_NAME" property="consigneeName"
+			jdbcType="VARCHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="FINISH_DATE" property="finishDate" jdbcType="TIMESTAMP" />
+		<result column="AMOUNT_PAYABLE" property="amountPayable"
+			jdbcType="DECIMAL" />
+		<result column="ORDER_STATUS" property="orderStatus" jdbcType="DECIMAL" />
+		<result column="LOGISTICS_NAME" property="logisticsName"
+			jdbcType="VARCHAR" />
+		<result column="LOGISTICS_CODE" property="logisticsCode"
+			jdbcType="DECIMAL" />
+		<result column="LOGISTICS_ORDER_NO" property="logisticsOrderNo"
+			jdbcType="VARCHAR" />
+		<result column="COMMERCE_ID" property="commerceId" jdbcType="DECIMAL" />
+		<result column="ASSESS_STATUS" property="assessStatus"
+			jdbcType="DECIMAL" />
+		<result column="SHOP_NAME" property="shopName" jdbcType="VARCHAR" />
+		<result column="LOGO_PATH" property="logoPath" jdbcType="VARCHAR" />
+		<result column="DEPOSIT_SUM" property="depositSum" jdbcType="DECIMAL"/>
+		<result property="orderItemList" resultMap="OrderItem.MyOrderItemResultMap" />
+	</resultMap>
+	<sql id="SQL_MY_ORDER_CONDITION">
+		from order_main om ,shop_main sm
+		where om.parent_order_code
+		is null
+		and om.disabled = 1
+		and om.commerce_id=sm.supplier_id(+)
+
+		<isNotEmpty property="objCondition.orderStatus">
+			and om.order_status in
+			($objCondition.orderStatus$)
+		</isNotEmpty>
+	    <isNotEmpty property="objCondition.assessStatus">
+			and  om.assess_status=$objCondition.assessStatus$
+		</isNotEmpty>
+		<isNotEmpty property="objCondition.orderState">
+			and om.order_status =
+			$objCondition.orderState$
+		</isNotEmpty>
+		<isNotEmpty property="objCondition.keyword">
+			and (exists (select 1
+			from order_item oii
+			where oii.order_code = om.order_code
+			and (oii.commodity_title like '%'||#objCondition.keyword#||'%' or
+			oii.commodity_code like '%'||#objCondition.keyword#||'%')) or
+			om.order_code like '%'||#objCondition.keyword#||'%')
+		</isNotEmpty>
+		<isNotEmpty property="objCondition.createDateBegin">
+		<![CDATA[and trunc(create_date, 'mi') >#objCondition.createDateBegin#]]>
+		</isNotEmpty>
+		<isNotEmpty property="objCondition.createDateEnd">
+		<![CDATA[and trunc(create_date, 'mi') <#objCondition.createDateEnd#]]>
+		</isNotEmpty>
+		and om.customer_id = #objCondition.userId:NUMBER#
+	</sql>
+	<select id="SQL_QUERY_MY_ORDER_LIST" parameterClass="pagination"
+		resultMap="MyOrderresultMap">
+		select /*+ use_nl(pi)  index(pi,IDX_PRODUCT_IMGAE_SKUID)*/rs.order_id,
+        rs.order_code,
+        rs.order_type,
+        rs.parent_order_code,
+        rs.customer_account,
+        rs.customer_id,
+        rs.consignee_name,
+        rs.create_date,
+        rs.finish_date,
+        rs.amount_payable,
+        rs.order_status,
+        rs.assess_status,
+        rs.logistics_name,
+        rs.logistics_code,
+        rs.logistics_order_no,
+        rs.commerce_id,
+        rs.shop_name,
+        rs.logo_path,
+        oi.commodity_title,
+        oi.order_item_id,
+        oi.COMMODITY_UNIT_PRICE,
+        oi.COMMODITY_NUMBER,
+		oi.skuid sku_id,
+		pi.img_path,
+		pi.img_path5,
+		pi.img_path6,
+		pi.img_path7,
+		rs.DEPOSIT_SUM
+		from (select rsi.*
+		from (select rsii.*,rownum rn
+		from (select om.order_id,
+		om.order_code,
+		om.order_type,
+		om.parent_order_code,
+		om.customer_account,
+		om.customer_id,
+		om.consignee_name,
+		om.create_date,
+		om.finish_date,
+		om.amount_payable,
+		om.order_status,
+		om.assess_status,
+		om.logistics_name,
+		om.logistics_code,
+		om.logistics_order_no,
+		om.DEPOSIT_SUM,
+		NVL(om.commerce_id,221) commerce_id,
+		NVL(sm.shop_name,'康美自营') shop_name,
+		sm.logo_path
+		<include refid="SQL_MY_ORDER_CONDITION" />		                          
+	<![CDATA[		                    
+	 						order by om.create_date desc) rsii where rownum <= #endindex#) rsi
+		         where rsi.rn >= #startindex#) rs,
+		       order_item oi left join 
+		       product_image pi on (pi.is_default = 0 and pi.sku_id=oi.skuid)
+		 where oi.order_code = rs.order_code
+		order by rs.create_date desc		   
+	]]>
+	</select>
+	<select id="SQL_QUERY_MY_ORDER_COUNT" parameterClass="pagination"
+		resultClass="int">
+		select count(1)
+		<include refid="SQL_MY_ORDER_CONDITION" />
+	</select>
+
+	<!-- 查询子订单 -->
+	<select id="SQL_QUERY_MY_CHILD_ORDER" resultMap="MyOrderresultMap"
+		parameterClass="java.util.List">
+		select
+		rs.*,oi.commodity_title,oi.order_item_id,oi.COMMODITY_UNIT_PRICE,oi.COMMODITY_NUMBER,
+		oi.skuid sku_id, pi.img_path, pi.img_path5, pi.img_path6, pi.img_path7
+		from (select om.order_id,
+		om.order_code,
+		om.parent_order_code,
+		om.order_type,
+		om.customer_id,
+		om.customer_account,
+		om.consignee_name,
+		om.create_date,
+		om.amount_payable,
+		om.order_status,
+		om.finish_date,
+		om.logistics_name,
+		om.assess_status,
+		om.logistics_code,
+		om.logistics_order_no,
+		NVL(om.commerce_id,221) commerce_id,
+		'' shop_name,
+		'' logo_path,
+		om.DEPOSIT_SUM,
+		rownum rn
+		from order_main om
+		where om.disabled = 1
+		and om.parent_order_code in 
+		<iterate open="(" close=")" conjunction=","> #[]# </iterate>
+		) rs,
+		order_item oi left join 
+		product_image pi on (pi.is_default = 0 and pi.sku_id=oi.skuid)
+		where oi.order_code = rs.order_code
+	</select>
+	<!-- 查询我的订单 -->
+	<!-- 时代订单对账 -->
+	<resultMap class="com.kmzyc.b2b.model.OrderMain" id="OrderReconciliationMap"
+		groupBy="orderId">
+		<result column="ORDER_ID" property="orderId" jdbcType="DECIMAL" />
+		<result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+		<result column="ORDER_STATUS" property="orderStatus" jdbcType="DECIMAL" />
+		<result column="ERA_NO" property="eraNo" jdbcType="VARCHAR" />
+		<result column="ORDER_SOURCE" property="orderSource" jdbcType="DECIMAL" />
+		<result column="CUSTOMER_NAME" property="customerName"
+			jdbcType="VARCHAR" />
+		<result column="PROVINCE" jdbcType="VARCHAR" property="province" />
+		<result column="ORDER_TYPE" jdbcType="DECIMAL" property="orderType" />
+		<result column="CITY" jdbcType="VARCHAR" property="city" />
+		<result column="AREA" jdbcType="VARCHAR" property="area" />
+		<result column="CONSIGNEE_NAME" property="consigneeName"
+			jdbcType="VARCHAR" />
+		<result column="FARE" property="fare" jdbcType="DECIMAL" />
+		<result column="CONSIGNEE_ADDR" property="consigneeAddr"
+			jdbcType="VARCHAR" />
+		<result column="CONSIGNEE_MOBILE" property="consigneeMobile"
+			jdbcType="VARCHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="PAY_DATE" property="payDate" jdbcType="TIMESTAMP" />
+		<result column="FINISH_DATE" property="finishDate" jdbcType="TIMESTAMP" />
+		<result column="ORDER_PV" jdbcType="DECIMAL" property="orderPv" />
+		<result column="ORIGINAL_ORDER_SUM" property="originalOrderSum"
+			jdbcType="DECIMAL" />
+		<result column="AMOUNT_PAYABLE" property="amountPayable"
+			jdbcType="DECIMAL" />
+		<result property="orderItemList" resultMap="OrderItem.orderItemResultMap_Reconciliation" />
+	</resultMap>
+
+	<!-- 时代订单对账 -->
+	<select id="OrderReconciliation" parameterClass="java.util.HashMap"
+		resultMap="OrderReconciliationMap">
+		select
+		om.order_id,
+		om.order_code,
+		om.order_status,
+		ei.era_no,
+		om.order_source,
+		om.customer_name,
+		om.province,
+		om.order_type,
+		om.city,
+		om.area,
+		om.fare,
+		om.CONSIGNEE_NAME,
+		om.consignee_addr,
+		om.consignee_mobile,
+		om.create_date,
+		om.pay_date,
+		om.finish_date,
+		om.order_pv,
+		om.original_order_sum,
+		om.amount_payable,
+		oi.commodity_sku,
+		oi.COMMODITY_TITLE,
+		oi.commodity_sku_description,
+		oi.commodity_pv,
+		oi.commodity_unit_price,
+		oi.commodity_number,
+		oi.commodity_sum,
+		NVL((select sum(oa.alter_num) from ORDER_ALTER OA where
+		oa.order_item_id=oi.order_item_id), 0) alter_num
+		from
+		order_main om, era_info ei,order_item oi
+		where
+		om.order_code=oi.order_code
+		and ei.n_login_id = om.customer_id
+			<![CDATA[and om.order_status>2]]>
+		and om.parent_order_code is null
+		<isNotEmpty property="orderCode">
+			and om.order_code=#orderCode#
+		</isNotEmpty>
+		<isNotEmpty property="eraNo">
+			and ( ei.era_no= upper(#eraNo#) or ei.era_no= lower(#eraNo#) )
+		</isNotEmpty>
+	</select>
+
+	<!-- 订单优惠信息 -->
+	<resultMap class="com.kmzyc.b2b.model.OrderPreferential" id="OrderPreferentialMap">
+		<result column="order_preferential_id" property="orderPreferentialId"
+			jdbcType="DECIMAL" />
+		<result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+		<result column="order_Item_Id" property="orderItemId" jdbcType="DECIMAL" />
+		<result column="order_Preferential_Type" property="orderPreferentialType"
+			jdbcType="VARCHAR" />
+		<result column="order_Preferential_Source" property="orderPreferentialSource"
+			jdbcType="VARCHAR" />
+		<result column="order_Preferential_Code" property="orderPreferentialCode"
+			jdbcType="VARCHAR" />
+		<result column="order_Preferential_Sum" property="orderPreferentialSum"
+			jdbcType="VARCHAR" />
+		<result column="promotion_name" property="promotionName"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="queryOrderPreferentialList" parameterClass="java.util.HashMap" resultMap="OrderPreferentialMap">
+		select
+		op.order_preferential_id,
+		op.order_Code,
+		op.order_Item_Id,
+		op.order_Preferential_Type,
+		op.order_Preferential_Source,
+		op.order_Preferential_Code,
+		op.order_Preferential_Sum,
+		p.promotion_name
+		from order_preferential op, promotion p
+		where op.order_code = #orderCode#
+		and op.order_preferential_code = p.promotion_id
+	</select>
+	<!-- 订单优惠信息 -->
+
+	<!-- 校验订单、用户是否匹配 -->
+	<select id="SQL_QUERY_CHECK_ORDER_USER" parameterClass="java.util.Map"
+		resultClass="java.lang.Integer">
+		select count(1)
+		from order_main om
+		where om.customer_id = #loginId:NUMBER#
+		and om.order_code = #orderCode:VARCHAR#
+	</select>
+
+
+	<!-- 根据订单号查询订单信息 -->
+	<select id="SQL_QUERY_ORDER_MAIN_BY_ORDER_CODE" resultMap="SIMPLE_ORDER_INFO"
+		parameterClass="String">
+		select om.order_id,
+		om.customer_account,
+		om.customer_name,
+		om.customer_mobile,
+		om.order_purchaser_name,
+		om.order_purchaser_mobile,
+		om.order_purchaser_tel,
+		om.order_purchaser_addr,
+		om.order_purchaser_type,
+		om.consignee_name,
+		om.consignee_mobile,
+		om.consignee_tel,
+		om.consignee_addr,
+		om.pay_method,
+		om.fare,
+		om.delivery_date_type,
+		om.commodity_sum,
+		om.discount_amount,
+		om.account_balance,
+		om.amount_payable,
+		om.pay_date,
+		om.create_date,
+		om.agency_number,
+		om.settlement_no,
+		om.stock_out_id,
+		om.distribution_id,
+		om.logistics_order_no,
+		om.order_source,
+		om.invoice_id,
+		om.parent_order_code,
+		om.son_order_code,
+		om.order_description,
+		om.order_status,
+		om.order_code,
+		om.customer_id,
+		om.order_channel,
+		om.disabled,
+		om.confirm_delivery,
+		om.logistics_code,
+		om.address_id,
+		om.email,
+		om.weight,
+		om.assess_status,
+		om.finish_date,
+		om.invoice_info_type,
+		om.invoice_info_title,
+		om.invoice_info_content,
+		om.total_credit,
+		om.logistics_name,
+		om.original_order_sum,
+		om.province,
+		om.city,
+		om.area,
+		om.zipcode,
+		om.order_type,
+		om.order_operation_remark,
+		om.commerce_id,
+		om.prize_numbers,
+		om.check_flag,
+		om.medic_flag,
+		om.prescription_attachment,
+		om.commerce_name,
+		om.order_pv,
+		om.order_discount
+		from order_main om
+		where om.order_code = #orderCode:VARCHAR#
+	</select>
+
+
+	<select id="SQL_QUERY_MY_ORDER_STATUS_COUNT" parameterClass="java.util.Map"
+		resultClass="java.util.HashMap">
+		select 
+		sum(decode(om.order_status,3,1,4,1,15,1,18,1,0)) DISTRIBUTION,
+		sum(decode(om.order_status, 1, 1, 0))
+		notPayOrderAmount,
+		sum(decode(om.order_status, 2, 1,3, 1,4, 1,15, 1, 20, 1,21, 1,22, 1, 0)) PayOrderAmount,
+		sum(decode(om.order_status, 5, 1, 0)) doneOrderAmount,
+		sum(decode(om.assess_status, 1, decode(om.order_status, 6, 1, 0), 0)) notAssessOrderAmount
+		from order_main om
+		where om.disabled = 1
+		and om.parent_order_code is null
+
+		and om.customer_id = #loginId:NUMBER#
+	</select>
+
+	<select id="SQL_QUERY_MY_ORDER_ADDAPPRAISECOUNTANDAPPRAISECOUNTANDITEM_COUNT"
+		parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		
+		select nvl(sum(decode(pa.appraise_id,
+                      null,
+                      0,
+                      decode(pa.addto_content, 1, 1))),
+           0) ADDAPPRAISECOUNT,
+       nvl(sum(decode(pa.appraise_id, null, 0, 1)), 0) APPRAISECOUNT,
+       nvl(count(oi.order_item_id), 0) ITEMCOUNT
+       from prod_appraise pa, order_item oi
+		where oi.order_item_id = pa.order_detail_id(+)
+		and oi.order_code = #orderCode:VARCHAR#
+		group by oi.order_code
+	</select>
+
+	<!-- OMS查询结转订单 start -->
+	<resultMap class="com.kmzyc.b2b.vo.ExeOrderData" id="EXE_ORDER_RESULT_MAP" groupBy="tid">
+  		<result column="TID" property="tid" jdbcType="VARCHAR" />
+  		<result column="STATUS" property="status" jdbcType="VARCHAR" />
+  		<result column="MODIFIED" property="modified" jdbcType="VARCHAR" />
+  		<result column="CREATED" property="created" jdbcType="VARCHAR" />
+  		<result column="SHIPPING_TYPE" property="shipping_type" jdbcType="VARCHAR" />
+  		<result column="POST_FEE" property="post_fee" jdbcType="DECIMAL" />
+  		<result column="RECEIVER_NAME" property="receiver_name" jdbcType="VARCHAR" />
+  		<result column="RECEIVER_STATE" property="receiver_state" jdbcType="VARCHAR" />
+  		<result column="RECEIVER_CITY" property="receiver_city" jdbcType="VARCHAR" />
+  		<result column="RECEIVER_DISTRICT" property="receiver_district" jdbcType="VARCHAR" />
+  		<result column="TOTAL_FEE" property="total_fee" jdbcType="DECIMAL" />
+  		<result column="REAL_PAY" property="real_pay" jdbcType="DECIMAL" />
+  		<result column="COUPON_PAY" property="coupon_pay" jdbcType="DECIMAL" />
+  		<result column="RECEIVER_ADDRESS" property="receiver_address" jdbcType="VARCHAR" />
+  		<result column="RECEIVER_ZIP" property="receiver_zip" jdbcType="VARCHAR" />
+  		<result column="RECEIVER_MOBILE" property="receiver_mobile" jdbcType="VARCHAR" />
+  		<result column="RECEIVER_PHONE" property="receiver_phone" jdbcType="VARCHAR" />
+  		<result column="BUYER_MESSAGE" property="buyer_message" jdbcType="VARCHAR" />
+  		<result column="SELLER_MEMO" property="seller_memo" jdbcType="VARCHAR" />
+  		<result column="BUYER_NICK" property="buyer_nick" jdbcType="VARCHAR" />
+  		<result column="BUYER_NAME" property="buyer_name" jdbcType="VARCHAR" />
+  		<result column="IS_TAX" property="is_tax" jdbcType="VARCHAR" />
+  		<result column="PAY_TYPE" property="pay_type" jdbcType="VARCHAR" />
+  		<result column="PAYTIME" property="paytime" jdbcType="VARCHAR" />
+  		<result column="PAY_TYPE" property="pay_type" jdbcType="VARCHAR" />
+  		<result column="INVOICE_TYPE" property="invoice_type" jdbcType="VARCHAR" />
+  		<result column="INVOICE_TITLE" property="invoice_title" jdbcType="VARCHAR" />
+  		<result column="PAYMENTSSTR" property="paymentsStr" jdbcType="VARCHAR" />
+  		<result property="itemlist" resultMap="OrderMain.EXE_ORDER_ITEM_RESULT_MAP" />
+  	</resultMap>
+  	
+  	<resultMap class="com.kmzyc.b2b.vo.ExeOrderItemData" id="EXE_ORDER_ITEM_RESULT_MAP">
+		<result column="ITEMID" property="itemId" jdbcType="VARCHAR" />
+  		<result column="PRODUCT_ID" property="product_id" jdbcType="VARCHAR" />
+  		<result column="SHOP_PRODUCT_ID" property="shop_product_id" jdbcType="VARCHAR" />
+  		<result column="TITLE" property="title" jdbcType="VARCHAR" />
+  		<result column="SKU_ID" property="sku_id" jdbcType="VARCHAR" />
+  		<result column="SHOP_SKU_ID" property="shop_sku_id" jdbcType="VARCHAR" />
+  		<result column="SKU_NAME" property="sku_name" jdbcType="VARCHAR" />
+  		<result column="QTY_ORDERED" property="qty_ordered" jdbcType="DECIMAL" />
+  		<result column="PRICE" property="price" jdbcType="DECIMAL" />
+  	</resultMap>
+  	
+  	<resultMap class="com.kmzyc.b2b.vo.ExeOrderPayData" id="EXE_ORDER_PAY_RESULT_MAP" groupBy="orderCode">
+  		<result column="ORDERCODE" property="orderCode" jdbcType="VARCHAR" />
+  		<result column="PAYTYPE" property="paytype" jdbcType="VARCHAR" />
+  		<result column="PAYNAME" property="payname" jdbcType="VARCHAR" />
+  		<result column="PAYTIME" property="paytime" jdbcType="VARCHAR" />
+  		<result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+  	</resultMap>
+  	
+	<select id="SQL_QUERY_EXE_ORDER"  parameterClass="java.util.Map" resultMap="EXE_ORDER_RESULT_MAP">
+	<![CDATA[	
+		select om.order_code tid,
+		       (select od.order_dictionary_code
+		          from order_dictionary od
+		         where od.order_dictionary_type = 'OMS_ORDER_STATUS'
+		           and od.order_dictionary_key = om.order_status) status,
+		       to_char(sysdate, 'yyyy-MM-dd HH24:mi:ss') modified,
+		       to_char(om.create_date, 'yyyy-MM-dd HH24:mi:ss') created,
+		       '快递' shipping_type,
+		       om.fare post_fee,
+		       om.consignee_name receiver_name,
+		       om.province receiver_state,
+		       om.city receiver_city,
+		       om.area receiver_district,
+		       om.consignee_addr receiver_address,
+		       om.zipcode receiver_zip,
+		       om.consignee_mobile receiver_mobile,
+		       om.consignee_tel receiver_phone,
+		       om.customer_account buyer_nick,
+		       om.customer_account buyer_name,
+		       decode(om.invoice_info_type, null, 'false', 'true') is_tax,
+		       decode(om.invoice_info_type,'增值税发票','zzsfp',null, null,'OrdinaryInvoice') invoice_type,
+		       om.invoice_info_title invoice_title,
+		       (select decode(ops.payment_way,
+		                      4,
+		                      decode(ops.platform_code,
+		                             3,
+		                             'ALIPAY',
+		                             4,
+		                             'TenPay',
+		                             5,
+		                             'TenPay'),
+		                      1,
+		                      'BalancePay',
+		                      'Other')
+		          from order_pay_statement ops
+		         where ops.flag = 1
+		           and ops.state = 1
+		           and ops.payment_way <> 2
+		           and (ops.order_code = om.order_code or
+		               ops.order_code = om.parent_order_code)
+		           and rownum = 1) pay_type,
+		       nvl((select sum(ops.order_money)
+		             from order_pay_statement ops
+		            where ops.flag = 1
+		              and ops.state = 1
+		              and ops.payment_way <> 2
+		              and ops.order_code = om.order_code and rownum = 1),
+		           sum(oi.commodity_unit_incoming * oi.commodity_number)
+		           over(partition by oi.order_code)+om.fare) real_pay,
+		       om.commodity_sum total_fee,
+		       om.order_description buyer_message,
+		       0 buyer_cod_fee,
+		       0 point_fee,
+		       (select opsi.order_money
+		          from order_pay_statement opsi
+		         where opsi.flag = 1
+		           and opsi.state = 1
+		           and opsi.payment_way = 2
+		           and opsi.order_code = om.order_code and rownum = 1) coupon_pay,
+		       to_char(om.pay_date, 'yyyy-MM-dd HH24:mi:ss') paytime,
+		       om.order_operation_remark seller_memo,
+			   oi.order_item_id itemId,
+		       oi.commodity_code product_id,
+		       oi.erp_pro_code shop_product_id,
+		       oi.commodity_title title,
+		       oi.commodity_sku sku_id,
+		       oi.erp_pro_code shop_sku_id,
+		       oi.commodity_sku_description sku_name,
+		       oi.commodity_number qty_ordered,
+		       oi.commodity_unit_incoming price,
+		       (select replace(wmsys.wm_concat('<payment><paytype>' ||
+		                                       decode(ops2.payment_way,
+		                                              4,
+		                                              decode(ops2.platform_code,
+		                                                     3,
+		                                                     'ALIPAY',
+		                                                     4,
+		                                                     'TenPay',
+		                                                     5,
+		                                                     'TenPay'),
+		                                              1,
+		                                              'BalancePay',
+		                                              'Other') ||
+		                                       '</paytype><payname>' ||
+		                                       nvl(ops2.platform_name,
+		                                           decode(ops2.payment_way,
+		                                                  1,
+		                                                  '余额',
+		                                                  2,
+		                                                  '优惠券')) ||
+		                                       '</payname><paytime>' ||
+		                                       to_char(ops2.create_date,
+		                                               'yyyy-MM-dd HH24:mi:ss') ||
+		                                       '</paytime><amount>' ||
+		                                       ops2.order_money ||
+		                                       '</amount></payment>'),
+		                       ',',
+		                       '')
+		          from order_pay_statement ops2
+		         where ops2.flag = 1
+		           and ops2.state = 1
+		           and ops2.order_code = om.order_code) paymentsStr
+		  from order_main om, order_item oi
+		 where oi.order_code = om.order_code
+		   and om.commerce_id is null
+		]]>		   	   	
+		<isEmpty property="status">		   
+		   and om.order_status in (3,4,15,18)
+		</isEmpty>	
+		<isNotEmpty property="status">		   
+		   and om.order_status = to_number(#status:VARCHAR#)
+		</isNotEmpty>			   
+		<isNotEmpty property="orderCode">
+		   and om.order_code = #orderCode:VARCHAR#
+		</isNotEmpty>
+		<isEmpty property="orderCode">	   	
+		<![CDATA[
+		  and exists
+			 (select rs.order_code
+			          from (select rsi.order_code, rownum rn
+			                  from (select rsii.order_code
+			                          from (select distinct opra.order_code
+			                                  from order_operate_statement opra
+			                                 where opra.now_operate_type = 5
+			                                   and opra.now_operate_date between
+			                                       to_date(#starttime:VARCHAR#,
+			                                               'yyyy-MM-dd HH24:mi:ss') and
+			                                       to_date(#endtime:VARCHAR#,
+			                                               'yyyy-MM-dd HH24:mi:ss')
+			                                   and exists
+			                                 (select 1
+			                                          from order_main omi
+			                                         where opra.order_code = omi.order_code
+			                                           and omi.commerce_id is null
+			                                           and omi.order_status in
+			                                               (3, 4, 15, 18))) rsii) rsi
+			                 where rownum <= to_number(#endIndex:VARCHAR#)) rs
+			         where rs.rn >= to_number(#beginIndex:VARCHAR#)
+			           and rs.order_code = om.order_code)	   
+		]]>		  
+		</isEmpty>
+	</select>
+	
+	<select id="SQL_QUERY_EXE_ORDER_COUNT"  parameterClass="java.util.Map" resultClass="int">
+		select count(1)
+		  from order_main om
+		 where om.commerce_id is null
+		<isEmpty property="status">		   
+		   and om.order_status in (3,4,15,18)
+		</isEmpty>	
+		<isNotEmpty property="status">		   
+		   and om.order_status = to_number(#status:VARCHAR#)
+		</isNotEmpty>
+		   and exists
+		 (select 1
+		          from order_operate_statement opra
+		         where opra.now_operate_type = 5
+		           and opra.now_operate_date between
+		               to_date(#starttime:VARCHAR#, 'yyyy-MM-dd HH24:mi:ss') and
+		               to_date(#endtime:VARCHAR#, 'yyyy-MM-dd HH24:mi:ss')
+		           and opra.order_code = om.order_code)
+	</select>
+	<!-- OMS查询结转订单 end -->
+	
+	<!-- 查询支付回调订单信息 -->
+	<select id="SQL_QUERY_ORDER_MAIN_FOR_PAY_CALL" parameterClass="String" resultClass="java.util.HashMap">
+		select om.order_status orderStatus,
+		       om.total_credit totalCredit,
+		       om.customer_account customerAccount,
+		       om.customer_id customerId,
+		       om.customer_name customerName,
+		       om.customer_mobile customerMobile,
+		       om.email email,
+		       om.consignee_mobile consigneeMobile,
+		       om.consignee_name consigneeName,
+		       om.amount_payable amountPayable,
+		       om.create_date createDate,
+		       om.pay_date payDate,
+		       om.order_pv orderPv,
+		       ops.payment_way paymentWay,
+		       ops.order_money readyMoney,
+		       ops.platform_code platformCode,
+		       ops.platform_name platformName,
+		       ops.bank_code bankCode,
+		       ops.bank_name bankName,
+		       (select wmsys.wm_concat(fops.outside_pay_statement_no)
+		          from order_pay_statement fops
+		         where fops.payment_way in (4, 5, 6)
+		           and fops.state = 1 
+		           and fops.order_code = #orderCode:VARCHAR#) opsNo,
+		       om.amount_payable - (nvl((select sum(pops.order_money)
+		                                  from order_pay_statement pops
+		                                 where pops.state = 1
+		                                   and pops.order_code = #orderCode:VARCHAR#),
+		                                0)) needpay
+		  from order_main om
+		  left join order_pay_statement ops
+		    on (ops.order_code = om.order_code and ops.state = 4 and rownum = 1)
+		 where om.order_code = #orderCode:VARCHAR#
+	</select>
+
+	 <!-- 查询所有中止,但依然可以重新订阅的记录 -->
+   <select id="SQL_QUERY_YESTERDAY_ORDER_COUNT" resultClass="java.lang.Integer"  parameterClass="java.util.Map">
+	  select count(*)  
+        from order_main om where
+         <isNotEmpty prepend=" " property="createDateBegin">
+	     	<![CDATA[
+	            om.CREATE_DATE >= to_date(#createDateBegin#,'yyyy-MM-dd HH24:mi:ss')     
+	      	]]>
+     	</isNotEmpty>
+     	<isNotEmpty prepend="AND" property="createDateEnd">
+	     	<![CDATA[
+	        	om.CREATE_DATE <=  to_date(#createDateEnd#,'yyyy-MM-dd HH24:mi:ss')     
+	      	]]>
+     	</isNotEmpty>
+  </select>
+	
+	<resultMap class="java.util.HashMap" id="RS_PAY_PWD">
+		<result property="avaOrder" column="avaOrder" jdbcType="VARCHAR" />
+		<result property="mobile" column="mobile" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 查询用户启用支付密码条件 -->
+	<select id="SQL_QUERY_ENABLE_PAY_PWD_CONDITION" parameterClass="java.lang.Long" resultMap="RS_PAY_PWD">
+		select to_char(od.avaOrder) avaOrder,
+		       (select li.mobile
+		          from login_info li
+		         where li.n_login_id = #uid:DECIMAL#) mobile
+		  from (select decode((select 1
+		                        from suppliers_info si
+		                       where si.status = 3 and rownum = 1
+		                         and exists
+		                       (select 1
+		                                from commercial_tenant_basic_info ctbi
+		                               where ctbi.n_commercial_tenant_id =
+		                                     si.merchant_id
+		                                 and ctbi.n_login_id = #uid:DECIMAL#)),
+		                      1,
+		                      1,
+		                      (select count(1)
+		                         from order_main om
+		                        where exists (select 1
+		                                 from order_pay_statement ops
+		                                where ops.flag = 1
+		                                  and ops.state = 1
+		                                  and ops.payment_way = 4
+		                                  and ops.order_money >= 5
+		                                  and ops.order_code = om.order_code)
+		                          and om.finish_date is not null
+		                          and om.customer_id = #uid:DECIMAL#)) avaOrder
+		          from dual) od
+	</select>
+	<!-- 查询用户启用支付密码条件 -->
+	<select id="SQL_SUM_PV" parameterClass="java.lang.Long" resultClass="java.math.BigDecimal">
+		select sum(om.order_pv)
+		  from order_main om
+		<![CDATA[
+		 where to_char(om.finish_date,'yyyy-mm-dd')<= to_char(sysdate-15,'yyyy-mm-dd')
+		 ]]>
+		   and om.customer_id = #customerid:DECIMAL#
+	</select>	
+	<!-- 查询预售支付回调订单信息 -->
+	<select id="SQL_QUERY_PAY_CALL_FOR_YS" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select om.order_status orderStatus,
+		       om.total_credit totalCredit,
+		       om.customer_account customerAccount,
+		       om.customer_id customerId,
+		       om.customer_name customerName,
+		       om.customer_mobile customerMobile,
+		       om.email email,
+		       om.consignee_mobile consigneeMobile,
+		       om.consignee_name consigneeName,
+		       om.amount_payable amountPayable,
+		       om.create_date createDate,
+		       om.pay_date payDate,
+		       om.order_pv orderPv,
+		       ops.payment_way paymentWay,
+		       ops.order_money readyMoney,
+		       ops.platform_code platformCode,
+		       ops.platform_name platformName,
+		       ops.bank_code bankCode,
+		       ops.bank_name bankName,
+		       (select wmsys.wm_concat(fops.outside_pay_statement_no)
+		          from order_pay_statement fops
+		         where fops.payment_way in (4, 5, 6)
+		           and fops.state = 1 
+		           and fops.order_code = #orderCode:VARCHAR#
+		           and fops.ysflage = #ysFlage#) opsNo,
+		       om.amount_payable - (nvl((select sum(pops.order_money)
+		                                  from order_pay_statement pops
+		                                 where pops.state = 1
+		                                   and pops.order_code = #orderCode:VARCHAR#),
+		                                0)) needpay
+		  from order_main om
+		  left join order_pay_statement ops
+		    on (ops.order_code = om.order_code and ops.state = 4 and ops.ysflage = #ysFlage# and rownum = 1)
+		 where om.order_code = #orderCode:VARCHAR#
+	</select>		
+	
+	<!-- 根据订单编码获得对应支付时间 -->
+	<select id="FIND_RESERVE_BY_ORDER_CODE"  parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		<![CDATA[
+			select 
+			ROUND(TO_NUMBER(sysdate - (select m.create_date from order_main m where m.order_code = #orderCode# )) * 24 * 60 * 60 * 1000 - 3600000) depositEndTime, 
+			ROUND(TO_NUMBER(sysdate - p.FINALPAY_START_TIME) * 24 * 60 * 60 * 1000) finalpayStartTime, 
+			ROUND(TO_NUMBER(sysdate - p.FINALPAY_END_TIME) * 24 * 60 * 60 * 1000) finalpayEndTime,
+			ROUND(TO_NUMBER(sysdate - p.DELIVERY_END_TIME) * 24 * 60 * 60 * 1000) deliveryEndTime, 
+      		ROUND(TO_NUMBER(sysdate - (select m.finish_date from order_main m where m.order_code = #orderCode# )) * 24 * 60 * 60 * 1000) finishDate,
+      		(select oa.ORDER_ALTER_ID from order_alter oa where ((oa.order_code = #orderCode# and oa.propose_status != 7 and oa.propose_status !=-1 ) or ( oa.order_code = #orderCode# and oa.propose_status = 7 and oa.alter_type in (1,3,4))) and rownum=1) judgeSalesReturn,
+      		(select oa.ORDER_ALTER_ID from order_alter oa where oa.order_code = #orderCode# and oa.alter_type = 4 and rownum=1) judgeCompensate 
+			from PROMOTION_PRESELL p where p.presell_id = (select i.presell_id from order_item i where i.order_code = #orderCode# and rownum = 1) 
+		 ]]>
+	</select>
+	
+	<!-- 根据订单编码获得对应各项金额 -->
+	<select id="FIND_RESERVE_BY_ORDER_MONEY"  parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		<![CDATA[
+			select m.amount_payable-m.deposit_sum amountPayable,m.deposit_sum depositSum from order_main m where m.order_code = #orderCode# 
+		 ]]>
+	</select>
+	
+	<!-- 根据订单编码判断是否可以支付定金 -->
+	<select id="JUDGE_DEPOSIT_TIME_BY_ORDER_MONEY"  parameterClass="java.lang.String" resultClass="java.lang.String">
+		<![CDATA[
+			select sysdate-p.DEPOSIT_END_TIME depositEndTime from PROMOTION_PRESELL p where p.presell_id = 
+			(select i.presell_id from order_item i where i.order_code =  #orderCode# and rownum = 1)
+		 ]]>
+	</select>
+	
+	<!-- 根据订单号查询是否支付定金和尾款 -->
+	<select id="FIND_DEPOSIT_TAIL_BY_ORDER_CODE"  parameterClass="java.lang.String" resultClass="java.lang.String">
+		<![CDATA[
+			select decode((SELECT OPS.ORDER_MONEY FROM ORDER_PAY_STATEMENT OPS WHERE OPS.ORDER_CODE = #orderCode# AND 
+			OPS.STATE = 1 AND OPS.YSFLAGE = 1 and rownum=1),null,'no',decode((SELECT OPS.ORDER_MONEY FROM ORDER_PAY_STATEMENT OPS WHERE 
+			OPS.ORDER_CODE = #orderCode# AND OPS.STATE = 1 AND OPS.YSFLAGE = 2 and rownum=1),null,'deposit','final')) from dual 
+		 ]]>
+	</select>
+	
+	<!-- 根据订单编码获得对应金额 -->
+	<select id="FIND_RESERVE_BY_ORDER_PHONE"  parameterClass="java.lang.String" resultClass="java.lang.String">
+		<![CDATA[
+			select m.INFORMPAY_TEL from order_main m where m.order_code = #orderCode# 
+		 ]]>
+	</select>
+	
+	<!-- 根据订单编码获得所有流水状态 -->
+	<select id="FIND_STATE_BY_ORDER_CODE"  parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		<![CDATA[
+			select t.NOW_OPERATE_DATE nowOperateDate,t.OPERATE_INFO operateInfo from ORDER_OPERATE_STATEMENT t where t.ORDER_CODE = #orderCode# order by t.NOW_OPERATE_DATE desc 
+		 ]]>
+	</select>
+		<!-- 根据订单编码查询预售活动状态 -->
+	<select id="FIND_PRESELL_STATUS_BY_ORDER_CODE"  parameterClass="java.lang.String" resultClass="int">
+		<![CDATA[
+			select pp.presell_status from promotion_presell pp where pp.presell_id=(select oi.presell_id from order_item oi where oi.order_code=#orderCode#)
+		 ]]>
+	</select>			
+</sqlMap>

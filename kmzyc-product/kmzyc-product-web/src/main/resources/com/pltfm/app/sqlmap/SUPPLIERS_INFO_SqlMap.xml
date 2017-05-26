@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SUPPLIERS_INFO">
+    <typeAlias alias="suppliersInfo" type="com.kmzyc.supplier.model.SuppliersInfo"/>
+    <typeAlias alias="suppliersInfoExample" type="com.kmzyc.supplier.model.example.SuppliersInfoExample"/>
+    <typeAlias alias="merchantInfoOrSuppliers" type="com.kmzyc.supplier.model.MerchantInfoOrSuppliers"/>
+    <typeAlias alias="supplierWarehouseName" type="com.pltfm.app.vobject.SupplierWarehouseName"/>
+    <typeAlias alias="supplierCategoryName" type="com.pltfm.app.vobject.SupplierCategoryName"/>
+    <typeAlias alias="supplierWarehouseName" type="com.pltfm.app.vobject.SupplierWarehouseName"/>
+    
+    <resultMap id="baseResultMap" class="suppliersInfo">
+        <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL"/>
+        <result column="MERCHANT_ID" property="merchantId" jdbcType="DECIMAL"/>
+        <result column="SALE_PRODUCT_DESCRIBE" property="saleProductDescribe" jdbcType="VARCHAR"/>
+        <result column="SETTLEMENT_CYCLE" property="settlementCycle" jdbcType="DECIMAL"/>
+        <result column="SETTLEMENT_WAY" property="settlementWay" jdbcType="DECIMAL"/>
+        <result column="SUPPLIER_TYPE" property="supplierType" jdbcType="DECIMAL"/>
+        <result column="STATUS" property="status" jdbcType="DECIMAL"/>
+        <result column="DESCRIBE" property="describe" jdbcType="VARCHAR"/>
+        <result column="LOGIN_STATUS" property="loginStatus" jdbcType="DECIMAL"/>
+        <result column="BUSINESS_STATUS" property="businessStatus" jdbcType="DECIMAL"/>
+        <result column="CLOSE_STATUS" property="closeStatus" jdbcType="DECIMAL"/>
+        <result column="company_show_name" property="companyShowName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="baseResultMap2" class="merchantInfoOrSuppliers">
+        <result column="N_COMMERCIAL_TENANT_ID" property="merchantId" jdbcType="DECIMAL"/>
+        <result column="N_LOGIN_ID" property="loginId" jdbcType="DECIMAL"/>
+        <result column="CONTACTS_NAME" property="contactsName" jdbcType="VARCHAR"/>
+        <result column="MOBILE" property="mobile" jdbcType="VARCHAR"/>
+        <result column="CORPORATE_NAME" property="corporateName" jdbcType="VARCHAR"/>
+        <result column="ORGANIZATION_CODE" property="organizationCode" jdbcType="VARCHAR"/>
+        <result column="D_CREATE_Date" property="createDate" jdbcType="Date"/>
+        <result column="BUSINESS_LICENCE_REGISTER" property="businessLicenceRegister" jdbcType="VARCHAR"/>
+        <result column="corporate_location" property="corporateLocation" jdbcType="VARCHAR"/>
+        <result column="N_ENTERPRISE_STATUS" property="enterpriseStatus" jdbcType="DECIMAL"/>
+        <!-- 供应商属性 -->
+        <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL"/>
+        <result column="SALE_PRODUCT_DESCRIBE" property="saleProductDescribe" jdbcType="VARCHAR"/>
+        <result column="SUPPLIER_TYPE" property="supplierType" jdbcType="DECIMAL"/>
+        <result column="STATUS" property="status" jdbcType="DECIMAL"/>
+        <result column="LOGIN_STATUS" property="loginStatus" jdbcType="DECIMAL"/>
+        <result column="BUSINESS_STATUS" property="businessStatus" jdbcType="DECIMAL"/>
+        <result column="CLOSE_STATUS" property="closeStatus" jdbcType="DECIMAL"/>
+        <!--  <result column="MERCHANT_ID" property="suppliersMerchantId" jdbcType="DECIMAL" />-->
+        <!--  <result column="SETTLEMENT_CYCLE" property="settlementCycle" jdbcType="DECIMAL" />-->
+        <!--  <result column="SETTLEMENT_WAY" property="settlementWay" jdbcType="DECIMAL" />-->
+        <!--  <result column="DESCRIBE" property="describe" jdbcType="VARCHAR" />-->
+    </resultMap>
+
+    <resultMap id="baseResultMap1" class="suppliersInfo">
+        <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL"/>
+        <result column="MERCHANT_ID" property="merchantId" jdbcType="DECIMAL"/>
+        <result column="SALE_PRODUCT_DESCRIBE" property="saleProductDescribe" jdbcType="VARCHAR"/>
+        <result column="SETTLEMENT_CYCLE" property="settlementCycle" jdbcType="DECIMAL"/>
+        <result column="SETTLEMENT_WAY" property="settlementWay" jdbcType="DECIMAL"/>
+        <result column="SUPPLIER_TYPE" property="supplierType" jdbcType="DECIMAL"/>
+        <result column="STATUS" property="status" jdbcType="DECIMAL"/>
+        <result column="DESCRIBE" property="describe" jdbcType="VARCHAR"/>
+        <result column="LOGIN_STATUS" property="loginStatus" jdbcType="DECIMAL"/>
+        <result column="BUSINESS_STATUS" property="businessStatus" jdbcType="DECIMAL"/>
+        <result column="CLOSE_STATUS" property="closeStatus" jdbcType="DECIMAL"/>
+        <result column="company_show_name" property="companyShowName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="suppliersRecheckMap" class="com.pltfm.app.vobject.SuppliersRecheck">
+        <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL"/>
+        <result column="STATUS" property="status" jdbcType="DECIMAL"/>
+        <result column="APPLY_TIME" property="applyTime" jdbcType="TIMESTAMP"/>
+        <result column="REASON" property="reason" jdbcType="VARCHAR"/>
+        <result column="THREE_ID_TYPE" property="threeIdType" jdbcType="DECIMAL"/>
+        <result column="SUPPLIER_TYPE" property="supplierType" jdbcType="DECIMAL"/>
+        <result column="BUSINESS_TYPE" property="businessType" jdbcType="DECIMAL"/>
+        <result column="CHECK_USER" property="checkUser" jdbcType="DECIMAL"/>
+        <result column="CHECK_TIME" property="checkTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="supplierCategoryNameMap" class="supplierCategoryName" groupBy="supplierId">
+        <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL"/>
+        <result property="categoryNameList" resultMap="SUPPLIERS_INFO.baseSupplierCategoryNameMap"/>
+    </resultMap>
+    <resultMap id="baseSupplierCategoryNameMap" class="java.lang.String">
+        <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="supplierWarehouseNameMap" class="supplierWarehouseName" groupBy="supplierId">
+        <result column="SUPPLIER_ID" property="supplierId" jdbcType="DECIMAL"/>
+        <result property="warehouseNameList" resultMap="SUPPLIERS_INFO.baseSupplierWarehouseNameMap"/>
+    </resultMap>
+    <resultMap id="baseSupplierWarehouseNameMap" class="java.lang.String">
+        <result column="WAREHOUSE_NAME" property="warehouseName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="example_Where_Clause">
+        <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate">
+            <isEqual property="oredCriteria[].valid" compareValue="true">
+                (
+                <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and">
+                    $oredCriteria[].criteriaWithoutValue[]$
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and">
+                    $oredCriteria[].criteriaWithSingleValue[].condition$
+                    #oredCriteria[].criteriaWithSingleValue[].value#
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and">
+                    $oredCriteria[].criteriaWithListValue[].condition$
+                    <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")"
+                             conjunction=",">
+                        #oredCriteria[].criteriaWithListValue[].values[]#
+                    </iterate>
+                </iterate>
+                <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and">
+                    $oredCriteria[].criteriaWithBetweenValue[].condition$
+                    #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+                    #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+                </iterate>
+                )
+            </isEqual>
+        </iterate>
+    </sql>
+    <select id="getSupplierCategoryName" resultMap="supplierCategoryNameMap" parameterClass="java.lang.Integer">
+        SELECT ST.SUPPLIER_ID,CA.CATEGORY_NAME FROM
+        SUPPLIERS_INFO ST,SUPPLIERS_AVAILABLE_CATEGORYS SAC ,CATEGORYS CA
+        WHERE SAC.CATEGORY_ID = CA.CATEGORY_ID AND ST.SUPPLIER_ID=SAC.SUPPLIER_ID AND
+        <isEqual compareValue="1">
+            SAC.CATEGORY_PARENT_ID=0
+        </isEqual>
+        <isEqual compareValue="2">
+            SAC.CATEGORY_PARENT_ID!=0
+        </isEqual>
+        AND NOT EXISTS (SELECT 1 FROM SUPPLIERS_CATEGORY_NAME SCN WHERE SCN.SUPPLIER_ID=ST.SUPPLIER_ID
+        AND SCN.LEVEL_TYPE=#levelType#
+        )
+    </select>
+    <insert id="saveSupplierCategoryName" parameterClass="supplierCategoryName">
+        insert into SUPPLIERS_CATEGORY_NAME (SUPPLIER_ID, CATEGORY_NAME, LEVEL_TYPE)
+        values (#supplierId:DECIMAL#, #categoryName:VARCHAR#, #levelType:DECIMAL#)
+    </insert>
+    <select id="getSuppliersWarehouseName" resultMap="supplierWarehouseNameMap">
+      SELECT DISTINCT ST.SUPPLIER_ID,WI.WAREHOUSE_NAME
+      FROM SUPPLIERS_INFO ST,SUPPLIERS_WAREHOUSE SW, WAREHOUSE_INFO WI
+      WHERE ST.SUPPLIER_ID=SW.SUPPLIER_ID AND SW.WAREHOUSE_ID = WI.WAREHOUSE_ID
+      AND NOT EXISTS (SELECT 1 FROM SUPPLIERS_WAREHOUSE_NAME SWN WHERE SWN.SUPPLIER_ID=ST.SUPPLIER_ID)
+    </select>
+    <insert id="saveSuppliersWarehouseName" parameterClass="supplierWarehouseName">
+        insert into SUPPLIERS_WAREHOUSE_NAME (SUPPLIER_ID, WAREHOUSE_NAME)
+        values (#supplierId:DECIMAL#, #warehouseName:VARCHAR#)
+    </insert>
+    <select id="ibatorgenerated_selectByExample" resultMap="baseResultMap1" parameterClass="suppliersInfoExample">
+        select SUPPLIER_ID, MERCHANT_ID, SALE_PRODUCT_DESCRIBE, SETTLEMENT_CYCLE, SETTLEMENT_WAY,
+        SUPPLIER_TYPE, STATUS, DESCRIBE,LOGIN_STATUS,BUSINESS_STATUS,CLOSE_STATUS,company_show_name
+        from SUPPLIERS_INFO
+        <isParameterPresent>
+            <include refid="SUPPLIERS_INFO.example_Where_Clause"/>
+            <isNotNull property="orderByClause">
+                order by $orderByClause$
+            </isNotNull>
+        </isParameterPresent>
+    </select>
+    <select id="ibatorgenerated_selectByPrimaryKey" resultMap="baseResultMap" parameterClass="suppliersInfo">
+        select SUPPLIER_ID, MERCHANT_ID, SALE_PRODUCT_DESCRIBE, SETTLEMENT_CYCLE, SETTLEMENT_WAY,
+        SUPPLIER_TYPE, STATUS, DESCRIBE,LOGIN_STATUS,BUSINESS_STATUS,CLOSE_STATUS,company_show_name
+        from SUPPLIERS_INFO
+        where SUPPLIER_ID = #supplierId:DECIMAL#
+    </select>
+    <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="suppliersInfo">
+        delete from SUPPLIERS_INFO
+        where SUPPLIER_ID = #supplierId:DECIMAL#
+    </delete>
+    <delete id="ibatorgenerated_deleteByExample" parameterClass="suppliersInfoExample">
+        delete from SUPPLIERS_INFO
+        <include refid="SUPPLIERS_INFO.example_Where_Clause"/>
+    </delete>
+    <insert id="ibatorgenerated_insert" parameterClass="suppliersInfo">
+        insert into SUPPLIERS_INFO (SUPPLIER_ID, MERCHANT_ID, SALE_PRODUCT_DESCRIBE, SETTLEMENT_CYCLE,
+        SETTLEMENT_WAY, SUPPLIER_TYPE, STATUS, DESCRIBE)
+        values (#supplierId:DECIMAL#, #merchantId:DECIMAL#, #saleProductDescribe:VARCHAR#,
+        #settlementCycle:DECIMAL#, #settlementWay:DECIMAL#, #supplierType:DECIMAL#, #status:DECIMAL#,
+        #describe:VARCHAR#)
+    </insert>
+    <insert id="ibatorgenerated_insertSelective" parameterClass="suppliersInfo">
+        <selectKey resultClass="java.lang.Long" keyProperty="supplierId">
+            select SEQ_SUPPLIERINFO.nextval from dual
+        </selectKey>
+        insert into SUPPLIERS_INFO
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="supplierId">
+                SUPPLIER_ID
+            </isNotNull>
+            <isNotNull prepend="," property="merchantId">
+                MERCHANT_ID
+            </isNotNull>
+            <isNotNull prepend="," property="saleProductDescribe">
+                SALE_PRODUCT_DESCRIBE
+            </isNotNull>
+            <isNotNull prepend="," property="settlementCycle">
+                SETTLEMENT_CYCLE
+            </isNotNull>
+            <isNotNull prepend="," property="settlementWay">
+                SETTLEMENT_WAY
+            </isNotNull>
+            <isNotNull prepend="," property="supplierType">
+                SUPPLIER_TYPE
+            </isNotNull>
+            <isNotNull prepend="," property="status">
+                STATUS
+            </isNotNull>
+            <isNotNull prepend="," property="describe">
+                DESCRIBE
+            </isNotNull>
+            <isNotNull prepend="," property="loginStatus">
+                LOGIN_STATUS
+            </isNotNull>
+            <isNotNull prepend="," property="businessStatus">
+                BUSINESS_STATUS
+            </isNotNull>
+            <isNotNull prepend="," property="closeStatus">
+                CLOSE_STATUS
+            </isNotNull>
+            <isNotNull prepend="," property="shopBrowseStatus">
+                SHOP_BROWSE_STATUS
+            </isNotNull>
+            <isNotNull prepend="," property="companyShowName">
+                company_show_name
+            </isNotNull>
+            )
+        </dynamic>
+        values
+        <dynamic prepend="(">
+            <isNotNull prepend="," property="supplierId">
+                #supplierId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="merchantId">
+                #merchantId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="saleProductDescribe">
+                #saleProductDescribe:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="settlementCycle">
+                #settlementCycle:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="settlementWay">
+                #settlementWay:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="supplierType">
+                #supplierType:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="status">
+                #status:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="describe">
+                #describe:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="loginStatus">
+                #loginStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="businessStatus">
+                #businessStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="closeStatus">
+                #closeStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="shopBrowseStatus">
+                #shopBrowseStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="companyShowName">
+                #companyShowName:VARCHAR#
+            </isNotNull>
+
+            )
+        </dynamic>
+    </insert>
+    <select id="ibatorgenerated_countByExample" parameterClass="suppliersInfoExample" resultClass="java.lang.Integer">
+        select count(1) from SUPPLIERS_INFO
+        <include refid="SUPPLIERS_INFO.example_Where_Clause"/>
+    </select>
+    <update id="ibatorgenerated_updateByExampleSelective">
+        update SUPPLIERS_INFO
+        <dynamic prepend="set">
+            <isNotNull prepend="," property="record.supplierId">
+                SUPPLIER_ID = #record.supplierId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.merchantId">
+                MERCHANT_ID = #record.merchantId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.saleProductDescribe">
+                SALE_PRODUCT_DESCRIBE = #record.saleProductDescribe:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="record.settlementCycle">
+                SETTLEMENT_CYCLE = #record.settlementCycle:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.settlementWay">
+                SETTLEMENT_WAY = #record.settlementWay:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.supplierType">
+                SUPPLIER_TYPE = #record.supplierType:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.status">
+                STATUS = #record.status:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="record.describe">
+                DESCRIBE = #record.describe:VARCHAR#
+            </isNotNull>
+        </dynamic>
+        <isParameterPresent>
+            <include refid="SUPPLIERS_INFO.example_Where_Clause"/>
+        </isParameterPresent>
+    </update>
+    <update id="ibatorgenerated_updateByExample">
+        update SUPPLIERS_INFO
+        set SUPPLIER_ID = #record.supplierId:DECIMAL#,
+        MERCHANT_ID = #record.merchantId:DECIMAL#,
+        SALE_PRODUCT_DESCRIBE = #record.saleProductDescribe:VARCHAR#,
+        SETTLEMENT_CYCLE = #record.settlementCycle:DECIMAL#,
+        SETTLEMENT_WAY = #record.settlementWay:DECIMAL#,
+        SUPPLIER_TYPE = #record.supplierType:DECIMAL#,
+        STATUS = #record.status:DECIMAL#,
+        DESCRIBE = #record.describe:VARCHAR#
+        <isParameterPresent>
+            <include refid="SUPPLIERS_INFO.example_Where_Clause"/>
+        </isParameterPresent>
+    </update>
+    <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="suppliersInfo">
+        update SUPPLIERS_INFO
+        <dynamic prepend="set">
+            <isNotNull prepend="," property="merchantId">
+                MERCHANT_ID = #merchantId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="saleProductDescribe">
+                SALE_PRODUCT_DESCRIBE = #saleProductDescribe:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="settlementCycle">
+                SETTLEMENT_CYCLE = #settlementCycle:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="settlementWay">
+                SETTLEMENT_WAY = #settlementWay:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="supplierType">
+                SUPPLIER_TYPE = #supplierType:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="status">
+                STATUS = #status:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="describe">
+                DESCRIBE = #describe:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="," property="loginStatus">
+                LOGIN_STATUS = #loginStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="businessStatus">
+                BUSINESS_STATUS = #businessStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="closeStatus">
+                CLOSE_STATUS = #closeStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="shopBrowseStatus">
+                shop_browse_status = #shopBrowseStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="," property="companyShowName">
+                company_show_name = #companyShowName:VARCHAR#
+            </isNotNull>
+        </dynamic>
+        where SUPPLIER_ID = #supplierId:DECIMAL#
+    </update>
+    <update id="ibatorgenerated_updateByPrimaryKey" parameterClass="suppliersInfo">
+        update SUPPLIERS_INFO
+        set MERCHANT_ID = #merchantId:DECIMAL#,
+        SALE_PRODUCT_DESCRIBE = #saleProductDescribe:VARCHAR#,
+        SETTLEMENT_CYCLE = #settlementCycle:DECIMAL#,
+        SETTLEMENT_WAY = #settlementWay:DECIMAL#,
+        SUPPLIER_TYPE = #supplierType:DECIMAL#,
+        STATUS = #status:DECIMAL#,
+        DESCRIBE = #describe:VARCHAR#
+        where SUPPLIER_ID = #supplierId:DECIMAL#
+    </update>
+    <select id="ibatorgenerated_selectByMerId" resultMap="baseResultMap" parameterClass="suppliersInfo">
+    select SUPPLIER_ID, MERCHANT_ID, SALE_PRODUCT_DESCRIBE, SETTLEMENT_CYCLE, SETTLEMENT_WAY,
+      SUPPLIER_TYPE, STATUS, DESCRIBE,LOGIN_STATUS,BUSINESS_STATUS,CLOSE_STATUS,company_show_name 
+    from SUPPLIERS_INFO
+    where MERCHANT_ID = #merchantId:DECIMAL#
+  </select>
+    <delete id="ibatorgenerated_deleteByPrimaryMerId" parameterClass="suppliersInfo">
+    delete from SUPPLIERS_INFO
+    where MERCHANT_ID = #merchantId:DECIMAL#
+  </delete>
+    <select id="selectByMerchantId" resultMap="baseResultMap1" parameterClass="suppliersInfo">
+  select * from suppliers_info f where f.merchant_id=#merchantId:DECIMAL#
+  </select>
+    <select id="ibatorgenerated_selectBySupplyId" resultMap="baseResultMap2"
+            parameterClass="merchantInfoOrSuppliers">
+    select f.n_commercial_tenant_id,f.n_login_id,f.contacts_name,f.mobile,f.corporate_name,f.organization_code,f.d_create_date,f.business_licence_register
+    ,f.corporate_location,f.N_ENTERPRISE_STATUS,s.supplier_id,s.sale_product_describe,s.supplier_type,s.status,s.LOGIN_STATUS,s.BUSINESS_STATUS,s.CLOSE_STATUS
+   from commercial_tenant_basic_info f,suppliers_info s where f.n_commercial_tenant_id=s.merchant_id and 
+   s.supplier_id = #supplierId:DECIMAL#
+  </select>
+
+    <!--提交供应商资质重审-->
+    <update id="updateSuppliersRecheck" parameterClass="com.pltfm.app.vobject.SuppliersRecheck">
+        update SUPPLIERS_RECHECK
+        set
+        APPLY_TIME = sysdate,
+        THREE_ID_TYPE = #threeIdType:VARCHAR#,
+        SUPPLIER_TYPE = #supplierType:DECIMAL#,
+        BUSINESS_TYPE = #businessType:DECIMAL#
+        <isNotNull prepend="," property="status">
+            STATUS = #status:DECIMAL#
+        </isNotNull>
+        <isNotNull prepend="," property="reason">
+            REASON = #reason:VARCHAR#
+        </isNotNull>
+        <isNotNull prepend="," property="isClose">
+            IS_CLOSE = #isClose:VARCHAR#
+        </isNotNull>
+        <isNotNull prepend="," property="checkUser">
+            CHECK_USER = #checkUser:DECIMAL#
+        </isNotNull>
+        where SUPPLIER_ID = #supplierId:DECIMAL#
+    </update>
+
+    <select id="getSupplierRecheck" parameterClass="java.lang.Long" resultMap="suppliersRecheckMap">
+    SELECT SUPPLIER_ID,STATUS,APPLY_TIME,REASON,THREE_ID_TYPE,SUPPLIER_TYPE,BUSINESS_TYPE,CHECK_USER,CHECK_TIME
+     FROM SUPPLIERS_RECHECK WHERE SUPPLIER_ID = #supplierId#
+    </select>
+
+    <select id="getSupplierTypeByProductDraft" parameterClass="java.lang.Long" resultClass="java.lang.Integer">
+      SELECT SI.SUPPLIER_TYPE FROM SUPPLIERS_INFO SI
+      INNER JOIN PRODUCT_DRAFT PD ON PD.SHOP_CODE = TO_CHAR(SI.SUPPLIER_ID)
+      WHERE PD.PRODUCT_ID = #productId#
+    </select>
+
+    <select id="getSupplierTypeByProduct" parameterClass="java.lang.Long" resultClass="java.lang.Integer">
+        SELECT SI.SUPPLIER_TYPE FROM SUPPLIERS_INFO SI
+        INNER JOIN PRODUCTMAIN PD ON PD.SHOP_CODE = TO_CHAR(SI.SUPPLIER_ID)
+        WHERE PD.PRODUCT_ID = #productId#
+    </select>
+
+</sqlMap>

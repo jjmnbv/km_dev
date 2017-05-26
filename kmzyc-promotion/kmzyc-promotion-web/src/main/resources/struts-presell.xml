@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <package name="presell" namespace="/presell" extends="struts,json-default" >
+
+		<action name="queryAuditPresellList" class="com.kmzyc.promotion.presell.action.PresellProductAuditAction" method="queryAuditPresellList">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/presell/PresellProductAuditList.jsp</result>
+			<result name="login" type="dispatcher">/WEB-INF/jsp/sys/sysUserLogin.jsp</result>
+		</action>
+		
+		<action name="getAuditPresellDetail" class="com.kmzyc.promotion.presell.action.PresellProductAuditAction" method="getAuditPresellDetail">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/presell/PresellProductAuditDetail.jsp</result>
+			<result name="login" type="dispatcher">/WEB-INF/jsp/sys/sysUserLogin.jsp</result>
+		</action>
+		
+		<action name="UpdateAuditPresell" class="com.kmzyc.promotion.presell.action.PresellProductAuditAction" method="UpdateAuditPresell">
+				<result name="success" type="json" >
+				<param name="defaultEncoding">UTF-8</param>
+				<param name="noCache">true</param>
+				<param name="root">message</param>
+				</result>
+		</action>
+		
+		<!-- 跳转预售管理列表  -->
+		<action name="queryPresellManagerList" class="com.kmzyc.promotion.presell.action.PresellManagerAction" method="queryPresellManagerList">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/presell/presellManagerList.jsp</result>
+			<result name="login" type="dispatcher">/WEB-INF/jsp/sys/sysUserLogin.jsp</result>
+		</action>
+		
+		<!-- 跳转预售管理详情页  -->
+		<action name="getPresellManagerDetail" class="com.kmzyc.promotion.presell.action.PresellManagerAction" method="getPresellManagerDetail">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/presell/presellManagerDetail.jsp</result>
+			<result name="login" type="dispatcher">/WEB-INF/jsp/sys/sysUserLogin.jsp</result>
+		</action>
+		
+		<!-- 预售管理提审 -->
+		<action name="submitPresellApp" class="com.kmzyc.promotion.presell.action.PresellManagerAction" method="submitPresellApp">
+		</action>
+		
+		<!-- 预售活动删除 -->
+		<action name="deletePresellInfo" class="com.kmzyc.promotion.presell.action.PresellManagerAction" method="deletePresellInfo">
+		</action>
+		
+		<!-- 预售活动撤销审核 -->
+		<action name="cancelPresellApply" class="com.kmzyc.promotion.presell.action.PresellManagerAction" method="cancelPresellApply">
+		</action>
+		
+		<!-- 预售活动终止-->
+		<action name="stopPresell" class="com.kmzyc.promotion.presell.action.PresellManagerAction" method="stopPresell">
+		</action>
+		
+		<!-- 跳转预售商品规则新增页面  -->
+		<action name="toAddPresellProduct" class="com.kmzyc.promotion.presell.action.PresellInfoAction" method="toAddPresellProduct">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/presell/presellProductAdd.jsp</result>
+		</action>
+		<!-- 保存预售商品  -->
+		<action name="savePresellProduct" class="com.kmzyc.promotion.presell.action.PresellInfoAction" method="savePresellProduct">
+		</action>
+		<!-- 选择预售商品  -->
+		<action name="findProductSkuForPresell" class="com.kmzyc.promotion.presell.action.PresellInfoAction" method="findProductSkuForPresell">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/presell/choosePresellProduct.jsp</result>
+		</action>  
+		<!-- 返回预售商品列表  -->
+		<action name="getPresellProductReturnTable" class="com.kmzyc.promotion.presell.action.PresellInfoAction" method="getPresellProductReturnTable">
+		</action> 
+		<!-- 跳转到预售规则修改页面  -->
+		<action name="toUpdatePresellRule" class="com.kmzyc.promotion.presell.action.PresellInfoAction" method="toUpdatePresellRule">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/presell/presellRuleUpdate.jsp</result>
+		</action>  
+		<!-- 修改预售规则 -->
+		<action name="updatePresellRule" class="com.kmzyc.promotion.presell.action.PresellInfoAction" method="updatePresellRule">
+		</action>  
+		
+    </package>
+</struts>

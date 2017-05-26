@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="BnesAcctAppealInfo" >
+
+  <typeAlias alias="bnesAcctAppealInfoDO" type="com.BnesAcctAppealInfoDO" />
+  <typeAlias alias="bnesAcctAppealInfoQuery" type="com.yourcompany.user.biz.dal.query.BnesAcctAppealInfoQuery" />
+
+  <resultMap id="bnesAcctAppealInfoDOResultMap" class="bnesAcctAppealInfoDO" >
+    <result property="accountAppealId" column="ACCOUNT_APPEAL_ID" />
+    <result property="accountId" column="ACCOUNT_ID" />
+    <result property="disposePerson" column="DISPOSE_PERSON" />
+    <result property="appealTitle" column="APPEAL_TITLE" />
+    <result property="appealContent" column="APPEAL_CONTENT" />
+    <result property="appealCreateDate" column="APPEAL_CREATE_DATE" />
+    <result property="appealDisposeSuggestion" column="APPEAL_DISPOSE_SUGGESTION" />
+    <result property="disposeDate" column="DISPOSE_DATE" />
+    <result property="createDate" column="CREATE_DATE" />
+    <result property="createdId" column="CREATED_ID" />
+    <result property="modifyDate" column="MODIFY_DATE" />
+    <result property="modifieId" column="MODIFIE_ID" />
+  </resultMap>
+
+  <resultMap id="bnesAcctAppealInfoQueryResultMap" class="bnesAcctAppealInfoQuery" >
+    <result property="accountAppealId" column="ACCOUNT_APPEAL_ID" />
+    <result property="accountId" column="ACCOUNT_ID" />
+    <result property="disposePerson" column="DISPOSE_PERSON" />
+    <result property="appealTitle" column="APPEAL_TITLE" />
+    <result property="appealContent" column="APPEAL_CONTENT" />
+    <result property="appealCreateDate" column="APPEAL_CREATE_DATE" />
+    <result property="appealDisposeSuggestion" column="APPEAL_DISPOSE_SUGGESTION" />
+    <result property="disposeDate" column="DISPOSE_DATE" />
+    <result property="createDate" column="CREATE_DATE" />
+    <result property="createdId" column="CREATED_ID" />
+    <result property="modifyDate" column="MODIFY_DATE" />
+    <result property="modifieId" column="MODIFIE_ID" />
+  </resultMap>
+
+  <sql id="bnesAcctAppealInfo_columns" >
+    a1.ACCOUNT_APPEAL_ID, a1.ACCOUNT_ID, a1.DISPOSE_PERSON, a1.APPEAL_TITLE, a1.APPEAL_CONTENT, 
+      a1.APPEAL_CREATE_DATE, a1.APPEAL_DISPOSE_SUGGESTION, a1.DISPOSE_DATE, a1.CREATE_DATE, 
+      a1.CREATED_ID, a1.MODIFY_DATE, a1.MODIFIE_ID
+  </sql>
+
+  <sql id="bnesAcctAppealInfo_do_columns" >
+    a1.ACCOUNT_APPEAL_ID, a1.ACCOUNT_ID, a1.DISPOSE_PERSON, a1.APPEAL_TITLE, a1.APPEAL_CONTENT, 
+      a1.APPEAL_CREATE_DATE, a1.APPEAL_DISPOSE_SUGGESTION, a1.DISPOSE_DATE, a1.CREATE_DATE, 
+      a1.CREATED_ID, a1.MODIFY_DATE, a1.MODIFIE_ID
+  </sql>
+
+  <sql id="bnesAcctAppealInfo_query_columns" >
+    a1.ACCOUNT_APPEAL_ID, a1.ACCOUNT_ID, a1.DISPOSE_PERSON, a1.APPEAL_TITLE, a1.APPEAL_CONTENT, 
+      a1.APPEAL_CREATE_DATE, a1.APPEAL_DISPOSE_SUGGESTION, a1.DISPOSE_DATE, a1.CREATE_DATE, 
+      a1.CREATED_ID, a1.MODIFY_DATE, a1.MODIFIE_ID
+  </sql>
+
+  <sql id="queryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="accountAppealId" prepend="AND" >
+        <![CDATA[  
+        ACCOUNT_APPEAL_ID = #accountAppealId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="accountId" prepend="AND" >
+        <![CDATA[  
+        ACCOUNT_ID = #accountId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="disposePerson" prepend="AND" >
+        <![CDATA[  
+        DISPOSE_PERSON = #disposePerson#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="appealTitle" prepend="AND" >
+        <![CDATA[  
+        APPEAL_TITLE = #appealTitle#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="appealContent" prepend="AND" >
+        <![CDATA[  
+        APPEAL_CONTENT = #appealContent#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="appealCreateDate" prepend="AND" >
+        <![CDATA[  
+        APPEAL_CREATE_DATE = #appealCreateDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="appealDisposeSuggestion" prepend="AND" >
+        <![CDATA[  
+        APPEAL_DISPOSE_SUGGESTION = #appealDisposeSuggestion#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="disposeDate" prepend="AND" >
+        <![CDATA[  
+        DISPOSE_DATE = #disposeDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="doQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="accountAppealId" prepend="AND" >
+        <![CDATA[  
+        ACCOUNT_APPEAL_ID = #accountAppealId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="accountId" prepend="AND" >
+        <![CDATA[  
+        ACCOUNT_ID = #accountId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="disposePerson" prepend="AND" >
+        <![CDATA[  
+        DISPOSE_PERSON = #disposePerson#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="appealTitle" prepend="AND" >
+        <![CDATA[  
+        APPEAL_TITLE = #appealTitle#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="appealContent" prepend="AND" >
+        <![CDATA[  
+        APPEAL_CONTENT = #appealContent#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="appealCreateDate" prepend="AND" >
+        <![CDATA[  
+        APPEAL_CREATE_DATE = #appealCreateDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="appealDisposeSuggestion" prepend="AND" >
+        <![CDATA[  
+        APPEAL_DISPOSE_SUGGESTION = #appealDisposeSuggestion#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="disposeDate" prepend="AND" >
+        <![CDATA[  
+        DISPOSE_DATE = #disposeDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <sql id="queryQueryParams" >
+    <dynamic prepend="WHERE" >
+      <isNotNull property="accountAppealId" prepend="AND" >
+        <![CDATA[  
+        ACCOUNT_APPEAL_ID = #accountAppealId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="accountId" prepend="AND" >
+        <![CDATA[  
+        ACCOUNT_ID = #accountId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="disposePerson" prepend="AND" >
+        <![CDATA[  
+        DISPOSE_PERSON = #disposePerson#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="appealTitle" prepend="AND" >
+        <![CDATA[  
+        APPEAL_TITLE = #appealTitle#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="appealContent" prepend="AND" >
+        <![CDATA[  
+        APPEAL_CONTENT = #appealContent#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="appealCreateDate" prepend="AND" >
+        <![CDATA[  
+        APPEAL_CREATE_DATE = #appealCreateDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="appealDisposeSuggestion" prepend="AND" >
+        <![CDATA[  
+        APPEAL_DISPOSE_SUGGESTION = #appealDisposeSuggestion#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="disposeDate" prepend="AND" >
+        <![CDATA[  
+        DISPOSE_DATE = #disposeDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="AND" >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="AND" >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="AND" >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="AND" >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <insert id="insert" parameterClass="bnesAcctAppealInfoDO" >
+    INSERT INTO BNES_ACCT_APPEAL_INFO( ACCOUNT_APPEAL_ID, ACCOUNT_ID, DISPOSE_PERSON, APPEAL_TITLE, APPEAL_CONTENT, 
+      APPEAL_CREATE_DATE, APPEAL_DISPOSE_SUGGESTION, DISPOSE_DATE, CREATE_DATE, CREATED_ID, 
+      MODIFY_DATE, MODIFIE_ID)
+     VALUES ( #accountAppealId#, #accountId#, #disposePerson#, #appealTitle#, #appealContent#, 
+      #appealCreateDate#, #appealDisposeSuggestion#, #disposeDate#, #createDate#, #createdId#, 
+      #modifyDate#, #modifieId#)
+    <selectKey keyProperty="accountAppealId" resultClass="java.math.BigDecimal" >
+      SELECT LAST_INSERT_ID() AS value
+    </selectKey>
+  </insert>
+
+  <update id="update" parameterClass="bnesAcctAppealInfoDO" >
+    UPDATE BNES_ACCT_APPEAL_INFO   
+    <dynamic prepend="SET" >
+      <!--
+      <isNotNull property="accountAppealId" prepend="," >
+        <![CDATA[  
+        ACCOUNT_APPEAL_ID = #accountAppealId#  
+        ]]>  
+      </isNotNull>
+      -->
+      <isNotNull property="accountId" prepend="," >
+        <![CDATA[  
+        ACCOUNT_ID = #accountId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="disposePerson" prepend="," >
+        <![CDATA[  
+        DISPOSE_PERSON = #disposePerson#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="appealTitle" prepend="," >
+        <![CDATA[  
+        APPEAL_TITLE = #appealTitle#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="appealContent" prepend="," >
+        <![CDATA[  
+        APPEAL_CONTENT = #appealContent#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="appealCreateDate" prepend="," >
+        <![CDATA[  
+        APPEAL_CREATE_DATE = #appealCreateDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="appealDisposeSuggestion" prepend="," >
+        <![CDATA[  
+        APPEAL_DISPOSE_SUGGESTION = #appealDisposeSuggestion#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="disposeDate" prepend="," >
+        <![CDATA[  
+        DISPOSE_DATE = #disposeDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createDate" prepend="," >
+        <![CDATA[  
+        CREATE_DATE = #createDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="createdId" prepend="," >
+        <![CDATA[  
+        CREATED_ID = #createdId#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifyDate" prepend="," >
+        <![CDATA[  
+        MODIFY_DATE = #modifyDate#  
+        ]]>  
+      </isNotNull>
+      <isNotNull property="modifieId" prepend="," >
+        <![CDATA[  
+        MODIFIE_ID = #modifieId#  
+        ]]>  
+      </isNotNull>
+    </dynamic>
+     WHERE ACCOUNT_APPEAL_ID = #accountAppealId#  
+  </update>
+
+  <select id="findByPrimaryKey" parameterClass="java.math.BigDecimal" resultMap="bnesAcctAppealInfoDOResultMap" >
+     SELECT 
+    <include refid="bnesAcctAppealInfo_do_columns" />
+    <![CDATA[  
+     FROM BNES_ACCT_APPEAL_INFO a1 WHERE ACCOUNT_APPEAL_ID = #accountAppealId#
+    ]]>  
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterClass="java.math.BigDecimal" >
+    <![CDATA[  
+     DELETE FROM BNES_ACCT_APPEAL_INFO WHERE ACCOUNT_APPEAL_ID = #accountAppealId#
+    ]]>  
+  </delete>
+
+  <select id="countByDOExample" parameterClass="bnesAcctAppealInfoDO" resultClass="java.lang.Integer" >
+    SELECT COUNT(ACCOUNT_APPEAL_ID) AS num FROM BNES_ACCT_APPEAL_INFO 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="findListByDO" resultMap="bnesAcctAppealInfoDOResultMap" parameterClass="bnesAcctAppealInfoDO" >
+     SELECT 
+    <include refid="bnesAcctAppealInfo_do_columns" />
+     FROM BNES_ACCT_APPEAL_INFO a1 
+    <include refid="doQueryParams" />
+  </select>
+
+  <select id="countByQueryExample" parameterClass="bnesAcctAppealInfoQuery" resultClass="java.lang.Integer" >
+    SELECT COUNT(ACCOUNT_APPEAL_ID) AS num FROM BNES_ACCT_APPEAL_INFO 
+    <include refid="queryQueryParams" />
+  </select>
+
+  <select id="findListByQuery" resultMap="bnesAcctAppealInfoQueryResultMap" parameterClass="bnesAcctAppealInfoQuery" >
+     SELECT 
+    <include refid="bnesAcctAppealInfo_query_columns" />
+     FROM BNES_ACCT_APPEAL_INFO a1 
+    <include refid="queryQueryParams" />
+  </select>
+</sqlMap>

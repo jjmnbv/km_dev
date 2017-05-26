@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="WAREHOUSE_INFO" >
+
+	<typeAlias alias="warehouseInfo" type="com.pltfm.app.vobject.WarehouseInfo"/>
+
+  <!-- 查询仓库基本列  -->
+  <resultMap id="warehouseBaseMap" class="com.pltfm.app.vobject.WarehouseInfo" >
+	  	<result column="WAREHOUSE_ID" property="warehouseId" jdbcType="LONG" />
+	    <result column="WAREHOUSE_NO" property="warehouseNo" jdbcType="VARCHAR" />
+	    <result column="WAREHOUSE_NAME" property="warehouseName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 查询所有可用的仓库信息 -->
+  <select id="queryAllEnableWarehouse" resultMap="warehouseBaseMap" >
+  		select warehouse_id,warehouse_no,warehouse_name from warehouse_info where status=1
+  </select>
+  
+  <!-- 查询供应商所对应的仓库信息 -->
+   <select id="queryWarehouseBySuppliersId" parameterClass="java.lang.String" resultMap="warehouseBaseMap" >
+  		select b.warehouse_id,b.warehouse_no,b.warehouse_name from suppliers_warehouse a,warehouse_info b where a.warehouse_id=b.warehouse_id and b.status=1 and a.supplier_id=#supplierId:VARCHAR#
+  </select>
+  
+  
+</sqlMap>

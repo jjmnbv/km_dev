@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="live800" extends="BasePackage,json-default" namespace="/live800">
+        <action name="getCustomInfo" class="live800Action" method="queryCustomInfo">
+            <result name="success">/WEB-INF/jsp/live800/customInfo.jsp</result>
+        </action>
+        <action name="generatInfo" class="live800Action" method="generationInfo">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">returnResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <action name="orderInfo" class="live800Action" method="qureyOrderInfo">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">orderResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+        <action name="exchangeInfo" class="live800Action" method="qureyExchangeInfo">
+            <result type="json">
+                <param name="defaultEncoding">UTF-8</param>
+                <param name="root">exchangeResult</param>
+                <param name="noCache">true</param>
+                <param name="callbackParameter">callback</param>
+            </result>
+        </action>
+    </package>
+</struts>

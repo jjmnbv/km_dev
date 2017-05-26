@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="WX_RESERVATION" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.kmzyc.b2b.third.model.wxCard.WxReservation" >
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+    <result column="SHOP_ID" property="shopId" jdbcType="VARCHAR" />
+	<result column="SHOP_ID" property="kmrsShopInfo" select="WX_RESERVATION.queryKmrsShopInfo"/>
+    <result column="RESERVATION_TIME" property="reservationTime" jdbcType="DATE" />
+    <result column="CARD_ID" property="cardId" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <insert id="saveInfo" parameterClass="com.kmzyc.b2b.third.model.wxCard.WxReservation" >
+   	<selectKey resultClass="long" keyProperty="id">
+            select SEQ_WX_RESERVATION.nextVal from dual
+    </selectKey>
+    insert into WX_RESERVATION (ID, USERNAME, TELEPHONE, SHOP_ID, RESERVATION_TIME, CARD_ID, CODE,create_date)
+    values (#id:DECIMAL#, #username:VARCHAR#, #telephone:VARCHAR#, #shopId:VARCHAR#,
+      #reservationTime:DATE#, #cardId:VARCHAR#, #code:VARCHAR#,sysdate)
+  </insert>
+  <insert id="insertSelective" parameterClass="com.kmzyc.b2b.third.model.wxCard.WxReservation" >
+    <selectKey resultClass="long" keyProperty="id">
+            select SEQ_WX_RESERVATION.nextVal from dual
+    </selectKey>
+    insert into WX_RESERVATION
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="id" >
+        ID
+      </isNotNull>
+      <isNotNull prepend="," property="username" >
+        USERNAME
+      </isNotNull>
+      <isNotNull prepend="," property="telephone" >
+        TELEPHONE
+      </isNotNull>
+      <isNotNull prepend="," property="shopId" >
+        SHOP_ID
+      </isNotNull>
+      <isNotNull prepend="," property="reservationTime" >
+        RESERVATION_TIME
+      </isNotNull>
+      <isNotNull prepend="," property="cardId" >
+        CARD_ID
+      </isNotNull>
+      <isNotNull prepend="," property="code" >
+        CODE
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="id" >
+        #id:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="username" >
+        #username:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="telephone" >
+        #telephone:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="shopId" >
+        #shopId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="reservationTime" >
+        #reservationTime:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="cardId" >
+        #cardId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="code" >
+        #code:VARCHAR#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  <select id="queryByCodeAndCardId"  resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.kmzyc.b2b.third.model.wxCard.WxReservation">
+  	<![CDATA[
+  		select id, username, telephone, shop_id, reservation_time, card_id, code from wx_reservation where card_id=#cardId# and code=#code#
+  	]]>
+  </select>
+  <!-- 查询康美人生所有的门店信息 -->
+	<select id="queryKmrsShopInfo" resultClass="com.kmzyc.b2b.third.model.wxCard.WxKmrsShopInfo">
+		<![CDATA[
+			select shop_id as shopId, branch_name as branchName, branch_province as branchProvince, detail_address as detailAddress, telephone as telephone from wx_kmrs_shop_info where shop_id=#value#
+		]]>
+	</select> 
+
+</sqlMap>
