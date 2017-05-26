@@ -15,6 +15,7 @@ public class ExpressPath implements Serializable {
     private String state;
     List<ExpressPathItem> data;
 
+    
     public String getMessage() {
         return message;
     }
